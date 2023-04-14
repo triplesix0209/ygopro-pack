@@ -90,18 +90,6 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
 
-    -- 
-    local eqlimit = Effect.CreateEffect(c)
-    eqlimit:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    eqlimit:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    eqlimit:SetCode(EVENT_EQUIP)
-    eqlimit:SetRange(LOCATION_MZONE)
-    eqlimit:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local rc = re:GetHandler()
-        Duel.Equip(tp, rc, rc)
-    end)
-    c:RegisterEffect(eqlimit)
-
     -- no change battle position with effect
     local nopos = Effect.CreateEffect(c)
     nopos:SetType(EFFECT_TYPE_SINGLE)
@@ -364,4 +352,12 @@ function ResetEffectFilter(te, c)
     if tc == c or tc:ListsCode(c:GetCode()) then return false end
     return not te:IsHasProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_FIELD_ONLY) and
                (te:GetTarget() == aux.PersistentTargetFilter or not te:IsHasType(EFFECT_TYPE_GRANT)) and te:GetCode() ~= EFFECT_SPSUMMON_PROC
+end
+
+local base_equip = Duel.Equip
+Duel.Equip = function(...)
+    local params = {...}
+    local tc = params[2]
+    Debug.Message(tc:GetCode())
+    return base_equip(...)
 end

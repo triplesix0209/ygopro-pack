@@ -113,18 +113,18 @@ end
 
 local base_draw = Duel.Draw
 Duel.Draw = function(...)
-    local tb = {...}
-    local tp = tb[1]
-    local count = tb[2]
+    local params = {...}
+    local tp = params[1]
+    local count = params[2]
     if s.destiny_draw == 1 and tp == s.owner then s.DestinySequenceDeck(tp, count, 2) end
     return base_draw(...)
 end
 
 local base_confirmDecktop = Duel.ConfirmDecktop
 Duel.ConfirmDecktop = function(...)
-    local tb = {...}
-    local tp = tb[1]
-    local count = tb[2]
+    local params = {...}
+    local tp = params[1]
+    local count = params[2]
 
     if tp == s.owner then s.DestinySequenceDeck(tp, count, 3) end
     return base_confirmDecktop(...)
