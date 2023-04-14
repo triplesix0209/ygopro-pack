@@ -98,9 +98,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACK)
     local g = Duel.SelectMatchingCard(tp, nil, tp, 0, LOCATION_MZONE, 1, 1, nil)
-
     Duel.SetTargetCard(g)
-    Duel.HintSelection(g)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)

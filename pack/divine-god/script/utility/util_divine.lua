@@ -90,6 +90,18 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
 
+    -- 
+    local eqlimit = Effect.CreateEffect(c)
+    eqlimit:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    eqlimit:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    eqlimit:SetCode(EVENT_EQUIP)
+    eqlimit:SetRange(LOCATION_MZONE)
+    eqlimit:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local rc = re:GetHandler()
+        Duel.Equip(tp, rc, rc)
+    end)
+    c:RegisterEffect(eqlimit)
+
     -- no change battle position with effect
     local nopos = Effect.CreateEffect(c)
     nopos:SetType(EFFECT_TYPE_SINGLE)

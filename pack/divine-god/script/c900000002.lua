@@ -50,7 +50,6 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     local g = eg:Filter(s.e2filter, nil, nil, tp)
     Duel.SetTargetCard(g)
-    Duel.HintSelection(g)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
