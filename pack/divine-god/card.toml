@@ -117,6 +117,7 @@ If your "The Winged Dragon of Ra" is Normal Summoned to your field, \
     or your opponent's field, Dimension Change it to this card with the same Divine Hierarchy. \
 This card's effects cannot be negated or copied. \
 Cannot be Tributed, or used as material for an Summon. \
+Cannot be equipped with Equip Cards. \
 Unaffected by other card effects, except effects of monsters with the equal or higher Divine Hierarchy. \
 Cannot attack. \
 Neither player can target it for attacks or with card effects, \
@@ -150,10 +151,12 @@ If "The Winged Dragon of Ra" is Special Summoned from the GY to your field in fa
 If "The Winged Dragon of Ra" you control would be destroyed by its own effect, \
     Dimension Change it to this card with the same Divine Hierarchy instead, \
     and this card's original ATK/DEF become the same as that monster's ATK/DEF had on the field. \
-This card's effects cannot be negated or copied. \
-Cannot be Tributed, or used as material for an Summon. \
-Unaffected by other card effects, cannot be destroyed by battle, also you take no battle damage from that battle, \
-    except with monster with the higher Divine Hierarchy. \
+This card's effects cannot be negated nor be copied. \
+Cannot be Tributed, nor be used as material for an Summon. \
+Cannot be equipped with Equip Cards. \
+Unaffected by other card effects, cannot be destroyed by battle, \
+    also you take no battle damage from that battle, \
+    except with monsters with the higher Divine Hierarchy. \
 Cannot attack, except by its own effect. \
 Once per Chain, while this card is in Attack Position, except the End Phase (Quick Effect): \
     You can pay 1000 LP, then choose 1 monster your opponent control as Target; \
