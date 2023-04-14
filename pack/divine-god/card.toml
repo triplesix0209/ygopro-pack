@@ -34,7 +34,10 @@ Once per turn, while this card is able to attack (Quick Effect): \
     You can choose 1 monster your opponent controls Target; \
     This card attack it, and perform damage calculation with ∞ ATK. \
 """
-strings = ["Destroy all monsters & inflict damage", "Attack with ∞ ATK"]
+strings = [
+    "Destroy all monsters & inflict damage",
+    "Attack 1 monster with ∞ ATK",
+]
 
 [osiris]
 id = 900000002
