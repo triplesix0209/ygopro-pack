@@ -1,0 +1,22 @@
+set_name = "triplesix"
+setcodes = ["./setcode.toml"]
+
+packs = [
+    "./pack/divine-god",
+    "./pack/palladium",
+    "./pack/blue-eyes",
+    # "./pack/sacred-beast",
+    # "./pack/evil-hero",
+    # "./pack/infernity",
+    # "./pack/signer-dragons",
+]
+
+skip_compile_packs = [
+    # "./pack/divine-god",
+    # "./pack/palladium",
+    # "./pack/blue-eyes",
+    # "./pack/sacred-beast",
+    # "./pack/evil-hero",
+    # "./pack/infernity",
+    # "./pack/signer-dragons",
+]
