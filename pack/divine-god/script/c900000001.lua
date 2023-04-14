@@ -26,12 +26,14 @@ function s.initial_effect(c)
     e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_ATKCHANGE)
     e2:SetType(EFFECT_TYPE_QUICK_O)
-    e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
-    e2:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+    e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e2:SetCode(EVENT_FREE_CHAIN)
     e2:SetRange(LOCATION_MZONE)
+    e2:SetHintTiming(0, TIMING_BATTLE_END)
     e2:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
     e2:SetCondition(s.e2con)
     e2:SetCost(s.effcost)
+    e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
     Utility.AvatarInfinity(s, c)
@@ -88,8 +90,25 @@ function s.e2filter(c) return c:IsFaceup() and Divine.GetDivineHierarchy(c) >= 2
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return Duel.IsExistingMatchingCard(function(tc) return tc:IsFaceup() and Divine.GetDivineHierarchy(tc) >= 2 end, tp, LOCATION_MZONE,
-        LOCATION_MZONE, 1, nil) and c:GetBattleTarget() ~= nil and c:CanAttack()
+        LOCATION_MZONE, 1, nil) and Duel.IsBattlePhase()
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp) Utility.GainInfinityAtk(e:GetHandler(), RESET_PHASE + PHASE_DAMAGE_CAL) end
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(aux.TRUE, tp, 0, LOCATION_MZONE, 1, nil) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACK)
+    local g = Duel.SelectMatchingCard(tp, nil, tp, 0, LOCATION_MZONE, 1, 1, nil)
+
+    Duel.SetTargetCard(g)
+    Duel.HintSelection(g)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc = Duel.GetFirstTarget()
+    if tc and tc:IsRelateToEffect(e) then
+        Utility.GainInfinityAtk(c, RESET_PHASE + PHASE_DAMAGE_CAL)
+        Duel.CalculateDamage(c, tc)
+    end
+end
 

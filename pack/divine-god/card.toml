@@ -30,11 +30,11 @@ Once per turn, while this card is able to attack (Quick Effect): \
     Inflict damage to your opponent equal to this card's ATK, \
     also destroy all monsters your opponent controls. \
     Cannot be activated as Chain Link 2 or higher.
-● During damage calculation, if this card battles an opponent's monster, \
-    while there are any monster with Divine Hierarchy 2 or more on the field: \
-    This card's ATK become ∞ during that damage calculation only. \
+● During the Battle phase, while there are any monster with Divine Hierarchy 2 or more on the field: \
+    You can choose 1 monster your opponent controls Target; \
+    This card attack it, and perform damage calculation with ∞ ATK. \
 """
-strings = ["Destroy all monsters & inflict damage", "Gain ∞ ATK"]
+strings = ["Destroy all monsters & inflict damage", "Attack with ∞ ATK"]
 
 [osiris]
 id = 900000002

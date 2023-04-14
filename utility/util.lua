@@ -5,7 +5,7 @@ if not aux.UtilityProcedure then aux.UtilityProcedure = {} end
 if not Utility then Utility = aux.UtilityProcedure end
 
 -- constant
-Utility.INFINITY_ATTACK = 999999
+Utility.INFINITY_ATTACK = 99999999
 
 -- function
 function Utility.RegisterGlobalEffect(c, eff, filter, param1, param2, param3, param4, param5)
@@ -157,28 +157,16 @@ function Utility.IsOwnAny(f, player, ...)
     return g:IsExists(function(c) return c:GetOwner() == player end, 1, nil)
 end
 
-function Utility.GainInfinityAtk(c, reset, effect_handler)
+function Utility.GainInfinityAtk(c, reset, effect_property, effect_handler)
     if not effect_handler then effect_handler = c end
+    if not effect_property then effect_property = 0 end
 
     local e1 = Effect.CreateEffect(effect_handler)
     e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_DELAY + EFFECT_FLAG_REPEAT + effect_property)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetCode(EFFECT_UPDATE_ATTACK)
-    e1:SetValue(function(e)
-        local c = e:GetHandler()
-        local g = Duel.GetMatchingGroup(nil, 0, LOCATION_MZONE, LOCATION_MZONE, c)
-        if #g == 0 then
-            return Utility.INFINITY_ATTACK - c:GetAttack()
-        else
-            local _, val = g:GetMaxGroup(Card.GetAttack)
-            if val <= Utility.INFINITY_ATTACK then
-                return Utility.INFINITY_ATTACK - c:GetAttack()
-            else
-                return val
-            end
-        end
-    end)
+    e1:SetCode(EFFECT_SET_ATTACK_FINAL)
+    e1:SetValue(Utility.INFINITY_ATTACK)
     if reset then e1:SetReset(reset) end
     c:RegisterEffect(e1)
 

@@ -179,6 +179,7 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACK)
     local g = Duel.SelectMatchingCard(tp, aux.TRUE, tp, 0, LOCATION_MZONE, 1, 1, c)
     Duel.SetTargetCard(g)
+    Duel.HintSelection(g)
 
     Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, g, #g, 0, 0)
 end

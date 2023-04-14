@@ -118,6 +118,8 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local g = Duel.SelectMatchingCard(tp, nil, tp, LOCATION_MZONE, LOCATION_MZONE, 1, 1, nil)
 
     Duel.SetTargetCard(g)
+    Duel.HintSelection(g)
+    
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
