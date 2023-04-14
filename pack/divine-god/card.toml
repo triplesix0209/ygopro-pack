@@ -32,7 +32,7 @@ Once per turn, while this card is able to attack (Quick Effect): \
     Cannot be activated as Chain Link 2 or higher.
 ● During the Battle phase, while there are any monster with Divine Hierarchy 2 or more on the field: \
     You can choose 1 monster your opponent controls Target; \
-    This card attack it, and perform damage calculation with ∞ ATK. \
+    this card attack it, and perform damage calculation with ∞ ATK.
 """
 strings = [
     "Destroy all monsters & inflict damage",
