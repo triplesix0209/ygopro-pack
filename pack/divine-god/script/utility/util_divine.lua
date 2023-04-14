@@ -353,11 +353,3 @@ function ResetEffectFilter(te, c)
     return not te:IsHasProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_FIELD_ONLY) and
                (te:GetTarget() == aux.PersistentTargetFilter or not te:IsHasType(EFFECT_TYPE_GRANT)) and te:GetCode() ~= EFFECT_SPSUMMON_PROC
 end
-
-local base_equip = Duel.Equip
-Duel.Equip = function(...)
-    local params = {...}
-    local tc = params[2]
-    Debug.Message(tc:GetCode())
-    return base_equip(...)
-end
