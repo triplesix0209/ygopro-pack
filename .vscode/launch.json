@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "coreclr",
+            "request": "launch",
+            "name": "Build",
+            "program": "cmd.exe",
+            "cwd": "${workspaceFolder}/generator",
+            "console": "internalConsole",
+            "args": ["/c", "YgoCardGenerator compile -set=../index.toml"],
+        }
+    ]
+}
