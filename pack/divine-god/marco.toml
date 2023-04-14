@@ -3,18 +3,17 @@ EGYPTIAN_GOD_EFFECT = """\
 Cannot be Special Summoned, except by owner. \
 Requires 3 Tributes to Normal Summon (cannot be Normal Set). \
 The Normal Summon, effect activations, and card effects of it cannot be negated. \
-
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
 Control of it cannot switch. \
 Battle position cannot be changed by card effects. \
-Cannot be equipped with Equip Cards. \
+Cannot be equipped with cards. \
 Cannot be destroyed by battle with monster with lower Divine Hierarchy, \
     also you take no battle damage from that battle. \
 Unaffected by other card effects that would make it leave the field, \
     also other card effects are only applied on it for 1 turn, \
     except cards that mentions it and monsters with higher Divine Hierarchy. \
-If this card is Summoned in face-up Defense Position during your opponent's turn, \
-    for the rest of this turn, your opponent cannot target monsters for attacks or with card effect, except it, \
+If it is Summoned in face-up Defense Position during your opponent's turn, \
+    for the rest of this turn, your opponent cannot target monsters for attacks nor with card effect, except it, \
     also if there are any attack of your opponent's monster, \
     or your opponent's card effects activated in current Chain that targets other monster(s) you control, \
     change the target to this card. \
