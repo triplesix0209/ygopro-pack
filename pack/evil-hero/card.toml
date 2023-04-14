@@ -1,0 +1,547 @@
+[supreme-king-dark-castle]
+id = 900002100
+set = "supreme-king"
+name = "Supreme King's Dark Castle"
+type = "spell field"
+effect = """
+You can only activate 1 "{CARD_NAME}" per turn. \
+When this card is activated: Add 1 "Polymerization" Spell Card or "Fusion" Spell Card from your Deck to your hand. \
+You can Fusion Summon Fusion Monsters that must be Special Summoned with "Dark Fusion", \
+    with effects other than "Dark Fusion". \
+The activation of your cards and effects that include an effect that Fusion Summons a Fusion Monster cannot be negated, \
+    also your opponent's cards and effects cannot activate when a monster is Fusion Summoned this way. \
+"""
+strings = ["Add 1 Fusion Spell?"]
+
+[the-supreme-king]
+id = 900002101
+rarity = "gold"
+set = "supreme-king"
+name = "The Supreme King of Spirit World"
+type = "monster fusion effect"
+attribute = "dark"
+race = "warrior"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+"""
+strings = []
+
+[evil-hero-cosmos]
+id = 900002102
+set = "evil-hero"
+name = "Evil HERO Cosmos"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+You can Special Summon this card (from your hand or GY) \
+    by shuffling 1 "HERO" Fusion or Link Monster you control into the Extra Deck. \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+If this card attacks, during damage calculation: \
+    You can Tribute 1 face-up "HERO" monster; \
+    this card gains ATK equal to the Tributed monster's ATK, until the End Phase. \
+Once per turn, during your Main Phase or your opponent's turn: \
+    You can Tribute this card you control and 1 other "HERO" monster you control or in your hand; \
+    Special Summon 1 Fusion monster from your Extra Deck, \
+    that mentions a "Elemental HERO" monster as material and must be Special Summoned with "Dark Fusion". \
+    (This is treated as a Fusion Summon with "Dark Fusion".) \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Tribute 1 \"HERO\" to gain ATK",
+    "Special Summon 1 \"Evil HERO\" Fusion monster from Extra Deck",
+]
+
+[evil-hero-aero-scout]
+id = 900002103
+set = "evil-hero"
+name = "Evil HERO Aero Scout"
+type = "monster effect"
+attribute = "wind"
+race = "fiend"
+level = 3
+atk = 1000
+def = 1000
+effect = """\
+(This card's name is also treated as "Elemental HERO Avian".)
+If this card is in your hand: \
+    You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}", \
+    and if you do, Special Summon this card from your hand. \
+    You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can switch the original ATK/DEF of all monsters your opponent currently controls. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
+]
+
+[evil-hero-blaster-minx]
+id = 900002104
+set = "evil-hero"
+name = "Evil HERO Blaster Minx"
+type = "monster effect"
+attribute = "fire"
+race = "fiend"
+level = 3
+atk = 1200
+def = 800
+effect = """\
+(This card's name is also treated as "Elemental HERO Burstinatrix".)
+You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}", and if you do, \
+    this card's Attribute, Level and ATK/DEF become the same as that monster, until the end of next turn. \
+    You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can make 1 Fiend monster you control gains 1000 ATK until the end of next turn. \
+"""
+strings = [
+    "Send 1 \"Evil HERO\" to the GY to copy its Attribute, Level, ATK/DEF",
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
+]
+
+[evil-hero-igneous-insurgent]
+id = 900002105
+set = "evil-hero"
+name = "Evil HERO Igneous Insurgent"
+type = "monster effect"
+attribute = "earth"
+race = "fiend"
+level = 4
+atk = 800
+def = 2000
+effect = """\
+(This card's name is also treated as "Elemental HERO Clayman".)
+You can Special Summon this card (from your hand) by discarding 1 \"Evil HERO\" monster. \
+Once per turn, when your monster is targeted for an attack: You can negate the attack. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can inflict damage to your opponent equal to original Level of 1 Fiend monster you control x 200. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Negate the attack"]
+
+[evil-hero-bubbling-anger]
+id = 900002106
+set = "evil-hero"
+name = "Evil HERO Bubbling Anger"
+type = "monster effect"
+attribute = "water"
+race = "fiend"
+level = 4
+atk = 800
+def = 1200
+effect = """\
+(This card's name is also treated as "Elemental HERO Bubbleman".)
+If you control a "Evil HERO" monster, you can Special Summon this card (from your hand). \
+You take no damage from battles involving this card, \
+    also destroy an opponent's monster that battles this card at the end of the Damage Step. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can draw 2 cards, then discard 1 card. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Destroy the battled monster"]
+
+[evil-hero-black-bolt]
+id = 900002107
+set = "evil-hero"
+name = "Evil HERO Black Bolt"
+type = "monster effect"
+attribute = "light"
+race = "fiend"
+level = 4
+atk = 1600
+def = 1400
+effect = """\
+(This card's name is also treated as "Elemental HERO Sparkman".)
+You can target 1 face-up monster on the field; change its battle position. \
+You can banish this card from your GY, \
+    then target 1 your banished "Evil HERO" monster, except "{CARD_NAME}"; \
+    Special Summon it. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can destroy 1 monster your opponent controls. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Change position of 1 face-up monster"]
+
+[evil-hero-savage-heart]
+id = 900002108
+set = "evil-hero"
+name = "Evil HERO Savage Heart"
+type = "monster effect"
+attribute = "earth"
+race = "fiend"
+level = 4
+atk = 1500
+def = 1600
+effect = """\
+(This card's name is also treated as "Elemental HERO Wildheart".)
+If this card is Normal or Special Summoned: \
+    You can Special Summon 1 "Evil HERO" monster from your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Unaffected by your opponent's Trap effects. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can negate all your opponent's Trap effects on the field this turn. \
+"""
+strings = []
+
+[evil-hero-revenge-smog]
+id = 900002109
+set = "evil-hero"
+name = "Evil HERO Revenge Smog"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 4
+atk = 1800
+def = 300
+effect = """\
+If this card is Normal or Special Summoned: You can activate 1 of these effects.
+● Inflict 300 damage to your opponent for each "Evil HERO" monster in your GY.
+● Target 1 "Evil HERO" monster in your GY; add it to your hand or Special Summon it.
+(Quick Effect): You can banish this card from your field or GY; \
+    activate 1 "Supreme King" Field Spell directly from your hand, Deck or GY. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Inflict damage or Special summon",
+    "Inflict 300 damage to your opponent for each \"Evil HERO\"",
+    "Return or Special Summon 1 \"Evil HERO\" in GY",
+    "Activate Field Spell that mentions \"Dark Fusion\"",
+]
+
+[evil-hero-cursed-shadow]
+id = 900002110
+set = "evil-hero"
+name = "Evil HERO Cursed Shadow"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 4
+atk = 1300
+def = 1500
+effect = """\
+If this card is Normal Summoned: You can declare 1 Monster Type, \
+    then Special Summon 1 "Evil Token" (Fiend/DARK/Level 7/ATK 2500/DEF 2500) in Defense Position. \
+    The Token's Type become the declared Type when it is Summoned. \
+    You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
+If this card is sent to the GY, or banished: \
+    You can add 1 "Evil HERO" monster from your Deck to your hand, except "{CARD_NAME}". \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
+]
+
+[evil-hero-infernal-executor]
+id = 900002111
+set = "evil-hero"
+name = "Evil HERO Infernal Executor"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 4
+atk = 1700
+def = 1100
+effect = """\
+If this card is in your hand or GY: \
+    You can banish 1 "Evil HERO" monster from your field or GY, except "{CARD_NAME}"; \
+    Special Summon this card. \
+If this card is Special Summoned: \
+    You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}"; \
+    this card's name becomes the sent monster's name and gains ATK equal to the Level of that monster x 100. \
+    also your opponent sends cards from the top of their Deck to the GY equal to the Level of that monster. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[evil-hero-infernal-scepter]
+id = 900002112
+set = "evil-hero"
+name = "Evil HERO Infernal Scepter"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 3
+atk = 800
+def = 1200
+effect = """\
+(Quick Effect): You can discard this card, then target 1 "Evil HERO" monster on the field; \
+    it gains ATK equal to its Level x 200 until the end of this turn. \
+If this card is sent to the GY, or banished: \
+    You can target 1 "Dark Fusion", or 1 card that mentions it, in your GY; \
+    add it to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = []
+
+[evil-hero-crimson-fury]
+id = 900002113
+set = "evil-hero"
+name = "Evil HERO Crimson Fury"
+type = "monster fusion effect"
+attribute = "earth"
+race = "fiend"
+level = 6
+atk = 1900
+def = 3000
+effect = """\
+"Elemental HERO Bubbleman" + "Elemental HERO Clayman"
+Must be Special Summoned with "Dark Fusion". \
+If this card is Fusion Summoned: \
+    Target 1 face-up monster your opponent controls; its ATK is halved. \
+This card can attack while in face-up Defense Position. \
+    If it does, apply its ATK for damage calculation. \
+"""
+strings = []
+
+[evil-hero-voltic-predator]
+id = 900002114
+set = "evil-hero"
+name = "Evil HERO Voltic Predator"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 6
+atk = 2000
+def = 1000
+effect = """\
+"Elemental HERO Sparkman" + DARK monster
+Must be Special Summoned with "Dark Fusion". \
+If this card attacks a Defense Position monster, inflict double piercing battle damage. \
+If this card attacks, change it to Defense Position at the end of the Damage Step. \
+If this card leaves the field: \
+    Target 1 card your opponent controls; \
+    destroy the targeted, and if you do, banish it. \
+"""
+strings = []
+
+[evil-hero-wicked-neptucius]
+id = 900002115
+set = "evil-hero"
+name = "Evil HERO Wicked Neptucius"
+type = "monster fusion effect"
+attribute = "water"
+race = "fiend"
+level = 5
+atk = 1800
+def = 1000
+effect = """\
+"Elemental HERO Burstinatrix" + "Elemental HERO Bubbleman"
+Must be Special Summoned with "Dark Fusion". \
+Once per turn: You can banish 1 monster from your GY, then target 1 face-up on the field; \
+    The targeted monster lose ATK equal to the banished monster's original ATK, \
+    until the end of this turn. \
+If this card destroys an opponent's monster by battle: \
+    You gain LP equal to that monster's original ATK. \
+"""
+strings = [
+    "Banish to down ATK of 1 face-up monster",
+    "Gain LP equal to destroyed monster's original ATK",
+]
+
+[evil-hero-darkness-inferno-wing]
+id = 900002116
+set = "evil-hero"
+name = "Evil HERO Darkness Inferno Wing"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 8
+atk = 2500
+def = 2100
+effect = """\
+1 "Evil HERO" Fusion Monster + 1 Fiend monster
+Must be Special Summoned with "Dark Fusion". \
+Gains 300 ATK for each "HERO" card in your GY. \
+Once per turn, at the start of the damage Step, if this card battles an opponent's monster: \
+    You can destroy that monster, also, this card can make a second attack in a row. \
+If this card attacks a Defense Position monster, inflict piercing battle damage. \
+If this card destroys a monster by battle or its effect: \
+    Inflict damage to your opponent equal to the original ATK or DEF (whichever is higher) of that monster. \
+"""
+strings = [
+    "Destroy the battling monster",
+    "Inflict damage to your opponent equal to the original ATK/DEF of destroyed monster",
+]
+
+[evil-hero-vicious-scraper]
+id = 900002117
+set = "evil-hero"
+name = "Evil HERO Vicious Scraper"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 6
+atk = 2100
+def = 1800
+effect = """\
+1 "Evil HERO" monster + 1 Level 4 or lower monster
+Must be Special Summoned with "Dark Fusion". \
+If this card is Fusion Summoned: You can equip 1 "Vicious Claw" from your hand, Deck or GY to this card. \
+If this card inflicts battle damage to your opponent: Discard 1 random card from your opponent's hand. \
+"""
+strings = ["Discard 1 random card from your opponent's hand"]
+
+[evil-hero-crimson-gainer]
+id = 900002118
+set = "evil-hero"
+name = "Evil HERO Crimson Gainer"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 6
+atk = "?"
+def = 0
+effect = """\
+2 "Evil HERO" non-Fusion Monsters
+Must be Special Summoned with "Dark Fusion". \
+This card's original ATK become the combined original Levels of the materials used for its Fusion Summon x 400. \
+If this Fusion Summoned card is destroyed by battle or card effect: \
+    You can target 1 "Polymerization" Spell Card or "Fusion" Spell Card in your GY; \
+    add it to your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Make second attack"]
+
+[evil-hero-faustian-slayer]
+id = 900002119
+set = "evil-hero"
+name = "Evil HERO Faustian Slayer"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 8
+atk = 3200
+def = 0
+effect = """\
+1 "Evil HERO" monster + 1+ monsters that were Special Summoned from the Extra Deck
+Must be Special Summoned with "Dark Fusion". \
+Gains 200 ATK x the number of Fusion Materials used for this card's Fusion Summon. \
+Once per turn, during the End Phase: You can activate 1 of these effects, \
+    depending on the number of "Evil HERO" monsters with different names that are in your GY or banished. \
+    You can only use this effect of "{CARD_NAME}" once per turn.
+● 2+: Set 1 "Dark Fusion" or 1 Spell/Trap that mentions it directly from your Deck.
+● 4+: Destroy 1 card your opponent controls.
+● 6+: Take control of 1 Special Summoned monster your opponent controls.
+"""
+strings = [
+    "Activate effect depending on the number of \"Evil HERO\" in GY or banished",
+    "Set 1 \"Dark Fusion\" or Spell/Trap that mentions it",
+    "Destroy 1 card your opponent controls",
+    "Take control of 1 your opponent's monster",
+]
+
+[xtra-hero-infernal-caller]
+id = 900002120
+set = "hero"
+name = "Xtra HERO Infernal Caller"
+type = "monster link effect"
+attribute = "dark"
+race = "fiend"
+link = 2
+link-arrow = "bottom-left bottom-right"
+atk = 1300
+effect = """\
+2 Fiend monsters
+If this card is Link Summoned: \
+    You add 1 of your banished "Evil HERO" monsters to your hand. \
+You can banish 1 Fiend monster from your GY, \
+    then target 1 "Dark Fusion" or 1 Spell/Trap that mentions it in your GY; \
+    banish it, and if you do, apply that target's effect. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Apply the effect of 1 \"Dark Fusion\" or 1 Spell/Trap that mentions it",
+]
+
+[fusion-of-dark]
+id = 900002121
+alias = 94820406
+name = "Fusion of Dark"
+type = "spell"
+effect = """
+(This card's name is always treated as "Dark Fusion".)
+Fusion Summon 1 Fiend Fusion Monster from your Extra Deck, \
+    using monsters from your hand or field as Fusion Material. \
+    If you control a "Supreme King" card, you can use 1 "Evil HERO" monster from your Deck as material. \
+    Your opponent cannot target the Summoned monster with card effects until the end of next turn. \
+"""
+strings = []
+
+[vicious-fusion]
+id = 900002122
+set = "fusion"
+name = "Vicious Fusion"
+type = "spell"
+effect = """
+Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    that must be Special Summoned with "Dark Fusion", \
+    by banishing the Fusion Materials mentioned on it from your hand, field or GY. \
+    (This is treated as a Fusion Summon with "Dark Fusion".) \
+    If you control a "Supreme King" card, you can use 1 "Evil HERO" monster from your Extra Deck as material. \
+"""
+strings = []
+
+[dark-requiem]
+id = 900002123
+name = "Dark Requiem"
+type = "trap"
+effect = """
+Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    that must be Special Summoned with "Dark Fusion", \
+    by shuffling the Fusion Materials mentioned on it from your field, GY, or your face-up banished cards. \
+    (This is treated as a Fusion Summon with "Dark Fusion".) \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+If you control no cards, except "Supreme King" cards, you can activate this card from your hand. \
+"""
+strings = []
+
+[evil-soul]
+id = 900002124
+name = "Evil Soul"
+type = "spell quick-play"
+effect = """
+Target 1 "Evil HERO" monster in your GY; \
+    Special Summon it, but it cannot attack directly this turn. \
+If a "Evil HERO" monster(s) or a monster(s) that must be Special Summoned with "Dark Fusion" you control \
+    would be destroyed by battle or card effect, \
+    you can banish this card from your GY instead. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[sinister-call]
+id = 900002125
+name = "Sinister Call"
+type = "spell"
+effect = """
+Add 1 "Evil HERO" monster from your Deck to your hand, \
+    if you control no face-up monster, you can Special Summon it instead. \
+    If you Special Summoned a Level 5 or higher monster by this effect, halve your LP. \
+You can banish this card from your GY: \
+    Destroy Spell/Trap Cards up to the number of "Evil HERO" monsters you control. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[sinister-flame]
+id = 900002126
+name = "Sinister Flame"
+type = "trap counter"
+effect = """
+When your opponent activates a Spell/Trap Card, or monster effect: \
+    Banish 1 face-up "Evil HERO" monster you control until the End Phase; \
+    negate the activation, and if you do, banish that card. \
+During your Main Phase, except the turn this card was sent to the GY: \
+    You can banish this card from your GY, then target 1 "Evil HERO" Fusion Monster you control; \
+    Destroy as many monsters your opponent controls as possible, with ATK higher than that monster's, \
+    then inflict damage to your opponent equal to the highest original ATK among those destroyed monsters. \
+    (your choice, if tied). \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
