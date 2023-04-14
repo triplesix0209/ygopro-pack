@@ -13,8 +13,8 @@ packs = [
 
 skip_compile_packs = [
     # "./pack/divine-god",
-    # "./pack/palladium",
-    # "./pack/blue-eyes",
+    "./pack/palladium",
+    "./pack/blue-eyes",
     # "./pack/sacred-beast",
     # "./pack/evil-hero",
     # "./pack/infernity",

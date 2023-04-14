@@ -24,11 +24,11 @@ def = 4000
 effect = """\
 {EGYPTIAN_GOD_EFFECT|1|Obelisk the Tormentor} \
 Once per turn, while this card is able to attack (Quick Effect): \
-    You can Tribute 2 other monsters, activate 1 of these effects.
+    You can Tribute 2 other monsters, activate 1 of these effects. \
+    This card cannot declare an attack the turn this effect is activated.
 ● During your Main Phase or your opponent's Battle Phase: \
     Inflict damage to your opponent equal to this card's ATK, \
     also destroy all monsters your opponent controls. \
-    This card cannot declare an attack the turn this effect is activated. \
     Cannot be activated as Chain Link 2 or higher.
 ● During damage calculation, if this card battles an opponent's monster, \
     while there are any monster with Divine Hierarchy 2 or more on the field: \
