@@ -4,6 +4,7 @@ if not Divine then Divine = aux.DivineProcedure end
 
 -- constant: flag
 Divine.FLAG_DIVINE_EVOLUTION = 513000065
+Divine.EFFECT_NO_EQUIP = EVENT_CUSTOM + 900000001
 
 -- function
 function Divine.IsDivineEvolution(c) return c:GetFlagEffect(Divine.FLAG_DIVINE_EVOLUTION) > 0 end
@@ -38,14 +39,14 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     aux.AddNormalSummonProcedure(c, true, false, 3, 3)
     aux.AddNormalSetProcedure(c)
 
-    -- summon cannot be negate
+    -- summon cannot be negated
     local sumsafe = Effect.CreateEffect(c)
     sumsafe:SetType(EFFECT_TYPE_SINGLE)
     sumsafe:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SUMMON)
     c:RegisterEffect(sumsafe)
 
-    -- activation and effect cannot be negate
+    -- activation and effect cannot be negated
     local nonegate = Effect.CreateEffect(c)
     nonegate:SetType(EFFECT_TYPE_FIELD)
     nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -66,7 +67,7 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     nodis:SetCode(EFFECT_CANNOT_DISABLE)
     c:RegisterEffect(nodis)
 
-    -- cannot be tributed, or be used as a material
+    -- cannot be tributed, nor be used as a material
     local norelease = Effect.CreateEffect(c)
     norelease:SetType(EFFECT_TYPE_FIELD)
     norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -82,7 +83,7 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
 
-    -- no switch control
+    -- control cannot switch
     local noswitch = Effect.CreateEffect(c)
     noswitch:SetType(EFFECT_TYPE_SINGLE)
     noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -90,13 +91,21 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
 
-    -- no change battle position with effect
+    -- battle position cannot be changed by effect
     local nopos = Effect.CreateEffect(c)
     nopos:SetType(EFFECT_TYPE_SINGLE)
     nopos:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     nopos:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
+
+    -- cannot be equipped with card
+    local noequip = Effect.CreateEffect(c)
+    noequip:SetType(EFFECT_TYPE_SINGLE)
+    noequip:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noequip:SetCode(Divine.EFFECT_NO_EQUIP)
+    noequip:SetRange(LOCATION_MZONE)
+    c:RegisterEffect(noequip)
 
     -- battle indes & avoid damage
     local indes = Effect.CreateEffect(c)
@@ -111,25 +120,26 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     nodmg:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
     c:RegisterEffect(nodmg)
 
-    -- no leave with effect
+    -- cannot leave with effect
     local noleave = Effect.CreateEffect(c)
     noleave:SetType(EFFECT_TYPE_SINGLE)
     noleave:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     noleave:SetCode(EFFECT_IMMUNE_EFFECT)
     noleave:SetRange(LOCATION_MZONE)
     noleave:SetValue(function(e, re)
-        if not re then return false end
-
+        if not re or not re:IsHasCategory(CATEGORY_TOHAND + CATEGORY_TODECK + CATEGORY_TOGRAVE + CATEGORY_REMOVE) then return false end
+        local c = e:GetHandler()
         local rc = re:GetHandler()
-        return rc ~= e:GetHandler() and re:IsHasCategory(CATEGORY_TOHAND + CATEGORY_TODECK + CATEGORY_TOGRAVE + CATEGORY_REMOVE) and
-                   (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
+        return rc ~= c and not rc:ListsCode(c:GetCode()) and (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
     end)
     c:RegisterEffect(noleave)
     local noleave_destroy = noleave:Clone()
     noleave_destroy:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     noleave_destroy:SetValue(function(e, re)
+        if not re then return false end
+        local c = e:GetHandler()
         local rc = re:GetHandler()
-        return rc ~= e:GetHandler() and (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
+        return rc ~= c and not rc:ListsCode(c:GetCode()) and (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
     end)
     c:RegisterEffect(noleave_destroy)
     local noleave_release = noleave_destroy:Clone()
@@ -241,14 +251,14 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     aux.AddNormalSummonProcedure(c, true, false, 3, 3)
     aux.AddNormalSetProcedure(c)
 
-    -- summon cannot be negate
+    -- summon cannot be negated
     local sumsafe = Effect.CreateEffect(c)
     sumsafe:SetType(EFFECT_TYPE_SINGLE)
     sumsafe:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SUMMON)
     c:RegisterEffect(sumsafe)
 
-    -- effect activation and activated effect cannot be negate
+    -- effect activation and activated effect cannot be negated
     local nonegate = Effect.CreateEffect(c)
     nonegate:SetType(EFFECT_TYPE_FIELD)
     nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -264,15 +274,7 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(nodiseff)
 
-    -- control cannot switch
-    local noswitch = Effect.CreateEffect(c)
-    noswitch:SetType(EFFECT_TYPE_SINGLE)
-    noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
-    noswitch:SetRange(LOCATION_MZONE)
-    c:RegisterEffect(noswitch)
-
-    -- cannot be tributed, or be used as a material
+    -- cannot be tributed, nor be used as a material
     local norelease = Effect.CreateEffect(c)
     norelease:SetType(EFFECT_TYPE_FIELD)
     norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -288,6 +290,14 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
 
+    -- control cannot switch
+    local noswitch = Effect.CreateEffect(c)
+    noswitch:SetType(EFFECT_TYPE_SINGLE)
+    noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
+    noswitch:SetRange(LOCATION_MZONE)
+    c:RegisterEffect(noswitch)
+
     -- battle position cannot be changed by effect
     local nopos = Effect.CreateEffect(c)
     nopos:SetType(EFFECT_TYPE_SINGLE)
@@ -295,6 +305,14 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     nopos:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
+
+    -- cannot be equipped with card
+    local noequip = Effect.CreateEffect(c)
+    noequip:SetType(EFFECT_TYPE_SINGLE)
+    noequip:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noequip:SetCode(Divine.EFFECT_NO_EQUIP)
+    noequip:SetRange(LOCATION_MZONE)
+    c:RegisterEffect(noequip)
 
     -- battle indes & avoid damage
     local indes = Effect.CreateEffect(c)
@@ -309,25 +327,26 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     nodmg:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
     c:RegisterEffect(nodmg)
 
-    -- no leave with effect
+    -- cannot leave with effect
     local noleave = Effect.CreateEffect(c)
     noleave:SetType(EFFECT_TYPE_SINGLE)
     noleave:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     noleave:SetCode(EFFECT_IMMUNE_EFFECT)
     noleave:SetRange(LOCATION_MZONE)
     noleave:SetValue(function(e, re)
-        if not re then return false end
-
+        if not re or not re:IsHasCategory(CATEGORY_TOHAND + CATEGORY_TODECK + CATEGORY_TOGRAVE + CATEGORY_REMOVE) then return false end
+        local c = e:GetHandler()
         local rc = re:GetHandler()
-        return rc ~= e:GetHandler() and re:IsHasCategory(CATEGORY_TOHAND + CATEGORY_TODECK + CATEGORY_TOGRAVE + CATEGORY_REMOVE) and
-                   (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
+        return rc ~= c and not rc:ListsCode(c:GetCode()) and (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
     end)
     c:RegisterEffect(noleave)
     local noleave_destroy = noleave:Clone()
     noleave_destroy:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     noleave_destroy:SetValue(function(e, re)
+        if not re then return false end
+        local c = e:GetHandler()
         local rc = re:GetHandler()
-        return rc ~= e:GetHandler() and (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
+        return rc ~= c and not rc:ListsCode(c:GetCode()) and (not rc:IsMonster() or Divine.GetDivineHierarchy(rc) <= Divine.GetDivineHierarchy(c))
     end)
     c:RegisterEffect(noleave_destroy)
     local noleave_release = noleave_destroy:Clone()
@@ -350,6 +369,15 @@ end
 function ResetEffectFilter(te, c)
     local tc = te:GetOwner()
     if tc == c or tc:ListsCode(c:GetCode()) then return false end
+    if tc:IsMonster() and Divine.GetDivineHierarchy(tc) > Divine.GetDivineHierarchy(c) then return false end
     return not te:IsHasProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_FIELD_ONLY) and
                (te:GetTarget() == aux.PersistentTargetFilter or not te:IsHasType(EFFECT_TYPE_GRANT)) and te:GetCode() ~= EFFECT_SPSUMMON_PROC
+end
+
+local base_equip = Duel.Equip
+Duel.Equip = function(...)
+    local params = {...}
+    local tc = params[3]
+    if tc:IsHasEffect(Divine.EFFECT_NO_EQUIP) then return 0 end
+    return base_equip(...)
 end
