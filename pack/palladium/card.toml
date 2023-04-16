@@ -592,7 +592,7 @@ If this card is destroyed by battle or card effect: \
 strings = []
 
 [palladium-reborn]
-id = 900000130
+id = 900000125
 alias = 83764718
 name = "Palladium Reborn"
 type = "spell quick-play"
@@ -606,7 +606,7 @@ You can also Special Summon a monster that can be Normal Summoned, ignoring its 
 strings = []
 
 [forbidden-art-palladium]
-id = 900000131
+id = 900000126
 set = "palladium fusion"
 name = "Forbidden Art of Palladium"
 type = "spell quick-play"
@@ -624,7 +624,7 @@ Activate 1 of these effects.
 strings = []
 
 [palladium-fusion-mastery]
-id = 900000132
+id = 900000127
 alias = 95286165
 name = "Palladium Fusion Mastery"
 type = "spell quick-play"
@@ -649,7 +649,7 @@ strings = [
 ]
 
 [swords-palladium-light]
-id = 900000133
+id = 900000128
 set = "palladium"
 name = "Swords of Palladium Light"
 type = "spell quick-play"
@@ -670,7 +670,7 @@ You can send this card with no Spell Counter to the GY; draw 3 cards. \
 strings = []
 
 [palladium-sacrophagus]
-id = 900000134
+id = 900000129
 set = "palladium"
 name = "Palladium Sacrophagus"
 type = "spell quick-play"
@@ -686,3 +686,20 @@ During your End Phase, except the turn this card was sent to the GY: \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
+
+[palladium-mirror-force]
+id = 900000130
+set = "palladium"
+name = "Palladium Mirror Force"
+type = "trap counter"
+effect = """\
+Activate 1 of these effects.
+● When your opponent activates a monster effect that targets a monster(s) you control: \
+    Negate that effect, also destroy all your opponent's Attack Position monsters.
+● When an opponent's monster declares an attack: \
+    Negate that attack, also destroy all your opponent's Attack Position monsters.
+If this Set card is destroyed by your opponent's card effect and sent to your GY: \
+    You can Set this card from your GY and 1 "Palladium" Spell/Trap Card from your hand, Deck, or GY, except "Palladium Mirror Force". \
+    They can be activated this turn. \
+"""
+strings = []
