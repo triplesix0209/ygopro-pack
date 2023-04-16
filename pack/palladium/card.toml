@@ -530,6 +530,24 @@ You can send this card with no Spell Counter to the GY; draw 3 cards. \
 """
 strings = []
 
+[palladium-sacrophagus]
+id = 900000124
+set = "palladium"
+name = "Palladium Sacrophagus"
+type = "spell quick-play"
+effect = """\
+If you control no monsters, you can activate this card from your hand in either player's turn. \
+Banish 1 card face-down from your hand, Deck, Extra Deck, or in either GY, \
+    also when a card effect with the same name is activated, \
+    you can reveal the banished card and negate the effects of that card. \
+    and if you do, return the banished card to the location it was. \
+During your End Phase, except the turn this card was sent to the GY: \
+    You can return it to the bottom of the Deck, \
+    and if you do, add 1 your banished card to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
+
 [the-palladium-oracles]
 id = 900000130
 set = "palladium"
