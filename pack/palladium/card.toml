@@ -703,3 +703,20 @@ If this Set card is destroyed by your opponent's card effect and sent to your GY
     They can be activated this turn. \
 """
 strings = []
+
+[palladium-shattering-arrow]
+id = 900000131
+set = "palladium"
+name = "Palladium Shattering Arrow"
+type = "trap counter"
+effect = """\
+If you control "Palladium" monster: Activate as Chain Link 2 or higher; \
+    negate the activations of your opponent's Spell/Trap Cards and monster effects activated before this card in this Chain, \
+    and if you do, destroy the negated cards on the field, \
+    also you can apply 1 of those negated effects that targets a card(s). \
+If you control "Palladium Oracle Mahad", except the turn this card was sent to the GY: \
+    You can return this card from your GY to the bottom of the Deck, \
+    then target 1 face-up card your opponent controls; \
+    negate its effects until the end of this turn. \
+"""
+strings = ["Apply 1 of negated effects?"]
