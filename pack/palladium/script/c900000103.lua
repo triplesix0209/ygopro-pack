@@ -1,14 +1,13 @@
--- Black Luster Soldier - Palladium Soldier
+-- Chaos Palladium Oracle Aknamkanon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_series = {0x13a}
 
 function s.initial_effect(c)
-    c:SetSPSummonOnce(id)
     c:EnableReviveLimit()
 
-    -- special summon procedure
+    -- special summon
     local sp = Effect.CreateEffect(c)
     sp:SetType(EFFECT_TYPE_FIELD)
     sp:SetProperty(EFFECT_FLAG_UNCOPYABLE)
@@ -19,7 +18,7 @@ function s.initial_effect(c)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
 
-    -- indes
+    -- summon success
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -27,37 +26,54 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- battle destroy
+    -- atk/def up
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e2:SetCode(EVENT_BATTLE_DESTROYING)
-    e2:SetCondition(aux.bdocon)
-    e2:SetTarget(s.e2tg)
-    e2:SetOperation(s.e2op)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e2:SetCode(EFFECT_UPDATE_ATTACK)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(LOCATION_MZONE, 0)
+    e2:SetTarget(function(e, c) return c:IsRace(RACE_SPELLCASTER) end)
+    e2:SetValue(function(e, c) return Duel.GetFieldGroupCount(c:GetControler(), LOCATION_REMOVED, LOCATION_REMOVED) * 100 end)
     c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_UPDATE_DEFENSE)
+    c:RegisterEffect(e2b)
+
+    -- battle banish
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_SINGLE)
+    e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e3:SetCode(EFFECT_BATTLE_DESTROY_REDIRECT)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetValue(LOCATION_REMOVED)
+    c:RegisterEffect(e3)
+
+    -- return spell/trap
+    local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(aux.Stringid(id, 1))
+    e4:SetCategory(CATEGORY_TOHAND)
+    e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e4:SetCode(EVENT_BATTLE_DESTROYING)
+    e4:SetCountLimit(1, id)
+    e4:SetCondition(aux.bdocon)
+    e4:SetTarget(s.e4tg)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
 end
 
-function s.spfilter(c, attr) return c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c, true) end
-
-function s.sprescon(sg, e, tp, mg) return aux.ChkfMMZ(1)(sg, e, tp, mg) and sg:IsExists(s.spattrcheck, 1, nil, sg) end
-
-function s.spattrcheck(c, sg) return c:IsAttribute(ATTRIBUTE_LIGHT) and sg:FilterCount(Card.IsAttribute, c, ATTRIBUTE_DARK) == 1 end
+function s.spfilter(c) return c:IsLevelAbove(7) and c:IsSetCard(0x13a) and c:IsRace(RACE_SPELLCASTER) end
 
 function s.spcon(e, c)
     if c == nil then return true end
     local tp = c:GetControler()
-    local g1 = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil, ATTRIBUTE_LIGHT)
-    local g2 = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil, ATTRIBUTE_DARK)
-
-    local g = g1:Clone():Merge(g2)
-    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g, e, tp, 2, 2, s.sprescon, 0) and
-               Duel.GetLocationCount(tp, LOCATION_MZONE) > -2
+    return Duel.CheckReleaseGroup(tp, s.spfilter, 1, false, 1, true, c, tp, nil, false, nil)
 end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
-    local mg = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil, ATTRIBUTE_LIGHT + ATTRIBUTE_DARK)
-    local g = aux.SelectUnselectGroup(mg, e, tp, 2, 2, s.sprescon, 1, tp, HINTMSG_REMOVE, nil, nil, true)
-    if #g > 0 then
+    local g = Duel.SelectReleaseGroup(tp, s.spfilter, 1, 1, false, true, true, c, nil, nil, false, nil)
+    if g then
         g:KeepAlive()
         e:SetLabelObject(g)
         return true
@@ -68,8 +84,7 @@ end
 function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     local g = e:GetLabelObject()
     if not g then return end
-
-    Duel.Remove(g, POS_FACEUP, REASON_COST)
+    Duel.Release(g, REASON_COST)
     g:DeleteGroup()
 end
 
@@ -77,75 +92,32 @@ function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonTyp
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
+    Utility.HintCard(c)
+
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(3060)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    ec1:SetRange(LOCATION_MZONE)
-    ec1:SetValue(aux.tgoval)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE)
-    c:RegisterEffect(ec1)
-    local ec1b = ec1:Clone()
-    ec1b:SetDescription(3030)
-    ec1b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    ec1b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(ec1b)
+    ec1:SetDescription(aux.Stringid(id, 0))
+    ec1:SetType(EFFECT_TYPE_FIELD)
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_ACTIVATE)
+    ec1:SetTargetRange(0, 1)
+    ec1:SetValue(function(e, re) return re:IsActiveType(TYPE_MONSTER) end)
+    ec1:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec1, tp)
 end
 
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return true end
+function s.e4filter(c) return c:IsSpellTrap() and c:IsAbleToHand() end
 
-    local b3 = Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, nil)
-    local b4 = Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, 1, nil)
-    local op = Duel.SelectEffect(tp, {true, aux.Stringid(id, 0)}, {true, aux.Stringid(id, 1)}, {b3, aux.Stringid(id, 2)},
-        {b4, aux.Stringid(id, 3)})
-    e:SetLabel(op)
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingTarget(s.e4filter, tp, LOCATION_GRAVE, 0, 1, nil) end
 
-    e:SetCategory(0)
-    if op == 3 then
-        e:SetCategory(CATEGORY_REMOVE)
-        local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
-        Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, 1, tp, 0)
-    elseif op == 4 then
-        e:SetCategory(CATEGORY_REMOVE)
-        local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, nil)
-        Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, 1, tp, 0)
-    end
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATOHAND)
+    local g = Duel.SelectTarget(tp, s.e4filter, tp, LOCATION_GRAVE, 0, 1, 1, nil)
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, g, #g, 0, 0)
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local op = e:GetLabel()
-    if op == 1 and c:IsRelateToEffect(e) and c:IsFaceup() then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(1500)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-        c:RegisterEffect(ec1)
-    elseif op == 2 then
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetType(EFFECT_TYPE_SINGLE)
-        ec2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-        ec2:SetCode(EFFECT_EXTRA_ATTACK)
-        ec2:SetValue(1)
-        ec2:SetLabel(Duel.GetTurnCount())
-        ec2:SetCondition(function(e, tp) return Duel.GetTurnCount() > e:GetLabel() end)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_SELF_TURN, 2)
-        c:RegisterEffect(ec2)
-    elseif op == 3 then
-        local g = Utility.SelectMatchingCard(HINT_SELECTMSG, tp, Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1,
-            1, nil)
-        if #g > 0 then
-            Duel.HintSelection(g)
-            Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
-        end
-    elseif op == 4 then
-        local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, nil, tp)
-        if #g > 0 then
-            g = g:RandomSelect(tp, 1)
-            Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
-        end
-    end
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    local tc = Duel.GetFirstTarget()
+    if not tc:IsRelateToEffect(e) then return end
+
+    Duel.SendtoHand(tc, nil, REASON_EFFECT)
 end

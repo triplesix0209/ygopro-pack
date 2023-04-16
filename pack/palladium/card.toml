@@ -1,5 +1,5 @@
 [palladium-oracle-mahad]
-id = 900000100
+id = 900000101
 alias = 71703785
 set = "palladium"
 name = "Sacred Palladium Oracle Mahad"
@@ -20,7 +20,7 @@ If this card battles a DARK monster, its ATK is doubled during the Damage Step o
 strings = []
 
 [palladium-oracle-mana]
-id = 900000101
+id = 900000102
 alias = 42006475
 set = "palladium"
 name = "Illusory Palladium Oracle Mana"
@@ -43,7 +43,7 @@ During damage calculation, if your other "Palladium" Spellcaster monster battles
 strings = ["Send this card to GY to up ATK"]
 
 [palladium-oracle-aknamkanon]
-id = 900000102
+id = 900000103
 set = "chaos palladium"
 name = "Chaos Palladium Oracle Aknamkanon"
 type = "monster ritual effect"
@@ -68,7 +68,7 @@ strings = [
 ]
 
 [black-luster-soldier-palladium]
-id = 900000103
+id = 900000104
 set = "palladium black-luster-soldier"
 name = "Black Luster Soldier - Palladium Soldier"
 type = "monster ritual effect"
@@ -97,7 +97,7 @@ strings = [
 ]
 
 [chaos-emperor-dragon-palladium]
-id = 900000104
+id = 900000105
 set = "chaos palladium"
 name = "Chaos Emperor Dragon - Envoy of the Palladium"
 type = "monster ritual effect"
@@ -124,7 +124,7 @@ strings = [
 ]
 
 [chaos-end-ruler]
-id = 900000105
+id = 900000106
 set = "chaos"
 name = "Chaos End Ruler - Ruler of the Beginning and the End"
 type = "monster xyz effect"
@@ -158,7 +158,7 @@ strings = [
 ]
 
 [palladium-knight-queen]
-id = 900000106
+id = 900000107
 alias = 25652259
 name = "Palladium Knight of Queen"
 type = "monster effect"
@@ -181,7 +181,7 @@ A LIGHT Warrior monster that was Fusion or Link Summoned using this card as mate
 strings = ["Summoned using \"{CARD_NAME}\""]
 
 [palladium-knight-king]
-id = 900000107
+id = 900000108
 alias = 64788463
 name = "Palladium Knight of King"
 type = "monster effect"
@@ -204,7 +204,7 @@ A LIGHT Warrior monster that was Fusion or Link Summoned using this card as mate
 strings = ["Summoned using \"{CARD_NAME}\""]
 
 [palladium-knight-jack]
-id = 900000108
+id = 900000109
 alias = 90876561
 name = "Palladium Knight of Jack"
 type = "monster effect"
@@ -228,7 +228,7 @@ A LIGHT Warrior monster that was Fusion or Link Summoned using this card as mate
 strings = ["Summoned using \"{CARD_NAME}\""]
 
 [arcana-palladium-joker]
-id = 900000109
+id = 900000110
 set = "palladium"
 name = "Arcana Palladium Joker"
 type = "fusion monster effect"
@@ -255,7 +255,7 @@ strings = [
 ]
 
 [palladium-oracle-seto]
-id = 900000110
+id = 900000111
 set = "palladium"
 name = "Azure Palladium Oracle Seto"
 type = "monster tuner effect"
@@ -285,7 +285,7 @@ strings = [
 ]
 
 [palladium-protector-hasan]
-id = 900000111
+id = 900000112
 set = "palladium"
 name = "Palladium Protector Hasan"
 type = "monster effect"
@@ -305,7 +305,7 @@ If this card leaves the field, return it to the bottom of the Deck. \
 strings = []
 
 [palladium-paladin-gaia]
-id = 900000112
+id = 900000113
 set = "palladium"
 name = "Palladium Paladin Gaia"
 type = "monster effect"
@@ -325,8 +325,28 @@ When you Ritual or Fusion Summon a "Palladium" monster, \
 """
 strings = ["Change battle position of battling monster"]
 
+[palladium-wazir-shimon]
+id = 900000114
+set = "palladium"
+name = "Palladium Wazir Shimon"
+type = "monster effect"
+attribute = "dark"
+race = "spellcaster"
+level = 5
+atk = 1800
+def = 2200
+effect = """\
+You can Special Summon this card (from your hand) by shuffling 5 monsters with different names in your GY into the Deck. \
+If this card is Summoned: \
+    You can add 1 "Forbidden One", "Exodia", or "Palladium" card from your Deck or GY to your hand, except "{CARD_NAME}". \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If you would Tribute a monster(s) for a Tribute Summon an "Forbidden One", "Exodia", or "Palladium" monster, \
+    you can Tribute a monster(s) your opponent controls, even though you do not control them. \
+"""
+strings = []
+
 [palladium-guardian-shada]
-id = 900000113
+id = 900000115
 set = "palladium guardian"
 name = "Palladium Guardian Shada"
 type = "monster effect"
@@ -346,7 +366,7 @@ At the end of the Damage Step, if this card battled an opponent's monster, \
 strings = []
 
 [palladium-gardna-karim]
-id = 900000114
+id = 900000116
 set = "palladium"
 name = "Palladium Gardna Karim"
 type = "monster effect"
@@ -369,7 +389,7 @@ You can only use 1 of these effects of "{CARD_NAME}" per turn, and only once tha
 strings = ["Change attack target to this card"]
 
 [palladium-maiden-isis]
-id = 900000115
+id = 900000117
 set = "palladium"
 name = "Palladium Maiden Isis"
 type = "monster effect"
@@ -391,28 +411,28 @@ Before damage calculation, if this card battles an opponent's monster: \
 """
 strings = ["Return battling monster to the hand"]
 
-[palladium-wazir-shimon]
-id = 900000116
-set = "palladium"
-name = "Palladium Wazir Shimon"
+[palladium-archfiend-gilfer]
+id = 900000118
+set = "palladium archfiend"
+name = "Palladium Archfiend Gilfer"
 type = "monster effect"
 attribute = "dark"
-race = "spellcaster"
-level = 5
-atk = 1800
-def = 2200
+race = "fiend"
+level = 6
+atk = 2200
+def = 2500
 effect = """\
-You can Special Summon this card (from your hand) by shuffling 5 monsters with different names in your GY into the Deck. \
-If this card is Summoned: \
-    You can add 1 "Forbidden One", "Exodia", or "Palladium" card from your Deck or GY to your hand, except "{CARD_NAME}". \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-If you would Tribute a monster(s) for a Tribute Summon an "Forbidden One", "Exodia", or "Palladium" monster, \
-    you can Tribute a monster(s) your opponent controls, even though you do not control them. \
+You can Normal Summon this card without Tributing, but send it to the GY during the End Phase. \
+You can Special Summon this card (from your GY) by Tributing 1 "Palladium" monster. \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+If this card is sent to the GY: \
+    You can target 1 face-up monster on the field; equip this card to that target. \
+    That monster loses 500 ATK and DEF while equipped with this card. \
 """
-strings = []
+strings = ["Normal Summon without Tributing"]
 
 [palladium-spirit-kuriboh]
-id = 900000117
+id = 900000119
 set = "palladium kuriboh"
 name = "Palladium Spirit Kuriboh"
 type = "monster effect"
@@ -431,3 +451,43 @@ If this card is sent from the hand or field to the GY: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Affected by effect \"{CARD_NAME}\": take no battle damage"]
+
+[palladium-reborn]
+id = 900000120
+alias = 83764718
+name = "Palladium Reborn"
+type = "spell quick-play"
+effect = """\
+(This card's name is always treated as "Monster Reborn" and it is "Palladium" card.)
+During your Main Phase or your opponent's turn: \
+    Target 1 monster in either GY; Special Summon it. \
+You can also Special Summon a monster that can be Normal Summoned, ignoring its Summoning conditions, \
+    but send that monster to the GY during the End Phase. \
+"""
+strings = []
+
+[the-palladium-oracles]
+id = 900000130
+set = "palladium"
+name = "The Palladium Oracles"
+type = "monster fusion effect"
+attribute = "light"
+race = "spellcaster"
+level = 8
+atk = 2800
+def = 2300
+effect = """\
+"Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Spellcaster monster
+Must first be Fusion Summoned with the above materials. \
+Spellcaster monsters you control cannot be destroyed by card effects. \
+Your opponent cannot target Spells/Traps you control with card effects, \
+    also they cannot be destroyed by your opponent's card effects. \
+Once per turn, when a card or effect is activated: \
+    You can draw 1 card, then if it was a Spell/Trap, you can Set it, \
+    and if it was a Trap or Quick-Play Spell, you can activate it this turn. \
+If this card is destroyed by battle or card effect: \
+    You can shuffle it into the Extra Deck; \
+    Special Summon both 1 "Palladium Oracle Mahad" and 1 "Palladium Oracle Mana", \
+    that are banished or are in your hand, Deck, GY. \
+"""
+strings = []

@@ -1,33 +1,37 @@
--- Palladium Knight of Jack
+-- Palladium Knight of King
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
     c:AddSetcodesRule(id, true, 0x13a)
 
-    -- destroy
+    -- special summon itself
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_DESTROY)
+    e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
-    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_TO_HAND)
     e1:SetCountLimit(1, {id, 1})
-    e1:SetCost(s.e1cost)
+    e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- fusion summon
-    local params = {nil, Fusion.OnFieldMat, nil, nil, Fusion.ForcedHandler}
+    -- special summon other
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(1170)
-    e2:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_FUSION_SUMMON)
-    e2:SetType(EFFECT_TYPE_IGNITION)
-    e2:SetRange(LOCATION_MZONE)
+    e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2:SetProperty(EFFECT_FLAG_DELAY)
+    e2:SetCode(EVENT_SUMMON_SUCCESS)
     e2:SetCountLimit(1, {id, 2})
-    e2:SetTarget(Fusion.SummonEffTG(table.unpack(params)))
-    e2:SetOperation(Fusion.SummonEffOP(table.unpack(params)))
+    e2:SetCondition(s.e2con)
+    e2:SetCost(s.e2cost)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EVENT_SPSUMMON_SUCCESS)
+    c:RegisterEffect(e2b)
 
     -- gain effect
     local e3 = Effect.CreateEffect(c)
@@ -38,9 +42,33 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1filter(c) return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return not e:GetHandler():IsReason(REASON_DRAW) end
 
-function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) then return end
+
+    Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
+end
+
+function s.e2filter1(c) return c:IsFaceup() and c:IsLevel(4) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) end
+
+function s.e2filter2(c, e, tp)
+    return c:IsLevel(5) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) and
+               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+end
+
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_MZONE, 0, 1, e:GetHandler())
+end
+
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
 
@@ -53,21 +81,24 @@ function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
     c:RegisterEffect(ec1)
 end
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
-        return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_MZONE, 0, 1, nil) and
-                   Duel.IsExistingTarget(Card.IsFaceup, tp, 0, LOCATION_ONFIELD, 1, nil)
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+                   Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, e, tp)
     end
 
-    local ct = Duel.GetMatchingGroupCount(s.e1filter, tp, LOCATION_MZONE, 0, nil)
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local g = Duel.SelectTarget(tp, Card.IsFaceup, tp, 0, LOCATION_ONFIELD, 1, ct, nil)
-    Duel.SetOperationInfo(0, HINTMSG_DESTROY, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE)
 end
 
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Duel.GetTargetCards(e)
-    if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+
+    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e2filter2), tp,
+        LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, e, tp):GetFirst()
+    if not tc then return end
+
+    Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP)
 end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
@@ -97,22 +128,14 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 
     local ec3 = Effect.CreateEffect(c)
-    ec3:SetDescription(1108)
-    ec3:SetCategory(CATEGORY_DRAW)
-    ec3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    ec3:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_DELAY)
-    ec3:SetCode(EVENT_BATTLE_DESTROYING)
-    ec3:SetCondition(aux.bdocon)
-    ec3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        if chk == 0 then return true end
-        Duel.SetTargetPlayer(tp)
-        Duel.SetTargetParam(1)
-        Duel.SetOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, 1)
-    end)
-    ec3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
-        Duel.Draw(p, d, REASON_EFFECT)
-    end)
+    ec3:SetDescription(aux.Stringid(id, 2))
+    ec3:SetType(EFFECT_TYPE_FIELD)
+    ec3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    ec3:SetRange(LOCATION_MZONE)
+    ec3:SetCode(EFFECT_CANNOT_ACTIVATE)
+    ec3:SetTargetRange(0, 1)
+    ec3:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
+    ec3:SetValue(function(e, re) return re:IsHasType(EFFECT_TYPE_ACTIVATE) end)
     ec3:SetReset(RESET_EVENT + RESETS_STANDARD)
     rc:RegisterEffect(ec3, true)
 end
