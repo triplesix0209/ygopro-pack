@@ -3,7 +3,6 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_series = {0x40, 0xde, 0x13a}
-
 function s.initial_effect(c)
     -- special summon
     local e1 = Effect.CreateEffect(c)
@@ -93,4 +92,4 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3tg(e, tc) return tc:IsMonster() and (tc:IsSetCard(0x40) or tc:IsSetCard(0xde) or tc:IsSetCard(0x13a)) end
+function s.e3tg(e, tc) return tc:IsSetCard({0x40, 0xde, 0x13a}) and tc:IsMonster() end
