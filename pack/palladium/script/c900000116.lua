@@ -15,7 +15,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- search "forbidden one" monster or "exodia" card
+    -- search
     local e2 = Effect.CreateEffect(c)
     e2:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
@@ -77,7 +77,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.e2filter(c) return ((c:IsSetCard(0x40) and c:IsMonster()) or c:IsSetCard(0xde)) and c:IsAbleToGrave() end
+function s.e2filter(c) return not c:IsCode(id) and c:IsSetCard({0x40, 0xde, 0x13a}) and c:IsAbleToHand() end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
