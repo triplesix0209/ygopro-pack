@@ -93,4 +93,4 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3tg(e, tc) return tc:IsMonster() and tc:IsSetCard(0x40, 0xde, 0x13a) end
+function s.e3tg(e, tc) return tc:IsMonster() and (tc:IsSetCard(0x40) or tc:IsSetCard(0xde) or tc:IsSetCard(0x13a)) end
