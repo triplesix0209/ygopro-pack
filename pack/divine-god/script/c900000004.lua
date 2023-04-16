@@ -114,7 +114,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e6)
 end
 
-function s.e6con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetTurnPlayer() == tp and Duel.GetTurnCount() ~= e:GetHandler():GetTurnID() end
+function s.e6con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if Duel.GetTurnCount() == c:GetTurnID() then return false end
+    return Duel.IsTurnPlayer(tp) or (Duel.IsTurnPlayer(c:GetOwner()) and c:GetOwner() == tp)
+end
 
 function s.e6cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
