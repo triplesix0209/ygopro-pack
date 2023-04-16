@@ -391,8 +391,22 @@ Before damage calculation, if this card battles an opponent's monster: \
 """
 strings = ["Return battling monster to the hand"]
 
-[palladium-spirit-kuriboh]
+[palladium-wazir-shimon]
 id = 900000116
+set = "palladium"
+name = "Palladium Wazir Shimon"
+type = "monster effect"
+attribute = "dark"
+race = "spellcaster"
+level = 5
+atk = 1800
+def = 2200
+effect = """\
+"""
+strings = []
+
+[palladium-spirit-kuriboh]
+id = 900000117
 set = "palladium kuriboh"
 name = "Palladium Spirit Kuriboh"
 type = "monster effect"
