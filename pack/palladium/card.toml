@@ -466,6 +466,70 @@ You can also Special Summon a monster that can be Normal Summoned, ignoring its 
 """
 strings = []
 
+[forbidden-art-palladium]
+id = 900000121
+set = "palladium fusion"
+name = "Forbidden Art of Palladium"
+type = "spell quick-play"
+effect = """\
+(This card is always treated as an "Fusion" card.)
+You can only activate this card during your Main Phase, unless you control "Palladium Oracle Mahad". \
+Activate 1 of these effects.
+● Ritual Summon 1 "Palladium" Ritual Monster from your hand or GY, \
+    by Tributing monsters from your hand or field, \
+    whose total Levels equal or exceed the Level of the Ritual Monster.
+● Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    using monsters from your hand or field as Fusion Material, including a "Palladium" monster, \
+    you can use 1 "Palladium" monster from your Deck as material.
+"""
+strings = []
+
+[palladium-fusion-mastery]
+id = 900000122
+alias = 95286165
+name = "Palladium Fusion Mastery"
+type = "spell quick-play"
+effect = """\
+(This card's name is always treated as "De-Fusion" and it is "Palladium" card.)
+Activate 1 of these effects.
+● Target 1 Fusion Monster on the field; return it to the Extra Deck, then, \
+    if all the Fusion Materials that were used for its Fusion Summon are banished and/or are in your hand, Deck, GY, \
+    you can Special Summon all of them.
+● This turn, the activation of your cards and effects that include an effect that Fusion Summons a Fusion Monster cannot be negated, \
+    also your opponent cannot activate cards or effects when a monster is Fusion Summoned this way. \
+    Your opponent cannot activate cards or effects in response to this effect's activation.
+During your Main Phase, while this card is in the GY: \
+    You add 1 "Fusion" or "Polymerization" Spell from your Deck or GY to your hand, except "{CARD_NAME}", \
+    then return this card to the bottom of the Deck. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Special Summon all Fusion Materials?",
+    "De-fuse a Fusion Monster",
+    "Prevent Fusion Negation",
+]
+
+[swords-palladium-light]
+id = 900000123
+set = "palladium"
+name = "Swords of Palladium Light"
+type = "spell quick-play"
+effect = """\
+This card can only be activated during Main Phase 1. \
+    After this card's activation, it remains on the field. \
+    You can only control 1 "{CARD_NAME}". \
+When this card is activated: \
+    Place 3 Spell Counter on this card (max. 3), \
+    also, after that if your opponent controls a face-down monster, \
+    flip all monsters they control face-up. Flip Effects are not activated at this time. \
+Once per turn, during your opponent's End Phase, \
+    remove 1 Spell Counter from this card. \
+While this card is face-up on the field with a Spell Counters, \
+    your opponent's monsters cannot declare an attack. \
+You can send this card with no Spell Counter to the GY; draw 3 cards. \
+"""
+strings = []
+
 [the-palladium-oracles]
 id = 900000130
 set = "palladium"
