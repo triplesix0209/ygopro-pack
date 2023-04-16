@@ -1,3 +1,12 @@
+[millennium-ascension]
+id = 900000100
+name = "Millennium Ascension"
+type = "spell field"
+effect = """\
+When this card is activated: You can add 1 "Palladium" card from your Deck to your hand. \
+"""
+strings = ["Add 1 \"Palladium\" card to your hand?"]
+
 [palladium-oracle-mahad]
 id = 900000101
 alias = 71703785
@@ -452,8 +461,138 @@ If this card is sent from the hand or field to the GY: \
 """
 strings = ["Affected by effect \"{CARD_NAME}\": take no battle damage"]
 
-[palladium-reborn]
+[the-palladium-oracles]
 id = 900000120
+set = "palladium"
+name = "The Palladium Oracles"
+type = "monster fusion effect"
+attribute = "light"
+race = "spellcaster"
+level = 8
+atk = 2800
+def = 2300
+effect = """\
+"Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Spellcaster monster
+Must first be Fusion Summoned with the above materials. \
+Spellcaster monsters you control cannot be destroyed by card effects. \
+Your opponent cannot target Spells/Traps you control with card effects, \
+    also they cannot be destroyed by your opponent's card effects. \
+Once per turn, when a card or effect is activated: \
+    You can draw 1 card, then if it was a Spell/Trap, you can Set it, \
+    and if it was a Trap or Quick-Play Spell, you can activate it this turn. \
+If this card is destroyed by battle or card effect: \
+    You can shuffle it into the Extra Deck; \
+    Special Summon both 1 "Palladium Oracle Mahad" and 1 "Palladium Oracle Mana", \
+    that are banished or are in your hand, Deck, GY. \
+"""
+strings = []
+
+[blue-eyes-palladium-dragoon]
+id = 900000121
+set = "blue-eyes palladium"
+name = "Blue-Eyes Palladium Dragoon"
+type = "monster fusion effect"
+attribute = "light"
+race = "spellcaster"
+level = 8
+atk = 3000
+def = 2500
+effect = """\
+"Palladium Oracle Mahad" + "Blue-Eyes White Dragon" or 1 Dragon Effect Monster
+Must first be Fusion Summoned with the above materials. \
+Cannot be destroyed by card effects. Your opponent cannot target it with card effects. \
+Once per turn, when another card or effect is activated (Quick Effect): \
+    You can discard 1 card; \
+    negate the activation, and if you do, destroy that card. \
+You can destroy all monsters your opponent controls OR all Spell/Trap they control. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is Fusion Summoned using an Normal Monster, it gains this effect.
+● If this card's effect destroys a card, this card gains 500 ATK for each destroyed card.
+"""
+strings = [
+    "Negate activation, then destroy",
+    "Destroy all monster or Spell/Trap",
+    "Destroy all monster",
+    "Destroy all Spell/Trap",
+    "Fusion Summoned with an Normal Monster",
+]
+
+[palladium-master-chaos]
+id = 900000122
+set = "palladium chaos"
+name = "Palladium Master of Chaos"
+type = "monster fusion effect"
+attribute = "dark"
+race = "spellcaster"
+level = 8
+atk = 3000
+def = 2500
+effect = """\
+"Palladium Oracle Mahad" + 1 "Chaos" or "Black Luster Soldier" Ritual Monster
+Must first be Fusion Summoned with the above materials. \
+If this card is Fusion Summoned: \
+    You can add 1 card in your GY to your hand. \
+You can Special Summon 1 LIGHT or DARK monster that is banished or is in your GY, \
+    except "{CARD_NAME}". \
+(Quick Effect): You can Tribute 1 LIGHT and 1 DARK monster; \
+    banish all monsters your opponent controls. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Add 1 card to your hand",
+    "Special Summon 1 LIGHT or DARK monster",
+    "Banish monsters your opponent controls",
+]
+
+[palladium-warlock]
+id = 900000123
+set = "palladium"
+name = "Palladium Warlock"
+type = "monster fusion effect"
+attribute = "dark"
+race = "spellcaster"
+level = 8
+atk = 2900
+def = 2400
+effect = """\
+"Palladium Oracle Mahad" + 1 Fiend monster
+Must first be Fusion Summoned with the above materials. \
+The effect activations and card effects of this card cannot be negated. \
+If this card is Special Summoned: \
+    You can target any number of Spells/Traps in any GY(s); \
+    banish those targets, and if you do, \
+    this card gains 100 ATK for each card banished by this effect. \
+(Quick Effect): You can send 1 other card you control, \
+    then target 1 face-up card your opponent controls; Negate its effects. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Banish Spells/Traps to gain ATK"]
+
+[dark-flare-knight-palladium]
+id = 900000124
+set = "palladium"
+name = "Dark Flare Knight of Palladium"
+type = "monster fusion effect"
+attribute = "dark"
+race = "warrior"
+level = 6
+atk = 2200
+def = 800
+effect = """\
+1 Level 6 or higher Spellcaster monster + 1 Warrior monster
+Must first be Fusion Summoned with the above materials. \
+If this card is Special Summoned: \
+    You can target 1 card on the field; destroy it. \
+Negate the effects of face-up monsters your opponent controls \
+    with ATK less than or equal to this card's. \
+If this card is destroyed by battle or card effect: \
+    You can Special Summon 1 "Palladium" monster from your hand, Deck or GY, \
+    except "{CARD_NAME}".
+"""
+strings = []
+
+[palladium-reborn]
+id = 900000130
 alias = 83764718
 name = "Palladium Reborn"
 type = "spell quick-play"
@@ -467,7 +606,7 @@ You can also Special Summon a monster that can be Normal Summoned, ignoring its 
 strings = []
 
 [forbidden-art-palladium]
-id = 900000121
+id = 900000131
 set = "palladium fusion"
 name = "Forbidden Art of Palladium"
 type = "spell quick-play"
@@ -485,7 +624,7 @@ Activate 1 of these effects.
 strings = []
 
 [palladium-fusion-mastery]
-id = 900000122
+id = 900000132
 alias = 95286165
 name = "Palladium Fusion Mastery"
 type = "spell quick-play"
@@ -510,7 +649,7 @@ strings = [
 ]
 
 [swords-palladium-light]
-id = 900000123
+id = 900000133
 set = "palladium"
 name = "Swords of Palladium Light"
 type = "spell quick-play"
@@ -531,7 +670,7 @@ You can send this card with no Spell Counter to the GY; draw 3 cards. \
 strings = []
 
 [palladium-sacrophagus]
-id = 900000124
+id = 900000134
 set = "palladium"
 name = "Palladium Sacrophagus"
 type = "spell quick-play"
@@ -547,29 +686,3 @@ During your End Phase, except the turn this card was sent to the GY: \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
-
-[the-palladium-oracles]
-id = 900000130
-set = "palladium"
-name = "The Palladium Oracles"
-type = "monster fusion effect"
-attribute = "light"
-race = "spellcaster"
-level = 8
-atk = 2800
-def = 2300
-effect = """\
-"Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Spellcaster monster
-Must first be Fusion Summoned with the above materials. \
-Spellcaster monsters you control cannot be destroyed by card effects. \
-Your opponent cannot target Spells/Traps you control with card effects, \
-    also they cannot be destroyed by your opponent's card effects. \
-Once per turn, when a card or effect is activated: \
-    You can draw 1 card, then if it was a Spell/Trap, you can Set it, \
-    and if it was a Trap or Quick-Play Spell, you can activate it this turn. \
-If this card is destroyed by battle or card effect: \
-    You can shuffle it into the Extra Deck; \
-    Special Summon both 1 "Palladium Oracle Mahad" and 1 "Palladium Oracle Mana", \
-    that are banished or are in your hand, Deck, GY. \
-"""
-strings = []
