@@ -90,7 +90,9 @@ function s.e1val(e, te) return e:GetLabel() ~= 0 and te:GetOwnerPlayer() ~= e:Ge
 function s.e2filter(c, type) return c:IsType(type) and c:IsDiscardable() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
+    local c = e:GetHandler()
+    if re:GetHandler() == c or c:IsStatus(STATUS_BATTLE_DESTROYED) then return false end
+    
     return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainDisablable(ev)
 end
 
