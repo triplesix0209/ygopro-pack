@@ -264,7 +264,26 @@ Once per turn (Quick Effect): You can Tribute 1 other face-up monster; \
     this card gains ATK equal to the Tributed monster's Level had on the field x 100, \
     also, it cannot be destroyed by card effects this turn. \
 """
-strings = ["Tribute other monster to gain ATK & cannot be destroyed by card effects"]
+strings = [
+    "Tribute other monster to gain ATK & cannot be destroyed by card effects",
+]
+
+[palladium-duos-dracocursed]
+id = 900000113
+set = "palladium"
+name = "Palladium Spirit Duos Dracocursed"
+type = "monster fusion effect"
+attribute = "dark"
+race = "dragon"
+level = 7
+atk = 2600
+def = 2100
+effect = """\
+1 "Palladium" Warrior monster + 1 Level 5 or higher Dragon monster
+Must first be either Fusion Summoned, or Special Summoned \
+    by Tributing 1 "Palladium Spirit Duos" you control and 1 Level 5 or higher Dragon monster in your hand or field. \
+"""
+strings = []
 
 [palladium-queen]
 id = 900000114

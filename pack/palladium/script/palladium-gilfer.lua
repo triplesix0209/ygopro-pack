@@ -2,8 +2,6 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
-
 function s.initial_effect(c)
     -- summon with no tribute
     local e1 = Effect.CreateEffect(c)
