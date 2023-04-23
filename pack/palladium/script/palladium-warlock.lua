@@ -19,38 +19,38 @@ function s.initial_effect(c)
     splimit:SetValue(function(e, se, sp, st) return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e, se, sp, st) end)
     c:RegisterEffect(splimit)
 
-    -- effects cannot be negated
+    -- banish and atk up
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    e1:SetCode(EFFECT_CANNOT_INACTIVATE)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(1, 0)
-    e1:SetValue(function(e, ct)
+    e1:SetDescription(aux.Stringid(id, 0))
+    e1:SetCategory(CATEGORY_ATKCHANGE + CATEGORY_REMOVE)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_CARD_TARGET)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
+    c:RegisterEffect(e1)
+
+    -- effects cannot be negated
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e2:SetCode(EFFECT_CANNOT_INACTIVATE)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(1, 0)
+    e2:SetValue(function(e, ct)
         local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
         return te:GetHandler() == e:GetHandler()
     end)
-    c:RegisterEffect(e1)
-    local e1b = e1:Clone()
-    e1b:SetCode(EFFECT_CANNOT_DISEFFECT)
-    c:RegisterEffect(e1b)
-    local e1c = Effect.CreateEffect(c)
-    e1c:SetType(EFFECT_TYPE_SINGLE)
-    e1c:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-    e1c:SetCode(EFFECT_CANNOT_DISABLE)
-    c:RegisterEffect(e1c)
-
-    -- banish and atk up
-    local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_ATKCHANGE + CATEGORY_REMOVE)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e2:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_CARD_TARGET)
-    e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e2:SetCondition(s.e2con)
-    e2:SetTarget(s.e2tg)
-    e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
+    c:RegisterEffect(e2b)
+    local e2c = Effect.CreateEffect(c)
+    e2c:SetType(EFFECT_TYPE_SINGLE)
+    e2c:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+    e2c:SetCode(EFFECT_CANNOT_DISABLE)
+    c:RegisterEffect(e2c)
 
     -- disable
     local e3 = Effect.CreateEffect(c)
@@ -66,24 +66,30 @@ function s.initial_effect(c)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
+
+    -- pierce
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE)
+	e4:SetCode(EFFECT_PIERCE)
+	c:RegisterEffect(e4)
 end
 
 function s.fusfilter(c, fc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_DARK, fc, sumtype, tp) and c:IsRace(RACE_FIEND, fc, sumtype, tp) end
 
-function s.e2filter(c) return c:IsSpellTrap() and c:IsAbleToRemove() end
+function s.e1filter(c) return c:IsSpellTrap() and c:IsAbleToRemove() end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
 
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil) end
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 99, nil)
+    local g = Duel.SelectTarget(tp, s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 99, nil)
 
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tg = Duel.GetTargetCards(e)
     local ct = Duel.Remove(tg, POS_FACEUP, REASON_EFFECT)

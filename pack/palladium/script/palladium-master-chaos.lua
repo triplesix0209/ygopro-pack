@@ -11,8 +11,7 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMix(c, false, false, 71703785, function(c, fc, sumtype, tp)
-        return c:IsType(TYPE_RITUAL, fc, sumtype, tp) and
-                   (c:IsSetCard(0xcf, fc, sumtype, tp) or c:IsSetCard(0x1048, fc, sumtype, tp))
+        return c:IsType(TYPE_RITUAL, fc, sumtype, tp) and (c:IsSetCard(0xcf, fc, sumtype, tp) or c:IsSetCard(0x1048, fc, sumtype, tp))
     end)
 
     -- special summon limit
@@ -20,12 +19,10 @@ function s.initial_effect(c)
     splimit:SetType(EFFECT_TYPE_SINGLE)
     splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
-    splimit:SetValue(function(e, se, sp, st)
-        return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e, se, sp, st)
-    end)
+    splimit:SetValue(function(e, se, sp, st) return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e, se, sp, st) end)
     c:RegisterEffect(splimit)
 
-    -- to hand
+    -- return card to hand
     local e1 = Effect.CreateEffect(c)
     e1:SetDescription(aux.Stringid(id, 0))
     e1:SetCategory(CATEGORY_TOHAND)
@@ -38,18 +35,19 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- special summon
+    -- special summon a monster
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, {id, 2})
+    e2:SetCondition(s.e2con)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- banish
+    -- banish (tribute)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 2))
     e3:SetCategory(CATEGORY_REMOVE)
@@ -61,6 +59,17 @@ function s.initial_effect(c)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
+
+    -- banish (battle)
+    local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(aux.Stringid(id, 3))
+    e4:SetCategory(CATEGORY_REMOVE)
+    e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e4:SetCode(EVENT_BATTLE_CONFIRM)
+    e3:SetCountLimit(1, {id, 4})
+    e4:SetTarget(s.e4tg)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -80,9 +89,10 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e2filter(c, e, tp)
-    return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK) and not c:IsCode(id) and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
+
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
@@ -96,16 +106,15 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e2filter), tp,
-        LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil, e, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e2filter), tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil,
+        e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 
 function s.e3filter(c) return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK) end
 
 function s.e3check(sg, tp)
-    return sg:GetClassCount(Card.GetAttribute) == 2 and
-               Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, 1, sg)
+    return sg:GetClassCount(Card.GetAttribute) == 2 and Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, 1, sg)
 end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -126,4 +135,17 @@ end
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, nil)
     if #g > 0 then Duel.Remove(g, 0, REASON_EFFECT) end
+end
+
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    local bc = Duel.GetAttackTarget()
+    if chk == 0 then return Duel.GetAttacker() == c and bc and bc:IsRelateToBattle() and bc:IsAbleToRemove() end
+
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, bc, 1, 0, 0)
+end
+
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    local bc = Duel.GetAttackTarget()
+    if bc and bc:IsRelateToBattle() then Duel.Remove(bc, POS_FACEUP, REASON_EFFECT) end
 end
