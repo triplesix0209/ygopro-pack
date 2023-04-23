@@ -1,15 +1,19 @@
--- Palladium Warlock
+-- Palladium Master of Chaos
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.material_setcode = {0x13a}
+s.listed_series = {0xcf}
+s.material_setcode = {0x13a, 0xcf}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, true, true, 71703785, aux.FilterBoolFunctionEx(Card.IsRace, RACE_FIEND))
+    Fusion.AddProcMix(c, false, false, 71703785, function(c, fc, sumtype, tp)
+        return c:IsType(TYPE_RITUAL, fc, sumtype, tp) and
+                   (c:IsSetCard(0xcf, fc, sumtype, tp) or c:IsSetCard(0x1048, fc, sumtype, tp))
+    end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -21,117 +25,105 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(splimit)
 
-    -- effects cannot be negated
+    -- to hand
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    e1:SetCode(EFFECT_CANNOT_INACTIVATE)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(1, 0)
-    e1:SetValue(function(e, ct)
-        local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
-        return te:GetHandler() == e:GetHandler()
-    end)
+    e1:SetDescription(aux.Stringid(id, 0))
+    e1:SetCategory(CATEGORY_TOHAND)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_CARD_TARGET)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCountLimit(1, {id, 1})
+    e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
-    local e1b = e1:Clone()
-    e1b:SetCode(EFFECT_CANNOT_DISEFFECT)
-    c:RegisterEffect(e1b)
-    local e1c = Effect.CreateEffect(c)
-    e1c:SetType(EFFECT_TYPE_SINGLE)
-    e1c:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-    e1c:SetCode(EFFECT_CANNOT_DISABLE)
-    c:RegisterEffect(e1c)
 
-    -- banish and atk up
+    -- special summon
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_ATKCHANGE + CATEGORY_REMOVE)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e2:SetProperty(EFFECT_FLAG_DELAY)
-    e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-    e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCountLimit(1, {id, 2})
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- disable
+    -- banish
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(1117)
-    e3:SetCategory(CATEGORY_DISABLE)
+    e3:SetDescription(aux.Stringid(id, 2))
+    e3:SetCategory(CATEGORY_REMOVE)
     e3:SetType(EFFECT_TYPE_QUICK_O)
-    e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCode(EVENT_FREE_CHAIN)
-    e3:SetHintTiming(0, TIMINGS_CHECK_MONSTER)
-    e3:SetCountLimit(1, id)
+    e3:SetCountLimit(1, {id, 3})
     e3:SetCost(s.e3cost)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 end
 
-function s.e2filter(c) return c:IsSpellTrap() and c:IsAbleToRemove() end
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingTarget(Card.IsAbleToHand, tp, LOCATION_GRAVE, 0, 1, nil) end
+
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_GRAVE)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_RTOHAND)
+    local g = Duel.SelectTarget(tp, aux.NecroValleyFilter(Card.IsAbleToHand), tp, LOCATION_GRAVE, 0, 1, 1, nil)
+
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
+    end
+end
+
+function s.e2filter(c, e, tp)
+    return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK) and not c:IsCode(id) and
+               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil) end
+    if chk == 0 then
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+                   Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil, e, tp)
+    end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 99, nil)
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_GRAVE + LOCATION_REMOVED)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tg = Duel.GetTargetCards(e)
-    local ct = Duel.Remove(tg, POS_FACEUP, REASON_EFFECT)
-    if c:IsFacedown() or not c:IsRelateToEffect(e) or ct == 0 then return end
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetCode(EFFECT_UPDATE_ATTACK)
-    ec1:SetValue(ct * 100)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE)
-    c:RegisterEffect(ec1)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e2filter), tp,
+        LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil, e, tp)
+    if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
+end
+
+function s.e3filter(c) return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK) end
+
+function s.e3check(sg, tp)
+    return sg:GetClassCount(Card.GetAttribute) == 2 and
+               Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, 1, sg)
 end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsAbleToGraveAsCost, tp, LOCATION_ONFIELD, 0, 1, c) end
+    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, s.e3filter, 2, false, s.e3check, nil) end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, Card.IsAbleToGraveAsCost, tp, LOCATION_ONFIELD, 0, 1, 1, c)
-    Duel.SendtoGrave(g, REASON_COST)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_RELEASE)
+    local g = Duel.SelectReleaseGroupCost(tp, s.e3filter, 2, 2, false, s.e3check, nil)
+    Duel.Release(g, REASON_COST)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingTarget(Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, 1, nil) end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_NEGATE)
-    local g = Duel.SelectTarget(tp, Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, 1, nil)
-    Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, nil)
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, LOCATION_MZONE, 1 - tp)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tc = Duel.GetFirstTarget()
-    if not tc or not tc:IsRelateToEffect(e) then return end
-
-    if (tc:IsFaceup() and not tc:IsDisabled()) or tc:IsType(TYPE_TRAPMONSTER) then
-        Duel.NegateRelatedChain(tc, RESET_TURN_SET)
-
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-        ec1:SetCode(EFFECT_DISABLE)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec1)
-        local ec1b = ec1:Clone()
-        ec1b:SetCode(EFFECT_DISABLE_EFFECT)
-        ec1b:SetValue(RESET_TURN_SET)
-        tc:RegisterEffect(ec1b)
-        if tc:IsType(TYPE_TRAPMONSTER) then
-            local ec1c = ec1:Clone()
-            ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
-            tc:RegisterEffect(ec1c)
-        end
-    end
+    local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, nil)
+    if #g > 0 then Duel.Remove(g, 0, REASON_EFFECT) end
 end

@@ -1,57 +1,91 @@
--- Palladium Reborn
+-- Dark Flare Knight of Palladium
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-function s.initial_effect(c)
-    c:AddSetcodesRule(id, true, 0x13a)
+s.listed_series = {0x13a}
 
-    -- activate
+function s.initial_effect(c)
+    c:EnableReviveLimit()
+
+    -- fusion summon
+    Fusion.AddProcMix(c, true, true,
+        function(c, fc, sumtype, tp) return c:IsLevelAbove(6) and c:IsRace(RACE_SPELLCASTER, fc, sumtype, tp) end,
+        aux.FilterBoolFunctionEx(Card.IsRace, RACE_WARRIOR))
+
+    -- special summon limit
+    local splimit = Effect.CreateEffect(c)
+    splimit:SetType(EFFECT_TYPE_SINGLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
+    splimit:SetValue(function(e, se, sp, st)
+        return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e, se, sp, st)
+    end)
+    c:RegisterEffect(splimit)
+
+    -- destroy
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    e1:SetType(EFFECT_TYPE_ACTIVATE)
-    e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-    e1:SetCode(EVENT_FREE_CHAIN)
-    e1:SetCondition(s.e1con)
+    e1:SetCategory(CATEGORY_DESTROY)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
+
+    -- disable
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCode(EFFECT_DISABLE)
+    e2:SetTargetRange(0, LOCATION_MZONE)
+    e2:SetTarget(function(e, c) return c:IsAttackBelow(e:GetHandler():GetAttack()) end)
+    c:RegisterEffect(e2)
+
+    -- special summon
+    local e3 = Effect.CreateEffect(c)
+    e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e3:SetProperty(EFFECT_FLAG_DELAY)
+    e3:SetCode(EVENT_DESTROYED)
+    e3:SetTarget(s.e3tg)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
 end
 
-function s.e1sumcheck(c, e, tp) return not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) and c:IsSummonableCard() end
-
-function s.e1filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, s.e1sumcheck(c, e, tp), false, POS_FACEUP) end
-
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return (Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()) or Duel.IsTurnPlayer(1 - tp) end
-
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then
-        return Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp) and
-                   Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
-    end
+    if chk == 0 then return Duel.IsExistingTarget(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, nil) end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)
-    local g = Duel.SelectTarget(tp, s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp)
-    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
+    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, nil)
+
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if not tc or not tc:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
+    if not tc or not tc:IsRelateToEffect(e) then return end
 
-    local check = s.e1sumcheck(tc, e, tp)
-    if Duel.SpecialSummon(tc, 0, tp, tp, check, false, POS_FACEUP) ~= 0 and check then
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetDescription(574)
-        ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-        ec1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-        ec1:SetCode(EVENT_PHASE + PHASE_END)
-        ec1:SetCountLimit(1)
-        ec1:SetLabelObject(tc)
-        ec1:SetCondition(function(e) return e:GetLabelObject():GetFlagEffect(id) ~= 0 end)
-        ec1:SetOperation(function(e) Duel.SendtoGrave(e:GetLabelObject(), REASON_EFFECT) end)
-        ec1:SetReset(RESET_PHASE + PHASE_END)
-        Duel.RegisterEffect(ec1, tp)
+    Duel.Destroy(tc, REASON_EFFECT)
+end
+
+function s.e3filter(c, e, tp)
+    return c:IsMonster() and c:IsSetCard(0x13a) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+end
+
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE
+    if chk == 0 then
+        return
+            Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e3filter, tp, loc, 0, 1, nil, e, tp)
     end
+
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
+
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e3filter), tp,
+        LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
+    if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, true, false, POS_FACEUP) end
 end

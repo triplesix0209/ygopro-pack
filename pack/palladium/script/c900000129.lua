@@ -1,99 +1,96 @@
--- Palladium Sacrophagus
+-- Swords of Palladium Light
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.counter_place_list = {COUNTER_SPELL}
+
 function s.initial_effect(c)
-    -- act in hand
-    local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetCode(EFFECT_QP_ACT_IN_NTPHAND)
-    e1:SetCondition(function(e) return Duel.GetFieldGroupCount(e:GetHandlerPlayer(), LOCATION_MZONE, 0) == 0 end)
-    c:RegisterEffect(e1)
+    c:SetUniqueOnField(1, 0, id)
+    c:EnableCounterPermit(COUNTER_SPELL)
+    c:SetCounterLimit(COUNTER_SPELL, 3)
 
     -- activate
+    local e1 = Effect.CreateEffect(c)
+    e1:SetCategory(CATEGORY_COUNTER + CATEGORY_POSITION)
+    e1:SetType(EFFECT_TYPE_ACTIVATE)
+    e1:SetCode(EVENT_FREE_CHAIN)
+    e1:SetHintTiming(TIMINGS_CHECK_MONSTER + TIMING_MAIN_END)
+    e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
+    c:RegisterEffect(e1)
+    local e1b = Effect.CreateEffect(c)
+    e1b:SetType(EFFECT_TYPE_SINGLE)
+    e1b:SetCode(EFFECT_REMAIN_FIELD)
+    c:RegisterEffect(e1b)
+
+    -- remove counter
     local e2 = Effect.CreateEffect(c)
-    e2:SetCategory(CATEGORY_REMOVE)
-    e2:SetType(EFFECT_TYPE_ACTIVATE)
-    e2:SetCode(EVENT_FREE_CHAIN)
-    e2:SetCountLimit(1, id)
-    e2:SetTarget(s.e2tg)
-    e2:SetOperation(s.e2op)
+    e2:SetCategory(CATEGORY_COUNTER)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e2:SetRange(LOCATION_SZONE)
+    e2:SetCode(EVENT_PHASE + PHASE_END)
+    e2:SetCountLimit(1)
+    e2:SetCondition(function(e, tp)
+        local c = e:GetHandler()
+        return Duel.GetTurnPlayer() == 1 - tp and c:IsCanRemoveCounter(tp, COUNTER_SPELL, 1, REASON_EFFECT)
+    end)
+    e2:SetOperation(function(e, tp) e:GetHandler():RemoveCounter(tp, COUNTER_SPELL, 1, REASON_EFFECT) end)
     c:RegisterEffect(e2)
 
-    -- to hand
+    -- cannot attack
     local e3 = Effect.CreateEffect(c)
-    e3:SetCategory(CATEGORY_TOHAND)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    e3:SetCode(EVENT_PHASE + PHASE_END)
-    e3:SetRange(LOCATION_GRAVE)
-    e3:SetCountLimit(1, id)
-    e3:SetCondition(s.e3con)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetRange(LOCATION_SZONE)
+    e3:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+    e3:SetTargetRange(0, LOCATION_MZONE)
+    e3:SetCondition(function(e) return e:GetHandler():GetCounter(COUNTER_SPELL) > 0 end)
     c:RegisterEffect(e3)
+
+    -- draw
+    local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(1108)
+    e4:SetCategory(CATEGORY_DRAW)
+    e4:SetType(EFFECT_TYPE_IGNITION)
+    e4:SetRange(LOCATION_SZONE)
+    e4:SetCondition(s.e4con)
+    e4:SetCost(s.e4cost)
+    e4:SetTarget(s.e4tg)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
 end
 
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then
-        return Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA + LOCATION_GRAVE, LOCATION_GRAVE,
-            1, nil)
-    end
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA + LOCATION_GRAVE)
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() == PHASE_MAIN1 end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return e:IsHasType(EFFECT_TYPE_ACTIVATE) end
+    local g = Duel.GetMatchingGroup(Card.IsFacedown, tp, 0, LOCATION_MZONE, nil)
+    Duel.SetOperationInfo(0, CATEGORY_POSITION, g, #g, 0, 0)
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, Card.IsAbleToRemove, tp,
-        LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA + LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil):GetFirst()
-    if not tc or Duel.Remove(tc, POS_FACEDOWN, REASON_EFFECT) == 0 then return end
+    c:AddCounter(COUNTER_SPELL, 3)
 
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    ec1:SetCode(EVENT_CHAIN_SOLVING)
-    ec1:SetRange(LOCATION_REMOVED)
-    ec1:SetOperation(s.e2disop)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-    tc:RegisterEffect(ec1)
+    local g = Duel.GetMatchingGroup(Card.IsFacedown, tp, 0, LOCATION_MZONE, nil)
+    if #g > 0 then Duel.ChangePosition(g, POS_FACEUP_ATTACK, POS_FACEUP_ATTACK, POS_FACEUP_DEFENSE, POS_FACEUP_DEFENSE, true) end
 end
 
-function s.e2disop(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local rc = re:GetHandler()
+function s.e4con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetCounter(COUNTER_SPELL) == 0 end
 
-    if c:IsLocation(LOCATION_REMOVED) and c:IsFacedown() and rc:IsCode(c:GetCode()) and Duel.IsChainDisablable(ev) and
-        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-        Utility.HintCard(e:GetOwner())
-        Duel.ConfirmCards(tp, c)
-        if Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
-            if rc:IsPreviousLocation(LOCATION_HAND) then
-                Duel.SendtoHand(c, nil, REASON_EFFECT)
-            elseif rc:IsPreviousLocation(LOCATION_DECK + LOCATION_EXTRA) then
-                Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
-            elseif rc:IsPreviousLocation(LOCATION_GRAVE) then
-                Duel.SendtoGrave(c, REASON_EFFECT)
-            end
-        end
-    end
+function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return e:GetHandler():IsAbleToGraveAsCost() end
+    Duel.SendtoGrave(e:GetHandler(), REASON_COST)
 end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetTurnPlayer() == tp and aux.exccon(e, tp, eg, ep, ev, re, r, rp) end
-
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToDeck() and Duel.IsExistingMatchingCard(Card.IsAbleToHand, tp, LOCATION_REMOVED, 0, 1, nil) end
-
-    Duel.SetOperationInfo(0, CATEGORY_TODECK, c, 1, 0, 0)
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_REMOVED)
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsPlayerCanDraw(tp, 3) end
+    Duel.SetTargetPlayer(tp)
+    Duel.SetTargetParam(3)
+    Duel.SetOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, 3)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToHand, tp, LOCATION_REMOVED, 0, nil)
-
-    if #g > 0 and Duel.SendtoDeck(c, nil, SEQ_DECKBOTTOM, REASON_EFFECT) > 0 then
-        Duel.BreakEffect()
-        g = Utility.GroupSelect(HINTMSG_RTOHAND, g, tp)
-        Duel.SendtoHand(g, nil, REASON_EFFECT)
-        Duel.ConfirmCards(1 - tp, g)
-    end
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
+    Duel.Draw(p, d, REASON_EFFECT)
 end

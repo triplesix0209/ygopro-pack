@@ -1,97 +1,110 @@
--- Palladium Maiden Isis
+-- Palladium Gardna Karim
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_series = {0x13a}
 
 function s.initial_effect(c)
-    -- look deck & set
+    -- to defense
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_SEARCH)
-    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
     e1:SetCode(EVENT_SUMMON_SUCCESS)
-    e1:SetCountLimit(1, id)
-    e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
-    e1b:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1b:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
     c:RegisterEffect(e1b)
-    local e1c = e1:Clone()
-    e1c:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
-    c:RegisterEffect(e1c)
 
-    -- return to hand
+    -- def down
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_TOHAND)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e2:SetCode(EVENT_BATTLE_CONFIRM)
-    e2:SetCondition(s.e2con)
-    e2:SetTarget(s.e2tg)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e2:SetCode(EVENT_DAMAGE_STEP_END)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-end
 
-function s.e1filter(c)
-    if not c:IsSSetable() then return false end
-    return (c:IsSetCard(0x13a) and c:IsSpellTrap()) or c:IsContinuousTrap()
-end
+    -- change attack target
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e3:SetCode(EVENT_BE_BATTLE_TARGET)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCountLimit(1, id)
+    e3:SetCondition(s.e3con)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 0 end end
+    -- negate effect target
+    local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(1116)
+    e4:SetCategory(CATEGORY_DISABLE)
+    e4:SetType(EFFECT_TYPE_QUICK_O)
+    e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
+    e4:SetCode(EVENT_CHAINING)
+    e4:SetRange(LOCATION_MZONE)
+    e4:SetCountLimit(1, id)
+    e4:SetCondition(s.e4con)
+    e4:SetTarget(s.e4tg)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
+end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local max = math.min(5, Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0))
-    if max == 0 then return end
-
-    local ac = max == 1 and max or Duel.AnnounceNumberRange(tp, 1, max)
-    local g = Duel.GetDecktopGroup(tp, ac)
-    Duel.ConfirmCards(tp, g)
-
-    if g:IsExists(s.e1filter, 1, nil) and Duel.SelectYesNo(tp, 510) then
-        local tc = Utility.GroupSelect(HINTMSG_SET, g, tp, 1, 1, nil, s.e1filter):GetFirst()
-        Duel.DisableShuffleCheck()
-        if Duel.SSet(tp, tc) > 0 and (tc:IsTrap() or tc:IsQuickPlaySpell()) then
-            local ec1 = Effect.CreateEffect(c)
-            ec1:SetType(EFFECT_TYPE_SINGLE)
-            ec1:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-            ec1:SetCode(tc:IsTrap() and EFFECT_TRAP_ACT_IN_SET_TURN or EFFECT_QP_ACT_IN_SET_TURN)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-            tc:RegisterEffect(ec1)
-        end
-
-        Duel.SortDecktop(tp, tp, ac - 1)
-    else
-        Duel.SortDecktop(tp, tp, ac)
-    end
+    if c:IsFaceup() and c:IsAttackPos() then Duel.ChangePosition(c, POS_FACEUP_DEFENSE) end
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    return c:IsRelateToBattle() and bc and bc:IsRelateToBattle()
+    if not c:IsRelateToBattle() or Duel.GetAttackTarget() ~= c or not c:IsDefensePos() then return end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetCode(EFFECT_UPDATE_DEFENSE)
+    ec1:SetValue(-800)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(ec1)
 end
 
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    if chk == 0 then return c:IsAttackPos() and c:IsCanChangePosition() and bc:IsAbleToHand() end
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, bc, 1, 0, 0)
+    local bt = eg:GetFirst()
+    return r ~= REASON_REPLACE and bt ~= c and bt:IsControler(tp) and bt:IsFaceup() and bt:IsSetCard(0x13a)
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    if c:IsFaceup() and c:IsRelateToBattle() and bc:IsFaceup() and bc:IsRelateToBattle() and c:IsAttackPos() and
-        Duel.ChangePosition(c, POS_FACEUP_DEFENSE) > 0 then
-        Duel.SendtoHand(bc, nil, REASON_EFFECT)
+    local ac = Duel.GetAttacker()
+    if c:IsFaceup() and c:IsRelateToEffect(e) and ac:CanAttack() and not ac:IsImmuneToEffect(e) then Duel.CalculateDamage(ac, c) end
+end
+
+function s.e4filter(c, tp) return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x13a) end
+
+function s.e4con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tg = Duel.GetChainInfo(ev, CHAININFO_TARGET_CARDS)
+    if c:IsStatus(STATUS_BATTLE_DESTROYED) or ep == tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) or not tg then return false end
+    if re:GetHandler():IsDisabled() or not Duel.IsChainDisablable(ev) then return false end
+    return tg:IsContains(c) or tg:IsExists(s.e4filter, 1, c, tp)
+end
+
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:GetDefense() >= 800 end
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, 1, 0, 0)
+end
+
+function s.e4op(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if not c:IsFaceup() or c:GetDefense() < 800 or not c:IsRelateToEffect(e) or c:IsStatus(STATUS_BATTLE_DESTROYED) then return end
+
+    if Duel.NegateEffect(ev) then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_COPY_INHERIT)
-        ec1:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_SELF_TURN, 2)
+        ec1:SetProperty(EFFECT_FLAG_COPY_INHERIT)
+        ec1:SetCode(EFFECT_UPDATE_DEFENSE)
+        ec1:SetValue(-800)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE)
         c:RegisterEffect(ec1)
     end
 end

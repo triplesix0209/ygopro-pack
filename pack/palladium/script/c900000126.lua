@@ -1,46 +1,57 @@
--- Forbidden Art of Palladium
+-- Palladium Reborn
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {71703785}
-s.listed_series = {0x13a}
-
 function s.initial_effect(c)
+    c:AddSetcodesRule(id, true, 0x13a)
+
     -- activate
-    local act = Effect.CreateEffect(c)
-    act:SetType(EFFECT_TYPE_ACTIVATE)
-    act:SetCode(EVENT_FREE_CHAIN)
-    act:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        return (Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()) or
-                   Duel.IsExistingMatchingCard(function(c) return c:IsFaceup() and c:IsCode(71703785) end, tp, LOCATION_ONFIELD,
-                0, 1, nil)
-    end)
-    act:SetTarget(Utility.MultiEffectTarget(s))
-    act:SetOperation(Utility.MultiEffectOperation(s))
-    c:RegisterEffect(act)
+    local e1 = Effect.CreateEffect(c)
+    e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e1:SetType(EFFECT_TYPE_ACTIVATE)
+    e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e1:SetCode(EVENT_FREE_CHAIN)
+    e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
+    c:RegisterEffect(e1)
+end
 
-    -- ritual
-    local e1 = Ritual.CreateProc({
-        desc = 1171,
-        handler = c,
-        lvtype = RITPROC_GREATER,
-        filter = aux.FilterBoolFunction(Card.IsSetCard, 0x13a),
-        location = LOCATION_HAND + LOCATION_GRAVE
-    })
-    Utility.RegisterMultiEffect(s, 1, e1)
+function s.e1sumcheck(c, e, tp) return not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) and c:IsSummonableCard() end
 
-    -- fusion
-    local e2 = Fusion.CreateSummonEff({
-        desc = 1170,
-        handler = c,
-        extrafil = function(e, tp)
-            local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(0x13a) end, tp, LOCATION_DECK, 0,
-                nil)
-            local check = function(tp, sg, fc)
-                return sg:IsExists(Card.IsSetCard, 1, nil, 0x13a) and sg:FilterCount(Card.IsLocation, nil, LOCATION_DECK) <= 1
-            end
-            return g, check
-        end
-    })
-    Utility.RegisterMultiEffect(s, 2, e2)
+function s.e1filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, s.e1sumcheck(c, e, tp), false, POS_FACEUP) end
+
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return (Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()) or Duel.IsTurnPlayer(1 - tp) end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then
+        return Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp) and
+                   Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
+    end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)
+    local g = Duel.SelectTarget(tp, s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp)
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc = Duel.GetFirstTarget()
+    if not tc or not tc:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
+
+    local check = s.e1sumcheck(tc, e, tp)
+    if Duel.SpecialSummon(tc, 0, tp, tp, check, false, POS_FACEUP) ~= 0 and check then
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetDescription(574)
+        ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+        ec1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+        ec1:SetCode(EVENT_PHASE + PHASE_END)
+        ec1:SetCountLimit(1)
+        ec1:SetLabelObject(tc)
+        ec1:SetCondition(function(e) return e:GetLabelObject():GetFlagEffect(id) ~= 0 end)
+        ec1:SetOperation(function(e) Duel.SendtoGrave(e:GetLabelObject(), REASON_EFFECT) end)
+        ec1:SetReset(RESET_PHASE + PHASE_END)
+        Duel.RegisterEffect(ec1, tp)
+    end
 end
