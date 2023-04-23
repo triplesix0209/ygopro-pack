@@ -220,8 +220,6 @@ atk = 2200
 def = 2500
 effect = """\
 You can Normal Summon this card without Tributing, but send it to the GY during the End Phase. \
-You can Special Summon this card (from your GY) by Tributing 1 "Palladium" monster. \
-    You can only Special Summon "{CARD_NAME}" once per turn this way. \
 If this card is sent to the GY: \
     You can target 1 face-up monster on the field; equip this card to that target. \
     That monster loses 500 ATK and DEF while equipped with this card. \
@@ -241,13 +239,27 @@ def = 200
 effect = """\
 When you would take damage from a monster (by battle or effect): \
     You can discard this card; You take no damage. \
-If this card on the field is destroyed and sent to the GY: \
-    For the rest of this turn, you take no battle damage. \
 If this card is sent from the hand or field to the GY: \
     You can add 1 "Monster Reborn" from your Deck or GY to your hand during the End Phase of this turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Affected by effect \"{CARD_NAME}\": take no battle damage"]
+
+[palladium-duos]
+id = 900000112
+set = "palladium"
+name = "Palladium Spirit Duos"
+type = "monster effect"
+attribute = "dark"
+race = "warrior"
+level = 6
+atk = 2000
+def = 1600
+effect = """\
+Once per turn (Quick Effect): You can Tribute 1 other monster; \
+    this card gains 400 ATK, also, it cannot be destroyed by card effects this turn. \
+"""
+strings = ["Tribute other monster to gain 400 ATK"]
 
 [palladium-queen]
 id = 900000114

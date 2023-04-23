@@ -5,7 +5,7 @@ local s, id = GetID()
 s.listed_names = {CARD_MONSTER_REBORN}
 
 function s.initial_effect(c)
-    -- no damage (hand)
+    -- avoid damage
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_QUICK_O)
     e1:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
@@ -21,25 +21,17 @@ function s.initial_effect(c)
     e1b:SetOperation(s.e1op2)
     c:RegisterEffect(e1b)
 
-    -- no damage (field)
+    -- search "monster reborn"
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
+    e2:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2:SetProperty(EFFECT_FLAG_DELAY)
     e2:SetCode(EVENT_TO_GRAVE)
+    e2:SetCountLimit(1, id)
     e2:SetCondition(s.e2con)
+    e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-
-    -- search "monster reborn"
-    local e3 = Effect.CreateEffect(c)
-    e3:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
-    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3:SetProperty(EFFECT_FLAG_DELAY)
-    e3:SetCode(EVENT_TO_GRAVE)
-    e3:SetCountLimit(1, id)
-    e3:SetCondition(s.e3con)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
 end
 
 function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -90,50 +82,32 @@ function s.e1op2(e, tp, eg, ep, ev, re, r, rp)
     Duel.RegisterEffect(ec1, tp)
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_DESTROY)
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_HAND + LOCATION_ONFIELD) end
+
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
+    Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 0))
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
-    ec1:SetTargetRange(1, 0)
-    ec1:SetValue(1)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1, tp)
-end
-
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_HAND + LOCATION_ONFIELD) end
-
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return true end
-    Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
-end
-
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     ec1:SetCode(EVENT_PHASE + PHASE_END)
     ec1:SetCountLimit(1)
-    ec1:SetCondition(s.e3thcon)
-    ec1:SetOperation(s.e3thop)
+    ec1:SetCondition(s.e2thcon)
+    ec1:SetOperation(s.e2thop)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
 end
 
-function s.e3thfilter(c) return c:IsCode(CARD_MONSTER_REBORN) and c:IsAbleToHand() end
+function s.e2thfilter(c) return c:IsCode(CARD_MONSTER_REBORN) and c:IsAbleToHand() end
 
-function s.e3thcon(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCard(s.e3thfilter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
+function s.e2thcon(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCard(s.e2thfilter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
 
-function s.e3thop(e, tp, eg, ep, ev, re, r, rp)
+function s.e2thop(e, tp, eg, ep, ev, re, r, rp)
     Utility.HintCard(e)
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e3thfilter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e2thfilter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
     if #g > 0 then
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)

@@ -15,27 +15,15 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- special summon
+    -- equip
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-    e2:SetCode(EFFECT_SPSUMMON_PROC)
-    e2:SetRange(LOCATION_GRAVE)
-    e2:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
-    e2:SetCondition(s.e2con)
+    e2:SetCategory(CATEGORY_EQUIP)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
+    e2:SetCode(EVENT_TO_GRAVE)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-
-    -- equip
-    local e3 = Effect.CreateEffect(c)
-    e3:SetCategory(CATEGORY_EQUIP)
-    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
-    e3:SetCode(EVENT_TO_GRAVE)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
 end
 
 function s.e1con(e, c, minc)
@@ -56,31 +44,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, c)
     c:RegisterEffect(ec1)
 end
 
-function s.e2con(e, c)
-    if c == nil then return true end
-    local tp = c:GetControler()
-
-    return Duel.CheckReleaseGroup(tp, Card.IsSetCard, 1, false, 1, true, c, tp, nil, false, nil, 0x13a)
-end
-
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, c)
-    local g = Duel.SelectReleaseGroup(tp, Card.IsSetCard, 1, 1, false, true, true, c, nil, nil, false, nil, 0x13a)
-    if g then
-        g:KeepAlive()
-        e:SetLabelObject(g)
-        return true
-    end
-    return false
-end
-
-function s.e2op(e, tp, eg, ep, ev, re, r, rp, c)
-    local g = e:GetLabelObject()
-    if not g then return end
-    Duel.Release(g, REASON_COST)
-    g:DeleteGroup()
-end
-
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then
         return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and
@@ -94,7 +58,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, c, 1, 0, 0)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
     if Duel.GetLocationCount(tp, LOCATION_SZONE) <= 0 or tc:IsFacedown() or not c:IsRelateToEffect(e) or
