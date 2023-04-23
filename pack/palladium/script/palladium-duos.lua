@@ -47,9 +47,18 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
+    if c:IsRelateToEffect(e) and Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) > 0 then
+        local g, lv = eg:GetMaxGroup(Card.GetLevel)
+        if #g > 1 then g = g:Select(tp, 1, 1, nil) end
+        Duel.HintSelection(g)
 
-    Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_UPDATE_ATTACK)
+        ec1:SetValue(lv * 100)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
+        c:RegisterEffect(ec1)
+    end
 end
 
 function s.e2filter(c) return c:IsFaceup() and c:IsLevelAbove(1) end
