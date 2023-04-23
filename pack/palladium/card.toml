@@ -120,17 +120,13 @@ You can Ritual Summon this card with a "Palladium" card. \
 Must be either Ritual Summoned, \
     or Special Summoned (from your hand) by banishing 1 LIGHT and 1 DARK monster from your GY. \
 You can only Special Summon "{CARD_NAME}(s)" once per turn. \
-Your opponent cannot activate cards or effects in response to this Ritual Summoned card's effect activations. \
-Once per turn, you can pay 1000 LP; \
-    send all other cards from the field to the GY, \
-    then inflict 300 damage to your opponent for each card sent to the GY by this effect, \
-    also for the rest of this turn, you cannot activate other cards or effects, \
-    and other monsters you control cannot attack. \
+If this card is Ritual Summoned, and your opponent controls more cards than the number of cards you control: \
+    You can send cards your opponent controls to the GY equal to their surplus, \
+    and if you do, inflict 300 damage to your opponent for each card sent to the GY by this effect. \
+Once per turn: You can pay 1000 LP; banish 1 monster your opponent control. \
+    This card cannot declare an attack the turn this effect is activated. \
 """
-strings = [
-    "Send card to the GY & inflict damage",
-    "Affected by effect \"{CARD_NAME}\": cannot activate other cards or effects, and other monsters you control cannot attack",
-]
+strings = ["Send card to the GY & inflict damage", "Banish 1 card your opponent control"]
 
 [chaos-end-ruler]
 id = 900000106
@@ -147,23 +143,20 @@ effect = """\
 (This card's Attribute is also DARK.)
 Must first be Xyz Summoned. \
 This card's Special Summon, activation and effect cannot be negated. \
-When Special Summoned, your opponent's cards and effects cannot be activated. \
-Cannot be Tributed, nor be used as a material for an Summon by your opponent. \
-Gains 100 ATK/DEF for each banished cards and cards in either GY. \
 If this card attacks an opponent's monster, during the Damage Step only, negate the effects of that monster. \
-This card gains the following effect(s), based on the material attached on it.
-● LIGHT Warrior Ritual Monster: \
-    Cannot be destroyed by card effects, also your opponent cannot target it with card effects.
-● DARK Dragon Ritual Monster, during your Main Phase (Quick Effect): \
-    You can detach 1 material from this card; \
-    banish all cards in your opponent's hands and on their side of the field to the GY, \
-    then inflict 500 damage to your opponent for each card sent to the GY by this effect, \
+while this card has LIGHT Warrior Ritual Monster as an Xyz Material, \
+    it gains 100 ATK/DEF for each banished cards and cards in either GY, \
+    cannot be destroyed by card effects, also your opponent cannot target it with card effects. \
+During your Main Phase (Quick Effect): \
+    You can detach 1 DARK Dragon Ritual Monster material from this card; \
+    banish all cards in your opponent's hands, GY, and on their side of the field, \
+    then inflict 300 damage to your opponent for each card banish by this effect, \
     also other monsters you control cannot attack for the rest of this turn. \
-    You can only use this effect of "Chaos End Ruler - Ruler of the Beginning and the End" once per turn.
+    You can only use this effect of "Chaos End Ruler - Ruler of the Beginning and the End" once per turn. \
 """
 strings = [
-    "Send card to GY & inflict damage",
-    "Affected by effect \"Chaos End Ruler - Ruler of the Beginning and the End\": other monsters cannot attack",
+    "Banish card & inflict damage",
+    "Affected by effect \"{CARD_NAME}\": other monsters cannot attack",
 ]
 
 [palladium-knight-queen]

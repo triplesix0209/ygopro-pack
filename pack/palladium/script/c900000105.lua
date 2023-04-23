@@ -31,13 +31,26 @@ function s.initial_effect(c)
     local e1 = Effect.CreateEffect(c)
     e1:SetDescription(aux.Stringid(id, 0))
     e1:SetCategory(CATEGORY_TOGRAVE + CATEGORY_DAMAGE)
-    e1:SetType(EFFECT_TYPE_IGNITION)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetCountLimit(1)
-    e1:SetCost(s.e1cost)
+    e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
+
+    -- banish
+    local e2 = Effect.CreateEffect(c)
+    e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetCategory(CATEGORY_REMOVE)
+    e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCountLimit(1)
+    e2:SetCost(s.e2cost)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
+    c:RegisterEffect(e2)
 end
 
 function s.spfilter(c, attr) return c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c, true) end
@@ -75,25 +88,30 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.CheckLPCost(tp, 1000) end
-    Duel.PayLPCost(tp, 1000)
+function s.e1con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local t = Duel.GetFieldGroupCount(tp, 0, LOCATION_ONFIELD)
+    local s = Duel.GetFieldGroupCount(tp, LOCATION_ONFIELD, 0)
+    return c:IsSummonType(SUMMON_TYPE_RITUAL) and t > s
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToGrave, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToGrave, tp, 0, LOCATION_ONFIELD, nil)
     if chk == 0 then return #g > 0 end
 
     Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, g, #g, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_DAMAGE, 0, 0, 1 - tp, #g * 300)
-
-    if c:IsSummonType(SUMMON_TYPE_RITUAL) then Duel.SetChainLimit(function(e, ep, tp) return tp == ep end) end
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToGrave, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
+    local t = Duel.GetFieldGroupCount(tp, 0, LOCATION_ONFIELD)
+    local s = Duel.GetFieldGroupCount(tp, LOCATION_ONFIELD, 0)
+    local max = t - s
+    if max == 0 then return end
+
+    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, Card.IsAbleToGrave, tp, 0, LOCATION_ONFIELD, 1, max, nil)
     Duel.SendtoGrave(g, REASON_EFFECT)
 
     local ct = Duel.GetOperatedGroup():FilterCount(Card.IsLocation, nil, LOCATION_GRAVE)
@@ -101,29 +119,29 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         Duel.BreakEffect()
         Duel.Damage(1 - tp, ct * 300, REASON_EFFECT)
     end
+end
 
-    local ec0 = Effect.CreateEffect(c)
-    ec0:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
-    ec0:SetDescription(aux.Stringid(id, 1))
-    ec0:SetTargetRange(1, 0)
-    ec0:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec0, tp)
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.CheckLPCost(tp, 1000) and c:GetAttackAnnouncedCount() == 0 end
+
+    Duel.PayLPCost(tp, 1000)
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    ec1:SetCode(EFFECT_CANNOT_ACTIVATE)
-    ec1:SetTargetRange(1, 0)
-    ec1:SetValue(aux.TRUE)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1, tp)
+    ec1:SetDescription(3206)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
+end
 
-    local ec2 = Effect.CreateEffect(c)
-    ec2:SetType(EFFECT_TYPE_FIELD)
-    ec2:SetCode(EFFECT_CANNOT_ATTACK)
-    ec2:SetTargetRange(LOCATION_MZONE, 0)
-    ec2:SetLabel(c:GetFieldID())
-    ec2:SetTarget(function(e, c) return e:GetLabel() ~= c:GetFieldID() end)
-    ec2:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec2, tp)
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, 1, nil) end
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, 0, LOCATION_MZONE)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, Card.IsAbleToRemove, tp, 0, LOCATION_MZONE, 1, 1, nil)
+    if #g > 0 then Duel.Remove(g, POS_FACEUP, REASON_EFFECT) end
 end

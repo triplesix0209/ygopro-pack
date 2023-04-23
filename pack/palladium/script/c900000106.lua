@@ -45,14 +45,24 @@ function s.initial_effect(c)
     e1d:SetCode(EFFECT_CANNOT_DISABLE)
     c:RegisterEffect(e1d)
 
-    -- act limit
+    -- disable
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp) Duel.SetChainLimitTillChainEnd(function(e, ep, tp) return tp == ep end) end)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetCode(EFFECT_DISABLE)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(0, LOCATION_MZONE)
+    e2:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
+        return Duel.GetAttacker() == c and c:GetBattleTarget() and
+                   (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL)
+    end)
+    e2:SetTarget(function(e, c) return c == e:GetHandler():GetBattleTarget() end)
     c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_DISABLE_EFFECT)
+    c:RegisterEffect(e2b)
 
-    -- atk up
+    -- indes & untargetable
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_SINGLE)
     e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -65,103 +75,71 @@ function s.initial_effect(c)
     local e3b = e3:Clone()
     e3b:SetCode(EFFECT_UPDATE_DEFENSE)
     c:RegisterEffect(e3b)
-
-    -- disable
-    local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_FIELD)
-    e4:SetCode(EFFECT_DISABLE)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetTargetRange(0, LOCATION_MZONE)
-    e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        return Duel.GetAttacker() == c and c:GetBattleTarget() and
-                   (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL)
-    end)
-    e4:SetTarget(function(e, c) return c == e:GetHandler():GetBattleTarget() end)
-    c:RegisterEffect(e4)
-    local e4b = e4:Clone()
-    e4b:SetCode(EFFECT_DISABLE_EFFECT)
-    c:RegisterEffect(e4b)
-
-    -- immune
-    local e5 = Effect.CreateEffect(c)
-    e5:SetType(EFFECT_TYPE_FIELD)
-    e5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e5:SetRange(LOCATION_MZONE)
-    e5:SetCode(EFFECT_CANNOT_RELEASE)
-    e5:SetTargetRange(0, 1)
-    e5:SetCondition(s.e5con)
-    e5:SetTarget(function(e, tc) return tc == e:GetHandler() end)
-    c:RegisterEffect(e5)
-    local e5b = Effect.CreateEffect(c)
-    e5b:SetType(EFFECT_TYPE_SINGLE)
-    e5b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    e5b:SetCondition(s.e5con)
-    e5b:SetValue(function(e, tc)
-        if not tc then return false end
-        return tc:GetControler() ~= e:GetHandlerPlayer()
-    end)
-    c:RegisterEffect(e5b)
-    local e5c = Effect.CreateEffect(c)
-    e5c:SetType(EFFECT_TYPE_SINGLE)
-    e5c:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e5c:SetRange(LOCATION_MZONE)
-    e5c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e5c:SetCondition(s.e5con)
-    e5c:SetValue(aux.tgoval)
-    c:RegisterEffect(e5c)
-    local e5d = e5c:Clone()
-    e5d:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    e5d:SetValue(1)
-    c:RegisterEffect(e5d)
+    local e3c = Effect.CreateEffect(c)
+    e3c:SetType(EFFECT_TYPE_SINGLE)
+    e3c:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e3c:SetRange(LOCATION_MZONE)
+    e3c:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e3c:SetCondition(s.e3con)
+    e3c:SetValue(1)
+    c:RegisterEffect(e3c)
+    local e3d = e3c:Clone()
+    e3d:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e3d:SetValue(aux.tgoval)
+    c:RegisterEffect(e3d)
 
     -- banish & damage
-    local e6 = Effect.CreateEffect(c)
-    e6:SetDescription(aux.Stringid(id, 0))
-    e6:SetCategory(CATEGORY_REMOVE + CATEGORY_DAMAGE)
-    e6:SetType(EFFECT_TYPE_QUICK_O)
-    e6:SetCode(EVENT_FREE_CHAIN)
-    e6:SetRange(LOCATION_MZONE)
-    e6:SetCountLimit(1, id)
-    e6:SetCondition(s.e6con)
-    e6:SetCost(s.e6cost)
-    e6:SetTarget(s.e6tg)
-    e6:SetOperation(s.e6op)
-    c:RegisterEffect(e6)
-    c:RegisterEffect(e6, false, REGISTER_FLAG_DETACH_XMAT)
+    local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(aux.Stringid(id, 0))
+    e4:SetCategory(CATEGORY_REMOVE + CATEGORY_DAMAGE)
+    e4:SetType(EFFECT_TYPE_QUICK_O)
+    e4:SetCode(EVENT_FREE_CHAIN)
+    e4:SetRange(LOCATION_MZONE)
+    e4:SetCountLimit(1, id)
+    e4:SetCondition(s.e4con)
+    e4:SetCost(s.e4cost)
+    e4:SetTarget(s.e4tg)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
+    c:RegisterEffect(e4, false, REGISTER_FLAG_DETACH_XMAT)
 end
 
 function s.xyzfilter(c, sc, sumtype, tp) return c:IsSetCard(0xcf, sc, sumtype, tp) end
 
-function s.e5con(e, tp, eg, ep, ev, re, r, rp)
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     return e:GetHandler():GetOverlayGroup():IsExists(function(c)
         return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) and c:IsType(TYPE_RITUAL)
     end, 1, nil)
 end
 
-function s.e6con(e, tp, eg, ep, ev, re, r, rp)
-    return e:GetHandler():GetOverlayGroup():IsExists(function(c)
-        return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_RITUAL)
-    end, 1, nil) and Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()
-end
+function s.e4filter(c) return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_RITUAL) end
 
-function s.e6cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e4con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 1, REASON_COST) end
-    c:RemoveOverlayCard(tp, 1, 1, REASON_COST)
+    return c:GetOverlayGroup():IsExists(s.e4filter, 1, nil) and Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()
 end
 
-function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    local og = c:GetOverlayGroup()
+    if chk == 0 then return og:IsExists(s.e4filter, 1, nil) end
+
+    local sg = Utility.GroupSelect(HINTMSG_REMOVEXYZ, og, tp, 1, 1, nil, s.e4filter)
+    Duel.SendtoGrave(sg, REASON_COST)
+    Duel.RaiseSingleEvent(c, EVENT_DETACH_MATERIAL, e, 0, 0, 0, 0)
+end
+
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local loc = LOCATION_HAND + LOCATION_ONFIELD
     local g = Duel.GetFieldGroup(tp, 0, loc)
     if chk == 0 then return #g > 0 end
 
     local dc = g:FilterCount(Card.IsAbleToRemove, nil, 1 - tp)
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
-    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, 0, 0, 1 - tp, dc * 500)
+    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, 0, 0, 1 - tp, dc * 300)
 end
 
-function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Duel.GetFieldGroup(tp, 0, LOCATION_HAND + LOCATION_ONFIELD)
     Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
@@ -169,7 +147,7 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local ct = Duel.GetOperatedGroup():FilterCount(Card.IsLocation, nil, LOCATION_REMOVED)
     if ct > 0 then
         Duel.BreakEffect()
-        Duel.Damage(1 - tp, ct * 500, REASON_EFFECT)
+        Duel.Damage(1 - tp, ct * 300, REASON_EFFECT)
     end
 
     local ec0 = Effect.CreateEffect(c)
