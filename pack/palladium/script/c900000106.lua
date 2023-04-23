@@ -32,20 +32,15 @@ function s.initial_effect(c)
     e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_DISABLE)
     e2:SetType(EFFECT_TYPE_QUICK_O)
-    e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
-    e2:SetRange(LOCATION_MZONE)
     e2:SetCode(EVENT_CHAINING)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCountLimit(1)
     e2:SetCondition(s.e2con)
     e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-    local e2b = Effect.CreateEffect(c)
-    e2b:SetType(EFFECT_TYPE_SINGLE)
-    e2b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE + EFFECT_FLAG_SINGLE_RANGE)
-    e2b:SetRange(LOCATION_MZONE)
-    e2b:SetCode(3682106)
-    c:RegisterEffect(e2b)
+    aux.DoubleSnareValidity(c, LOCATION_MZONE)
 
     -- destroy
     local e3 = Effect.CreateEffect(c)
@@ -92,17 +87,18 @@ end
 
 function s.e1val(e, te) return e:GetLabel() ~= 0 and te:GetOwnerPlayer() ~= e:GetHandlerPlayer() and te:IsActivated() end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tg = Duel.GetChainInfo(ev, CHAININFO_TARGET_CARDS)
-    if c:IsStatus(STATUS_BATTLE_DESTROYED) or ep == tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) or not tg then return false end
+function s.e2filter(c, type) return c:IsType(type) and c:IsDiscardable() end
 
-    return Duel.IsChainDisablable(ev) and tg:IsExists(Card.IsControler, 1, nil, tp)
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
+    return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainDisablable(ev)
 end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, nil) end
-    Duel.DiscardHand(tp, Card.IsDiscardable, 1, 1, REASON_COST + REASON_DISCARD, nil)
+    local type = (re:GetActiveType() & 0x7)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND, 0, 1, nil, type) end
+
+    Duel.DiscardHand(tp, s.e2filter, 1, 1, REASON_COST + REASON_DISCARD, nil, type)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -112,25 +108,31 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp) Duel.NegateEffect(ev) end
 
+function s.e3filter1(c, tp)
+    local type = c:GetType()
+    return type ~= 0 and c:IsDiscardable() and Duel.IsExistingMatchingCard(s.e3filter2, tp, 0, LOCATION_ONFIELD, 1, nil, type)
+end
+
+function s.e3filter2(c, type) return c:IsFaceup() and c:IsType(type) end
+
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, e:GetHandler()) end
-    Duel.DiscardHand(tp, Card.IsDiscardable, 1, 1, REASON_COST + REASON_DISCARD)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_HAND, 0, 1, nil, tp) end
+
+    Duel.DiscardHand(tp, s.e3filter1, 1, 1, REASON_COST + REASON_DISCARD, nil, tp)
+    local g = Duel.GetOperatedGroup()
+    e:SetLabel(g:GetFirst():GetType() & 0x7)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingTarget(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
+    if chk == 0 then return true end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c)
-
+    local g = Duel.GetMatchingGroup(s.e3filter2, tp, 0, LOCATION_ONFIELD, nil, e:GetLabel())
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local tc = Duel.GetFirstTarget()
-    if not tc or not tc:IsRelateToEffect(e) then return end
-    Duel.Destroy(tc, REASON_EFFECT)
+    local g = Duel.GetMatchingGroup(s.e3filter2, tp, 0, LOCATION_ONFIELD, nil, e:GetLabel())
+    Duel.Destroy(g, REASON_EFFECT)
 end
 
 function s.e4filter(c) return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsType(RACE_WARRIOR) and not c:IsType(TYPE_FUSION) and c:IsAbleToHand() end
