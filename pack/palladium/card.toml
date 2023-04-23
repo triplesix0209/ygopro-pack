@@ -173,30 +173,8 @@ strings = [
     "Return 1 Spell/Trap from the GY",
 ]
 
-[chaos-palladium-archfiend]
-id = 900000108
-set = "chaos palladium archfiend"
-name = "Chaos Palladium Archfiend - Envoy of the Void"
-type = "monster ritual effect"
-attribute = "dark"
-race = "fiend"
-level = 8
-atk = 0
-def = 3000
-effect = """\
-You can Ritual Summon this card with a "Palladium" card. \
-Must first be either Ritual Summoned, \
-    or Special Summoned (from your hand) by banishing 1 LIGHT and 1 DARK monster from your GY. \
-You can only Special Summon "{CARD_NAME}(s)" once per turn. \
-If this card is Ritual Summoned: You can negate the effects of all face-up cards your opponent currently controls. \
-Once per turn: You can target 1 monster in either GY; \
-    banish it, and if you do, this card gain ATK equal to that monster's original ATK, \
-    until the end of your opponent's turn. \
-"""
-strings = ["Banish 1 monster in GY and gain ATK"]
-
 [chaos-palladium-soldier]
-id = 900000109
+id = 900000108
 set = "palladium black-luster-soldier"
 name = "Chaos Palladium Soldier - Envoy of the Creation"
 type = "monster ritual effect"
@@ -226,7 +204,7 @@ strings = [
 ]
 
 [chaos-palladium-dragon]
-id = 900000110
+id = 900000109
 set = "chaos palladium"
 name = "Chaos Palladium Dragon - Envoy of the Destruction"
 type = "monster ritual effect"
@@ -247,6 +225,28 @@ Once per turn: You can pay 1000 LP; banish 1 monster your opponent control. \
     This card cannot declare an attack the turn this effect is activated. \
 """
 strings = ["Send card to the GY & inflict damage", "Banish 1 card your opponent control"]
+
+[chaos-palladium-archfiend]
+id = 900000110
+set = "chaos palladium archfiend"
+name = "Chaos Palladium Archfiend - Envoy of the Void"
+type = "monster ritual effect"
+attribute = "dark"
+race = "fiend"
+level = 8
+atk = 0
+def = 3000
+effect = """\
+You can Ritual Summon this card with a "Palladium" card. \
+Must first be either Ritual Summoned, \
+    or Special Summoned (from your hand) by banishing 1 LIGHT and 1 DARK monster from your GY. \
+You can only Special Summon "{CARD_NAME}(s)" once per turn. \
+If this card is Ritual Summoned: You can negate the effects of all face-up cards your opponent currently controls. \
+Once per turn: You can target 1 monster in either GY; \
+    banish it, and if you do, this card gain ATK equal to that monster's original ATK, \
+    until the end of your opponent's turn. \
+"""
+strings = ["Banish 1 monster in GY and gain ATK"]
 
 [chaos-end-ruler]
 id = 900000111
@@ -506,7 +506,7 @@ If this card is destroyed by battle or card effect: \
 strings = []
 
 [blue-eyes-palladium-dragoon]
-id = 900000122
+id = 900000123
 set = "blue-eyes palladium"
 name = "Blue-Eyes Palladium Dragoon"
 type = "monster fusion effect"
@@ -535,33 +535,6 @@ strings = [
     "Fusion Summoned with an Normal Monster",
 ]
 
-[palladium-master-chaos]
-id = 900000123
-set = "palladium chaos"
-name = "Palladium Master of Chaos"
-type = "monster fusion effect"
-attribute = "dark"
-race = "spellcaster"
-level = 8
-atk = 3000
-def = 2500
-effect = """\
-"Palladium Oracle Mahad" + 1 "Chaos" or "Black Luster Soldier" Ritual Monster
-Must first be Fusion Summoned with the above materials. \
-If this card is Fusion Summoned: \
-    You can add 1 card in your GY to your hand. \
-You can Special Summon 1 LIGHT or DARK monster that is banished or is in your GY, \
-    except "{CARD_NAME}". \
-(Quick Effect): You can Tribute 1 LIGHT and 1 DARK monster; \
-    banish all monsters your opponent controls. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
-"""
-strings = [
-    "Add 1 card to your hand",
-    "Special Summon 1 LIGHT or DARK monster",
-    "Banish monsters your opponent controls",
-]
-
 [palladium-warlock]
 id = 900000124
 set = "palladium"
@@ -586,28 +559,32 @@ If this card is Special Summoned: \
 """
 strings = ["Banish Spells/Traps to gain ATK"]
 
-[dark-flare-knight-palladium]
+[palladium-master-chaos]
 id = 900000125
-set = "palladium"
-name = "Dark Flare Knight of Palladium"
+set = "palladium chaos"
+name = "Palladium Master of Chaos"
 type = "monster fusion effect"
 attribute = "dark"
-race = "warrior"
-level = 6
-atk = 2200
-def = 800
+race = "spellcaster"
+level = 8
+atk = 3000
+def = 2500
 effect = """\
-1 Level 6 or higher Spellcaster monster + 1 Warrior monster
+"Palladium Oracle Mahad" + 1 "Chaos" or "Black Luster Soldier" Ritual Monster
 Must first be Fusion Summoned with the above materials. \
-If this card is Special Summoned: \
-    You can target 1 card on the field; destroy it. \
-Negate the effects of face-up monsters your opponent controls \
-    with ATK less than or equal to this card's. \
-If this card is destroyed by battle or card effect: \
-    You can Special Summon 1 "Palladium" monster from your hand, Deck or GY, \
-    except "{CARD_NAME}".
+If this card is Fusion Summoned: \
+    You can add 1 card in your GY to your hand. \
+You can Special Summon 1 LIGHT or DARK monster that is banished or is in your GY, \
+    except "{CARD_NAME}". \
+(Quick Effect): You can Tribute 1 LIGHT and 1 DARK monster; \
+    banish all monsters your opponent controls. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = [
+    "Add 1 card to your hand",
+    "Special Summon 1 LIGHT or DARK monster",
+    "Banish monsters your opponent controls",
+]
 
 [palladium-reborn]
 id = 900000126

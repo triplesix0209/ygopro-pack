@@ -1,4 +1,4 @@
--- Chaos Palladium Archfiend - Envoy of the Void
+-- Chaos Palladium Soldier - Envoy of the Creation
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
@@ -19,24 +19,19 @@ function s.initial_effect(c)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
 
-    -- negate effect
+    -- indes
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_DISABLE)
-    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetCondition(s.e1con)
-    e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- banish & gain atk
+    -- battle destroy
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_REMOVE + CATEGORY_ATKCHANGE)
-    e2:SetType(EFFECT_TYPE_IGNITION)
-    e2:SetRange(LOCATION_MZONE)
-    e2:SetCountLimit(1)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2:SetCode(EVENT_BATTLE_DESTROYING)
+    e2:SetCondition(aux.bdocon)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
@@ -55,7 +50,8 @@ function s.spcon(e, c)
     local g2 = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil, ATTRIBUTE_DARK)
 
     local g = g1:Clone():Merge(g2)
-    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g, e, tp, 2, 2, s.sprescon, 0) and Duel.GetLocationCount(tp, LOCATION_MZONE) > -2
+    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g, e, tp, 2, 2, s.sprescon, 0) and
+               Duel.GetLocationCount(tp, LOCATION_MZONE) > -2
 end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
@@ -79,59 +75,77 @@ end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL) end
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsFaceup, tp, 0, LOCATION_ONFIELD, 1, nil) end
-end
-
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsNegatable, tp, 0, LOCATION_ONFIELD, nil)
-    if #g == 0 then return end
-
-    for tc in aux.Next(g) do
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_DISABLE)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec1)
-
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetType(EFFECT_TYPE_SINGLE)
-        ec2:SetCode(EFFECT_DISABLE_EFFECT)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec2)
-
-        if tc:IsType(TYPE_TRAPMONSTER) then
-            local ec3 = Effect.CreateEffect(c)
-            ec3:SetType(EFFECT_TYPE_SINGLE)
-            ec3:SetCode(EFFECT_DISABLE_TRAPMONSTER)
-            ec3:SetReset(RESET_EVENT + RESETS_STANDARD)
-            tc:RegisterEffect(ec3)
-        end
-    end
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(3060)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    ec1:SetRange(LOCATION_MZONE)
+    ec1:SetValue(aux.tgoval)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE)
+    c:RegisterEffect(ec1)
+    local ec1b = ec1:Clone()
+    ec1b:SetDescription(3030)
+    ec1b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    ec1b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(ec1b)
 end
 
-function s.e2filter(c) return c:IsMonster() and c:IsAbleToRemove() end
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
 
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil) end
+    local b3 = Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, nil)
+    local b4 = Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, 1, nil)
+    local op = Duel.SelectEffect(tp, {true, aux.Stringid(id, 0)}, {true, aux.Stringid(id, 1)}, {b3, aux.Stringid(id, 2)},
+        {b4, aux.Stringid(id, 3)})
+    e:SetLabel(op)
 
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil)
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
+    e:SetCategory(0)
+    if op == 3 then
+        e:SetCategory(CATEGORY_REMOVE)
+        local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
+        Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, 1, tp, 0)
+    elseif op == 4 then
+        e:SetCategory(CATEGORY_REMOVE)
+        local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, nil)
+        Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, 1, tp, 0)
+    end
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Duel.GetFirstTarget()
-    if not tc then return end
-
-    if Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) > 0 then
+    local op = e:GetLabel()
+    if op == 1 and c:IsRelateToEffect(e) and c:IsFaceup() then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_OPPO_TURN)
-        ec1:SetValue(tc:GetBaseAttack())
+        ec1:SetValue(1500)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
         c:RegisterEffect(ec1)
+    elseif op == 2 then
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_SINGLE)
+        ec2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+        ec2:SetCode(EFFECT_EXTRA_ATTACK)
+        ec2:SetValue(1)
+        ec2:SetLabel(Duel.GetTurnCount())
+        ec2:SetCondition(function(e, tp) return Duel.GetTurnCount() > e:GetLabel() end)
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_SELF_TURN, 2)
+        c:RegisterEffect(ec2)
+    elseif op == 3 then
+        local g = Utility.SelectMatchingCard(HINT_SELECTMSG, tp, Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1,
+            1, nil)
+        if #g > 0 then
+            Duel.HintSelection(g)
+            Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
+        end
+    elseif op == 4 then
+        local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, nil, tp)
+        if #g > 0 then
+            g = g:RandomSelect(tp, 1)
+            Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
+        end
     end
 end
