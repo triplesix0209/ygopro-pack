@@ -290,7 +290,7 @@ Equip Cards that are equipped to this card cannot be destroyed by card effects, 
     also your opponent cannot target them with card effects. \
 If this card in your possession leaves the field: \
     You can Special Summon 1 of the monsters that were equipped to this card when it was left the field, \
-    and if you do, the Special Summoned monster gains ATK equal to its Level x 100 and cannot be destroyed by card effects, \
+    and if you do, that monster gains ATK equal to its Level x 100 and cannot be destroyed by card effects, \
     until the end of this turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
