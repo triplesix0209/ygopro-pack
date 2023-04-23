@@ -256,10 +256,14 @@ level = 6
 atk = 2000
 def = 1600
 effect = """\
-Once per turn (Quick Effect): You can Tribute 1 other monster; \
-    this card gains 400 ATK, also, it cannot be destroyed by card effects this turn. \
+If a monster you control is destroyed by battle or an opponent's card effect: \
+    You can Special Summon this card from your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn (Quick Effect): You can Tribute 1 other face-up monster; \
+    this card gains ATK equal to the Tributed monster's Level had on the field x 100, \
+    also, it cannot be destroyed by card effects this turn. \
 """
-strings = ["Tribute other monster to gain 400 ATK"]
+strings = ["Tribute other monster to gain ATK & cannot be destroyed by card effects"]
 
 [palladium-queen]
 id = 900000114
