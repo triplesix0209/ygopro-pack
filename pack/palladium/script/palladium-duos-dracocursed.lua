@@ -157,7 +157,10 @@ end
 
 function s.e3filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) end
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD)
+end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local g = e:GetLabelObject():GetLabelObject()
