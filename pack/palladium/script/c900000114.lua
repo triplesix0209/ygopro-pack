@@ -1,4 +1,4 @@
--- Palladium Paladin Gaia
+-- Palladium Gaia the Fierce Knight
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

@@ -331,10 +331,10 @@ If this card leaves the field, return it to the bottom of the Deck. \
 """
 strings = []
 
-[palladium-paladin-gaia]
+[palladium-gaia-knight]
 id = 900000114
-set = "palladium"
-name = "Palladium Paladin Gaia"
+set = "palladium gaia-the-fierce-knight"
+name = "Palladium Gaia the Fierce Knight"
 type = "monster effect"
 attribute = "light"
 race = "warrior"
@@ -505,6 +505,22 @@ If this card is destroyed by battle or card effect: \
 """
 strings = []
 
+[palladium-paladin]
+id = 900000122
+set = "palladium"
+name = "Palladium Paladin"
+type = "monster fusion effect"
+attribute = "dark"
+race = "spellcaster"
+level = 8
+atk = 2900
+def = 2400
+effect = """\
+"Palladium Oracle Mahad" + 1 Level 7 or higher Warrior monster
+Must first be Fusion Summoned with the above materials. \
+"""
+strings = []
+
 [blue-eyes-palladium-dragoon]
 id = 900000123
 set = "blue-eyes palladium"
@@ -535,18 +551,18 @@ strings = [
     "Fusion Summoned with an Normal Monster",
 ]
 
-[palladium-warlock]
+[dark-palladium-warlock]
 id = 900000124
 set = "palladium"
-name = "Palladium Warlock"
+name = "Dark Palladium Warlock"
 type = "monster fusion effect"
 attribute = "dark"
 race = "spellcaster"
 level = 8
-atk = 2900
-def = 2400
+atk = 2800
+def = 2300
 effect = """\
-"Palladium Oracle Mahad" + 1 Fiend monster
+"Palladium Oracle Mahad" + 1 DARK Fiend monster
 Must first be Fusion Summoned with the above materials. \
 The effect activations and card effects of this card cannot be negated. \
 If this card is Special Summoned: \
