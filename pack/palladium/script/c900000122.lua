@@ -153,18 +153,19 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 
     local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(1115)
     ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_ATTACK_ALL)
     ec1:SetValue(1)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     c:RegisterEffect(ec1)
-
-    local ec2 = Effect.CreateEffect(c)
-    ec2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    ec2:SetCode(EVENT_BATTLED)
-    ec2:SetOperation(s.e4disop)
-    ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    c:RegisterEffect(ec2)
+    local ec1b = ec1:Clone()
+    ec1b:SetDescription(aux.Stringid(id, 2))
+    ec1b:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    ec1b:SetCode(EVENT_BATTLED)
+    ec1b:SetOperation(s.e4disop)
+    c:RegisterEffect(ec1b)
 end
 
 function s.e4disop(e, tp, eg, ep, ev, re, r, rp)

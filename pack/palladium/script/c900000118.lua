@@ -28,7 +28,6 @@ function s.initial_effect(c)
     e2:SetCategory(CATEGORY_TOHAND)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e2:SetCode(EVENT_BATTLE_CONFIRM)
-    e2:SetCondition(s.e2con)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
@@ -68,23 +67,20 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    return c:IsRelateToBattle() and bc and bc:IsRelateToBattle()
-end
-
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    if chk == 0 then return c:IsAttackPos() and c:IsCanChangePosition() and bc:IsAbleToHand() end
+    local bc = Duel.GetAttackTarget()
+    if chk == 0 then
+        return Duel.GetAttacker() == c and bc and bc:IsRelateToBattle() and c:IsAttackPos() and c:IsCanChangePosition() and bc:IsAbleToHand()
+    end
+
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, bc, 1, 0, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    if c:IsFaceup() and c:IsRelateToBattle() and bc:IsFaceup() and bc:IsRelateToBattle() and c:IsAttackPos() and
+    local bc = Duel.GetAttackTarget()
+    if c:IsFaceup() and c:IsRelateToBattle() and bc and bc:IsFaceup() and bc:IsRelateToBattle() and c:IsAttackPos() and
         Duel.ChangePosition(c, POS_FACEUP_DEFENSE) > 0 then
         Duel.SendtoHand(bc, nil, REASON_EFFECT)
         local ec1 = Effect.CreateEffect(c)

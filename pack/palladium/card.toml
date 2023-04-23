@@ -349,8 +349,8 @@ effect = """\
 If you control no monsters, or your opponent controls a monster with 2000 or more ATK, \
     you can Special Summon this card (from your hand). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
-Once per battle, if this card battles an opponent's monster, before damage calculation (Quick Effect): \
-    You can change the battle position of that opponent's monster. \
+If this card attacks a monster, before damage calculation: \
+    You can change the battle position of that monster. \
 When you Ritual or Fusion Summon a "Palladium" monster, \
     you can banish this card from your GY as 1 of materials. \
 """
@@ -435,9 +435,9 @@ If this card is Summoned: \
     then you can reveal 1 "Palladium" Spell/Trap or 1 Continuous Trap among them, and Set it, \
     it can be activated this turn, also place the remaining cards on top of your Deck in any order. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Before damage calculation, if this card battles an opponent's monster: \
+If this card attacks a monster, before damage calculation: \
     You can change this card you control from face-up Attack Position to face-up Defense Position, \
-    and if you do, return that opponent's monster to the hand, \
+    and if you do, return that monster to the hand, \
     also this card's battle position cannot be changed until the end of your next turn. \
 """
 strings = ["Return battling monster to the hand"]
@@ -536,6 +536,7 @@ Once per Battle Phase, at the start of your Battle Phase: \
 strings = [
     "Discard 1 card to negate the activation",
     "Send the equip card to the GY to attack all monster",
+    "Negate the effect of battle destroyed monster"
 ]
 
 [blue-eyes-palladium-dragoon]
