@@ -108,7 +108,7 @@ name = "Palladium Protector Hasan"
 type = "monster effect"
 attribute = "dark"
 race = "spellcaster"
-level = 8
+level = 7
 atk = 2300
 def = 2800
 effect = """\
@@ -258,11 +258,12 @@ def = 1600
 effect = """\
 If a monster(s) you control is destroyed by battle or an opponent's card effect: \
     You can Special Summon this card from your hand, \
-    and if you do, it gains ATK equal to 100 x the highest Level among those destroyed monsters (your choice, if tied). \
+    and if you do, it gains ATK equal to 100 x the highest Level among those destroyed monsters, \
+    until the end of this turn (your choice, if tied). \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn (Quick Effect): You can Tribute 1 other face-up monster; \
     this card gains ATK equal to the Tributed monster's Level had on the field x 100, \
-    also, it cannot be destroyed by card effects this turn. \
+    also, it cannot be destroyed by card effects, until the end of this turn. \
 """
 strings = [
     "Tribute other monster to gain ATK & cannot be destroyed by card effects",
@@ -279,9 +280,19 @@ level = 7
 atk = 2600
 def = 2100
 effect = """\
-1 "Palladium" Warrior monster + 1 Level 5 or higher Dragon monster
+1 Level 5 or higher "Palladium" Warrior monster + 1 Level 5 or higher Dragon monster
 Must first be either Fusion Summoned, or Special Summoned \
     by Tributing 1 "Palladium Spirit Duos" you control and 1 Level 5 or higher Dragon monster in your hand or field. \
+If this card is Special Summoned: \
+    You can equip 1 Level 7 or lower monster from your hand, Deck, or field to this card \
+    as an Equip Spell that gives this card ATK equal to its Level x 100. \
+Equip Cards that are equipped to this card cannot be destroyed by card effects, \
+    also your opponent cannot target them with card effects. \
+If this card leaves the field: \
+    You can Special Summon 1 of the monsters that were equipped to this card when it was left the field, \
+    and if you do, the Special Summoned monster gains ATK equal to its Level x 100 and cannot be destroyed by card effects, \
+    until the end of this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 

@@ -212,8 +212,8 @@ effect = """\
 This card's original ATK/DEF are equal to the number of cards in your opponent controls x 1000. \
     This effect cannot be negated. \
 Once per turn: You can destroy this Normal Summoned card. \
-If this face-up card leaves the field, send all cards on the field to the GY, \
-    ignoring card effects, except monsters with higher Divine Hierarchy than this card's original Divine Hierarchy. \
+If this card leaves the field, send all cards on the field to the GY, \
+    ignoring card effects, except monsters with higher Divine Hierarchy than this card's Divine Hierarchy had on the field. \
 """
 strings = ["Destroy itself"]
 

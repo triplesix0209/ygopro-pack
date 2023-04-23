@@ -82,6 +82,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetValue(e:GetLabel() * 100)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
     c:RegisterEffect(ec1)
+
     local ec2 = ec1:Clone()
     ec2:SetDescription(3001)
     ec2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CLIENT_HINT)

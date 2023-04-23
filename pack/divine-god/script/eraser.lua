@@ -30,10 +30,17 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 
     -- erase field
+    local e3reg = Effect.CreateEffect(c)
+    e3reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e3reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e3reg:SetCode(EVENT_LEAVE_FIELD_P)
+    e3reg:SetOperation(s.e3regop)
+    c:RegisterEffect(e3reg)
     local e3 = Effect.CreateEffect(c)
     e3:SetCategory(CATEGORY_TOGRAVE)
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e3:SetCode(EVENT_LEAVE_FIELD)
+    e3:SetLabelObject(e3reg)
     e3:SetCondition(s.e3con)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -51,18 +58,16 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Destroy(c, REASON_EFFECT)
 end
 
+function s.e3regop(e, tp, eg, ep, ev, re, r, rp) e:SetLabel(Divine.GetDivineHierarchy(e:GetHandler())) end
+
 function s.e3filter(c, divine_hierarchy) return Divine.GetDivineHierarchy(c) <= divine_hierarchy end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousLocation(LOCATION_ONFIELD)
-end
+function s.e3con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     Utility.HintCard(e)
 
-    local divine_hierarchy = Divine.GetDivineHierarchy(c, true)
-    local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil, divine_hierarchy)
+    local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil, e:GetLabelObject():GetLabel())
     Duel.SendtoGrave(g, REASON_EFFECT + REASON_RULE)
 end
