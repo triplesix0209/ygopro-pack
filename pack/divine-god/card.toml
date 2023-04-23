@@ -243,7 +243,7 @@ strings = [
     "Affected by effect \"{CARD_NAME}\": cannot activate Spell/Trap Cards",
 ]
 
-[the-chosen-pharaoh]
+[chosen-pharaoh]
 id = 900000009
 rarity = "gold"
 name = "The Chosen Pharaoh"
