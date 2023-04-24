@@ -49,6 +49,8 @@ function s.initial_effect(c)
     c:RegisterEffect(e3b)
 end
 
+function s.e1filter(c) return c:IsMonster() and c:IsAbleToDeckOrExtraAsCost() end
+
 function s.e1rescon(sg, e, tp, mg)
     return aux.ChkfMMZ(1)(sg, e, tp, mg) and sg:GetClassCount(Card.GetCode) == #sg, sg:GetClassCount(Card.GetCode) ~= #sg
 end
@@ -56,12 +58,12 @@ end
 function s.e1con(e, c)
     if c == nil then return true end
     local tp = c:GetControler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeckOrExtraAsCost, tp, LOCATION_GRAVE, 0, nil)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_GRAVE, 0, nil)
     return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and g:GetClassCount(Card.GetCode) >= 5
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, c)
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeckOrExtraAsCost, tp, LOCATION_GRAVE, 0, nil)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_GRAVE, 0, nil)
     local rg = aux.SelectUnselectGroup(g, e, tp, 5, 5, s.e1rescon, 1, tp, HINTMSG_TODECK, nil, nil, true)
     if #rg > 0 then
         rg:KeepAlive()

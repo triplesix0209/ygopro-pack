@@ -78,7 +78,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if c:IsFaceup() and c:IsRelateToEffect(e) and ac:CanAttack() and not ac:IsImmuneToEffect(e) then Duel.CalculateDamage(ac, c) end
 end
 
-function s.e4filter(c, tp) return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x13a) end
+function s.e4filter(c, tp) return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x13a) end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
