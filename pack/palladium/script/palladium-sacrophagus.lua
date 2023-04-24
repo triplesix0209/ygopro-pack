@@ -60,7 +60,7 @@ end
 function s.e2disop(e, tp, eg, ep, ev, re, r, rp)
     local tc = e:GetLabelObject()
     local rc = re:GetHandler()
-    if tc:IsLocation(LOCATION_REMOVED) and tc:IsFacedown() and rc:IsCode(c:GetCode()) and Duel.IsChainDisablable(ev) and
+    if tc:IsLocation(LOCATION_REMOVED) and tc:IsFacedown() and rc:IsCode(tc:GetCode()) and Duel.IsChainDisablable(ev) and
         Duel.SelectEffectYesNo(tp, tc, aux.Stringid(id, 0)) then
         Utility.HintCard(e)
         Duel.ConfirmCards(tp, tc)
