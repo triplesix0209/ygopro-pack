@@ -10,7 +10,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    Synchro.AddProcedure(c, nil, 1, 1, aux.NOT(Synchro.NonTunerEx(Card.IsSetCard, 0xdd)), 1, 1)
+    Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTunerEx(Card.IsSetCard, 0xdd), 1, 1)
 
     -- special summon
     local sp = Effect.CreateEffect(c)
