@@ -78,10 +78,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.e2filter(c)
-    if not c:IsAbleToHand() then return false end
-    return c:IsSetCard({0x40, 0xde}) or (c:Level(10) and c:IsSummonableCard())
-end
+function s.e2filter(c) return c:IsSetCard({0x40, 0xde}) and c:IsAbleToHand() end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
