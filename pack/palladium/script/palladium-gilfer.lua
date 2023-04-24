@@ -22,6 +22,7 @@ function s.initial_effect(c)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+    aux.AddEREquipLimit(c, nil, aux.FilterBoolFunction(Card.IsMonster), Card.EquipByEffectAndLimitRegister, e2)
 end
 
 function s.e1con(e, c, minc)
@@ -45,8 +46,7 @@ end
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and
-                   Duel.IsExistingTarget(Card.IsFaceup, tp, LOCATION_MZONE, LOCATION_MZONE, 1, nil)
+        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingTarget(Card.IsFaceup, tp, LOCATION_MZONE, LOCATION_MZONE, 1, nil)
     end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_EQUIP)
@@ -59,17 +59,17 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if Duel.GetLocationCount(tp, LOCATION_SZONE) <= 0 or tc:IsFacedown() or not c:IsRelateToEffect(e) or
-        not tc:IsRelateToEffect(e) then return end
+    if Duel.GetLocationCount(tp, LOCATION_SZONE) <= 0 or not c:IsRelateToEffect(e) or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 
+    -- equip
     Duel.Equip(tp, c, tc, true)
-    local ec1 = Effect.CreateEffect(tc)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    ec1:SetCode(EFFECT_EQUIP_LIMIT)
-    ec1:SetValue(function(e, c) return e:GetOwner() == c end)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-    c:RegisterEffect(ec1)
+    local eqlimit = Effect.CreateEffect(tc)
+    eqlimit:SetType(EFFECT_TYPE_SINGLE)
+    eqlimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    eqlimit:SetCode(EFFECT_EQUIP_LIMIT)
+    eqlimit:SetValue(function(e, c) return e:GetOwner() == c end)
+    eqlimit:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(eqlimit)
 
     -- down atk
     local ec2 = Effect.CreateEffect(c)

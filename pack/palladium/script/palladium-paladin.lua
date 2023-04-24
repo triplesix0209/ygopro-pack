@@ -29,6 +29,7 @@ function s.initial_effect(c)
     e1:SetTarget(s.e2tg)
     e1:SetOperation(s.e2op)
     c:RegisterEffect(e1)
+    aux.AddEREquipLimit(c, nil, aux.FilterBoolFunction(Card.IsMonster), Card.EquipByEffectAndLimitRegister, e1)
 
     -- atk up
     local e2 = Effect.CreateEffect(c)
@@ -89,14 +90,8 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if tc:IsRelateToEffect(e) and Duel.Equip(tp, tc, c, true) then
-        local ec0 = Effect.CreateEffect(c)
-        ec0:SetType(EFFECT_TYPE_SINGLE)
-        ec0:SetCode(EFFECT_EQUIP_LIMIT)
-        ec0:SetLabelObject(c)
-        ec0:SetValue(function(e, c) return c == e:GetLabelObject() end)
-        ec0:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec0)
+    if c:IsRelateToEffect(e) and c:IsFaceup() and tc and tc:IsRelateToEffect(e) then
+        c:EquipByEffectAndLimitRegister(e, tp, tc, nil, true)
 
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_EQUIP)

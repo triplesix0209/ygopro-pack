@@ -771,8 +771,20 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
 
-[palladium-mirror-force]
+[palladium-diadhank]
 id = 900000133
+set = "palladium"
+name = "Palladium Diadhank"
+type = "spell equip"
+effect = """\
+Special Summon 1 "Palladium" monster or 1 Normal Monster from your hand, Deck, or GY, \
+    and if you do, equip it with this card. \
+You can only activate 1 "{CARD_NAME}" per turn. \
+"""
+strings = []
+
+[palladium-mirror-force]
+id = 900000134
 set = "palladium"
 name = "Palladium Mirror Force"
 type = "trap counter"
@@ -789,7 +801,7 @@ If this Set card is destroyed by your opponent's card effect and sent to your GY
 strings = []
 
 [palladium-arrow]
-id = 900000134
+id = 900000135
 set = "palladium"
 name = "Palladium Arrows"
 type = "trap counter"

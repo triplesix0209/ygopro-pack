@@ -40,6 +40,7 @@ function s.initial_effect(c)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
+    aux.AddEREquipLimit(c, nil, aux.FilterBoolFunction(Card.IsMonster), Card.EquipByEffectAndLimitRegister, e1)
 
     -- protect equip cards
     local e2 = Effect.CreateEffect(c)
@@ -127,14 +128,8 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc =
         Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_MZONE, 0, 1, 1, c, tp):GetFirst()
-    if tc and c:IsFaceup() and c:IsRelateToEffect(e) and Duel.Equip(tp, tc, c, true) then
-        local ec0 = Effect.CreateEffect(c)
-        ec0:SetType(EFFECT_TYPE_SINGLE)
-        ec0:SetCode(EFFECT_EQUIP_LIMIT)
-        ec0:SetLabelObject(c)
-        ec0:SetValue(function(e, c) return c == e:GetLabelObject() end)
-        ec0:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec0)
+    if c:IsRelateToEffect(e) and c:IsFaceup() and tc then
+        c:EquipByEffectAndLimitRegister(e, tp, tc, nil, true)
 
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_EQUIP)
