@@ -45,34 +45,37 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, Card.IsAbleToRemove, tp,
         LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA + LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil):GetFirst()
-    if not tc or Duel.Remove(tc, POS_FACEDOWN, REASON_EFFECT) == 0 then return end
 
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    ec1:SetCode(EVENT_CHAIN_SOLVING)
-    ec1:SetRange(LOCATION_REMOVED)
-    ec1:SetOperation(s.e2disop)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-    tc:RegisterEffect(ec1)
+    if tc and Duel.Remove(tc, POS_FACEDOWN, REASON_EFFECT) > 0 then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+        ec1:SetCode(EVENT_CHAIN_SOLVING)
+        ec1:SetRange(LOCATION_REMOVED)
+        ec1:SetLabelObject(tc)
+        ec1:SetOperation(s.e2disop)
+        Duel.RegisterEffect(ec1, tp)
+    end
 end
 
 function s.e2disop(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
+    local tc = e:GetLabelObject()
     local rc = re:GetHandler()
+    if tc:IsLocation(LOCATION_REMOVED) and tc:IsFacedown() and rc:IsCode(c:GetCode()) and Duel.IsChainDisablable(ev) and
+        Duel.SelectEffectYesNo(tp, tc, aux.Stringid(id, 0)) then
+        Utility.HintCard(e)
+        Duel.ConfirmCards(tp, tc)
 
-    if c:IsLocation(LOCATION_REMOVED) and c:IsFacedown() and rc:IsCode(c:GetCode()) and Duel.IsChainDisablable(ev) and
-        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-        Utility.HintCard(e:GetOwner())
-        Duel.ConfirmCards(tp, c)
         if Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
             if rc:IsPreviousLocation(LOCATION_HAND) then
-                Duel.SendtoHand(c, nil, REASON_EFFECT)
+                Duel.SendtoHand(tc, nil, REASON_EFFECT)
             elseif rc:IsPreviousLocation(LOCATION_DECK + LOCATION_EXTRA) then
-                Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
+                Duel.SendtoDeck(tc, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
             elseif rc:IsPreviousLocation(LOCATION_GRAVE) then
-                Duel.SendtoGrave(c, REASON_EFFECT)
+                Duel.SendtoGrave(tc, REASON_EFFECT)
             end
         end
+
+        e:Reset()
     end
 end
 
