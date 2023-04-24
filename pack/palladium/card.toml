@@ -258,8 +258,8 @@ def = 1600
 effect = """\
 If a monster(s) you control is destroyed by battle or an opponent's card effect: \
     You can Special Summon this card from your hand, \
-    and if you do, it gains ATK equal to 100 x the highest Level among those destroyed monsters, \
-    until the end of this turn (your choice, if tied). \
+    and if you do, it gains ATK equal to 100 x the highest Level among those destroyed monsters (your choice, if tied), \
+    until the end of the next turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn (Quick Effect): You can Tribute 1 other face-up monster; \
     this card gains ATK equal to the Tributed monster's Level had on the field x 100, \
@@ -291,7 +291,7 @@ Equip Cards that are equipped to this card cannot be destroyed by card effects, 
 If this card in your possession leaves the field: \
     You can Special Summon 1 of the monsters that were equipped to this card when it was left the field, \
     and if you do, that monster gains ATK equal to its Level x 100 and cannot be destroyed by card effects, \
-    until the end of this turn. \
+    until the end of the next turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
@@ -535,7 +535,7 @@ strings = [
     "Banish battling monster",
 ]
 
-[palladium-aknamkanon]
+[chaos-palladium-aknamkanon]
 id = 900000123
 set = "chaos palladium"
 name = "Chaos Palladium Oracle Aknamkanon"
@@ -549,7 +549,7 @@ effect = """\
 You can Ritual Summon this card with a "Palladium" card. \
 You can also Special Summon this card (from your hand) by Tributing 1 Level 7 or higher "Palladium" Spellcaster monster. \
 After this card was Ritual Summoned, your opponent cannot activate monster effects for the rest of that turn. \
-Spellcaster monsters you control gains 100 ATK/DEF for each banished cards. \
+Monsters your opponent controls lose 100 ATK/DEF for each banished cards. \
 Banish any monster destroyed by battle with this card. \
 If this card destroys an opponent's monster by battle: \
     You can target 1 Spell/Trap in your GY; add it to your hand. \
@@ -577,7 +577,7 @@ Must first be either Ritual Summoned, \
 You can only Special Summon "{CARD_NAME}(s)" once per turn. \
 If this card is Ritual Summoned: You can negate the effects of all face-up cards your opponent currently controls. \
 Once per turn: You can target 1 monster in either GY; \
-    banish it, and if you do, this card gain ATK equal to that monster's original ATK, \
+    banish it, and if you do, 1 monster you control gain ATK equal to that monster's original ATK, \
     until the end of your opponent's turn. \
 """
 strings = ["Banish 1 monster in GY and gain ATK"]

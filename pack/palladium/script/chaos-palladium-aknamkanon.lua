@@ -26,15 +26,14 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- atk/def up
+    -- atk/def down
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e2:SetCode(EFFECT_UPDATE_ATTACK)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetTargetRange(LOCATION_MZONE, 0)
-    e2:SetTarget(function(e, c) return c:IsRace(RACE_SPELLCASTER) end)
-    e2:SetValue(function(e, c) return Duel.GetFieldGroupCount(c:GetControler(), LOCATION_REMOVED, LOCATION_REMOVED) * 100 end)
+    e2:SetTargetRange(0, LOCATION_MZONE)
+    e2:SetValue(function(e, c) return Duel.GetFieldGroupCount(c:GetControler(), LOCATION_REMOVED, LOCATION_REMOVED) * -100 end)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
     e2b:SetCode(EFFECT_UPDATE_DEFENSE)

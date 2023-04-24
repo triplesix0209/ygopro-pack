@@ -184,7 +184,7 @@ function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return Duel.IsExistingMatchingCard(aux.TRUE, tp, 0, LOCATION_MZONE, 1, c) end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACK)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACKTARGET)
     local g = Duel.SelectMatchingCard(tp, aux.TRUE, tp, 0, LOCATION_MZONE, 1, 1, c)
     Duel.SetTargetCard(g)
 

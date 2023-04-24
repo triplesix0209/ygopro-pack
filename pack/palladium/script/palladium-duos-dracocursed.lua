@@ -178,7 +178,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
         ec1:SetValue(tc:GetLevel() * 100)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 2)
         tc:RegisterEffect(ec1)
 
         local ec2 = ec1:Clone()

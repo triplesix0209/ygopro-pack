@@ -96,7 +96,7 @@ end
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(aux.TRUE, tp, 0, LOCATION_MZONE, 1, nil) end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACK)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_ATTACKTARGET)
     local g = Duel.SelectMatchingCard(tp, nil, tp, 0, LOCATION_MZONE, 1, 1, nil)
     Duel.SetTargetCard(g)
 end

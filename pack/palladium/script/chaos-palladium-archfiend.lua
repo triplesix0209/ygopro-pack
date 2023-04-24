@@ -125,13 +125,16 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if not tc then return end
 
-    if Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) > 0 then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_OPPO_TURN)
-        ec1:SetValue(tc:GetBaseAttack())
-        c:RegisterEffect(ec1)
+    if Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) > 0 and Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_MZONE, 0, 1, nil) then
+        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, Card.IsFaceup, tp, LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
+        if sc then
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+            ec1:SetCode(EFFECT_UPDATE_ATTACK)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_OPPO_TURN)
+            ec1:SetValue(tc:GetBaseAttack())
+            sc:RegisterEffect(ec1)
+        end
     end
 end
