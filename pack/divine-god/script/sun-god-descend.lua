@@ -76,7 +76,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 
     if tc and Duel.Release(g, REASON_EFFECT) == 3 then
         Duel.BreakEffect()
-        if Duel.SpecialSummonStep(tc, 0, tp, tp, true, false, POS_FACEUP) > 0 then
+        if Duel.SpecialSummonStep(tc, 0, tp, tp, true, false, POS_FACEUP) then
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetCode(EFFECT_SET_BASE_ATTACK)
