@@ -64,17 +64,8 @@ function s.e2disop(e, tp, eg, ep, ev, re, r, rp)
         Duel.SelectEffectYesNo(tp, tc, aux.Stringid(id, 0)) then
         Utility.HintCard(e)
         Duel.ConfirmCards(tp, tc)
-
-        if Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then
-            if rc:IsPreviousLocation(LOCATION_HAND) then
-                Duel.SendtoHand(tc, nil, REASON_EFFECT)
-            elseif rc:IsPreviousLocation(LOCATION_DECK + LOCATION_EXTRA) then
-                Duel.SendtoDeck(tc, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
-            elseif rc:IsPreviousLocation(LOCATION_GRAVE) then
-                Duel.SendtoGrave(tc, REASON_EFFECT)
-            end
-        end
-
+        Duel.ConfirmCards(1 - tp, tc)
+        Duel.NegateEffect(ev)
         e:Reset()
     end
 end
