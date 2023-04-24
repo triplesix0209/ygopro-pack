@@ -3,6 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_series = {0x40, 0xde}
+
 function s.initial_effect(c)
     -- special summon
     local e1 = Effect.CreateEffect(c)
