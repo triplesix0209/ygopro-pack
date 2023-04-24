@@ -434,10 +434,11 @@ type = "spell quick-play"
 effect = """\
 The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
 During the Main Phase: \
-    Tribute 3 monsters on your field or your opponent's, and if you do, \
-    Special Summon 1 "The Winged Dragon of Ra" from your hand or Deck, ignoring its Summoning conditions, \
-    and its original ATK/DEF become the combined ATK/DEF of the Tributed monsters had on the field. \
+    Tribute 3 monsters on your field or your opponent's, \
+    then Special Summon 1 "The Winged Dragon of Ra" from your hand or Deck, ignoring its Summoning conditions, \
+    and if you do, its original ATK/DEF become the combined ATK/DEF of the Tributed monsters had on the field. \
     If you Tributed monsters on your opponent's field, it cannot attack this turn. \
+    You cannot Normal Summon/Set during the turn you Special Summon with this effect. \
 If this card is in your GY: \
     You can target 1 "The Winged Dragon of Ra" or 1 card that mentions it \
     that is banished, or in your GY, except "{CARD_NAME}"; \
@@ -445,4 +446,8 @@ If this card is in your GY: \
     then draw 1 card. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Tribute your monsters", "Tribute your opponent's monsters"]
+strings = [
+    "Tribute your monsters",
+    "Tribute your opponent's monsters",
+    "Affected by effect \"{CARD_NAME}\": cannot Normal Summon/Set monsters for the rest of this turn",
+]
