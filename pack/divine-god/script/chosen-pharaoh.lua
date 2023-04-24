@@ -118,7 +118,7 @@ function s.e1val(e, ct)
     return p == tp and tc:IsCode(39913299) and (loc & LOCATION_ONFIELD) ~= 0
 end
 
-function s.e2filter(c, tp, re) return c:IsRelateToEffect(re) and c:IsControler(tp) and c:IsOriginalRace(RACE_DIVINE) end
+function s.e2filter(c, tp, re) return c:IsRelateToEffect(re) and c:IsControler(tp) and c:IsLocation(LOCATION_GRAVE) and c:IsOriginalRace(RACE_DIVINE) end
 
 function s.e2tg(e, c, tp, r, re) return c:IsOriginalRace(RACE_DIVINE) end
 
@@ -133,12 +133,15 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not res and s.e2discheck(tp, ev, CATEGORY_TOEXTRA, re) then res = true end
     if not res and s.e2discheck(tp, ev, CATEGORY_EQUIP, re) then res = true end
     if not res and s.e2discheck(tp, ev, CATEGORY_LEAVE_GRAVE, re) then res = true end
-    if res then Duel.NegateEffect(ev) end
+
+    if res then
+        Utility.HintCard(e)
+        Duel.NegateEffect(ev)
+    end
 end
 
 function s.e2discheck(tp, ev, category, re)
     local ex, tg, ct, p, v = Duel.GetOperationInfo(ev, category)
-    if not ex then return false end
     if tg and #tg > 0 then return tg:IsExists(s.e2filter, 1, nil, tp, re) end
     return false
 end
