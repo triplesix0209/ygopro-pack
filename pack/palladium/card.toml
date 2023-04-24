@@ -705,7 +705,8 @@ Activate 1 of these effects.
     if all the Fusion Materials that were used for its Fusion Summon are banished and/or are in your hand, Deck, GY, \
     you can Special Summon all of them.
 ● This turn, the activation of your cards and effects that include an effect that Fusion Summons a Fusion Monster cannot be negated, \
-    also your opponent cannot activate cards or effects when a monster is Fusion Summoned this way. \
+    and your opponent cannot activate cards or effects when a monster is Fusion Summoned this way, \
+    also once when you Fusion Summon this turn, you can also banish monster(s) from your GY as material. \
     Your opponent cannot activate cards or effects in response to this effect's activation.
 During your Main Phase, while this card is in the GY: \
     You add 1 "Fusion" or "Polymerization" Spell from your Deck or GY to your hand, except "{CARD_NAME}", \
@@ -804,7 +805,7 @@ Activate 1 of these effects.
 ● When an opponent's monster declares an attack: \
     Negate that attack, also destroy all your opponent's Attack Position monsters.
 If this Set card is destroyed by your opponent's card effect and sent to your GY: \
-    You can Set this card from your GY and 1 Spell/Trap Card from your hand, Deck, except "{CARD_NAME}". \
+    You can Set this card from your GY and 1 Spell/Trap Card from your hand or Deck, except "{CARD_NAME}". \
     They can be activated this turn. \
 """
 strings = []
