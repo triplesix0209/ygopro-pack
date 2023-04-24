@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x40, 0xde, 0x13a}
+s.listed_series = {0x40, 0xde}
 function s.initial_effect(c)
     -- special summon
     local e1 = Effect.CreateEffect(c)
@@ -77,7 +77,10 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.e2filter(c) return not c:IsCode(id) and c:IsSetCard({0x40, 0xde, 0x13a}) and c:IsAbleToHand() end
+function s.e2filter(c)
+    if not c:IsAbleToHand() then return false end
+    return c:IsSetCard({0x40, 0xde}) or (c:Level(10) and c:IsSummonableCard())
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
@@ -92,4 +95,4 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3tg(e, tc) return tc:IsSetCard({0x40, 0xde, 0x13a}) and tc:IsMonster() end
+function s.e3tg(e, tc) return tc:IsSetCard({0x40, 0xde}) and tc:IsMonster() end

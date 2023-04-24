@@ -94,9 +94,11 @@ def = 2200
 effect = """\
 You can Special Summon this card (from your hand) by shuffling 5 monsters with different names in your GY into the Deck. \
 If this card is Summoned: \
-    You can add 1 "Forbidden One", "Exodia", or "Palladium" card from your Deck or GY to your hand, except "{CARD_NAME}". \
+    You can add 1 "Forbidden One" or "Exodia" card, \
+    or 1 Level 10 monster that can be Normal Summoned/Set \
+    from your Deck or GY to your hand. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-If you would Tribute a monster(s) for a Tribute Summon an "Forbidden One", "Exodia", or "Palladium" monster, \
+If you would Tribute a monster(s) for a Tribute Summon an "Forbidden One", "Exodia" monster, \
     you can Tribute a monster(s) your opponent controls, even though you do not control them. \
 """
 strings = []
