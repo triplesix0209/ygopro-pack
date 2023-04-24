@@ -1,6 +1,6 @@
 set_name = "triplesix"
-pic_field_path = "D:/Games/EdoPro/pics/field"
 setcodes = ["./setcode.toml"]
+pic_field_path = "D:/Games/EdoPro/pics/field"
 
 packs = [
     "./pack/divine-god",
