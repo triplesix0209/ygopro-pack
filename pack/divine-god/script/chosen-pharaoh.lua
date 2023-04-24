@@ -10,10 +10,31 @@ function s.initial_effect(c)
     -- activate
     local act = Effect.CreateEffect(c)
     act:SetType(EFFECT_TYPE_ACTIVATE)
-    act:SetProperty(EFFECT_FLAG_CANNOT_NEGATE_ACTIV_EFF)
+    act:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_INACTIVATE)
     act:SetCode(EVENT_FREE_CHAIN)
     act:SetHintTiming(0, TIMING_END_PHASE)
     c:RegisterEffect(act)
+
+    -- activation and effect cannot be negated
+    local nonegate = Effect.CreateEffect(c)
+    nonegate:SetType(EFFECT_TYPE_FIELD)
+    nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    nonegate:SetCode(EFFECT_CANNOT_INACTIVATE)
+    nonegate:SetRange(LOCATION_ONFIELD)
+    nonegate:SetTargetRange(1, 0)
+    nonegate:SetValue(function(e, ct)
+        local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
+        return te:GetHandler() == e:GetHandler()
+    end)
+    c:RegisterEffect(nonegate)
+    local nodiseff = nonegate:Clone()
+    nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
+    c:RegisterEffect(nodiseff)
+    local nodis = Effect.CreateEffect(c)
+    nodis:SetType(EFFECT_TYPE_SINGLE)
+    nodis:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+    nodis:SetCode(EFFECT_CANNOT_DISABLE)
+    c:RegisterEffect(nodis)
 
     -- inactivatable
     local e1 = Effect.CreateEffect(c)
@@ -301,10 +322,10 @@ function s.e7cost(e, tp, eg, ep, ev, re, r, rp, chk)
                    aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e7rescon, 0)
     end
 
-    Duel.Remove(c, POS_FACEUP, REASON_COST)
     Duel.DiscardHand(tp, s.e7filter1, 1, 1, REASON_COST + REASON_DISCARD)
     local sg = aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e7rescon, 1, tp, HINTMSG_RELEASE, s.e7rescon, nil, true)
     Duel.Release(sg, REASON_COST)
+    Duel.Remove(c, POS_FACEUP, REASON_COST)
 end
 
 function s.e7tg(e, tp, eg, ep, ev, re, r, rp, chk)
