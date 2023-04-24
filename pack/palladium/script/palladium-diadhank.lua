@@ -55,7 +55,12 @@ function s.e1leaveop(e, tp, eg, ep, ev, re, r, rp)
     local tc = e:GetHandler():GetFirstCardTarget()
     if not tc or not tc:IsLocation(LOCATION_MZONE) then return end
 
-    if tc:IsPreviousLocation(LOCATION_HAND) then Duel.SendtoHand(tc, nil, REASON_EFFECT)
-    elseif tc:IsPreviousLocation(LOCATION_DECK) then Duel.SendtoDeck(tc, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
-    elseif tc:IsPreviousLocation(LOCATION_GRAVE) then Duel.SendtoGrave(tc, REASON_EFFECT) end
+    Utility.HintCard(e)
+    if tc:IsPreviousLocation(LOCATION_HAND) then
+        Duel.SendtoHand(tc, nil, REASON_EFFECT)
+    elseif tc:IsPreviousLocation(LOCATION_DECK) then
+        Duel.SendtoDeck(tc, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
+    elseif tc:IsPreviousLocation(LOCATION_GRAVE) then
+        Duel.SendtoGrave(tc, REASON_EFFECT)
+    end
 end
