@@ -491,7 +491,7 @@ level = 8
 atk = 2800
 def = 2300
 effect = """\
-"Palladium Oracle Mahad" + 1 DARK Fiend monster
+"Palladium Oracle Mahad" + 1 Level 7 or higher "Archfiend" monster
 Must first be Fusion Summoned with the above materials. \
 If this card is Fusion Summoned: \
     You can target any number of Spells/Traps in any GY(s); \
@@ -779,9 +779,8 @@ type = "spell equip"
 effect = """\
 Special Summon 1 "Palladium" monster or 1 Normal Monster from your hand, Deck, or GY, \
     and if you do, equip it with this card. \
-    When this card leaves the field, return that monster to the hand. \
+    When this card leaves the field, send that monster to the location it was. \
     You can only activate 1 "{CARD_NAME}" per turn. \
-
 """
 strings = []
 

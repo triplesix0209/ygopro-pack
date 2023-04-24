@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.material_setcode = {0x13a}
+s.material_setcode = {0x13a, 0x45}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -68,13 +68,13 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 
     -- pierce
-	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_SINGLE)
-	e4:SetCode(EFFECT_PIERCE)
-	c:RegisterEffect(e4)
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_SINGLE)
+    e4:SetCode(EFFECT_PIERCE)
+    c:RegisterEffect(e4)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_DARK, fc, sumtype, tp) and c:IsRace(RACE_FIEND, fc, sumtype, tp) end
+function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(6) and c:IsSetCard(0x45, fc, sumtype, tp) end
 
 function s.e1filter(c) return c:IsSpellTrap() and c:IsAbleToRemove() end
 
