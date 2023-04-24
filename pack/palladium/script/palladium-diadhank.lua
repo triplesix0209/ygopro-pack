@@ -15,6 +15,11 @@ function s.initial_effect(c)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
+    local e1leave = Effect.CreateEffect(c)
+    e1leave:SetType(EFFECT_TYPE_CONTINUOUS + EFFECT_TYPE_SINGLE)
+    e1leave:SetCode(EVENT_LEAVE_FIELD)
+    e1leave:SetOperation(s.e1leaveop)
+    c:RegisterEffect(e1leave)
 end
 
 function s.e1filter(c, e, tp) return (c:IsSetCard(0x13a) or c:IsType(TYPE_NORMAL)) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
@@ -44,4 +49,13 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         c:RegisterEffect(eqlimit)
     end
     Duel.SpecialSummonComplete()
+end
+
+function s.e1leaveop(e, tp, eg, ep, ev, re, r, rp)
+    local tc = e:GetHandler():GetFirstCardTarget()
+    if not tc or not tc:IsLocation(LOCATION_MZONE) then return end
+
+    if tc:IsPreviousLocation(LOCATION_HAND) then Duel.SendtoHand(tc, nil, REASON_EFFECT)
+    elseif tc:IsPreviousLocation(LOCATION_DECK) then Duel.SendtoDeck(tc, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
+    elseif tc:IsPreviousLocation(LOCATION_GRAVE) then Duel.SendtoGrave(tc, REASON_EFFECT) end
 end
