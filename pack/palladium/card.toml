@@ -3,9 +3,13 @@ id = 900000100
 name = "Millennium Ascension"
 type = "spell field"
 effect = """\
-When this card is activated: You can add 1 "Palladium" card from your Deck to your hand. \
+The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+During your Draw Phase, before you draw: You can give up your normal draw this turn, \
+    and if you do, add 1 "The True Name" from your Deck or GY to your hand, \
+    then shuffle the deck and look at the top card of your Deck. \
+The activation and effects of "The True Name" activated on your field cannot be negated. \
 """
-strings = ["Add 1 \"Palladium\" card to your hand?"]
+strings = ["Add \"The True Name\" to your hand", "Reorder top Deck?"]
 
 [palladium-mahad]
 id = 900000101
