@@ -44,7 +44,7 @@ function s.initial_effect(c)
     e3b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_GRANT)
     e3b:SetRange(LOCATION_MZONE)
     e3b:SetTargetRange(LOCATION_HAND, 0)
-    e3b:SetTarget(s.e3tg)
+    e3b:SetTarget(function(e, tc) return tc:IsLevelAbove(10) end)
     e3b:SetLabelObject(e3)
     c:RegisterEffect(e3b)
 end
@@ -92,5 +92,3 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         Duel.ConfirmCards(1 - tp, g)
     end
 end
-
-function s.e3tg(e, tc) return tc:IsSetCard({0x40, 0xde}) and tc:IsMonster() end
