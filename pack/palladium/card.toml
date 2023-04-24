@@ -714,9 +714,9 @@ During your Main Phase, while this card is in the GY: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Special Summon all Fusion Materials?",
-    "De-fuse a Fusion Monster",
-    "Prevent Fusion Negation",
+    "Special Summon all fusion materials?",
+    "De-fuse a fusion monster",
+    "Prevent fusion negation & extra material",
 ]
 
 [palladium-reborn]
