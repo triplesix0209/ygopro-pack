@@ -2,8 +2,6 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
-
 function s.initial_effect(c)
     -- activate (target)
     local e1 = Effect.CreateEffect(c)
@@ -73,7 +71,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
 end
 
-function s.e3filter(c) return not c:IsCode(id) and c:IsSetCard(0x13a) and c:IsSpellTrap() and c:IsSSetable() end
+function s.e3filter(c) return not c:IsCode(id) and c:IsSpellTrap() and c:IsSSetable() end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -85,7 +83,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then
         return Duel.GetLocationCount(tp, LOCATION_SZONE) > 1 and e:GetHandler():IsSSetable() and
-                   Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil)
+                   Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil)
     end
 end
 
@@ -93,7 +91,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if Duel.GetLocationCount(tp, LOCATION_SZONE) < 2 or not c:IsRelateToEffect(e) or not c:IsSSetable() then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_SET, tp, aux.NecroValleyFilter(s.e3filter), tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0,
+    local tc = Utility.SelectMatchingCard(HINTMSG_SET, tp, aux.NecroValleyFilter(s.e3filter), tp, LOCATION_HAND + LOCATION_DECK, 0,
         1, 1, nil):GetFirst()
     if not tc then return end
 

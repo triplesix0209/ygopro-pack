@@ -777,12 +777,20 @@ set = "palladium"
 name = "Palladium Diadhank"
 type = "spell equip"
 effect = """\
-Special Summon 1 "Palladium" monster or 1 Normal Monster from your hand, Deck, or GY, \
+Special Summon 1 "Palladium" monster or 1 Normal Monster from your hand, Deck, \
     and if you do, equip it with this card. \
     When this card leaves the field, send that monster to the location it was. \
-    You can only activate 1 "{CARD_NAME}" per turn. \
+    You cannot Normal Summon/Set during the turn you Special Summon with this effect. \
+Once per turn, during your End Phase, while this card is in the GY: \
+    You can target 1 "Palladium" monster or 1 Normal Monster in your GY; \
+    return it to the bottom of the Deck, \
+    and if you do, add this card to your hand. \
+    You cannot Normal Summon/Set during the turn you activate this effect. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
-strings = []
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Normal Summon/Set monsters for the rest of this turn",
+]
 
 [palladium-mirror-force]
 id = 900000134
@@ -796,7 +804,7 @@ Activate 1 of these effects.
 ● When an opponent's monster declares an attack: \
     Negate that attack, also destroy all your opponent's Attack Position monsters.
 If this Set card is destroyed by your opponent's card effect and sent to your GY: \
-    You can Set this card from your GY and 1 "Palladium" Spell/Trap Card from your hand, Deck, or GY, except "Palladium Mirror Force". \
+    You can Set this card from your GY and 1 Spell/Trap Card from your hand, Deck, except "{CARD_NAME}". \
     They can be activated this turn. \
 """
 strings = []
