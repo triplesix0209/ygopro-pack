@@ -779,8 +779,9 @@ type = "spell equip"
 effect = """\
 Special Summon 1 "Palladium" monster or 1 Normal Monster from your hand, Deck, or GY, \
     and if you do, equip it with this card. \
-    When this card leaves the field, send that monster to the location it was. \
+    When this card leaves the field, return that monster to the hand. \
     You can only activate 1 "{CARD_NAME}" per turn. \
+
 """
 strings = []
 
