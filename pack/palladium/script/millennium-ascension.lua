@@ -34,31 +34,31 @@ function s.initial_effect(c)
     nodis:SetCode(EFFECT_CANNOT_DISABLE)
     c:RegisterEffect(nodis)
 
-    -- inactivatable
+    -- cannot disable summon "palladium"
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetCode(EFFECT_CANNOT_INACTIVATE)
+    e1:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
+    e1:SetCode(EFFECT_CANNOT_DISABLE_SUMMON)
     e1:SetRange(LOCATION_FZONE)
-    e1:SetValue(s.e1val)
+    e1:SetTarget(s.e1tg)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
-    e1b:SetCode(EFFECT_CANNOT_DISEFFECT)
+    e1b:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     c:RegisterEffect(e1b)
-
-    -- cannot disable summon
+    local e1c = e1:Clone()
+    e1c:SetCode(EFFECT_CANNOT_DISABLE_FLIP_SUMMON)
+    c:RegisterEffect(e1c)
+    
+    -- "the true name" inactivatable
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
-    e2:SetCode(EFFECT_CANNOT_DISABLE_SUMMON)
+    e2:SetCode(EFFECT_CANNOT_INACTIVATE)
     e2:SetRange(LOCATION_FZONE)
-    e2:SetTarget(s.e2tg)
+    e2:SetValue(s.e2val)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(e2b)
-    local e2c = e2:Clone()
-    e2c:SetCode(EFFECT_CANNOT_DISABLE_FLIP_SUMMON)
-    c:RegisterEffect(e2c)
 
     -- add "the true name"
     local e3 = Effect.CreateEffect(c)
@@ -73,14 +73,14 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1val(e, ct)
+function s.e1tg(e, tc) return tc:GetOwner() == e:GetOwnerPlayer() and tc:IsSetCard(0x13a) end
+
+function s.e2val(e, ct)
     local p = e:GetHandler():GetControler()
     local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
     local tc = te:GetHandler()
     return p == tp and tc:IsCode(39913299) and (loc & LOCATION_ONFIELD) ~= 0
 end
-
-function s.e2tg(e, tc) return tc:GetOwner() == e:GetOwnerPlayer() and tc:IsSetCard(0x13a) end
 
 function s.e3filter(c) return c:IsCode(39913299) and c:IsAbleToHand() end
 
