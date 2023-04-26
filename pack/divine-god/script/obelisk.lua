@@ -58,7 +58,7 @@ end
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tn = Duel.GetTurnPlayer()
-    return Duel.GetCurrentChain(true) == 0 and (tn == tp and Duel.IsMainPhase()) or (tn ~= tp and Duel.IsBattlePhase())
+    return (tn == tp and Duel.IsMainPhase()) or (tn ~= tp and Duel.IsBattlePhase())
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
