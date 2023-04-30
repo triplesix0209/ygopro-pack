@@ -128,10 +128,7 @@ function s.e1discheck(tp, ev, category, re)
     return false
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsPreviousPosition(POS_FACEUP) and not c:IsLocation(LOCATION_DECK)
-end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousPosition(POS_FACEUP) end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Utility.HintCard(e)
