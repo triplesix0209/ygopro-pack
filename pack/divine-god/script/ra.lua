@@ -197,27 +197,18 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     c:RegisterEffect(ec4)
     Utility.ResetListEffect(c, nil, EFFECT_CANNOT_ATTACK)
 
-    -- attack all monsters
+    -- tribute to atk up
     local ec5 = Effect.CreateEffect(c)
-    ec5:SetType(EFFECT_TYPE_SINGLE)
-    ec5:SetCode(EFFECT_ATTACK_ALL)
-    ec5:SetValue(function(e) return e:GetHandler():IsHasEffect(id) and 1 or 0 end)
+    ec5:SetDescription(aux.Stringid(id, 3))
+    ec5:SetCategory(CATEGORY_ATKCHANGE)
+    ec5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    ec5:SetRange(LOCATION_MZONE)
+    ec5:SetCode(EVENT_ATTACK_ANNOUNCE)
+    ec5:SetCondition(s.e3atkcon)
+    ec5:SetCost(s.e3atkcost)
+    ec5:SetOperation(s.e3atkop)
     ec5:SetReset(RESET_EVENT + RESETS_STANDARD)
     c:RegisterEffect(ec5)
-
-    -- tribute to atk up
-    local ec6 = Effect.CreateEffect(c)
-    ec6:SetDescription(aux.Stringid(id, 3))
-    ec6:SetCategory(CATEGORY_ATKCHANGE)
-    ec6:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    ec6:SetRange(LOCATION_MZONE)
-    ec6:SetCode(EVENT_ATTACK_ANNOUNCE)
-    ec6:SetCountLimit(1)
-    ec6:SetCondition(s.e3atkcon)
-    ec6:SetCost(s.e3atkcost)
-    ec6:SetOperation(s.e3atkop)
-    ec6:SetReset(RESET_EVENT + RESETS_STANDARD)
-    c:RegisterEffect(ec6)
 end
 
 function s.e3atkcon(e, tp, eg, ep, ev, re, r, rp)
