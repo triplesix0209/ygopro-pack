@@ -269,7 +269,7 @@ If a monster(s) you control is destroyed by battle or an opponent's card effect:
     until the end of the next turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn (Quick Effect): You can Tribute 1 other face-up monster; \
-    this card gains ATK equal to the Tributed monster's Level had on the field x 100, \
+    this card gains ATK equal to the Tributed monster's Level on the field x 100, \
     also, it cannot be destroyed by card effects, until the end of this turn. \
 """
 strings = [

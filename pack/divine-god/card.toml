@@ -74,7 +74,7 @@ atk = "?"
 def = "?"
 effect = """\
 {EGYPTIAN_GOD_EFFECT|2|The Winged Dragon of Ra} \
-This card's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon had on the field. \
+This card's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon on the field. \
 You can pay 1000 LP, then choose 1 monster on the field as Target; destroy it. \
 Once while this Normal Summoned card is face-up on the field, you can also use this effect when Summon it: \
     You can reduce LP so that you only have 1 left, \
@@ -82,7 +82,7 @@ Once while this Normal Summoned card is face-up on the field, you can also use t
     any increase in LP is changed to increase it's ATK/DEF instead, \
     unaffected by card effects that prevent it from attacking and its attacks cannot be negated, \
     when it attacks: You can Tribute as many face-up other monsters as possible; \
-    it gains ATK equal to the Tributed monsters' combined ATK had on the field, until this turn. \
+    it gains ATK equal to the Tributed monsters' combined ATK on the field, until this turn. \
     Cards and effects cannot be activated in response to this effect's activation. \
 If your "De-Fusion" targets this Fusion Monster, apply these effect instead: \
     The target loses its above effects, negate its attack if any, \
@@ -111,7 +111,7 @@ def = "?"
 effect = """\
 (This card's name is always treated as "The Winged Dragon of Ra - Sphere Mode".)
 If your "The Winged Dragon of Ra" is Normal Summoned to your field, \
-    its original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon had on the field, \
+    its original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon on the field, \
     or your opponent's field, Dimension Change it to this card with the same Divine Hierarchy. \
 This card's effects cannot be negated nor be copied. \
 Cannot be Tributed, nor be used as material for an Summon. \
@@ -123,7 +123,7 @@ Neither player can target it for attacks nor with card effects, \
 Once per turn, except the turn this card was Dimension Changed (Quick Effect): \
     You can reveal 1 "Ancient Chant" from everywhere; \
     Dimension Change this card to the material monster with the same Divine Hierarchy in any face-up position, \
-    and if you do, that monster's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Tribute Summon had on the field. \
+    and if you do, that monster's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Tribute Summon on the field. \
     If it not, its original ATK/DEF become 4000. \
     This effect's activation and effect cannot be negated. \
     This card's owner can activate this effect during their turn even though they do not control it, \
@@ -149,7 +149,7 @@ If "The Winged Dragon of Ra" is Special Summoned from the GY to your field in fa
     you can Dimension Change it to this card with the same Divine Hierarchy. \
 If "The Winged Dragon of Ra" you control would be destroyed by its own effect, \
     Dimension Change it to this card with the same Divine Hierarchy instead, \
-    and this card's original ATK/DEF become the same as that monster's ATK/DEF had on the field. \
+    and this card's original ATK/DEF become the same as that monster's ATK/DEF on the field. \
 This card's effects cannot be negated nor be copied. \
 Cannot be Tributed, nor be used as material for an Summon. \
 Cannot be equipped with Equip Cards. \
@@ -211,7 +211,7 @@ This card's original ATK/DEF are equal to the number of cards in your opponent c
     This effect cannot be negated. \
 Once per turn: You can destroy this Normal Summoned card. \
 If this card leaves the field, send all cards on the field to the GY, \
-    ignoring card effects, except monsters with higher Divine Hierarchy than this card's Divine Hierarchy had on the field. \
+    ignoring card effects, except monsters with higher Divine Hierarchy than this card's Divine Hierarchy on the field. \
 """
 strings = ["Destroy itself"]
 
@@ -372,14 +372,14 @@ The activation and effect of this card's effects cannot be negated. \
 If this card is Special Summoned: \
     You can add to your hand 1 "The Winged Dragon of Ra", from your Deck, GY, or Outside (if dont have any), \
     also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
-This card's original ATK become equal to the combined ATK of the monsters used for its Link Summon had on the field. \
+This card's original ATK become equal to the combined ATK of the monsters used for its Link Summon on the field. \
 This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
 Cannot attack. \
 While you control this Link Summoned card, \
     you can Tribute Summon 1 Divine-Beast monster in Attack Position during your Main Phase, \
     in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
 If you Tribute this card for the Tribute Summon of "The Winged Dragon of Ra", it gains this effect.
-● This card's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon had on the field.
+● This card's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon on the field.
 ● After Normal Summoned, you can add to your hand 1 "Blaze Cannon" or 1 "Sun God Unification", \
     from your Deck, GY or Outside (if dont have any).
 """
@@ -434,7 +434,7 @@ The activation of this card, or its effects, cannot be negated, nor can its effe
 During the Main Phase: \
     Tribute 3 monsters on your field or your opponent's, \
     then Special Summon 1 "The Winged Dragon of Ra" from your hand or Deck, ignoring its Summoning conditions, \
-    and if you do, its original ATK/DEF become the combined ATK/DEF of the Tributed monsters had on the field. \
+    and if you do, its original ATK/DEF become the combined ATK/DEF of the Tributed monsters on the field. \
     If you Tributed monsters on your opponent's field, it cannot attack this turn. \
     You cannot Normal Summon/Set during the turn you Special Summon with this effect. \
 If this card is in your GY: \
