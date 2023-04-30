@@ -211,8 +211,6 @@ end
 
 function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    Duel.HintSelection(Group.FromCards(c))
-
     local tc = Dimension.Zones(c:GetOwner()):Filter(function(c) return c:IsCode(10000080) and c:IsType(Dimension.TYPE) end, nil):GetFirst()
 
     if tc then
