@@ -43,7 +43,6 @@ function s.initial_effect(c)
     e3:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
     e3:SetLabel(0)
     e3:SetCondition(s.e3con)
-    e3:SetCost(s.e3cost)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -67,19 +66,6 @@ function s.initial_effect(c)
         defuse:SetOperation(s.e3defusregop)
         Duel.RegisterEffect(defuse, 0)
     end)
-
-    -- tribute to atk up
-    local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 3))
-    e4:SetCategory(CATEGORY_ATKCHANGE)
-    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetCode(EVENT_ATTACK_ANNOUNCE)
-    e4:SetCountLimit(1)
-    e4:SetCondition(s.e4con)
-    e4:SetCost(s.e4cost)
-    e4:SetOperation(s.e4op)
-    c:RegisterEffect(e4)
 end
 
 function s.e1val(e, c)
@@ -117,7 +103,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
     local g = Duel.SelectMatchingCard(tp, nil, tp, LOCATION_MZONE, LOCATION_MZONE, 1, 1, nil)
     Duel.SetTargetCard(g)
-    
+
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
@@ -126,16 +112,9 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if tc:IsRelateToEffect(e) then Duel.Destroy(tc, REASON_EFFECT) end
 end
 
-function s.e3con(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_NORMAL) end
-
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if chk == 0 then return c:GetFlagEffect(id) == 0 and Duel.GetLP(tp) > 1 end
-    c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
-
-    local lp = Duel.GetLP(tp) - 1
-    Duel.PayLPCost(tp, lp)
-    e:SetLabel(lp)
+    return c:IsSummonType(SUMMON_TYPE_NORMAL) == 0 and Duel.GetLP(tp) > 1 and c:GetFlagEffect(id)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -145,7 +124,13 @@ end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+    if c:IsFacedown() or not c:IsRelateToEffect(e) or Duel.GetLP(tp) <= 1 then return end
+    c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
+
+    -- set lp
+    local lp = Duel.GetLP(tp) - 1
+    e:SetLabel(lp)
+    Duel.SetLP(tp, 1)
 
     -- hint
     local ec0 = Effect.CreateEffect(c)
@@ -207,10 +192,91 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     ec4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     ec4:SetCode(EFFECT_UNSTOPPABLE_ATTACK)
     ec4:SetRange(LOCATION_MZONE)
-    ec4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsHasEffect(id) end)
+    ec4:SetCondition(function(e) return e:GetHandler():IsHasEffect(id) end)
     ec4:SetReset(RESET_EVENT + RESETS_STANDARD)
     c:RegisterEffect(ec4)
     Utility.ResetListEffect(c, nil, EFFECT_CANNOT_ATTACK)
+
+    -- attack all monsters, then direct attack
+    local ec5 = Effect.CreateEffect(c)
+    ec5:SetType(EFFECT_TYPE_SINGLE)
+    ec5:SetCode(EFFECT_EXTRA_ATTACK)
+    ec5:SetValue(function(e) return e:GetHandler():IsHasEffect(id) and 9999 or 0 end)
+    ec5:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(ec5)
+    local ec5b = Effect.CreateEffect(c)
+    ec5b:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    ec5b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_IGNORE_IMMUNE)
+    ec5b:SetCode(EVENT_DAMAGE_STEP_END)
+    ec5b:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsHasEffect(id) end)
+    ec5b:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
+        local bc = c:GetBattleTarget()
+
+        if bc then
+            bc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_BATTLE, 0, 1)
+        else
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_CANNOT_DISABLE)
+            ec1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_BATTLE)
+            c:RegisterEffect(ec1)
+        end
+    end)
+    ec5b:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(ec5b)
+    local ec5c = Effect.CreateEffect(c)
+    ec5c:SetType(EFFECT_TYPE_FIELD)
+    ec5c:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_IGNORE_IMMUNE)
+    ec5c:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
+    ec5c:SetRange(LOCATION_MZONE)
+    ec5c:SetTargetRange(0, LOCATION_MZONE)
+    ec5c:SetCondition(function(e) return e:GetHandler():IsHasEffect(id) end)
+    ec5c:SetTarget(function(e, tc) return tc:GetFlagEffect(id) > 0 end)
+    ec5c:SetValue(function(e, ac) return ac == e:GetHandler() end)
+    ec5c:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(ec5c)
+
+    -- tribute to atk up
+    local ec6 = Effect.CreateEffect(c)
+    ec6:SetDescription(aux.Stringid(id, 3))
+    ec6:SetCategory(CATEGORY_ATKCHANGE)
+    ec6:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    ec6:SetRange(LOCATION_MZONE)
+    ec6:SetCode(EVENT_ATTACK_ANNOUNCE)
+    ec6:SetCountLimit(1)
+    ec6:SetCondition(s.e3atkcon)
+    ec6:SetCost(s.e3atkcost)
+    ec6:SetOperation(s.e3atkop)
+    ec6:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(ec6)
+end
+
+function s.e3atkcon(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return c:IsHasEffect(id) and Duel.GetAttacker() == c
+end
+
+function s.e3atkcost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    local g = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsReleasable), tp, LOCATION_MZONE, 0, c)
+    if chk == 0 then return #g > 0 end
+
+    e:SetLabel(g:GetSum(Card.GetAttack))
+    Duel.Release(g, REASON_COST)
+end
+
+function s.e3atkop(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if c:IsFacedown() or not c:IsRelateToEffect(e) or not c:IsHasEffect(id) then return end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetCode(EFFECT_UPDATE_ATTACK)
+    ec1:SetValue(e:GetLabel())
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
 end
 
 function s.e3defusregfilter(c) return c:IsCode(95286165) and not c:IsHasEffect(id) end
@@ -273,6 +339,7 @@ function s.e3defusop(e, tp, eg, ep, ev, re, r, rp)
     ec1b:SetDescription(3302)
     ec1b:SetCode(EFFECT_CANNOT_TRIGGER)
     tc:RegisterEffect(ec1b)
+    if Duel.GetAttacker() == c then Duel.NegateAttack() end
 
     -- atk/def become 0 and recover lp
     local ec3 = Effect.CreateEffect(c)
@@ -287,30 +354,4 @@ function s.e3defusop(e, tp, eg, ep, ev, re, r, rp)
     tc:RegisterEffect(ec3b)
     Duel.AdjustInstantly(tc)
     Duel.Recover(tc:GetControler(), atk, REASON_EFFECT)
-end
-
-function s.e4con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return Duel.GetAttacker() == c or (Duel.GetAttackTarget() and Duel.GetAttackTarget() == c)
-end
-
-function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, Card.IsFaceup, 1, false, nil, c) end
-
-    local g = Duel.SelectReleaseGroupCost(tp, Card.IsFaceup, 1, 99, false, nil, c)
-    e:SetLabel(g:GetSum(Card.GetAttack))
-    Duel.Release(g, REASON_COST)
-end
-
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
-
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetCode(EFFECT_UPDATE_ATTACK)
-    ec1:SetValue(e:GetLabel())
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    c:RegisterEffect(ec1)
 end

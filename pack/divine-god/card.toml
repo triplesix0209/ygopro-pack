@@ -76,19 +76,19 @@ effect = """\
 {EGYPTIAN_GOD_EFFECT|2|The Winged Dragon of Ra} \
 This card's original ATK/DEF become the combined ATK/DEF of the monsters Tributed for its Summon had on the field. \
 You can pay 1000 LP, then choose 1 monster on the field as Target; destroy it. \
-Once while this Normal Summoned card is face-up on the field: \
-    You can pay LP so that you only have 1 left; \
-    this card gains ATK/DEF become equal that amount and become Fusion Monster, \
-    any increase in LP is changed to increase it's ATK/DEF instead, \
-    unaffected by card effects that prevent it from attacking, also its attacks cannot be negated. \
-    You can also use this effect when Summon this card. \
+Once while this Normal Summoned card is face-up on the field, you can also use this effect when Summon it: \
+    You can reduce LP so that you only have 1 left, \
+    this card become Fusion Monster and gains ATK/DEF become equal that amount, \
+        any increase in LP is changed to increase it's ATK/DEF instead, \
+    unaffected by card effects that prevent it from attacking and its attacks cannot be negated, \
+    can attack all monsters your opponent controls once each, after that, it can attack directly if able, \
+    also once per turn, when it attacks: You can Tribute as many face-up other monsters as possible; \
+    it gains ATK equal to the Tributed monsters' combined ATK had on the field, until this turn. \
     Cards and effects cannot be activated in response to this effect's activation. \
-    If your "De-Fusion" targets this Fusion Monster, apply these effect instead: \
-    The target loses its above effects, cannot attack or activate its effects during this turn, \
+If your "De-Fusion" targets this Fusion Monster, apply these effect instead: \
+    The target loses its above effects, negate its attack if any, \
+    cannot attack or activate its effects during this turn, \
     its ATK/DEF become 0, and if it do, its controller gains LP equal to that lost ATK". \
-Once per turn, when an attack is declared involving it: \
-    You can Tribute any number of other face-up monsters; \
-    this card gains ATK equal to the Tributed monsters' combined ATK had on the field, until this turn. \
 """
 strings = [
     "De-fuse from \"The Winged Dragon of Ra\"",
@@ -286,7 +286,7 @@ it gains the following effect, ignoring card effects;
 ● Gain 1000 ATK/DEF.
 ● Its Divine Hierarchy become it's base Divine Hierarchy + 1.
 ● Its effect activations and its activated effects cannot be negated.
-● Unaffected by card effects that prevent it from attacking, also its attacks cannot be negated.
+● Unaffected by card effects that prevent it from attacking and its attacks cannot be negated.
 ● When this card declares an attack: You can make your opponent send 1 monster they control to the GY (their choice)
 During your Main Phase, if this card is in your GY and you control a original Divine-Beast monster: \
     You can discard 1 Spell; add this card to your hand. \

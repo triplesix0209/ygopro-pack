@@ -9,6 +9,7 @@ function s.initial_effect(c)
 
     -- activate
     local act = Effect.CreateEffect(c)
+    act:SetDescription(550)
     act:SetType(EFFECT_TYPE_ACTIVATE)
     act:SetCode(EVENT_FREE_CHAIN)
     act:SetTarget(Utility.MultiEffectTarget(s))
