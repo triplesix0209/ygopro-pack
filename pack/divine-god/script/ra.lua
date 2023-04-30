@@ -114,7 +114,7 @@ end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:IsSummonType(SUMMON_TYPE_NORMAL) == 0 and Duel.GetLP(tp) > 1 and not c:GetFlagEffect(id)
+    return c:IsSummonType(SUMMON_TYPE_NORMAL) == 0 and Duel.GetLP(tp) > 1 and c:GetFlagEffect(id) == 0
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
