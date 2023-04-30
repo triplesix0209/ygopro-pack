@@ -138,6 +138,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 
     local g = Group.FromCards(c, tc)
     if Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) == #g then
+        Duel.ShuffleDeck(tp)
         Duel.BreakEffect()
         Duel.Draw(tp, 1, REASON_EFFECT)
     end

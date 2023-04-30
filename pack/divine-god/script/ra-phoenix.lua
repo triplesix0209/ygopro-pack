@@ -212,7 +212,6 @@ end
 function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Dimension.Zones(c:GetOwner()):Filter(function(c) return c:IsCode(10000080) and c:IsType(Dimension.TYPE) end, nil):GetFirst()
-
     if tc then
         local divine_evolution = Divine.IsDivineEvolution(c)
         Dimension.Change(c, tc, c:GetMaterial())
