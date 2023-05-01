@@ -449,3 +449,40 @@ strings = [
     "Tribute your opponent's monsters",
     "Affected by effect \"{CARD_NAME}\": cannot Normal Summon/Set monsters for the rest of this turn",
 ]
+
+[god-slime-2]
+id = 900000016
+name = "Egyptian God Slime II"
+type = "monster fusion effect"
+attribute = "water"
+race = "aqua"
+level = 10
+atk = 2000
+def = 2000
+effect = """\
+1 Aqua monster + 1 Level 10 WATER monster
+Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 Level 10 Aqua monster with 0 ATK. \
+This card can be treated as 1 or 3 Tributes for the Tribute Summon of a monster. \
+Cannot be destroyed by battle. \
+Monsters your opponent controls with ATK equal to or less than this card cannot attack, \
+    also they cannot activate their effects. \
+"""
+strings = []
+
+[god-slime-3]
+id = 900000017
+name = "Egyptian God Slime III"
+type = "monster fusion effect"
+attribute = "water"
+race = "aqua"
+level = 10
+atk = 3300
+def = 1800
+effect = """\
+1 Aqua monster + 1 Level 10 WATER monster
+Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 Level 10 Aqua monster with 0 ATK. \
+This card can be treated as 1 or 3 Tributes for the Tribute Summon of a monster. \
+Cannot be destroyed by battle. \
+Monsters you control cannot be destroyed by card effects. \
+"""
+strings = []
