@@ -189,6 +189,7 @@ atk = 4000
 def = 4000
 effect = """\
 {WICKED_GOD_EFFECT|1|The Wicked Dreadroot} \
+When Normal Summoned, cards and effects cannot be activated. \
 Halve the ATK/DEF of all other face-up monsters, except monsters with higher Divine Hierarchy. \
 """
 strings = []
