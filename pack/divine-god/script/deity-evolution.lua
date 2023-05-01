@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 Duel.LoadScript("util_divine.lua")
 local s, id = GetID()
 
-s.listed_names = {21208154, 62180201, 57793869}
+s.listed_names = {21208154, 62180201, 57793869, 7373632}
 
 function s.initial_effect(c)
     local EFFECT_FLAG_CANNOT_NEGATE_ACTIV_EFF = EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_INACTIVATE
@@ -36,7 +36,9 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c)
-    return c:IsFaceup() and (c:IsOriginalRace(RACE_DIVINE) or c:IsOriginalCodeRule(21208154, 62180201, 57793869)) and c:GetFlagEffect(7373632) == 0
+    return
+        c:IsFaceup() and (c:IsOriginalRace(RACE_DIVINE) or c:IsOriginalCodeRule(21208154, 62180201, 57793869)) and c:GetFlagEffect(7373632) == 0 and
+            c:GetFlagEffect(id) == 0
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
@@ -48,7 +50,8 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Utility.SelectMatchingCard(HINTMSG_APPLYTO, tp, s.e1filter, tp, LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
     if tc then
         Duel.HintSelection(tc)
-        tc:RegisterFlagEffect(7373632, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 0))
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 0))
+        tc:RegisterFlagEffect(7373632, RESET_EVENT + RESETS_STANDARD, 0, 1)
 
         -- divine evolution
         if Divine.GetDivineHierarchy(tc, true) > 0 and not Divine.IsDivineEvolution(tc) then Divine.RegisterDivineEvolution(tc) end

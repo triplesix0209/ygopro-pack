@@ -273,16 +273,14 @@ strings = [
 
 [deity-evolution]
 id = 900000010
-alias = 7373632
 name = "Deity Evolution"
 type = "spell quick-play"
 effect = """\
-(This card's name is always treated as "Divine Evolution".)
 The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
 Choose 1 monster you control whose original Type is Divine-Beast \
     or whose original name is "The Wicked Avatar", "The Wicked Dreadroot", or "The Wicked Eraser" \
-    except a monster(s) already affected by "Divine Evolution", \
-it gains the following effect, ignoring card effects;
+    except a monster(s) already affected by "Divine Evolution" or "Deity Evolution", \
+it gains the following effect, ignoring card effects. This is treated as effects gained from "Divine Evolution".
 ● Gain 1000 ATK/DEF.
 ● Its Divine Hierarchy become it's base Divine Hierarchy + 1.
 ● Its effect activations and its activated effects cannot be negated.
@@ -414,7 +412,7 @@ While you control this Link Summoned card, \
     you can Tribute Summon 1 Level 10 \"Wicked\" monster in Attack Position during your Main Phase, \
     in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
 If you Tribute this card for the Tribute Summon of a Level 10 \"Wicked\" monster, it gains this effect.
-● After Normal Summoned, you can add to your hand 1 "Divine Evolution", \
+● After Normal Summoned, you can add to your hand 1 "Deity Evolution", \
     from your Deck, GY or Outside (if dont have any).
 """
 strings = [
@@ -423,7 +421,7 @@ strings = [
     "Add \"The Wicked Dreadroot\"",
     "Add \"The Wicked Eraser\"",
     "Add \"The Wicked Avatar\"",
-    "Add \"Divine Evolution\" to your hand?",
+    "Add \"Deity Evolution\" to your hand?",
 ]
 
 [sun-god-descend]

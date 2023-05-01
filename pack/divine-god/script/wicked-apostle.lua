@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 local wicked_monsters = {62180201, 57793869, 21208154}
-s.listed_names = {62180201, 57793869, 21208154, 7373632}
+s.listed_names = {62180201, 57793869, 21208154, 900000010}
 
 function s.initial_effect(c)
     c:SetSPSummonOnce(id)
@@ -163,20 +163,20 @@ function s.e4regop(e, tp, eg, ep, ev, re, r, rp)
     rc:RegisterEffect(eff, true)
 end
 
-function s.e4filter(c) return c:IsCode(7373632) and c:IsAbleToHand() end
+function s.e4filter(c) return c:IsCode(900000010) and c:IsAbleToHand() end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if Utility.IsOwnAny(Card.IsCode, tp, 7373632) and not Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) then
+    if Utility.IsOwnAny(Card.IsCode, tp, 900000010) and not Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) then
         return
     end
     if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 5)) then return end
 
     local tc = nil
-    if Utility.IsOwnAny(Card.IsCode, tp, 7373632) then
+    if Utility.IsOwnAny(Card.IsCode, tp, 900000010) then
         tc = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil):GetFirst()
     else
-        tc = Duel.CreateToken(tp, 7373632)
+        tc = Duel.CreateToken(tp, 900000010)
     end
 
     Duel.SendtoHand(tc, nil, REASON_EFFECT)
