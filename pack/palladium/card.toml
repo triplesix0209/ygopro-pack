@@ -114,9 +114,9 @@ set = "palladium"
 name = "Palladium Protector Hasan"
 type = "monster effect"
 attribute = "dark"
-race = "spellcaster"
+race = "warrior"
 level = 7
-atk = 2300
+atk = 0
 def = 2800
 effect = """\
 When an opponent's monster declares a direct attack, if its ATK is greater than or equal to your LP: \
@@ -414,6 +414,8 @@ def = 2300
 effect = """\
 "Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Spellcaster monster
 Must first be Fusion Summoned with the above materials. \
+This card's name is also treated as "Palladium Oracle Mahad" and "Palladium Oracle Mana" while on the field. \
+    This effect cannot be negated. \
 Spellcaster monsters you control cannot be destroyed by card effects. \
 Your opponent cannot target Spells/Traps you control with card effects, \
     also they cannot be destroyed by your opponent's card effects. \
@@ -816,19 +818,38 @@ If this Set card is destroyed by your opponent's card effect and sent to your GY
 """
 strings = []
 
-[palladium-arrow]
+[thousand-palladium-arrows]
 id = 900000135
 set = "palladium"
-name = "Palladium Arrows"
-type = "trap counter"
+name = "Thousand Palladium Arrows"
+type = "spell quick-play"
 effect = """\
-If you control "Palladium" monster: Activate as Chain Link 2 or higher; \
-    negate the activations of your opponent's Spell/Trap Cards and monster effects activated before this card in this Chain, \
-    and if you do, destroy the negated cards on the field, \
-    also you can apply 1 of those negated effects that targets a card(s). \
-If you control "Palladium Oracle Mahad", except the turn this card was sent to the GY: \
+If you control "Palladium" monster: \
+    Target 1 card your opponent controls; destroy it, \
+    and if you do, 1 "Palladium Oracle Mahad" you control gains 500 ATK/DEF. \
+If you control Level 6 or higher "Palladium" Spellcaster monster, \
+    except the turn this card was sent to the GY: \
     You can return this card from your GY to the bottom of the Deck, \
     then target 1 face-up card your opponent controls; \
     negate its effects until the end of this turn. \
 """
-strings = ["Apply 1 of negated effects?"]
+strings = []
+
+[spellbinding-palladium-circle]
+id = 900000136
+set = "palladium"
+name = "Spellbinding Palladium Circle"
+type = "trap continuous"
+effect = """\
+If you control "Palladium Oracle Mahad", you can activate this card from your hand. \
+Target 1 face-up monster your opponent controls; \
+    it loses 700 ATK/DEF and its effects are negated, \
+    also it cannot attack or change its battle position. \
+    When it leaves the field, destroy this card. \
+If you control Level 6 or higher "Palladium" Spellcaster monster, \
+    except the turn this card was sent to the GY: \
+    You can return this card from your GY to the bottom of the Deck, \
+    then target 1 face-up monster your opponent controls and declare 1 Attribute and 1 Type; \
+    the targeted monster becomes that Attribute and Type until the end of this turn. \
+"""
+strings = []
