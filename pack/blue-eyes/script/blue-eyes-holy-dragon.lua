@@ -129,14 +129,12 @@ function s.e3filter(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZ
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     if rp == tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
-
     local tg = Duel.GetChainInfo(ev, CHAININFO_TARGET_CARDS)
     return tg and tg:IsExists(s.e3filter, 1, nil, tp) and Duel.IsChainDisablable(ev)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
-
     Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, 1, 0, 0)
 end
 
