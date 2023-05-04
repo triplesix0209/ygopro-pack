@@ -414,8 +414,6 @@ def = 2300
 effect = """\
 "Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Spellcaster monster
 Must first be Fusion Summoned with the above materials. \
-This card's name is also treated as "Palladium Oracle Mahad" and "Palladium Oracle Mana" while on the field. \
-    This effect cannot be negated. \
 Spellcaster monsters you control cannot be destroyed by card effects. \
 Your opponent cannot target Spells/Traps you control with card effects, \
     also they cannot be destroyed by your opponent's card effects. \
