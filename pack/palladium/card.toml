@@ -429,8 +429,8 @@ strings = []
 
 [palladium-dragoon]
 id = 900000119
-set = "blue-eyes palladium"
-name = "Blue-Eyes Palladium Dragoon"
+set = "palladium"
+name = "The Palladium Dragoon"
 type = "monster fusion effect"
 attribute = "light"
 race = "spellcaster"
@@ -460,7 +460,7 @@ strings = [
 [palladium-paladin]
 id = 900000120
 set = "palladium"
-name = "Supreme Paladin of Palladium"
+name = "Flare Paladin of Palladium"
 type = "monster fusion effect"
 attribute = "dark"
 race = "spellcaster"
