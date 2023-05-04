@@ -460,7 +460,7 @@ strings = [
 [palladium-paladin]
 id = 900000120
 set = "palladium"
-name = "Flare Paladin of Palladium"
+name = "Dark Flare Paladin of Palladium"
 type = "monster fusion effect"
 attribute = "dark"
 race = "spellcaster"

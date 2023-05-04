@@ -1,4 +1,4 @@
--- Flare Paladin of Palladium
+-- Dark Flare Paladin of Palladium
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
