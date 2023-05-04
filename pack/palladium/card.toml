@@ -826,12 +826,13 @@ type = "spell quick-play"
 effect = """\
 If you control "Palladium" monster: \
     Target 1 card your opponent controls; destroy it, \
-    and if you do, 1 "Palladium Oracle Mahad" you control gains 500 ATK/DEF. \
+    and if you do, 1 "Palladium Oracle Mahad" you control gains 500 ATK. \
 If you control Level 6 or higher "Palladium" Spellcaster monster, \
     except the turn this card was sent to the GY: \
     You can return this card from your GY to the bottom of the Deck, \
     then target 1 face-up card your opponent controls; \
     negate its effects until the end of this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 
@@ -851,5 +852,6 @@ If you control Level 6 or higher "Palladium" Spellcaster monster, \
     You can return this card from your GY to the bottom of the Deck, \
     then target 1 face-up monster your opponent controls and declare 1 Attribute and 1 Type; \
     the targeted monster becomes that Attribute and Type until the end of this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []

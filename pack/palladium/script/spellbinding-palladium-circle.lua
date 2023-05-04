@@ -53,6 +53,7 @@ function s.initial_effect(c)
     e3:SetRange(LOCATION_GRAVE)
     e3:SetCode(EVENT_FREE_CHAIN)
     e3:SetHintTiming(0, TIMINGS_CHECK_MONSTER)
+    e3:SetCountLimit(1, id)
     e3:SetCondition(s.e3con)
     e3:SetCost(s.e3cost)
     e3:SetTarget(s.e3tg)
@@ -88,7 +89,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.SelectTarget(tp, Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, 1, nil)
 
     local attr = Duel.AnnounceAttribute(tp, 1, ATTRIBUTE_ALL)
-    local race = Duel.AnnounceAttribute(tp, 1, RACE_ALL)
+    local race = Duel.AnnounceRace(tp, 1, RACE_ALL)
     e:SetLabelObject({attr, race})
 end
 
@@ -97,8 +98,8 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if not tc and not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end
 
-    local attr = e:GetLabelObject()[0]
-    local race = e:GetLabelObject()[1]
+    local attr = e:GetLabelObject()[1]
+    local race = e:GetLabelObject()[2]
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_CHANGE_ATTRIBUTE)

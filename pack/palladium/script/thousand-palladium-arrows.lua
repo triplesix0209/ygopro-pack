@@ -25,6 +25,7 @@ function s.initial_effect(c)
     e2:SetRange(LOCATION_GRAVE)
     e2:SetCode(EVENT_FREE_CHAIN)
     e2:SetHintTiming(0, TIMINGS_CHECK_MONSTER)
+    e2:SetCountLimit(1, id)
     e2:SetCondition(s.e2con)
     e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
@@ -59,9 +60,6 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetValue(500)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
         sc:RegisterEffect(ec1)
-        local ec2 = ec1:Clone()
-        ec2:SetCode(EFFECT_UPDATE_DEFENSE)
-        sc:RegisterEffect(ec2)
     end
 end
 
