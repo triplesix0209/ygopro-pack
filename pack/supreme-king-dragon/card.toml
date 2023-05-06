@@ -1,0 +1,8 @@
+[presence-supreme-king]
+id = 900005000
+set = "supreme-king"
+name = "Presence of the Supreme King"
+type = "spell field"
+effect = """\
+"""
+strings = []
