@@ -268,7 +268,7 @@ function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.me7op(e, tp, eg, ep, ev, re, r, rp)
-    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.me2filter), tp,
+    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.me7filter), tp,
         LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 1, nil, e, tp, rp):GetFirst()
     if tc and Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP) > 0 then tc:CompleteProcedure() end
 end
