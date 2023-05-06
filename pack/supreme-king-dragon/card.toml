@@ -6,3 +6,47 @@ type = "spell field"
 effect = """\
 """
 strings = []
+
+[z-arc]
+id = 900005001
+alias = 13331639
+rarity = "gold"
+name = "Supreme Overlord Z-Arc"
+type = "monster link pendulum effect"
+attribute = "dark"
+race = "dragon"
+scale = 13
+link = 4
+link-arrow = "top bottom-left bottom bottom-right"
+atk = 4000
+pendulum-effect = """\
+Your other Pendulum Zone's Pendulum Scale become 0. \
+Once per turn: You can Special Summon 1 Dragon Fusion, Synchro, or Xyz Monster that is banished or in your GY, Extra Deck face-up, \
+    ignoring its Summoning conditions (This is also treated as an Fusion, Synchro, or Xyz Summon), \
+    then, destroy this card. \
+"""
+effect = """\
+4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
+(This card is always treated as "Supreme King Z-ARC".)
+Must be Link Summoned, and can then be Pendulum Summoned. \
+The Special Summon, effect activations, and card effects of it cannot be negated. \
+You can Pendulum Summon this card regardless of your Pendulum Scales. \
+If this card is Special Summoned: You can destroy all cards your opponent controls. \
+Cannot be Tributed, nor be used as material for an Summon. \
+Control of this card cannot switch. \
+Your opponent cannot target or destroy this card with card effects. \
+Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
+Once per turn, when a card(s) is added from the Main Deck to your opponent's hand, \
+    except during the Draw Phase: You can destroy that card(s). \
+When this card destroys an opponent's monster by battle: \
+    You can Special Summon 1 "Supreme King Dragon" monster from your hand, Deck, GY or Extra Deck, \
+    ignoring its Summoning conditions. (This is treated as a Properly Summon). \
+If this card in the Monster Zone is destroyed: \
+    You can destroy all cards in your Pendulum Zones (if any), \
+    then place this card in your Pendulum Zone. \
+"""
+strings = [
+    "Special Summon a Dragon",
+    "Destroy all cards your opponent controls",
+    "Destroy the added card(s)",
+]
