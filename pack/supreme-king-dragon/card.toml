@@ -184,91 +184,8 @@ strings = [
     "Negate effect & halve ATK of a monster",
 ]
 
-[supreme-king-dragon-venowurm]
-id = 900005005
-set = "supreme-king-dragon"
-name = "Supreme King Dragon Venowurm"
-type = "monster pendulum effect"
-attribute = "dark"
-race = "dragon"
-level = 4
-scale = 8
-atk = 1500
-def = 1000
-pendulum-effect = """\
-Once per turn: You can Fusion Summon 1 Dragon Fusion Monster from your Extra Deck, \
-    using monsters from your hand or field as Fusion Materials. \
-"""
-effect = """\
-Cannot be used as Fusion Material, except for the Fusion Summon of a Dragon Fusion Monster or Pendulum Fusion Monster. \
-If this card is in your hand, GY or Extra Deck: \
-    You can target 1 Pendulum Monster or Dragon monster with 2500 ATK more you control; \
-    its ATK become 0 and negate its effects, \
-    and if you do, Special Summon this card in Defense Position, then the targeted monster's Attribute become DARK. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
-    using this card you control as Fusion Material, as well as other monsters you control or cards in your Pendulum Zones. \
-"""
-strings = []
-
-[supreme-king-dragon-wingwurm]
-id = 900005006
-set = "supreme-king-dragon"
-name = "Supreme King Dragon Wingwurm"
-type = "monster pendulum tuner effect"
-attribute = "dark"
-race = "dragon"
-level = 4
-scale = 8
-atk = 1500
-def = 1000
-pendulum-effect = """\
-Once per turn: You can target 1 Pendulum Monster you control; this turn, \
-    that face-up monster is treated as a Tuner, also its Level becomes 1 (even if this card leaves the field). \
-"""
-effect = """\
-Cannot be used as Synchro Material, except for the Synchro Summon of a Dragon Synchro Monster or Pendulum Synchro Monster. \
-If this card is in your hand, GY or Extra Deck: \
-    You can target 1 Pendulum Monster or Dragon monster with 2500 ATK more you control; \
-    its ATK become 0 and negate its effects, \
-    and if you do, Special Summon this card in Defense Position, then reduce targeted monster's Level by this card' Level (min. 1). \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has its effects negated (if any), \
-    and if you do, immediately after this effect resolves, Synchro Summon 1 Synchro Monster using only that monster and this card. \
-"""
-strings = ["Make monster become Tuner"]
-
-[supreme-king-dragon-rebelliwurm]
-id = 900005007
-set = "supreme-king-dragon"
-name = "Supreme King Dragon Rebelliwurm"
-type = "monster pendulum effect"
-attribute = "dark"
-race = "dragon"
-level = 4
-scale = 8
-atk = 1500
-def = 1000
-pendulum-effect = """\
-Once per turn: You can target 1 face-up Xyz Monster you control, and 1 Pendulum Monster that has Level you control; until the end of this turn, \
-    that Xyz Monster's Rank becomes equal to the Level of the other, \
-    also you can use it as an Xyz Material for an Xyz Summon using its Rank as if it were a Level. \
-    (even if this card leaves the field). \
-"""
-effect = """\
-Cannot be used as Xyz Material, except for the Xyz Summon of a Dragon Xyz Monster or Pendulum Xyz Monster. \
-If this card is in your hand, GY or Extra Deck: \
-    You can target 1 Pendulum Monster or Dragon monster with 2500 ATK more you control; \
-    its ATK become 0 and negate its effects, \
-    and if you do, Special Summon this card in Defense Position, then the targeted monster's Level becomes the same as this card's. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has its effects negated (if any), \
-    and if you do, immediately after this effect resolves, Xyz Summon 1 Xyz Monster using only that monster and this card. \
-"""
-strings = ["Make Xyz monster gain Level"]
-
 [supreme-king-dragon-oddwurm]
-id = 900005008
+id = 900005005
 set = "supreme-king-dragon odd-eyes"
 name = "Supreme King Dragon Oddwurm"
 type = "monster effect"
@@ -299,8 +216,176 @@ strings = [
     "Inflict damage equal to the destroyed monster's original ATK",
 ]
 
-[supreme-soul]
+[supreme-king-gate-sin]
+id = 900005006
+set = "supreme-king-gate"
+name = "Supreme King Gate Sin"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "fiend"
+level = 7
+scale = 0
+atk = 0
+def = 0
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[supreme-king-gate-hope]
+id = 900005007
+set = "supreme-king-gate"
+name = "Supreme King Gate Hope"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "fiend"
+level = 7
+scale = 13
+atk = 0
+def = 0
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[supreme-king-dragon-venowurm]
+id = 900005008
+set = "supreme-king-dragon"
+name = "Supreme King Dragon Venowurm"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+scale = 8
+atk = 1500
+def = 1000
+pendulum-effect = """\
+Once per turn: You can Fusion Summon 1 Dragon Fusion Monster from your Extra Deck, \
+    using monsters from your hand or field as Fusion Materials. \
+"""
+effect = """\
+Cannot be used as Fusion Material, except for the Fusion Summon of a Dragon Fusion Monster or Pendulum Fusion Monster. \
+If this card is in your hand, GY or Extra Deck: \
+    You can target 1 Pendulum Monster or Dragon monster with 2500 ATK more you control; \
+    its ATK become 0 and negate its effects, \
+    and if you do, Special Summon this card in Defense Position, then the targeted monster's Attribute become DARK. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    using this card you control as Fusion Material, as well as other monsters you control or cards in your Pendulum Zones. \
+"""
+strings = []
+
+[supreme-king-dragon-wingwurm]
+id = 900005009
+set = "supreme-king-dragon"
+name = "Supreme King Dragon Wingwurm"
+type = "monster pendulum tuner effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+scale = 8
+atk = 1500
+def = 1000
+pendulum-effect = """\
+Once per turn: You can target 1 Pendulum Monster you control; this turn, \
+    that face-up monster is treated as a Tuner, also its Level becomes 1 (even if this card leaves the field). \
+"""
+effect = """\
+Cannot be used as Synchro Material, except for the Synchro Summon of a Dragon Synchro Monster or Pendulum Synchro Monster. \
+If this card is in your hand, GY or Extra Deck: \
+    You can target 1 Pendulum Monster or Dragon monster with 2500 ATK more you control; \
+    its ATK become 0 and negate its effects, \
+    and if you do, Special Summon this card in Defense Position, then reduce targeted monster's Level by this card' Level (min. 1). \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has its effects negated (if any), \
+    and if you do, immediately after this effect resolves, Synchro Summon 1 Synchro Monster using only that monster and this card. \
+"""
+strings = ["Make monster become Tuner"]
+
+[supreme-king-dragon-rebelliwurm]
 id = 900005010
+set = "supreme-king-dragon"
+name = "Supreme King Dragon Rebelliwurm"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+scale = 8
+atk = 1500
+def = 1000
+pendulum-effect = """\
+Once per turn: You can target 1 face-up Xyz Monster you control, and 1 Pendulum Monster that has Level you control; until the end of this turn, \
+    that Xyz Monster's Rank becomes equal to the Level of the other, \
+    also you can use it as an Xyz Material for an Xyz Summon using its Rank as if it were a Level. \
+    (even if this card leaves the field). \
+"""
+effect = """\
+Cannot be used as Xyz Material, except for the Xyz Summon of a Dragon Xyz Monster or Pendulum Xyz Monster. \
+If this card is in your hand, GY or Extra Deck: \
+    You can target 1 Pendulum Monster or Dragon monster with 2500 ATK more you control; \
+    its ATK become 0 and negate its effects, \
+    and if you do, Special Summon this card in Defense Position, then the targeted monster's Level becomes the same as this card's. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has its effects negated (if any), \
+    and if you do, immediately after this effect resolves, Xyz Summon 1 Xyz Monster using only that monster and this card. \
+"""
+strings = ["Make Xyz monster gain Level"]
+
+[supreme-king-dragon-goldwurm]
+id = 900005011
+set = "supreme-king-dragon"
+name = "Supreme King Dragon Goldwurm"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+scale = 8
+atk = 1900
+def = 1100
+pendulum-effect = """\
+Your opponent cannot target Dragon monsters you control with Trap Cards or effects. \
+Once per turn, if you have a card in your other Pendulum Zone: \
+    You can discard 1 card, then target 1 monster on the field; destroy it. \
+"""
+effect = """\
+If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your hand. \
+If this card is in your hand, GY or Extra Deck: You can target 1 Pendulum Monster you control; \
+    destroy it, and if you do, Special Summon this card in Defense Position. \
+You can only use each monster effect of "Supreme King Dragon Goldwurm" once per turn. \
+"""
+strings = ["Discard to destroy face-up monster", "Add Pendulum Monster to hand"]
+
+[supreme-king-dragon-silverwurm]
+id = 900005012
+set = "supreme-king-dragon"
+name = "Supreme King Dragon Silverwurm"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+scale = 1
+atk = 1700
+def = 1300
+pendulum-effect = """\
+Your opponent cannot target Dragon monsters you control with Spell Cards or effects. \
+Once per turn, if you have a card in your other Pendulum Zone: \
+    You can discard 1 card, then target 1 Spell/Trap Card on the field; destroy it. \
+"""
+effect = """\
+If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your Extra Deck face-up. \
+If this card is in your hand, GY or Extra Deck: You can target 1 Pendulum Monster you control; \
+    destroy it, and if you do, Special Summon this card in Defense Position. \
+You can only use each monster effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Discard to destroy Spell/Trap",
+    "Add Pendulum Monster to Extra Deck",
+]
+
+[supreme-soul]
+id = 900005020
 name = "Supreme Soul of the Overlord"
 type = "spell link"
 link = 3
