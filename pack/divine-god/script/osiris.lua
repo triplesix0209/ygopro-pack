@@ -57,7 +57,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local tg = Duel.GetTargetCards(e):Filter(s.e2filter, nil, e, tp)
     local dg = Group.CreateGroup()
 
-    for tc in aux.Next(tg) do
+    for tc in tg:Iter() do
         local preatk = tc:GetAttack()
         local predef = tc:GetDefense()
         local ec1 = Effect.CreateEffect(c)

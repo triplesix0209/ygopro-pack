@@ -130,7 +130,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local g = c:GetMaterial()
 
     local atk = 0
-    for tc in aux.Next(g) do atk = atk + tc:GetPreviousAttackOnField() end
+    for tc in g:Iter() do atk = atk + tc:GetPreviousAttackOnField() end
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
@@ -152,7 +152,7 @@ function s.e6regop(e, tp, eg, ep, ev, re, r, rp)
     local atk = 0
     local def = 0
     local mg = rc:GetMaterial()
-    for tc in aux.Next(mg) do
+    for tc in mg:Iter() do
         atk = atk + tc:GetPreviousAttackOnField()
         def = def + tc:GetPreviousDefenseOnField()
     end

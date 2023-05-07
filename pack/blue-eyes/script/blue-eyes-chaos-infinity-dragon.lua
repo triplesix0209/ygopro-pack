@@ -147,7 +147,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 
     local og = Duel.GetOperatedGroup():Filter(Card.IsFaceup, nil)
-    for tc in aux.Next(og) do
+    for tc in og:Iter() do
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_SET_ATTACK_FINAL)

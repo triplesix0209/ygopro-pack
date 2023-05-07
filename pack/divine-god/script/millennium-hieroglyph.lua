@@ -32,7 +32,7 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(function(c) return c.deck_edit or c.global_effect end, tp, LOCATION_ALL, 0, nil)
     local deck_edit = Group.CreateGroup()
     local global_effect = Group.CreateGroup()
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         if tc.deck_edit and not deck_edit:IsExists(function(c) return c:GetOriginalCode() == tc:GetOriginalCode() end, 1, nil) then
             tc.deck_edit(tp)
             deck_edit:AddCard(tc)
@@ -40,7 +40,7 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
 
         Duel.ShuffleDeck(tp)
     end
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         if tc.global_effect and
             not global_effect:IsExists(function(c) return c:GetOriginalCode() == tc:GetOriginalCode() end, 1, nil) then
             tc.global_effect(tc, tp)
@@ -108,7 +108,7 @@ function s.DestinySequenceDeck(tp, count, string_id)
     if count == 0 or not Duel.SelectYesNo(tp, aux.Stringid(id, string_id)) then return end
 
     local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, aux.TRUE, tp, LOCATION_DECK, 0, count, count, nil)
-    for tc in aux.Next(g) do Duel.MoveSequence(tc, 0) end
+    for tc in g:Iter() do Duel.MoveSequence(tc, 0) end
 end
 
 local base_draw = Duel.Draw

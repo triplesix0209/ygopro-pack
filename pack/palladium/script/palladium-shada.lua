@@ -45,7 +45,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 
     if Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) > 0 then
         local g = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard, 0x13a), tp, LOCATION_MZONE, 0, nil)
-        for tc in aux.Next(g) do
+        for tc in g:Iter() do
             local ec1 = Effect.CreateEffect(c)
             ec1:SetDescription(3000)
             ec1:SetType(EFFECT_TYPE_SINGLE)

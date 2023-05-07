@@ -72,7 +72,7 @@ function s.e1val(e, c)
     local atk = 0
     local def = 0
     local g = c:GetMaterial()
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         atk = atk + tc:GetAttack()
         def = def + tc:GetDefense()
     end
@@ -247,7 +247,7 @@ function s.e3defusregcon(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMat
 
 function s.e3defusregop(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(s.e3defusregfilter, tp, 0xff, 0xff, nil)
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         local ec0 = Effect.CreateEffect(tc)
         ec0:SetType(EFFECT_TYPE_SINGLE)
         ec0:SetCode(id)

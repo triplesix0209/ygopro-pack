@@ -88,7 +88,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(Card.IsNegatable, tp, 0, LOCATION_ONFIELD, nil)
     if #g == 0 then return end
 
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_DISABLE)

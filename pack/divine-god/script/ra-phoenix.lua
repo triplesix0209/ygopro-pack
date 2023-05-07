@@ -13,7 +13,7 @@ function s.initial_effect(c)
     -- dimension change (special summon)
     Dimension.RegisterChange({
         handler = c,
-        flag_id = id + 100000,
+        flag_id = id + 1000000000,
         event_code = EVENT_SPSUMMON_SUCCESS,
         filter = function(c, sc)
             return c:IsCode(CARD_RA) and c:GetOwner() == sc:GetOwner() and c:IsPreviousLocation(LOCATION_GRAVE) and c:IsControler(c:GetOwner()) and
@@ -43,7 +43,7 @@ function s.initial_effect(c)
                 local sc = e:GetHandler()
                 local g = eg:Filter(s.dmsfilter, nil, sc:GetOwner())
                 if chk == 0 then return #g > 0 end
-                for tc in aux.Next(g) do tc:RegisterFlagEffect(flag_id + 1000000000 * (tc:GetOwner() + 1), 0, 0, 1) end
+                for tc in g:Iter() do tc:RegisterFlagEffect(flag_id + 1000000000 * (tc:GetOwner() + 1), 0, 0, 1) end
                 return true
             end)
             dms:SetValue(function(e, c) return s.dmsfilter(c, e:GetHandler():GetOwner()) end)

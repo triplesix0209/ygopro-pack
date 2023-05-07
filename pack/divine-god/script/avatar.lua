@@ -65,7 +65,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
 
     local g = Duel.GetMatchingGroup(s.e2filter, tp, 0, LOCATION_ONFIELD, nil)
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_DISABLE)

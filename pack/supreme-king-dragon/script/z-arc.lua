@@ -247,7 +247,7 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
 
     local dmg = 0
     local dg = Duel.GetOperatedGroup()
-    for tc in aux.Next(dg) do
+    for tc in dg:Iter() do
         local atk = tc:GetPreviousAttackOnField()
         if atk < 0 then atk = 0 end
         dmg = dmg + atk

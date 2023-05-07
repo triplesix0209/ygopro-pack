@@ -10,7 +10,7 @@ Utility.INFINITY_ATTACK = 99999999
 -- function
 function Utility.RegisterGlobalEffect(c, eff, filter, param1, param2, param3, param4, param5)
     local g = Duel.GetMatchingGroup(filter, c:GetControler(), LOCATION_ALL, 0, nil, param1, param2, param3, param4, param5)
-    for tc in aux.Next(g) do tc:RegisterEffect(eff:Clone()) end
+    for tc in g:Iter() do tc:RegisterEffect(eff:Clone()) end
 end
 
 function Utility.DeckEditAddCardToDeck(tp, code, condition_code, count_alias)
@@ -81,11 +81,11 @@ function Utility.ApplyEffect(te, e, tp, rc)
     end
 
     local g = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS)
-    if g ~= nil then for etc in aux.Next(g) do etc:CreateEffectRelation(te) end end
+    if g ~= nil then for etc in g:Iter() do etc:CreateEffectRelation(te) end end
     if op then op(te, tp, Group.CreateGroup(), PLAYER_NONE, 0, e, REASON_EFFECT, PLAYER_NONE, 1) end
 
     if rc then rc:ReleaseEffectRelation(te) end
-    if g ~= nil then for etc in aux.Next(g) do etc:ReleaseEffectRelation(te) end end
+    if g ~= nil then for etc in g:Iter() do etc:ReleaseEffectRelation(te) end end
     Duel.BreakEffect()
     return true
 end
@@ -223,7 +223,7 @@ function Utility.AvatarInfinity(root, c)
         avataratk:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCard(AvatarFilter, tp, 0xff, 0xff, 1, nil) end)
         avataratk:SetOperation(function(e, tp, eg, ev, ep, re, r, rp)
             local g = Duel.GetMatchingGroup(AvatarFilter, tp, 0xff, 0xff, nil)
-            for tc in aux.Next(g) do
+            for tc in g:Iter() do
                 local eff = Effect.CreateEffect(tc)
                 eff:SetType(EFFECT_TYPE_SINGLE)
                 eff:SetCode(id)

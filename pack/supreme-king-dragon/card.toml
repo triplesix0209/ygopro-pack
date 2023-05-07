@@ -1,11 +1,30 @@
-[presence-supreme-king]
+[presence-overlord]
 id = 900005000
-set = "supreme-king"
-name = "Presence of the Supreme King"
+name = "Presence of the Overlord"
 type = "spell field"
 effect = """\
+Any Pendulum Monster sent to the GY is sent to Extra Deck face-up instead. \
+    This effect cannot be negated. \
+Your opponent cannot target this card and cards in your Pendulum Zones with card effects. \
+You can destroy 1 other face-up card you control, and if you do, \
+    add 1 "Supreme King Dragon" monster, "Supreme King Gate" monster, "Odd-Eyes" card, \
+    or 1 card that mentions "Supreme King Z-ARC", \
+    from your Deck to your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If you Special Summon any of these monsters using a Pendulum Monster(s) as material: You can activate the appropriate effect. \
+    You cannot apply that same effect of "{CARD_NAME}" for the rest of this turn.
+● Fusion: Special Summon 1 monster from your hand, Deck, or GY with the same original Level as that Fusion Monster, \
+    in Defense Position, but it activate its effects this turn.
+● Synchro: Add 1 "Fusion" or "Polymerization" Spell from your Deck or GY to your hand.
+● Xyz: Take 1 Tuner from your Deck or GY with an equal or lower Level than that Xyz Monster's Rank, \
+    and add it to your hand or Special Summon it in Defense Position.
 """
-strings = []
+strings = [
+    "Destroy 1 face-up card to search",
+    "Special Summon a monster with same Level",
+    "Add \"Fusion\" Spell",
+    "Add or Special Summon a Tuner",
+]
 
 [z-arc]
 id = 900005001

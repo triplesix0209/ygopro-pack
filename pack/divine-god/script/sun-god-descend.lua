@@ -69,7 +69,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 
     local atk = 0
     local def = 0
-    for mc in aux.Next(g) do
+    for mc in g:Iter() do
         atk = atk + mc:GetAttack()
         def = def + mc:GetDefense()
     end

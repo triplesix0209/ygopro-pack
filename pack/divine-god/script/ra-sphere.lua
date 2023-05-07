@@ -21,7 +21,7 @@ function s.initial_effect(c)
             local atk = 0
             local def = 0
             local mg = mc:GetMaterial()
-            for tc in aux.Next(mg) do
+            for tc in mg:Iter() do
                 atk = atk + tc:GetPreviousAttackOnField()
                 def = def + tc:GetPreviousDefenseOnField()
             end
