@@ -74,7 +74,7 @@ strings = [
 
 [odd-eyes-venom-dragon]
 id = 900005002
-set = "odd-eyes supreme-king venom"
+set = "odd-eyes venom supreme-king"
 name = "Odd-Eyes Venom Dragon Overlord"
 type = "monster fusion pendulum effect"
 attribute = "dark"
