@@ -169,7 +169,7 @@ function s.initial_effect(c)
     me7:SetOperation(s.me7op)
     c:RegisterEffect(me7)
 
-    -- place to pendulum
+    -- place into pendulum zone
     local me8 = Effect.CreateEffect(c)
     me8:SetDescription(2203)
     me8:SetCategory(CATEGORY_DESTROY)
