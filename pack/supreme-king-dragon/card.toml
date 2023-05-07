@@ -20,7 +20,7 @@ link = 4
 link-arrow = "top bottom-left bottom bottom-right"
 atk = 4000
 pendulum-effect = """\
-Your other Pendulum Zone's Pendulum Scale become 0.
+Your other Pendulum Zone's Pendulum Scale become 0. \
     This effect cannot be negated. \
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
 You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
@@ -35,8 +35,7 @@ You can Pendulum Summon this card regardless of your Pendulum Scales. \
 If this card is Special Summoned: You can destroy all cards your opponent controls, \
     and if you do, inflict damage to your opponent equal to the combined ATK on the field of the destroyed monster(s). \
     This card cannot declare an attack the turn this effect is activated. \
-Control of this card cannot switch. \
-    This effect cannot be negated. \
+Control of this card cannot switch. This effect cannot be negated. \
 Cannot be Tributed, nor be used as material for an Summon. \
 Your opponent cannot target or destroy this card with card effects. \
 Face-up monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
