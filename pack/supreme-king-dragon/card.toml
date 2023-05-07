@@ -385,7 +385,7 @@ strings = [
 ]
 
 [supreme-soul]
-id = 900005020
+id = 900005018
 name = "Supreme Soul of the Overlord"
 type = "spell link"
 link = 3
