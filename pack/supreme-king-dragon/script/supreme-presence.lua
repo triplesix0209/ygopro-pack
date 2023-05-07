@@ -1,9 +1,9 @@
--- Presence of the Overlord
+-- Supreme Presence of the Overlord
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {13331639}
-s.listed_series = {0x10f8, 0x20f8, 0x99, 0x46}
+s.listed_series = {0x99, 0x46}
 
 function s.initial_effect(c)
     -- activate
@@ -102,17 +102,17 @@ function s.e1val(e, c) return s.e1filter(c) end
 
 function s.e3filter(c)
     if not c:IsAbleToHand() then return false end
-    return (c:IsSetCard({0x10f8, 0x20f8}) and c:IsMonster()) or c:IsSetCard(0x99) or c:ListsCode(13331639)
+    return c:IsSetCard(0x99) or c:ListsCode(13331639)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
         return Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_ONFIELD, 0, 1, e:GetHandler()) and
-                   Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_DECK, 0, 1, nil)
+                   Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, nil, 1, 0, LOCATION_ONFIELD)
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
@@ -120,8 +120,10 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) then return end
 
     local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, Card.IsFaceup, tp, LOCATION_ONFIELD, 0, 1, 1, c)
+    Duel.HintSelection(g)
+
     if Duel.Destroy(g, REASON_EFFECT) ~= 0 then
-        local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e3filter, tp, LOCATION_DECK, 0, 1, 1, nil)
+        local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e3filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, g)
         if #sg > 0 then
             Duel.SendtoHand(sg, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, sg)

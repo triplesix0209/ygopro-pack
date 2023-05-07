@@ -1,15 +1,14 @@
-[presence-overlord]
+[supreme-presence]
 id = 900005000
-name = "Presence of the Overlord"
+name = "Supreme Presence of the Overlord"
 type = "spell field"
 effect = """\
 Any Pendulum Monster sent to the GY is sent to Extra Deck face-up instead. \
     This effect cannot be negated. \
 Your opponent cannot target this card and cards in your Pendulum Zones with card effects. \
 You can destroy 1 other face-up card you control, and if you do, \
-    add 1 "Supreme King Dragon" monster, "Supreme King Gate" monster, "Odd-Eyes" card, \
-    or 1 card that mentions "Supreme King Z-ARC", \
-    from your Deck to your hand. \
+    add 1 "Odd-Eyes" card or 1 card that mentions "Supreme King Z-ARC", except the destroyed card, \
+    from your Deck or GY to your hand. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 If you Special Summon any of these monsters using a Pendulum Monster(s) as material: You can activate the appropriate effect. \
     You cannot apply that same effect of "{CARD_NAME}" for the rest of this turn.
@@ -71,4 +70,35 @@ strings = [
     "Destroy all cards your opponent controls & inflict damage",
     "Destroy the added card(s)",
     "Special Summon a Dragon",
+]
+
+[supreme-soul]
+id = 900005010
+name = "Supreme Soul of the Overlord"
+type = "spell link"
+link = 3
+link-arrow = "top-left top top-right"
+effect = """\
+This card's activation and effect cannot be negated. \
+When this card is activated: \
+    Place in your Pendulum Zone 2 "Magician", "Supreme King Gate" Pendulum Monsters with different names \
+    from your hand, Deck, GY and/or Extra Deck face-up, and if you do, \
+    you can Special Summon 1 "Supreme King Dragon" monster \
+    that have Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones \
+    from your hand, Deck, GY or Extra Deck face-up to your zone this card points to. \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+Effect activations, and activated effects of monsters this card points cannot be negated. \
+You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
+● (Quick Effect): Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
+● (Quick Effect): Special Summon 1 monster from your Pendulum Zone (This is treated as a Pendulum Summon).
+● Banish 4 monsters from your hand, field, GY and/or Extra Deck face-up \
+    (1 each with "Pendulum Dragon", "Xyz Dragon", "Synchro Dragon", and "Fusion Dragon" in their names); \
+    Special Summon 1 "Supreme King Z-ARC" from your Extra Deck, \
+    ignoring its Summoning conditions, and this is treated as a Special Summoned properly.
+"""
+strings = [
+    "Special Summon 1 \"Supreme King Dragon\"?",
+    "Place monster in Pendulum Zone",
+    "Special Summon monster from Pendulum Zone",
+    "Summon Z-ARC",
 ]
