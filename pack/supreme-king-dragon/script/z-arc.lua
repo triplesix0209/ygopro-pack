@@ -54,6 +54,7 @@ function s.initial_effect(c)
     -- change other scale
     local pe1 = Effect.CreateEffect(c)
     pe1:SetType(EFFECT_TYPE_FIELD)
+    pe1:SetProperty(EFFECT_CANNOT_DISABLE)
     pe1:SetCode(EFFECT_CHANGE_LSCALE)
     pe1:SetRange(LOCATION_PZONE)
     pe1:SetTargetRange(LOCATION_PZONE, 0)
