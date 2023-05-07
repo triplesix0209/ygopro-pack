@@ -72,6 +72,25 @@ strings = [
     "Special Summon a Dragon",
 ]
 
+[odd-eyes-venom-dragon]
+id = 900005002
+set = "odd-eyes supreme-king"
+name = "Odd-Eyes Supreme King Venom Dragon"
+type = "monster fusion pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 9
+scale = 10
+atk = 3000
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+1 "Odd-Eyes" Dragon Pendulum Monster + 1 "Starving Venom" Fusion Monster
+Must be Fusion Summoned with above materials on the field, and can then be Pendulum Summoned. \
+"""
+strings = []
+
 [supreme-soul]
 id = 900005010
 name = "Supreme Soul of the Overlord"
