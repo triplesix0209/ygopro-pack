@@ -243,17 +243,17 @@ end
 
 function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
-    Duel.Destroy(g, REASON_EFFECT)
+    if Duel.Destroy(g, REASON_EFFECT) > 0 then
+        local dmg = 0
+        local dg = Duel.GetOperatedGroup()
+        for tc in dg:Iter() do
+            local atk = tc:GetPreviousAttackOnField()
+            if atk < 0 then atk = 0 end
+            dmg = dmg + atk
+        end
 
-    local dmg = 0
-    local dg = Duel.GetOperatedGroup()
-    for tc in dg:Iter() do
-        local atk = tc:GetPreviousAttackOnField()
-        if atk < 0 then atk = 0 end
-        dmg = dmg + atk
+        Duel.Damage(1 - tp, dmg, REASON_EFFECT)
     end
-
-    Duel.Damage(1 - tp, dmg, REASON_EFFECT)
 end
 
 function s.me5tg(e, tc) return tc:IsFaceup() end

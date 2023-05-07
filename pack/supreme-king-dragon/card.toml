@@ -3,7 +3,7 @@ id = 900005000
 name = "Supreme Presence of the Overlord"
 type = "spell field"
 effect = """\
-Any Pendulum Monster sent to the GY is sent to Extra Deck face-up instead. \
+If a Pendulum Monster(s) is sent to your GY, add it to the Extra Deck face-up. \
     This effect cannot be negated. \
 Your opponent cannot target this card and cards in your Pendulum Zones with card effects. \
 You can destroy 1 other face-up card you control, and if you do, \
@@ -94,7 +94,8 @@ effect = """\
 (This card is always treated as an "Supreme King" card.)
 Must be Fusion Summoned with above materials on the field, and can then be Pendulum Summoned. \
 If this card is Fusion Summoned: \
-    This card gain ATK equal to the combined ATK of all monsters your opponent currently controls until the end of this turn. \
+    You can make this card gain ATK equal to the combined ATK of all monsters your opponent currently controls, \
+    until the end of this turn. \
 Each time a card(s) is sent from the field to the GY, place 1 Venemy Counter on this card for each sent card. \
 All monsters on the field, except DARK Dragon monsters, lose 200 ATK for each Venemy Counter on the field. \
 Once per turn (Qick Effect): You can target 1 face-up monster your opponent controls or in their GY; \
@@ -121,13 +122,30 @@ scale = 11
 atk = 3000
 def = 2500
 pendulum-effect = """\
+Once per turn, if your monster battles an opponent's monster, before damage calculation: \
+    You can make that monster you control gain ATK equal to the current ATK of the opponent's monster it is battling until the end of the Damage Step. \
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Tuner + 1 non-Tuner "Clear Wing" Synchro Monster
 (This card is always treated as an "Supreme King" card.)
 Must be Synchro Summoned with above materials on the field, and can then be Pendulum Summoned. \
+If this card is Synchro Summoned: \
+    You can destroy all monsters your opponent currently controls, \
+    and if you do, this card gains 500 ATK for each, until the end of this turn. \
+Once per turn, at the start of the Damage Step, if this card battles an opponent's monster: \
+    You can destroy that opponent's monster, and if you do, \
+    this card gains ATK equal to the destroyed monster's original ATK until the end of this turn, \
+    also, this card can make a second attack in a row. \
+Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls; \
+    until the end of this turn, negate the effects of that monster, also change its ATK to 0. \
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
 """
-strings = []
+strings = [
+    "Gain ATK of battling monster's ATK",
+    "Destroy battling monster",
+    "Negate effect & down attack of a monster",
+]
 
 [odd-eyes-raging-dragon]
 id = 900005004
@@ -141,14 +159,30 @@ scale = 11
 atk = 3000
 def = 2500
 pendulum-effect = """\
+Once per turn, if your monster battles an opponent's monster, before damage calculation: \
+    You can halve the ATK of the opponent's monster it is battling until the end of the Damage Step. \
 """
 effect = """\
 2 Level 7 monsters (1 "Odd-Eyes" Dragon Pendulum Monster, 1 "Rebellion" Xyz Monster)
 (This card is always treated as an "Supreme King" card.)
 Must be Xyz Summoned with above materials on the field, and can then be Pendulum Summoned. \
 If you can Pendulum Summon Level 7, you can Pendulum Summon this face-up card in your Extra Deck. \
+If this card is Xyz Summoned, it can make up to 3 attacks. \
+Once per turn: You can detach 1 material from this card; \
+    destroy as many cards your opponent controls as possible, \
+    and if you do, this card gains 200 ATK for each, until the end of this turn. \
+Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls; \
+    until the end of this turn, negate the effects of that monster, also its ATK becomes half its current ATK, \
+    and if it does, this card gains that lost ATK. \
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
 """
-strings = []
+strings = [
+    "Halve ATK of battling monster",
+    "Can make 3 attacks",
+    "Destroy card on the field",
+    "Negate effect & halve ATK of a monster",
+]
 
 [supreme-soul]
 id = 900005010

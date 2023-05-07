@@ -16,10 +16,10 @@ function s.initial_effect(c)
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e1:SetCode(EFFECT_SEND_REPLACE)
+    e1:SetCode(EVENT_TO_GRAVE)
     e1:SetRange(LOCATION_FZONE)
-    e1:SetTarget(s.e1tg)
-    e1:SetValue(s.e1val)
+    e1:SetCondition(s.e1con)
+    e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
     -- untargetable
@@ -88,14 +88,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e6)
 end
 
-function s.e1filter(c) return c:IsType(TYPE_PENDULUM) and c:GetDestination() & LOCATION_GRAVE == LOCATION_GRAVE end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(Card.IsType, 1, nil, TYPE_PENDULUM) end
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local g = eg:Filter(s.e1filter, nil)
-    if chk == 0 then return #g > 0 end
-
-    Duel.SendtoExtraP(g, nil, r)
-    return true
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local g = eg:Filter(Card.IsType, nil, TYPE_PENDULUM)
+    Duel.SendtoExtraP(g, nil, REASON_EFFECT)
 end
 
 function s.e1val(e, c) return s.e1filter(c) end
