@@ -29,12 +29,12 @@ effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
 (This card is always treated as "Supreme King Z-ARC".)
 Must be Link Summoned, and can then be Pendulum Summoned. \
-The Special Summon, effect activations, and card effects of it cannot be negated. \
+The Special Summon, effect activations, and activated effects of this card cannot be negated. \
 You can Pendulum Summon this card regardless of your Pendulum Scales. \
 If this card is Special Summoned: You can destroy all cards your opponent controls, \
     and if you do, inflict damage to your opponent equal to the combined ATK on the field of the destroyed monster(s). \
     This card cannot declare an attack the turn this effect is activated. \
-Control of this card cannot switch. \
+Control of this card cannot switch. This effect cannot be negated. \
 Cannot be Tributed, nor be used as material for an Summon. \
 Your opponent cannot target or destroy this card with card effects. \
 Face-up monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
