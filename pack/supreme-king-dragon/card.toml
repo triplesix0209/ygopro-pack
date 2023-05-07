@@ -74,20 +74,62 @@ strings = [
 
 [odd-eyes-venom-dragon]
 id = 900005002
-set = "odd-eyes supreme-king"
-name = "Odd-Eyes Supreme King Venom Dragon"
+set = "odd-eyes supreme-king venom"
+name = "Odd-Eyes Venom Dragon Overlord"
 type = "monster fusion pendulum effect"
 attribute = "dark"
 race = "dragon"
-level = 9
-scale = 10
-atk = 3000
+level = 10
+scale = 11
+atk = 3300
 def = 2500
 pendulum-effect = """\
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Monster + 1 "Starving Venom" Fusion Monster
+(This card is always treated as an "Supreme King" card.)
 Must be Fusion Summoned with above materials on the field, and can then be Pendulum Summoned. \
+"""
+strings = []
+
+[odd-eyes-wing-dragon]
+id = 900005003
+set = "odd-eyes supreme-king"
+name = "Odd-Eyes Wing Dragon Overlord"
+type = "monster synchro pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+scale = 11
+atk = 3000
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+1 "Odd-Eyes" Dragon Pendulum Tuner + 1 non-Tuner "Clear Wing" Synchro Monster
+(This card is always treated as an "Supreme King" card.)
+Must be Synchro Summoned with above materials on the field, and can then be Pendulum Summoned. \
+"""
+strings = []
+
+[odd-eyes-raging-dragon]
+id = 900005004
+set = "odd-eyes supreme-king"
+name = "Odd-Eyes Raging Dragon Overlord"
+type = "monster xyz pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 7
+scale = 11
+atk = 3000
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+2 Level 7 monsters (1 "Odd-Eyes" Dragon Pendulum Monster, 1 "Rebellion" Xyz Monster)
+(This card is always treated as an "Supreme King" card.)
+Must be Xyz Summoned with above materials on the field, and can then be Pendulum Summoned. \
+If you can Pendulum Summon Level 7, you can Pendulum Summon this face-up card in your Extra Deck. \
 """
 strings = []
 
