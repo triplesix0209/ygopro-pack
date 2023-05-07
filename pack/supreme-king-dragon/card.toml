@@ -21,9 +21,9 @@ link-arrow = "top bottom-left bottom bottom-right"
 atk = 4000
 pendulum-effect = """\
 Your other Pendulum Zone's Pendulum Scale become 0. \
-Once per turn: You can Special Summon 1 Dragon Fusion, Synchro, or Xyz Monster that is banished or in your GY, Extra Deck face-up, \
-    ignoring its Summoning conditions (This is also treated as an Fusion, Synchro, or Xyz Summon), \
-    then, destroy this card. \
+Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
+You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
@@ -31,13 +31,15 @@ effect = """\
 Must be Link Summoned, and can then be Pendulum Summoned. \
 The Special Summon, effect activations, and card effects of it cannot be negated. \
 You can Pendulum Summon this card regardless of your Pendulum Scales. \
-If this card is Special Summoned: You can destroy all cards your opponent controls. \
-Cannot be Tributed, nor be used as material for an Summon. \
+If this card is Special Summoned: You can destroy all cards your opponent controls, \
+    and if you do, inflict damage to your opponent equal to the combined ATK on the field of the destroyed monster(s). \
+    This card cannot declare an attack the turn this effect is activated. \
 Control of this card cannot switch. \
+Cannot be Tributed, nor be used as material for an Summon. \
 Your opponent cannot target or destroy this card with card effects. \
-Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
-Once per turn, when a card(s) is added from the Main Deck to your opponent's hand, \
-    except during the Draw Phase: You can destroy that card(s). \
+Face-up monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
+If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase: \
+    You can destroy that card(s). \
 When this card destroys an opponent's monster by battle: \
     You can Special Summon 1 "Supreme King Dragon" monster from your hand, Deck, GY or Extra Deck, \
     ignoring its Summoning conditions, and this is treated as a Special Summoned properly. \
@@ -46,7 +48,7 @@ If this card in the Monster Zone is destroyed: \
     then place this card in your Pendulum Zone. \
 """
 strings = [
-    "Special Summon a Dragon",
-    "Destroy all cards your opponent controls",
+    "Destroy all cards your opponent controls & inflict damage",
     "Destroy the added card(s)",
+    "Special Summon a Dragon",
 ]
