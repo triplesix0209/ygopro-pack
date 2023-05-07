@@ -61,11 +61,6 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     local nodiseff = nonegate:Clone()
     nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(nodiseff)
-    local nodis = Effect.CreateEffect(c)
-    nodis:SetType(EFFECT_TYPE_SINGLE)
-    nodis:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-    nodis:SetCode(EFFECT_CANNOT_DISABLE)
-    c:RegisterEffect(nodis)
 
     -- cannot be tributed, nor be used as a material
     local norelease = Effect.CreateEffect(c)

@@ -11,7 +11,7 @@ packs = [
 ]
 
 skip_compile_packs = [
-    "./pack/divine-god",
+    # "./pack/divine-god",
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/duel-dragon",
