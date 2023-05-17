@@ -10,9 +10,9 @@ You can destroy 1 other face-up card you control, and if you do, \
     add 1 "Odd-Eyes" card or 1 card that mentions "Supreme King Z-ARC", \
     from your Deck or GY to your hand, except the destroyed card. \
     Neither player can activate cards or effects in response to this effect's activation. \
-If you Special Summoned a face-down Pendulum Monster(s) from your Extra Deck this turn (Quick Effect): \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn, if you Special Summoned a face-down Pendulum Monster(s) from your Extra Deck this turn (Quick Effect): \
     You can activate this effect; immediately after it resolves, Pendulum Summon a monster(s). \
-You can only use each effect of "{CARD_NAME}" once per turn. \
 If you Special Summon any of these monsters using a Pendulum Monster(s) as material: You can activate the appropriate effect. \
     You cannot apply that same effect of "{CARD_NAME}" for the rest of this turn.
 ● Fusion: Special Summon 1 monster from your hand, Deck, or GY with the same original Level as that Fusion Monster, \
