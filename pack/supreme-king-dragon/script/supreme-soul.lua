@@ -31,23 +31,20 @@ function s.initial_effect(c)
     e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(e2b)
 
-    -- place in pendulum zone
+    -- special summon from pendulum zone
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetType(EFFECT_TYPE_QUICK_O)
+    e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
-    e3:SetCode(EVENT_FREE_CHAIN)
     e3:SetRange(LOCATION_SZONE)
-    e3:SetHintTiming(0, TIMING_END_PHASE)
     e3:SetCountLimit(1, {id, 2})
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- special summon from pendulum zone
+    -- place in pendulum zone
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 2))
-    e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e4:SetDescription(aux.Stringid(id, 3))
     e4:SetType(EFFECT_TYPE_QUICK_O)
     e4:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
     e4:SetCode(EVENT_FREE_CHAIN)
@@ -60,10 +57,13 @@ function s.initial_effect(c)
 
     -- special summon from pendulum zone
     local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 3))
-    e5:SetType(EFFECT_TYPE_IGNITION)
+    e5:SetDescription(aux.Stringid(id, 4))
+    e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e5:SetType(EFFECT_TYPE_QUICK_O)
     e5:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
+    e5:SetCode(EVENT_FREE_CHAIN)
     e5:SetRange(LOCATION_SZONE)
+    e5:SetHintTiming(0, TIMING_END_PHASE)
     e5:SetCountLimit(1, {id, 2})
     e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
@@ -124,63 +124,63 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) end
+function s.e3filter(c) return c:IsFaceup() and c:IsCode(13331639) end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then
-        return (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) and
-                   Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_MZONE, 0, 1, nil)
-    end
-end
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_MZONE, 0, 1, nil) end end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) or not (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) then return end
-
-    local g = Utility.SelectMatchingCard(aux.Stringid(id, 1), tp, s.e3filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
-    Duel.HintSelection(g)
-
-    if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
-end
-
-function s.e4filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false) end
-
-function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_PZONE, 0, 1, nil, e, tp)
-    end
-
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, 0, LOCATION_PZONE)
-end
-
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e4filter, tp, LOCATION_PZONE, 0, 1, 1, nil, e, tp)
-    Duel.HintSelection(g)
-
-    if #g > 0 then Duel.SpecialSummon(g, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP) end
-end
-
-function s.e5filter(c) return c:IsFaceup() and c:IsCode(13331639) end
-
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_MZONE, 0, 1, nil) end
-    Duel.SelectTarget(tp, s.e5filter, tp, LOCATION_MZONE, 0, 1, 1)
-end
-
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tc = Duel.GetFirstTarget()
-    if not c:IsRelateToEffect(e) or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e3filter, tp, LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
+    if not tc then return end
+    Duel.HintSelection(tc)
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 4))
+    ec1:SetDescription(aux.Stringid(id, 2))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_ATTACK_ALL)
     ec1:SetValue(1)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     tc:RegisterEffect(ec1)
+end
+
+function s.e4filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) end
+
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then
+        return (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) and
+                   Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_MZONE, 0, 1, nil)
+    end
+end
+
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) or not (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) then return end
+
+    local g = Utility.SelectMatchingCard(aux.Stringid(id, 1), tp, s.e4filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
+    Duel.HintSelection(g)
+
+    if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+end
+
+function s.e5filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false) end
+
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_PZONE, 0, 1, nil, e, tp)
+    end
+
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, 0, LOCATION_PZONE)
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) then return end
+
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e5filter, tp, LOCATION_PZONE, 0, 1, 1, nil, e, tp)
+    Duel.HintSelection(g)
+
+    if #g > 0 then Duel.SpecialSummon(g, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP) end
 end

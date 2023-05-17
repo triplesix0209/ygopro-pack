@@ -402,14 +402,14 @@ When this card is activated: \
     You can only activate 1 "{CARD_NAME}" per turn. \
 Effect activations, and activated effects of monsters this card points cannot be negated. \
 You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
+● 1 "Supreme King Z-ARC" you control can attack all opponent's monsters once each this turn.
 ● (Quick Effect): Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
 ● (Quick Effect): Special Summon 1 monster from your Pendulum Zone (This is treated as a Pendulum Summon).
-● You can target 1 "Supreme King Z-ARC" you control; it can attack all opponent's monsters once each this turn.
 """
 strings = [
     "Special Summon 1 \"Supreme King Dragon\"?",
-    "Place monster in Pendulum Zone",
-    "Special Summon monster from Pendulum Zone",
     "Z-ARC can attack all opponent's monsters",
     "Can attack all opponent's monsters",
+    "Place monster in Pendulum Zone",
+    "Special Summon monster from Pendulum Zone",
 ]
