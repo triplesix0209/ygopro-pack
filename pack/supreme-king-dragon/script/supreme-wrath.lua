@@ -120,7 +120,7 @@ end
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
         return Duel.IsExistingTarget(s.e2filter1, tp, LOCATION_MZONE, 0, 1, nil) and
-                   Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 2, nil)
+                   Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, nil)
     end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
@@ -130,7 +130,7 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if tc and tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
-        local g = Utility.SelectMatchingCard(HINTMSG_FACEUP, tp, s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 2, 2, nil)
+        local g = Utility.SelectMatchingCard(HINTMSG_FACEUP, tp, s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 2, nil)
         if #g > 0 then Duel.Overlay(tc, g) end
     end
 end
