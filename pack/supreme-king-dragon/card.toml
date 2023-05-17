@@ -229,6 +229,7 @@ scale = 0
 atk = 0
 def = 0
 pendulum-effect = """\
+If you control "Supreme King Z-Arc", you take no damage. \
 """
 effect = """\
 """
@@ -246,6 +247,10 @@ scale = 13
 atk = 0
 def = 0
 pendulum-effect = """\
+Unless you have "Supreme King Gate" card in your other Pendulum Zone, destroy this card. \
+    This effect cannot be negated. \
+If you took no damage because you applied the Pendulum Effect of "Supreme King Gate Sin", \
+    you gain LP equal to the original damage you would have take. \
 """
 effect = """\
 """
