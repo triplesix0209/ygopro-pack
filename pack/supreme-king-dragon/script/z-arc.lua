@@ -51,41 +51,27 @@ function s.initial_effect(c)
     pensp:SetCode(511004423)
     c:RegisterEffect(pensp)
 
-    -- change other scale
+    -- act limit
     local pe1 = Effect.CreateEffect(c)
     pe1:SetType(EFFECT_TYPE_FIELD)
-    pe1:SetProperty(EFFECT_CANNOT_DISABLE)
-    pe1:SetCode(EFFECT_CHANGE_LSCALE)
+    pe1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    pe1:SetCode(EFFECT_CANNOT_ACTIVATE)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetTargetRange(LOCATION_PZONE, 0)
-    pe1:SetTarget(function(e, c) return e:GetHandler() ~= c end)
-    pe1:SetValue(0)
+    pe1:SetTargetRange(0, 1)
+    pe1:SetValue(s.pe1val)
     c:RegisterEffect(pe1)
-    local pe1b = pe1:Clone()
-    pe1b:SetCode(EFFECT_CHANGE_RSCALE)
-    c:RegisterEffect(pe1b)
-
-    -- act limit
-    local pe2 = Effect.CreateEffect(c)
-    pe2:SetType(EFFECT_TYPE_FIELD)
-    pe2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    pe2:SetCode(EFFECT_CANNOT_ACTIVATE)
-    pe2:SetRange(LOCATION_PZONE)
-    pe2:SetTargetRange(0, 1)
-    pe2:SetValue(s.pe2val)
-    c:RegisterEffect(pe2)
 
     -- special summon from pendulum zone
-    local pe3 = Effect.CreateEffect(c)
-    pe3:SetDescription(2)
-    pe3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    pe3:SetType(EFFECT_TYPE_IGNITION)
-    pe3:SetRange(LOCATION_PZONE)
-    pe3:SetCountLimit(1, id)
-    pe3:SetCost(s.pe3cost)
-    pe3:SetTarget(s.pe3tg)
-    pe3:SetOperation(s.pe3op)
-    c:RegisterEffect(pe3)
+    local pe2 = Effect.CreateEffect(c)
+    pe2:SetDescription(2)
+    pe2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    pe2:SetType(EFFECT_TYPE_IGNITION)
+    pe2:SetRange(LOCATION_PZONE)
+    pe2:SetCountLimit(1, id)
+    pe2:SetCost(s.pe2cost)
+    pe2:SetTarget(s.pe2tg)
+    pe2:SetOperation(s.pe2op)
+    c:RegisterEffect(pe2)
 
     -- destroy all
     local me1 = Effect.CreateEffect(c)
@@ -122,7 +108,7 @@ function s.initial_effect(c)
     me3b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     c:RegisterEffect(me3b)
 
-    -- untargetable & indes
+    -- untargetable, indes & unbanishable
     local me4 = Effect.CreateEffect(c)
     me4:SetType(EFFECT_TYPE_SINGLE)
     me4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -134,6 +120,17 @@ function s.initial_effect(c)
     me4b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     me4b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(me4b)
+    local me4c = Effect.CreateEffect(c)
+    me4c:SetType(EFFECT_TYPE_FIELD)
+    me4c:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    me4c:SetCode(EFFECT_CANNOT_REMOVE)
+    me4c:SetRange(LOCATION_MZONE)
+    me4c:SetTargetRange(1, 1)
+    me4c:SetTarget(function(e, tc, rp, r, re)
+        local tp = e:GetHandlerPlayer()
+        return tc == e:GetHandler() and rp == 1 - tp and r == REASON_EFFECT
+    end)
+    c:RegisterEffect(me4c)
 
     -- unaffected by activated effects
     local me5 = Effect.CreateEffect(c)
@@ -193,29 +190,29 @@ function s.lnkcheck(g, sc, sumtype, tp)
     return mg:IsExists(Card.IsType, 1, nil, TYPE_PENDULUM, sc, sumtype, tp)
 end
 
-function s.pe2val(e, re, rp)
+function s.pe1val(e, re, rp)
     local rc = re:GetHandler()
     return rc:IsLocation(LOCATION_MZONE) and re:IsActiveType(TYPE_MONSTER) and rc:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
 end
 
-function s.pe3filter(c, ft, tp)
+function s.pe2filter(c, ft, tp)
     return c:IsSetCard(0x20f8) and (ft > 0 or (c:IsControler(tp) and c:GetSequence() < 5)) and (c:IsControler(tp) or c:IsFaceup())
 end
 
-function s.pe3cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.pe2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, s.pe3filter, 1, false, nil, nil, ft, tp) end
-    local g = Duel.SelectReleaseGroupCost(tp, s.pe3filter, 1, 1, false, nil, nil, ft, tp)
+    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, s.pe2filter, 1, false, nil, nil, ft, tp) end
+    local g = Duel.SelectReleaseGroupCost(tp, s.pe2filter, 1, 1, false, nil, nil, ft, tp)
     Duel.Release(g, REASON_COST)
 end
 
-function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then return c:IsCanBeSpecialSummoned(e, 0, tp, true, false) end
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
 end
 
-function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsRelateToEffect(e) then Duel.SpecialSummon(c, 0, tp, tp, true, false, POS_FACEUP) end
 end

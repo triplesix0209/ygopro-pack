@@ -7,9 +7,12 @@ If a Pendulum Monster(s) is sent to your GY, add it to the Extra Deck face-up. \
     This effect cannot be negated. \
 Your opponent cannot target this card and cards in your Pendulum Zones with card effects. \
 You can destroy 1 other face-up card you control, and if you do, \
-    add 1 "Odd-Eyes" card or 1 card that mentions "Supreme King Z-ARC", except the destroyed card, \
-    from your Deck or GY to your hand. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+    add 1 "Odd-Eyes" card or 1 card that mentions "Supreme King Z-ARC", \
+    from your Deck or GY to your hand, except the destroyed card. \
+    Neither player can activate cards or effects in response to this effect's activation. \
+If you Special Summoned a face-down Pendulum Monster(s) from your Extra Deck this turn (Quick Effect): \
+    You can activate this effect; immediately after it resolves, Pendulum Summon a monster(s). \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 If you Special Summon any of these monsters using a Pendulum Monster(s) as material: You can activate the appropriate effect. \
     You cannot apply that same effect of "{CARD_NAME}" for the rest of this turn.
 ● Fusion: Special Summon 1 monster from your hand, Deck, or GY with the same original Level as that Fusion Monster, \
@@ -33,13 +36,11 @@ name = "Supreme Overlord Z-Arc"
 type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
-scale = 13
+scale = 1
 link = 4
 link-arrow = "top bottom-left bottom bottom-right"
 atk = 4000
 pendulum-effect = """\
-Your other Pendulum Zone's Pendulum Scale become 0. \
-    This effect cannot be negated. \
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
 You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -55,7 +56,7 @@ If this card is Special Summoned: You can destroy all cards your opponent contro
     This card cannot declare an attack the turn this effect is activated. \
 Control of this card cannot switch. This effect cannot be negated. \
 Cannot be Tributed, nor be used as material for an Summon. \
-Your opponent cannot target or destroy this card with card effects. \
+Your opponent cannot target, destroy, or banish this card with card effects. \
 Face-up monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
 If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase: \
     You can destroy that card(s). \
@@ -238,7 +239,7 @@ id = 900005007
 set = "supreme-king-gate"
 name = "Supreme King Gate Hope"
 type = "monster pendulum effect"
-attribute = "dark"
+attribute = "light"
 race = "fiend"
 level = 7
 scale = 13
@@ -403,14 +404,12 @@ Effect activations, and activated effects of monsters this card points cannot be
 You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
 ● (Quick Effect): Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
 ● (Quick Effect): Special Summon 1 monster from your Pendulum Zone (This is treated as a Pendulum Summon).
-● Banish 4 monsters from your hand, field, GY and/or Extra Deck face-up \
-    (1 each with "Pendulum Dragon", "Xyz Dragon", "Synchro Dragon", and "Fusion Dragon" in their names); \
-    Special Summon 1 "Supreme King Z-ARC" from your Extra Deck, \
-    ignoring its Summoning conditions, and this is treated as a Special Summoned properly.
+● You can target 1 "Supreme King Z-ARC" you control; it can attack all opponent's monsters once each this turn.
 """
 strings = [
     "Special Summon 1 \"Supreme King Dragon\"?",
     "Place monster in Pendulum Zone",
     "Special Summon monster from Pendulum Zone",
-    "Summon Z-ARC",
+    "Z-ARC can attack all opponent's monsters",
+    "Can attack all opponent's monsters",
 ]

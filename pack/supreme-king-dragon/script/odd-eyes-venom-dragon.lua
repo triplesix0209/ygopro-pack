@@ -118,7 +118,7 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) then return end
 
     local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
-    for tc in aux.Next(g) do tc:AddCounter(0x1149, 1) end
+    for tc in g:Iter() do tc:AddCounter(0x1149, 1) end
 end
 
 function s.pe2con(e, tp, eg, ep, ev, re, r, rp)
@@ -153,7 +153,7 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
 
     local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
     local atk = 0
-    for tc in aux.Next(g) do if tc:GetAttack() > 0 then atk = atk + tc:GetAttack() end end
+    for tc in g:Iter() do if tc:GetAttack() > 0 then atk = atk + tc:GetAttack() end end
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
