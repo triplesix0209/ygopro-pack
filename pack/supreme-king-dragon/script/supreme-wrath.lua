@@ -125,6 +125,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
     Duel.SelectTarget(tp, s.e2filter1, tp, LOCATION_MZONE, 0, 1, 1, nil)
+    Duel.SetChainLimit(aux.FALSE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)

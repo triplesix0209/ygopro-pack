@@ -435,12 +435,12 @@ id = 900005019
 name = "Supreme Wrath"
 type = "trap"
 effect = """\
+Neither player can activate cards or effects in response to this card effect's activation. \
 If you control "Supreme King Z-ARC": \
     Destroy as many monsters you control as possible, except "Supreme King Z-ARC", \
     also, after that, Special Summon up to 4 "Supreme King Dragon" monsters with different names \
     from your hand, Deck, Extra Deck, and/or GY, ignoring their Summoning conditions, \
     and if them do, they are treated as a Special Summoned properly. \
-    Neither player can activate cards or effects in response to this effect's activation. \
 You can shuffle this card from your GY into the Deck, \
     then target 1 Dragon Xyz Monster you control; \
     attach up to 2 "Supreme King Dragon" monsters to it as materials, \
