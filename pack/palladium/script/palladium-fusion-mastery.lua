@@ -5,7 +5,7 @@ local s, id = GetID()
 s.listed_series = {SET_FUSION}
 
 function s.initial_effect(c)
-    c:AddSetcodesRule(id, true, 0x13a)
+    c:AddSetcodesRule(id, true, SET_PALLADIUM)
 
     -- activate
     local act = Effect.CreateEffect(c)

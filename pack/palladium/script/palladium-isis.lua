@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- look deck & set
@@ -35,7 +35,7 @@ end
 
 function s.e1filter(c)
     if not c:IsSSetable() then return false end
-    return (c:IsSetCard(0x13a) and c:IsSpellTrap()) or c:IsContinuousTrap()
+    return (c:IsSetCard(SET_PALLADIUM) and c:IsSpellTrap()) or c:IsContinuousTrap()
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 0 end end

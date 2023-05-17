@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 Duel.LoadScript("c419.lua")
 local s, id = GetID()
 
-s.listed_series = {0xb}
+s.listed_series = {SET_INFERNITY}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -165,9 +165,9 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     c:RegisterEffect(ec3)
 end
 
-function s.e2efffilter1(c) return c:IsSetCard(0xb) and c:IsMonster() and not c:IsCode(id) end
+function s.e2efffilter1(c) return c:IsSetCard(SET_INFERNITY) and c:IsMonster() and not c:IsCode(id) end
 
-function s.e2efffilter2(c, code) return c:IsOriginalCode(code) and c:IsSetCard(0xb) end
+function s.e2efffilter2(c, code) return c:IsOriginalCode(code) and c:IsSetCard(SET_INFERNITY) end
 
 function s.e2effop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()

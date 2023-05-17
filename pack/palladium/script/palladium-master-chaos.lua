@@ -3,15 +3,15 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.listed_series = {0xcf}
-s.material_setcode = {0x13a, 0xcf}
+s.listed_series = {SET_CHAOS}
+s.material_setcode = {SET_PALLADIUM, SET_CHAOS}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
     Fusion.AddProcMix(c, false, false, 71703785, function(c, fc, sumtype, tp)
-        return c:IsType(TYPE_RITUAL, fc, sumtype, tp) and (c:IsSetCard(0xcf, fc, sumtype, tp) or c:IsSetCard(0x1048, fc, sumtype, tp))
+        return c:IsType(TYPE_RITUAL, fc, sumtype, tp) and (c:IsSetCard(SET_CHAOS, fc, sumtype, tp) or c:IsSetCard(0x1048, fc, sumtype, tp))
     end)
 
     -- special summon limit

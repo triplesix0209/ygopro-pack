@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- special summon
@@ -44,7 +44,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
 
     if Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) > 0 then
-        local g = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard, 0x13a), tp, LOCATION_MZONE, 0, nil)
+        local g = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard, SET_PALLADIUM), tp, LOCATION_MZONE, 0, nil)
         for tc in g:Iter() do
             local ec1 = Effect.CreateEffect(c)
             ec1:SetDescription(3000)

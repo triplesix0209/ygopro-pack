@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- activate
@@ -36,7 +36,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1filter(c, e, tp) return (c:IsSetCard(0x13a) or c:IsType(TYPE_NORMAL)) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+function s.e1filter(c, e, tp) return (c:IsSetCard(SET_PALLADIUM) or c:IsType(TYPE_NORMAL)) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
 function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.GetActivityCount(tp, ACTIVITY_NORMALSUMMON) == 0 end end
 
@@ -92,7 +92,7 @@ function s.e1desop(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter(c) return (c:IsSetCard(0x13a) or c:IsType(TYPE_NORMAL)) and c:IsMonster() and c:IsAbleToDeck() end
+function s.e2filter(c) return (c:IsSetCard(SET_PALLADIUM) or c:IsType(TYPE_NORMAL)) and c:IsMonster() and c:IsAbleToDeck() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetTurnPlayer() == tp end
 

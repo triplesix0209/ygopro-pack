@@ -2,9 +2,9 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.material_setcode = {0x13a}
+s.material_setcode = {SET_PALLADIUM}
 s.listed_names = {900000112}
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -77,7 +77,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.fusfilter1(c, fc, sumtype, tp) return c:IsLevelAbove(5) and c:IsSetCard(0x13a, fc, sumtype, tp) and c:IsRace(RACE_WARRIOR, fc, sumtype, tp) end
+function s.fusfilter1(c, fc, sumtype, tp) return c:IsLevelAbove(5) and c:IsSetCard(SET_PALLADIUM, fc, sumtype, tp) and c:IsRace(RACE_WARRIOR, fc, sumtype, tp) end
 
 function s.fusfilter2(c, fc, sumtype, tp) return c:IsLevelAbove(5) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end
 

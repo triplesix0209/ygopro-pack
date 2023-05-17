@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- special summon
@@ -32,7 +32,7 @@ function s.initial_effect(c)
     e3:SetCode(EFFECT_EXTRA_RITUAL_MATERIAL)
     e3:SetRange(LOCATION_GRAVE)
     e3:SetCondition(function(e) return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(), 69832741) end)
-    e3:SetValue(function(e, c) return c:IsSetCard(0x13a) end)
+    e3:SetValue(function(e, c) return c:IsSetCard(SET_PALLADIUM) end)
     c:RegisterEffect(e3)
     local e3b = e3:Clone()
     e3b:SetCode(EFFECT_EXTRA_FUSION_MATERIAL)

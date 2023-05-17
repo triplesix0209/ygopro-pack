@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- special summon
@@ -24,7 +24,7 @@ function s.initial_effect(c)
     e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e2:SetRange(LOCATION_MZONE)
     e2:SetTargetRange(LOCATION_MZONE, 0)
-    e2:SetTarget(function(e, c) return (c:IsSetCard(0x13a) or c:IsLevelAbove(7)) and c:IsRace(RACE_SPELLCASTER) end)
+    e2:SetTarget(function(e, c) return (c:IsSetCard(SET_PALLADIUM) or c:IsLevelAbove(7)) and c:IsRace(RACE_SPELLCASTER) end)
     e2:SetValue(1)
     c:RegisterEffect(e2)
 
@@ -68,7 +68,7 @@ function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     if not tc then return false end
     if tc:IsControler(1 - tp) then tc = Duel.GetAttacker() end
     e:SetLabelObject(tc)
-    return tc and tc ~= e:GetHandler() and tc:IsSetCard(0x13a) and tc:IsRace(RACE_SPELLCASTER) and tc:IsRelateToBattle()
+    return tc and tc ~= e:GetHandler() and tc:IsSetCard(SET_PALLADIUM) and tc:IsRace(RACE_SPELLCASTER) and tc:IsRelateToBattle()
 end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)

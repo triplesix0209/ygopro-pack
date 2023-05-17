@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {39913299}
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- activate
@@ -40,7 +40,7 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
     e1:SetCode(EFFECT_CANNOT_DISABLE_SUMMON)
     e1:SetRange(LOCATION_FZONE)
-    e1:SetTarget(function(e, c) return c:GetOwner() == e:GetOwnerPlayer() and c:IsSetCard(0x13a) end)
+    e1:SetTarget(function(e, c) return c:GetOwner() == e:GetOwnerPlayer() and c:IsSetCard(SET_PALLADIUM) end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
     e1b:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)

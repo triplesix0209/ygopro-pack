@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {25652259, 90876561, 64788463}
+s.listed_names = {CARD_QUEEN_KNIGHT, CARD_KING_KNIGHT, CARD_JACK_KNIGHT}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -73,7 +73,7 @@ end
 
 function s.e1matcheck(e, c)
     local mg = c:GetMaterial()
-    if mg:IsExists(Card.IsCode, 1, nil, 25652259) and mg:IsExists(Card.IsCode, 1, nil, 90876561) and mg:IsExists(Card.IsCode, 1, nil, 64788463) then
+    if mg:IsExists(Card.IsCode, 1, nil, CARD_QUEEN_KNIGHT) and mg:IsExists(Card.IsCode, 1, nil, CARD_KING_KNIGHT) and mg:IsExists(Card.IsCode, 1, nil, CARD_JACK_KNIGHT) then
         e:GetLabelObject():SetLabel(1)
         local ec0 = Effect.CreateEffect(c)
         ec0:SetDescription(aux.Stringid(id, 0))

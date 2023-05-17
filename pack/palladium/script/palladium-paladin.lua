@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.material_setcode = {0x13a}
+s.material_setcode = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()

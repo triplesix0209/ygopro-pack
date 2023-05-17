@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -62,7 +62,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.spfilter(c) return c:IsLevelAbove(7) and c:IsSetCard(0x13a) and c:IsRace(RACE_SPELLCASTER) end
+function s.spfilter(c) return c:IsLevelAbove(7) and c:IsSetCard(SET_PALLADIUM) and c:IsRace(RACE_SPELLCASTER) end
 
 function s.spcon(e, c)
     if c == nil then return true end

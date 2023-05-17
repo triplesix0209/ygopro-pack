@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- activate
@@ -33,7 +33,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1filter1(c) return c:IsFaceup() and c:IsSetCard(0x13a) end
+function s.e1filter1(c) return c:IsFaceup() and c:IsSetCard(SET_PALLADIUM) end
 
 function s.e1filter2(c) return c:IsFaceup() and c:IsCode(71703785) end
 
@@ -63,7 +63,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter(c) return c:IsFaceup() and c:IsLevelAbove(6) and c:IsRace(RACE_SPELLCASTER) and c:IsSetCard(0x13a) end
+function s.e2filter(c) return c:IsFaceup() and c:IsLevelAbove(6) and c:IsRace(RACE_SPELLCASTER) and c:IsSetCard(SET_PALLADIUM) end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return aux.exccon(e) and Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_ONFIELD, 0, 1, nil) end
 

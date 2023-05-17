@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- activate
@@ -24,7 +24,7 @@ function s.initial_effect(c)
         desc = 1171,
         handler = c,
         lvtype = RITPROC_GREATER,
-        filter = aux.FilterBoolFunction(Card.IsSetCard, 0x13a),
+        filter = aux.FilterBoolFunction(Card.IsSetCard, SET_PALLADIUM),
         location = LOCATION_HAND + LOCATION_GRAVE
     })
     Utility.RegisterMultiEffect(s, 1, e1)
@@ -34,10 +34,10 @@ function s.initial_effect(c)
         desc = 1170,
         handler = c,
         extrafil = function(e, tp)
-            local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(0x13a) end, tp, LOCATION_DECK, 0,
+            local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(SET_PALLADIUM) end, tp, LOCATION_DECK, 0,
                 nil)
             local check = function(tp, sg, fc)
-                return sg:IsExists(Card.IsSetCard, 1, nil, 0x13a) and sg:FilterCount(Card.IsLocation, nil, LOCATION_DECK) <= 1
+                return sg:IsExists(Card.IsSetCard, 1, nil, SET_PALLADIUM) and sg:FilterCount(Card.IsLocation, nil, LOCATION_DECK) <= 1
             end
             return g, check
         end

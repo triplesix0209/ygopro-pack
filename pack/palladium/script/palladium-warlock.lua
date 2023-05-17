@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.material_setcode = {0x13a, 0x45}
+s.material_setcode = {SET_PALLADIUM, SET_ARCHFIEND}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -74,7 +74,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(6) and c:IsSetCard(0x45, fc, sumtype, tp) end
+function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(6) and c:IsSetCard(SET_ARCHFIEND, fc, sumtype, tp) end
 
 function s.e1filter(c) return c:IsSpellTrap() and c:IsAbleToRemove() end
 

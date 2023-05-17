@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    c:AddSetcodesRule(id, true, 0x13a)
+    c:AddSetcodesRule(id, true, SET_PALLADIUM)
 
     -- special summon
     local e1 = Effect.CreateEffect(c)
@@ -71,7 +71,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, c)
 end
 
 function s.e2filter(c)
-    return c:IsLevel(4) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) and not c:IsCode(25652259) and c:IsAbleToHand()
+    return c:IsLevel(4) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) and not c:IsCode(CARD_QUEEN_KNIGHT) and c:IsAbleToHand()
 end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)

@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785}
-s.listed_series = {0x13a}
+s.listed_series = {SET_PALLADIUM}
 
 function s.initial_effect(c)
     -- can be activated from the hand
@@ -73,7 +73,7 @@ end
 
 function s.e2desop(e, tp, eg, ep, ev, re, r, rp) Duel.Destroy(e:GetHandler(), REASON_EFFECT) end
 
-function s.e3filter(c) return c:IsFaceup() and c:IsLevelAbove(6) and c:IsRace(RACE_SPELLCASTER) and c:IsSetCard(0x13a) end
+function s.e3filter(c) return c:IsFaceup() and c:IsLevelAbove(6) and c:IsRace(RACE_SPELLCASTER) and c:IsSetCard(SET_PALLADIUM) end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp) return aux.exccon(e) and Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_ONFIELD, 0, 1, nil) end
 
