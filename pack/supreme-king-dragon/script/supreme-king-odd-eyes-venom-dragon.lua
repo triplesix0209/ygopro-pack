@@ -1,4 +1,4 @@
--- Odd-Eyes Venom Dragon Overlord
+-- Supreme King Odd-Eyes Venom Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

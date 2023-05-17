@@ -1,24 +1,19 @@
--- Odd-Eyes Raging Dragon Overlord
+-- Supreme King Odd-Eyes Wing Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.material_setcode = {0x99, 0x13b}
-s.listed_series = {0x99, 0x13b}
-s.pendulum_level = 7
+s.material_setcode = {0x99, 0xff}
+s.listed_series = {0x99, 0xff}
+s.synchro_nt_required = 1
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
-    -- xyz summon
-    Xyz.AddProcedure(c, nil, 7, 2, nil, 0, nil, nil, false, function(g, tp, sc)
-        return g:IsExists(function(tc)
-            return tc:IsSetCard(0x99, sc, SUMMON_TYPE_XYZ, tp) and tc:IsRace(RACE_DRAGON, sc, SUMMON_TYPE_XYZ, tp) and
-                       c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_XYZ, tp)
-        end, 1, nil) and
-                   g:IsExists(function(tc)
-                return tc:IsSetCard(0x13b, sc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, sc, SUMMON_TYPE_XYZ, tp)
-            end, 1, nil)
-    end)
+    -- synchro summon
+    Synchro.AddProcedure(c, function(c, sc, sumtype, tp)
+        return c:IsSetCard(0x99, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
+    end, 1, 1, Synchro.NonTunerEx(
+        function(c, sc, sumtype, tp) return c:IsSetCard(0xff, sc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, sc, sumtype, tp) end), 1, 1)
 
     -- pendulum
     Pendulum.AddProcedure(c, false)
@@ -29,11 +24,11 @@ function s.initial_effect(c)
     splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
     splimit:SetValue(function(e, se, sp, st)
-        return (st & SUMMON_TYPE_XYZ) == SUMMON_TYPE_XYZ or (st & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM
+        return (st & SUMMON_TYPE_SYNCHRO) == SUMMON_TYPE_SYNCHRO or (st & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM
     end)
     c:RegisterEffect(splimit)
 
-    -- halve atk
+    -- atk up
     local pe1 = Effect.CreateEffect(c)
     pe1:SetDescription(aux.Stringid(id, 0))
     pe1:SetCategory(CATEGORY_ATKCHANGE)
@@ -45,31 +40,31 @@ function s.initial_effect(c)
     pe1:SetOperation(s.pe1op)
     c:RegisterEffect(pe1)
 
-    -- xyz success
+    -- synchro success
     local me1 = Effect.CreateEffect(c)
-    me1:SetCategory(CATEGORY_DISABLE)
-    me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    me1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    me1:SetCategory(CATEGORY_DESTROY)
+    me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me1:SetProperty(EFFECT_FLAG_DELAY)
     me1:SetCode(EVENT_SPSUMMON_SUCCESS)
-    me1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ) end)
+    me1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO) end)
+    me1:SetTarget(s.me1tg)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
 
-    -- destroy
+    -- destroy battling monster
     local me2 = Effect.CreateEffect(c)
-    me2:SetDescription(aux.Stringid(id, 2))
+    me2:SetDescription(aux.Stringid(id, 1))
     me2:SetCategory(CATEGORY_DESTROY)
-    me2:SetType(EFFECT_TYPE_IGNITION)
-    me2:SetRange(LOCATION_MZONE)
+    me2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me2:SetCode(EVENT_BATTLE_START)
     me2:SetCountLimit(1)
-    me2:SetCost(s.me2cost)
     me2:SetTarget(s.me2tg)
     me2:SetOperation(s.me2op)
-    c:RegisterEffect(me2, false, REGISTER_FLAG_DETACH_XMAT)
+    c:RegisterEffect(me2)
 
-    -- negate & gain atk
+    -- negate & decrease ATK
     local me3 = Effect.CreateEffect(c)
-    me3:SetDescription(aux.Stringid(id, 3))
+    me3:SetDescription(aux.Stringid(id, 2))
     me3:SetCategory(CATEGORY_ATKCHANGE + CATEGORY_DISABLE)
     me3:SetType(EFFECT_TYPE_QUICK_O)
     me3:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DAMAGE_STEP)
@@ -109,7 +104,7 @@ function s.pe1con(e, tp, eg, ep, ev, re, r, rp)
     if ac:IsControler(1 - tp) then bc, ac = ac, bc end
     e:SetLabelObject(ac)
 
-    return ac:GetControler() ~= bc:GetControler() and bc:IsFaceup() and bc:GetAttack() > 0
+    return ac:GetControler() ~= bc:GetControler() and ac:IsFaceup() and bc:IsFaceup() and bc:GetAttack() > 0
 end
 
 function s.pe1op(e, tp, ep, ev, re, r, rp)
@@ -119,61 +114,80 @@ function s.pe1op(e, tp, ep, ev, re, r, rp)
     local bc = Duel.GetAttackTarget()
     if not bc then return end
     if ac:IsControler(1 - tp) then bc, ac = ac, bc end
-    if not ac:IsRelateToBattle() or bc:IsFacedown() or not bc:IsRelateToBattle() then return end
+    if ac:IsFacedown() or not ac:IsRelateToBattle() or bc:IsFacedown() or not bc:IsRelateToBattle() then return end
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetCode(EFFECT_SET_ATTACK_FINAL)
-    ec1:SetValue(math.ceil(bc:GetAttack() / 2))
+    ec1:SetCode(EFFECT_UPDATE_ATTACK)
+    ec1:SetValue(bc:GetAttack())
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_DAMAGE_CAL)
-    bc:RegisterEffect(ec1)
+    ac:RegisterEffect(ec1)
+end
+
+function s.me1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
+    local g = Duel.GetFieldGroup(tp, 0, LOCATION_MZONE)
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
 function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 1))
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_EXTRA_ATTACK)
-    ec1:SetValue(2)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-    c:RegisterEffect(ec1)
-end
-
-function s.me2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 1, REASON_COST) end
-    c:RemoveOverlayCard(tp, 1, 1, REASON_COST)
-end
-
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.GetFieldGroupCount(tp, 0, LOCATION_ONFIELD) > 0 end
-    local g = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
-end
-
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local g = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
-    local ct = Duel.Destroy(g, REASON_EFFECT)
-    if ct > 0 and c:IsFaceup() and c:IsRelateToEffect(e) then
+    local g = Duel.GetFieldGroup(tp, 0, LOCATION_MZONE)
+    if Duel.Destroy(g, REASON_EFFECT) > 0 then
+        local dg = Duel.GetOperatedGroup()
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(ct * 200)
+        ec1:SetValue(#dg * 500)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
         c:RegisterEffect(ec1)
     end
 end
 
+function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    local bc = c:GetBattleTarget()
+    if chk == 0 then return bc and bc:IsControler(1 - tp) end
+
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, bc, 1, 0, 0)
+end
+
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local bc = Duel.GetAttacker()
+    if c == bc then bc = Duel.GetAttackTarget() end
+
+    if bc and bc:IsRelateToBattle() then
+        if Duel.Destroy(bc, REASON_EFFECT) > 0 and c:IsRelateToEffect(e) and bc:GetBaseAttack() > 0 then
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetCode(EFFECT_UPDATE_ATTACK)
+            ec1:SetValue(bc:GetBaseAttack())
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
+            c:RegisterEffect(ec1)
+        end
+    end
+
+    if c:IsRelateToEffect(e) and c:CanChainAttack() and c == Duel.GetAttacker() then
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+        ec2:SetCode(EVENT_DAMAGE_STEP_END)
+        ec2:SetCountLimit(1)
+        ec2:SetOperation(function(e) if e:GetHandler():CanChainAttack() then Duel.ChainAttack() end end)
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_BATTLE)
+        c:RegisterEffect(ec2)
+    end
+end
+
+function s.me3filter(c) return c:GetAttack() > 0 or not c:IsDisabled() end
+
 function s.me3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
 
 function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingTarget(Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, nil) end
+    if chk == 0 then return Duel.IsExistingTarget(s.me3filter, tp, 0, LOCATION_MZONE, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, 1, nil)
+    Duel.SelectTarget(tp, s.me3filter, tp, 0, LOCATION_MZONE, 1, 1, nil)
 end
 
 function s.me3op(e, tp, eg, ep, ev, re, r, rp)
@@ -182,39 +196,20 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     if not tc or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 
     Duel.NegateRelatedChain(tc, RESET_TURN_SET)
-
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_DISABLE)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     tc:RegisterEffect(ec1)
+    local ec1b = ec1:Clone()
+    ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+    ec1b:SetValue(RESET_TURN_SET)
+    tc:RegisterEffect(ec1b)
 
     local ec2 = Effect.CreateEffect(c)
     ec2:SetType(EFFECT_TYPE_SINGLE)
-    ec2:SetCode(EFFECT_DISABLE_EFFECT)
-    ec2:SetValue(RESET_TURN_SET)
+    ec2:SetCode(EFFECT_SET_ATTACK_FINAL)
+    ec2:SetValue(0)
     ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     tc:RegisterEffect(ec2)
-
-    if not tc:IsImmuneToEffect(e) then
-        Duel.AdjustInstantly(tc)
-
-        local atk = tc:GetAttack()
-        local ec3 = Effect.CreateEffect(c)
-        ec3:SetType(EFFECT_TYPE_SINGLE)
-        ec3:SetCode(EFFECT_SET_ATTACK_FINAL)
-        ec3:SetValue(math.ceil(atk / 2))
-        ec3:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        tc:RegisterEffect(ec3)
-
-        if c:IsRelateToEffect(e) and c:IsFaceup() then
-            local ec4 = Effect.CreateEffect(c)
-            ec4:SetType(EFFECT_TYPE_SINGLE)
-            ec4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-            ec4:SetCode(EFFECT_UPDATE_ATTACK)
-            ec4:SetValue(math.ceil(atk / 2))
-            ec4:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-            c:RegisterEffect(ec4)
-        end
-    end
 end

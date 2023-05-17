@@ -8,7 +8,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 4, 4, s.lnkcheck)
+    Link.AddProcedure(c, nil, 5, 5, s.lnkcheck)
 
     -- pendulum
     Pendulum.AddProcedure(c, false)
@@ -108,7 +108,7 @@ function s.initial_effect(c)
     me3b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     c:RegisterEffect(me3b)
 
-    -- untargetable, indes & unbanishable
+    -- immune
     local me4 = Effect.CreateEffect(c)
     me4:SetType(EFFECT_TYPE_SINGLE)
     me4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -116,21 +116,27 @@ function s.initial_effect(c)
     me4:SetRange(LOCATION_MZONE)
     me4:SetValue(aux.tgoval)
     c:RegisterEffect(me4)
-    local me4b = me4:Clone()
-    me4b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    me4b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(me4b)
-    local me4c = Effect.CreateEffect(c)
-    me4c:SetType(EFFECT_TYPE_FIELD)
-    me4c:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    me4c:SetCode(EFFECT_CANNOT_REMOVE)
-    me4c:SetRange(LOCATION_MZONE)
-    me4c:SetTargetRange(1, 1)
-    me4c:SetTarget(function(e, tc, rp, r, re)
+    local me4b = Effect.CreateEffect(c)
+    me4b:SetType(EFFECT_TYPE_FIELD)
+    me4b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    me4b:SetCode(EFFECT_CANNOT_REMOVE)
+    me4b:SetRange(LOCATION_MZONE)
+    me4b:SetTargetRange(1, 1)
+    me4b:SetTarget(function(e, tc, rp, r, re)
         local tp = e:GetHandlerPlayer()
         return tc == e:GetHandler() and rp == 1 - tp and r == REASON_EFFECT
     end)
+    c:RegisterEffect(me4b)
+    local me4c = Effect.CreateEffect(c)
+    me4c:SetType(EFFECT_TYPE_SINGLE)
+    me4c:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    me4c:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    me4c:SetRange(LOCATION_MZONE)
+    me4c:SetValue(1)
     c:RegisterEffect(me4c)
+    local me4d = me4c:Clone()
+    me4d:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    c:RegisterEffect(me4d)
 
     -- unaffected by activated effects
     local me5 = Effect.CreateEffect(c)
@@ -138,7 +144,6 @@ function s.initial_effect(c)
     me5:SetCode(EFFECT_IMMUNE_EFFECT)
     me5:SetRange(LOCATION_MZONE)
     me5:SetTargetRange(LOCATION_MZONE, 0)
-    me5:SetTarget(s.me5tg)
     me5:SetValue(s.me5val)
     c:RegisterEffect(me5)
 
@@ -179,15 +184,24 @@ function s.initial_effect(c)
     c:RegisterEffect(me8)
 end
 
+function s.lnkfilter(c, attr, race, type, sc, sumtype, tp)
+    if attr and not c:IsAttribute(attr, sc, sumtype, tp) then return false end
+    if race and not c:IsRace(race, sc, sumtype, tp) then return false end
+    if type and not c:IsType(type, sc, sumtype, tp) then return false end
+    return true
+end
+
 function s.lnkcheck(g, sc, sumtype, tp)
     local mg = g:Clone()
-    if not g:IsExists(Card.IsType, 1, nil, TYPE_FUSION, sc, sumtype, tp) then return false end
-    mg:Remove(Card.IsType, nil, TYPE_FUSION, sc, sumtype, tp)
-    if not g:IsExists(Card.IsType, 1, nil, TYPE_SYNCHRO, sc, sumtype, tp) then return false end
-    mg:Remove(Card.IsType, nil, TYPE_SYNCHRO, sc, sumtype, tp)
-    if not g:IsExists(Card.IsType, 1, nil, TYPE_XYZ, sc, sumtype, tp) then return false end
-    mg:Remove(Card.IsType, nil, TYPE_XYZ, sc, sumtype, tp)
-    return mg:IsExists(Card.IsType, 1, nil, TYPE_PENDULUM, sc, sumtype, tp)
+    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_FUSION, sc, sumtype, tp) then return false end
+    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_FUSION, sc, sumtype, tp)
+    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_SYNCHRO, sc, sumtype, tp) then return false end
+    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_SYNCHRO, sc, sumtype, tp)
+    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_XYZ, sc, sumtype, tp) then return false end
+    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_XYZ, sc, sumtype, tp)
+    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_PENDULUM, sc, sumtype, tp) then return false end
+    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_PENDULUM, sc, sumtype, tp)
+    return mg:IsExists(s.lnkfilter, 1, nil, ATTRIBUTE_DARK, RACE_SPELLCASTER, nil, sc, sumtype, tp)
 end
 
 function s.pe1val(e, re, rp)
@@ -252,8 +266,6 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
         Duel.Damage(1 - tp, dmg, REASON_EFFECT)
     end
 end
-
-function s.me5tg(e, tc) return tc:IsFaceup() end
 
 function s.me5val(e, te)
     local tp = e:GetHandlerPlayer()

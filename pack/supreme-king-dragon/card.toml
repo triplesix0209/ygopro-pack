@@ -37,8 +37,8 @@ type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
 scale = 1
-link = 4
-link-arrow = "top bottom-left bottom bottom-right"
+link = 5
+link-arrow = "left right bottom-left bottom bottom-right"
 atk = 4000
 pendulum-effect = """\
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
@@ -46,18 +46,16 @@ You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from y
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
-4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
+1 DARK Spellcaster and 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
 (This card is always treated as "Supreme King Z-ARC".)
 Must be Link Summoned, and can then be Pendulum Summoned. \
 The Special Summon, effect activations, and activated effects of this card cannot be negated. \
 You can Pendulum Summon this card regardless of your Pendulum Scales. \
-If this card is Special Summoned: You can destroy all cards your opponent controls, \
-    and if you do, inflict damage to your opponent equal to the combined ATK on the field of the destroyed monster(s). \
-    This card cannot declare an attack the turn this effect is activated. \
 Control of this card cannot switch. This effect cannot be negated. \
 Cannot be Tributed, nor be used as material for an Summon. \
-Your opponent cannot target, destroy, or banish this card with card effects. \
-Face-up monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
+Cannot be destroyed by battle or card effects, \
+    also your opponent cannot target or banish it with card effects. \
+Monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
 If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase: \
     You can destroy that card(s). \
 When this card destroys an opponent's monster by battle: \
@@ -73,15 +71,15 @@ strings = [
     "Special Summon a Dragon",
 ]
 
-[odd-eyes-venom-dragon]
+[supreme-king-odd-eyes-venom-dragon]
 id = 900005002
-set = "odd-eyes venom supreme-king"
-name = "Odd-Eyes Venom Dragon Overlord"
+set = "supreme-king odd-eyes venom"
+name = "Supreme King Odd-Eyes Venom Dragon"
 type = "monster fusion pendulum effect"
 attribute = "dark"
 race = "dragon"
 level = 10
-scale = 11
+scale = 1
 atk = 3000
 def = 2500
 pendulum-effect = """\
@@ -92,7 +90,6 @@ Once per turn, if a monster you control battles an opponent's monster, before da
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Monster + 1 "Starving Venom" Fusion Monster
-(This card is always treated as an "Supreme King" card.)
 Must be Fusion Summoned with above materials on the field, and can then be Pendulum Summoned. \
 If this card is Fusion Summoned: \
     You can make this card gain ATK equal to the combined ATK of all monsters your opponent currently controls, \
@@ -111,15 +108,15 @@ strings = [
     "Negate effect & gain effect, ATK of a monster",
 ]
 
-[odd-eyes-wing-dragon]
+[supreme-king-odd-eyes-wing-dragon]
 id = 900005003
-set = "odd-eyes supreme-king"
-name = "Odd-Eyes Wing Dragon Overlord"
+set = "supreme-king odd-eyes"
+name = "Supreme King Odd-Eyes Wing Dragon"
 type = "monster synchro pendulum effect"
 attribute = "dark"
 race = "dragon"
 level = 8
-scale = 11
+scale = 10
 atk = 3000
 def = 2500
 pendulum-effect = """\
@@ -128,7 +125,6 @@ Once per turn, if your monster battles an opponent's monster, before damage calc
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Tuner + 1 non-Tuner "Clear Wing" Synchro Monster
-(This card is always treated as an "Supreme King" card.)
 Must be Synchro Summoned with above materials on the field, and can then be Pendulum Summoned. \
 If this card is Synchro Summoned: \
     You can destroy all monsters your opponent currently controls, \
@@ -148,15 +144,15 @@ strings = [
     "Negate effect & down attack of a monster",
 ]
 
-[odd-eyes-raging-dragon]
+[supreme-king-odd-eyes-rebellion-dragon]
 id = 900005004
-set = "odd-eyes supreme-king"
-name = "Odd-Eyes Raging Dragon Overlord"
+set = "supreme-king rebellion odd-eyes"
+name = "Supreme King Odd-Eyes Rebellion Dragon"
 type = "monster xyz pendulum effect"
 attribute = "dark"
 race = "dragon"
 level = 7
-scale = 11
+scale = 4
 atk = 3000
 def = 2500
 pendulum-effect = """\
@@ -165,7 +161,6 @@ Once per turn, if your monster battles an opponent's monster, before damage calc
 """
 effect = """\
 2 Level 7 monsters (1 "Odd-Eyes" Dragon Pendulum Monster, 1 "Rebellion" Xyz Monster)
-(This card is always treated as an "Supreme King" card.)
 Must be Xyz Summoned with above materials on the field, and can then be Pendulum Summoned. \
 If you can Pendulum Summon Level 7, you can Pendulum Summon this face-up card in your Extra Deck. \
 If this card is Xyz Summoned, it can make up to 3 attacks. \
@@ -392,6 +387,7 @@ strings = [
 
 [supreme-soul]
 id = 900005018
+rarity = "gold"
 name = "Supreme Soul of the Overlord"
 type = "spell link"
 link = 3
