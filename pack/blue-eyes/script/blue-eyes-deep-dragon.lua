@@ -3,14 +3,14 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
-s.listed_series = {0xdd}
-s.material_setcode = {0xdd}
+s.listed_series = {SET_BLUE_EYES}
+s.material_setcode = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsSetCard, 0xdd), 8, 2, s.ovfilter, aux.Stringid(id, 0))
+    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsSetCard, SET_BLUE_EYES), 8, 2, s.ovfilter, aux.Stringid(id, 0))
 
     -- atk up
     local e1 = Effect.CreateEffect(c)
@@ -78,7 +78,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e2filter(c, tp)
-    return c:IsPreviousSetCard(0xdd) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_MZONE) and
+    return c:IsPreviousSetCard(SET_BLUE_EYES) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_MZONE) and
                c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE + REASON_EFFECT) and not c:IsCode(id)
 end
 
@@ -99,7 +99,7 @@ end
 
 function s.e3filter(c, tp)
     return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsPosition(POS_FACEUP) and c:IsReason(REASON_EFFECT) and
-               not c:IsReason(REASON_REPLACE) and c:IsSetCard(0xdd)
+               not c:IsReason(REASON_REPLACE) and c:IsSetCard(SET_BLUE_EYES)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)

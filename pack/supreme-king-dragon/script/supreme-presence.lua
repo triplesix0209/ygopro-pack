@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {13331639}
-s.listed_series = {0x99, 0x46}
+s.listed_names = {CARD_ZARC}
+s.listed_series = {SET_ODD_EYES, SET_FUSION}
 
 function s.initial_effect(c)
     -- activate
@@ -118,7 +118,7 @@ function s.e1val(e, c) return s.e1filter(c) end
 
 function s.e3filter(c)
     if not c:IsAbleToHand() then return false end
-    return c:IsSetCard(0x99) or c:ListsCode(13331639)
+    return c:IsSetCard(SET_ODD_EYES) or c:ListsCode(CARD_ZARC)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
@@ -222,7 +222,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     Duel.SpecialSummonComplete()
 end
 
-function s.e6filter(c) return c:IsSetCard(0x46) and c:IsType(TYPE_SPELL) and c:IsAbleToHand() end
+function s.e6filter(c) return c:IsSetCard(SET_FUSION) and c:IsType(TYPE_SPELL) and c:IsAbleToHand() end
 
 function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then

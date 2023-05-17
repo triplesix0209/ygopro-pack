@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {13331639}
+s.listed_names = {CARD_ZARC}
 
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
@@ -60,7 +60,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me2)
 end
 
-function s.pe1con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, 13331639), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
+function s.pe1con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
 
 function s.pe1val(e, re, val, r, rp, rc)
     local tp = e:GetHandlerPlayer()
@@ -83,7 +83,7 @@ end
 
 function s.pe2filter(c, tp) return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
-function s.pe2con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, 13331639), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
+function s.pe2con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
 
 function s.pe2op(e, tp, eg, ep, ev, re, r, rp) if eg:IsExists(s.pe2filter, 1, nil, tp) then Duel.SetChainLimitTillChainEnd(s.pe2chainlimit) end end
 

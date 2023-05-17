@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x20f8}
+s.listed_series = {SET_SUPREME_KING_DRAGON}
 s.miracle_synchro_fusion = true
 
 function s.initial_effect(c)
@@ -211,7 +211,7 @@ function s.pe1val(e, re, rp)
 end
 
 function s.pe2filter(c, ft, tp)
-    return c:IsSetCard(0x20f8) and (ft > 0 or (c:IsControler(tp) and c:GetSequence() < 5)) and (c:IsControler(tp) or c:IsFaceup())
+    return c:IsSetCard(SET_SUPREME_KING_DRAGON) and (ft > 0 or (c:IsControler(tp) and c:GetSequence() < 5)) and (c:IsControler(tp) or c:IsFaceup())
 end
 
 function s.pe2cost(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -296,7 +296,7 @@ end
 function s.me7filter(c, e, tp, rp)
     if not c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return false end
     if c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, rp, nil, c) <= 0 then return false end
-    return c:IsSetCard(0x20f8) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false)
+    return c:IsSetCard(SET_SUPREME_KING_DRAGON) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false)
 end
 
 function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)

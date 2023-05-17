@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.material_setcode = {0x99, 0xff}
-s.listed_series = {0x99, 0xff}
+s.material_setcode = {SET_ODD_EYES, SET_CLEAR_WING}
+s.listed_series = {SET_ODD_EYES, SET_CLEAR_WING}
 s.synchro_nt_required = 1
 
 function s.initial_effect(c)
@@ -11,9 +11,9 @@ function s.initial_effect(c)
 
     -- synchro summon
     Synchro.AddProcedure(c, function(c, sc, sumtype, tp)
-        return c:IsSetCard(0x99, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
+        return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
     end, 1, 1, Synchro.NonTunerEx(
-        function(c, sc, sumtype, tp) return c:IsSetCard(0xff, sc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, sc, sumtype, tp) end), 1, 1)
+        function(c, sc, sumtype, tp) return c:IsSetCard(SET_CLEAR_WING, sc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, sc, sumtype, tp) end), 1, 1)
 
     -- pendulum
     Pendulum.AddProcedure(c, false)

@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {13331639, 900005006}
-s.listed_series = {0x10f8}
+s.listed_names = {CARD_ZARC, 900005006}
+s.listed_series = {SET_SUPREME_KING_GATE}
 
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
@@ -15,7 +15,7 @@ function s.initial_effect(c)
     pscale:SetCode(EFFECT_CHANGE_LSCALE)
     pscale:SetRange(LOCATION_PZONE)
     pscale:SetCondition(function(e)
-        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0x10f8), e:GetHandlerPlayer(), LOCATION_PZONE, 0, 1, e:GetHandler())
+        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_GATE), e:GetHandlerPlayer(), LOCATION_PZONE, 0, 1, e:GetHandler())
     end)
     pscale:SetValue(0)
     c:RegisterEffect(pscale)
@@ -72,7 +72,7 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Recover(tp, ev, REASON_EFFECT)
 end
 
-function s.pe2con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, 13331639), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
+function s.pe2con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
 
 function s.pe2tg(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 

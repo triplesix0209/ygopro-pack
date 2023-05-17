@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.material_setcode = {0x99, 0x1050, 0x50}
-s.listed_series = {0x99, 0x1050, 0x50}
+s.material_setcode = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
+s.listed_series = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
 s.counter_list = {0x1149}
 
 function s.initial_effect(c)
@@ -11,9 +11,9 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMix(c, false, false, function(c, sc, sumtype, tp)
-        return c:IsSetCard(0x99, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) and
+        return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) and
                    c:IsOnField()
-    end, function(c, sc, sumtype, tp) return c:IsSetCard(0x1050, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) and c:IsOnField() end)
+    end, function(c, sc, sumtype, tp) return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) and c:IsOnField() end)
 
     -- pendulum
     Pendulum.AddProcedure(c, false)

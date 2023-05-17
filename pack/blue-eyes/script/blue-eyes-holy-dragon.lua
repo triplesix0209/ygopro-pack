@@ -3,14 +3,14 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
-s.listed_series = {0xdd}
-s.material_setcode = {0xdd}
+s.listed_series = {SET_BLUE_EYES}
+s.material_setcode = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTunerEx(Card.IsSetCard, 0xdd), 1, 1)
+    Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTunerEx(Card.IsSetCard, SET_BLUE_EYES), 1, 1)
 
     -- special summon
     local sp = Effect.CreateEffect(c)
@@ -125,7 +125,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3filter(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0xdd) end
+function s.e3filter(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(SET_BLUE_EYES) end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     if rp == tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end

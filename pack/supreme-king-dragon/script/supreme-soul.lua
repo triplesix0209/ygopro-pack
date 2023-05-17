@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {13331639}
-s.listed_series = {0x98, 0x10f8, 0x20f8, 0x10f2, 0x2073, 0x2017, 0x1046}
+s.listed_names = {CARD_ZARC}
+s.listed_series = {SET_MAGICIAN, SET_SUPREME_KING_GATE, SET_SUPREME_KING_DRAGON}
 
 function s.initial_effect(c)
     -- activate
@@ -80,12 +80,12 @@ end
 function s.e1filter1(c)
     if not c:IsType(TYPE_PENDULUM) or c:IsForbidden() then return false end
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return c:IsSetCard({0x98, 0x10f8})
+    return c:IsSetCard({SET_MAGICIAN, SET_SUPREME_KING_GATE})
 end
 
 function s.e1filter2(c, lsc, rsc, e, tp, zone)
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsSetCard(0x20f8) and
+    return lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsSetCard(SET_SUPREME_KING_DRAGON) and
                c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone)
 end
 
@@ -124,7 +124,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3filter(c) return c:IsFaceup() and c:IsCode(13331639) end
+function s.e3filter(c) return c:IsFaceup() and c:IsCode(CARD_ZARC) end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_MZONE, 0, 1, nil) end end
 

@@ -3,15 +3,15 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
-s.listed_series = {0xdd}
-s.material_setcode = {0xdd}
+s.listed_series = {SET_BLUE_EYES}
+s.material_setcode = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
     Link.AddProcedure(c, nil, 3, 4,
-        function(g, lc, sumtype, tp) return g:IsExists(Card.IsSetCard, 1, nil, 0xdd, lc, sumtype, tp) end)
+        function(g, lc, sumtype, tp) return g:IsExists(Card.IsSetCard, 1, nil, SET_BLUE_EYES, lc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

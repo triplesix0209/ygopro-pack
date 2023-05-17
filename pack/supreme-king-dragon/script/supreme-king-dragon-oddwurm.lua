@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x99, 0x20f8}
+s.listed_series = {SET_ODD_EYES, SET_SUPREME_KING_DRAGON}
 
 function s.initial_effect(c)
     -- special summon
@@ -68,12 +68,12 @@ function s.e1con(e, c)
     return lsc < lv and lv < rsc
 end
 
-function s.e2filter1(c) return c:IsSpellTrap() and c:ListsArchetype(0x99) and c:IsAbleToHand() end
+function s.e2filter1(c) return c:IsSpellTrap() and c:ListsArchetype(SET_ODD_EYES) and c:IsAbleToHand() end
 
 function s.e2filter2(c)
     if c:IsLocation(LOCATION_REMOVED) and c:IsFacedown() then return false end
     if not c:IsType(TYPE_PENDULUM) or c:IsForbidden() then return false end
-    return (c:IsSetCard(0x99) and c:IsRace(RACE_DRAGON)) or c:IsSetCard(0x20f8)
+    return (c:IsSetCard(SET_ODD_EYES) and c:IsRace(RACE_DRAGON)) or c:IsSetCard(SET_SUPREME_KING_DRAGON)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -116,7 +116,7 @@ function s.e4filter(c, e, tp)
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
     if c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, tp, nil, c) == 0 then return false end
     return c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and not c:IsCode(id) and
-               ((c:IsSetCard(0x99) and c:IsRace(RACE_DRAGON)) or c:IsSetCard(0x20f8))
+               ((c:IsSetCard(SET_ODD_EYES) and c:IsRace(RACE_DRAGON)) or c:IsSetCard(SET_SUPREME_KING_DRAGON))
 end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp) return (r & REASON_EFFECT + REASON_BATTLE) ~= 0 end

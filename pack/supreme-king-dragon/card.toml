@@ -429,3 +429,20 @@ strings = [
     "Place monster in Pendulum Zone",
     "Special Summon monster from Pendulum Zone",
 ]
+
+[supreme-wrath]
+id = 900005019
+name = "Supreme Wrath"
+type = "trap"
+effect = """\
+If you control "Supreme King Z-ARC": \
+    Destroy as many monsters you control as possible, except "Supreme King Z-ARC", \
+    and if you do, Special Summon up to 4 "Supreme King Dragon" monsters with different names \
+    from your hand, Deck, Extra Deck, and/or GY, ignoring their Summoning conditions, \
+    and if them do, they are treated as a Special Summoned properly. \
+You can shuffle this card from your GY into the Deck, \
+    then target 1 "Supreme King Dragon" Xyz Monster you control; \
+    attach up to 2 "Supreme King Dragon" monsters to it as materials, \
+    from your GY and/or face-up from your Extra Deck. \
+"""
+strings = []
