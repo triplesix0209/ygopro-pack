@@ -3,15 +3,23 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_series = {0x20f8}
+s.miracle_synchro_fusion = true
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
-    -- link summon
-    Link.AddProcedure(c, nil, 5, 5, s.lnkcheck)
+    -- fusion summon
+    Fusion.AddProcMix(c, true, true, s.fusfilter1, s.fusfilter2, s.fusfilter3, s.fusfilter4)
 
     -- pendulum
     Pendulum.AddProcedure(c, false)
+
+    -- rank/level
+    local ranklevel = Effect.CreateEffect(c)
+    ranklevel:SetType(EFFECT_TYPE_SINGLE)
+    ranklevel:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    ranklevel:SetCode(EFFECT_RANK_LEVEL_S)
+    c:RegisterEffect(ranklevel)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -19,7 +27,7 @@ function s.initial_effect(c)
     splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
     splimit:SetValue(function(e, se, sp, st)
-        return (st & SUMMON_TYPE_LINK) == SUMMON_TYPE_LINK or (st & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM
+        return (st & SUMMON_TYPE_FUSION) == SUMMON_TYPE_FUSION or (st & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM
     end)
     c:RegisterEffect(splimit)
 
@@ -85,13 +93,16 @@ function s.initial_effect(c)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
 
-    -- control cannot switch
+    -- control and battle position cannot be changed
     local me2 = Effect.CreateEffect(c)
     me2:SetType(EFFECT_TYPE_SINGLE)
     me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
     me2:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
     me2:SetRange(LOCATION_MZONE)
     c:RegisterEffect(me2)
+    local me2b = me2:Clone()
+    me2b:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
+    c:RegisterEffect(me2b)
 
     -- cannot be Tributed, or be used as a material
     local me3 = Effect.CreateEffect(c)
@@ -184,25 +195,13 @@ function s.initial_effect(c)
     c:RegisterEffect(me8)
 end
 
-function s.lnkfilter(c, attr, race, type, sc, sumtype, tp)
-    if attr and not c:IsAttribute(attr, sc, sumtype, tp) then return false end
-    if race and not c:IsRace(race, sc, sumtype, tp) then return false end
-    if type and not c:IsType(type, sc, sumtype, tp) then return false end
-    return true
-end
+function s.fusfilter1(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_FUSION, fc, sumtype, tp) end
 
-function s.lnkcheck(g, sc, sumtype, tp)
-    local mg = g:Clone()
-    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_FUSION, sc, sumtype, tp) then return false end
-    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_FUSION, sc, sumtype, tp)
-    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_SYNCHRO, sc, sumtype, tp) then return false end
-    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_SYNCHRO, sc, sumtype, tp)
-    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_XYZ, sc, sumtype, tp) then return false end
-    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_XYZ, sc, sumtype, tp)
-    if not g:IsExists(s.lnkfilter, 1, nil, nil, RACE_DRAGON, TYPE_PENDULUM, sc, sumtype, tp) then return false end
-    mg:Remove(s.lnkfilter, nil, nil, RACE_DRAGON, TYPE_PENDULUM, sc, sumtype, tp)
-    return mg:IsExists(s.lnkfilter, 1, nil, ATTRIBUTE_DARK, RACE_SPELLCASTER, nil, sc, sumtype, tp)
-end
+function s.fusfilter2(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, fc, sumtype, tp) end
+
+function s.fusfilter3(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_XYZ, fc, sumtype, tp) end
+
+function s.fusfilter4(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_PENDULUM, fc, sumtype, tp) end
 
 function s.pe1val(e, re, rp)
     local rc = re:GetHandler()

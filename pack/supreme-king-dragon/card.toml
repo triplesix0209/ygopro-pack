@@ -32,26 +32,27 @@ strings = [
 id = 900005001
 alias = 13331639
 rarity = "gold"
+frame-path = "artwork/frame/z-arc.png"
 name = "Supreme Overlord Z-Arc"
-type = "monster link pendulum effect"
+type = "monster fusion synchro xyz pendulum effect"
 attribute = "dark"
 race = "dragon"
+level = 12
 scale = 1
-link = 5
-link-arrow = "left right bottom-left bottom bottom-right"
 atk = 4000
+def = 4000
 pendulum-effect = """\
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
 You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
-1 DARK Spellcaster and 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
-(This card is always treated as "Supreme King Z-ARC".)
-Must be Link Summoned, and can then be Pendulum Summoned. \
+4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
+(This card is always treated as "Supreme King Z-ARC", and has a Rank equal to its Level.)
+Must be Fusion Summoned, and can then be Pendulum Summoned. \
 The Special Summon, effect activations, and activated effects of this card cannot be negated. \
-You can Pendulum Summon this card regardless of your Pendulum Scales. \
-Control of this card cannot switch. This effect cannot be negated. \
+Control of this card cannot switch and its battle position cannot be changed by card effects. \
+    This effect cannot be negated. \
 Cannot be Tributed, nor be used as material for an Summon. \
 Cannot be destroyed by battle or card effects, \
     also your opponent cannot target or banish it with card effects. \
@@ -60,7 +61,7 @@ If a card(s) is added from the Main Deck to your opponent's hand, except during 
     You can destroy that card(s). \
 When this card destroys an opponent's monster by battle: \
     You can Special Summon 1 "Supreme King Dragon" monster from your hand, Deck, GY or Extra Deck, \
-    ignoring its Summoning conditions, and this is treated as a Special Summoned properly. \
+    ignoring its Summoning conditions, and if you do, it is treated as a Special Summoned properly. \
 If this card in the Monster Zone is destroyed: \
     You can destroy all cards in your Pendulum Zones (if any), \
     then place this card in your Pendulum Zone. \
@@ -224,6 +225,7 @@ scale = 0
 atk = 0
 def = 0
 pendulum-effect = """\
+Your opponent cannot activate a Spell/Trap Card, or monster effect, when your monster(s) is Pendulum Summoned. \
 If you control "Supreme King Z-Arc", you take no damage. \
 """
 effect = """\
@@ -244,6 +246,7 @@ def = 0
 pendulum-effect = """\
 Unless you have "Supreme King Gate" card in your other Pendulum Zone, destroy this card. \
     This effect cannot be negated. \
+Pendulum Summons of your monsters cannot be negated. \
 If you took no damage because you applied the Pendulum Effect of "Supreme King Gate Sin", \
     you gain LP equal to the original damage you would have take. \
 """
