@@ -171,7 +171,7 @@ function s.initial_effect(c)
     me6:SetOperation(s.me6op)
     c:RegisterEffect(me6)
 
-    -- summon dragon (monster)
+    -- summon dragon
     local me7 = Effect.CreateEffect(c)
     me7:SetDescription(aux.Stringid(id, 2))
     me7:SetCategory(CATEGORY_SPECIAL_SUMMON)
