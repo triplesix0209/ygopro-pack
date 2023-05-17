@@ -1,4 +1,4 @@
--- Supreme King Gate Sin
+-- Supreme King Gate Despair
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

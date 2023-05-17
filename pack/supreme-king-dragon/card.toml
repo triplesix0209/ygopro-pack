@@ -217,10 +217,10 @@ strings = [
     "Inflict damage equal to the destroyed monster's original ATK",
 ]
 
-[supreme-king-gate-sin]
+[supreme-king-gate-despair]
 id = 900005006
 set = "supreme-king-gate"
-name = "Supreme King Gate Sin"
+name = "Supreme King Gate Despair"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "fiend"
