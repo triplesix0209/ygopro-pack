@@ -1,6 +1,6 @@
-[supreme-presence]
+[supreme-arc]
 id = 900005000
-name = "Supreme Presence of the Overlord"
+name = "Supreme Arc"
 type = "spell field"
 effect = """\
 Your opponent cannot target this card and cards in your Pendulum Zones with card effects. \
@@ -463,10 +463,11 @@ strings = [
     "Add Pendulum Monster to Extra Deck",
 ]
 
-[supreme-soul]
+[supreme-presence]
 id = 900005018
+set = "supreme-king"
 rarity = "gold"
-name = "Supreme Soul of the Overlord"
+name = "Presence of the Supreme King"
 type = "spell link"
 link = 3
 link-arrow = "top-left top top-right"
