@@ -103,13 +103,16 @@ function s.e2filter(c)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    local loc = LOCATION_DECK
+    if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_ONFIELD, 0, 1, nil) then loc = loc + LOCATION_GRAVE end
+
     if chk == 0 then
         return Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_ONFIELD, 0, 1, e:GetHandler()) and
-                   Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil)
+                   Duel.IsExistingMatchingCard(s.e2filter, tp, loc, 0, 1, nil)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, nil, 1, 0, LOCATION_ONFIELD)
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, loc)
     Duel.SetChainLimit(aux.FALSE)
 end
 
@@ -121,7 +124,11 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.HintSelection(g)
 
     if Duel.Destroy(g, REASON_EFFECT) ~= 0 then
-        local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e2filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, g)
+        local loc = LOCATION_DECK
+        if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_ONFIELD, 0, 1, nil) then
+            loc = loc + LOCATION_GRAVE
+        end
+        local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e2filter), tp, loc, 0, 1, 1, g)
         if #sg > 0 then
             Duel.SendtoHand(sg, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, sg)
