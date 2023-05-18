@@ -40,7 +40,6 @@ scale = 1
 atk = 4000
 def = 4000
 pendulum-effect = """\
-At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
 You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -58,7 +57,7 @@ Monsters you control are unaffected by the activated effects of your opponent's 
 Once per turn, if a card(s) is added from the Main Deck to your opponent's hand (except during the Draw Phase): \
     You can destroy that card(s), and if you do, negate the effects of it. \
 When this card destroys an opponent's monster by battle: \
-    You can Special Summon 1 "Supreme King Dragon" monster from your hand, Deck, GY or Extra Deck, \
+    You can Special Summon up to 2 "Supreme King Dragon" monster from your hand, Deck, and/or Extra Deck, \
     ignoring its Summoning conditions, and if you do, it is treated as a Special Summoned properly. \
 If this card in the Monster Zone is destroyed: \
     You can destroy all cards in your Pendulum Zones (if any), \
@@ -85,6 +84,7 @@ pendulum-effect = """\
 """
 effect = """\
 (This card is always treated as "Supreme King Dragon Odd-Eyes")
+At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
 """
 strings = []
 

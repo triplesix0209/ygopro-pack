@@ -53,15 +53,6 @@ function s.initial_effect(c)
     nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(nodiseff)
 
-    -- start of duel
-    local startup = Effect.CreateEffect(c)
-    startup:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    startup:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    startup:SetCode(EVENT_STARTUP)
-    startup:SetRange(0xff)
-    startup:SetOperation(s.startupop)
-    Duel.RegisterEffect(startup, 0)
-
     -- act limit
     local pe1 = Effect.CreateEffect(c)
     pe1:SetType(EFFECT_TYPE_FIELD)
@@ -209,16 +200,6 @@ function s.fusfilter3(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumty
 
 function s.fusfilter4(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_PENDULUM, fc, sumtype, tp) end
 
-function s.startupfilter(c) return c:IsSetCard(SET_ODD_EYES) and c:IsType(TYPE_PENDULUM) and c:IsAttack(2500) end
-
-function s.startupop(e)
-    local c = e:GetHandler()
-    local tp = c:GetOwner()
-
-    local g = Duel.GetMatchingGroup(s.startupfilter, tp, LOCATION_DECK, 0, nil)
-    if #g > 0 then Duel.SendtoExtraP(g, tp, REASON_EFFECT) end
-end
-
 function s.pe1val(e, re, rp)
     local rc = re:GetHandler()
     return rc:IsLocation(LOCATION_MZONE) and re:IsActiveType(TYPE_MONSTER) and rc:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
@@ -306,8 +287,8 @@ function s.me6op(e, tp, eg, ep, ev, re, r, rp)
 
     local g = eg:Filter(s.me6filter, nil, tp)
     if Duel.Destroy(g, REASON_EFFECT) > 0 then
-        local og = Duel.GetOperatedGroup()
-        for tc in og:Iter() do
+        local dg = Duel.GetOperatedGroup()
+        for tc in dg:Iter() do
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetCode(EFFECT_DISABLE)
@@ -328,15 +309,17 @@ end
 
 function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA
     if chk == 0 then return Duel.IsExistingMatchingCard(s.me7filter, tp, loc, 0, 1, nil, e, tp, rp) end
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
 end
 
 function s.me7op(e, tp, eg, ep, ev, re, r, rp)
-    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.me7filter), tp,
-        LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 1, nil, e, tp, rp):GetFirst()
-    if tc and Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP) > 0 then tc:CompleteProcedure() end
+    local max = 2
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA
+    if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then max = 1 end
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me7filter, tp, loc, 0, 1, max, nil, e, tp, rp)
+    if #g > 0 and Duel.SpecialSummon(g, 0, tp, tp, true, false, POS_FACEUP) > 0 then for tc in g:Iter() do tc:CompleteProcedure() end end
 end
 
 function s.me8con(e, tp, eg, ep, ev, re, r, rp)
