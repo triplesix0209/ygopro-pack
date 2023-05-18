@@ -81,10 +81,10 @@ scale = 4
 atk = 2500
 def = 2000
 pendulum-effect = """\
+At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
 """
 effect = """\
 (This card is always treated as "Supreme King Dragon Odd-Eyes")
-At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
 """
 strings = []
 
