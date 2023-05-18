@@ -430,11 +430,15 @@ Once per turn, if you have a card in your other Pendulum Zone: \
 """
 effect = """\
 If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your hand. \
-If this card is in your hand, GY or Extra Deck: You can target 1 Pendulum Monster you control; \
-    destroy it, and if you do, Special Summon this card in Defense Position. \
-You can only use each monster effect of "Supreme King Dragon Goldwurm" once per turn. \
+    You can only use each monster effect of "{CARD_NAME}" once per turn. \
+Once per turn, if this card is targeted for an attack, while you control another "Supreme King Dragon" monster: \
+    You can negate the attack. \
 """
-strings = ["Discard to destroy face-up monster", "Add Pendulum Monster to hand"]
+strings = [
+    "Discard to destroy face-up monster",
+    "Add Pendulum Monster to hand",
+    "Negate the attack",
+]
 
 [supreme-king-dragon-silverwurm]
 id = 900005016
@@ -454,13 +458,14 @@ Once per turn, if you have a card in your other Pendulum Zone: \
 """
 effect = """\
 If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your Extra Deck face-up. \
-If this card is in your hand, GY or Extra Deck: You can target 1 Pendulum Monster you control; \
-    destroy it, and if you do, Special Summon this card in Defense Position. \
-You can only use each monster effect of "{CARD_NAME}" once per turn. \
+    You can only use each monster effect of "{CARD_NAME}" once per turn. \
+Once per turn, if this card is targeted for an attack, while you control another "Supreme King Dragon" monster: \
+    You can negate the attack. \
 """
 strings = [
     "Discard to destroy Spell/Trap",
     "Add Pendulum Monster to Extra Deck",
+    "Negate the attack",
 ]
 
 [supreme-presence]

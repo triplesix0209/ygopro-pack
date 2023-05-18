@@ -2,6 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_series = {SET_SUPREME_KING_DRAGON}
+
 function s.initial_effect(c)
     -- pendulum summon
     Pendulum.AddProcedure(c)
@@ -37,7 +39,7 @@ function s.initial_effect(c)
     me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     me1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
     me1:SetCode(EVENT_SUMMON_SUCCESS)
-    me1:SetCountLimit(1, id + 1000000)
+    me1:SetCountLimit(1, id)
     me1:SetTarget(s.me1tg)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
@@ -48,15 +50,13 @@ function s.initial_effect(c)
     me1c:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
     c:RegisterEffect(me1c)
 
-    -- special summon
+    -- negate attack
     local me2 = Effect.CreateEffect(c)
-    me2:SetDescription(2)
-    me2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    me2:SetType(EFFECT_TYPE_IGNITION)
-    me2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-    me2:SetRange(LOCATION_HAND + LOCATION_GRAVE + LOCATION_EXTRA)
-    me2:SetCountLimit(1, id + 2000000)
-    me2:SetTarget(s.me2tg)
+    me2:SetDescription(aux.Stringid(id, 2))
+    me2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me2:SetCode(EVENT_BE_BATTLE_TARGET)
+    me2:SetCountLimit(1)
+    me2:SetCondition(s.me2con)
     me2:SetOperation(s.me2op)
     c:RegisterEffect(me2)
 end
@@ -95,30 +95,8 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.SendtoExtraP(g, tp, REASON_EFFECT) end
 end
 
-function s.me2filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) end
-
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local c = e:GetHandler()
-    if chk == 0 then
-        if (not c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCount(tp, LOCATION_MZONE) == 0) or
-            (c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, tp, nil, c) == 0) then return false end
-
-        return Duel.IsExistingTarget(s.me2filter, tp, LOCATION_MZONE, 0, 1, nil) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
-    end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)
-    Duel.SelectTarget(tp, s.me2filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
-
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
+function s.me2con(e, tp, eg, ep, ev, re, r, rp)
+    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_DRAGON), tp, LOCATION_MZONE, 0, 1, e:GetHandler())
 end
 
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tc = Duel.GetFirstTarget()
-    if tc:IsFacedown() or not tc:IsRelateToEffect(e) or Duel.Destroy(tc, REASON_EFFECT) == 0 then return end
-
-    if (not c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCount(tp, LOCATION_MZONE) == 0) or
-        (c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, tp, nil, c) == 0) then return false end
-
-    Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
-end
+function s.me2op(e, tp, eg, ep, ev, re, r, rp) Duel.NegateAttack() end
