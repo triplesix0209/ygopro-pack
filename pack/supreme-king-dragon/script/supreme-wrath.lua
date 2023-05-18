@@ -1,4 +1,4 @@
--- Supreme Wrath
+-- Wrath of the Supreme King
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
@@ -19,10 +19,9 @@ function s.initial_effect(c)
     -- attach materials
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_QUICK_O)
-    e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetCode(EVENT_FREE_CHAIN)
     e2:SetRange(LOCATION_GRAVE)
-    e2:SetCost(s.e2cost)
+    e2:SetCountLimit(1, id)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
@@ -106,32 +105,23 @@ function s.e1rescon(ft1, ft2, ft3, ft4, ft)
     end
 end
 
-function s.e2filter1(c) return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ) end
+function s.e2filter1(c, e) return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ) and not c:IsImmuneToEffect(e) end
 
 function s.e2filter2(c) return c:IsSetCard(SET_SUPREME_KING_DRAGON) and c:IsMonster() and (c:IsFaceup() or not c:IsLocation(LOCATION_EXTRA)) end
 
-function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToDeckAsCost() end
-
-    Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_COST)
-end
-
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
-        return Duel.IsExistingTarget(s.e2filter1, tp, LOCATION_MZONE, 0, 1, nil) and
+        return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_MZONE, 0, 1, nil, e) and
                    Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, nil)
     end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, s.e2filter1, tp, LOCATION_MZONE, 0, 1, 1, nil)
     Duel.SetChainLimit(aux.FALSE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local tc = Duel.GetFirstTarget()
-    if tc and tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
-        local g = Utility.SelectMatchingCard(HINTMSG_FACEUP, tp, s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 2, nil)
-        if #g > 0 then Duel.Overlay(tc, g) end
-    end
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e2filter1, tp, LOCATION_MZONE, 0, 1, 1, nil, e):GetFirst()
+    if not tc then return end
+    Duel.HintSelection(tc)
+
+    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 2, nil)
+    if #g > 0 then Duel.Overlay(tc, g) end
 end

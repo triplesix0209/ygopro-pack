@@ -437,7 +437,8 @@ strings = [
 
 [supreme-wrath]
 id = 900005019
-name = "Supreme Wrath"
+name = "Wrath of the Supreme King"
+set = "supreme-king"
 type = "trap"
 effect = """\
 Neither player can activate cards or effects in response to this card effect's activation. \
@@ -446,9 +447,9 @@ If you control "Supreme King Z-ARC": \
     also, after that, Special Summon up to 4 "Supreme King Dragon" monsters with different names \
     from your hand, Deck, Extra Deck, and/or GY, ignoring their Summoning conditions, \
     and if them do, they are treated as a Special Summoned properly. \
-You can shuffle this card from your GY into the Deck, \
-    then target 1 Dragon Xyz Monster you control; \
-    attach up to 2 "Supreme King Dragon" monsters to it as materials, \
-    from your GY and/or face-up from your Extra Deck. \
+While this card is in your GY: \
+    You can attach up to 2 "Supreme King Dragon" monsters \
+    to 1 Dragon Xyz Monster you control as materials. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
