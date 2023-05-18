@@ -220,9 +220,10 @@ atk = 0
 def = 0
 pendulum-effect = """\
 Unless you have "Supreme King Gate" card in your other Pendulum Zone, \
-    this card's Pendulum Scale becomes 4. This effect cannot be negated. \
+    this card's Pendulum Scale becomes 4. \
+    This effect cannot be negated. \
 Your opponent cannot activate a Spell/Trap Card, or monster effect when your monster(s) is Pendulum Summoned. \
-If you control "Supreme King" monster, you take no damage. \
+If you control "Supreme King Dragon" or "Supreme King Gate" monster, you take no damage. \
 """
 effect = """\
 Once per turn: You can target 1 other face-up card you control; \
@@ -247,7 +248,8 @@ atk = 0
 def = 0
 pendulum-effect = """\
 Unless you have "Supreme King Gate" card in your other Pendulum Zone, \
-    this card's Pendulum Scale becomes 4. This effect cannot be negated. \
+    this card's Pendulum Scale becomes 4. \
+    This effect cannot be negated. \
 Pendulum Summons of your monsters cannot be negated. \
 If you took no damage because you applied the Pendulum Effect of "Supreme King Gate Despair", \
     you gain LP equal to the original damage you would have take. \

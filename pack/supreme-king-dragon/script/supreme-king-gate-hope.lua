@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_ZARC, 900005006}
+s.listed_names = {900005006}
 s.listed_series = {SET_SUPREME_KING_GATE}
 
 function s.initial_effect(c)
