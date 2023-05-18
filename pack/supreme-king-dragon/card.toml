@@ -407,10 +407,10 @@ effect = """\
 This card's activation and effect cannot be negated. \
 When this card is activated: \
     Place 2 "Supreme King Gate" Pendulum Monsters with different names \
-    from your hand, Deck, GY, and/or Extra Deck face-up in your Pendulum Zone \
-    and if you do, you can Special Summon 1 "Supreme King Dragon" monster \
+    from your hand, Deck, GY, and/or Extra Deck face-up in your Pendulum Zone, \
+    and if you do, you can add to your hand, 1 "Supreme King Dragon" monster \
     that have Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones \
-    from your hand, Deck, GY or Extra Deck face-up to your zone this card points to. \
+    from your Deck or Extra Deck face-up. \
     You can only activate 1 "{CARD_NAME}" per turn. \
 Effect activations, and activated effects of monsters this card points cannot be negated. \
 If a Pendulum Monster(s) is sent to your GY, add it to the Extra Deck face-up. \
@@ -424,7 +424,7 @@ You can only use each of the following effects of "{CARD_NAME}" once per turn, a
 ● (Quick Effect): Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
 """
 strings = [
-    "Special Summon 1 \"Supreme King Dragon\"?",
+    "Add 1 \"Supreme King Dragon\"?",
     "Z-ARC can attack all opponent's monsters",
     "Affected by \"{CARD_NAME}\": can attack all opponent's monsters",
     "Place monster in Pendulum Zone",

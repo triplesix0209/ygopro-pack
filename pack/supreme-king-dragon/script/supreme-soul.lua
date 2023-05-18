@@ -107,10 +107,9 @@ function s.e1filter1(c)
     return c:IsSetCard(SET_SUPREME_KING_GATE)
 end
 
-function s.e1filter2(c, lsc, rsc, e, tp, zone)
+function s.e1filter2(c, lsc, rsc)
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsSetCard(SET_SUPREME_KING_DRAGON) and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone)
+    return c:IsSetCard(SET_SUPREME_KING_DRAGON) and lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsAbleToHand()
 end
 
 function s.e1check(sg, e, tp) return sg:GetClassCount(Card.GetCode) == 2 end
@@ -122,28 +121,27 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
         return s.countFreePendulumZones(tp) >= 2 and (Duel.GetLocationCount(tp, LOCATION_SZONE) >= 2 or c:IsLocation(LOCATION_SZONE)) and
                    aux.SelectUnselectGroup(g, e, tp, 2, 2, s.e1check, 0)
     end
+
+    Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, 0, LOCATION_DECK)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or s.countFreePendulumZones(tp) < 2 then return end
-    local g1 = aux.SelectUnselectGroup(Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter1), tp,
+    local pg = aux.SelectUnselectGroup(Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter1), tp,
         LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA, 0, nil), e, tp, 2, 2, s.e1check, 1, tp, HINTMSG_ATOHAND)
-    if #g1 < 2 then return end
-    for tc in g1:Iter() do Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+    if #pg < 2 then return end
+    for tc in pg:Iter() do Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 
     if Duel.GetFieldCard(tp, LOCATION_PZONE, 0) and Duel.GetFieldCard(tp, LOCATION_PZONE, 1) then
         local lsc = Duel.GetFieldCard(tp, LOCATION_PZONE, 0):GetLeftScale()
         local rsc = Duel.GetFieldCard(tp, LOCATION_PZONE, 1):GetRightScale()
         if lsc > rsc then lsc, rsc = rsc, lsc end
-        local zone = c:GetLinkedZone(tp) & 0x1f
-        if zone ~= 0 then
-            local g2 = Duel.GetMatchingGroup(s.e1filter2, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA, 0, nil, lsc, rsc, e,
-                tp, zone)
-            if #g2 > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-                local sg = Utility.GroupSelect(HINTMSG_SPSUMMON, g2, tp, 1, 1, nil)
-                Duel.SpecialSummon(sg, 0, tp, tp, false, false, POS_FACEUP, zone)
-            end
+        if Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil, lsc, rsc) and
+            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+            local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e1filter2, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil, lsc, rsc)
+            Duel.SendtoHand(sg, nil, REASON_EFFECT)
+            Duel.ConfirmCards(1 - tp, sg)
         end
     end
 end
