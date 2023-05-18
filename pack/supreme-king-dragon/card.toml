@@ -55,8 +55,8 @@ Control of this card cannot switch and its battle position cannot be changed by 
 Cannot be Tributed, nor be used as material for an Summon. \
 Cannot be destroyed by battle, also your opponent cannot target, destroy or banish it with card effects. \
 Monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
-If a card(s) is added from the Main Deck to your opponent's hand, except during the Draw Phase: \
-    You can destroy that card(s). \
+Once per turn, if a card(s) is added from the Main Deck to your opponent's hand (except during the Draw Phase): \
+    You can destroy that card(s), and if you do, negate the effects of it. \
 When this card destroys an opponent's monster by battle: \
     You can Special Summon 1 "Supreme King Dragon" monster from your hand, Deck, GY or Extra Deck, \
     ignoring its Summoning conditions, and if you do, it is treated as a Special Summoned properly. \
@@ -66,12 +66,79 @@ If this card in the Monster Zone is destroyed: \
 """
 strings = [
     "Destroy all cards your opponent controls & inflict damage",
-    "Destroy the added card(s)",
+    "Destroy & negate the effects the added cards",
     "Special Summon a Dragon",
 ]
 
-[supreme-king-odd-eyes-venom-dragon]
+[supreme-overlord-dragon-odd-eyes]
 id = 900005002
+alias = 96733134
+name = "Supreme Overlord Dragon Odd-Eyes"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+scale = 4
+atk = 2500
+def = 2000
+pendulum-effect = """\
+"""
+effect = """\
+(This card is always treated as "Supreme King Dragon Odd-Eyes")
+"""
+strings = []
+
+[supreme-overlord-dragon-starving-venom]
+id = 900005003
+alias = 43387895
+name = "Supreme Overlord Dragon Starving Venom"
+type = "monster fusion effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 2800
+def = 2000
+effect = """\
+2 DARK Pendulum Monsters
+(This card is always treated as "Supreme King Dragon Starving Venom")
+You can also Special Summon this card from your Extra Deck by Tributing the above cards you control. \
+"""
+strings = []
+
+[supreme-overlord-dragon-clear-wing]
+id = 900005004
+alias = 70771599
+name = "Supreme Overlord Dragon Clear Wing"
+type = "monster synchro effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 2500
+def = 2000
+effect = """\
+1 Tuner + 1+ non-Tuner DARK Pendulum Monsters
+(This card is always treated as "Supreme King Dragon Clear Wing")
+"""
+strings = []
+
+[supreme-overlord-dragon-dark-rebellion]
+id = 900005005
+alias = 42160203
+name = "Supreme Overlord Dragon Dark Rebellion"
+type = "monster xyz effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+atk = 2500
+def = 2000
+effect = """\
+2 Level 4 DARK Pendulum Monsters
+(This card is always treated as "Supreme King Dragon Dark Rebellion")
+"""
+strings = []
+
+[supreme-king-odd-eyes-venom-dragon]
+id = 900005006
 set = "supreme-king odd-eyes venom"
 name = "Supreme King Odd-Eyes Venom Dragon"
 type = "monster fusion pendulum effect"
@@ -108,7 +175,7 @@ strings = [
 ]
 
 [supreme-king-odd-eyes-wing-dragon]
-id = 900005003
+id = 900005007
 set = "supreme-king odd-eyes"
 name = "Supreme King Odd-Eyes Wing Dragon"
 type = "monster synchro pendulum effect"
@@ -144,7 +211,7 @@ strings = [
 ]
 
 [supreme-king-odd-eyes-rebellion-dragon]
-id = 900005004
+id = 900005008
 set = "supreme-king rebellion odd-eyes"
 name = "Supreme King Odd-Eyes Rebellion Dragon"
 type = "monster xyz pendulum effect"
@@ -180,7 +247,7 @@ strings = [
 ]
 
 [supreme-king-dragon-oddwurm]
-id = 900005005
+id = 900005009
 set = "supreme-king-dragon odd-eyes"
 name = "Supreme King Dragon Oddwurm"
 type = "monster effect"
@@ -203,12 +270,10 @@ If this card is destroyed by battle or card effect: \
     from your hand, Deck, GY or Extra Deck face-up, except "{CARD_NAME}". \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = [
-    "Inflict damage equal to the destroyed monster's original ATK",
-]
+strings = ["Inflict damage equal to the destroyed monster's original ATK"]
 
 [supreme-king-gate-despair]
-id = 900005006
+id = 900005010
 set = "supreme-king-gate"
 name = "Supreme King Gate Despair"
 type = "monster pendulum effect"
@@ -236,7 +301,7 @@ If this card in the Monster Zone is destroyed by battle or card effect: You can 
 strings = ["Special Summon a Dragon-Type Fusion or Synchro Monster"]
 
 [supreme-king-gate-hope]
-id = 900005007
+id = 900005011
 set = "supreme-king-gate"
 name = "Supreme King Gate Hope"
 type = "monster pendulum effect"
@@ -265,7 +330,7 @@ If this card in the Monster Zone is destroyed by battle or card effect: You can 
 strings = ["Special Summon a Dragon-Type Xyz or Pendulum Monster"]
 
 [supreme-king-dragon-venowurm]
-id = 900005008
+id = 900005012
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Venowurm"
 type = "monster pendulum effect"
@@ -292,7 +357,7 @@ Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
 strings = []
 
 [supreme-king-dragon-wingwurm]
-id = 900005009
+id = 900005013
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Wingwurm"
 type = "monster pendulum tuner effect"
@@ -319,7 +384,7 @@ Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has
 strings = ["Make monster become Tuner"]
 
 [supreme-king-dragon-rebelliwurm]
-id = 900005010
+id = 900005014
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Rebelliwurm"
 type = "monster pendulum effect"
@@ -348,7 +413,7 @@ Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has
 strings = ["Make Xyz monster gain Level"]
 
 [supreme-king-dragon-goldwurm]
-id = 900005011
+id = 900005015
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Goldwurm"
 type = "monster pendulum effect"
@@ -372,7 +437,7 @@ You can only use each monster effect of "Supreme King Dragon Goldwurm" once per 
 strings = ["Discard to destroy face-up monster", "Add Pendulum Monster to hand"]
 
 [supreme-king-dragon-silverwurm]
-id = 900005012
+id = 900005016
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Silverwurm"
 type = "monster pendulum effect"

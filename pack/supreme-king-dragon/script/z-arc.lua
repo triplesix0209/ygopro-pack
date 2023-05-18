@@ -163,14 +163,15 @@ function s.initial_effect(c)
     me5:SetValue(s.me5val)
     c:RegisterEffect(me5)
 
-    -- destroy drawn
+    -- destroy added card
     local me6 = Effect.CreateEffect(c)
     me6:SetDescription(aux.Stringid(id, 1))
-    me6:SetCategory(CATEGORY_DESTROY)
+    me6:SetCategory(CATEGORY_DESTROY + CATEGORY_DISABLE)
     me6:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    me6:SetProperty(EFFECT_FLAG_DELAY)
+    me6:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
     me6:SetCode(EVENT_TO_HAND)
     me6:SetRange(LOCATION_MZONE)
+    me6:SetCountLimit(1)
     me6:SetCondition(s.me6con)
     me6:SetTarget(s.me6tg)
     me6:SetOperation(s.me6op)
@@ -296,6 +297,7 @@ function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return #g > 0 end
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
 end
 
 function s.me6op(e, tp, eg, ep, ev, re, r, rp)
@@ -303,7 +305,19 @@ function s.me6op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) then return end
 
     local g = eg:Filter(s.me6filter, nil, tp)
-    if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
+    if Duel.Destroy(g, REASON_EFFECT) > 0 then
+        local og = Duel.GetOperatedGroup()
+        for tc in og:Iter() do
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetCode(EFFECT_DISABLE)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD_EXC_GRAVE)
+            tc:RegisterEffect(ec1)
+            local ec1b = ec1:Clone()
+            ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+            tc:RegisterEffect(ec1b)
+        end
+    end
 end
 
 function s.me7filter(c, e, tp, rp)
