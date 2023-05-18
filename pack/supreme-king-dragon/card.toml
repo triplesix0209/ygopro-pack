@@ -40,6 +40,7 @@ scale = 1
 atk = 4000
 def = 4000
 pendulum-effect = """\
+At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
 You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn. \

@@ -53,11 +53,14 @@ function s.initial_effect(c)
     nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(nodiseff)
 
-    -- overscale
-    local pensp = Effect.CreateEffect(c)
-    pensp:SetType(EFFECT_TYPE_SINGLE)
-    pensp:SetCode(511004423)
-    c:RegisterEffect(pensp)
+    -- start of duel
+    local startup = Effect.CreateEffect(c)
+    startup:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    startup:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    startup:SetCode(EVENT_STARTUP)
+    startup:SetRange(0xff)
+    startup:SetOperation(s.startupop)
+    Duel.RegisterEffect(startup, 0)
 
     -- act limit
     local pe1 = Effect.CreateEffect(c)
@@ -204,6 +207,16 @@ function s.fusfilter2(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumty
 function s.fusfilter3(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_XYZ, fc, sumtype, tp) end
 
 function s.fusfilter4(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_PENDULUM, fc, sumtype, tp) end
+
+function s.startupfilter(c) return c:IsSetCard(SET_ODD_EYES) and c:IsType(TYPE_PENDULUM) and c:IsAttack(2500) end
+
+function s.startupop(e)
+    local c = e:GetHandler()
+    local tp = c:GetOwner()
+
+    local g = Duel.GetMatchingGroup(s.startupfilter, tp, LOCATION_DECK, 0, nil)
+    if #g > 0 then Duel.SendtoExtraP(g, tp, REASON_EFFECT) end
+end
 
 function s.pe1val(e, re, rp)
     local rc = re:GetHandler()

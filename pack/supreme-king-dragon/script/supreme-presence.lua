@@ -130,20 +130,11 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
-    local p1 = false
-    local p2 = false
     for tc in eg:Iter() do
-        if tc:IsPreviousLocation(LOCATION_EXTRA) and tc:IsPreviousPosition(POS_FACEDOWN) then
-            if tc:GetSummonPlayer() == 0 then
-                p1 = true
-            else
-                p2 = true
-            end
-        end
+        local sumtp = tc:GetSummonPlayer()
+        if tc:IsSummonLocation(LOCATION_EXTRA) and tc:IsType(TYPE_PENDULUM) and tc:IsPreviousPosition(POS_FACEDOWN) and tc:IsFaceup() and
+            tc:GetOwner() == sumtp then Duel.RegisterFlagEffect(sumtp, id, RESET_PHASE + PHASE_END, 0, 1) end
     end
-
-    if p1 then Duel.RegisterFlagEffect(0, id, RESET_PHASE + PHASE_END, 0, 1) end
-    if p2 then Duel.RegisterFlagEffect(1, id, RESET_PHASE + PHASE_END, 0, 1) end
 end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetFlagEffect(tp, id) ~= 0 end
