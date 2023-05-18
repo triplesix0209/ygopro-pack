@@ -6,7 +6,7 @@ effect = """\
 Your opponent cannot target this card and cards in your Pendulum Zones with card effects. \
 You can destroy 1 other face-up card you control, and if you do, \
     add 1 "Odd-Eyes" card or 1 card that mentions "Supreme King Z-ARC" from your Deck to your hand, \
-    or if you control "Supreme King Z-ARC", you can add such card from your GY instead. \
+    or if you control "Supreme King Z-ARC", you can add such card from your GY instead, except the destroyed card. \
     Neither player can activate cards or effects in response to this effect's activation. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, if you Special Summoned a face-down Pendulum Monster(s) from your Extra Deck this turn (Quick Effect): \
