@@ -9,28 +9,21 @@ function s.initial_effect(c)
     Pendulum.AddProcedure(c)
 
     -- change scale
-    local pscale = Effect.CreateEffect(c)
-    pscale:SetType(EFFECT_TYPE_SINGLE)
-    pscale:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    pscale:SetCode(EFFECT_CHANGE_LSCALE)
-    pscale:SetRange(LOCATION_PZONE)
-    pscale:SetCondition(function(e)
-        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_GATE), e:GetHandlerPlayer(), LOCATION_PZONE, 0, 1, e:GetHandler())
-    end)
-    pscale:SetValue(0)
-    c:RegisterEffect(pscale)
-    local pscaleb = pscale:Clone()
-    pscaleb:SetCode(EFFECT_CHANGE_RSCALE)
-    c:RegisterEffect(pscaleb)
-
-    -- recover
     local pe1 = Effect.CreateEffect(c)
-    pe1:SetCategory(CATEGORY_RECOVER)
-    pe1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    pe1:SetCode(900005006)
+    pe1:SetType(EFFECT_TYPE_SINGLE)
+    pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    pe1:SetCode(EFFECT_CHANGE_LSCALE)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetOperation(s.pe1op)
+    pe1:SetCondition(function(e)
+        local c = e:GetHandler()
+        local tp = e:GetHandlerPlayer()
+        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_GATE), tp, LOCATION_PZONE, 0, 1, c)
+    end)
+    pe1:SetValue(4)
     c:RegisterEffect(pe1)
+    local pe1b = pe1:Clone()
+    pe1b:SetCode(EFFECT_CHANGE_RSCALE)
+    c:RegisterEffect(pe1b)
 
     -- cannot disable pendulum summon
     local pe2 = Effect.CreateEffect(c)
@@ -39,9 +32,17 @@ function s.initial_effect(c)
     pe2:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     pe2:SetRange(LOCATION_PZONE)
     pe2:SetTargetRange(1, 0)
-    pe2:SetCondition(s.pe2con)
-    pe2:SetTarget(s.pe2tg)
+    pe2:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) end)
     c:RegisterEffect(pe2)
+
+    -- recover
+    local pe3 = Effect.CreateEffect(c)
+    pe3:SetCategory(CATEGORY_RECOVER)
+    pe3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    pe3:SetCode(900005006)
+    pe3:SetRange(LOCATION_PZONE)
+    pe3:SetOperation(s.pe3op)
+    c:RegisterEffect(pe3)
 
     -- special summon a dragon
     local me1 = Effect.CreateEffect(c)
@@ -67,14 +68,10 @@ function s.initial_effect(c)
     c:RegisterEffect(me2)
 end
 
-function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     Utility.HintCard(e)
     Duel.Recover(tp, ev, REASON_EFFECT)
 end
-
-function s.pe2con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
-
-function s.pe2tg(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
 function s.me1filter1(c, e, tp, mc)
     return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me1filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, Group.FromCards(c, mc))

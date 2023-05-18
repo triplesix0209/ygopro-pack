@@ -3,38 +3,55 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_ZARC}
+s.listed_series = {SET_SUPREME_KING_GATE, 0xf8}
 
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
 
-    -- take no damage
+    -- change scale
     local pe1 = Effect.CreateEffect(c)
-    pe1:SetType(EFFECT_TYPE_FIELD)
-    pe1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    pe1:SetCode(EFFECT_CHANGE_DAMAGE)
+    pe1:SetType(EFFECT_TYPE_SINGLE)
+    pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    pe1:SetCode(EFFECT_CHANGE_LSCALE)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetTargetRange(1, 0)
-    pe1:SetLabel(0)
-    pe1:SetCondition(s.pe1con)
-    pe1:SetValue(s.pe1val)
+    pe1:SetCondition(function(e)
+        local c = e:GetHandler()
+        local tp = e:GetHandlerPlayer()
+        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_GATE), tp, LOCATION_PZONE, 0, 1, c)
+    end)
+    pe1:SetValue(4)
     c:RegisterEffect(pe1)
-    local pe1raise = Effect.CreateEffect(c)
-    pe1raise:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    pe1raise:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
-    pe1raise:SetCode(EVENT_ADJUST)
-    pe1raise:SetRange(LOCATION_PZONE)
-    pe1raise:SetLabelObject(pe1)
-    pe1raise:SetOperation(s.pe1op)
-    c:RegisterEffect(pe1raise)
+    local pe1b = pe1:Clone()
+    pe1b:SetCode(EFFECT_CHANGE_RSCALE)
+    c:RegisterEffect(pe1b)
 
     -- act limit
     local pe2 = Effect.CreateEffect(c)
     pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     pe2:SetCode(EVENT_SPSUMMON_SUCCESS)
     pe2:SetRange(LOCATION_PZONE)
-    pe2:SetCondition(s.pe2con)
     pe2:SetOperation(s.pe2op)
     c:RegisterEffect(pe2)
+
+    -- take no damage
+    local pe3 = Effect.CreateEffect(c)
+    pe3:SetType(EFFECT_TYPE_FIELD)
+    pe3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    pe3:SetCode(EFFECT_CHANGE_DAMAGE)
+    pe3:SetRange(LOCATION_PZONE)
+    pe3:SetTargetRange(1, 0)
+    pe3:SetLabel(0)
+    pe3:SetCondition(s.pe3con)
+    pe3:SetValue(s.pe3val)
+    c:RegisterEffect(pe3)
+    local pe3event = Effect.CreateEffect(c)
+    pe3event:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    pe3event:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+    pe3event:SetCode(EVENT_ADJUST)
+    pe3event:SetRange(LOCATION_PZONE)
+    pe3event:SetLabelObject(pe3)
+    pe3event:SetOperation(s.pe3eventop)
+    c:RegisterEffect(pe3event)
 
     -- special summon a dragon
     local me1 = Effect.CreateEffect(c)
@@ -60,9 +77,15 @@ function s.initial_effect(c)
     c:RegisterEffect(me2)
 end
 
-function s.pe1con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
+function s.pe2filter(c, tp) return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
-function s.pe1val(e, re, val, r, rp, rc)
+function s.pe2op(e, tp, eg, ep, ev, re, r, rp) if eg:IsExists(s.pe2filter, 1, nil, tp) then Duel.SetChainLimitTillChainEnd(s.pe2chainlimit) end end
+
+function s.pe2chainlimit(e, rp, tp) return tp == rp or (e:IsActiveType(TYPE_SPELL + TYPE_TRAP) and not e:IsHasType(EFFECT_TYPE_ACTIVATE)) end
+
+function s.pe3con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0xf8), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, nil) end
+
+function s.pe3val(e, re, val, r, rp, rc)
     local tp = e:GetHandlerPlayer()
     if val ~= 0 then
         e:SetLabel(val)
@@ -72,7 +95,7 @@ function s.pe1val(e, re, val, r, rp, rc)
     end
 end
 
-function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe3eventop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local val = e:GetLabelObject():GetLabel()
     if val ~= 0 then
@@ -80,14 +103,6 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
         e:GetLabelObject():SetLabel(0)
     end
 end
-
-function s.pe2filter(c, tp) return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
-
-function s.pe2con(e) return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
-
-function s.pe2op(e, tp, eg, ep, ev, re, r, rp) if eg:IsExists(s.pe2filter, 1, nil, tp) then Duel.SetChainLimitTillChainEnd(s.pe2chainlimit) end end
-
-function s.pe2chainlimit(e, rp, tp) return tp == rp or (e:IsActiveType(TYPE_SPELL + TYPE_TRAP) and not e:IsHasType(EFFECT_TYPE_ACTIVATE)) end
 
 function s.me1filter1(c, e, tp, mc)
     return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me1filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, Group.FromCards(c, mc))
