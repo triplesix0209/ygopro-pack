@@ -104,13 +104,13 @@ end
 function s.e1filter1(c)
     if not c:IsType(TYPE_PENDULUM) or c:IsForbidden() then return false end
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return c:IsSetCard({SET_SUPREME_KING_GATE})
+    return c:IsSetCard(SET_SUPREME_KING_GATE)
 end
 
 function s.e1filter2(c, lsc, rsc, e, tp, zone)
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
     return lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsSetCard(SET_SUPREME_KING_DRAGON) and
-               c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false, POS_FACEUP, tp, zone)
+               c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone)
 end
 
 function s.e1check(sg, e, tp) return sg:GetClassCount(Card.GetCode) == 2 end
@@ -142,7 +142,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
                 tp, zone)
             if #g2 > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
                 local sg = Utility.GroupSelect(HINTMSG_SPSUMMON, g2, tp, 1, 1, nil)
-                Duel.SpecialSummon(sg, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP, zone)
+                Duel.SpecialSummon(sg, 0, tp, tp, false, false, POS_FACEUP, zone)
             end
         end
     end

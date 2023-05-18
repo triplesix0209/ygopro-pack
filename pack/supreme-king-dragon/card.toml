@@ -191,23 +191,19 @@ atk = 2500
 def = 1000
 effect = """\
 (This card is always treated as "Odd-Eyes" card.)
-If this card's Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones: \
-    You can Special Summon this card from your hand or GY. \
-    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+You can only Special Summon "{CARD_NAME}(s)" once per turn. \
+If you have 2 cards in your Pendulum Zones that this card's Level between (exclusive) the Pendulum Scales, \
+    you can Special Summon this card (from your hand or GY). \
 If this card is Summoned: \
     You can add 1 Spell/Trap that lists a "Odd-Eyes" card from your Deck or GY to your hand, \
-    and if you do, you can add 1 "Odd-Eyes" Dragon Pendulum Monster or "Supreme King Dragon" Pendulum monster \
-    that is banished or in your Deck, GY to your Extra Deck face-up. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card destroys an opponent's monster by battle: \
     Inflict damage to your opponent equal to the destroyed monster's original ATK. \
 If this card is destroyed by battle or card effect: \
-    You can Special Summon 1 "Odd-Eyes" Dragon monster or "Supreme King Dragon" monster \
+    You can Special Summon 1 "Odd-Eyes" Dragon monster \
     from your hand, Deck, GY or Extra Deck face-up, except "{CARD_NAME}". \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Add 1 Pendulum Monster to Extra Deck?",
     "Inflict damage equal to the destroyed monster's original ATK",
 ]
 
@@ -410,11 +406,11 @@ link-arrow = "top-left top top-right"
 effect = """\
 This card's activation and effect cannot be negated. \
 When this card is activated: \
-    Place in your Pendulum Zone 2 "Supreme King Gate" Pendulum Monsters with different names \
-    from your hand, Deck, GY and/or Extra Deck face-up, and if you do, \
-    you can Special Summon 1 "Supreme King Dragon" monster \
+    Place 2 "Supreme King Gate" Pendulum Monsters with different names \
+    from your hand, Deck, GY, and/or Extra Deck face-up in your Pendulum Zone \
+    and if you do, you can Special Summon 1 "Supreme King Dragon" monster \
     that have Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones \
-    from your hand, Deck, GY or Extra Deck face-up to your zone this card points to. (This is treated as a Pendulum Summon.) \
+    from your hand, Deck, GY or Extra Deck face-up to your zone this card points to. \
     You can only activate 1 "{CARD_NAME}" per turn. \
 Effect activations, and activated effects of monsters this card points cannot be negated. \
 If a Pendulum Monster(s) is sent to your GY, add it to the Extra Deck face-up. \
