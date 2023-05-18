@@ -70,10 +70,10 @@ strings = [
     "Special Summon a Dragon",
 ]
 
-[supreme-overlord-dragon-odd-eyes]
+[supreme-king-servant-dragon-odd-eyes]
 id = 900005002
 alias = 96733134
-name = "Supreme Overlord Dragon Odd-Eyes"
+name = "Supreme King Servant Dragon Odd-Eyes"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -88,10 +88,10 @@ effect = """\
 """
 strings = []
 
-[supreme-overlord-dragon-starving-venom]
+[supreme-king-servant-dragon-starving-venom]
 id = 900005003
 alias = 43387895
-name = "Supreme Overlord Dragon Starving Venom"
+name = "Supreme King Servant Dragon Starving Venom"
 type = "monster fusion effect"
 attribute = "dark"
 race = "dragon"
@@ -105,10 +105,10 @@ You can also Special Summon this card from your Extra Deck by Tributing the abov
 """
 strings = []
 
-[supreme-overlord-dragon-clear-wing]
+[supreme-king-servant-dragon-clear-wing]
 id = 900005004
 alias = 70771599
-name = "Supreme Overlord Dragon Clear Wing"
+name = "Supreme King Servant Dragon Clear Wing"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
@@ -121,10 +121,10 @@ effect = """\
 """
 strings = []
 
-[supreme-overlord-dragon-dark-rebellion]
+[supreme-king-servant-dragon-dark-rebellion]
 id = 900005005
 alias = 42160203
-name = "Supreme Overlord Dragon Dark Rebellion"
+name = "Supreme King Servant Dragon Dark Rebellion"
 type = "monster xyz effect"
 attribute = "dark"
 race = "dragon"

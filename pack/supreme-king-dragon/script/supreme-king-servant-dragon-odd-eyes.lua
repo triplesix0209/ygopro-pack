@@ -1,4 +1,4 @@
--- Supreme Overlord Dragon Odd-Eyes
+-- Supreme King Servant Dragon Odd-Eyes
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

@@ -1,4 +1,4 @@
--- Supreme Overlord Dragon Dark Rebellion
+-- Supreme King Servant Dragon Dark Rebellion
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

@@ -1,4 +1,4 @@
--- Supreme Overlord Dragon Clear Wing
+-- Supreme King Servant Dragon Clear Wing
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

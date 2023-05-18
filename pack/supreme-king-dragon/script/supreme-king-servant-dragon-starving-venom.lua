@@ -1,4 +1,4 @@
--- Supreme Overlord Dragon Starving Venom
+-- Supreme King Servant Dragon Starving Venom
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
