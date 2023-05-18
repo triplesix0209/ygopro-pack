@@ -1,4 +1,4 @@
--- Supreme Overlord Z-Arc
+-- Supreme King Dragon Zarc
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

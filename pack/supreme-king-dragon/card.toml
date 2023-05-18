@@ -26,12 +26,12 @@ strings = [
     "Add or Special Summon a Tuner",
 ]
 
-[z-arc]
+[zarc]
 id = 900005001
 alias = 13331639
 rarity = "gold"
 frame-path = "artwork/frame/z-arc.png"
-name = "Supreme Overlord Z-Arc"
+name = "Supreme King Dragon Zarc"
 type = "monster fusion synchro xyz pendulum effect"
 attribute = "dark"
 race = "dragon"
