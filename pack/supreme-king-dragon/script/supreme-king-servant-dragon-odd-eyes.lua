@@ -105,7 +105,7 @@ end
 function s.spfilter1(c, tp) return c:IsControler(1 - tp) and c:IsType(TYPE_PENDULUM) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
 function s.spfilter2(c, tp, sg, tc)
-    if not c:IsSetCard(SET_SUPREME_KING_DRAGON) then return false end
+    if c:IsFacedown() or not c:IsSetCard(SET_SUPREME_KING_DRAGON) then return false end
     sg:AddCard(c)
 
     local res

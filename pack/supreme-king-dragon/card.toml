@@ -89,7 +89,7 @@ effect = """\
 (This card is always treated as "Supreme King Dragon Odd-Eyes")
 If a Pendulum Monster(s) is Pendulum Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your hand, Deck, Extra Deck, or GY) \
-    by Tributing 2 "Supreme King Dragon" monsters (This is treated as a Pendulum Summon). \
+    by Tributing 2 face-up "Supreme King Dragon" monsters (This is treated as a Pendulum Summon). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 Monsters your opponent controls cannot target Pendulum Monsters for attacks, except this one. \
 The first time each Pendulum Monster you control would be destroyed each turn, by battle or card effect, it is not destroyed. \
@@ -122,7 +122,7 @@ effect = """\
 You can also Special Summon this card from your Extra Deck by Tributing the above cards you control. \
 If a Fusion Monster(s) is Fusion Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
-    by Tributing 2 "Supreme King Dragon" monsters (This is treated as a Fusion Summon). \
+    by Tributing 2 face-up "Supreme King Dragon" monsters. (This is treated as a Fusion Summon). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 Monsters your opponent controls cannot target Fusion Monsters for attacks, except this one. \
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
@@ -145,8 +145,17 @@ def = 2000
 effect = """\
 1 Tuner + 1+ non-Tuner DARK Pendulum Monsters
 (This card is always treated as "Supreme King Dragon Clear Wing")
+If a Synchro Monster(s) is Synchro Summoned to your opponent's field, \
+    while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
+    by Tributing 2 face-up "Supreme King Dragon" monsters. (This is treated as a Synchro Summon). \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+Monsters your opponent controls cannot target Synchro Monsters for attacks, except this one. \
+During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
+    Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
+    from your Extra Deck in Defense Position, \
+    and if you do, the ATK of all Synchro Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = []
+strings = ["Special Summon \"{CARD_NAME}\"?"]
 
 [supreme-king-servant-dragon-dark-rebellion]
 id = 900005005
@@ -161,8 +170,17 @@ def = 2000
 effect = """\
 2 Level 4 DARK Pendulum Monsters
 (This card is always treated as "Supreme King Dragon Dark Rebellion")
+If a Xyz Monster(s) is Xyz Summoned to your opponent's field, \
+    while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
+    by using 2 face-up "Supreme King Dragon" monsters as material. (This is treated as a Xyz Summon). \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+Monsters your opponent controls cannot target Xyz Monsters for attacks, except this one. \
+During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
+    Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
+    from your Extra Deck in Defense Position, \
+    and if you do, the ATK of all Xyz Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = []
+strings = ["Special Summon \"{CARD_NAME}\"?"]
 
 [supreme-king-odd-eyes-venom-dragon]
 id = 900005006

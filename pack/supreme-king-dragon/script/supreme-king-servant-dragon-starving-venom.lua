@@ -16,7 +16,7 @@ function s.initial_effect(c)
     local sp = Effect.CreateEffect(c)
     sp:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     sp:SetCode(EVENT_SPSUMMON_SUCCESS)
-    sp:SetRange(LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA + LOCATION_GRAVE)
+    sp:SetRange(LOCATION_EXTRA + LOCATION_GRAVE)
     sp:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
     sp:SetCondition(s.spcon)
     sp:SetOperation(s.spop)
@@ -55,7 +55,7 @@ function s.contactop(g) Duel.Release(g, REASON_COST + REASON_MATERIAL) end
 function s.spfilter1(c, tp) return c:IsControler(1 - tp) and c:IsType(TYPE_FUSION) and c:IsSummonType(SUMMON_TYPE_FUSION) end
 
 function s.spfilter2(c, tp, sg, tc)
-    if not c:IsSetCard(SET_SUPREME_KING_DRAGON) then return false end
+    if c:IsFacedown() or not c:IsSetCard(SET_SUPREME_KING_DRAGON) then return false end
     sg:AddCard(c)
 
     local res
