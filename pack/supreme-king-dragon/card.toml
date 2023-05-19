@@ -30,7 +30,7 @@ strings = [
 id = 900005001
 alias = 13331639
 rarity = "gold"
-frame-path = "artwork/frame/z-arc.png"
+frame-path = "artwork/frame/zarc.png"
 name = "Supreme King Dragon Zarc"
 type = "monster fusion synchro xyz pendulum effect"
 attribute = "dark"
@@ -82,11 +82,29 @@ atk = 2500
 def = 2000
 pendulum-effect = """\
 At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
+You can Tribute 1 "Supreme King Dragon" monster; destroy this card, and if you do, add 1 Pendulum Monster with 1500 or less ATK from your Deck to your hand. \
+Once per turn, you can reduce the battle damage you take to 0. \
 """
 effect = """\
 (This card is always treated as "Supreme King Dragon Odd-Eyes")
+If a Pendulum Monster(s) is Pendulum Summoned to your opponent's field, \
+    while you control "Supreme King Z-ARC", you can Special Summon this card (from your hand, Deck, Extra Deck, or GY) \
+    by Tributing 2 "Supreme King Dragon" monsters (This is treated as a Pendulum Summon). \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+Monsters your opponent controls cannot target Pendulum Monsters for attacks, except this one. \
+The first time each Pendulum Monster you control would be destroyed each turn, by battle or card effect, it is not destroyed. \
+If your Pendulum Monster battles an opponent's monster, any battle damage it inflicts to your opponent is doubled. \
+During the Battle Phase (Quick Effect): You can Tribute this card; \
+    Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
+    from your Extra Deck in Defense Position, except "Supreme King Dragon Odd-Eyes", \
+    and if you do, the ATK of all Pendulum Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = []
+strings = [
+    "Special Summon \"{CARD_NAME}\"?",
+    "Search a Pendulum Monster",
+    "Reduce battle damage to 0?",
+    "Special Summon up to 2 other monsters",
+]
 
 [supreme-king-servant-dragon-starving-venom]
 id = 900005003
@@ -102,8 +120,17 @@ effect = """\
 2 DARK Pendulum Monsters
 (This card is always treated as "Supreme King Dragon Starving Venom")
 You can also Special Summon this card from your Extra Deck by Tributing the above cards you control. \
+If a Fusion Monster(s) is Fusion Summoned to your opponent's field, \
+    while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
+    by Tributing 2 "Supreme King Dragon" monsters (This is treated as a Fusion Summon). \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+Monsters your opponent controls cannot target Fusion Monsters for attacks, except this one. \
+During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
+    Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
+    from your Extra Deck in Defense Position, \
+    and if you do, the ATK of all Fusion Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = []
+strings = ["Special Summon \"{CARD_NAME}\"?"]
 
 [supreme-king-servant-dragon-clear-wing]
 id = 900005004
@@ -431,8 +458,8 @@ Once per turn, if you have a card in your other Pendulum Zone: \
 effect = """\
 If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your hand. \
     You can only use each monster effect of "{CARD_NAME}" once per turn. \
-Once per turn, if this card is targeted for an attack, while you control another "Supreme King Dragon" monster: \
-    You can negate the attack. \
+Once per turn, if this card is targeted for an attack: You can negate the attack. \
+    You must control another "Supreme King Dragon" monster to activate and to resolve this effect. \
 """
 strings = [
     "Discard to destroy face-up monster",
@@ -449,8 +476,8 @@ attribute = "dark"
 race = "dragon"
 level = 4
 scale = 1
-atk = 1300
-def = 1700
+atk = 1600
+def = 1400
 pendulum-effect = """\
 Your opponent cannot target Dragon monsters you control with Spell Cards or effects. \
 Once per turn, if you have a card in your other Pendulum Zone: \
@@ -459,8 +486,8 @@ Once per turn, if you have a card in your other Pendulum Zone: \
 effect = """\
 If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your Extra Deck face-up. \
     You can only use each monster effect of "{CARD_NAME}" once per turn. \
-Once per turn, if this card is targeted for an attack, while you control another "Supreme King Dragon" monster: \
-    You can negate the attack. \
+Once per turn, if this card is targeted for an attack: You can negate the attack. \
+    You must control another "Supreme King Dragon" monster to activate and to resolve this effect. \
 """
 strings = [
     "Discard to destroy Spell/Trap",

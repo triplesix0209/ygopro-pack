@@ -104,7 +104,12 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.me2con(e, tp, eg, ep, ev, re, r, rp)
-    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_DRAGON), tp, LOCATION_MZONE, 0, 1, e:GetHandler())
+    local c = e:GetHandler()
+    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_DRAGON), tp, LOCATION_MZONE, 0, 1, c)
 end
 
-function s.me2op(e, tp, eg, ep, ev, re, r, rp) Duel.NegateAttack() end
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_DRAGON), tp, LOCATION_MZONE, 0, 1, c) then return end
+    Duel.NegateAttack()
+end
