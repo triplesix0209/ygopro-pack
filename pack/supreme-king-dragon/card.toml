@@ -615,7 +615,7 @@ strings = [
 id = 900005019
 set = "magician clear-wing synchro-dragon"
 name = "Clear Wing Magician"
-type = "monster synchro pendulum effect"
+type = "monster synchro pendulum tuner effect"
 attribute = "wind"
 race = "spellcaster"
 level = 7
@@ -630,7 +630,7 @@ Once per turn, you can target 1 Dragon Synchro Monster you control; \
 effect = """\
 1 Tuner + 1+ non-Tuner Pendulum Monsters
 (This card is always treated as a "Synchro Dragon" card.)
-This card can be treated as a Level 3 monster, also non-Tuner when used for a Synchro Summon. \
+This card can be treated as a Level 3 monster when used for a Synchro Summon. \
     This effect cannot be negated. \
 If an effect of a "Clear Wing" Dragon monster is activated: \
     You can inflict damage to your opponent equal to the current ATK of that monster. \
