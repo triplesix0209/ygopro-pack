@@ -77,7 +77,9 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.fusfilter1(c, fc, sumtype, tp) return c:IsLevelAbove(5) and c:IsSetCard(SET_PALLADIUM, fc, sumtype, tp) and c:IsRace(RACE_WARRIOR, fc, sumtype, tp) end
+function s.fusfilter1(c, fc, sumtype, tp)
+    return c:IsLevelAbove(5) and c:IsSetCard(SET_PALLADIUM, fc, sumtype, tp) and c:IsRace(RACE_WARRIOR, fc, sumtype, tp)
+end
 
 function s.fusfilter2(c, fc, sumtype, tp) return c:IsLevelAbove(5) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end
 
@@ -140,7 +142,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2tg(e, c) return c:IsType(TYPE_EQUIP) and c:GetEquipTarget() == e:GetHandler() end
+function s.e2tg(e, c) return c:IsEquipSpell() and c:GetEquipTarget() == e:GetHandler() end
 
 function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
     if e:GetLabelObject() then e:GetLabelObject():DeleteGroup() end

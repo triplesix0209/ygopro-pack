@@ -13,7 +13,9 @@ function s.initial_effect(c)
     Fusion.AddProcMix(c, false, false, function(c, sc, sumtype, tp)
         return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) and
                    c:IsOnField()
-    end, function(c, sc, sumtype, tp) return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) and c:IsOnField() end)
+    end, function(c, sc, sumtype, tp)
+        return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) and c:IsOnField()
+    end)
 
     -- pendulum
     Pendulum.AddProcedure(c, false)
@@ -168,7 +170,7 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     if ct > 0 then e:GetHandler():AddCounter(0x1149, ct) end
 end
 
-function s.me3filter(c) return c:IsFaceup() and c:IsType(TYPE_MONSTER) end
+function s.me3filter(c) return c:IsFaceup() and c:IsMonster() and not c:IsType(TYPE_TOKEN) end
 
 function s.me3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
 

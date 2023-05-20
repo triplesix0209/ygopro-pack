@@ -147,7 +147,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.RegisterEffect(ec4, tp)
 end
 
-function s.e3filter(c) return not c:IsCode(id) and c:IsSetCard(SET_FUSION) and c:IsType(TYPE_SPELL) and c:IsAbleToHand() end
+function s.e3filter(c) return not c:IsCode(id) and c:IsSetCard(SET_FUSION) and c:IsSpell() and c:IsAbleToHand() end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()

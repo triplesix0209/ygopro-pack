@@ -10,8 +10,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, nil, 3, 4,
-        function(g, lc, sumtype, tp) return g:IsExists(Card.IsSetCard, 1, nil, SET_BLUE_EYES, lc, sumtype, tp) end)
+    Link.AddProcedure(c, nil, 3, 4, function(g, lc, sumtype, tp) return g:IsExists(Card.IsSetCard, 1, nil, SET_BLUE_EYES, lc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -71,9 +70,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.spfilter1(c)
-    return c:IsType(TYPE_SPELL) and c:IsType(TYPE_RITUAL) and c:IsAbleToGraveAsCost() and (c:IsFacedown() or not c:IsOnField())
-end
+function s.spfilter1(c) return c:IsRitualSpell() and c:IsAbleToGraveAsCost() and (c:IsFacedown() or not c:IsOnField()) end
 
 function s.spfilter2(c, sc, tp)
     return c:IsCanBeLinkMaterial(sc, tp) and Duel.GetLocationCountFromEx(tp, tp, c, sc) > 0 and
@@ -86,8 +83,7 @@ function s.spcon(e, c)
 
     local g1 = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_HAND + LOCATION_ONFIELD, 0, c)
     local g2 = Duel.GetMatchingGroup(s.spfilter2, tp, LOCATION_MZONE, 0, nil, c, tp)
-    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g1, e, tp, 1, 1, nil, 0) and
-               aux.SelectUnselectGroup(g2, e, tp, 1, 1, nil, 0, c, tp)
+    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g1, e, tp, 1, 1, nil, 0) and aux.SelectUnselectGroup(g2, e, tp, 1, 1, nil, 0, c, tp)
 end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
@@ -122,8 +118,8 @@ end
 function s.e2regval(e, c)
     local g = c:GetMaterial()
     if g:IsExists(Card.IsCode, 1, nil, CARD_BLUEEYES_W_DRAGON) then
-        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_LEAVE | RESET_TEMP_REMOVE),
-            EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 0))
+        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_LEAVE | RESET_TEMP_REMOVE), EFFECT_FLAG_CLIENT_HINT, 1, 0,
+            aux.Stringid(id, 0))
     end
 end
 
@@ -142,9 +138,7 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tg = Duel.GetMatchingGroup(Card.IsCanChangePosition, tp, 0, LOCATION_MZONE, nil)
-    if #tg == 0 or Duel.ChangePosition(tg, POS_FACEUP_DEFENSE, POS_FACEDOWN_DEFENSE, POS_FACEUP_ATTACK, POS_FACEUP_ATTACK) == 0 then
-        return
-    end
+    if #tg == 0 or Duel.ChangePosition(tg, POS_FACEUP_DEFENSE, POS_FACEDOWN_DEFENSE, POS_FACEUP_ATTACK, POS_FACEUP_ATTACK) == 0 then return end
 
     local og = Duel.GetOperatedGroup():Filter(Card.IsFaceup, nil)
     for tc in og:Iter() do

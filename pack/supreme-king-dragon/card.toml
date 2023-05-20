@@ -125,12 +125,21 @@ If a Fusion Monster(s) is Fusion Summoned to your opponent's field, \
     by Tributing 2 face-up "Supreme King Dragon" monsters. (This is treated as a Fusion Summon). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 Monsters your opponent controls cannot target Fusion Monsters for attacks, except this one. \
+Once per turn, during your Main Phase or either player's Battle Phase (Quick Effect): \
+    You can target 1 other face-up monster on the field or in the GY; until the End Phase, \
+    negate the effects of that monster, and replace this effect with that monster's original effects, \
+    also for the rest of this turn, if your monster attacks a Defense Position monster, \
+    inflict piercing battle damage to your opponent. \
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
     from your Extra Deck in Defense Position, \
     and if you do, the ATK of all Fusion Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = ["Special Summon \"{CARD_NAME}\"?"]
+strings = [
+    "Special Summon \"{CARD_NAME}\"?",
+    "Negate effect & gain effect and piercing damage",
+    "Special Summon up to 2 other monsters",
+]
 
 [supreme-king-servant-dragon-clear-wing]
 id = 900005004

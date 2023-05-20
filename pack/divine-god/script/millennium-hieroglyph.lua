@@ -76,7 +76,7 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
     field:SetCondition(function(e, tp) return Duel.IsTurnPlayer(tp) and Duel.GetCurrentPhase() == PHASE_DRAW end)
     field:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local g = Duel.GetMatchingGroup(function(c)
-            return c:IsType(TYPE_FIELD) and Utility.CheckActivateEffectCanApply(c, e, tp, false, true, false)
+            return c:IsFieldSpell() and Utility.CheckActivateEffectCanApply(c, e, tp, false, true, false)
         end, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED, 0, nil)
         if Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_FZONE, 0, 1, nil) or #g == 0 or
             not Duel.SelectYesNo(tp, aux.Stringid(id, 1)) then return end
