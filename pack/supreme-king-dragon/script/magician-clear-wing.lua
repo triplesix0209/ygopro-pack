@@ -2,6 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_series = {}
+
 function s.initial_effect(c)
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)

@@ -586,14 +586,25 @@ scale = 1
 atk = 1500
 def = 2500
 pendulum-effect = """\
+Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    using this card you control as material, as well as other Dragon Fusion Monsters you control. \
+    Your opponent cannot activate cards or effects in response to this effect's activation. \
 """
 effect = """\
 2 Pendulum monsters
 (This card is always treated as a "Fusion Dragon" card.)
+This card can be used as a substitute for any 1 Fusion Material whose name is specifically listed on the Fusion Monster, \
+    but the other material(s) must be correct. \
+    This effect cannot be negated. \
+During the End Phase: \
+    You can inflict damage to your opponent equal to the combined original ATK of monsters destroyed this turn by "Starving Venom" Dragon monster. \
+    You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place this card in your Pendulum Zone. \
 """
-strings = []
+strings = [
+    "Inflict damage by monsters destroyed by \"Starving Venom\" Dragon monster",
+]
 
 [magician-clear-wing]
 id = 900005019

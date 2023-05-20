@@ -1,32 +1,3 @@
-[card.starving-venom-magician]
-id = 950000013
-set = "starving-venom fusion-dragon magician"
-name = "Starving Venom Magician"
-type = "monster fusion pendulum effect"
-attribute = "dark"
-race = "spellcaster"
-level = 7
-pendulum-scale = 1
-atk = 2500
-def = 2000
-pendulum-effect = """\
-Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
-    using this card you control as Fusion Material, as well as other Dragon Fusion Monsters you control. \
-    Your opponent cannot activate cards or effects in response to this effect's activation. \
-"""
-effect = """\
-2 Pendulum monsters
-(This card is always treated as a "Fusion Dragon" card.)
-This card can be used as a substitute for any 1 Fusion Material whose name is specifically listed on the Fusion Monster, \
-    but the other material(s) must be correct. \
-    This effect cannot be negated. \
-During the End Phase: \
-    You can inflict damage to your opponent equal to the combined original ATK of monsters destroyed this turn by "Starving Venom" Dragon monster. \
-    You can only use this effects of "Starving Venom Magician" once per turn. \
-${TO_PZONE_WHEN_DESTROYED} \
-"""
-strings = []
-
 [card.clear-wing-magician]
 id = 950000014
 set = "clear-wing synchro-dragon magician"
