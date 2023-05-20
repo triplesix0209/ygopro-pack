@@ -36,6 +36,20 @@ function s.initial_effect(c)
     me1b:SetCode(EFFECT_NONTUNER)
     c:RegisterEffect(me1b)
 
+    -- damage
+    local me2 = Effect.CreateEffect(c)
+    me2:SetDescription(aux.Stringid(id, 0))
+    me2:SetCategory(CATEGORY_DAMAGE)
+    me2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    me2:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_PLAYER_TARGET)
+    me2:SetCode(EVENT_CHAINING)
+    me2:SetRange(LOCATION_MZONE)
+    me2:SetCountLimit(1, id)
+    me2:SetCondition(s.me2con)
+    me2:SetTarget(s.me2tg)
+    me2:SetOperation(s.me2op)
+    c:RegisterEffect(me2)
+
     -- place into pendulum zone
     local me3 = Effect.CreateEffect(c)
     me3:SetDescription(2203)
@@ -91,4 +105,27 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
         Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
         Duel.SynchroSummon(tp, g:Select(tp, 1, 1, nil):GetFirst(), nil, mg)
     end
+end
+
+function s.me2con(e, tp, eg, ep, ev, re, r, rp)
+    local rc = re:GetHandler()
+    return re:IsActiveType(TYPE_MONSTER) and rc:IsSetCard(SET_CLEAR_WING) and rc:IsRace(RACE_DRAGON)
+end
+
+function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local rc = re:GetHandler()
+    if chk == 0 then return rc:IsOnField() and rc:IsFaceup() end
+
+    local dmg = rc:GetAttack()
+    Duel.SetTargetPlayer(1 - tp)
+    Duel.SetTargetParam(dmg)
+    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, dmg)
+end
+
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+
+    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
+    Duel.Damage(p, d, REASON_EFFECT)
 end

@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {}
+s.listed_series = {SET_REBELLION}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()

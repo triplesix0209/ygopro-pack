@@ -574,7 +574,7 @@ strings = [
     "Special Summon a \"Odd-Eyes\" monster",
     "Destroy this card to gain extra Pendulum Summon",
     "Affected by effect \"{CARD_NAME}\": can conduct 1 Pendulum Summon of a monster(s) from your Extra Deck in addition",
-    "Pendulum Summon of a monster(s) from your Extra Deck (via \"{CARD_NAME}\")",
+    "Pendulum from Extra Deck (via \"{CARD_NAME}\")",
     "Inflict damage equal to combined ATK of the monsters in the Pendulum Zones",
 ]
 
