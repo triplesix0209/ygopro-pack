@@ -551,7 +551,7 @@ attribute = "dark"
 race = "spellcaster"
 level = 7
 scale = 8
-atk = 2000
+atk = 1500
 def = 2500
 pendulum-effect = """\
 You can reduce the battle damage you take from an attack involving a Pendulum Monster you control to 0. \
@@ -583,7 +583,7 @@ attribute = "dark"
 race = "spellcaster"
 level = 7
 scale = 1
-atk = 2000
+atk = 1500
 def = 2500
 pendulum-effect = """\
 """
@@ -604,7 +604,7 @@ attribute = "wind"
 race = "spellcaster"
 level = 7
 scale = 1
-atk = 2000
+atk = 1500
 def = 2500
 pendulum-effect = """\
 """
@@ -625,7 +625,7 @@ attribute = "dark"
 race = "spellcaster"
 level = 4
 scale = 8
-atk = 2000
+atk = 1500
 def = 2500
 pendulum-effect = """\
 """
