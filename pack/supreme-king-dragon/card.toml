@@ -127,7 +127,7 @@ If a Fusion Monster(s) is Fusion Summoned to your opponent's field, \
 Monsters your opponent controls cannot target Fusion Monsters for attacks, except this one. \
 Once per turn, during your Main Phase or either player's Battle Phase (Quick Effect): \
     You can target 1 other face-up monster on the field or in the GY; until the End Phase, \
-    negate the effects of that monster, and replace this effect with that monster's original effects, \
+    negate the effects of it, and replace this effect with that monster's original effects, \
     also for the rest of this turn, if your monster attacks a Defense Position monster, \
     inflict piercing battle damage to your opponent. \
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
@@ -158,13 +158,23 @@ If a Synchro Monster(s) is Synchro Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
     by Tributing 2 face-up "Supreme King Dragon" monsters. (This is treated as a Synchro Summon). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
+If this card is Synchro Summoned: \
+    You can negate the effects of all face-up monsters your opponent currently controls, \
+    also, after that, destroy them. \
 Monsters your opponent controls cannot target Synchro Monsters for attacks, except this one. \
+Once per turn, before damage calculation, if this card battles an opponent's monster: \
+    You can negate the attack, also, after that, \
+    destroy that monster, and if you do, inflict damage to your opponent equal to the destroyed monster's original ATK. \
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
     from your Extra Deck in Defense Position, \
     and if you do, the ATK of all Synchro Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = ["Special Summon \"{CARD_NAME}\"?"]
+strings = [
+    "Special Summon \"{CARD_NAME}\"?",
+    "Negate attack then destroy & inflict damage",
+    "Special Summon up to 2 other monsters",
+]
 
 [supreme-king-servant-dragon-dark-rebellion]
 id = 900005005
@@ -184,12 +194,19 @@ If a Xyz Monster(s) is Xyz Summoned to your opponent's field, \
     by using 2 face-up "Supreme King Dragon" monsters as material. (This is treated as a Xyz Summon). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 Monsters your opponent controls cannot target Xyz Monsters for attacks, except this one. \
+Once per turn, before damage calculation, if this card battles an opponent's monster: \
+    You can detach 1 material from this card; until the end of this turn, \
+    change the ATK of that monster to 0, and if it does, this card gains that lost ATK. \
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
     from your Extra Deck in Defense Position, \
     and if you do, the ATK of all Xyz Monsters your opponent currently controls become 0, until the end of this turn. \
 """
-strings = ["Special Summon \"{CARD_NAME}\"?"]
+strings = [
+    "Special Summon \"{CARD_NAME}\"?",
+    "Make battling ATK become 0 and gain that lost ATK",
+    "Special Summon up to 2 other monsters",
+]
 
 [supreme-king-odd-eyes-venom-dragon]
 id = 900005006

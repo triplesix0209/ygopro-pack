@@ -21,18 +21,42 @@ function s.initial_effect(c)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
 
-    -- cannot be battle target
+    -- destroy all
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(0, LOCATION_MZONE)
-    e1:SetValue(function(e, tc) return tc:IsFaceup() and tc:IsType(TYPE_SYNCHRO) and tc ~= e:GetHandler() end)
+    e1:SetCategory(CATEGORY_DESTROY)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
+
+    -- cannot be battle target
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(0, LOCATION_MZONE)
+    e2:SetValue(function(e, tc) return tc:IsFaceup() and tc:IsType(TYPE_SYNCHRO) and tc ~= e:GetHandler() end)
+    c:RegisterEffect(e2)
+
+    -- destroy and damage
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetCategory(CATEGORY_DESTROY + CATEGORY_DAMAGE)
+    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3:SetCode(EVENT_BATTLE_CONFIRM)
+    e3:SetCountLimit(1)
+    e3:SetCondition(s.e3con)
+    e3:SetTarget(s.e3tg)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
 
     -- special summon other monster
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 3))
+    e4:SetDescription(aux.Stringid(id, 2))
     e4:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_ATKCHANGE)
     e4:SetType(EFFECT_TYPE_QUICK_O)
     e4:SetCode(EVENT_FREE_CHAIN)
@@ -86,6 +110,69 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp)
         Duel.Release(sg, REASON_COST)
 
         Duel.SpecialSummon(c, SUMMON_TYPE_SYNCHRO, tp, tp, false, false, POS_FACEUP)
+    end
+end
+
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO) end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
+    if chk == 0 then return #g > 0 end
+
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+
+    local ng = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsNegatable), tp, 0, LOCATION_MZONE, nil)
+    for tc in ng:Iter() do
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_DISABLE)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec1)
+        local ec1b = ec1:Clone()
+        ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+        tc:RegisterEffect(ec1b)
+        if tc:IsType(TYPE_TRAPMONSTER) then
+            local ec1c = Effect.CreateEffect(c)
+            ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+            tc:RegisterEffect(ec1c)
+        end
+    end
+    Duel.AdjustInstantly()
+
+    local dg = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
+    Duel.Destroy(dg, REASON_EFFECT)
+end
+
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local bc = c:GetBattleTarget()
+    return c:IsRelateToBattle() and bc and bc:IsFaceup() and bc:IsRelateToBattle()
+end
+
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    local bc = c:GetBattleTarget()
+    if chk == 0 then return true end
+
+    Duel.SetTargetPlayer(1 - tp)
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, bc, 1, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, bc:GetBaseAttack())
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local bc = c:GetBattleTarget()
+    local p = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER)
+
+    Duel.NegateAttack()
+    if c:IsFaceup() and c:IsRelateToBattle() and bc:IsFaceup() and bc:IsRelateToBattle() and Duel.Destroy(bc, REASON_EFFECT) > 0 then
+        local dmg = bc:GetBaseAttack()
+        if dmg > 0 then Duel.Damage(p, dmg, REASON_EFFECT) end
     end
 end
 

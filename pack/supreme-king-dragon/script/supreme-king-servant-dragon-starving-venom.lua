@@ -31,13 +31,15 @@ function s.initial_effect(c)
     e1:SetValue(function(e, tc) return tc:IsFaceup() and tc:IsType(TYPE_FUSION) and tc ~= e:GetHandler() end)
     c:RegisterEffect(e1)
 
-    -- copy effect
+    -- drain effect
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetCategory(CATEGORY_DISABLE)
     e2:SetType(EFFECT_TYPE_QUICK_O)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetCode(EVENT_FREE_CHAIN)
     e2:SetRange(LOCATION_MZONE)
+    e2:SetHintTiming(0, TIMINGS_CHECK_MONSTER)
     e2:SetCountLimit(1)
     e2:SetCondition(s.e2con)
     e2:SetTarget(s.e2tg)
@@ -107,15 +109,49 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter(c) return c:IsMonster() and not c:IsType(TYPE_TOKEN) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) end
+function s.e2filter(c) return c:IsMonster() and c:IsNegatable() and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return (Duel.GetTurnPlayer() == tp and Duel.IsMainPhase()) or Duel.IsBattlePhase() end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingTarget(s.copyfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, c) end
+    if chk == 0 then return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, c) end
+
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, s.copyfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, 1, c)
+    Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, 1, c)
+
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, nil, 1, tp, LOCATION_EXTRA)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc = Duel.GetFirstTarget()
+
+    if tc and c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and (tc:IsFaceup() or tc:IsLocation(LOCATION_GRAVE)) then
+        local code = tc:GetOriginalCode()
+        if not tc:IsType(TYPE_TRAPMONSTER) then c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 1) end
+
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_DISABLE)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec1)
+        local ec1b = ec1:Clone()
+        ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+        tc:RegisterEffect(ec1b)
+        if tc:IsType(TYPE_TRAPMONSTER) then
+            local ec1c = Effect.CreateEffect(c)
+            ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+            tc:RegisterEffect(ec1c)
+        end
+    end
+
+    local ec2 = Effect.CreateEffect(c)
+    ec2:SetType(EFFECT_TYPE_FIELD)
+    ec2:SetCode(EFFECT_PIERCE)
+    ec2:SetTargetRange(LOCATION_MZONE, 0)
+    ec2:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec2, tp)
 end
 
 function s.e3filter(c, e, tp)
