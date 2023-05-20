@@ -653,14 +653,28 @@ scale = 8
 atk = 1500
 def = 2500
 pendulum-effect = """\
+Once per turn, you can target 1 Dragon Xyz Monster you control; \
+    Special Summon from your Extra Deck, 1 Dragon Xyz Monster that is 1 Rank higher than that monster you control, \
+    by using it as material, and if you do, attach this card to it as additional material. \
+    (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) \
 """
 effect = """\
 2 Level 4 Pendulum monsters
 (This card is always treated as a "Xyz Dragon" card.)
+If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
+If an Xyz Monster you control would activate an effect by detaching an material(s), \
+    you can detach materials from this card instead of those materials. \
+    This effect cannot be negated. \
+If "Rebellion" Dragon monster's ATK is changed: \
+    You can inflict damage to your opponent equal to the changed amount. \
+    You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place this card in your Pendulum Zone. \
 """
-strings = []
+strings = [
+    "Rank-Up Dragon Xyz Monster",
+    "Inflict damage equal to \"Rebellion\" ATK changed amount",
+]
 
 [supreme-presence]
 id = 900005021

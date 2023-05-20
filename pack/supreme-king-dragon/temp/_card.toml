@@ -1,37 +1,3 @@
-[card.dark-rebellion-magician]
-id = 950000015
-set = "rebellion xyz-dragon magician"
-name = "Dark Rebellion Magician"
-type = "monster xyz pendulum effect"
-attribute = "dark"
-race = "spellcaster"
-rank = 4
-pendulum-scale = 8
-atk = 2500
-def = 2000
-pendulum-effect = """\
-Once per turn, you can target 1 Dragon Xyz Monster you control; \
-    Special Summon from your Extra Deck, 1 Xyz Monster that is 1 Rank higher than that monster you control, \
-    by using it as material, and if you do, attach this card to it as additional material. \
-    (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) \
-"""
-effect = """\
-2 Level 4 Pendulum Monsters
-(This card is always treated as a "Xyz Dragon" card.)
-If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
-If an DARK Xyz Monster you control would activate an effect by detaching an material(s), \
-    you can detach materials from this card instead of those materials. \
-    This effect cannot be negated. \
-If "Rebellion" Dragon monster's ATK is changed: \
-    You can inflict damage to your opponent equal to the changed amount. \
-    You can only use this effects of "Dark Rebellion Magician" once per turn. \
-${TO_PZONE_WHEN_DESTROYED} \
-"""
-strings = [
-    "Rank-Up Dragon Xyz Monster",
-    "Inflict damage equal to \"Rebellion\" ATK change",
-]
-
 [card.sorcerer-sky-iris]
 id = 950000016
 name = "Sorcerer of Sky Iris"
