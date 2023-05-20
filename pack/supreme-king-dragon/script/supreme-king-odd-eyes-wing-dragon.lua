@@ -104,7 +104,7 @@ function s.pe1con(e, tp, eg, ep, ev, re, r, rp)
     if ac:IsControler(1 - tp) then bc, ac = ac, bc end
     e:SetLabelObject(ac)
 
-    return ac:GetControler() ~= bc:GetControler() and ac:IsFaceup() and bc:IsFaceup() and bc:GetAttack() > 0
+    return ac:GetControler() ~= bc:GetControler() and ac:IsFaceup() and bc:IsFaceup() and bc:HasNonZeroAttack()
 end
 
 function s.pe1op(e, tp, ep, ev, re, r, rp)
@@ -158,7 +158,7 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     if c == bc then bc = Duel.GetAttackTarget() end
 
     if bc and bc:IsRelateToBattle() then
-        if Duel.Destroy(bc, REASON_EFFECT) > 0 and c:IsRelateToEffect(e) and bc:GetBaseAttack() > 0 then
+        if Duel.Destroy(bc, REASON_EFFECT) > 0 and c:IsRelateToEffect(e) and bc:HasNonZeroAttack() then
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -179,7 +179,10 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me3filter(c) return c:GetAttack() > 0 or not c:IsDisabled() end
+function s.me3filter(c)
+    if c:IsFacedown() then return false end
+    return c:IsNegatable() or c:HasNonZeroAttack()
+end
 
 function s.me3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
 
@@ -195,7 +198,6 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if not tc or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 
-    Duel.NegateRelatedChain(tc, RESET_TURN_SET)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_DISABLE)
@@ -203,8 +205,12 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     tc:RegisterEffect(ec1)
     local ec1b = ec1:Clone()
     ec1b:SetCode(EFFECT_DISABLE_EFFECT)
-    ec1b:SetValue(RESET_TURN_SET)
     tc:RegisterEffect(ec1b)
+    if tc:IsType(TYPE_TRAPMONSTER) then
+        local ec1c = Effect.CreateEffect(c)
+        ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+        tc:RegisterEffect(ec1c)
+    end
 
     local ec2 = Effect.CreateEffect(c)
     ec2:SetType(EFFECT_TYPE_SINGLE)

@@ -128,8 +128,10 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
 
     if tc and c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and (tc:IsFaceup() or tc:IsLocation(LOCATION_GRAVE)) then
-        local code = tc:GetOriginalCode()
-        if not tc:IsType(TYPE_TRAPMONSTER) then c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 1) end
+        local code = tc:GetOriginalCodeRule()
+        if not tc:IsType(TYPE_TOKEN) and not tc:IsType(TYPE_TRAPMONSTER) then
+            c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 1)
+        end
 
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)

@@ -15,9 +15,10 @@ function s.initial_effect(c)
             return tc:IsSetCard(SET_ODD_EYES, sc, SUMMON_TYPE_XYZ, tp) and tc:IsRace(RACE_DRAGON, sc, SUMMON_TYPE_XYZ, tp) and
                        c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_XYZ, tp)
         end, 1, nil) and
-                   g:IsExists(function(tc)
-                return tc:IsSetCard(SET_REBELLION, sc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, sc, SUMMON_TYPE_XYZ, tp)
-            end, 1, nil)
+                   g:IsExists(
+                function(tc)
+                    return tc:IsSetCard(SET_REBELLION, sc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, sc, SUMMON_TYPE_XYZ, tp)
+                end, 1, nil)
     end)
 
     -- pendulum
@@ -109,7 +110,7 @@ function s.pe1con(e, tp, eg, ep, ev, re, r, rp)
     if ac:IsControler(1 - tp) then bc, ac = ac, bc end
     e:SetLabelObject(ac)
 
-    return ac:GetControler() ~= bc:GetControler() and bc:IsFaceup() and bc:GetAttack() > 0
+    return ac:GetControler() ~= bc:GetControler() and bc:IsFaceup() and bc:HasNonZeroAttack()
 end
 
 function s.pe1op(e, tp, ep, ev, re, r, rp)
@@ -167,13 +168,18 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
+function s.me3filter(c)
+    if c:IsFacedown() then return false end
+    return c:IsNegatable() or c:HasNonZeroAttack()
+end
+
 function s.me3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
 
 function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingTarget(Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, nil) end
+    if chk == 0 then return Duel.IsExistingTarget(s.me3filter, tp, 0, LOCATION_MZONE, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, 1, nil)
+    Duel.SelectTarget(tp, s.me3filter, tp, 0, LOCATION_MZONE, 1, 1, nil)
 end
 
 function s.me3op(e, tp, eg, ep, ev, re, r, rp)
@@ -181,40 +187,39 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if not tc or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 
-    Duel.NegateRelatedChain(tc, RESET_TURN_SET)
-
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_DISABLE)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     tc:RegisterEffect(ec1)
-
-    local ec2 = Effect.CreateEffect(c)
-    ec2:SetType(EFFECT_TYPE_SINGLE)
-    ec2:SetCode(EFFECT_DISABLE_EFFECT)
-    ec2:SetValue(RESET_TURN_SET)
-    ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    tc:RegisterEffect(ec2)
+    local ec1b = ec1:Clone()
+    ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+    tc:RegisterEffect(ec1b)
+    if tc:IsType(TYPE_TRAPMONSTER) then
+        local ec1c = Effect.CreateEffect(c)
+        ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+        tc:RegisterEffect(ec1c)
+    end
 
     if not tc:IsImmuneToEffect(e) then
         Duel.AdjustInstantly(tc)
-
         local atk = tc:GetAttack()
-        local ec3 = Effect.CreateEffect(c)
-        ec3:SetType(EFFECT_TYPE_SINGLE)
-        ec3:SetCode(EFFECT_SET_ATTACK_FINAL)
-        ec3:SetValue(math.ceil(atk / 2))
-        ec3:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        tc:RegisterEffect(ec3)
+
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_SINGLE)
+        ec2:SetCode(EFFECT_SET_ATTACK_FINAL)
+        ec2:SetValue(math.ceil(atk / 2))
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec2)
 
         if c:IsRelateToEffect(e) and c:IsFaceup() then
-            local ec4 = Effect.CreateEffect(c)
-            ec4:SetType(EFFECT_TYPE_SINGLE)
-            ec4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-            ec4:SetCode(EFFECT_UPDATE_ATTACK)
-            ec4:SetValue(math.ceil(atk / 2))
-            ec4:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-            c:RegisterEffect(ec4)
+            local ec3 = Effect.CreateEffect(c)
+            ec3:SetType(EFFECT_TYPE_SINGLE)
+            ec3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+            ec3:SetCode(EFFECT_UPDATE_ATTACK)
+            ec3:SetValue(math.ceil(atk / 2))
+            ec3:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+            c:RegisterEffect(ec3)
         end
     end
 end

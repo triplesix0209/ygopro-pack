@@ -155,7 +155,7 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
 
     local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
     local atk = 0
-    for tc in g:Iter() do if tc:GetAttack() > 0 then atk = atk + tc:GetAttack() end end
+    for tc in g:Iter() do if tc:HasNonZeroAttack() then atk = atk + tc:GetAttack() end end
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
@@ -170,7 +170,10 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     if ct > 0 then e:GetHandler():AddCounter(0x1149, ct) end
 end
 
-function s.me3filter(c) return c:IsFaceup() and c:IsMonster() and not c:IsType(TYPE_TOKEN) end
+function s.me3filter(c)
+    if c:IsFacedown() or not c:IsMonster() then return false end
+    return c:IsNegatable() or (not c:IsType(TYPE_TOKEN) and not c:IsType(TYPE_TRAPMONSTER))
+end
 
 function s.me3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
 
@@ -186,27 +189,34 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if not tc or tc:IsFacedown() or not tc:IsRelateToEffect(e) then return end
 
-    Duel.NegateRelatedChain(tc, RESET_TURN_SET)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_DISABLE)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     tc:RegisterEffect(ec1)
-    local ec2 = ec1:Clone()
-    ec2:SetCode(EFFECT_DISABLE_EFFECT)
-    ec2:SetValue(RESET_TURN_SET)
-    tc:RegisterEffect(ec2)
+    local ec1b = ec1:Clone()
+    ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+    tc:RegisterEffect(ec1b)
+    if tc:IsType(TYPE_TRAPMONSTER) then
+        local ec1c = Effect.CreateEffect(c)
+        ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+        tc:RegisterEffect(ec1c)
+    end
 
     if c:IsRelateToEffect(e) and c:IsFaceup() then
+        local code = tc:GetOriginalCodeRule()
         local atk = tc:GetBaseAttack()
         if atk < 0 then atk = 0 end
-        local ec3 = Effect.CreateEffect(c)
-        ec3:SetType(EFFECT_TYPE_SINGLE)
-        ec3:SetCode(EFFECT_UPDATE_ATTACK)
-        ec3:SetValue(atk)
-        ec3:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        c:RegisterEffect(ec3)
 
-        if not tc:IsType(TYPE_TOKEN) then c:CopyEffect(tc:GetOriginalCodeRule(), RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 1) end
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_SINGLE)
+        ec2:SetCode(EFFECT_UPDATE_ATTACK)
+        ec2:SetValue(atk)
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        c:RegisterEffect(ec2)
+
+        if not tc:IsType(TYPE_TOKEN) and not tc:IsType(TYPE_TRAPMONSTER) then
+            c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 1)
+        end
     end
 end

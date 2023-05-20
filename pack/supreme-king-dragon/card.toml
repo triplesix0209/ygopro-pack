@@ -233,7 +233,7 @@ If this card is Fusion Summoned: \
     until the end of this turn. \
 Each time a card(s) is sent from the field to the GY, place 1 Venemy Counter on this card for each sent card. \
 All monsters on the field, except DARK Dragon monsters, lose 200 ATK for each Venemy Counter on the field. \
-Once per turn (Qick Effect): You can target 1 face-up monster your opponent controls or in their GY; \
+Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls or in their GY; \
     until the end of this turn, negate the effects of that monster, \
     also this card gains its original ATK and effects. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
@@ -271,7 +271,8 @@ Once per turn, at the start of the Damage Step, if this card battles an opponent
     this card gains ATK equal to the destroyed monster's original ATK until the end of this turn, \
     also, this card can make a second attack in a row. \
 Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls; \
-    until the end of this turn, negate the effects of that monster, also change its ATK to 0. \
+    until the end of this turn, negate the effects of that monster, \
+    also change its ATK to 0. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place this card in your Pendulum Zone. \
 """
@@ -305,8 +306,8 @@ Once per turn: You can detach 1 material from this card; \
     destroy as many cards your opponent controls as possible, \
     and if you do, this card gains 200 ATK for each, until the end of this turn. \
 Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls; \
-    until the end of this turn, negate the effects of that monster, also its ATK becomes half its current ATK, \
-    and if it does, this card gains that lost ATK. \
+    until the end of this turn, negate the effects of that monster, \
+    also its ATK becomes half its current ATK, and if it does, this card gains that lost ATK. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place this card in your Pendulum Zone. \
 """

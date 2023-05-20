@@ -108,7 +108,7 @@ end
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local bc = c:GetBattleTarget()
-    return c:IsRelateToBattle() and bc and bc:IsFaceup() and bc:IsRelateToBattle() and bc:GetAttack() > 0
+    return c:IsRelateToBattle() and bc and bc:IsFaceup() and bc:IsRelateToBattle() and bc:HasNonZeroAttack()
 end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
