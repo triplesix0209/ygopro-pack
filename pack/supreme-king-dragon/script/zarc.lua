@@ -7,12 +7,10 @@ s.miracle_synchro_fusion = true
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    Pendulum.AddProcedure(c, false)
 
     -- fusion summon
     Fusion.AddProcMix(c, true, true, s.fusfilter1, s.fusfilter2, s.fusfilter3, s.fusfilter4)
-
-    -- pendulum
-    Pendulum.AddProcedure(c, false)
 
     -- rank/level
     local ranklevel = Effect.CreateEffect(c)

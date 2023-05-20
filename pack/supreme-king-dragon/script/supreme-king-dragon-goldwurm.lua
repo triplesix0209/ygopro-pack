@@ -5,7 +5,6 @@ local s, id = GetID()
 s.listed_series = {SET_SUPREME_KING_DRAGON}
 
 function s.initial_effect(c)
-    -- pendulum summon
     Pendulum.AddProcedure(c)
 
     -- cannot target

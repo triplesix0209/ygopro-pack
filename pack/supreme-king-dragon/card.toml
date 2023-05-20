@@ -59,7 +59,7 @@ Once per turn, if a card(s) is added from the Main Deck to your opponent's hand 
 When this card destroys an opponent's monster by battle: \
     You can Special Summon up to 2 "Supreme King Dragon" monster from your hand, Deck, and/or Extra Deck, \
     ignoring its Summoning conditions, and if you do, it is treated as a Special Summoned properly. \
-If this card in the Monster Zone is destroyed: \
+If this card in the Monster Zone is destroyed by battle or card effect: \
     You can destroy all cards in your Pendulum Zones (if any), \
     then place this card in your Pendulum Zone. \
 """
@@ -368,7 +368,8 @@ Once per turn: You can target 1 other face-up card you control; \
     Special Summon 1 Dragon-Type Fusion, Synchro, Xyz or Pendulum Monster from your Extra Deck, \
     and if you do, it is treated as a Special Summoned properly, \
     but its ATK and DEF become 0, it has its effects negated, also it cannot be used as a material for a Synchro or Xyz Summon. \
-If this card in the Monster Zone is destroyed by battle or card effect: You can place this card in your Pendulum Zone. \
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
 """
 strings = ["Special Summon a Dragon-Type Fusion or Synchro Monster"]
 
@@ -397,7 +398,8 @@ Once per turn: You can target 1 other face-up card you control; \
     Special Summon 1 Dragon-Type Fusion, Synchro, Xyz or Pendulum Monster from your Extra Deck, \
     and if you do, it is treated as a Special Summoned properly, \
     but its ATK and DEF become 0, it has its effects negated, also it cannot be used as a material for a Synchro or Xyz Summon. \
-If this card in the Monster Zone is destroyed by battle or card effect: You can place this card in your Pendulum Zone. \
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
 """
 strings = ["Special Summon a Dragon-Type Xyz or Pendulum Monster"]
 
@@ -542,7 +544,7 @@ strings = [
 
 [magician-odd-eyes]
 id = 900005017
-set = "magician odd-eyes pendulum-dragon"
+set = "odd-eyes magician pendulum-dragon"
 name = "Odd-Eyes Magician"
 type = "monster pendulum effect"
 attribute = "dark"
@@ -572,8 +574,71 @@ strings = [
     "Inflict damage equal to combined ATK of the monsters in the Pendulum Zones",
 ]
 
-[supreme-presence]
+[magician-starving-venom]
 id = 900005018
+set = "starving-venom magician fusion-dragon"
+name = "Starving Venom Magician"
+type = "monster fusion pendulum effect"
+attribute = "dark"
+race = "spellcaster"
+level = 7
+scale = 1
+atk = 2000
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+2 Pendulum monsters
+(This card is always treated as a "Fusion Dragon" card.)
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
+"""
+strings = []
+
+[magician-clear-wing]
+id = 900005019
+set = "clear-wing magician synchro-dragon"
+name = "Clear Wing Magician"
+type = "monster synchro pendulum effect"
+attribute = "wind"
+race = "spellcaster"
+level = 7
+scale = 1
+atk = 2000
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+1 Tuner + 1+ non-Tuner Pendulum Monsters
+(This card is always treated as a "Synchro Dragon" card.)
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
+"""
+strings = []
+
+[magician-dark-rebellion]
+id = 900005020
+set = "dark-rebellion magician xyz-dragon"
+name = "Dark Rebellion Magician"
+type = "monster xyz pendulum effect"
+attribute = "dark"
+race = "spellcaster"
+level = 4
+scale = 8
+atk = 2000
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+2 Level 4 Pendulum monsters
+(This card is always treated as a "Xyz Dragon" card.)
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place this card in your Pendulum Zone. \
+"""
+strings = []
+
+[supreme-presence]
+id = 900005021
 set = "supreme-king"
 rarity = "gold"
 name = "Presence of the Supreme King"
@@ -609,7 +674,7 @@ strings = [
 ]
 
 [supreme-wrath]
-id = 900005019
+id = 900005022
 name = "Wrath of the Supreme King"
 set = "supreme-king"
 type = "trap"

@@ -8,6 +8,7 @@ s.counter_list = {0x1149}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    Pendulum.AddProcedure(c, false)
 
     -- fusion summon
     Fusion.AddProcMix(c, false, false, function(c, sc, sumtype, tp)
@@ -16,9 +17,6 @@ function s.initial_effect(c)
     end, function(c, sc, sumtype, tp)
         return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) and c:IsOnField()
     end)
-
-    -- pendulum
-    Pendulum.AddProcedure(c, false)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

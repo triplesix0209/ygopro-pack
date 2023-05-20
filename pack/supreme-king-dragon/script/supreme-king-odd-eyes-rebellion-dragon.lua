@@ -8,6 +8,7 @@ s.pendulum_level = 7
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    Pendulum.AddProcedure(c, false)
 
     -- xyz summon
     Xyz.AddProcedure(c, nil, 7, 2, nil, 0, nil, nil, false, function(g, tp, sc)
@@ -20,9 +21,6 @@ function s.initial_effect(c)
                     return tc:IsSetCard(SET_REBELLION, sc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, sc, SUMMON_TYPE_XYZ, tp)
                 end, 1, nil)
     end)
-
-    -- pendulum
-    Pendulum.AddProcedure(c, false)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

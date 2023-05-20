@@ -8,15 +8,13 @@ s.synchro_nt_required = 1
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    Pendulum.AddProcedure(c, false)
 
     -- synchro summon
     Synchro.AddProcedure(c, function(c, sc, sumtype, tp)
         return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
     end, 1, 1, Synchro.NonTunerEx(
         function(c, sc, sumtype, tp) return c:IsSetCard(SET_CLEAR_WING, sc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, sc, sumtype, tp) end), 1, 1)
-
-    -- pendulum
-    Pendulum.AddProcedure(c, false)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
