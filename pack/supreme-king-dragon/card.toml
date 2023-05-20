@@ -540,6 +540,38 @@ strings = [
     "Negate the attack",
 ]
 
+[magician-odd-eyes]
+id = 900005017
+set = "magician odd-eyes pendulum-dragon"
+name = "Odd-Eyes Magician"
+type = "monster pendulum effect"
+attribute = "dark"
+race = "spellcaster"
+level = 7
+scale = 8
+atk = 2000
+def = 2500
+pendulum-effect = """\
+You can reduce the battle damage you take from an attack involving a Pendulum Monster you control to 0. \
+If an "Odd-Eyes" card(s) you control is destroyed by battle or card effect: \
+    You can Special Summon 1 "Odd-Eyes" monster from your hand, Deck, GY, Extra Deck face-up. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+effect = """\
+(This card is always treated as a "Pendulum Dragon" card.)
+During the Main Phase (Quick Effect): You can destroy this card, \
+    and if you do, Pendulum Summon a Dragon Pendulum Monster(s). \
+When your "Odd-Eyes" Dragon monster inflicts battle damage to your opponent by attacking: \
+    You can inflict damage to your opponent equal to combined ATK of the monsters in the Pendulum Zones. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Reduce battle damage to 0?",
+    "Special Summon a \"Odd-Eyes\" monster",
+    "Destroy this card to perform Pendulum Summon",
+    "Inflict damage equal to combined ATK of the monsters in the Pendulum Zones",
+]
+
 [supreme-presence]
 id = 900005018
 set = "supreme-king"
