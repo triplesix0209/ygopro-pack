@@ -94,7 +94,11 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
         local sg = Group.CreateGroup()
-        while #sg < 2 do sg:Merge(Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, s.spfilter2, tp, LOCATION_MZONE, 0, 1, 1, sg, tp, sg, c)) end
+
+        while #sg < 2 do
+            Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
+            sg:Merge(Duel.SelectMatchingCard(tp, s.spfilter2, tp, LOCATION_MZONE, 0, 1, 1, sg, tp, sg, c))
+        end
 
         Duel.Overlay(c, sg)
         Duel.SpecialSummon(c, SUMMON_TYPE_XYZ, tp, tp, false, false, POS_FACEUP)
