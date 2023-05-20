@@ -544,7 +544,7 @@ strings = [
 
 [magician-odd-eyes]
 id = 900005017
-set = "odd-eyes magician pendulum-dragon"
+set = "magician odd-eyes pendulum-dragon"
 name = "Odd-Eyes Magician"
 type = "monster pendulum effect"
 attribute = "dark"
@@ -576,7 +576,7 @@ strings = [
 
 [magician-starving-venom]
 id = 900005018
-set = "starving-venom magician fusion-dragon"
+set = "magician starving-venom fusion-dragon"
 name = "Starving Venom Magician"
 type = "monster fusion pendulum effect"
 attribute = "dark"
@@ -597,7 +597,7 @@ strings = []
 
 [magician-clear-wing]
 id = 900005019
-set = "clear-wing magician synchro-dragon"
+set = "magician clear-wing synchro-dragon"
 name = "Clear Wing Magician"
 type = "monster synchro pendulum effect"
 attribute = "wind"
@@ -618,7 +618,7 @@ strings = []
 
 [magician-dark-rebellion]
 id = 900005020
-set = "dark-rebellion magician xyz-dragon"
+set = "magician rebellion xyz-dragon"
 name = "Dark Rebellion Magician"
 type = "monster xyz pendulum effect"
 attribute = "dark"
