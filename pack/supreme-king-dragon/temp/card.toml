@@ -1,0 +1,156 @@
+[card.starving-venom-magician]
+id = 950000013
+set = "starving-venom fusion-dragon magician"
+name = "Starving Venom Magician"
+type = "monster fusion pendulum effect"
+attribute = "dark"
+race = "spellcaster"
+level = 7
+pendulum-scale = 1
+atk = 2500
+def = 2000
+pendulum-effect = """\
+Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    using this card you control as Fusion Material, as well as other Dragon Fusion Monsters you control. \
+    Your opponent cannot activate cards or effects in response to this effect's activation. \
+"""
+effect = """\
+2 Pendulum monsters
+(This card is always treated as a "Fusion Dragon" card.)
+This card can be used as a substitute for any 1 Fusion Material whose name is specifically listed on the Fusion Monster, \
+    but the other material(s) must be correct. \
+    This effect cannot be negated. \
+During the End Phase: \
+    You can inflict damage to your opponent equal to the combined original ATK of monsters destroyed this turn by "Starving Venom" Dragon monster. \
+    You can only use this effects of "Starving Venom Magician" once per turn. \
+${TO_PZONE_WHEN_DESTROYED} \
+"""
+strings = []
+
+[card.clear-wing-magician]
+id = 950000014
+set = "clear-wing synchro-dragon magician"
+name = "Clear Wing Magician"
+type = "monster synchro pendulum tuner effect"
+attribute = "wind"
+race = "spellcaster"
+level = 7
+pendulum-scale = 1
+atk = 2500
+def = 2000
+pendulum-effect = """\
+Once per turn, you can target 1 Dragon Synchro Monster you control; \
+    Special Summon this card in Defense Position, and if you do, immediately after this effect resolves, \
+     Synchro Summon 1 Synchro Monster using only that monster and this card. \
+"""
+effect = """\
+1 Tuner + 1+ non-Tuner Pendulum Monsters
+(This card is always treated as a "Synchro Dragon" card.)
+This card can be treated as a Level 3 monster, also non-Tuner when used for a Synchro Summon. \
+    This effect cannot be negated. \
+If an effect of a "Clear Wing" Dragon monster is activated: \
+    You can inflict damage to your opponent equal to the current ATK of that monster. \
+    You can only use this effects of "Clear Wing Magician" once per turn. \
+${TO_PZONE_WHEN_DESTROYED} \
+"""
+strings = ["Inflict damage equal to the ATK of \"Clear Wing\" dragon"]
+
+[card.dark-rebellion-magician]
+id = 950000015
+set = "rebellion xyz-dragon magician"
+name = "Dark Rebellion Magician"
+type = "monster xyz pendulum effect"
+attribute = "dark"
+race = "spellcaster"
+rank = 4
+pendulum-scale = 8
+atk = 2500
+def = 2000
+pendulum-effect = """\
+Once per turn, you can target 1 Dragon Xyz Monster you control; \
+    Special Summon from your Extra Deck, 1 Xyz Monster that is 1 Rank higher than that monster you control, \
+    by using it as material, and if you do, attach this card to it as additional material. \
+    (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) \
+"""
+effect = """\
+2 Level 4 Pendulum Monsters
+(This card is always treated as a "Xyz Dragon" card.)
+If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
+If an DARK Xyz Monster you control would activate an effect by detaching an material(s), \
+    you can detach materials from this card instead of those materials. \
+    This effect cannot be negated. \
+If "Rebellion" Dragon monster's ATK is changed: \
+    You can inflict damage to your opponent equal to the changed amount. \
+    You can only use this effects of "Dark Rebellion Magician" once per turn. \
+${TO_PZONE_WHEN_DESTROYED} \
+"""
+strings = [
+    "Rank-Up Dragon Xyz Monster",
+    "Inflict damage equal to \"Rebellion\" ATK change",
+]
+
+[card.sorcerer-sky-iris]
+id = 950000016
+name = "Sorcerer of Sky Iris"
+type = "monster fusion pendulum effect"
+attribute = "wind"
+race = "spellcaster"
+level = 8
+pendulum-scale = 8
+atk = 2800
+def = 2600
+pendulum-effect = """\
+All monsters you control gain 100 ATK and DEF for each face-up Pendulum Monster with different names in your Extra Deck. \
+If a Pendulum Monster(s) you control is destroyed by battle or by card effect: \
+    You can Special Summon this card from your Pendulum Zone in Defense Position, \
+    then, you can place 1 of those monsters in your Pendulum Zone. \
+    You can only use this effect of "Sorcerer of Sky Iris" once per turn. \
+"""
+effect = """\
+1 "Magician" Pendulum Monster + 1 monster that was Special Summoned from Extra Deck
+If this card is Fusion Summoned: You can add 1 Pendulum Monster form your Deck or Extra Deck face-up to your hand. \
+You can Special Summon 1 monster from your Pendulum Zone, ignoring their Summoning conditions, \
+    and if you do, you can place this card in your Pendulum Zone. \
+During the End Phase: \
+    You can Special Summon as many monsters as possible from your GY or Extra Deck face-up \
+    that were destroyed by battle or an opponent's card effect this turn. \
+You can only use each effect of "Sorcerer of Sky Iris" once per turn. \
+"""
+strings = [
+    "Place 1 of destroyed monsters in Pendulum Zone",
+    "Special Summon monster from Pendulum Zone",
+    "Special Summon all the destroyed monster",
+]
+
+[supreme-soul]
+id = 900005018
+name = "Supreme Soul of the Overlord"
+type = "spell link"
+link = 3
+link-arrow = "top-left top top-right"
+effect = """\
+This card's activation and effect cannot be negated. \
+When this card is activated: \
+    Place in your Pendulum Zone 2 "Magician", "Supreme King Gate" Pendulum Monsters with different names \
+    from your hand, Deck, GY and/or Extra Deck face-up, and if you do, \
+    you can Special Summon 1 "Supreme King Dragon" monster \
+    that have Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones \
+    from your hand, Deck, GY or Extra Deck face-up to your zone this card points to. \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+Effect activations, and activated effects of monsters this card points cannot be negated. \
+You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
+● (Quick Effect): Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
+● (Quick Effect): Special Summon 1 monster from your Pendulum Zone (This is treated as a Pendulum Summon).
+● You can target 1 "Supreme King Z-ARC" you control; it can attack all opponent's monsters once each this turn.
+● Banish 4 monsters from your hand, field, GY and/or Extra Deck face-up \
+    (1 each with "Pendulum Dragon", "Xyz Dragon", "Synchro Dragon", and "Fusion Dragon" in their names); \
+    Special Summon 1 "Supreme King Z-ARC" from your Extra Deck, \
+    ignoring its Summoning conditions, and this is treated as a Special Summoned properly.
+"""
+strings = [
+    "Special Summon 1 \"Supreme King Dragon\"?",
+    "Place monster in Pendulum Zone",
+    "Special Summon monster from Pendulum Zone",
+    "Z-ARC can attack all opponent's monsters",
+    "Summon Z-ARC",
+]
