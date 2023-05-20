@@ -561,16 +561,20 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
 (This card is always treated as a "Pendulum Dragon" card.)
-During the Main Phase (Quick Effect): You can destroy this card, \
-    and if you do, Pendulum Summon a Dragon Pendulum Monster(s). \
+You can destroy this card, and if you do, during your Main Phase this turn, \
+    you can conduct 1 Pendulum Summon of a monster(s) from your Extra Deck in addition to your Pendulum Summon. \
+    (You can only gain this effect once per turn). \
 When your "Odd-Eyes" Dragon monster inflicts battle damage to your opponent by attacking: \
     You can inflict damage to your opponent equal to combined ATK of the monsters in the Pendulum Zones. \
+    This card must be face-up on the field to activate and to resolve this effect. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Reduce battle damage to 0?",
     "Special Summon a \"Odd-Eyes\" monster",
-    "Destroy this card to perform Pendulum Summon",
+    "Destroy this card to gain extra Pendulum Summon",
+    "Affected by effect \"{CARD_NAME}\": can conduct 1 Pendulum Summon of a monster(s) from your Extra Deck in addition",
+    "Pendulum Summon of a monster(s) from your Extra Deck (via \"{CARD_NAME}\")",
     "Inflict damage equal to combined ATK of the monsters in the Pendulum Zones",
 ]
 
@@ -598,6 +602,7 @@ This card can be used as a substitute for any 1 Fusion Material whose name is sp
     This effect cannot be negated. \
 During the End Phase: \
     You can inflict damage to your opponent equal to the combined original ATK of monsters destroyed this turn by "Starving Venom" Dragon monster. \
+    This card must be face-up on the field to activate and to resolve this effect. \
     You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place this card in your Pendulum Zone. \
@@ -618,14 +623,23 @@ scale = 1
 atk = 1500
 def = 2500
 pendulum-effect = """\
+Once per turn, you can target 1 Dragon Synchro Monster you control; \
+    Special Summon this card in Defense Position, and if you do, immediately after this effect resolves, \
+    Synchro Summon 1 Synchro Monster using only that monster and this card. \
 """
 effect = """\
 1 Tuner + 1+ non-Tuner Pendulum Monsters
 (This card is always treated as a "Synchro Dragon" card.)
+This card can be treated as a Level 3 monster, also non-Tuner when used for a Synchro Summon. \
+    This effect cannot be negated. \
+If an effect of a "Clear Wing" Dragon monster is activated: \
+    You can inflict damage to your opponent equal to the current ATK of that monster. \
+    This card must be face-up on the field to activate and to resolve this effect. \
+    You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place this card in your Pendulum Zone. \
 """
-strings = []
+strings = ["Inflict damage equal to the ATK of \"Clear Wing\" dragon"]
 
 [magician-dark-rebellion]
 id = 900005020

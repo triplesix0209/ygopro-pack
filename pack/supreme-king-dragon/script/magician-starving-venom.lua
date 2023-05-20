@@ -97,6 +97,9 @@ function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+    
     local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
     Duel.Damage(p, d, REASON_EFFECT)
 end

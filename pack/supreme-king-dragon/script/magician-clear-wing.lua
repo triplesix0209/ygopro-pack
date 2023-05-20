@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {}
+s.listed_series = {SET_CLEAR_WING}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -11,21 +11,84 @@ function s.initial_effect(c)
     -- synchro summon
     Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTunerEx(aux.FilterBoolFunctionEx(Card.IsType, TYPE_PENDULUM)), 1, 99)
 
+    -- synchro summon
+    local pe1 = Effect.CreateEffect(c)
+    pe1:SetDescription(1172)
+    pe1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    pe1:SetType(EFFECT_TYPE_IGNITION)
+    pe1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    pe1:SetRange(LOCATION_PZONE)
+    pe1:SetCountLimit(1)
+    pe1:SetTarget(s.pe1tg)
+    pe1:SetOperation(s.pe1op)
+    c:RegisterEffect(pe1)
+
+    -- synchro level and non-tuner
+    local me1 = Effect.CreateEffect(c)
+    me1:SetType(EFFECT_TYPE_SINGLE)
+    me1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    me1:SetCode(EFFECT_SYNCHRO_LEVEL)
+    me1:SetValue(function(e, sync) return 3 * 65536 + e:GetHandler():GetLevel() end)
+    c:RegisterEffect(me1)
+    local me1b = me1:Clone()
+    me1b:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
+    me1b:SetRange(LOCATION_MZONE)
+    me1b:SetCode(EFFECT_NONTUNER)
+    c:RegisterEffect(me1b)
+
     -- place into pendulum zone
-    local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(2203)
-    me4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me4:SetCode(EVENT_DESTROYED)
-    me4:SetProperty(EFFECT_FLAG_DELAY)
-    me4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+    local me3 = Effect.CreateEffect(c)
+    me3:SetDescription(2203)
+    me3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me3:SetCode(EVENT_DESTROYED)
+    me3:SetProperty(EFFECT_FLAG_DELAY)
+    me3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
     end)
-    me4:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
-    me4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    me3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
+    me3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not Duel.CheckPendulumZones(tp) then return end
         local c = e:GetHandler()
         if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end)
-    c:RegisterEffect(me4)
+    c:RegisterEffect(me3)
+end
+
+function s.pe1filter1(c, tp, mc)
+    local mg = Group.FromCards(c, mc)
+    return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:IsCanBeSynchroMaterial() and
+               Duel.IsExistingMatchingCard(s.pe1filter2, tp, LOCATION_EXTRA, 0, 1, nil, tp, mg)
+end
+
+function s.pe1filter2(c, tp, mg) return Duel.GetLocationCountFromEx(tp, tp, mg, c) > 0 and c:IsSynchroSummonable(nil, mg) end
+
+function s.pe1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    local c = e:GetHandler()
+    if chk == 0 then
+        return Duel.IsPlayerCanSpecialSummonCount(tp, 2) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+                   c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and
+                   Duel.IsExistingMatchingCard(s.pe1filter1, tp, LOCATION_MZONE, 0, 1, nil, tp, c)
+    end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SMATERIAL)
+    Duel.SelectTarget(tp, s.pe1filter1, tp, LOCATION_MZONE, 0, 1, 1, c, tp, c)
+
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_EXTRA)
+end
+
+function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc = Duel.GetFirstTarget()
+    if not c:IsRelateToEffect(e) then return end
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 or Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) == 0 then return end
+    if not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end
+
+    local mg = Group.FromCards(c, tc)
+    local g = Duel.GetMatchingGroup(s.pe1filter2, tp, LOCATION_EXTRA, 0, nil, tp, mg)
+    if #g > 0 then
+        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
+        Duel.SynchroSummon(tp, g:Select(tp, 1, 1, nil):GetFirst(), nil, mg)
+    end
 end
