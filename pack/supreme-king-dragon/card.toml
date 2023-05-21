@@ -48,28 +48,28 @@ Once per turn, if a card(s) is added from the Main Deck to your opponent's hand 
 effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
 (This card is always treated as "Supreme King Z-ARC", and has a Rank equal to its Level.)
-Must be Fusion Summoned, and can then be Pendulum Summoned. \
-The Special Summon, effect activations, and activated effects of this card cannot be negated. \
-Control of this card cannot switch. \
-Battle position of it cannot be changed by card effects. \
+Must first be Fusion Summoned. \
+If this card is Special Summoned: \
+    You can destroy all cards your opponent controls, and if you do, \
+    inflict damage to your opponent equal to the combined original ATK of the destroyed monsters. \
+    This card cannot declare an attack the turn this effect is activated. \
 Cannot be targeted by your opponent's card effects. \
-Your opponent cannot Tribute, nor use it as material for an Summon. \
 Monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro, and Xyz Monsters. \
 Once per turn, if a card(s) is added from the Main Deck to your opponent's hand (except during the Draw Phase): \
     You can destroy that card(s). \
     Your opponent cannot activate such card in response to this effect's activation. \
 When this card destroys an opponent's monster by battle: \
     You can Special Summon up to 2 "Supreme King Dragon" monster from your hand, Deck, and/or Extra Deck, \
-    ignoring its Summoning conditions, and if you do, it is treated as a Special Summoned properly. \
+    ignoring its Summoning conditions and treated as Special Summoned properly. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can destroy all cards in your Pendulum Zones (if any), \
-    then place this card in your Pendulum Zone. \
-Fusion, Synchro, and Xyz Monsters that are banished and in the GYs gain this effect. \
-    This effect cannot be negated.
-● Monster whose original name is "Supreme King Z-ARC" on the field \
-    cannot be destroyed by battle or card effects, \
-    and they are unaffected by card effects that would make it leave the field, \
-    except its controller cards.
+    You can place it in your Pendulum Zone. \
+At the start of the Duel: Fusion, Synchro, and Xyz Monsters that are banished and in the GYs, \
+    except "Supreme King Z-ARC", gain these effects.
+● Control and battle position of monster whose original name is "Supreme King Z-ARC" cannot be changed by card effects, \
+    cannot be used as material for an Summon. \
+    Such monster cannot be destroyed by battle or card effects, nor be Tributed, \
+    and unaffected by card effects that would make it leave the field, \
+    except by its controller.
 """
 strings = [
     "Destroy the added cards",
@@ -245,7 +245,7 @@ Once per turn (Quick Effect): You can target 1 face-up monster your opponent con
     until the end of this turn, negate the effects of that monster, \
     also this card gains its original ATK and effects. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = [
     "Place Venemy Counter",
@@ -282,7 +282,7 @@ Once per turn (Quick Effect): You can target 1 face-up monster your opponent con
     until the end of this turn, negate the effects of that monster, \
     also change its ATK to 0. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = [
     "Gain ATK of battling monster's ATK",
@@ -317,7 +317,7 @@ Once per turn (Quick Effect): You can target 1 face-up monster your opponent con
     until the end of this turn, negate the effects of that monster, \
     also its ATK becomes half its current ATK, and if it does, this card gains that lost ATK. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = [
     "Halve ATK of battling monster",
@@ -374,10 +374,10 @@ effect = """\
 Once per turn: You can target 1 other face-up card you control; \
     destroy both it and this card, and if you do, \
     Special Summon 1 Dragon-Type Fusion, Synchro, Xyz or Pendulum Monster from your Extra Deck, \
-    and if you do, it is treated as a Special Summoned properly, \
+    and treated as Special Summoned properly, \
     but its ATK and DEF become 0, it has its effects negated, also it cannot be used as a material for a Synchro or Xyz Summon. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = ["Special Summon a Dragon-Type Fusion or Synchro Monster"]
 
@@ -404,10 +404,10 @@ effect = """\
 Once per turn: You can target 1 other face-up card you control; \
     destroy both it and this card, and if you do, \
     Special Summon 1 Dragon-Type Fusion, Synchro, Xyz or Pendulum Monster from your Extra Deck, \
-    and if you do, it is treated as a Special Summoned properly, \
+    and treated as Special Summoned properly, \
     but its ATK and DEF become 0, it has its effects negated, also it cannot be used as a material for a Synchro or Xyz Summon. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = ["Special Summon a Dragon-Type Xyz or Pendulum Monster"]
 
@@ -613,7 +613,7 @@ During the End Phase: \
     This card must be face-up on the field to activate and to resolve this effect. \
     You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = [
     "Inflict damage by monsters destroyed by \"Starving Venom\" Dragon monster",
@@ -645,7 +645,7 @@ If an effect of a "Clear Wing" Dragon monster is activated: \
     This card must be face-up on the field to activate and to resolve this effect. \
     You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = ["Inflict damage equal to the ATK of \"Clear Wing\" dragon"]
 
@@ -677,7 +677,7 @@ If "Rebellion" Dragon monster's ATK is changed: \
     You can inflict damage to your opponent equal to the changed amount. \
     You can only use this effects of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
-    You can place this card in your Pendulum Zone. \
+    You can place it in your Pendulum Zone. \
 """
 strings = [
     "Rank-Up Dragon Xyz Monster",
@@ -729,8 +729,7 @@ Neither player can activate cards or effects in response to this card effect's a
 If you control "Supreme King Z-ARC": \
     Destroy as many monsters you control as possible, except "Supreme King Z-ARC", \
     also, after that, Special Summon up to 4 "Supreme King Dragon" monsters with different names \
-    from your hand, Deck, Extra Deck, and/or GY, ignoring their Summoning conditions, \
-    and if them do, they are treated as a Special Summoned properly. \
+    from your hand, Deck, Extra Deck, and/or GY, ignoring their Summoning conditions and treated as Special Summoned properly. \
 While this card is in your GY: \
     You can attach up to 2 "Supreme King Dragon" monsters \
     to 1 Dragon Xyz Monster you control as materials. \
