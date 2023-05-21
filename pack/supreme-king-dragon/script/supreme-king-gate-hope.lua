@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {900005006}
+s.listed_names = {900005010}
 s.listed_series = {SET_SUPREME_KING_GATE}
 
 function s.initial_effect(c)
@@ -39,7 +39,7 @@ function s.initial_effect(c)
     local pe3 = Effect.CreateEffect(c)
     pe3:SetCategory(CATEGORY_RECOVER)
     pe3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    pe3:SetCode(900005006)
+    pe3:SetCode(900005010)
     pe3:SetRange(LOCATION_PZONE)
     pe3:SetOperation(s.pe3op)
     c:RegisterEffect(pe3)
