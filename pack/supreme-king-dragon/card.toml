@@ -97,7 +97,7 @@ effect = """\
 (This card is always treated as "Supreme King Dragon Odd-Eyes")
 If a Pendulum Monster(s) is Pendulum Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your hand, Deck, Extra Deck, or GY) \
-    by Tributing 2 face-up "Supreme King Dragon" monsters (This is treated as a Pendulum Summon). \
+    by Tributing 2 face-up "Supreme King Dragon" monsters. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 Monsters your opponent controls cannot target Pendulum Monsters for attacks, except this one. \
 The first time each Pendulum Monster you control would be destroyed each turn, \

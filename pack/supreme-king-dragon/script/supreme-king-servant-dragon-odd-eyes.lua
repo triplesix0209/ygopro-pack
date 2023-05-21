@@ -129,8 +129,7 @@ function s.spcon(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return eg:IsExists(s.spfilter1, 1, nil, tp) and
                Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_ONFIELD, 0, 1, nil) and
-               Duel.CheckReleaseGroup(tp, s.spfilter2, 1, nil, tp, Group.CreateGroup(), c) and
-               c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false)
+               Duel.CheckReleaseGroup(tp, s.spfilter2, 1, nil, tp, Group.CreateGroup(), c) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
 function s.spop(e, tp, eg, ep, ev, re, r, rp)
@@ -140,8 +139,7 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp)
         while #sg < 2 do sg:Merge(Duel.SelectReleaseGroup(tp, s.spfilter2, 1, 1, sg, tp, sg, c)) end
         Duel.Release(sg, REASON_COST)
 
-        Duel.SpecialSummon(c, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP)
-        c:CompleteProcedure()
+        Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
     end
 end
 
