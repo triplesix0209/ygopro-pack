@@ -34,10 +34,11 @@ function s.initial_effect(c)
 
     -- send pendulum to extra
     local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_SZONE)
     e3:SetCountLimit(1)
+    e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
@@ -135,12 +136,16 @@ end
 
 function s.e3filter(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
 
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_GRAVE, 0, nil)
+    if chk == 0 then return #g > 0 end
+
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0)
+end
+
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_GRAVE, 0, nil)
-    if #g == 0 then return end
-
-    Utility.HintCard(e)
-    Duel.SendtoExtraP(g, nil, REASON_EFFECT)
+    if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 end
 
 function s.e4filter(c) return c:IsFaceup() and c:IsCode(CARD_ZARC) end
