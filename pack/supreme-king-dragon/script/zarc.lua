@@ -85,109 +85,114 @@ function s.initial_effect(c)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
 
-    -- control and battle position cannot be changed
+    -- control cannot be changed 
     local me2 = Effect.CreateEffect(c)
     me2:SetType(EFFECT_TYPE_SINGLE)
-    me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
+    me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     me2:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
     me2:SetRange(LOCATION_MZONE)
     c:RegisterEffect(me2)
-    local me2b = me2:Clone()
-    me2b:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
-    c:RegisterEffect(me2b)
 
-    -- cannot be Tributed, or be used as a material
+    -- battle position cannot be changed
     local me3 = Effect.CreateEffect(c)
     me3:SetType(EFFECT_TYPE_SINGLE)
-    me3:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me3:SetCode(EFFECT_UNRELEASABLE_SUM)
+    me3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    me3:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
     me3:SetRange(LOCATION_MZONE)
-    me3:SetValue(1)
     c:RegisterEffect(me3)
-    local me3b = me3:Clone()
-    me3b:SetCode(EFFECT_UNRELEASABLE_NONSUM)
-    c:RegisterEffect(me3b)
-    local me3b = me3:Clone()
-    me3b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    c:RegisterEffect(me3b)
 
-    -- immune
+    -- cannot be tributed, nor be used as a material
     local me4 = Effect.CreateEffect(c)
-    me4:SetType(EFFECT_TYPE_SINGLE)
-    me4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    me4:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    me4:SetType(EFFECT_TYPE_FIELD)
+    me4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    me4:SetCode(EFFECT_CANNOT_RELEASE)
     me4:SetRange(LOCATION_MZONE)
-    me4:SetValue(1)
+    me4:SetTargetRange(0, 1)
+    me4:SetTarget(function(e, tc) return tc == e:GetHandler() end)
     c:RegisterEffect(me4)
-    local me4b = me4:Clone()
-    me4b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    me4b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
+    local me4b = Effect.CreateEffect(c)
+    me4b:SetType(EFFECT_TYPE_SINGLE)
+    me4b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    me4b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(me4b)
-    local me4c = me4:Clone()
-    me4c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    me4c:SetValue(aux.tgoval)
-    c:RegisterEffect(me4c)
-    local me4d = Effect.CreateEffect(c)
-    me4d:SetType(EFFECT_TYPE_FIELD)
-    me4d:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    me4d:SetCode(EFFECT_CANNOT_REMOVE)
-    me4d:SetRange(LOCATION_MZONE)
-    me4d:SetTargetRange(1, 1)
-    me4d:SetTarget(function(e, tc, rp, r, re)
+
+    -- indes, untargetable, unbanishable
+    local me5 = Effect.CreateEffect(c)
+    me5:SetType(EFFECT_TYPE_SINGLE)
+    me5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    me5:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    me5:SetRange(LOCATION_MZONE)
+    me5:SetValue(1)
+    c:RegisterEffect(me5)
+    local me5b = me5:Clone()
+    me5b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    me5b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(me5b)
+    local me5c = me5:Clone()
+    me5c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    me5c:SetValue(aux.tgoval)
+    c:RegisterEffect(me5c)
+    local me5d = Effect.CreateEffect(c)
+    me5d:SetType(EFFECT_TYPE_FIELD)
+    me5d:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    me5d:SetCode(EFFECT_CANNOT_REMOVE)
+    me5d:SetRange(LOCATION_MZONE)
+    me5d:SetTargetRange(1, 1)
+    me5d:SetTarget(function(e, tc, rp, r, re)
         local tp = e:GetHandlerPlayer()
         return tc == e:GetHandler() and rp == 1 - tp and r == REASON_EFFECT
     end)
-    c:RegisterEffect(me4d)
+    c:RegisterEffect(me5d)
 
-    local me4d = me4c:Clone()
-    me4d:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    c:RegisterEffect(me4d)
+    local me5d = me5c:Clone()
+    me5d:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    c:RegisterEffect(me5d)
 
     -- unaffected by activated effects
-    local me5 = Effect.CreateEffect(c)
-    me5:SetType(EFFECT_TYPE_FIELD)
-    me5:SetCode(EFFECT_IMMUNE_EFFECT)
-    me5:SetRange(LOCATION_MZONE)
-    me5:SetTargetRange(LOCATION_MZONE, 0)
-    me5:SetValue(s.me5val)
-    c:RegisterEffect(me5)
-
-    -- destroy added card
     local me6 = Effect.CreateEffect(c)
-    me6:SetDescription(aux.Stringid(id, 1))
-    me6:SetCategory(CATEGORY_DESTROY + CATEGORY_DISABLE)
-    me6:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    me6:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
-    me6:SetCode(EVENT_TO_HAND)
+    me6:SetType(EFFECT_TYPE_FIELD)
+    me6:SetCode(EFFECT_IMMUNE_EFFECT)
     me6:SetRange(LOCATION_MZONE)
-    me6:SetCountLimit(1)
-    me6:SetCondition(s.me6con)
-    me6:SetTarget(s.me6tg)
-    me6:SetOperation(s.me6op)
+    me6:SetTargetRange(LOCATION_MZONE, 0)
+    me6:SetValue(s.me6val)
     c:RegisterEffect(me6)
 
-    -- summon dragon
+    -- destroy added card
     local me7 = Effect.CreateEffect(c)
-    me7:SetDescription(aux.Stringid(id, 2))
-    me7:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    me7:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me7:SetCode(EVENT_BATTLE_DESTROYING)
-    me7:SetCondition(aux.bdocon)
+    me7:SetDescription(aux.Stringid(id, 1))
+    me7:SetCategory(CATEGORY_DESTROY + CATEGORY_DISABLE)
+    me7:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    me7:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
+    me7:SetCode(EVENT_TO_HAND)
+    me7:SetRange(LOCATION_MZONE)
+    me7:SetCountLimit(1)
+    me7:SetCondition(s.me7con)
     me7:SetTarget(s.me7tg)
     me7:SetOperation(s.me7op)
     c:RegisterEffect(me7)
 
-    -- place into pendulum zone
+    -- summon dragon
     local me8 = Effect.CreateEffect(c)
-    me8:SetDescription(2203)
-    me8:SetCategory(CATEGORY_DESTROY)
+    me8:SetDescription(aux.Stringid(id, 2))
+    me8:SetCategory(CATEGORY_SPECIAL_SUMMON)
     me8:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me8:SetProperty(EFFECT_FLAG_DELAY)
-    me8:SetCode(EVENT_DESTROYED)
-    me8:SetCondition(s.me8con)
+    me8:SetCode(EVENT_BATTLE_DESTROYING)
+    me8:SetCondition(aux.bdocon)
     me8:SetTarget(s.me8tg)
     me8:SetOperation(s.me8op)
     c:RegisterEffect(me8)
+
+    -- place into pendulum zone
+    local me9 = Effect.CreateEffect(c)
+    me9:SetDescription(2203)
+    me9:SetCategory(CATEGORY_DESTROY)
+    me9:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me9:SetProperty(EFFECT_FLAG_DELAY)
+    me9:SetCode(EVENT_DESTROYED)
+    me9:SetCondition(s.me9con)
+    me9:SetTarget(s.me9tg)
+    me9:SetOperation(s.me9op)
+    c:RegisterEffect(me9)
 end
 
 function s.fusfilter1(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_FUSION, fc, sumtype, tp) end
@@ -261,32 +266,32 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me5val(e, te)
+function s.me6val(e, te)
     local tp = e:GetHandlerPlayer()
     local tc = te:GetOwner()
     return te:GetOwnerPlayer() ~= tp and te:IsMonsterEffect() and te:IsActivated() and te:IsActiveType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
 end
 
-function s.me6filter(c, tp) return c:IsControler(1 - tp) and c:IsPreviousLocation(LOCATION_DECK) end
+function s.me7filter(c, tp) return c:IsControler(1 - tp) and c:IsPreviousLocation(LOCATION_DECK) end
 
-function s.me6con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DRAW end
+function s.me7con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DRAW end
 
-function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local g = eg:Filter(s.me6filter, nil, tp)
+function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local g = eg:Filter(s.me7filter, nil, tp)
     if chk == 0 then return #g > 0 end
     e:SetLabelObject(g)
     g:KeepAlive()
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
-    Duel.SetChainLimit(s.me6chainlimit)
+    Duel.SetChainLimit(s.me7chainlimit)
 end
 
-function s.me6chainlimit(e, lp, tp)
+function s.me7chainlimit(e, lp, tp)
     local g = e:GetLabelObject()
     return g and not g:IsContains(e:GetHandler())
 end
 
-function s.me6op(e, tp, eg, ep, ev, re, r, rp)
+function s.me7op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = e:GetLabelObject()
     if not c:IsRelateToEffect(e) then
@@ -310,7 +315,7 @@ function s.me6op(e, tp, eg, ep, ev, re, r, rp)
     g:DeleteGroup()
 end
 
-function s.me7filter(c, e, tp)
+function s.me8filter(c, e, tp)
     if not c:IsSetCard(SET_SUPREME_KING_DRAGON) or not c:IsCanBeSpecialSummoned(e, 0, tp, true, false) then return false end
     if c:IsLocation(LOCATION_EXTRA) then
         local g = Duel.GetMatchingGroup(nil, tp, LOCATION_MZONE, 0, nil)
@@ -320,13 +325,13 @@ function s.me7filter(c, e, tp)
     end
 end
 
-function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me8tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.me7filter, tp, loc, 0, 1, nil, e, tp) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.me8filter, tp, loc, 0, 1, nil, e, tp) end
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
 end
 
-function s.me7op(e, tp, eg, ep, ev, re, r, rp)
+function s.me8op(e, tp, eg, ep, ev, re, r, rp)
     local ft1 = Duel.GetLocationCount(tp, LOCATION_MZONE)
     local ft2 = Duel.GetLocationCountFromEx(tp)
     local ft3 = Duel.GetLocationCountFromEx(tp, tp, nil, TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
@@ -353,21 +358,21 @@ function s.me7op(e, tp, eg, ep, ev, re, r, rp)
     if ft2 > 0 or ft3 > 0 or ft4 > 0 then loc = loc + LOCATION_EXTRA end
     if loc == 0 then return end
 
-    local sg = Duel.GetMatchingGroup(s.me7filter, tp, loc, 0, nil, e, tp)
+    local sg = Duel.GetMatchingGroup(s.me8filter, tp, loc, 0, nil, e, tp)
     if #sg == 0 then return end
-    local sg = aux.SelectUnselectGroup(sg, e, tp, 1, ft, s.me7rescon(ft1, ft2, ft3, ft4, ft), 1, tp, HINTMSG_SPSUMMON)
+    local sg = aux.SelectUnselectGroup(sg, e, tp, 1, ft, s.me8rescon(ft1, ft2, ft3, ft4, ft), 1, tp, HINTMSG_SPSUMMON)
     Duel.SpecialSummon(sg, 0, tp, tp, true, false, POS_FACEUP)
 
     local og = Duel.GetOperatedGroup()
     for sc in og:Iter() do sc:CompleteProcedure() end
 end
 
-function s.me7exfilter1(c) return c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() and c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) end
-function s.me7exfilter2(c) return c:IsLocation(LOCATION_EXTRA) and (c:IsType(TYPE_LINK) or (c:IsFaceup() and c:IsType(TYPE_PENDULUM))) end
-function s.me7rescon(ft1, ft2, ft3, ft4, ft)
+function s.me8exfilter1(c) return c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() and c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) end
+function s.me8exfilter2(c) return c:IsLocation(LOCATION_EXTRA) and (c:IsType(TYPE_LINK) or (c:IsFaceup() and c:IsType(TYPE_PENDULUM))) end
+function s.me8rescon(ft1, ft2, ft3, ft4, ft)
     return function(sg, e, tp, mg)
-        local exnpct = sg:FilterCount(s.me7exfilter1, nil, LOCATION_EXTRA)
-        local expct = sg:FilterCount(s.me7exfilter2, nil, LOCATION_EXTRA)
+        local exnpct = sg:FilterCount(s.me8exfilter1, nil, LOCATION_EXTRA)
+        local expct = sg:FilterCount(s.me8exfilter2, nil, LOCATION_EXTRA)
         local mct = sg:FilterCount(aux.NOT(Card.IsLocation), nil, LOCATION_EXTRA)
         local exct = sg:FilterCount(Card.IsLocation, nil, LOCATION_EXTRA)
         local groupcount = #sg
@@ -376,19 +381,19 @@ function s.me7rescon(ft1, ft2, ft3, ft4, ft)
     end
 end
 
-function s.me8con(e, tp, eg, ep, ev, re, r, rp)
+function s.me9con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
 end
 
-function s.me8tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me9tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
 
     local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if #g > 0 then Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0) end
 end
 
-function s.me8op(e, tp, eg, ep, ev, re, r, rp)
+function s.me9op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
