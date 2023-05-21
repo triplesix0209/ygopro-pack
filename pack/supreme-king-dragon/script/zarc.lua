@@ -276,8 +276,10 @@ function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return #g > 0 end
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
-    Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
+    Duel.SetChainLimit(s.me6chainlimit(g))
 end
+
+function s.me6chainlimit(g) return function(e, lp, tp) return not g:IsContains(e:GetHandler()) end end
 
 function s.me6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
