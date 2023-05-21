@@ -85,7 +85,7 @@ function s.pe2chainlimit(e, rp, tp) return tp == rp or (e:IsActiveType(TYPE_SPEL
 
 function s.pe3filter(c)
     if c:IsFacedown() then return false end
-    return c:IsCode(CARD_ZARC) or (c:IsSetCard(SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE) and c:IsLocation(LOCATION_MZONE))
+    return c:IsCode(CARD_ZARC) or (c:IsSetCard({SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE}) and c:IsLocation(LOCATION_MZONE))
 end
 
 function s.pe3con(e) return Duel.IsExistingMatchingCard(s.pe3filter, e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
