@@ -6,12 +6,13 @@ s.listed_names = {CARD_ZARC}
 s.listed_series = {SET_SUPREME_KING_GATE, SET_SUPREME_KING_DRAGON}
 
 function s.initial_effect(c)
+    c:SetUniqueOnField(1, 0, id)
+
     -- activate
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_ACTIVATE)
     e1:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
     e1:SetCode(EVENT_FREE_CHAIN)
-    e1:SetCountLimit(1, {id, 1}, EFFECT_COUNT_CODE_OATH)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
@@ -34,18 +35,19 @@ function s.initial_effect(c)
 
     -- send pendulum to extra
     local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
     e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_SZONE)
-    e3:SetCode(EVENT_ADJUST)
-    e3:SetCondition(s.e3con)
+    e3:SetCountLimit(1)
+    e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
     -- multi-attack
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 1))
+    e4:SetDescription(aux.Stringid(id, 2))
     e4:SetType(EFFECT_TYPE_IGNITION)
     e4:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
     e4:SetRange(LOCATION_SZONE)
@@ -57,7 +59,7 @@ function s.initial_effect(c)
 
     -- place in pendulum zone
     local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 3))
+    e5:SetDescription(aux.Stringid(id, 4))
     e5:SetType(EFFECT_TYPE_QUICK_O)
     e5:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
     e5:SetCode(EVENT_FREE_CHAIN)
@@ -70,7 +72,7 @@ function s.initial_effect(c)
 
     -- special summon from pendulum zone
     local e6 = Effect.CreateEffect(c)
-    e6:SetDescription(aux.Stringid(id, 4))
+    e6:SetDescription(aux.Stringid(id, 5))
     e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e6:SetType(EFFECT_TYPE_QUICK_O)
     e6:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
@@ -133,14 +135,19 @@ end
 
 function s.e3filter(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp)
-    return Duel.GetCurrentPhase() == PHASE_END and Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_GRAVE, 0, 1, nil)
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_GRAVE, 0, nil)
+    if chk == 0 then return #g > 0 end
+
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    Utility.HintCard(e)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) then return end
+
     local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_GRAVE, 0, nil)
-    Duel.SendtoExtraP(g, nil, REASON_EFFECT)
+    if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 end
 
 function s.e4filter(c) return c:IsFaceup() and c:IsCode(CARD_ZARC) end
@@ -161,7 +168,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
 
     -- multi-attack
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 2))
+    ec1:SetDescription(aux.Stringid(id, 3))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_ATTACK_ALL)

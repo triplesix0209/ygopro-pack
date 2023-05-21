@@ -686,16 +686,16 @@ type = "spell link"
 link = 3
 link-arrow = "top-left top top-right"
 effect = """\
+You can only control 1 "{CARD_NAME}". \
 This card's activation and effect cannot be negated. \
 When this card is activated: \
     Place 2 "Supreme King Gate" Pendulum Monsters with different names \
-    from your hand, Deck, Extra Deck face-up in your Pendulum Zone, \
+    from your hand, Deck, and/or Extra Deck face-up in your Pendulum Zone, \
     and if you do, you can add from your Deck to your hand, 1 "Supreme King Dragon" monster \
     that have Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones. \
-    You can only activate 1 "{CARD_NAME}" per turn. \
 If you control "Supreme King Z-ARC", this card cannot be destroyed by card effects, \
     also your opponent cannot target it with card effects. \
-Add all Pendulum Monster in your GY to the Extra Deck face-up at the end of turn. \
+Once per turn, during the End Phase: Add all Pendulum Monster in your GY to the Extra Deck face-up. \
 You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
 ● Send this card to the GY; until the end of this turn, \
     1 "Supreme King Z-ARC" you control can attack all opponent's monsters once each, \
@@ -705,6 +705,7 @@ You can only use each of the following effects of "{CARD_NAME}" once per turn, a
 """
 strings = [
     "Add 1 \"Supreme King Dragon\"?",
+    "Add all Pendulum Monster to the Extra Deck",
     "Z-ARC can attack all opponent's monsters",
     "Affected by \"{CARD_NAME}\": can attack all opponent's monsters",
     "Place monster in Pendulum Zone",
