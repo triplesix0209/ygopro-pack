@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {900005010}
+s.listed_names = {CARD_ZARC, 900005010}
 s.listed_series = {SET_SUPREME_KING_GATE}
 
 function s.initial_effect(c)
@@ -17,7 +17,8 @@ function s.initial_effect(c)
     pe1:SetCondition(function(e)
         local c = e:GetHandler()
         local tp = e:GetHandlerPlayer()
-        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_GATE), tp, LOCATION_PZONE, 0, 1, c)
+        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_PZONE, 0, 1, c) and
+                   not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, SET_SUPREME_KING_GATE), tp, LOCATION_PZONE, 0, 1, c)
     end)
     pe1:SetValue(4)
     c:RegisterEffect(pe1)

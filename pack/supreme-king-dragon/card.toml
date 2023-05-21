@@ -385,7 +385,7 @@ scale = 13
 atk = 0
 def = 0
 pendulum-effect = """\
-Unless you have "Supreme King Gate" card in your other Pendulum Zone, \
+Unless you have ""Supreme King Z-ARC" or "Supreme King Gate" card in your other Pendulum Zone, \
     this card's Pendulum Scale becomes 4. \
     This effect cannot be negated. \
 Pendulum Summons of your monsters cannot be negated. \
