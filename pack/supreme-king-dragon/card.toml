@@ -677,7 +677,7 @@ strings = [
 ]
 
 [supreme-presence]
-id = 900005021
+id = 900005023
 set = "supreme-king"
 rarity = "gold"
 name = "Presence of the Supreme King"
@@ -713,7 +713,7 @@ strings = [
 ]
 
 [supreme-wrath]
-id = 900005022
+id = 900005024
 name = "Wrath of the Supreme King"
 set = "supreme-king"
 type = "trap"
