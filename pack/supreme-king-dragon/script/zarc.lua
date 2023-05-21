@@ -310,25 +310,70 @@ function s.me6op(e, tp, eg, ep, ev, re, r, rp)
     g:DeleteGroup()
 end
 
-function s.me7filter(c, e, tp, rp)
-    if not c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return false end
-    if c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, rp, nil, c) <= 0 then return false end
-    return c:IsSetCard(SET_SUPREME_KING_DRAGON) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false)
+function s.me7filter(c, e, tp)
+    if not c:IsSetCard(SET_SUPREME_KING_DRAGON) or not c:IsCanBeSpecialSummoned(e, 0, tp, true, false) then return false end
+    if c:IsLocation(LOCATION_EXTRA) then
+        local g = Duel.GetMatchingGroup(nil, tp, LOCATION_MZONE, 0, nil)
+        return Duel.GetLocationCountFromEx(tp, tp, g, c) > 0
+    else
+        return Duel.GetMZoneCount(tp) > 0
+    end
 end
 
 function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.me7filter, tp, loc, 0, 1, nil, e, tp, rp) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.me7filter, tp, loc, 0, 1, nil, e, tp) end
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
 end
 
 function s.me7op(e, tp, eg, ep, ev, re, r, rp)
-    local max = 2
-    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA
-    if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then max = 1 end
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me7filter, tp, loc, 0, 1, max, nil, e, tp, rp)
-    if #g > 0 and Duel.SpecialSummon(g, 0, tp, tp, true, false, POS_FACEUP) > 0 then for tc in g:Iter() do tc:CompleteProcedure() end end
+    local ft1 = Duel.GetLocationCount(tp, LOCATION_MZONE)
+    local ft2 = Duel.GetLocationCountFromEx(tp)
+    local ft3 = Duel.GetLocationCountFromEx(tp, tp, nil, TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
+    local ft4 = Duel.GetLocationCountFromEx(tp, tp, nil, TYPE_PENDULUM + TYPE_LINK)
+    local ft = math.min(Duel.GetUsableMZoneCount(tp), 2)
+    if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then
+        if ft1 > 0 then ft1 = 1 end
+        if ft2 > 0 then ft2 = 1 end
+        if ft3 > 0 then ft3 = 1 end
+        if ft4 > 0 then ft4 = 1 end
+        ft = 1
+    end
+
+    local ect = aux.CheckSummonGate(tp)
+    if ect then
+        ft1 = math.min(ect, ft1)
+        ft2 = math.min(ect, ft2)
+        ft3 = math.min(ect, ft3)
+        ft4 = math.min(ect, ft4)
+    end
+
+    local loc = 0
+    if ft1 > 0 then loc = loc + LOCATION_HAND + LOCATION_DECK end
+    if ft2 > 0 or ft3 > 0 or ft4 > 0 then loc = loc + LOCATION_EXTRA end
+    if loc == 0 then return end
+
+    local sg = Duel.GetMatchingGroup(s.me7filter, tp, loc, 0, nil, e, tp)
+    if #sg == 0 then return end
+    local sg = aux.SelectUnselectGroup(sg, e, tp, 1, ft, s.me7rescon(ft1, ft2, ft3, ft4, ft), 1, tp, HINTMSG_SPSUMMON)
+    Duel.SpecialSummon(sg, 0, tp, tp, true, false, POS_FACEUP)
+
+    local og = Duel.GetOperatedGroup()
+    for sc in og:Iter() do sc:CompleteProcedure() end
+end
+
+function s.me7exfilter1(c) return c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() and c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) end
+function s.me7exfilter2(c) return c:IsLocation(LOCATION_EXTRA) and (c:IsType(TYPE_LINK) or (c:IsFaceup() and c:IsType(TYPE_PENDULUM))) end
+function s.me7rescon(ft1, ft2, ft3, ft4, ft)
+    return function(sg, e, tp, mg)
+        local exnpct = sg:FilterCount(s.me7exfilter1, nil, LOCATION_EXTRA)
+        local expct = sg:FilterCount(s.me7exfilter2, nil, LOCATION_EXTRA)
+        local mct = sg:FilterCount(aux.NOT(Card.IsLocation), nil, LOCATION_EXTRA)
+        local exct = sg:FilterCount(Card.IsLocation, nil, LOCATION_EXTRA)
+        local groupcount = #sg
+        local res = ft3 >= exnpct and ft4 >= expct and ft1 >= mct and ft >= groupcount
+        return res, not res
+    end
 end
 
 function s.me8con(e, tp, eg, ep, ev, re, r, rp)
