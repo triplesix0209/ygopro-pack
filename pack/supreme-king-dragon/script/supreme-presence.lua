@@ -102,7 +102,7 @@ function s.e1check(sg, e, tp) return sg:GetClassCount(Card.GetCode) == 2 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA, 0, nil)
+    local g = Duel.GetMatchingGroup(s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, nil)
     if chk == 0 then
         return s.countFreePendulumZones(tp) >= 2 and (Duel.GetLocationCount(tp, LOCATION_SZONE) >= 2 or c:IsLocation(LOCATION_SZONE)) and
                    aux.SelectUnselectGroup(g, e, tp, 2, 2, s.e1check, 0)
@@ -114,8 +114,8 @@ end
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or s.countFreePendulumZones(tp) < 2 then return end
-    local pg = aux.SelectUnselectGroup(Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter1), tp,
-        LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA, 0, nil), e, tp, 2, 2, s.e1check, 1, tp, HINTMSG_ATOHAND)
+    local pg = Duel.GetMatchingGroup(s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, nil)
+    pg = aux.SelectUnselectGroup(pg, e, tp, 2, 2, s.e1check, 1, tp, HINTMSG_ATOHAND)
     if #pg < 2 then return end
     for tc in pg:Iter() do Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 

@@ -689,7 +689,7 @@ effect = """\
 This card's activation and effect cannot be negated. \
 When this card is activated: \
     Place 2 "Supreme King Gate" Pendulum Monsters with different names \
-    from your hand, Deck, GY, and/or Extra Deck face-up in your Pendulum Zone, \
+    from your hand, Deck, Extra Deck face-up in your Pendulum Zone, \
     and if you do, you can add from your Deck to your hand, 1 "Supreme King Dragon" monster \
     that have Level between (exclusive) the Pendulum Scales of the cards in your Pendulum Zones. \
     You can only activate 1 "{CARD_NAME}" per turn. \
