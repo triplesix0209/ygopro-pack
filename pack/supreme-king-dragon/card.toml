@@ -696,7 +696,7 @@ When this card is activated: \
     You can only activate 1 "{CARD_NAME}" per turn. \
 If you control "Supreme King Z-ARC", this card cannot be destroyed by card effects, \
     also your opponent cannot target it with card effects. \
-Once per turn, during the End Phase: Add all Pendulum Monster in your GY to the Extra Deck face-up. \
+Add all Pendulum Monster in your GY to the Extra Deck face-up at the end of turn. \
 You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
 ● Send this card to the GY; until the end of this turn, \
     1 "Supreme King Z-ARC" you control can attack all opponent's monsters once each, \
