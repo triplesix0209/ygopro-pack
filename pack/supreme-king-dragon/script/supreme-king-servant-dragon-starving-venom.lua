@@ -106,6 +106,7 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp)
         Duel.Release(sg, REASON_COST)
 
         Duel.SpecialSummon(c, SUMMON_TYPE_FUSION, tp, tp, false, false, POS_FACEUP)
+        c:CompleteProcedure()
     end
 end
 
