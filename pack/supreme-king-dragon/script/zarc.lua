@@ -274,18 +274,26 @@ function s.me6con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~=
 function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local g = eg:Filter(s.me6filter, nil, tp)
     if chk == 0 then return #g > 0 end
+    e:SetLabelObject(g)
+    g:KeepAlive()
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
-    Duel.SetChainLimit(s.me6chainlimit(g))
+    Duel.SetChainLimit(s.me6chainlimit)
 end
 
-function s.me6chainlimit(g) return function(e, lp, tp) return not g:IsContains(e:GetHandler()) end end
+function s.me6chainlimit(e, lp, tp)
+    local g = e:GetLabelObject()
+    return g and not g:IsContains(e:GetHandler())
+end
 
 function s.me6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
+    local g = e:GetLabelObject()
+    if not c:IsRelateToEffect(e) then
+        g:DeleteGroup()
+        return
+    end
 
-    local g = eg:Filter(s.me6filter, nil, tp)
     if Duel.Destroy(g, REASON_EFFECT) > 0 then
         local dg = Duel.GetOperatedGroup()
         for tc in dg:Iter() do
@@ -299,6 +307,7 @@ function s.me6op(e, tp, eg, ep, ev, re, r, rp)
             tc:RegisterEffect(ec1b)
         end
     end
+    g:DeleteGroup()
 end
 
 function s.me7filter(c, e, tp, rp)
