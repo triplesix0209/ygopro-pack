@@ -96,6 +96,7 @@ function s.spcheck(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZO
 
 function s.spcon(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
+    if not c then return false end
     return eg:IsExists(s.spfilter1, 1, nil, tp) and
                Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_ONFIELD, 0, 1, nil) and
                Duel.CheckReleaseGroup(tp, s.spfilter2, 1, nil, tp, Group.CreateGroup(), c) and
