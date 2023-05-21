@@ -2,6 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names = {CARD_ZARC}
 s.listed_series = {SET_SUPREME_KING_DRAGON}
 s.miracle_synchro_fusion = true
 
@@ -61,21 +62,23 @@ function s.initial_effect(c)
     pe1:SetValue(s.pe1val)
     c:RegisterEffect(pe1)
 
-    -- special summon from pendulum zone
+    -- destroy added card (p-zone)
     local pe2 = Effect.CreateEffect(c)
-    pe2:SetDescription(2)
-    pe2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    pe2:SetType(EFFECT_TYPE_IGNITION)
-    pe2:SetRange(LOCATION_PZONE)
-    pe2:SetCountLimit(1, id)
-    pe2:SetCost(s.pe2cost)
+    pe2:SetDescription(aux.Stringid(id, 0))
+    pe2:SetCategory(CATEGORY_DESTROY + CATEGORY_DISABLE)
+    pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    pe2:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
+    pe2:SetCode(EVENT_TO_HAND)
+    pe2:SetRange(LOCATION_MZONE)
+    pe2:SetCountLimit(1)
+    pe2:SetCondition(s.pe2con)
     pe2:SetTarget(s.pe2tg)
     pe2:SetOperation(s.pe2op)
     c:RegisterEffect(pe2)
 
     -- destroy all
     local me1 = Effect.CreateEffect(c)
-    me1:SetDescription(aux.Stringid(id, 0))
+    me1:SetDescription(aux.Stringid(id, 1))
     me1:SetCategory(CATEGORY_DESTROY + CATEGORY_DAMAGE)
     me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     me1:SetProperty(EFFECT_FLAG_DELAY)
@@ -101,52 +104,29 @@ function s.initial_effect(c)
     me3:SetRange(LOCATION_MZONE)
     c:RegisterEffect(me3)
 
-    -- cannot be tributed, nor be used as a material
+    -- untargetable
     local me4 = Effect.CreateEffect(c)
-    me4:SetType(EFFECT_TYPE_FIELD)
-    me4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    me4:SetCode(EFFECT_CANNOT_RELEASE)
+    me4:SetType(EFFECT_TYPE_SINGLE)
+    me4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    me4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     me4:SetRange(LOCATION_MZONE)
-    me4:SetTargetRange(0, 1)
-    me4:SetTarget(function(e, tc) return tc == e:GetHandler() end)
+    me4:SetValue(aux.tgoval)
     c:RegisterEffect(me4)
-    local me4b = Effect.CreateEffect(c)
-    me4b:SetType(EFFECT_TYPE_SINGLE)
-    me4b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    me4b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(me4b)
 
-    -- indes, untargetable, unbanishable
+    -- cannot be tributed, nor be used as a material
     local me5 = Effect.CreateEffect(c)
-    me5:SetType(EFFECT_TYPE_SINGLE)
-    me5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    me5:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    me5:SetType(EFFECT_TYPE_FIELD)
+    me5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    me5:SetCode(EFFECT_CANNOT_RELEASE)
     me5:SetRange(LOCATION_MZONE)
-    me5:SetValue(1)
+    me5:SetTargetRange(0, 1)
+    me5:SetTarget(function(e, tc) return tc == e:GetHandler() end)
     c:RegisterEffect(me5)
-    local me5b = me5:Clone()
-    me5b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    me5b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
+    local me5b = Effect.CreateEffect(c)
+    me5b:SetType(EFFECT_TYPE_SINGLE)
+    me5b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    me5b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(me5b)
-    local me5c = me5:Clone()
-    me5c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    me5c:SetValue(aux.tgoval)
-    c:RegisterEffect(me5c)
-    local me5d = Effect.CreateEffect(c)
-    me5d:SetType(EFFECT_TYPE_FIELD)
-    me5d:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    me5d:SetCode(EFFECT_CANNOT_REMOVE)
-    me5d:SetRange(LOCATION_MZONE)
-    me5d:SetTargetRange(1, 1)
-    me5d:SetTarget(function(e, tc, rp, r, re)
-        local tp = e:GetHandlerPlayer()
-        return tc == e:GetHandler() and rp == 1 - tp and r == REASON_EFFECT
-    end)
-    c:RegisterEffect(me5d)
-
-    local me5d = me5c:Clone()
-    me5d:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    c:RegisterEffect(me5d)
 
     -- unaffected by activated effects
     local me6 = Effect.CreateEffect(c)
@@ -157,18 +137,9 @@ function s.initial_effect(c)
     me6:SetValue(s.me6val)
     c:RegisterEffect(me6)
 
-    -- destroy added card
-    local me7 = Effect.CreateEffect(c)
-    me7:SetDescription(aux.Stringid(id, 1))
-    me7:SetCategory(CATEGORY_DESTROY + CATEGORY_DISABLE)
-    me7:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    me7:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
-    me7:SetCode(EVENT_TO_HAND)
+    -- destroy added card (m-zone)
+    local me7 = pe2:Clone()
     me7:SetRange(LOCATION_MZONE)
-    me7:SetCountLimit(1)
-    me7:SetCondition(s.me7con)
-    me7:SetTarget(s.me7tg)
-    me7:SetOperation(s.me7op)
     c:RegisterEffect(me7)
 
     -- summon dragon
@@ -193,6 +164,43 @@ function s.initial_effect(c)
     me9:SetTarget(s.me9tg)
     me9:SetOperation(s.me9op)
     c:RegisterEffect(me9)
+
+    -- gain protect effect
+    local me10eff = Effect.CreateEffect(c)
+    me10eff:SetType(EFFECT_TYPE_FIELD)
+    me10eff:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    me10eff:SetRange(LOCATION_GRAVE + LOCATION_REMOVED)
+    me10eff:SetTargetRange(LOCATION_MZONE, 0)
+    me10eff:SetTarget(aux.TargetBoolFunction(Card.IsOriginalCodeRule, CARD_ZARC))
+    me10eff:SetValue(1)
+    local me10grant = Effect.CreateEffect(c)
+    me10grant:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_GRANT)
+    me10grant:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    me10grant:SetRange(LOCATION_MZONE)
+    me10grant:SetTargetRange(LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED)
+    me10grant:SetTarget(function(e, c) return c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) end)
+    me10grant:SetLabelObject(me10eff)
+    c:RegisterEffect(me10grant)
+    local me10eff2 = me10eff:Clone()
+    me10eff2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    me10eff2:SetValue(function(e, re, rp, c) return rp ~= c:GetControler() end)
+    local me10grant2 = me10grant:Clone()
+    me10grant2:SetLabelObject(me10eff2)
+    c:RegisterEffect(me10grant2)
+    local me10eff3 = me10eff:Clone()
+    me10eff3:SetCode(EFFECT_UNRELEASABLE_EFFECT)
+    local me10grant3 = me10grant:Clone()
+    me10grant3:SetLabelObject(me10eff3)
+    c:RegisterEffect(me10grant3)
+    local me10eff4 = me10eff:Clone()
+    me10eff4:SetCode(EFFECT_IMMUNE_EFFECT)
+    me10eff4:SetValue(function(e, te, c)
+        return te and te:GetHandlerPlayer() ~= c:GetControler() and
+                   te:IsHasCategory(CATEGORY_DESTROY + CATEGORY_TOHAND + CATEGORY_TODECK + CATEGORY_TOGRAVE + CATEGORY_REMOVE)
+    end)
+    local me10grant4 = me10grant:Clone()
+    me10grant4:SetLabelObject(me10eff4)
+    c:RegisterEffect(me10grant4)
 end
 
 function s.fusfilter1(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_FUSION, fc, sumtype, tp) end
@@ -208,26 +216,47 @@ function s.pe1val(e, re, rp)
     return rc:IsLocation(LOCATION_MZONE) and re:IsActiveType(TYPE_MONSTER) and rc:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
 end
 
-function s.pe2filter(c, ft, tp)
-    return c:IsSetCard(SET_SUPREME_KING_DRAGON) and (ft > 0 or (c:IsControler(tp) and c:GetSequence() < 5)) and (c:IsControler(tp) or c:IsFaceup())
+function s.pe2filter(c, tp) return c:IsControler(1 - tp) and c:IsPreviousLocation(LOCATION_DECK) end
+
+function s.pe2con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DRAW end
+
+function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local g = eg:Filter(s.pe2filter, nil, tp)
+    if chk == 0 then return #g > 0 end
+    e:SetLabelObject(g)
+    g:KeepAlive()
+
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+    Duel.SetChainLimit(s.pe2chainlimit)
 end
 
-function s.pe2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, s.pe2filter, 1, false, nil, nil, ft, tp) end
-    local g = Duel.SelectReleaseGroupCost(tp, s.pe2filter, 1, 1, false, nil, nil, ft, tp)
-    Duel.Release(g, REASON_COST)
-end
-
-function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local c = e:GetHandler()
-    if chk == 0 then return c:IsCanBeSpecialSummoned(e, 0, tp, true, false) end
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
+function s.pe2chainlimit(e, lp, tp)
+    local g = e:GetLabelObject()
+    return g and not g:IsContains(e:GetHandler())
 end
 
 function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsRelateToEffect(e) then Duel.SpecialSummon(c, 0, tp, tp, true, false, POS_FACEUP) end
+    local g = e:GetLabelObject()
+    if not c:IsRelateToEffect(e) then
+        g:DeleteGroup()
+        return
+    end
+
+    if Duel.Destroy(g, REASON_EFFECT) > 0 then
+        local dg = Duel.GetOperatedGroup()
+        for tc in dg:Iter() do
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetCode(EFFECT_DISABLE)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD_EXC_GRAVE)
+            tc:RegisterEffect(ec1)
+            local ec1b = ec1:Clone()
+            ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+            tc:RegisterEffect(ec1b)
+        end
+    end
+    g:DeleteGroup()
 end
 
 function s.me1cost(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -270,49 +299,6 @@ function s.me6val(e, te)
     local tp = e:GetHandlerPlayer()
     local tc = te:GetOwner()
     return te:GetOwnerPlayer() ~= tp and te:IsMonsterEffect() and te:IsActivated() and te:IsActiveType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
-end
-
-function s.me7filter(c, tp) return c:IsControler(1 - tp) and c:IsPreviousLocation(LOCATION_DECK) end
-
-function s.me7con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DRAW end
-
-function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local g = eg:Filter(s.me7filter, nil, tp)
-    if chk == 0 then return #g > 0 end
-    e:SetLabelObject(g)
-    g:KeepAlive()
-
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
-    Duel.SetChainLimit(s.me7chainlimit)
-end
-
-function s.me7chainlimit(e, lp, tp)
-    local g = e:GetLabelObject()
-    return g and not g:IsContains(e:GetHandler())
-end
-
-function s.me7op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local g = e:GetLabelObject()
-    if not c:IsRelateToEffect(e) then
-        g:DeleteGroup()
-        return
-    end
-
-    if Duel.Destroy(g, REASON_EFFECT) > 0 then
-        local dg = Duel.GetOperatedGroup()
-        for tc in dg:Iter() do
-            local ec1 = Effect.CreateEffect(c)
-            ec1:SetType(EFFECT_TYPE_SINGLE)
-            ec1:SetCode(EFFECT_DISABLE)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD_EXC_GRAVE)
-            tc:RegisterEffect(ec1)
-            local ec1b = ec1:Clone()
-            ec1b:SetCode(EFFECT_DISABLE_EFFECT)
-            tc:RegisterEffect(ec1b)
-        end
-    end
-    g:DeleteGroup()
 end
 
 function s.me8filter(c, e, tp)

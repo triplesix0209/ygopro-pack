@@ -41,8 +41,9 @@ atk = 4000
 def = 4000
 pendulum-effect = """\
 Fusion, Synchro, and Xyz Monsters your opponent controls cannot activate their effects. \
-You can Tribute 1 "Supreme King Dragon" monster; Special Summon this card from your Pendulum Zone. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn, if a card(s) is added from the Main Deck to your opponent's hand (except during the Draw Phase): \
+    You can destroy that card(s). \
+    Your opponent cannot activate such card in response to this effect's activation. \
 """
 effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
@@ -51,9 +52,9 @@ Must be Fusion Summoned, and can then be Pendulum Summoned. \
 The Special Summon, effect activations, and activated effects of this card cannot be negated. \
 Control of this card cannot switch. \
 Battle position of it cannot be changed by card effects. \
-Cannot be destroyed by battle, also your opponent cannot target, destroy or banish it with card effects. \
+Cannot be targeted by your opponent's card effects. \
 Your opponent cannot Tribute, nor use it as material for an Summon. \
-Monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro and Xyz Monsters. \
+Monsters you control are unaffected by the activated effects of your opponent's Fusion, Synchro, and Xyz Monsters. \
 Once per turn, if a card(s) is added from the Main Deck to your opponent's hand (except during the Draw Phase): \
     You can destroy that card(s). \
     Your opponent cannot activate such card in response to this effect's activation. \
@@ -63,10 +64,16 @@ When this card destroys an opponent's monster by battle: \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can destroy all cards in your Pendulum Zones (if any), \
     then place this card in your Pendulum Zone. \
+Fusion, Synchro, and Xyz Monsters that are banished and in the GYs gain this effect. \
+    This effect cannot be negated.
+● Monster whose original name is "Supreme King Z-ARC" on the field \
+    cannot be destroyed by battle or card effects, \
+    and they are unaffected by card effects that would make it leave the field, \
+    except its controller cards.
 """
 strings = [
+    "Destroy the added cards",
     "Destroy all cards your opponent controls & inflict damage",
-    "Destroy & negate the effects the added cards",
     "Special Summon a Dragon",
 ]
 
