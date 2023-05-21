@@ -19,7 +19,7 @@ function s.initial_effect(c)
     -- untargetable & indes
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e2:SetRange(LOCATION_SZONE)
     e2:SetCondition(function(e)
@@ -35,6 +35,7 @@ function s.initial_effect(c)
     -- send pendulum to extra
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
     e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_SZONE)
     e3:SetCode(EVENT_ADJUST)
@@ -95,10 +96,7 @@ function s.e1filter1(c)
     return c:IsSetCard(SET_SUPREME_KING_GATE)
 end
 
-function s.e1filter2(c, lsc, rsc)
-    if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return c:IsSetCard(SET_SUPREME_KING_DRAGON) and lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsAbleToHand()
-end
+function s.e1filter2(c, lsc, rsc) return c:IsSetCard(SET_SUPREME_KING_DRAGON) and lsc < c:GetLevel() and c:GetLevel() < rsc and c:IsAbleToHand() end
 
 function s.e1check(sg, e, tp) return sg:GetClassCount(Card.GetCode) == 2 end
 
@@ -125,8 +123,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         local lsc = Duel.GetFieldCard(tp, LOCATION_PZONE, 0):GetLeftScale()
         local rsc = Duel.GetFieldCard(tp, LOCATION_PZONE, 1):GetRightScale()
         if lsc > rsc then lsc, rsc = rsc, lsc end
-        if Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil, lsc, rsc) and
-            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        if Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_DECK, 0, 1, nil, lsc, rsc) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
             local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e1filter2, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil, lsc, rsc)
             Duel.SendtoHand(sg, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, sg)
