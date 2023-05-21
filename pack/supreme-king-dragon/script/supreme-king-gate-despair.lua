@@ -88,7 +88,7 @@ function s.pe3filter(c)
     return c:IsCode(CARD_ZARC) or (c:IsSetCard(SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE) and c:IsLocation(LOCATION_MZONE))
 end
 
-function s.pe3con(e) return Duel.IsExistingMatchingCard(s.pe3filter, e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, 1, nil) end
+function s.pe3con(e) return Duel.IsExistingMatchingCard(s.pe3filter, e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil) end
 
 function s.pe3val(e, re, val, r, rp, rc)
     local tp = e:GetHandlerPlayer()
