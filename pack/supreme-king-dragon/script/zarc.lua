@@ -222,19 +222,7 @@ function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
         return
     end
 
-    if Duel.Destroy(g, REASON_EFFECT) > 0 then
-        local dg = Duel.GetOperatedGroup()
-        for tc in dg:Iter() do
-            local ec1 = Effect.CreateEffect(c)
-            ec1:SetType(EFFECT_TYPE_SINGLE)
-            ec1:SetCode(EFFECT_DISABLE)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD_EXC_GRAVE)
-            tc:RegisterEffect(ec1)
-            local ec1b = ec1:Clone()
-            ec1b:SetCode(EFFECT_DISABLE_EFFECT)
-            tc:RegisterEffect(ec1b)
-        end
-    end
+    Duel.Destroy(g, REASON_EFFECT)
     g:DeleteGroup()
 end
 
