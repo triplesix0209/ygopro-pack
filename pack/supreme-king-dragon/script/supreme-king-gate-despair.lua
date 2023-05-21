@@ -2,6 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names = {CARD_ZARC}
 s.listed_series = {SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE}
 
 function s.initial_effect(c)
@@ -82,11 +83,9 @@ function s.pe2op(e, tp, eg, ep, ev, re, r, rp) if eg:IsExists(s.pe2filter, 1, ni
 
 function s.pe2chainlimit(e, rp, tp) return tp == rp or (e:IsActiveType(TYPE_SPELL + TYPE_TRAP) and not e:IsHasType(EFFECT_TYPE_ACTIVATE)) end
 
-function s.pe3con(e)
-    local tp = e:GetHandlerPlayer()
-    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, {SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE}), tp, LOCATION_MZONE, 0, 1,
-        nil)
-end
+function s.pe3filter(c) return c:IsFaceup() and (c:IsCode(CARD_ZARC) or c:IsSetCard(SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE)) end
+
+function s.pe3con(e) return Duel.IsExistingMatchingCard(s.pe3filter, e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, nil) end
 
 function s.pe3val(e, re, val, r, rp, rc)
     local tp = e:GetHandlerPlayer()
