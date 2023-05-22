@@ -566,7 +566,8 @@ pendulum-effect = """\
 You can reduce the battle damage you take from an attack involving a Pendulum Monster you control to 0. \
 Once per turn, if you have a card in your other Pendulum Zone: \
     You can destroy both cards in your Pendulum Zones, and if you do, \
-    Special Summon 1 "Odd-Eyes" monster from your hand, Deck, GY, Extra Deck face-up. \
+    Special Summon 1 "Odd-Eyes" monster from your hand, Deck, GY, Extra Deck face-up, \
+    except "{CARD_NAME}". \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\

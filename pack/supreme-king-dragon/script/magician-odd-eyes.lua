@@ -71,7 +71,7 @@ end
 
 function s.pe2filter(c, e, tp)
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return c:IsSetCard(SET_ODD_EYES) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return not c:IsCode(id) and c:IsSetCard(SET_ODD_EYES) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
 function s.pe2con(e, tp, eg, ep, ev, re, r, rp)
