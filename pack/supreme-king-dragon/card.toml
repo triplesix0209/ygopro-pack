@@ -559,13 +559,14 @@ type = "monster pendulum effect"
 attribute = "dark"
 race = "spellcaster"
 level = 7
-scale = 8
+scale = 1
 atk = 1500
 def = 2500
 pendulum-effect = """\
 You can reduce the battle damage you take from an attack involving a Pendulum Monster you control to 0. \
-If an "Odd-Eyes" card(s) you control is destroyed by battle or card effect: \
-    You can Special Summon 1 "Odd-Eyes" monster from your hand, Deck, GY, Extra Deck face-up. \
+Once per turn, if you have a card in your other Pendulum Zone: \
+    You can destroy both cards in your Pendulum Zones, and if you do, \
+    Special Summon 1 "Odd-Eyes" monster from your hand, Deck, GY, Extra Deck face-up. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\

@@ -19,10 +19,8 @@ function s.initial_effect(c)
     -- special summon odd-eyes
     local pe2 = Effect.CreateEffect(c)
     pe2:SetDescription(aux.Stringid(id, 1))
-    pe2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    pe2:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
-    pe2:SetCode(EVENT_DESTROYED)
+    pe2:SetCategory(CATEGORY_DESTROY + CATEGORY_SPECIAL_SUMMON)
+    pe2:SetType(EFFECT_TYPE_IGNITION)
     pe2:SetRange(LOCATION_PZONE)
     pe2:SetCountLimit(1, {id, 1})
     pe2:SetCondition(s.pe2con)
@@ -71,35 +69,37 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.pe2filter1(c, tp)
-    return c:IsReason(REASON_BATTLE + REASON_EFFECT) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD) and
-               c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousSetCard(SET_ODD_EYES)
-end
-
-function s.pe2filter2(c, e, tp)
+function s.pe2filter(c, e, tp)
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
     return c:IsSetCard(SET_ODD_EYES) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
-function s.pe2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.pe2filter1, 1, nil, tp) end
+function s.pe2con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return Duel.IsExistingMatchingCard(nil, tp, LOCATION_PZONE, 0, 1, c)
+end
 
 function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_EXTRA
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.pe2filter2, tp, loc, 0, 1, nil, e, tp) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.pe2filter, tp, loc, 0, 1, nil, e, tp) end
 
+    local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
 end
 
 function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
+    local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
+    if #dg < 2 then return end
 
     local loc = 0
     if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 then loc = loc + LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE end
     if Duel.GetLocationCountFromEx(tp, rp, nil) > 0 then loc = loc + LOCATION_EXTRA end
     if loc == 0 then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.pe2filter2), tp, loc, 0, 1, 1, nil, e, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.pe2filter), tp, loc, 0, 1, 1, nil, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 
