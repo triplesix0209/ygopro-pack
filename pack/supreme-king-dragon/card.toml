@@ -695,7 +695,7 @@ link = 3
 link-arrow = "top-left top top-right"
 effect = """\
 You can only control 1 "{CARD_NAME}". \
-This card's activation and effect cannot be negated. \
+The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
 When this card is activated: \
     Place 2 "Supreme King Gate" Pendulum Monsters with different names \
     from your hand, Deck, and/or Extra Deck face-up in your Pendulum Zone, \
