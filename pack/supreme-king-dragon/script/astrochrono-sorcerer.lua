@@ -23,6 +23,23 @@ function s.initial_effect(c)
     pe1:SetOperation(s.pe1op)
     c:RegisterEffect(pe1)
 
+    -- search
+    local me1 = Effect.CreateEffect(c)
+    me1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me1:SetProperty(EFFECT_FLAG_DELAY)
+    me1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    me1:SetCondition(s.me1con)
+    me1:SetTarget(s.me1tg)
+    me1:SetOperation(s.me1op)
+    c:RegisterEffect(me1)
+    local me1check = Effect.CreateEffect(c)
+    me1check:SetType(EFFECT_TYPE_SINGLE)
+    me1check:SetCode(EFFECT_MATERIAL_CHECK)
+    me1check:SetValue(s.me1check)
+    me1check:SetLabelObject(me1)
+    c:RegisterEffect(me1check)
+
     -- place into pendulum zone
     local me9 = Effect.CreateEffect(c)
     me9:SetDescription(2203)
@@ -81,5 +98,33 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
         else
             Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP)
         end
+    end
+end
+
+function s.me1filter1(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_FUSION) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
+
+function s.me1filter2(c) return c:IsAbleToHand() and c:IsSpellTrap() end
+
+function s.me1check(e, c)
+    local g = c:GetMaterial()
+    if g:IsExists(s.me1filter1, 1, nil, c) then
+        e:GetLabelObject():SetLabel(1)
+    else
+        e:GetLabelObject():SetLabel(0)
+    end
+end
+
+function s.me1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) and e:GetLabel() == 1 end
+
+function s.me1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.me1filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
+end
+
+function s.me1op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.me1filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
     end
 end

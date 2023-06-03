@@ -694,6 +694,8 @@ During your Main Phase: You can destroy this card, and if you do, \
 effect = """\
 "Astrograph Sorcerer" or "Chronograph Sorcer" + 1 Spellcaster Pendulum Monster
 (This card is always treated as an DARK monster.)
+If this card is Fusion Summoned using a Pendulum Summoned Pendulum Monster: \
+    You can add 1 Spell Card or Trap Card from your Deck or GY to your hand. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place it in your Pendulum Zone. \
 """

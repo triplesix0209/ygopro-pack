@@ -140,7 +140,7 @@ end
 
 function s.me1filter1(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_XYZ) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
-function s.ne1filter2(c) return c:IsQuickPlaySpell() and c:IsSSetable() end
+function s.me1filter2(c) return c:IsQuickPlaySpell() and c:IsSSetable() end
 
 function s.me1check(e, c)
     local g = c:GetMaterial()
@@ -155,16 +155,12 @@ function s.me1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonTy
 
 function s.me1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and
-                   Duel.IsExistingMatchingCard(s.me1filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil)
+        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingMatchingCard(s.me1filter2, tp, LOCATION_DECK, 0, 1, nil)
     end
-
-    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
 end
 
 function s.me1op(e, tp, eg, ep, ev, re, r, rp)
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SET)
-    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.ne1filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.me1filter2, tp, LOCATION_DECK, 0, 1, 1, nil)
     if #g > 0 then Duel.SSet(tp, g) end
 end
 
