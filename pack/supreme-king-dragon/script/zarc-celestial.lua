@@ -41,6 +41,13 @@ function s.initial_effect(c)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
 
+    -- summon cannot be negated
+    local sumsafe = Effect.CreateEffect(c)
+    sumsafe:SetType(EFFECT_TYPE_SINGLE)
+    sumsafe:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    c:RegisterEffect(sumsafe)
+
     -- place into pendulum zone (p-zone)
     local pe1 = Effect.CreateEffect(c)
     pe1:SetDescription(aux.Stringid(id, 0))
