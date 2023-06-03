@@ -61,10 +61,7 @@ function s.initial_effect(c)
     me3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     me3:SetCode(EVENT_DESTROYED)
     me3:SetProperty(EFFECT_FLAG_DELAY)
-    me3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
-    end)
+    me3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
     me3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
     me3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not Duel.CheckPendulumZones(tp) then return end
@@ -99,7 +96,7 @@ end
 function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
-    
+
     local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
     Duel.Damage(p, d, REASON_EFFECT)
 end

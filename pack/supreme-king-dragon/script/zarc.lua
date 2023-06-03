@@ -1,4 +1,4 @@
--- Supreme King Dragon Zarc
+-- Overlord Z-ARC
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
@@ -11,7 +11,7 @@ function s.initial_effect(c)
     Pendulum.AddProcedure(c, false)
 
     -- fusion summon
-    Fusion.AddProcMix(c, true, true, s.fusfilter1, s.fusfilter2, s.fusfilter3, s.fusfilter4)
+    Fusion.AddProcMix(c, true, true, s.fusfilter(TYPE_FUSION), s.fusfilter(TYPE_SYNCHRO), s.fusfilter(TYPE_XYZ), s.fusfilter(TYPE_PENDULUM))
 
     -- rank/level
     local ranklevel = Effect.CreateEffect(c)
@@ -113,10 +113,7 @@ function s.initial_effect(c)
     me6:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     me6:SetCode(EVENT_DESTROYED)
     me6:SetProperty(EFFECT_FLAG_DELAY)
-    me6:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
-    end)
+    me6:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
     me6:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
     me6:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not Duel.CheckPendulumZones(tp) then return end
@@ -126,13 +123,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me6)
 end
 
-function s.fusfilter1(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_FUSION, fc, sumtype, tp) end
-
-function s.fusfilter2(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, fc, sumtype, tp) end
-
-function s.fusfilter3(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_XYZ, fc, sumtype, tp) end
-
-function s.fusfilter4(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_PENDULUM, fc, sumtype, tp) end
+function s.fusfilter(type) return function(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(type, fc, sumtype, tp) end end
 
 function s.startupfilter(c) return not c:IsCode(CARD_ZARC) and c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) end
 
