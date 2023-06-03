@@ -78,32 +78,45 @@ function s.initial_effect(c)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- place in pendulum zone
+    -- material check
+    local eff = Effect.CreateEffect(c)
+    eff:SetType(EFFECT_TYPE_FIELD)
+    eff:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_SET_AVAILABLE + EFFECT_FLAG_IGNORE_RANGE)
+    eff:SetCode(EFFECT_MATERIAL_CHECK)
+    eff:SetRange(LOCATION_FZONE)
+    eff:SetValue(s.effcheck)
+    c:RegisterEffect(eff)
+
+    -- fusion: special summon
     local e5 = Effect.CreateEffect(c)
     e5:SetDescription(aux.Stringid(id, 4))
-    e5:SetType(EFFECT_TYPE_QUICK_O)
-    e5:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
-    e5:SetCode(EVENT_FREE_CHAIN)
-    e5:SetRange(LOCATION_SZONE)
-    e5:SetHintTiming(0, TIMING_END_PHASE)
-    e5:SetCountLimit(1, {id, 2})
+    e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e5:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e5:SetRange(LOCATION_FZONE)
+    e5:SetLabel(TYPE_FUSION)
+    e5:SetCondition(s.effcon)
     e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
 
-    -- special summon from pendulum zone
-    local e6 = Effect.CreateEffect(c)
+    -- synchro: add fusion spell
+    local e6 = e5:Clone()
     e6:SetDescription(aux.Stringid(id, 5))
-    e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    e6:SetType(EFFECT_TYPE_QUICK_O)
-    e6:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
-    e6:SetCode(EVENT_FREE_CHAIN)
-    e6:SetRange(LOCATION_SZONE)
-    e6:SetHintTiming(0, TIMING_END_PHASE)
-    e6:SetCountLimit(1, {id, 2})
+    e6:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e6:SetLabel(TYPE_SYNCHRO)
     e6:SetTarget(s.e6tg)
     e6:SetOperation(s.e6op)
     c:RegisterEffect(e6)
+
+    -- xyz: add to hand or special summon
+    local e7 = e5:Clone()
+    e7:SetDescription(aux.Stringid(id, 6))
+    e7:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e7:SetLabel(TYPE_XYZ)
+    e7:SetTarget(s.e7tg)
+    e7:SetOperation(s.e7op)
+    c:RegisterEffect(e7)
 end
 
 function s.countFreePendulumZones(tp)
@@ -210,41 +223,108 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     c:RegisterEffect(ec2)
 end
 
-function s.e5filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) end
-
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then
-        return (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) and
-                   Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_MZONE, 0, 1, nil)
+function s.effcheck(e, c)
+    local g = c:GetMaterial()
+    if c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) and g:IsExists(Card.IsType, 1, nil, TYPE_PENDULUM) then
+        c:RegisterFlagEffect(id, RESET_EVENT + 0x4fe0000 + RESET_PHASE + PHASE_END, 0, 1)
     end
+end
+
+function s.efffilter(c, e, tp) return c:GetFlagEffect(id) ~= 0 and c:IsFaceup() and c:IsType(e:GetLabel()) and c:IsSummonPlayer(tp) end
+
+function s.effcon(e, tp, eg, ep, ev, re, r, rp) return #eg == 1 and s.efffilter(eg:GetFirst(), e, tp) end
+
+function s.e5filter(c, e, tp, sc)
+    return c:HasLevel() and c:GetOriginalLevel() == sc:GetOriginalLevel() and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP_DEFENSE)
+end
+
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE
+    if chk == 0 then
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e5filter, tp, loc, 0, 1, nil, e, tp, eg:GetFirst()) and
+                   Duel.GetFlagEffect(tp, id + 1000000000) == 0
+    end
+
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
 end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.GetFlagEffect(tp, id + 1000000000) ~= 0 then return end
+    Duel.RegisterFlagEffect(tp, id + 1000000000, RESET_PHASE + PHASE_END, 0, 1)
+
     local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) or not (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) then return end
+    local sc = eg:GetFirst()
+    if not c:IsRelateToEffect(e) then return end
+    if sc:IsFacedown() or Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-    local g = Utility.SelectMatchingCard(aux.Stringid(id, 1), tp, s.e5filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
-    Duel.HintSelection(g)
-
-    if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE
+    local tc = Duel.SelectMatchingCard(tp, aux.NecroValleyFilter(s.e5filter), tp, loc, 0, 1, 1, nil, e, tp, sc):GetFirst()
+    if tc and Duel.SpecialSummonStep(tc, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetDescription(3302)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+        ec1:SetCode(EFFECT_CANNOT_TRIGGER)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec1)
+    end
+    Duel.SpecialSummonComplete()
 end
 
-function s.e6filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false) end
+function s.e6filter(c) return c:IsSetCard(SET_FUSION) and c:IsSpell() and c:IsAbleToHand() end
 
-function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e6filter, tp, LOCATION_PZONE, 0, 1, nil, e, tp)
+        return Duel.IsExistingMatchingCard(s.e6filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) and Duel.GetFlagEffect(tp, id + 2000000000) == 0
     end
 
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, 0, LOCATION_PZONE)
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.GetFlagEffect(tp, id + 2000000000) ~= 0 then return end
+    Duel.RegisterFlagEffect(tp, id + 2000000000, RESET_PHASE + PHASE_END, 0, 1)
+
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e6filter, tp, LOCATION_PZONE, 0, 1, 1, nil, e, tp)
-    Duel.HintSelection(g)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e6filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
+    end
+end
 
-    if #g > 0 then Duel.SpecialSummon(g, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP) end
+function s.e7filter(c, e, tp, sc)
+    local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
+    return c:IsLevelBelow(sc:GetRank()) and c:IsType(TYPE_TUNER) and
+               (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
+end
+
+function s.e7tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then
+        return Duel.IsExistingMatchingCard(s.e7filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, e, tp, eg:GetFirst()) and
+                   Duel.GetFlagEffect(tp, id + 3000000000) == 0
+    end
+
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
+end
+
+function s.e7op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.GetFlagEffect(tp, id + 3000000000) ~= 0 then return end
+    Duel.RegisterFlagEffect(tp, id + 3000000000, RESET_PHASE + PHASE_END, 0, 1)
+
+    local c = e:GetHandler()
+    local sc = eg:GetFirst()
+    if not c:IsRelateToEffect(e) then return end
+    if sc:IsFacedown() then return end
+
+    local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, aux.NecroValleyFilter(s.e7filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, e,
+        tp, eg:GetFirst())
+    if #g == 0 then return end
+
+    aux.ToHandOrElse(g, tp,
+        function(tc) return tc:IsCanBeSpecialSummoned(e, 0, tp, false, false) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 end,
+        function(g) Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) end, 2)
 end

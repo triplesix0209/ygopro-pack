@@ -11,20 +11,8 @@ You can destroy 1 other face-up card you control, and if you do, \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, if you Special Summoned a face-down Pendulum Monster(s) from your Extra Deck this turn (Quick Effect): \
     You can activate this effect; immediately after it resolves, Pendulum Summon a monster(s). \
-If you Special Summon any of these monsters using a Pendulum Monster(s) as material: You can activate the appropriate effect. \
-    You cannot apply that same effect of "{CARD_NAME}" for the rest of this turn.
-● Fusion: Special Summon 1 monster from your hand, Deck, or GY with the same original Level as that Fusion Monster, \
-    in Defense Position, but it activate its effects this turn.
-● Synchro: Add 1 "Fusion" or "Polymerization" Spell from your Deck or GY to your hand.
-● Xyz: Take 1 Tuner from your Deck or GY with an equal or lower Level than that Xyz Monster's Rank, \
-    and add it to your hand or Special Summon it in Defense Position.
 """
-strings = [
-    "Destroy 1 face-up card to search",
-    "Special Summon a monster with same Level",
-    "Add \"Fusion\" Spell",
-    "Add or Special Summon a Tuner",
-]
+strings = ["Destroy 1 face-up card to search"]
 
 [zarc]
 id = 900005001
@@ -687,6 +675,57 @@ strings = [
     "Inflict damage equal to \"Rebellion\" ATK changed amount",
 ]
 
+[astrochrono-sorcerer]
+id = 900005021
+name = "Astrochrono Sorcerer"
+type = "monster fusion pendulum effect"
+attribute = "dark"
+race = "spellcaster"
+level = 10
+scale = 8
+atk = 3000
+def = 2500
+pendulum-effect = """\
+During your Main Phase: You can destroy this card, and if you do, \
+    take 1 Pendulum Monster from your hand, Deck or Extra Deck face-up, \
+    and either place it in your Pendulum Zone or Special Summon it. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+effect = """\
+"""
+strings = []
+
+[maiden-sky-iris]
+id = 900005022
+name = "Maiden of Sky Iris"
+type = "monster xyz pendulum effect"
+attribute = "light"
+race = "spellcaster"
+level = 7
+scale = 8
+atk = 2800
+def = 2600
+pendulum-effect = """\
+All monsters you control gain 100 ATK and DEF for each face-up Pendulum Monster with different names in your Extra Deck. \
+If a Pendulum Monster(s) you control is destroyed by battle or by card effect: \
+    You can Special Summon this card from your Pendulum Zone, \
+    then, you can place 1 of those monsters in your Pendulum Zone. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+effect = """\
+2 Level 7 monsters
+If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
+If this card is Xyz Summoned using a Pendulum Summoned Pendulum Monster: \
+    You can Set 1 Quick-Play Spell directly from your Deck. \
+Once per turn (Quick Effect): You can detach 1 material from this card, then activate 1 of these effects.
+● Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
+● Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
+"""
+strings = [
+    "Place monster in Pendulum Zone",
+    "Special Summon monster from Pendulum Zone",
+]
+
 [supreme-presence]
 id = 900005023
 set = "supreme-king"
@@ -706,20 +745,26 @@ When this card is activated: \
 If you control "Supreme King Z-ARC", this card cannot be destroyed by card effects, \
     also your opponent cannot target it with card effects. \
 Once per turn, during the End Phase: Add all Pendulum Monster in your GY to the Extra Deck face-up. \
-You can only use each of the following effects of "{CARD_NAME}" once per turn, and only once that turn.
-● Send this card to the GY; until the end of this turn, \
+You can send this card to the GY; until the end of this turn, \
     1 "Supreme King Z-ARC" you control can attack all opponent's monsters once each, \
-    also, if it attacks, your opponent cannot activate any Spell/Trap until the end of the Damage Step.
-● (Quick Effect): Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
-● (Quick Effect): Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
+    also, if it attacks, your opponent cannot activate any Spell/Trap until the end of the Damage Step. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If you Special Summon any of these monsters using a Pendulum Monster(s) as material: You can activate the appropriate effect. \
+    You cannot apply that same effect of "{CARD_NAME}" for the rest of this turn.
+● Fusion: Special Summon 1 monster from your hand, Deck, or GY with the same original Level as that Fusion Monster, \
+    in Defense Position, but it activate its effects this turn.
+● Synchro: Add 1 "Fusion" or "Polymerization" Spell from your Deck or GY to your hand.
+● Xyz: Take 1 Tuner from your Deck or GY with an equal or lower Level than that Xyz Monster's Rank, \
+    and add it to your hand or Special Summon it in Defense Position.
 """
 strings = [
     "Add 1 \"Supreme King Dragon\"?",
     "Add all Pendulum Monster to the Extra Deck",
     "Z-ARC can attack all opponent's monsters",
     "Affected by \"{CARD_NAME}\": can attack all opponent's monsters",
-    "Place monster in Pendulum Zone",
-    "Special Summon monster from Pendulum Zone",
+    "Special Summon a monster with same Level",
+    "Add \"Fusion\" Spell",
+    "Add or Special Summon a Tuner",
 ]
 
 [supreme-wrath]

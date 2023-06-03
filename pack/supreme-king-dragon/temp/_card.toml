@@ -9,11 +9,6 @@ pendulum-scale = 8
 atk = 2800
 def = 2600
 pendulum-effect = """\
-All monsters you control gain 100 ATK and DEF for each face-up Pendulum Monster with different names in your Extra Deck. \
-If a Pendulum Monster(s) you control is destroyed by battle or by card effect: \
-    You can Special Summon this card from your Pendulum Zone in Defense Position, \
-    then, you can place 1 of those monsters in your Pendulum Zone. \
-    You can only use this effect of "Sorcerer of Sky Iris" once per turn. \
 """
 effect = """\
 1 "Magician" Pendulum Monster + 1 monster that was Special Summoned from Extra Deck
