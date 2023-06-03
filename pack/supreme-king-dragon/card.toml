@@ -692,6 +692,8 @@ During your Main Phase: You can destroy this card, and if you do, \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place it in your Pendulum Zone. \
 """
 strings = []
 
@@ -714,12 +716,16 @@ If a Pendulum Monster(s) you control is destroyed by battle or by card effect: \
 """
 effect = """\
 2 Level 8 monsters
-You can also Xyz Summon this card by using a Pendulum Summoned Xyz Monster you control as material. \
+You can also Xyz Summon this card by using a Pendulum Summoned Pendulum Monster you control as material. \
     (Transfer its materials to this card.) \
 If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
 If this card is Xyz Summoned using a Pendulum Summoned Pendulum Monster: \
     You can Set 1 Quick-Play Spell directly from your Deck. \
-Once per turn (Quick Effect): You can detach 1 material from this card, then activate 1 of these effects.
+If a card(s) you control would be destroyed by battle or card effect, \
+    you can detach 1 material from this card instead. \
+If this card in the Monster Zone is destroyed by battle or card effect: \
+    You can place it in your Pendulum Zone. \
+Once per turn (Quick Effect): You can activate 1 of these effects.
 ● Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
 ● Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
 """
