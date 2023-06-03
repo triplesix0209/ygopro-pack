@@ -684,7 +684,7 @@ race = "spellcaster"
 level = 11
 scale = 8
 atk = 3500
-def = 2500
+def = 2700
 pendulum-effect = """\
 During your Main Phase: You can destroy this card, and if you do, \
     take 1 Pendulum Monster from your hand, Deck or Extra Deck face-up, except "{CARD_NAME}", \
