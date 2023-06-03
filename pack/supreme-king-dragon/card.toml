@@ -687,7 +687,7 @@ atk = 3500
 def = 2500
 pendulum-effect = """\
 During your Main Phase: You can destroy this card, and if you do, \
-    take 1 Pendulum Monster from your hand, Deck or Extra Deck face-up, \
+    take 1 Pendulum Monster from your hand, Deck or Extra Deck face-up, except "{CARD_NAME}", \
     and either place it in your Pendulum Zone or Special Summon it. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
@@ -695,7 +695,7 @@ effect = """\
 "Astrograph Sorcerer" or "Chronograph Sorcer" + 1 Spellcaster Pendulum Monster
 (This card is always treated as an DARK monster.)
 If this card is Fusion Summoned using a Pendulum Summoned Pendulum Monster: \
-    You can add 1 Spell Card or Trap Card from your Deck or GY to your hand. \
+    You can add 1 Spell or Trap Card from your Deck or GY to your hand. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place it in your Pendulum Zone. \
 """

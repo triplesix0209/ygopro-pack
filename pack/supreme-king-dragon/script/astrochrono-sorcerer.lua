@@ -62,7 +62,7 @@ end
 function s.fusfilter(c, sc, sumtype, tp) return c:IsRace(RACE_SPELLCASTER, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
 
 function s.pe1filter(c, e, tp)
-    if not c:IsType(TYPE_PENDULUM) then return false end
+    if c:IsCode(id) or not c:IsType(TYPE_PENDULUM) then return false end
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
     return not c:IsForbidden() or
                (c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and
