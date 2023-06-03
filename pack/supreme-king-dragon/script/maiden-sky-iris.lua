@@ -195,11 +195,10 @@ function s.me4tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 end
 
 function s.me4op(e, tp, eg, ep, ev, re, r, rp)
-    if not Duel.CheckLocation(tp, LOCATION_PZONE, 0) or not Duel.CheckLocation(tp, LOCATION_PZONE, 1) then return end
+    if not (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) then return end
 
     local g = Utility.SelectMatchingCard(aux.Stringid(id, 0), tp, s.me4filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
     Duel.HintSelection(g)
-
     if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
@@ -215,11 +214,9 @@ function s.me5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 end
 
 function s.me5op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
 
     local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me5filter, tp, LOCATION_PZONE, 0, 1, 1, nil, e, tp)
     Duel.HintSelection(g)
-
     if #g > 0 then Duel.SpecialSummon(g, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP) end
 end
