@@ -9,7 +9,7 @@ function s.initial_effect(c)
     Pendulum.AddProcedure(c, false)
 
     -- xyz summon
-    Xyz.AddProcedure(c, nil, 7, 2)
+    Xyz.AddProcedure(c, nil, 8, 2, s.ovfilter, aux.Stringid(id, 0))
 
     -- atk & def up
     local pe1 = Effect.CreateEffect(c)
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 
     -- place in pendulum zone
     local me2 = Effect.CreateEffect(c)
-    me2:SetDescription(aux.Stringid(id, 0))
+    me2:SetDescription(aux.Stringid(id, 1))
     me2:SetType(EFFECT_TYPE_QUICK_O)
     me2:SetCode(EVENT_FREE_CHAIN)
     me2:SetRange(LOCATION_MZONE)
@@ -67,12 +67,14 @@ function s.initial_effect(c)
 
     -- special summon from pendulum zone
     local me3 = me2:Clone()
-    me3:SetDescription(aux.Stringid(id, 1))
+    me3:SetDescription(aux.Stringid(id, 2))
     me3:SetCategory(CATEGORY_SPECIAL_SUMMON)
     me3:SetTarget(s.me3tg)
     me3:SetOperation(s.me3op)
     c:RegisterEffect(me3, false, REGISTER_FLAG_DETACH_XMAT)
 end
+
+function s.ovfilter(c, tp, sc) return c:IsFaceup() and c:IsType(TYPE_XYZ, sc, SUMMON_TYPE_XYZ) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
 function s.pe1val(e, c)
     local tp = c:GetControler()

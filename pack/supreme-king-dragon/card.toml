@@ -701,7 +701,7 @@ name = "Maiden of Sky Iris"
 type = "monster xyz pendulum effect"
 attribute = "light"
 race = "spellcaster"
-level = 7
+level = 8
 scale = 8
 atk = 2800
 def = 2600
@@ -713,7 +713,9 @@ If a Pendulum Monster(s) you control is destroyed by battle or by card effect: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
-2 Level 7 monsters
+2 Level 8 monsters
+You can also Xyz Summon this card by using a Pendulum Summoned Xyz Monster you control as material. \
+    (Transfer its materials to this card.) \
 If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
 If this card is Xyz Summoned using a Pendulum Summoned Pendulum Monster: \
     You can Set 1 Quick-Play Spell directly from your Deck. \
@@ -722,6 +724,7 @@ Once per turn (Quick Effect): You can detach 1 material from this card, then act
 ● Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
 """
 strings = [
+    "Xyz Summon by using a Pendulum Summoned Xyz Monster",
     "Place monster in Pendulum Zone",
     "Special Summon monster from Pendulum Zone",
 ]
