@@ -696,10 +696,18 @@ effect = """\
 (This card is always treated as an DARK monster.)
 If this card is Fusion Summoned using a Pendulum Summoned Pendulum Monster: \
     You can add 1 Spell or Trap Card from your Deck or GY to your hand. \
+Your opponent cannot target Pendulum Monsters you control with card effects. \
+During the End Phase: \
+    You can Special Summon as many monsters as possible from your GY or Extra Deck face-up \
+    that were destroyed by battle or an opponent's card effect this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place it in your Pendulum Zone. \
 """
-strings = ["Destroy this card to place/add a Pendulum Monster"]
+strings = [
+    "Destroy this card to place/add a Pendulum Monster",
+    "Special Summon all the destroyed monster",
+]
 
 [maiden-sky-iris]
 id = 900005022

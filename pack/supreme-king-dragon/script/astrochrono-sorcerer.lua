@@ -18,7 +18,7 @@ function s.initial_effect(c)
     pe1:SetCategory(CATEGORY_DESTROY + CATEGORY_SPECIAL_SUMMON)
     pe1:SetType(EFFECT_TYPE_IGNITION)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetCountLimit(1, id)
+    pe1:SetCountLimit(1, {id, 1})
     pe1:SetTarget(s.pe1tg)
     pe1:SetOperation(s.pe1op)
     c:RegisterEffect(pe1)
@@ -40,23 +40,53 @@ function s.initial_effect(c)
     me1check:SetLabelObject(me1)
     c:RegisterEffect(me1check)
 
+    -- untargetable
+    local me2 = Effect.CreateEffect(c)
+    me2:SetType(EFFECT_TYPE_FIELD)
+    me2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    me2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    me2:SetRange(LOCATION_MZONE)
+    me2:SetTargetRange(LOCATION_MZONE, 0)
+    me2:SetTarget(aux.TargetBoolFunction(Card.IsType, TYPE_PENDULUM))
+    me2:SetValue(aux.tgoval)
+    c:RegisterEffect(me2)
+
+    -- special summon all destroyed
+    local me3 = Effect.CreateEffect(c)
+    me3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    me3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    me3:SetCode(EVENT_PHASE + PHASE_END)
+    me3:SetRange(LOCATION_MZONE)
+    me3:SetHintTiming(0, TIMING_END_PHASE)
+    me3:SetCountLimit(1, {id, 2})
+    me3:SetTarget(s.me3tg)
+    me3:SetOperation(s.me3op)
+    c:RegisterEffect(me3)
+    aux.GlobalCheck(s, function()
+        local me3reg = Effect.CreateEffect(c)
+        me3reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+        me3reg:SetCode(EVENT_DESTROYED)
+        me3reg:SetOperation(s.me3regop)
+        Duel.RegisterEffect(me3reg, 0)
+    end)
+
     -- place into pendulum zone
-    local me9 = Effect.CreateEffect(c)
-    me9:SetDescription(2203)
-    me9:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me9:SetCode(EVENT_DESTROYED)
-    me9:SetProperty(EFFECT_FLAG_DELAY)
-    me9:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+    local me4 = Effect.CreateEffect(c)
+    me4:SetDescription(2203)
+    me4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me4:SetCode(EVENT_DESTROYED)
+    me4:SetProperty(EFFECT_FLAG_DELAY)
+    me4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
     end)
-    me9:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
-    me9:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    me4:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
+    me4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not Duel.CheckPendulumZones(tp) then return end
         local c = e:GetHandler()
         if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end)
-    c:RegisterEffect(me9)
+    c:RegisterEffect(me4)
 end
 
 function s.fusfilter(c, sc, sumtype, tp) return c:IsRace(RACE_SPELLCASTER, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
@@ -127,4 +157,62 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)
     end
+end
+
+function s.me3regfilter(c) return (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer() == 1 - c:GetControler()) or c:IsReason(REASON_BATTLE) end
+
+function s.me3regop(e, tp, eg, ep, ev, re, r, rp)
+    local g = eg:Filter(s.me3regfilter, nil)
+    for tc in aux.Next(g) do tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 0) end
+end
+
+function s.me3filter(c, e, tp)
+    if c:IsFacedown() or c:GetFlagEffect(id) == 0 or not c:IsCanBeSpecialSummoned(e, 0, tp, false, false) then return false end
+
+    if c:IsLocation(LOCATION_EXTRA) then
+        return Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0
+    else
+        return Duel.GetMZoneCount(tp, nil) > 0
+    end
+end
+
+function s.me3rescon(ft1, ft2, ft)
+    return function(sg, e, tp, mg)
+        local mct = sg:FilterCount(aux.NOT(Card.IsLocation), nil, LOCATION_EXTRA)
+        local exct = sg:FilterCount(function(c) return c:IsLocation(LOCATION_EXTRA) and c:IsFaceup() and c:IsType(TYPE_PENDULUM) end, nil)
+        local res = ft2 >= exct and ft1 >= mct and ft >= #sg
+        return res, not res
+    end
+end
+
+function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.me3filter, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, nil, e, tp) end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_GRAVE + LOCATION_EXTRA)
+end
+
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+    local ft1 = Duel.GetLocationCount(tp, LOCATION_MZONE)
+    local ft2 = Duel.GetLocationCountFromEx(tp, TYPE_PENDULUM)
+    local ft = Duel.GetUsableMZoneCount(tp)
+    if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then
+        if ft1 > 0 then ft1 = 1 end
+        if ft2 > 0 then ft2 = 1 end
+        ft = 1
+    end
+
+    local ect = aux.CheckSummonGate(tp)
+    if ect then
+        ft1 = math.min(ect, ft1)
+        ft2 = math.min(ect, ft2)
+    end
+
+    local loc = 0
+    if ft1 > 0 then loc = loc + LOCATION_GRAVE end
+    if ft2 > 0 then loc = loc + LOCATION_EXTRA end
+    if loc == 0 then return end
+    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.me3filter), tp, loc, 0, nil, e, tp)
+    if #g == 0 then return end
+
+    local sg = aux.SelectUnselectGroup(g, e, tp, 1, ft, s.me3rescon(ft1, ft2, ft), 1, tp, HINTMSG_SPSUMMON)
+    Duel.SpecialSummon(sg, 0, tp, tp, true, false, POS_FACEUP)
 end
