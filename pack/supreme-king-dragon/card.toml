@@ -679,11 +679,11 @@ strings = [
 id = 900005021
 name = "Astrochrono Sorcerer"
 type = "monster fusion pendulum effect"
-attribute = "dark"
+attribute = "light dark"
 race = "spellcaster"
 level = 10
 scale = 8
-atk = 3000
+atk = 3500
 def = 2500
 pendulum-effect = """\
 During your Main Phase: You can destroy this card, and if you do, \
@@ -692,10 +692,12 @@ During your Main Phase: You can destroy this card, and if you do, \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
+"Astrograph Sorcerer" or "Chronograph Sorcer" + 1 Spellcaster Pendulum Monster
+(This card is always treated as an DARK monster.)
 If this card in the Monster Zone is destroyed by battle or card effect: \
     You can place it in your Pendulum Zone. \
 """
-strings = []
+strings = ["Destroy this card to place/add a Pendulum Monster"]
 
 [maiden-sky-iris]
 id = 900005022
@@ -718,7 +720,7 @@ effect = """\
 2 Level 8 monsters
 You can also Xyz Summon this card by using a Pendulum Summoned Pendulum Monster you control as material. \
     (Transfer its materials to this card.) \
-If you can Pendulum Summon Level 4, you can Pendulum Summon this face-up card in your Extra Deck. \
+If you can Pendulum Summon Level 8, you can Pendulum Summon this face-up card in your Extra Deck. \
 If this card is Xyz Summoned using a Pendulum Summoned Pendulum Monster: \
     You can Set 1 Quick-Play Spell directly from your Deck. \
 If a card(s) you control would be destroyed by battle or card effect, \

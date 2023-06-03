@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.pendulum_level = 4
+s.pendulum_level = 8
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
