@@ -535,7 +535,7 @@ Once per turn, if you have a card in your other Pendulum Zone: \
 """
 effect = """\
 If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your hand. \
-    You can only use each monster effect of "{CARD_NAME}" once per turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, if this card is targeted for an attack: You can negate the attack. \
     You must control another "Supreme King Dragon" monster to activate and to resolve this effect. \
 """
@@ -563,7 +563,7 @@ Once per turn, if you have a card in your other Pendulum Zone: \
 """
 effect = """\
 If this card is Summoned: You can add 1 DARK Pendulum Monster from your Deck to your Extra Deck face-up. \
-    You can only use each monster effect of "{CARD_NAME}" once per turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, if this card is targeted for an attack: You can negate the attack. \
     You must control another "Supreme King Dragon" monster to activate and to resolve this effect. \
 """
