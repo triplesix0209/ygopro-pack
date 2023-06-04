@@ -57,40 +57,27 @@ function s.initial_effect(c)
     pe1:SetValue(function(e, re) return e:GetOwnerPlayer() == 1 - re:GetOwnerPlayer() end)
     c:RegisterEffect(pe1)
 
-    -- change scale
-    local pe2 = Effect.CreateEffect(c)
-    pe2:SetType(EFFECT_TYPE_FIELD)
-    pe2:SetCode(EFFECT_CHANGE_LSCALE)
-    pe2:SetRange(LOCATION_PZONE)
-    pe2:SetTargetRange(LOCATION_PZONE, 0)
-    pe2:SetTarget(function(e, tc) return tc ~= e:GetHandler() end)
-    pe2:SetValue(0)
-    c:RegisterEffect(pe2)
-    local pe2b = pe2:Clone()
-    pe2b:SetCode(EFFECT_CHANGE_RSCALE)
-    c:RegisterEffect(pe2b)
-
     -- place into pendulum zone (p-zone)
+    local pe2 = Effect.CreateEffect(c)
+    pe2:SetDescription(aux.Stringid(id, 0))
+    pe2:SetType(EFFECT_TYPE_IGNITION)
+    pe2:SetRange(LOCATION_PZONE)
+    pe2:SetCountLimit(1, {id, 1})
+    pe2:SetTarget(s.pe2tg)
+    pe2:SetOperation(s.pe2op)
+    c:RegisterEffect(pe2)
+
+    -- special Summon (p-zone)
     local pe3 = Effect.CreateEffect(c)
-    pe3:SetDescription(aux.Stringid(id, 0))
+    pe3:SetDescription(2)
+    pe3:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_TODECK)
     pe3:SetType(EFFECT_TYPE_IGNITION)
     pe3:SetRange(LOCATION_PZONE)
-    pe3:SetCountLimit(1, {id, 1})
+    pe3:SetCountLimit(1, {id, 2})
+    pe3:SetCondition(s.pe3con)
     pe3:SetTarget(s.pe3tg)
     pe3:SetOperation(s.pe3op)
     c:RegisterEffect(pe3)
-
-    -- special Summon (p-zone)
-    local pe4 = Effect.CreateEffect(c)
-    pe4:SetDescription(2)
-    pe4:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_TODECK)
-    pe4:SetType(EFFECT_TYPE_IGNITION)
-    pe4:SetRange(LOCATION_PZONE)
-    pe4:SetCountLimit(1, {id, 2})
-    pe4:SetCondition(s.pe4con)
-    pe4:SetTarget(s.pe4tg)
-    pe4:SetOperation(s.pe4op)
-    c:RegisterEffect(pe4)
 
     -- place into pendulum zone (summon)
     local me1 = Effect.CreateEffect(c)
@@ -172,23 +159,35 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.pe3filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+function s.pe2filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
 
-function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.CheckPendulumZones(tp) and Duel.IsExistingMatchingCard(s.pe3filter, tp, LOCATION_EXTRA, 0, 1, nil) end
+function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.CheckPendulumZones(tp) and Duel.IsExistingMatchingCard(s.pe2filter, tp, LOCATION_EXTRA, 0, 1, nil) end
 end
 
-function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or not Duel.CheckPendulumZones(tp) then return end
-    
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.pe3filter, tp, LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
-    if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.pe2filter, tp, LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
+    if tc and Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
+        ec1:SetCode(EFFECT_CHANGE_LSCALE)
+        ec1:SetRange(LOCATION_PZONE)
+        ec1:SetValue(0)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+        tc:RegisterEffect(ec1)
+        local ec1b = ec1:Clone()
+        ec1b:SetCode(EFFECT_CHANGE_RSCALE)
+        tc:RegisterEffect(ec1b)
+    end
 end
 
-function s.pe4con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetFieldCard(tp, LOCATION_PZONE, 0) and Duel.GetFieldCard(tp, LOCATION_PZONE, 1) end
+function s.pe3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetFieldCard(tp, LOCATION_PZONE, 0) and Duel.GetFieldCard(tp, LOCATION_PZONE, 1) end
 
-function s.pe4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
@@ -197,18 +196,18 @@ function s.pe4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.SetPossibleOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_EXTRA)
 end
 
-function s.pe4op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) == 0 then return end
 
     local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_PZONE, 0, nil)
     if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
-    local sc = Utility.GroupSelect(g, HINTMSG_TODECK, tp, 1, 1):GetFirst()
+    local sc = Utility.GroupSelect(HINTMSG_TODECK, g, tp, 1, 1, nil):GetFirst()
     if not sc then return end
 
     Duel.BreakEffect()
     if Duel.SendtoDeck(sc, nil, 1, REASON_EFFECT) > 0 and sc:IsLocation(LOCATION_EXTRA) and sc:IsCanBeSpecialSummoned(e, 0, tp, true, false) and
-        Duel.GetLocationCountFromEx(tp, tp, nil, sc) > 0 and Duel.SelectYesNo(tp, aux.Stringid(id, 4)) then
+        Duel.GetLocationCountFromEx(tp, tp, nil, sc) > 0 and Duel.SelectYesNo(tp, 2) then
         Duel.BreakEffect()
         Duel.SpecialSummon(sc, 0, tp, tp, true, false, POS_FACEUP)
         sc:CompleteProcedure()

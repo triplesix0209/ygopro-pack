@@ -80,9 +80,9 @@ def = 4000
 pendulum-effect = """\
 Unaffected by your opponent's card effects. \
     This effect cannot be negated. \
-Pendulum Scale of card in your Pendulum Zone becomes 0. \
 If you have no card in your other Pendulum Zone: \
-    You can place 1 face-up Pendulum Monster from your Extra Deck in your Pendulum Zone. \
+    You can place 1 face-up Pendulum Monster from your Extra Deck in your Pendulum Zone, \
+    and if you do, Pendulum Scale of that card in your Pendulum Zone becomes 0. \
 If you have 2 cards in your Pendulum Zone: You can Special Summon this card, \
     then you can shuffle 1 card from your Pendulum Zone into the Deck, \
     then, if it returned to your Extra Deck, you can Special Summon it, \
