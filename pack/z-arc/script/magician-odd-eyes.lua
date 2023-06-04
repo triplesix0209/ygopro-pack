@@ -92,7 +92,7 @@ function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
     local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
-    if #dg < 2 then return end
+    if Duel.Destroy(dg, REASON_EFFECT) < #dg then return end
 
     local loc = 0
     if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 then loc = loc + LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE end
