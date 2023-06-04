@@ -4,7 +4,6 @@ local s, id = GetID()
 
 s.material_setcode = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
 s.listed_series = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
-s.counter_list = {0x1149}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -25,38 +24,17 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(splimit)
 
-    -- atk down
-    local eatkdown = Effect.CreateEffect(c)
-    eatkdown:SetType(EFFECT_TYPE_FIELD)
-    eatkdown:SetCode(EFFECT_UPDATE_ATTACK)
-    eatkdown:SetRange(LOCATION_PZONE + LOCATION_MZONE)
-    eatkdown:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
-    eatkdown:SetTarget(function(e, c) return not (c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_DRAGON)) end)
-    eatkdown:SetValue(function(e, c) return -200 * Duel.GetCounter(0, 1, 1, 0x1149) end)
-    c:RegisterEffect(eatkdown)
-
-    -- place counter (pendulum)
+    -- atk up
     local pe1 = Effect.CreateEffect(c)
     pe1:SetDescription(aux.Stringid(id, 0))
-    pe1:SetCategory(CATEGORY_COUNTER)
-    pe1:SetType(EFFECT_TYPE_TRIGGER_F + EFFECT_TYPE_FIELD)
-    pe1:SetCode(EVENT_PHASE + PHASE_STANDBY)
-    pe1:SetCountLimit(1)
+    pe1:SetCategory(CATEGORY_ATKCHANGE)
+    pe1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    pe1:SetCode(EVENT_BATTLE_CONFIRM)
     pe1:SetRange(LOCATION_PZONE)
+    pe1:SetCountLimit(1)
+    pe1:SetCondition(s.pe1con)
     pe1:SetOperation(s.pe1op)
     c:RegisterEffect(pe1)
-
-    -- atk up
-    local pe2 = Effect.CreateEffect(c)
-    pe2:SetDescription(aux.Stringid(id, 1))
-    pe2:SetCategory(CATEGORY_ATKCHANGE)
-    pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    pe2:SetCode(EVENT_BATTLE_CONFIRM)
-    pe2:SetRange(LOCATION_PZONE)
-    pe2:SetCountLimit(1)
-    pe2:SetCondition(s.pe2con)
-    pe2:SetOperation(s.pe2op)
-    c:RegisterEffect(pe2)
 
     -- fusion success
     local me1 = Effect.CreateEffect(c)
@@ -78,17 +56,15 @@ function s.initial_effect(c)
     me1check:SetLabelObject(me1)
     c:RegisterEffect(me1check)
 
-    -- place counter (monster)
+    -- pierce
     local me2 = Effect.CreateEffect(c)
-    me2:SetType(EFFECT_TYPE_CONTINUOUS + EFFECT_TYPE_FIELD)
-    me2:SetCode(EVENT_TO_GRAVE)
-    me2:SetRange(LOCATION_MZONE)
-    me2:SetOperation(s.me2op)
+    me2:SetType(EFFECT_TYPE_SINGLE)
+    me2:SetCode(EFFECT_PIERCE)
     c:RegisterEffect(me2)
 
     -- negate & copy effect and atk
     local me3 = Effect.CreateEffect(c)
-    me3:SetDescription(aux.Stringid(id, 2))
+    me3:SetDescription(aux.Stringid(id, 1))
     me3:SetCategory(CATEGORY_ATKCHANGE + CATEGORY_DISABLE)
     me3:SetType(EFFECT_TYPE_QUICK_O)
     me3:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DAMAGE_STEP)
@@ -117,15 +93,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me4)
 end
 
-function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
-
-    local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
-    for tc in g:Iter() do tc:AddCounter(0x1149, 1) end
-end
-
-function s.pe2con(e, tp, eg, ep, ev, re, r, rp)
+function s.pe1con(e, tp, eg, ep, ev, re, r, rp)
     local ac = Duel.GetAttacker()
     local bc = Duel.GetAttackTarget()
 
@@ -133,20 +101,21 @@ function s.pe2con(e, tp, eg, ep, ev, re, r, rp)
     if ac:IsControler(1 - tp) then bc, ac = ac, bc end
     e:SetLabelObject(ac)
 
-    return ac:GetControler() ~= bc:GetControler() and ac:IsFaceup() and bc:IsFaceup() and Duel.GetCounter(0, 1, 1, 0x1149) > 0
+    return ac:GetControler() ~= bc:GetControler() and ac:IsFaceup() and bc:IsFaceup()
 end
 
-function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
     local ac = e:GetLabelObject()
     if not ac:IsRelateToBattle() or ac:IsFacedown() or not ac:IsControler(tp) then return end
 
+    local ct = Duel.GetFieldGroupCount(tp, 0, LOCATION_MZONE)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_UPDATE_ATTACK)
-    ec1:SetValue(500 * Duel.GetCounter(0, 1, 1, 0x1149))
+    ec1:SetValue(1000 * ct)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_DAMAGE_CAL)
     ac:RegisterEffect(ec1)
 end
@@ -165,11 +134,6 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetValue(atk)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
     c:RegisterEffect(ec1)
-end
-
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
-    local ct = eg:FilterCount(Card.IsPreviousLocation, nil, LOCATION_ONFIELD)
-    if ct > 0 then e:GetHandler():AddCounter(0x1149, ct) end
 end
 
 function s.me3filter(c)
