@@ -181,8 +181,8 @@ end
 function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or not Duel.CheckPendulumZones(tp) then return end
-
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.pe3filter, tp, LOCATION_PZONE, 0, 1, 1, nil):GetFirst()
+    
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.pe3filter, tp, LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
     if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
