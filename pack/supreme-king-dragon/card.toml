@@ -258,7 +258,7 @@ def = 2500
 pendulum-effect = """\
 Once per turn, if a monster you control battles an opponent's monster, before damage calculation: \
     You can make that monster you control gains 1000 ATK for each monster your opponent controls, \
-    until the end of the Damage Step. \
+    until the end of this turn. \
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Monster + 1 "Starving Venom" Fusion Monster
@@ -291,7 +291,7 @@ def = 2500
 pendulum-effect = """\
 Once per turn, if your monster battles an opponent's monster, before damage calculation: \
     You can make that monster you control gain ATK equal to the current ATK of the opponent's monster it is battling, \
-    until the end of the Damage Step. \
+    until the end of this turn. \
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Tuner + 1 non-Tuner "Clear Wing" Synchro Monster
@@ -328,7 +328,7 @@ def = 2500
 pendulum-effect = """\
 Once per turn, if your monster battles an opponent's monster, before damage calculation: \
     You can halve the ATK of the opponent's monster it is battling, \
-    until the end of the Damage Step. \
+    until the end of this turn. \
 """
 effect = """\
 2 Level 7 monsters (1 "Odd-Eyes" Dragon Pendulum Monster, 1 "Rebellion" Xyz Monster)
