@@ -7,7 +7,7 @@ packs = [
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/duel-dragon",
-    "./pack/supreme-king-dragon",
+    "./pack/z-arc",
 ]
 
 skip_compile_packs = [
@@ -15,5 +15,5 @@ skip_compile_packs = [
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/duel-dragon",
-    # "./pack/supreme-king-dragon",
+    # "./pack/z-arc",
 ]
