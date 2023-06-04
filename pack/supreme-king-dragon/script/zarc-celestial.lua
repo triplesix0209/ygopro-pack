@@ -99,28 +99,37 @@ function s.initial_effect(c)
     me2d:SetCode(EFFECT_CANNOT_TO_DECK)
     c:RegisterEffect(me2d)
 
-    -- gain effect
+    -- add attribute
     local me3 = Effect.CreateEffect(c)
-    me3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me3:SetCode(EVENT_ADJUST)
+    me3:SetType(EFFECT_TYPE_SINGLE)
+    me3:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
+    me3:SetCode(EFFECT_ADD_ATTRIBUTE)
     me3:SetRange(LOCATION_MZONE)
-    me3:SetOperation(s.me3op)
+    me3:SetValue(ATTRIBUTE_DARK)
     c:RegisterEffect(me3)
 
-    -- place into pendulum zone (destroy)
+    -- gain effect
     local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(2203)
-    me4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me4:SetCode(EVENT_DESTROYED)
-    me4:SetProperty(EFFECT_FLAG_DELAY)
-    me4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
-    me4:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
-    me4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    me4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me4:SetCode(EVENT_ADJUST)
+    me4:SetRange(LOCATION_MZONE)
+    me4:SetOperation(s.me4op)
+    c:RegisterEffect(me4)
+
+    -- place into pendulum zone (destroy)
+    local me5 = Effect.CreateEffect(c)
+    me5:SetDescription(2203)
+    me5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me5:SetCode(EVENT_DESTROYED)
+    me5:SetProperty(EFFECT_FLAG_DELAY)
+    me5:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
+    me5:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
+    me5:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not Duel.CheckPendulumZones(tp) then return end
         local c = e:GetHandler()
         if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end)
-    c:RegisterEffect(me4)
+    c:RegisterEffect(me5)
 end
 
 function s.fusfilter(type) return function(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(type, fc, sumtype, tp) end end
@@ -214,11 +223,11 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
-function s.me3filter(c) return c:IsSetCard(SET_SUPREME_KING_DRAGON) and c:GetFlagEffect(id) == 0 end
+function s.me4filter(c) return c:IsSetCard(SET_SUPREME_KING_DRAGON) and c:GetFlagEffect(id) == 0 end
 
-function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = c:GetOverlayGroup():Filter(s.me3filter, nil)
+    local g = c:GetOverlayGroup():Filter(s.me4filter, nil)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
