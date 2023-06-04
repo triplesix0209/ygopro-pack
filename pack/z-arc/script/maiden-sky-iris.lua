@@ -21,20 +21,27 @@ function s.initial_effect(c)
     c:RegisterEffect(pe1)
     local pe1b = pe1:Clone()
     pe1b:SetCode(EFFECT_UPDATE_DEFENSE)
-    c:RegisterEffect(pe1b)
+    c:RegisterEffect(pe1b)    
 
-    -- special summon (pendulum zone)
+    -- place in pendulum zone (p-zone)
     local pe2 = Effect.CreateEffect(c)
-    pe2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    pe2:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
-    pe2:SetCode(EVENT_DESTROYED)
-    pe2:SetRange(LOCATION_PZONE)
-    pe2:SetCountLimit(1, id)
-    pe2:SetCondition(s.pe2con)
+    pe2:SetDescription(aux.Stringid(id, 1))
+    pe2:SetType(EFFECT_TYPE_QUICK_O)
+    pe2:SetCode(EVENT_FREE_CHAIN)
+    pe2:SetRange(LOCATION_MZONE)
+    pe2:SetHintTiming(0, TIMING_END_PHASE)
+    pe2:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
     pe2:SetTarget(s.pe2tg)
     pe2:SetOperation(s.pe2op)
-    c:RegisterEffect(pe2)
+    c:RegisterEffect(pe2, false, REGISTER_FLAG_DETACH_XMAT)
+
+    -- special summon (p-zone)
+    local pe3 = pe2:Clone()
+    pe3:SetDescription(aux.Stringid(id, 2))
+    pe3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    pe3:SetTarget(s.pe3tg)
+    pe3:SetOperation(s.pe3op)
+    c:RegisterEffect(pe3, false, REGISTER_FLAG_DETACH_XMAT)
 
     -- set spell
     local me1 = Effect.CreateEffect(c)
@@ -75,26 +82,6 @@ function s.initial_effect(c)
         if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end)
     c:RegisterEffect(me3)
-
-    -- place in pendulum zone (effect)
-    local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(aux.Stringid(id, 1))
-    me4:SetType(EFFECT_TYPE_QUICK_O)
-    me4:SetCode(EVENT_FREE_CHAIN)
-    me4:SetRange(LOCATION_MZONE)
-    me4:SetHintTiming(0, TIMING_END_PHASE)
-    me4:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
-    me4:SetTarget(s.me4tg)
-    me4:SetOperation(s.me4op)
-    c:RegisterEffect(me4, false, REGISTER_FLAG_DETACH_XMAT)
-
-    -- special summon from pendulum zone
-    local me5 = me4:Clone()
-    me5:SetDescription(aux.Stringid(id, 2))
-    me5:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    me5:SetTarget(s.me5tg)
-    me5:SetOperation(s.me5op)
-    c:RegisterEffect(me5, false, REGISTER_FLAG_DETACH_XMAT)
 end
 
 function s.ovfilter(c, tp, sc)
@@ -108,31 +95,42 @@ function s.pe1val(e, c)
     return g:GetClassCount(Card.GetCode) * 100
 end
 
-function s.pe2filter(c, tp)
-    return c:IsReason(REASON_BATTLE + REASON_EFFECT) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD) and
-               c:IsType(TYPE_PENDULUM)
-end
+function s.pe2filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) end
 
-function s.pe2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.pe2filter, 1, nil, tp) end
+function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then
+        return (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) and
+                   Duel.IsExistingMatchingCard(s.pe2filter, tp, LOCATION_MZONE, 0, 1, nil)
+    end
 
-function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
+    Duel.Hint(HINT_OPSELECTED, 1 - tp, e:GetDescription())
 end
 
 function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
+    if not (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) then return end
+
+    local g = Utility.SelectMatchingCard(aux.Stringid(id, 0), tp, s.pe2filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
+    Duel.HintSelection(g)
+    if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+end
+
+function s.pe3filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false) end
+
+function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.pe3filter, tp, LOCATION_PZONE, 0, 1, nil, e, tp)
+    end
+
+    Duel.Hint(HINT_OPSELECTED, 1 - tp, e:GetDescription())
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, 0, LOCATION_PZONE)
+end
+
+function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
 
-    if Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) > 0 and Duel.CheckPendulumZones(tp) and
-        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-        Duel.BreakEffect()
-        Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 0))
-        local tc = eg:Filter(s.pe2filter, nil, tp):Select(tp, 1, 1, nil):GetFirst()
-        Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
-    end
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.pe3filter, tp, LOCATION_PZONE, 0, 1, 1, nil, e, tp)
+    Duel.HintSelection(g)
+    if #g > 0 then Duel.SpecialSummon(g, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP) end
 end
 
 function s.me1filter1(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_XYZ) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
@@ -181,42 +179,4 @@ end
 function s.me2val(e, c)
     local tp = e:GetHandlerPlayer()
     return s.me2filter(c, tp)
-end
-
-function s.me4filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) end
-
-function s.me4tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then
-        return (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) and
-                   Duel.IsExistingMatchingCard(s.me4filter, tp, LOCATION_MZONE, 0, 1, nil)
-    end
-
-    Duel.Hint(HINT_OPSELECTED, 1 - tp, e:GetDescription())
-end
-
-function s.me4op(e, tp, eg, ep, ev, re, r, rp)
-    if not (Duel.CheckLocation(tp, LOCATION_PZONE, 0) or Duel.CheckLocation(tp, LOCATION_PZONE, 1)) then return end
-
-    local g = Utility.SelectMatchingCard(aux.Stringid(id, 0), tp, s.me4filter, tp, LOCATION_MZONE, 0, 1, 1, nil)
-    Duel.HintSelection(g)
-    if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
-end
-
-function s.me5filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_PENDULUM, tp, false, false) end
-
-function s.me5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.me5filter, tp, LOCATION_PZONE, 0, 1, nil, e, tp)
-    end
-
-    Duel.Hint(HINT_OPSELECTED, 1 - tp, e:GetDescription())
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, 0, LOCATION_PZONE)
-end
-
-function s.me5op(e, tp, eg, ep, ev, re, r, rp)
-    if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
-
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me5filter, tp, LOCATION_PZONE, 0, 1, 1, nil, e, tp)
-    Duel.HintSelection(g)
-    if #g > 0 then Duel.SpecialSummon(g, SUMMON_TYPE_PENDULUM, tp, tp, false, false, POS_FACEUP) end
 end

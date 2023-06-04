@@ -753,10 +753,9 @@ atk = 2800
 def = 2600
 pendulum-effect = """\
 All monsters you control gain 100 ATK and DEF for each face-up Pendulum Monster with different names in your Extra Deck. \
-If a Pendulum Monster(s) you control is destroyed by battle or by card effect: \
-    You can Special Summon this card from your Pendulum Zone, \
-    then, you can place 1 of those monsters in your Pendulum Zone. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn (Quick Effect): You can activate 1 of these effects.
+● Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
+● Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
 """
 effect = """\
 2 Level 8 monsters
@@ -768,9 +767,6 @@ If this card is Xyz Summoned using a Pendulum Summoned Pendulum Monster: \
 If a card(s) you control would be destroyed by battle or card effect, \
     you can detach 1 material from this card instead. \
 If this card in the Monster Zone is destroyed: You can place it in your Pendulum Zone. \
-Once per turn (Quick Effect): You can activate 1 of these effects.
-● Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
-● Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).
 """
 strings = [
     "Xyz Summon by using a Pendulum Summoned Xyz Monster",
