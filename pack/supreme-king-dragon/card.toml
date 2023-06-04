@@ -850,7 +850,7 @@ Special Summon 1 "Odd-Eyes Pendulum Dragon" from your GY or Extra Deck face-up a
 If the equipped monster leaves the field: \
     You can add 1 "Odd-Eyes Synchro Gate" from your Deck to your hand. \
 """
-strings = []
+strings = ["Affected by effect \"{CARD_NAME}\": cannot Pendulum Summon"]
 
 [odd-eyes-synchro-gate]
 id = 900005027
@@ -868,7 +868,7 @@ Special Summon 1 "Odd-Eyes Pendulum Dragon" from your GY or Extra Deck face-up a
 If the equipped monster leaves the field: \
     You can add 1 "Odd-Eyes Xyz Gate" from your Deck to your hand. \
 """
-strings = []
+strings = ["Affected by effect \"{CARD_NAME}\": cannot Pendulum Summon"]
 
 [odd-eyes-xyz-gate]
 id = 900005028
@@ -886,4 +886,4 @@ Special Summon 1 "Odd-Eyes Pendulum Dragon" from your GY or Extra Deck face-up a
 If the equipped monster leaves the field: \
     You can add 1 "Odd-Eyes Fusion Gate" from your Deck to your hand. \
 """
-strings = []
+strings = ["Affected by effect \"{CARD_NAME}\": cannot Pendulum Summon"]
