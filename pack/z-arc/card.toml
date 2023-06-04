@@ -719,9 +719,9 @@ scale = 8
 atk = 3500
 def = 2700
 pendulum-effect = """\
-During your Main Phase: You can destroy this card, and if you do, \
-    take 1 Pendulum Monster from your hand, Deck or Extra Deck face-up, except "{CARD_NAME}", \
-    and either place it in your Pendulum Zone or Special Summon it. \
+During your Main Phase: You can take 1 Pendulum Monster \
+    from your Deck or Extra Deck face-up, except "{CARD_NAME}", \
+    and either add it to your hand or Special Summon it. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
@@ -737,7 +737,7 @@ During the End Phase: \
 If this card in the Monster Zone is destroyed: You can place it in your Pendulum Zone. \
 """
 strings = [
-    "Destroy this card to place/add a Pendulum Monster",
+    "Search a Pendulum Monster",
     "Special Summon all the destroyed monster",
 ]
 
@@ -752,7 +752,6 @@ scale = 8
 atk = 2800
 def = 2600
 pendulum-effect = """\
-All monsters you control gain 100 ATK and DEF for each face-up Pendulum Monster with different names in your Extra Deck. \
 Once per turn (Quick Effect): You can activate 1 of these effects.
 ● Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
 ● Special Summon 1 monster from your Pendulum Zone. (This is treated as a Pendulum Summon).

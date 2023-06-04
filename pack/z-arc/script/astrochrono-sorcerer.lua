@@ -12,10 +12,10 @@ function s.initial_effect(c)
     -- fusion summon
     Fusion.AddProcMix(c, true, true, {76794549, 12289247}, s.fusfilter)
 
-    -- pendulum set/spsummon
+    -- search (p-zone)
     local pe1 = Effect.CreateEffect(c)
     pe1:SetDescription(aux.Stringid(id, 0))
-    pe1:SetCategory(CATEGORY_DESTROY + CATEGORY_SPECIAL_SUMMON)
+    pe1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH + CATEGORY_SPECIAL_SUMMON)
     pe1:SetType(EFFECT_TYPE_IGNITION)
     pe1:SetRange(LOCATION_PZONE)
     pe1:SetCountLimit(1, {id, 1})
@@ -23,7 +23,7 @@ function s.initial_effect(c)
     pe1:SetOperation(s.pe1op)
     c:RegisterEffect(pe1)
 
-    -- search
+    -- search (summon)
     local me1 = Effect.CreateEffect(c)
     me1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
     me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
@@ -91,41 +91,29 @@ function s.fusfilter(c, sc, sumtype, tp) return c:IsRace(RACE_SPELLCASTER, sc, s
 function s.pe1filter(c, e, tp)
     if c:IsCode(id) or not c:IsType(TYPE_PENDULUM) then return false end
     if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
-    return not c:IsForbidden() or
+    return c:IsAbleToHand() or
                (c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and
                    ((c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0) or
                        (not c:IsLocation(LOCATION_EXTRA) and Duel.GetMZoneCount(tp) > 0)))
 end
 
 function s.pe1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.pe1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil, e, tp) end
-
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, c, 1, 0, 0)
-    Duel.SetPossibleOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK + LOCATION_HAND + LOCATION_EXTRA)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.pe1filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil, e, tp) end
+    Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_HAND + LOCATION_EXTRA)
+    Duel.SetPossibleOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_EXTRA)
 end
 
 function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if c:IsRelateToEffect(e) and Duel.Destroy(c, REASON_EFFECT) > 0 then
-        local tc =
-            Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.pe1filter, tp, LOCATION_DECK + LOCATION_HAND + LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
+    if not c:IsRelateToEffect(e) then return end
 
-        local op = 0
-        if tc:IsCanBeSpecialSummoned(e, 0, tp, false, false) and
-            ((tc:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, tp, nil, tc) > 0) or
-                (not tc:IsLocation(LOCATION_EXTRA) and Duel.GetMZoneCount(tp) > 0)) then
-            op = Duel.SelectOption(tp, 2203, 2)
-        else
-            op = Duel.SelectOption(tp, 2203)
-        end
-
-        if op == 0 then
-            Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
-        else
-            Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP)
-        end
-    end
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.pe1filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
+    if not tc then return end
+    aux.ToHandOrElse(tc, tp, function(tc)
+        return tc:IsCanBeSpecialSummoned(e, 0, tp, false, false) and
+                   ((tc:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp, tp, nil, tc) > 0) or
+                       (not tc:IsLocation(LOCATION_EXTRA) and Duel.GetMZoneCount(tp) > 0))
+    end, function(tc) return Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) end, 2)
 end
 
 function s.me1filter1(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_FUSION) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
