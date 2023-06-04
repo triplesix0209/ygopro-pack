@@ -263,8 +263,8 @@ Once per turn, if a monster you control battles an opponent's monster, before da
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Monster + 1 "Starving Venom" Fusion Monster
-Must be Fusion Summoned with above materials on the field, and can then be Pendulum Summoned. \
-If this card is Fusion Summoned: \
+Must be Fusion Summoned, and can then be Pendulum Summoned. \
+If this card is Fusion Summoned using only monsters on the field as material: \
     You can make this card gain ATK equal to the combined ATK of all monsters your opponent currently controls, \
     until the end of this turn. \
 Each time a card(s) is sent from the field to the GY, place 1 Venemy Counter on this card for each sent card. \
@@ -297,7 +297,7 @@ Once per turn, if your monster battles an opponent's monster, before damage calc
 """
 effect = """\
 1 "Odd-Eyes" Dragon Pendulum Tuner + 1 non-Tuner "Clear Wing" Synchro Monster
-Must be Synchro Summoned with above materials on the field, and can then be Pendulum Summoned. \
+Must be Synchro Summoned, and can then be Pendulum Summoned. \
 If this card is Synchro Summoned: \
     You can destroy all monsters your opponent currently controls, \
     and if you do, this card gains 500 ATK for each, until the end of this turn. \
@@ -333,7 +333,7 @@ Once per turn, if your monster battles an opponent's monster, before damage calc
 """
 effect = """\
 2 Level 7 monsters (1 "Odd-Eyes" Dragon Pendulum Monster, 1 "Rebellion" Xyz Monster)
-Must be Xyz Summoned with above materials on the field, and can then be Pendulum Summoned. \
+Must be Xyz Summoned, and can then be Pendulum Summoned. \
 If you can Pendulum Summon Level 7, you can Pendulum Summon this face-up card in your Extra Deck. \
 If this card is Xyz Summoned, it can make up to 3 attacks. \
 Once per turn: You can detach 1 material from this card; \
@@ -832,5 +832,58 @@ While this card is in your GY: \
     You can attach up to 2 "Supreme King Dragon" monsters \
     to 1 Dragon Xyz Monster you control as materials. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[odd-eyes-fusion-gate]
+id = 900005026
+name = "Odd-Eyes Fusion Gate"
+set = "odd-eyes fusion"
+type = "spell quick-play"
+effect = """\
+Special Summon 1 "Odd-Eyes Pendulum Dragon" from your GY or Extra Deck face-up and 1 Fusion Monster in your GY; \
+    but negate their effects, then Fusion Summon 1 Fusion Pendulum Monster from your Extra Deck, \
+    using only the Summoned monsters as material, \
+    and if you do, equip it with this card. \
+    You cannot Pendulum Summon the turn you activate this card. \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+If the equipped monster leaves the field: \
+    You can add 1 "Odd-Eyes Synchro Gate" from your Deck to your hand. \
+"""
+strings = []
+
+[odd-eyes-synchro-gate]
+id = 900005027
+name = "Odd-Eyes Synchro Gate"
+set = "odd-eyes synchro"
+type = "spell quick-play"
+effect = """\
+Special Summon 1 "Odd-Eyes Pendulum Dragon" from your GY or Extra Deck face-up and 1 Synchro Monster in your GY; \
+    but negate their effects, also that "Odd-Eyes Pendulum Dragon" is treated as Level 1 Tuner, \
+    then immediately after this effect resolves, Synchro Summon 1 Synchro Pendulum Monster from your Extra Deck, \
+    using only the Summoned monsters as material, \
+    and if you do, equip it with this card. \
+    You cannot Pendulum Summon the turn you activate this card. \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+If the equipped monster leaves the field: \
+    You can add 1 "Odd-Eyes Xyz Gate" from your Deck to your hand. \
+"""
+strings = []
+
+[odd-eyes-xyz-gate]
+id = 900005028
+name = "Odd-Eyes Xyz Gate"
+set = "odd-eyes xyz"
+type = "spell quick-play"
+effect = """\
+Special Summon 1 "Odd-Eyes Pendulum Dragon" from your GY or Extra Deck face-up and 1 Xyz Monster in your GY; \
+    but negate their effects, also that Xyz Monster is treated as the same Level as that "Odd-Eyes Pendulum Dragon", \
+    then immediately after this effect resolves, Xyz Summon 1 Xyz Pendulum Monster from your Extra Deck, \
+    using only the Summoned monsters as material, \
+    and if you do, equip it with this card. \
+    You cannot Pendulum Summon the turn you activate this card. \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+If the equipped monster leaves the field: \
+    You can add 1 "Odd-Eyes Fusion Gate" from your Deck to your hand. \
 """
 strings = []

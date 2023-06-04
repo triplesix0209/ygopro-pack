@@ -12,11 +12,8 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMix(c, false, false, function(c, sc, sumtype, tp)
-        return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) and
-                   c:IsOnField()
-    end, function(c, sc, sumtype, tp)
-        return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) and c:IsOnField()
-    end)
+        return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
+    end, function(c, sc, sumtype, tp) return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -67,9 +64,19 @@ function s.initial_effect(c)
     me1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     me1:SetProperty(EFFECT_FLAG_DELAY)
     me1:SetCode(EVENT_SPSUMMON_SUCCESS)
-    me1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end)
+    me1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) and e:GetLabel() == 1 end)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
+    local me1check = Effect.CreateEffect(c)
+    me1check:SetType(EFFECT_TYPE_SINGLE)
+    me1check:SetCode(EFFECT_MATERIAL_CHECK)
+    me1check:SetValue(function(e, c)
+        local g = e:GetHandler():GetMaterial()
+        local lg = g:Filter(Card.IsLocation, nil, LOCATION_MZONE)
+        if #g == #lg then e:GetLabelObject():SetLabel(1) end
+    end)
+    me1check:SetLabelObject(me1)
+    c:RegisterEffect(me1check)
 
     -- place counter (monster)
     local me2 = Effect.CreateEffect(c)
