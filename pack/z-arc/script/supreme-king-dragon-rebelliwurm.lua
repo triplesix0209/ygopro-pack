@@ -190,5 +190,9 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
 
     local mg = Group.FromCards(c, tc)
     local g = Duel.GetMatchingGroup(s.me3filter2, tp, LOCATION_EXTRA, 0, nil, tp, mg)
-    if #g > 0 then Duel.XyzSummon(tp, g:Select(tp, 1, 1, nil):GetFirst(), nil, mg) end
+    if #g > 0 then
+        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
+        local sc = g:Select(tp, 1, 1, nil):GetFirst()
+        Duel.XyzSummon(tp, sc, nil, mg)
+    end
 end

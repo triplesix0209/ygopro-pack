@@ -180,7 +180,8 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local mg = Group.FromCards(c, tc)
     local g = Duel.GetMatchingGroup(s.me3filter2, tp, LOCATION_EXTRA, 0, nil, tp, mg)
     if #g > 0 then
-        local sc = Utility.GroupSelect(HINTMSG_SPSUMMON, g, tp, 1, 1, nil):GetFirst()
+        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
+        local sc = g:Select(tp, 1, 1, nil):GetFirst()
         Duel.SynchroSummon(tp, sc, nil, mg)
     end
 end
