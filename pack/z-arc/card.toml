@@ -36,7 +36,7 @@ Once per turn, if a card(s) is added from the Main Deck to your opponent's hand 
 effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
 (This card is always treated as "Supreme King Z-ARC", and has a Rank equal to its Level.)
-Must first be Fusion Summoned. \
+Must be Fusion Summoned. \
 If this card is Special Summoned: \
     You can destroy all cards your opponent controls, and if you do, \
     inflict damage to your opponent equal to the combined original ATK of the destroyed monsters. \
@@ -92,7 +92,6 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
 (This card is always treated as "Supreme King Z-ARC", and has a Rank equal to its Level.)
-Must first be Fusion Summoned. \
 This face-down card in the Extra Deck must first be either Fusion Summoned, \
     or Special Summoned by Tributing 1 Level 12 DARK "Supreme King Z-ARC". \
 This card's Special Summon cannot be negated. \
