@@ -32,7 +32,7 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(splimit)
 
-    -- halve atk
+    -- down atk
     local pe1 = Effect.CreateEffect(c)
     pe1:SetDescription(aux.Stringid(id, 0))
     pe1:SetCategory(CATEGORY_ATKCHANGE)
@@ -120,7 +120,7 @@ function s.pe1op(e, tp, ep, ev, re, r, rp)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_SET_ATTACK_FINAL)
-    ec1:SetValue(math.ceil(bc:GetAttack() / 2))
+    ec1:SetValue(0)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     bc:RegisterEffect(ec1)
 end

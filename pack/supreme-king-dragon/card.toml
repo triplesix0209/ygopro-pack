@@ -327,7 +327,7 @@ atk = 3000
 def = 2500
 pendulum-effect = """\
 Once per turn, if your monster battles an opponent's monster, before damage calculation: \
-    You can halve the ATK of the opponent's monster it is battling, \
+    You can change the ATK of the opponent's monster it is battling to 0, \
     until the end of this turn. \
 """
 effect = """\
