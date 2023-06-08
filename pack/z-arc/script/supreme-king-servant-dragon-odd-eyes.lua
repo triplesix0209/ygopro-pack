@@ -187,7 +187,7 @@ end
 function s.me2tg(e, c) return c:IsType(TYPE_PENDULUM) end
 
 function s.me2val(e, re, r, rp)
-    if ((r & REASON_BATTLE) ~= 0) or ((r & REASON_EFFECT) ~= 0 and re:GetHandlerPlayer() ~= e:GetHandlerPlayer()) then
+    if (r & REASON_BATTLE) ~= 0 or ((r & REASON_EFFECT) ~= 0 and re:GetHandlerPlayer() ~= e:GetHandlerPlayer()) then
         return 1
     else
         return 0
