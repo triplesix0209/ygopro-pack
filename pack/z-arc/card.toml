@@ -750,8 +750,8 @@ attribute = "light"
 race = "spellcaster"
 level = 8
 scale = 8
-atk = 2800
-def = 2600
+atk = 2500
+def = 2800
 pendulum-effect = """\
 Once per turn (Quick Effect): You can activate 1 of these effects.
 ● Place 1 Pendulum Monster from your Monster Zone in your Pendulum Zone.
