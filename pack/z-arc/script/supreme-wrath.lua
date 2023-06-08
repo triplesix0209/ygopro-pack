@@ -108,7 +108,8 @@ end
 function s.e2filter1(c, e) return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ) and not c:IsImmuneToEffect(e) end
 
 function s.e2filter2(c)
-    if not c:IsMonsters() or not (c:IsFaceup() or not c:IsLocation(LOCATION_EXTRA)) then return false end
+    if not c:IsMonster() then return false end
+    if c:IsFacedown() and c:IsLocation(LOCATION_EXTRA) then return false end
     return c:IsSetCard(SET_SUPREME_KING_DRAGON) or (c:IsSetCard(SET_ODD_EYES) and c:IsRace(RACE_DRAGON))
 end
 
