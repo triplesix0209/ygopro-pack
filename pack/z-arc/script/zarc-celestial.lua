@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_ZARC}
-s.listed_series = {SET_SUPREME_KING_DRAGON}
+s.listed_series = {0xf8}
 s.miracle_synchro_fusion = true
 
 function s.initial_effect(c)
@@ -90,43 +90,28 @@ function s.initial_effect(c)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
 
-    -- cannot be Tributed, or be used as a material
-    local me2 = Effect.CreateEffect(c)
-    me2:SetType(EFFECT_TYPE_SINGLE)
-    me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me2:SetCode(EFFECT_UNRELEASABLE_SUM)
-    me2:SetRange(LOCATION_MZONE)
-    me2:SetValue(1)
-    c:RegisterEffect(me2)
-    local me2b = me2:Clone()
-    me2b:SetCode(EFFECT_UNRELEASABLE_NONSUM)
-    c:RegisterEffect(me2b)
-    local me2c = me2:Clone()
-    me2c:SetCode(EFFECT_CANNOT_TO_DECK)
-    c:RegisterEffect(me2c)
-
     -- gain effect
-    local me3 = Effect.CreateEffect(c)
-    me3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me3:SetCode(EVENT_ADJUST)
-    me3:SetRange(LOCATION_MZONE)
-    me3:SetOperation(s.me3op)
-    c:RegisterEffect(me3)
+    local me2 = Effect.CreateEffect(c)
+    me2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me2:SetCode(EVENT_ADJUST)
+    me2:SetRange(LOCATION_MZONE)
+    me2:SetOperation(s.me2op)
+    c:RegisterEffect(me2)
 
     -- place into pendulum zone (destroy)
-    local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(2203)
-    me4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me4:SetCode(EVENT_DESTROYED)
-    me4:SetProperty(EFFECT_FLAG_DELAY)
-    me4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
-    me4:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
-    me4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    local me3 = Effect.CreateEffect(c)
+    me3:SetDescription(2203)
+    me3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me3:SetCode(EVENT_DESTROYED)
+    me3:SetProperty(EFFECT_FLAG_DELAY)
+    me3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
+    me3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
+    me3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not Duel.CheckPendulumZones(tp) then return end
         local c = e:GetHandler()
         if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end)
-    c:RegisterEffect(me4)
+    c:RegisterEffect(me3)
 end
 
 function s.fusfilter(type) return function(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(type, fc, sumtype, tp) end end
@@ -232,14 +217,14 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
-function s.me3filter(c)
+function s.me2filter(c)
     if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsSetCard(SET_SUPREME_KING_DRAGON) or (c:IsSetCard(SET_ODD_EYES) and c:IsRace(RACE_DRAGON))
+    return (c:IsSetCard(0xf8) or c:IsSetCard(SET_ODD_EYES)) and c:IsRace(RACE_DRAGON)
 end
 
-function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = c:GetOverlayGroup():Filter(s.me3filter, nil)
+    local g = c:GetOverlayGroup():Filter(s.me2filter, nil)
     if #g <= 0 then return end
 
     for tc in g:Iter() do

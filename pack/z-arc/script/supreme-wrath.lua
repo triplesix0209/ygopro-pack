@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_ZARC}
-s.listed_series = {SET_SUPREME_KING_DRAGON, SET_ODD_EYES}
+s.listed_series = {0xf8, SET_ODD_EYES}
 
 function s.initial_effect(c)
     -- activate
@@ -110,7 +110,7 @@ function s.e2filter1(c, e) return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:I
 function s.e2filter2(c)
     if not c:IsMonster() then return false end
     if c:IsFacedown() and c:IsLocation(LOCATION_EXTRA) then return false end
-    return c:IsSetCard(SET_SUPREME_KING_DRAGON) or (c:IsSetCard(SET_ODD_EYES) and c:IsRace(RACE_DRAGON))
+    return (c:IsSetCard(0xf8) or c:IsSetCard(SET_ODD_EYES)) and c:IsRace(RACE_DRAGON)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
