@@ -232,7 +232,10 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
-function s.me3filter(c) return c:IsSetCard(SET_SUPREME_KING_DRAGON) and c:GetFlagEffect(id) == 0 end
+function s.me3filter(c)
+    if c:GetFlagEffect(id) ~= 0 then return false end
+    return c:IsSetCard(SET_SUPREME_KING_DRAGON) or (c:IsSetCard(SET_ODD_EYES) and c:IsRace(RACE_DRAGON))
+end
 
 function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
