@@ -145,7 +145,7 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
 end
 
 function s.pe2filter(c)
-    if c:Islocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
+    if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
     return c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 

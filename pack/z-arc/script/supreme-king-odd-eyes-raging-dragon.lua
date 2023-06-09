@@ -105,7 +105,7 @@ function s.lnkcheck(g, sc, sumtype, tp)
 end
 
 function s.pe1filter(c)
-    if c:Islocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
+    if c:IsLocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
     return c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 
