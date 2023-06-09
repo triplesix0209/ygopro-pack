@@ -150,7 +150,7 @@ function s.e1disop(c, tc)
     end
 end
 
-function s.e2filter(c) return c:IsCode(900005028) and c:IsAbleToHand() end
+function s.e2filter(c) return c:IsCode(900005029) and c:IsAbleToHand() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()

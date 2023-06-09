@@ -116,7 +116,7 @@ function s.e1disop(c, tc)
     tc:RegisterEffect(ec1b)
 end
 
-function s.e2filter(c) return c:IsCode(900005027) and c:IsAbleToHand() end
+function s.e2filter(c) return c:IsCode(900005028) and c:IsAbleToHand() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
