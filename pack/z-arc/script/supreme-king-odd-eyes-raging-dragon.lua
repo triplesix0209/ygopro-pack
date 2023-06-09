@@ -10,7 +10,7 @@ function s.initial_effect(c)
     Pendulum.AddProcedure(c, false)
 
     -- link summon
-    Link.AddProcedure(c, s.lnkfilter, 2, 2, s.lnkcheck)
+    Link.AddProcedure(c, s.lnkmatfilter, 2, 2, s.lnkcheck)
 
     -- overscale
     local pensum = Effect.CreateEffect(c)
@@ -114,10 +114,35 @@ function s.initial_effect(c)
     c:RegisterEffect(me6)
 end
 
-function s.lnkfilter(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsSummonType(SUMMON_TYPE_SPECIAL) end
+function s.lnkmatfilter(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
+
+function s.lnkcheckfilter1(c, sc, sumtype, tp) return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
 
 function s.lnkcheck(g, sc, sumtype, tp)
-    return g:IsExists(Card.IsSetCard, 1, nil, SET_ODD_EYES, sc, sumtype, tp) and g:CheckDifferentProperty(Card.GetCode, sc, sumtype, tp)
+    if not g:IsExists(s.lnkcheckfilter1, 1, nil, sc, sumtype, tp) then return false end
+
+    local ritual = 0
+    local fusion = 0
+    local synchro = 0
+    local xyz = 0
+    local link = 0
+    local effect = 0
+    for tc in g:Iter() do
+        if tc:IsType(TYPE_RITUAL) and ritual == 0 then
+            ritual = 1
+        elseif tc:IsType(TYPE_FUSION) and fusion == 0 then
+            fusion = 1
+        elseif tc:IsType(TYPE_SYNCHRO) and synchro == 0 then
+            synchro = 1
+        elseif tc:IsType(TYPE_XYZ) and xyz == 0 then
+            xyz = 1
+        elseif tc:IsType(TYPE_LINK) and link == 0 then
+            link = 1
+        elseif effect == 0 then
+            effect = 1
+        end
+    end
+    return ritual + fusion + synchro + xyz + link + effect > 0
 end
 
 function s.pe1filter(c)

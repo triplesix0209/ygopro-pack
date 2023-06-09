@@ -368,7 +368,8 @@ Once per turn, if you have no cards in your other Pendulum Zone: \
     You can place 1 Pendulum Monster from your Deck or Extra Deck face-up in your Pendulum Zone. \
 """
 effect = """\
-2 Special Summoned Dragon monsters with different names, including a "Odd-Eyes" monster
+2 Dragon monsters with different card type (Fusion, Ritual, Synchro, Xyz, Link, Effect), \
+    including a "Odd-Eyes" Pendulum Monster
 Must be Link Summoned, and can then be Pendulum Summoned. \
 You can Pendulum Summon this card regardless of your Pendulum Scales. \
 Cannot be Tributed, be used as material for an Summon, nor be returned to the Deck. \
