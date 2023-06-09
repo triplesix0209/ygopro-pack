@@ -116,28 +116,28 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     end, function(tc) return Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) end, 2)
 end
 
-function s.me1filter1(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_FUSION) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
-
-function s.me1filter2(c) return c:IsAbleToHand() and c:IsSpellTrap() end
+function s.me1checkfilter(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_FUSION) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
 function s.me1check(e, c)
     local g = c:GetMaterial()
-    if g:IsExists(s.me1filter1, 1, nil, c) then
+    if g:IsExists(s.me1checkfilter, 1, nil, c) then
         e:GetLabelObject():SetLabel(1)
     else
         e:GetLabelObject():SetLabel(0)
     end
 end
 
+function s.me1filter(c) return c:IsAbleToHand() and c:IsSpellTrap() end
+
 function s.me1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) and e:GetLabel() == 1 end
 
 function s.me1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.me1filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.me1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
 end
 
 function s.me1op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.me1filter2, tp, LOCATION_DECK, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.me1filter, tp, LOCATION_DECK, 0, 1, 1, nil)
     if #g > 0 then
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)
