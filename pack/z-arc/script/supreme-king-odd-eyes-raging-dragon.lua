@@ -50,8 +50,11 @@ function s.initial_effect(c)
     me1b:SetCode(EFFECT_UNRELEASABLE_NONSUM)
     c:RegisterEffect(me1b)
     local me1c = me1:Clone()
-    me1c:SetCode(EFFECT_CANNOT_TO_DECK)
+    me1c:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     c:RegisterEffect(me1c)
+    local me1d = me1:Clone()
+    me1d:SetCode(EFFECT_CANNOT_TO_DECK)
+    c:RegisterEffect(me1d)
 
     -- place into pendulum zone
     local me2 = Effect.CreateEffect(c)
