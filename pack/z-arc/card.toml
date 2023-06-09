@@ -353,7 +353,7 @@ strings = [
 ]
 
 [supreme-king-dragon-oddwurm]
-id = 900005010
+id = 900005011
 set = "supreme-king-dragon odd-eyes"
 name = "Supreme King Dragon Oddwurm"
 type = "monster effect"
@@ -379,7 +379,7 @@ If this card is destroyed by battle or card effect: \
 strings = ["Inflict damage equal to the destroyed monster's original ATK"]
 
 [supreme-king-gate-despair]
-id = 900005011
+id = 900005012
 set = "supreme-king-gate"
 name = "Supreme King Gate Despair"
 type = "monster pendulum effect"
@@ -407,7 +407,7 @@ If this card in the Monster Zone is destroyed: You can place it in your Pendulum
 strings = ["Special Summon a Dragon-Type Fusion or Synchro Monster"]
 
 [supreme-king-gate-hope]
-id = 900005012
+id = 900005013
 set = "supreme-king-gate"
 name = "Supreme King Gate Hope"
 type = "monster pendulum effect"
@@ -436,7 +436,7 @@ If this card in the Monster Zone is destroyed: You can place it in your Pendulum
 strings = ["Special Summon a Dragon-Type Xyz or Pendulum Monster"]
 
 [supreme-king-dragon-venowurm]
-id = 900005013
+id = 900005014
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Venowurm"
 type = "monster pendulum effect"
@@ -463,7 +463,7 @@ Once per turn, you can Fusion Summon 1 Fusion Monster from your Extra Deck, \
 strings = []
 
 [supreme-king-dragon-wingwurm]
-id = 900005014
+id = 900005015
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Wingwurm"
 type = "monster pendulum tuner effect"
@@ -490,7 +490,7 @@ Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has
 strings = ["Make monster become Tuner"]
 
 [supreme-king-dragon-rebelliwurm]
-id = 900005015
+id = 900005016
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Rebelliwurm"
 type = "monster pendulum effect"
@@ -519,7 +519,7 @@ Once per turn: You can Special Summon 1 card from your Pendulum Zone; but it has
 strings = ["Make Xyz monster gain Level"]
 
 [supreme-king-dragon-goldwurm]
-id = 900005016
+id = 900005017
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Goldwurm"
 type = "monster pendulum effect"
@@ -547,7 +547,7 @@ strings = [
 ]
 
 [supreme-king-dragon-silverwurm]
-id = 900005017
+id = 900005018
 set = "supreme-king-dragon"
 name = "Supreme King Dragon Silverwurm"
 type = "monster pendulum effect"
@@ -575,7 +575,7 @@ strings = [
 ]
 
 [magician-odd-eyes]
-id = 900005018
+id = 900005019
 set = "magician odd-eyes pendulum-dragon"
 name = "Odd-Eyes Magician"
 type = "monster pendulum effect"
@@ -613,7 +613,7 @@ strings = [
 ]
 
 [magician-starving-venom]
-id = 900005019
+id = 900005020
 set = "magician starving-venom fusion-dragon"
 name = "Starving Venom Magician"
 type = "monster fusion pendulum effect"
@@ -645,7 +645,7 @@ strings = [
 ]
 
 [magician-clear-wing]
-id = 900005020
+id = 900005021
 set = "magician clear-wing synchro-dragon"
 name = "Clear Wing Magician"
 type = "monster synchro pendulum tuner effect"
@@ -674,7 +674,7 @@ If this card in the Monster Zone is destroyed: You can place it in your Pendulum
 strings = ["Inflict damage equal to the ATK of \"Clear Wing\" dragon"]
 
 [magician-dark-rebellion]
-id = 900005021
+id = 900005022
 set = "magician rebellion xyz-dragon"
 name = "Dark Rebellion Magician"
 type = "monster xyz pendulum effect"
@@ -708,7 +708,7 @@ strings = [
 ]
 
 [astrochrono-sorcerer]
-id = 900005022
+id = 900005023
 name = "Astrochrono Sorcerer"
 type = "monster fusion pendulum effect"
 attribute = "light dark"
@@ -741,7 +741,7 @@ strings = [
 ]
 
 [maiden-sky-iris]
-id = 900005023
+id = 900005024
 name = "Maiden of Sky Iris"
 type = "monster xyz pendulum effect"
 attribute = "light"
@@ -773,7 +773,7 @@ strings = [
 ]
 
 [supreme-presence]
-id = 900005024
+id = 900005025
 set = "supreme-king"
 rarity = "gold"
 name = "Presence of the Supreme King"
@@ -814,7 +814,7 @@ strings = [
 ]
 
 [supreme-wrath]
-id = 900005025
+id = 900005026
 name = "Wrath of the Supreme King"
 set = "supreme-king"
 type = "trap"
@@ -832,7 +832,7 @@ While this card is in your GY: \
 strings = []
 
 [odd-eyes-fusion-gate]
-id = 900005026
+id = 900005027
 name = "Odd-Eyes Fusion Gate"
 set = "odd-eyes fusion"
 type = "spell quick-play"
@@ -849,7 +849,7 @@ If the equipped monster leaves the field: \
 strings = ["Affected by effect \"{CARD_NAME}\": cannot Pendulum Summon"]
 
 [odd-eyes-synchro-gate]
-id = 900005027
+id = 900005028
 name = "Odd-Eyes Synchro Gate"
 set = "odd-eyes synchro"
 type = "spell quick-play"
@@ -867,7 +867,7 @@ If the equipped monster leaves the field: \
 strings = ["Affected by effect \"{CARD_NAME}\": cannot Pendulum Summon"]
 
 [odd-eyes-xyz-gate]
-id = 900005028
+id = 900005029
 name = "Odd-Eyes Xyz Gate"
 set = "odd-eyes xyz"
 type = "spell quick-play"
