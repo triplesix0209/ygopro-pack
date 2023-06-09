@@ -107,7 +107,7 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.pe1filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.pe1filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil, e, tp):GetFirst()
     if not tc then return end
     aux.ToHandOrElse(tc, tp, function(tc)
         return tc:IsCanBeSpecialSummoned(e, 0, tp, false, false) and
