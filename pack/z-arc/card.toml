@@ -103,7 +103,7 @@ This card gains the original effects of all "Supreme King" Dragon monsters and "
 If this card in the Monster Zone is destroyed: You can place this card in your Pendulum Zone. \
 """
 strings = [
-    "Place monster in Pendulum Zone",
+    "Place monster in other Pendulum Zone",
     "Shuffle 1 card from your Pendulum Zone into the Deck?",
 ]
 
@@ -364,13 +364,18 @@ link-arrow = "bottom-left bottom-right"
 scale = 1
 atk = 3000
 pendulum-effect = """\
+Once per turn, if you have no cards in your other Pendulum Zone: \
+    You can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
 """
 effect = """\
+2 DARK Dragon monsters with the same Level/Rank, including a "Odd-Eyes" monster
 Must be Link Summoned, and can then be Pendulum Summoned. \
 You can Pendulum Summon this card regardless of your Pendulum Scales. \
-If this card in the Monster Zone is destroyed: You can place it in your Pendulum Zone. \
+If this card in the Monster Zone is destroyed: \
+    You can destroy as many cards in your Pendulum Zones as possible (min. 1), and if you do, \
+    place this card in your Pendulum Zone. \
 """
-strings = []
+strings = ["Place monster in other Pendulum Zone"]
 
 [supreme-king-dragon-oddwurm]
 id = 900005011

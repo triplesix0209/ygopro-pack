@@ -107,9 +107,8 @@ function s.initial_effect(c)
     me3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
     me3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
     me3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if not Duel.CheckPendulumZones(tp) then return end
-        local c = e:GetHandler()
-        if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+        if not e:GetHandler():IsRelateToEffect(e) or not Duel.CheckPendulumZones(tp) then return end
+        Duel.MoveToField(e:GetHandler(), tp, tp, LOCATION_PZONE, POS_FACEUP, true)
     end)
     c:RegisterEffect(me3)
 end

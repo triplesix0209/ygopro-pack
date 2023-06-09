@@ -61,11 +61,14 @@ function s.initial_effect(c)
     local me2 = Effect.CreateEffect(c)
     me2:SetDescription(2203)
     me2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me2:SetProperty(EFFECT_FLAG_DELAY)
     me2:SetCode(EVENT_DESTROYED)
-    me2:SetCondition(s.me2con)
-    me2:SetTarget(s.me2tg)
-    me2:SetOperation(s.me2op)
+    me2:SetProperty(EFFECT_FLAG_DELAY)
+    me2:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_MZONE) and e:GetHandler():IsFaceup() end)
+    me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end)
+    me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        if not e:GetHandler():IsRelateToEffect(e) or not Duel.CheckPendulumZones(tp) then return end
+        Duel.MoveToField(e:GetHandler(), tp, tp, LOCATION_PZONE, POS_FACEUP, true)
+    end)
     c:RegisterEffect(me2)
 end
 
@@ -146,17 +149,4 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
         end
         Duel.SpecialSummonComplete()
     end
-end
-
-function s.me2con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
-end
-
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.CheckPendulumZones(tp) end end
-
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not Duel.CheckPendulumZones(tp) then return end
-    if c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
