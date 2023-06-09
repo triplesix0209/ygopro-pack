@@ -337,10 +337,9 @@ effect = """\
 2 Level 7 monsters (1 "Odd-Eyes" Dragon Pendulum Monster, 1 "Rebellion" Xyz Monster)
 Must be Xyz Summoned, and can then be Pendulum Summoned. \
 If you can Pendulum Summon Level 7, you can Pendulum Summon this face-up card in your Extra Deck. \
-If this card is Xyz Summoned, it can make up to 3 attacks. \
+If this card is Xyz Summoned, it can make up to 3 attacks during each Battle Phase. \
 Once per turn: You can detach 1 material from this card; \
-    destroy as many cards your opponent controls as possible, \
-    and if you do, this card gains 200 ATK for each, until the end of this turn. \
+    destroy all face-up monsters your opponent controls with ATK lower than this card's ATK. \
 Once per turn (Quick Effect): You can target 1 face-up monster your opponent controls; \
     until the end of this turn, negate the effects of that monster, \
     also its ATK becomes half its current ATK, and if it does, this card gains that lost ATK. \

@@ -137,6 +137,8 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     c:RegisterEffect(ec1)
 end
 
+function s.me2filter(c, atk) return c:IsFaceup() and c:IsAttackBelow(atk) end
+
 function s.me2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:CheckRemoveOverlayCard(tp, 1, REASON_COST) end
@@ -144,23 +146,21 @@ function s.me2cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.GetFieldGroupCount(tp, 0, LOCATION_ONFIELD) > 0 end
-    local g = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
+    local c = e:GetHandler()
+    local atk = c:GetAttack()
+    local g = Duel.GetMatchingGroup(s.me2filter, tp, 0, LOCATION_MZONE, nil, atk)
+    if chk == 0 then return #g > 0 end
+
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
 function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
-    local ct = Duel.Destroy(g, REASON_EFFECT)
-    if ct > 0 and c:IsFaceup() and c:IsRelateToEffect(e) then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(ct * 200)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
-        c:RegisterEffect(ec1)
-    end
+    local atk = c:GetAttack()
+    if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+
+    local g = Duel.GetMatchingGroup(s.me2filter, tp, 0, LOCATION_MZONE, nil, atk)
+    if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
 end
 
 function s.me3filter(c)
