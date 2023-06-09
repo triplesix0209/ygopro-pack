@@ -89,7 +89,8 @@ function s.initial_effect(c)
     me4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     me4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     me4:SetRange(LOCATION_MZONE)
-    me4:SetValue(s.effcon)
+    me4:SetCondition(s.effcon)
+    me4:SetValue(aux.indoval)
     c:RegisterEffect(me4)
 
     -- can make a second attack
