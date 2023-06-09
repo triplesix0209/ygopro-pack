@@ -158,7 +158,7 @@ function s.effcon(e) return e:GetHandler():GetFlagEffect(id) > 0 end
 
 function s.me5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local ng = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSpellTrap), tp, 0, LOCATION_ONFIELD, nil)
-    local dg = Duel.GetFieldGroupCount(tp, 0, LOCATION_ONFIELD)
+    local dg = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
     if chk == 0 then return #dg > 0 end
 
     Duel.SetOperationInfo(0, CATEGORY_DISABLE, ng, #ng, 0, 0)
