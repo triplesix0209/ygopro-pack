@@ -48,7 +48,7 @@ function s.initial_effect(c)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     c:RegisterEffect(sumsafe)
 
-    -- Unaffected by opponent's card effects
+    -- unaffected by opponent's card effects
     local pe1 = Effect.CreateEffect(c)
     pe1:SetType(EFFECT_TYPE_SINGLE)
     pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
@@ -60,9 +60,10 @@ function s.initial_effect(c)
     -- place into pendulum zone (p-zone)
     local pe2 = Effect.CreateEffect(c)
     pe2:SetDescription(aux.Stringid(id, 0))
-    pe2:SetType(EFFECT_TYPE_IGNITION)
+    pe2:SetType(EFFECT_TYPE_QUICK_O)
+    pe2:SetCode(EVENT_FREE_CHAIN)
     pe2:SetRange(LOCATION_PZONE)
-    pe2:SetCountLimit(1, {id, 1})
+    pe2:SetCountLimit(1)
     pe2:SetTarget(s.pe2tg)
     pe2:SetOperation(s.pe2op)
     c:RegisterEffect(pe2)
@@ -73,7 +74,7 @@ function s.initial_effect(c)
     pe3:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_TODECK)
     pe3:SetType(EFFECT_TYPE_IGNITION)
     pe3:SetRange(LOCATION_PZONE)
-    pe3:SetCountLimit(1, {id, 2})
+    pe3:SetCountLimit(1, id)
     pe3:SetCondition(s.pe3con)
     pe3:SetTarget(s.pe3tg)
     pe3:SetOperation(s.pe3op)
@@ -143,17 +144,20 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.pe2filter(c) return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+function s.pe2filter(c)
+    if c:Islocation(LOCATION_EXTRA) and c:IsFacedown() then return false end
+    return c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+end
 
 function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.CheckPendulumZones(tp) and Duel.IsExistingMatchingCard(s.pe2filter, tp, LOCATION_EXTRA, 0, 1, nil) end
+    if chk == 0 then return Duel.CheckPendulumZones(tp) and Duel.IsExistingMatchingCard(s.pe2filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil) end
 end
 
 function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or not Duel.CheckPendulumZones(tp) then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.pe2filter, tp, LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.pe2filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
     if tc and Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)

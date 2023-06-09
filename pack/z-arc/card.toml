@@ -82,14 +82,14 @@ def = 4000
 pendulum-effect = """\
 Unaffected by your opponent's card effects. \
     This effect cannot be negated. \
-If you have no card in your other Pendulum Zone: \
-    You can place 1 face-up Pendulum Monster from your Extra Deck in your Pendulum Zone, \
+Once per turn, if you have no card in your other Pendulum Zone (Quick Effect): \
+    You can place 1 Pendulum Monster from your Deck or Extra Deck face-up in your Pendulum Zone, \
     and if you do, Pendulum Scale of that card in your Pendulum Zone becomes 0. \
 If you have 2 cards in your Pendulum Zone: You can Special Summon this card, \
     then you can shuffle 1 card from your Pendulum Zone into the Deck, \
     then, if it returned to your Extra Deck, you can Special Summon it, \
     ignoring its Summoning conditions and treated as Special Summoned properly. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
 4 Dragon monsters (1 Fusion, 1 Synchro, 1 Xyz, and 1 Pendulum)
@@ -364,8 +364,8 @@ link-arrow = "bottom-left bottom-right"
 scale = 1
 atk = 3000
 pendulum-effect = """\
-Once per turn, if you have no cards in your other Pendulum Zone (Quick Effect): \
-    You can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
+Once per turn, if you have no cards in your other Pendulum Zone: \
+    You can place 1 Pendulum Monster from your Deck or Extra Deck face-up in your Pendulum Zone. \
 """
 effect = """\
 2 DARK Dragon monsters with the same Level/Rank, including a "Odd-Eyes" monster
