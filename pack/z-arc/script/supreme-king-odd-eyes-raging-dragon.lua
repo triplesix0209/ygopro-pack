@@ -114,13 +114,10 @@ function s.initial_effect(c)
     c:RegisterEffect(me6)
 end
 
-function s.lnkfilter(c, sc, sumtype, tp)
-    return (c:HasLevel() or c:GetRank() > 0) and c:IsAttribute(ATTRIBUTE_DARK, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp)
-end
+function s.lnkfilter(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsSummonType(SUMMON_TYPE_SPECIAL) end
 
 function s.lnkcheck(g, sc, sumtype, tp)
-    return g:IsExists(Card.IsSetCard, 1, nil, SET_ODD_EYES, sc, sumtype, tp) and
-               g:CheckSameProperty(function(c) return c:HasLevel() and c:GetLevel() or c:GetRank() end, sc, sumtype, tp)
+    return g:IsExists(Card.IsSetCard, 1, nil, SET_ODD_EYES, sc, sumtype, tp) and g:CheckDifferentProperty(Card.GetCode, sc, sumtype, tp)
 end
 
 function s.pe1filter(c)
