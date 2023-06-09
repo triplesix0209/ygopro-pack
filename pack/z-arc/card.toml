@@ -352,6 +352,26 @@ strings = [
     "Negate effect & halve ATK of a monster",
 ]
 
+[supreme-king-odd-eyes-raging-dragon]
+id = 900005010
+set = "supreme-king odd-eyes"
+name = "Supreme King Odd-Eyes Raging Dragon"
+type = "monster link pendulum effect"
+attribute = "dark"
+race = "dragon"
+link = 2
+link-arrow = "bottom-left bottom-right"
+scale = 1
+atk = 3000
+pendulum-effect = """\
+"""
+effect = """\
+Must be Link Summoned, and can then be Pendulum Summoned. \
+You can Pendulum Summon this card regardless of your Pendulum Scales. \
+If this card in the Monster Zone is destroyed: You can place it in your Pendulum Zone. \
+"""
+strings = []
+
 [supreme-king-dragon-oddwurm]
 id = 900005011
 set = "supreme-king-dragon odd-eyes"
