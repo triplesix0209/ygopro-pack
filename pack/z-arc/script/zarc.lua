@@ -92,7 +92,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me3)
 
     -- destroy added card (m-zone)
-    local me4 = Effect.CreateEffect(c)
+    local me4 = pe2:Clone()
     me4:SetRange(LOCATION_MZONE)
     c:RegisterEffect(me4)
 
