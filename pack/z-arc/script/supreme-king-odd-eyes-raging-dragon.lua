@@ -116,10 +116,10 @@ end
 
 function s.lnkmatfilter(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
 
-function s.lnkcheckfilter1(c, sc, sumtype, tp) return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
+function s.lnkcheckfilter(c, sc, sumtype, tp) return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
 
 function s.lnkcheck(g, sc, sumtype, tp)
-    if not g:IsExists(s.lnkcheckfilter1, 1, nil, sc, sumtype, tp) then return false end
+    if not g:IsExists(s.lnkcheckfilter, 1, nil, sc, sumtype, tp) then return false end
 
     local ritual = 0
     local fusion = 0
@@ -142,7 +142,7 @@ function s.lnkcheck(g, sc, sumtype, tp)
             effect = 1
         end
     end
-    return ritual + fusion + synchro + xyz + link + effect > 0
+    return ritual + fusion + synchro + xyz + link + effect > 1
 end
 
 function s.pe1filter(c)
