@@ -364,7 +364,7 @@ link-arrow = "bottom-left bottom-right"
 scale = 1
 atk = 3000
 pendulum-effect = """\
-Once per turn, if you have no cards in your other Pendulum Zone: \
+Once per turn, if you have no cards in your other Pendulum Zone (Quick Effect): \
     You can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
 """
 effect = """\

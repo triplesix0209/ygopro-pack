@@ -31,7 +31,8 @@ function s.initial_effect(c)
     -- pendulum set
     local pe1 = Effect.CreateEffect(c)
     pe1:SetDescription(aux.Stringid(id, 0))
-    pe1:SetType(EFFECT_TYPE_IGNITION)
+    pe1:SetType(EFFECT_TYPE_QUICK_O)
+    pe1:SetCode(EVENT_FREE_CHAIN)
     pe1:SetRange(LOCATION_PZONE)
     pe1:SetCountLimit(1)
     pe1:SetTarget(s.pe1tg)
@@ -66,7 +67,7 @@ function s.pe1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.CheckPendulumZones(tp) and Duel.IsExistingMatchingCard(s.pe1filter, tp, LOCATION_DECK, 0, 1, nil) end
 end
 
-function s.pe1filter(e, tp, eg, ep, ev, re, r, rp)
+function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or not Duel.CheckPendulumZones(tp) then return end
 
