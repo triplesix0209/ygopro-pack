@@ -32,7 +32,7 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
     e2:SetTarget(function(e, tc)
         local p = e:GetHandlerPlayer()
-        return tc:GetOwner() == p and tc:IsSummonType(SUMMON_TYPE_SYNCHRO + SUMMON_TYPE_XYZ)
+        return tc:GetOwner() == p and tc:IsRace(RACE_DRAGON)
     end)
     c:RegisterEffect(e2)
 
