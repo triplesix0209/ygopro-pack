@@ -75,6 +75,7 @@ atk = "?"
 def = "?"
 effect = """\
 {EGYPTIAN_GOD_EFFECT|2|The Winged Dragon of Ra} \
+Cannot be Special Summoned from the hand or Deck. \
 This card's original ATK/DEF become the combined ATK/DEF on the field of the monsters Tributed for its Summon. \
     This effect cannot be negated. \
 You can pay 1000 LP, then choose 1 monster on the field as Target; destroy it. \

@@ -15,5 +15,5 @@ skip_compile_packs = [
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/duel-dragon",
-    # "./pack/z-arc",
+    "./pack/z-arc",
 ]
