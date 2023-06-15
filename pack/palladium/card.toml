@@ -828,8 +828,7 @@ If you control "Palladium" monster: \
 If you control Level 6 or higher "Palladium" Spellcaster monster, \
     except the turn this card was sent to the GY: \
     You can return this card from your GY to the bottom of the Deck, \
-    then target 1 face-up card your opponent controls; \
-    negate its effects until the end of this turn. \
+    then target 1 face-up monster on the field; banish it until the End Phase. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
@@ -848,8 +847,8 @@ Target 1 face-up monster your opponent controls; \
 If you control Level 6 or higher "Palladium" Spellcaster monster, \
     except the turn this card was sent to the GY: \
     You can return this card from your GY to the bottom of the Deck, \
-    then target 1 face-up monster your opponent controls and declare 1 Attribute and 1 Type; \
-    the targeted monster becomes that Attribute and Type until the end of this turn. \
+    then target 1 face-up card your opponent controls; \
+    negate its effects until the end of this turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []

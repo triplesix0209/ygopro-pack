@@ -17,9 +17,9 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- disable
+    -- banish
     local e2 = Effect.CreateEffect(c)
-    e2:SetCategory(CATEGORY_DISABLE)
+    e2:SetCategory(CATEGORY_REMOVE)
     e2:SetType(EFFECT_TYPE_QUICK_O)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetRange(LOCATION_GRAVE)
@@ -73,32 +73,27 @@ function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingTarget(Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, nil) end
+    if chk == 0 then return Duel.IsExistingTarget(aux.FaceupFilter(Card.IsAbleToRemove), tp, LOCATION_MZONE, LOCATION_MZONE, 1, nil) end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_NEGATE)
-    local g = Duel.SelectTarget(tp, Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, 1, nil)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
+    local g = Duel.SelectTarget(tp, aux.FaceupFilter(Card.IsAbleToRemove), tp, LOCATION_MZONE, LOCATION_MZONE, 1, 1, nil)
 
-    Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if not tc and not tc:IsRelateToEffect(e) or tc:IsFacedown() or tc:IsDisabled() then return end
-
-    Duel.NegateRelatedChain(tc, RESET_TURN_SET)
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetCode(EFFECT_DISABLE)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    tc:RegisterEffect(ec1)
-    local ec1b = ec1:Clone()
-    ec1b:SetCode(EFFECT_DISABLE_EFFECT)
-    ec1b:SetValue(RESET_TURN_SET)
-    tc:RegisterEffect(ec1b)
-    if tc:IsType(TYPE_TRAPMONSTER) then
-        local ec1c = ec1:Clone()
-        ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
-        tc:RegisterEffect(ec1c)
+    if tc:IsRelateToEffect(e) and Duel.Remove(tc, 0, REASON_EFFECT + REASON_TEMPORARY) ~= 0 then
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+        ec1:SetCode(EVENT_PHASE + PHASE_END)
+        ec1:SetLabelObject(tc)
+        ec1:SetCountLimit(1)
+        ec1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetLabelObject():GetFlagEffect(id) ~= 0 end)
+        ec1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp) Duel.ReturnToField(e:GetLabelObject()) end)
+        ec1:SetReset(RESET_PHASE + PHASE_END)
+        Duel.RegisterEffect(ec1, tp)
     end
 end

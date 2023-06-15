@@ -46,8 +46,9 @@ function s.initial_effect(c)
     e2leave:SetOperation(s.e2desop)
     c:RegisterEffect(e2leave)
 
-    -- change attribute & race
+    -- disable
     local e3 = Effect.CreateEffect(c)
+    e3:SetCategory(CATEGORY_DISABLE)
     e3:SetType(EFFECT_TYPE_QUICK_O)
     e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e3:SetRange(LOCATION_GRAVE)
@@ -83,31 +84,32 @@ function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingTarget(Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, nil) end
+    if chk == 0 then return Duel.IsExistingTarget(Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, nil) end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, Card.IsFaceup, tp, 0, LOCATION_MZONE, 1, 1, nil)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_NEGATE)
+    local g = Duel.SelectTarget(tp, Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, 1, nil)
 
-    local attr = Duel.AnnounceAttribute(tp, 1, ATTRIBUTE_ALL)
-    local race = Duel.AnnounceRace(tp, 1, RACE_ALL)
-    e:SetLabelObject({attr, race})
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if not tc and not tc:IsRelateToEffect(e) or tc:IsFacedown() then return end
+    if not tc and not tc:IsRelateToEffect(e) or tc:IsFacedown() or tc:IsDisabled() then return end
 
-    local attr = e:GetLabelObject()[1]
-    local race = e:GetLabelObject()[2]
+    Duel.NegateRelatedChain(tc, RESET_TURN_SET)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetCode(EFFECT_CHANGE_ATTRIBUTE)
-    ec1:SetValue(attr)
+    ec1:SetCode(EFFECT_DISABLE)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     tc:RegisterEffect(ec1)
-    local ec2 = ec1:Clone()
-    ec2:SetCode(EFFECT_CHANGE_RACE)
-    ec2:SetValue(race)
-    tc:RegisterEffect(ec2)
+    local ec1b = ec1:Clone()
+    ec1b:SetCode(EFFECT_DISABLE_EFFECT)
+    ec1b:SetValue(RESET_TURN_SET)
+    tc:RegisterEffect(ec1b)
+    if tc:IsType(TYPE_TRAPMONSTER) then
+        local ec1c = ec1:Clone()
+        ec1c:SetCode(EFFECT_DISABLE_TRAPMONSTER)
+        tc:RegisterEffect(ec1c)
+    end
 end
