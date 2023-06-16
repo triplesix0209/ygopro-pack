@@ -514,6 +514,10 @@ This card gains effects based on the number of materials attached to it.
 ● 3+: When a Spell Card or effect is activated (Quick Effect): \
     You can negate that effect, and if you do, destroy it. \
     You must control this face-up card to activate and to resolve this effect.
-● 4+: This card gains the original effects of all "Horus" monsters attached to it.
+● 4+: This card gains the original effects of all "Horus" monsters attached to it. \
+    This effect cannot be negated nor be copied.
+● 5+: This card's effect activations and its activated effects cannot be negated, \
+    also Face-up Continuous Spell/Trap you control are unaffected by your opponent's card effects. \
+    This effect cannot be negated nor be copied.
 """
 strings = []

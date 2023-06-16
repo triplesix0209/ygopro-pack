@@ -72,11 +72,38 @@ function s.initial_effect(c)
     -- gain effect
     local e4 = Effect.CreateEffect(c)
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     e4:SetCode(EVENT_ADJUST)
     e4:SetRange(LOCATION_MZONE)
-    e4:SetCondition(s.e4con)
+    e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 4 end)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
+
+    -- activation and effect cannot be negated & protect continuous spell/trap
+    local e5 = Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_FIELD)
+    e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e5:SetCode(EFFECT_CANNOT_INACTIVATE)
+    e5:SetRange(LOCATION_MZONE)
+    e5:SetTargetRange(1, 0)
+    e5:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 5 end)
+    e5:SetValue(function(e, ct)
+        local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
+        return te:GetHandler() == e:GetHandler()
+    end)
+    c:RegisterEffect(e5)
+    local e5b = e5:Clone()
+    e5b:SetCode(EFFECT_CANNOT_DISEFFECT)
+    c:RegisterEffect(e5b)
+    local e5c = Effect.CreateEffect(c)
+    e5c:SetType(EFFECT_TYPE_FIELD)
+    e5c:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e5c:SetCode(EFFECT_IMMUNE_EFFECT)
+    e5c:SetRange(LOCATION_MZONE)
+    e5c:SetTargetRange(LOCATION_ONFIELD, 0)
+    e5c:SetTarget(function(e, c) return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) end)
+    e5c:SetValue(function(e, te) return e:GetOwnerPlayer() ~= te:GetOwnerPlayer() end)
+    c:RegisterEffect(e5c)
 end
 
 function s.xyzcheck(g, tp, xyz) return g:GetClassCount(Card.GetRace) == #g end
@@ -105,8 +132,6 @@ function s.e4filter(c)
     if c:GetFlagEffect(id) ~= 0 then return false end
     return c:IsSetCard(SET_HORUS) and c:IsMonster()
 end
-
-function s.e4con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 4 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
