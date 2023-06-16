@@ -489,3 +489,31 @@ Cannot be destroyed by battle. \
 Monsters you control cannot be destroyed by card effects. \
 """
 strings = []
+
+[horus]
+id = 900000018
+set = "horus-the-black-flame-dragon"
+name = "Black Flame Dragon of Horus"
+type = "monster xyz effect"
+attribute = "fire"
+race = "dragon"
+level = 8
+atk = 3000
+def = 1800
+effect = """\
+3+ Level 8 monsters with different Types and Attributes
+This card is always treated as an "Horus the Black Flame Dragon" card.
+This card's Xyz Summon cannot be negated. \
+This card gains effects based on the number of materials attached to it.
+● 1+: Your opponent cannot Tribute it, nor use it as material for an Summon, \
+    also control of it cannot switch. \
+    This effect cannot be negated nor be copied.
+● 2+: Battle position cannot be changed by card effects, \
+    also unaffected by your opponent's Spell effects. \
+    This effect cannot be negated nor be copied.
+● 3+: When a Spell Card or effect is activated (Quick Effect): \
+    You can negate that effect, and if you do, destroy it. \
+    You must control this face-up card to activate and to resolve this effect.
+● 4+: This card gains the original effects of all "Horus" monsters attached to it.
+"""
+strings = []
