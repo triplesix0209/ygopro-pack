@@ -493,19 +493,21 @@ strings = []
 [horus]
 id = 900000018
 set = "horus-the-black-flame-dragon"
-name = "Black Flame Dragon of Horus"
+name = "Black Divine Flame Dragon of Horus"
 type = "monster xyz effect"
-attribute = "fire"
-race = "dragon"
+attribute = "divine"
+race = "divine-beast"
 level = 8
 atk = 3000
 def = 1800
 effect = """\
 3+ Level 8 monsters with different Types
-This card is always treated as an "Horus the Black Flame Dragon" card.
+(This card is always treated as an "Horus the Black Flame Dragon" card.)
 This card's Xyz Summon cannot be negated. \
+Your opponent cannot Tribute it, nor use it as material for an Summon. \
+    This effect cannot be negated nor be copied. \
 This card gains effects based on the number of materials attached to it.
-● 1+: Your opponent cannot Tribute it, nor use it as material for an Summon, \
+● 1+: Your opponent cannot target this card with card effects, \
     also control of it cannot switch. \
     This effect cannot be negated nor be copied.
 ● 2+: Battle position cannot be changed by card effects, \
@@ -516,7 +518,7 @@ This card gains effects based on the number of materials attached to it.
     You must control this face-up card to activate and to resolve this effect.
 ● 4+: This card gains the original effects of all "Horus" monsters attached to it.
 ● 5+: This card's effect activations and its activated effects cannot be negated, \
-    also Face-up Continuous Spell/Trap you control are unaffected by your opponent's card effects. \
+    also Face-up Continuous Spell/Trap you control are unaffected by other card effects, except their own. \
     This effect cannot be negated nor be copied.
 """
 strings = []
