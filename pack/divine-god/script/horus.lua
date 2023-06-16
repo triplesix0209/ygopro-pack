@@ -72,7 +72,6 @@ function s.initial_effect(c)
     -- gain effect
     local e4 = Effect.CreateEffect(c)
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     e4:SetCode(EVENT_ADJUST)
     e4:SetRange(LOCATION_MZONE)
     e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 4 end)
