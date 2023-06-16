@@ -501,7 +501,7 @@ level = 8
 atk = 3000
 def = 1800
 effect = """\
-3+ Level 8 monsters with different Types and Attributes
+3+ Level 8 monsters with different Types
 This card is always treated as an "Horus the Black Flame Dragon" card.
 This card's Xyz Summon cannot be negated. \
 This card gains effects based on the number of materials attached to it.

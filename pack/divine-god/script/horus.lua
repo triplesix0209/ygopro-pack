@@ -79,7 +79,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.xyzcheck(g, tp, xyz) return g:GetClassCount(Card.GetRace) == #g and g:GetClassCount(Card.GetAttribute) == #g end
+function s.xyzcheck(g, tp, xyz) return g:GetClassCount(Card.GetRace) == #g end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
