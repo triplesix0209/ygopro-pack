@@ -440,21 +440,21 @@ def = 2500
 effect = """\
 "Palladium Oracle Mahad" + "Blue-Eyes White Dragon" or 1 Dragon Effect Monster
 Must first be Fusion Summoned with the above materials. \
-Cannot be destroyed by card effects. Your opponent cannot target it with card effects. \
+Cannot be destroyed by card effects. \
+Your opponent cannot target it with card effects. \
+Negate the effects of your opponent's monsters destroyed by battle with this card. \
 Once per turn, when another card or effect is activated (Quick Effect): \
     You can discard 1 card; \
-    negate the activation, and if you do, destroy that card. \
-You can destroy all monsters your opponent controls OR all Spell/Trap they control. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-If this card is Fusion Summoned using an Normal Monster, it gains this effect.
-● If this card's effect destroys a card, this card gains 500 ATK for each destroyed card.
+    negate the activation, and if you do, destroy that card, \
+    and if you do that, this card gains 1000 ATK. \
+If this card is Fusion Summoned using an Normal Monster, it gains these effects.
+● The destruction by battle of your opponent's monsters cannot be negated.
+● Thrice per turn: You can destroy 1 card your opponent controls.
 """
 strings = [
     "Negate activation, then destroy",
-    "Destroy all monster or Spell/Trap",
-    "Destroy all monster",
-    "Destroy all Spell/Trap",
     "Fusion Summoned with an Normal Monster",
+    "Destroy card your opponent controls",
 ]
 
 [palladium-paladin]
