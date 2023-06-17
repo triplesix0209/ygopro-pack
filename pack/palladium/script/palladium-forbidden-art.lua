@@ -23,8 +23,8 @@ function s.initial_effect(c)
         desc = 1171,
         handler = c,
         lvtype = RITPROC_GREATER,
-        location = LOCATION_HAND + LOCATION_GRAVE,
-        matfilter = function(c) return c:IsType(TYPE_NORMAL) or c:IsSetCard(SET_PALLADIUM) end
+        location = LOCATION_HAND + LOCATION_DECK,
+        matfilter = function(c) return c:IsSetCard(SET_PALLADIUM) end
     })
     Utility.RegisterMultiEffect(s, 1, e1)
 

@@ -691,8 +691,8 @@ effect = """\
 (This card is always treated as an "Fusion" card.)
 You can only activate this card during your Main Phase, unless you control "Palladium Oracle Mahad". \
 Activate 1 of these effects.
-● Ritual Summon 1 Ritual Monster from your hand or GY, \
-    by Tributing Normal Monsters and/or "Palladium" monsters from your hand or field, \
+● Ritual Summon 1 Ritual Monster from your hand or Deck, \
+    by Tributing "Palladium" monsters from your hand or field, \
     whose total Levels equal or exceed the Level of the Ritual Monster.
 ● Fusion Summon 1 Fusion Monster from your Extra Deck, \
     using monsters from your hand or field as Fusion Material, including a "Palladium" monster, \
