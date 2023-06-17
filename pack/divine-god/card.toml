@@ -493,8 +493,8 @@ strings = []
 [horus]
 id = 900000018
 rarity = "gold"
-set = "horus-the-black-flame-dragon"
-name = "Black Divine Flame Dragon of Horus"
+set = "horus"
+name = "Black Flame Divine Dragon of Horus"
 type = "monster xyz effect"
 attribute = "divine"
 race = "dragon"
@@ -503,6 +503,7 @@ atk = 3000
 def = 1800
 effect = """\
 3+ Level 8 monsters with different Types
+Must first be Xyz Summoned with the above materials. \
 This card's Xyz Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
     This effect cannot be negated nor be copied. \
@@ -520,5 +521,22 @@ This card gains effects based on the number of materials attached to it.
 ● 5+: This card's effect activations and its activated effects cannot be negated, \
     also face-up Continuous Spell/Trap you control are unaffected by other card effects, except their own. \
     This effect cannot be negated nor be copied.
+"""
+strings = []
+
+[nephthys]
+id = 900000019
+rarity = "gold"
+set = "nephthys"
+name = "Divine Phoenix of Nephthys"
+type = "monster synchro effect"
+attribute = "divine"
+race = "winged-beast"
+level = 9
+atk = 2400
+def = 1600
+effect = """\
+1 Tuner Monster + 1 non-Tuner Monster
+Must first be Synchro Summoned with the above Synchro Materials. \
 """
 strings = []

@@ -10,6 +10,16 @@ function s.initial_effect(c)
     -- xyz summon
     Xyz.AddProcedure(c, nil, 8, 3, nil, nil, 99, nil, false, s.xyzcheck)
 
+    -- special summon limit
+    local splimit = Effect.CreateEffect(c)
+    splimit:SetType(EFFECT_TYPE_SINGLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
+    splimit:SetValue(function(e, se, sp, st)
+        return not e:GetHandler():IsLocation(LOCATION_EXTRA) or ((st & SUMMON_TYPE_XYZ) == SUMMON_TYPE_XYZ and not se)
+    end)
+    c:RegisterEffect(splimit)
+
     -- xyz summon cannot be negated
     local sumsafe = Effect.CreateEffect(c)
     sumsafe:SetType(EFFECT_TYPE_SINGLE)
