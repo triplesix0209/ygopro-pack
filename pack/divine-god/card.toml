@@ -498,11 +498,11 @@ name = "Black Flame Divine Dragon of Horus"
 type = "monster xyz effect"
 attribute = "divine"
 race = "dragon"
-level = 8
+level = 10
 atk = 3000
 def = 1800
 effect = """\
-3+ Level 8 monsters with different Types
+3+ Level 8 or higher monsters with the same Level and different Types
 Must first be Xyz Summoned with the above materials. \
 This card's Xyz Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
@@ -532,11 +532,14 @@ name = "Divine Phoenix of Nephthys"
 type = "monster synchro effect"
 attribute = "divine"
 race = "winged-beast"
-level = 9
+level = 10
 atk = 2400
 def = 1600
 effect = """\
-1 Tuner Monster + 1 non-Tuner Monster
-Must first be Synchro Summoned with the above Synchro Materials. \
+1 Tuner Monster + 1 monster
+Must first be Synchro Summoned with the above materials. \
+This card's Synchro Summon cannot be negated. \
+Your opponent cannot Tribute it, nor use it as material for an Summon. \
+    This effect cannot be negated nor be copied. \
 """
 strings = []

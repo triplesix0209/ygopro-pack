@@ -8,7 +8,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, nil, 8, 3, nil, nil, 99, nil, false, s.xyzcheck)
+    Xyz.AddProcedure(c, s.xyzfilter, nil, 3, nil, nil, 99, nil, false, s.xyzcheck)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -20,7 +20,7 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(splimit)
 
-    -- xyz summon cannot be negated
+    -- summon cannot be negated
     local sumsafe = Effect.CreateEffect(c)
     sumsafe:SetType(EFFECT_TYPE_SINGLE)
     sumsafe:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -120,7 +120,9 @@ function s.initial_effect(c)
     c:RegisterEffect(e5c)
 end
 
-function s.xyzcheck(g, tp, xyz) return g:GetClassCount(Card.GetRace) == #g end
+function s.xyzfilter(c, xyz, sumtype, tp) return c:IsLevelAbove(8) end
+
+function s.xyzcheck(g, tp, xyz) return g:GetClassCount(Card.GetLevel) == 1 and g:GetClassCount(Card.GetRace) == #g end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
