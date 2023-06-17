@@ -106,7 +106,7 @@ function s.initial_effect(c)
     e5c:SetTargetRange(LOCATION_ONFIELD, 0)
     e5c:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 5 end)
     e5c:SetTarget(function(e, c) return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) end)
-    e5c:SetValue(function(e, te) return te:GetOwner() ~= e:GetHandler() end)
+    e5c:SetValue(function(e, te, c) return te:GetOwner() ~= e:GetHandler() and te:GetOwner() ~= c end)
     c:RegisterEffect(e5c)
 end
 
