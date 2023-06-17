@@ -51,16 +51,17 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     e1:SetCode(EFFECT_UPDATE_ATTACK)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetValue(function(e, c) return s[c:GetControler()] * 600 end)
+    e1:SetValue(function(e, c) return s.rebirth_count * 600 end)
     c:RegisterEffect(e1)
     aux.GlobalCheck(s, function()
-        s[0] = 0
-        s[1] = 0
+        s.rebirth_count = 0
         local ge1 = Effect.CreateEffect(c)
         ge1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
         ge1:SetCode(EVENT_SPSUMMON_SUCCESS)
         ge1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-            for tc in eg:Iter() do if tc:IsCode(id) then s[tc:GetOwner()] = s[tc:GetOwner()] + 1 end end
+            for tc in eg:Iter() do
+                if tc:IsCode(id) and tc:GetSummonType() == SUMMON_TYPE_SPECIAL + 1 then s.rebirth_count = s.rebirth_count + 1 end
+            end
         end)
         Duel.RegisterEffect(ge1, 0)
     end)
