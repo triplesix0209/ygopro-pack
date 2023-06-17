@@ -78,7 +78,7 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- register when sent to GY
+    -- rebirth
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -106,13 +106,19 @@ end
 
 function s.e2filter(c) return c:IsSetCard(0x11f) end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return rp ~= tp end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return not c:IsStatus(STATUS_BATTLE_DESTROYED) and rp ~= tp
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_MZONE, 0, 1, nil) end
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+
     Duel.ChangeTargetCard(ev, Group.CreateGroup())
     Duel.ChangeChainOperation(ev, s.e2repop)
 end
