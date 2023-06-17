@@ -119,7 +119,7 @@ end
 
 function s.e2repop(e, tp, eg, ep, ev, re, r, rp)
     local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, 1 - tp, s.e2filter, 1 - tp, LOCATION_HAND + LOCATION_DECK + LOCATION_MZONE, 0, 1, 1, nil)
-    if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
+    if #g > 0 then Duel.Destroy(g, REASON_EFFECT + REASON_RULE) end
 end
 
 function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
