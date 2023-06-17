@@ -100,9 +100,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e5)
 end
 
-function s.e1filter(c, tp, re) return c:IsRelateToEffect(re) and c:IsControler(tp) and c:IsLocation(LOCATION_GRAVE) and c:IsOriginalRace(RACE_DIVINE) end
+function s.e1filter(c, tp, re)
+    return c:IsRelateToEffect(re) and c:IsControler(tp) and c:IsLocation(LOCATION_GRAVE) and c:IsOriginalAttribute(ATTRIBUTE_DIVINE)
+end
 
-function s.e1tg(e, c, tp, r, re) return c:IsOriginalRace(RACE_DIVINE) end
+function s.e1tg(e, c, tp, r, re) return c:IsOriginalAttribute(ATTRIBUTE_DIVINE) end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if rp == tp or not Duel.IsChainDisablable(ev) then return end
