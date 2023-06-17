@@ -537,8 +537,8 @@ atk = 2400
 def = 1600
 effect = """\
 1 Tuner Monster + 1+ monsters
-For this card's Synchro Summon, you can treat 1 Ritual monster you control as a Tuner. \
 Must first be Synchro Summoned with the above materials. \
+For this card's Synchro Summon, you can treat 1 Ritual monster you control as a Tuner. \
 This card's Synchro Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
     This effect cannot be negated nor be copied. \
