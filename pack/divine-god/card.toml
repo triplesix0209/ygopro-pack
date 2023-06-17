@@ -492,6 +492,7 @@ strings = []
 
 [horus]
 id = 900000018
+rarity = "gold"
 set = "horus-the-black-flame-dragon"
 name = "Black Divine Flame Dragon of Horus"
 type = "monster xyz effect"
