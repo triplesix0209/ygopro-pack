@@ -84,8 +84,8 @@ end
 function s.e2filter2(c, e, tp, mc)
     if Duel.GetLocationCountFromEx(tp, tp, mc, c) <= 0 then return false end
     local mustg = aux.GetMustBeMaterialGroup(tp, nil, tp, c, nil, REASON_FUSION)
-    return c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(mc:GetCode()) and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_FUSION, tp, false, false) and
-               (#mustg == 0 or (#mustg == 1 and mustg:IsContains(mc)))
+    return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(mc:GetCode()) and
+               c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_FUSION, tp, false, false) and (#mustg == 0 or (#mustg == 1 and mustg:IsContains(mc)))
 end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
