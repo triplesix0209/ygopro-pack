@@ -542,12 +542,23 @@ For this card's Synchro Summon, you can treat 1 Ritual monster you control as a 
 This card's Synchro Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
     This effect cannot be negated nor be copied. \
+This card gain 600 ATK for each time "{CARD_NAME}" is Special Summoned by its own effect this Duel. \
+    This effect cannot be negated. \
+Once per turn, when your opponent activates a card or effect (Quick Effect): \
+    You can activate this effect; the activated effect becomes \
+    "Your opponent destroys 1 \"Nephthys\" monster they control, or in their hand or Deck". \
 Once per turn, during the Standby Phase, \
     if this card is in the GY because it was destroyed by battle or card effect, \
     except the turn it was sent to the GY: \
     You can Special Summon this card. \
+    This effect's activation and effect cannot be negated. \
 If this card is Special Summoned by its own effect: \
     You can activate 1 of these effects;
-● Destroy all other cards on the field.
+● Destroy all monsters your opponent controls.
+● Destroy all Spells and Traps your opponent controls.
 """
-strings = []
+strings = [
+    "Change activated effect to \"Your opponent destroys 1 monster\"",
+    "Destroy all monsters your opponent controls",
+    "Destroy all Spells and Traps your opponent controls",
+]
