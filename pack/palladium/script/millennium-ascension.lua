@@ -56,11 +56,12 @@ function s.initial_effect(c)
     e2:SetRange(LOCATION_FZONE)
     e2:SetTargetRange(LOCATION_MZONE, 0)
     e2:SetTarget(function(e, tc) return tc:IsLevelAbove(10) or tc:IsRankAbove(10) end)
-    e2:SetValue(1)
+    e2:SetValue(function(e, re, tp) return tp ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
     e2b:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
     e2b:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e2b:SetValue(aux.tgoval)
     c:RegisterEffect(e2b)
     local e2c = e2:Clone()
     e2c:SetCode(EFFECT_CANNOT_DISABLE)
@@ -101,6 +102,14 @@ function s.initial_effect(c)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
+
+    -- avoid damage when leaving the field
+    local e5 = Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
+    e5:SetCode(EVENT_LEAVE_FIELD)
+    e5:SetCondition(s.e5con)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
 end
 
 function s.e3val(e, ct)
@@ -149,4 +158,26 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
             Duel.ConfirmCards(tp, Duel.GetDecktopGroup(tp, 1))
         end
     end
+end
+
+function s.e5con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return c:IsPreviousPosition(POS_FACEUP) and not c:IsLocation(LOCATION_DECK)
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(aux.Stringid(id, 1))
+    ec1:SetType(EFFECT_TYPE_FIELD)
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CHANGE_DAMAGE)
+    ec1:SetTargetRange(1, 0)
+    ec1:SetValue(0)
+    ec1:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec1, tp)
+    local ec1b = ec1:Clone()
+    ec1b:SetCode(EFFECT_NO_EFFECT_DAMAGE)
+    ec1b:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec1b, tp)
 end
