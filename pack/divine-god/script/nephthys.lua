@@ -9,7 +9,8 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    Synchro.AddProcedure(c, nil, 1, 1, nil, 1, 99, function(c, sc, sumtype, tp) return c:IsType(TYPE_RITUAL, sc, sumtype, tp) end)
+    Synchro.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsType, TYPE_RITUAL), 1, 1, nil, 1, 99,
+        function(c, sc, sumtype, tp) return c:IsSummonType(SUMMON_TYPE_RITUAL) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
