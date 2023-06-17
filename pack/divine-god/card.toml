@@ -502,15 +502,14 @@ atk = 3000
 def = 1800
 effect = """\
 3+ Level 8 monsters with different Types
-(This card is always treated as an "Horus the Black Flame Dragon" card.)
 This card's Xyz Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
     This effect cannot be negated nor be copied. \
 This card gains effects based on the number of materials attached to it.
-● 1+: Your opponent cannot target this card with card effects, \
+● 1+: This card's battle position cannot be changed by card effects, \
     also control of it cannot switch. \
     This effect cannot be negated nor be copied.
-● 2+: Battle position cannot be changed by card effects, \
+● 2+: Your opponent cannot target this card with card effects, \
     also unaffected by your opponent's Spell effects. \
     This effect cannot be negated nor be copied.
 ● 3+: When a Spell Card or effect is activated (Quick Effect): \

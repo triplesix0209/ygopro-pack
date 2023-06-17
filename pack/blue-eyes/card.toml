@@ -86,7 +86,7 @@ def = 0
 effect = """\
 2 Level 8 "Blue-Eyes" monsters
 You can also Xyz Summon this card by using 1 "Blue-Eyes White Dragon" you control as the material. \
-If this card is Special Summoned, attach 1 Dragon monster in your GY to this card, \
+If this card is Special Summoned, attach 1 Dragon monster in your GY to this card, if able, \
     then this card's original ATK becomes equal to the ATK of the material monster attached to it with the highest ATK. \
     This effect cannot be negated. \
 If a face-up "Blue-Eyes" monster(s) you control is destroyed by battle or card effect, \
