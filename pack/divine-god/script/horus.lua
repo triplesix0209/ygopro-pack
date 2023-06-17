@@ -1,4 +1,4 @@
--- Black Flame Dragon of Horus
+-- Black Flame Divine Dragon of Horus
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
@@ -8,7 +8,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, s.xyzfilter, nil, 3, nil, nil, 99, nil, false, s.xyzcheck)
+    Xyz.AddProcedure(c, s.xyzfilter, nil, 2, nil, nil, 99, nil, false, s.xyzcheck)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

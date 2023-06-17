@@ -502,7 +502,7 @@ level = 10
 atk = 3000
 def = 1800
 effect = """\
-3+ Level 8 or higher monsters with the same Level and different Types
+2+ Level 8 or higher monsters with the same Level and different Types
 Must first be Xyz Summoned with the above materials. \
 This card's Xyz Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
