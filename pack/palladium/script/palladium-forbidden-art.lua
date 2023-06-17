@@ -12,8 +12,7 @@ function s.initial_effect(c)
     act:SetCode(EVENT_FREE_CHAIN)
     act:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
         return (Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()) or
-                   Duel.IsExistingMatchingCard(function(c) return c:IsFaceup() and c:IsCode(71703785) end, tp, LOCATION_ONFIELD,
-                0, 1, nil)
+                   Duel.IsExistingMatchingCard(function(c) return c:IsFaceup() and c:IsCode(71703785) end, tp, LOCATION_ONFIELD, 0, 1, nil)
     end)
     act:SetTarget(Utility.MultiEffectTarget(s))
     act:SetOperation(Utility.MultiEffectOperation(s))
@@ -24,8 +23,8 @@ function s.initial_effect(c)
         desc = 1171,
         handler = c,
         lvtype = RITPROC_GREATER,
-        filter = aux.FilterBoolFunction(Card.IsSetCard, SET_PALLADIUM),
-        location = LOCATION_HAND + LOCATION_GRAVE
+        location = LOCATION_HAND + LOCATION_GRAVE,
+        matfilter = function(c) return c:IsType(TYPE_NORMAL) or c:IsSetCard(SET_PALLADIUM) end
     })
     Utility.RegisterMultiEffect(s, 1, e1)
 
@@ -34,8 +33,7 @@ function s.initial_effect(c)
         desc = 1170,
         handler = c,
         extrafil = function(e, tp)
-            local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(SET_PALLADIUM) end, tp, LOCATION_DECK, 0,
-                nil)
+            local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(SET_PALLADIUM) end, tp, LOCATION_DECK, 0, nil)
             local check = function(tp, sg, fc)
                 return sg:IsExists(Card.IsSetCard, 1, nil, SET_PALLADIUM) and sg:FilterCount(Card.IsLocation, nil, LOCATION_DECK) <= 1
             end

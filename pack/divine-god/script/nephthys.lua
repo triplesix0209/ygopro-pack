@@ -5,6 +5,9 @@ local s, id = GetID()
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
+    -- synchro summon
+    Synchro.AddProcedure(c, nil, 1, 1, nil, 1, 99, function(c, sc, sumtype, tp) return c:IsType(TYPE_RITUAL, sc, sumtype, tp) end)
+
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
     splimit:SetType(EFFECT_TYPE_SINGLE)
