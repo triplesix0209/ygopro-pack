@@ -52,7 +52,7 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     e1:SetCode(EFFECT_UPDATE_ATTACK)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetValue(function(e, c) return s.rebirth_count * 600 end)
+    e1:SetValue(function(e, c) return s.rebirth_count * 100 end)
     c:RegisterEffect(e1)
     aux.GlobalCheck(s, function()
         s.rebirth_count = 0
