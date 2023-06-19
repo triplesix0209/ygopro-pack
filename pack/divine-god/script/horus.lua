@@ -43,7 +43,7 @@ function s.initial_effect(c)
     nomaterial:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
-    
+
     -- gain effect
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
@@ -121,7 +121,9 @@ end
 
 function s.xyzfilter(c, xyz, sumtype, tp) return c:IsLevelAbove(8) end
 
-function s.xyzcheck(g, tp, xyz) return g:GetClassCount(Card.GetLevel) == 1 and g:GetClassCount(Card.GetRace) == #g end
+function s.xyzcheck(g, tp, xyz)
+    return g:GetClassCount(Card.GetLevel) == 1 and g:GetClassCount(Card.GetAttribute) == #g and g:GetClassCount(Card.GetRace) == #g
+end
 
 function s.e1filter(c)
     if c:GetFlagEffect(id) ~= 0 then return false end
