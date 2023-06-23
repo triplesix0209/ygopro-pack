@@ -17,7 +17,6 @@ When you activate a Continuous Spell/Trap Card(s) (Quick Effect): \
 """
 strings = [
     "Add \"The True Name\" to your hand",
-    "Affected by \"{CARD_NAME}\": take no damage this turn",
     "Place the activated card underneath this card",
 ]
 

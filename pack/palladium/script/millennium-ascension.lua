@@ -103,10 +103,12 @@ function s.initial_effect(c)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- avoid damage when leaving the field
+    -- attach continuous
     local e5 = Effect.CreateEffect(c)
-    e5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
-    e5:SetCode(EVENT_LEAVE_FIELD)
+    e5:SetDescription(aux.Stringid(id, 1))
+    e5:SetType(EFFECT_TYPE_QUICK_O)
+    e5:SetCode(EVENT_CHAINING)
+    e5:SetRange(LOCATION_FZONE)
     e5:SetCondition(s.e5con)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
@@ -161,23 +163,19 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e5con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsPreviousPosition(POS_FACEUP) and not c:IsLocation(LOCATION_DECK)
+    if rp == 1 - tp or not re:IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
+    local rc = re:GetHandler()
+    return rc:IsType(TYPE_CONTINUOUS) and rc:IsOnField()
 end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 1))
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_CHANGE_DAMAGE)
-    ec1:SetTargetRange(1, 0)
-    ec1:SetValue(0)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1, tp)
-    local ec1b = ec1:Clone()
-    ec1b:SetCode(EFFECT_NO_EFFECT_DAMAGE)
-    ec1b:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1b, tp)
+    local rc = re:GetHandler()
+    if c:IsRelateToEffect(e) and rc:IsRelateToEffect(re) and not c:IsImmuneToEffect(e) and not rc:IsImmuneToEffect(e) then
+        Duel.Overlay(c, rc)
+        if c:GetOverlayGroup():IsContains(rc) then
+            local code = rc:GetOriginalCode()
+            c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
+        end
+    end
 end
