@@ -507,7 +507,6 @@ Must first be Xyz Summoned with the above materials. \
 This card's Xyz Summon cannot be negated. \
 Your opponent cannot Tribute it, nor use it as material for an Summon. \
     This effect cannot be negated nor be copied. \
-This card gains the original effects of all "Horus" monsters attached to it. \
 This card gains effects based on the number of materials attached to it.
 ● 1+: This card's battle position cannot be changed by card effects, \
     also control of it cannot switch. \
@@ -518,9 +517,7 @@ This card gains effects based on the number of materials attached to it.
 ● 3+: When a Spell Card or effect is activated (Quick Effect): \
     You can negate that effect, and if you do, destroy it. \
     You must control this face-up card to activate and to resolve this effect.
-● 4+: This card's effect activations and its activated effects cannot be negated, \
-    also face-up Continuous Spell/Trap you control are unaffected by other card effects, except their own. \
-    This effect cannot be negated nor be copied.
+● 4+: This card gains the original effects of all "Horus" monsters attached to it.
 """
 strings = []
 
