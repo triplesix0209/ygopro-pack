@@ -21,7 +21,7 @@ function s.initial_effect(c)
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
     splimit:SetType(EFFECT_TYPE_SINGLE)
-    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
     splimit:SetValue(function(e, se, sp, st)
         return (st & SUMMON_TYPE_LINK) == SUMMON_TYPE_LINK or (st & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM
@@ -41,7 +41,7 @@ function s.initial_effect(c)
     -- cannot be Tributed, or be used as a material
     local me1 = Effect.CreateEffect(c)
     me1:SetType(EFFECT_TYPE_SINGLE)
-    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     me1:SetCode(EFFECT_UNRELEASABLE_SUM)
     me1:SetRange(LOCATION_MZONE)
     me1:SetValue(1)
