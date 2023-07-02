@@ -247,7 +247,7 @@ strings = [
     "Affected by effect \"{CARD_NAME}\": cannot activate Spell/Trap Cards",
 ]
 
-[chosen-pharaoh]
+[the-chosen-pharaoh]
 id = 900000009
 rarity = "gold"
 name = "The Chosen Pharaoh"
@@ -267,6 +267,7 @@ You can discard 1 "The True Name", \
     Tribute 3 monsters whose original names are "Obelisk the Tormentor", "Slifer the Sky Dragon", and "The Winged Dragon of Ra", \
     banish this card from your GY or your face-up Spell & Trap Zone; \
     Special Summon 1 "Holactie the Creator of Light" from Outside, ignoring its Summoning conditions. \
+    Cards and effects cannot be activated in response to this effect's activation. \
     You can only use this effect of "{CARD_NAME}" once per Duel. \
 """
 strings = [

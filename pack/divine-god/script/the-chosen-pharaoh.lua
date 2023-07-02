@@ -253,6 +253,7 @@ function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, 0)
+    Duel.SetChainLimit(aux.FALSE)
 end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
