@@ -23,6 +23,7 @@ atk = 4000
 def = 4000
 effect = """\
 {EGYPTIAN_GOD_EFFECT|1|Obelisk the Tormentor} \
+Neither player can target this card with card effects. \
 Once per turn, while this card is able to attack (Quick Effect): \
     You can Tribute 2 other monsters, activate 1 of these effects. \
     This card cannot declare an attack the turn this effect is activated.
