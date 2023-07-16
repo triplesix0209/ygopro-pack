@@ -14,7 +14,7 @@ If this card in its owner's control is destroyed by an opponent's card effect: \
     You can Special Summon 1 "The Crimson Dragon" from your Extra Deck. \
 """
 strings = [
-    "Add \"Mark Of The Dragon Star\" to your hand?",
+    "1 Spell/Trap that mentions \"The Crimson Dragon\"?",
     "Draw 1 card",
     "Special Summon the leaved monster",
 ]
