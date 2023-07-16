@@ -90,7 +90,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 
     Duel.Recover(tp, ct * 1000, REASON_EFFECT)
     local sg = Duel.GetMatchingGroup(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, nil)
-    if #sg > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
+    if #sg > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
         Duel.BreakEffect()
 
         local sc = Utility.GroupSelect(HINTMSG_ATOHAND, sg, tp):GetFirst()
