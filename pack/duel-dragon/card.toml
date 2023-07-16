@@ -409,7 +409,7 @@ If this card is in your GY: \
 """
 strings = []
 
-[speed-accelerator]
+[speed-carrier]
 id = 900003116
 name = "Speed Accelerator"
 type = "monster effect"
@@ -423,7 +423,7 @@ You can discard this card; add 1 "Synchron" monster from your Deck to your hand,
     then, immediately after this effect resolves, you can Normal Summon 1 Tuner monster. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card is sent to the GY as Synchro Material of a Warrior or Machine Synchro Monster: \
-    You can Special Summon 1 "Synchron Token" (Machine/EARTH/Level 2/ATK 1000/DEF 0) in Attack Position. \
+    You can Special Summon 1 "Synchron Token" (Machine/EARTH/Level 2/ATK 1000/DEF 0) in Defense Position. \
 """
 strings = ["Normal Summon 1 Tuner monster?"]
 
@@ -468,8 +468,87 @@ strings = [
     "Reduce its Level by 1",
 ]
 
-[mark-of-the-dragon-star]
+[starjunk-synchron]
+id = 900003119
+alias = 63977008
+set = "junk synchron"
+name = "Starjunk Synchron"
+type = "monster tuner effect"
+attribute = "wind"
+race = "warrior"
+level = 3
+atk = 1300
+def = 500
+effect = """
+(This card's name is always treated as "Junk Synchron".)
+If this card is Normal or Special Summoned: \
+    You can target 1 Level 2 or lower monster in your GY; \
+    Special Summon that target in Defense Position, \
+    but but it cannot activate its effects this turn. \
+For a Synchro Summon, you can substitute this card for any 1 "Synchron" Tuner. \
+"""
+strings = []
+
+[starjunk-warrior]
 id = 900003120
+alias = 60800381
+set = "junk warrior"
+name = "Starjunk Warrior"
+type = "monster synchro effect"
+attribute = "wind"
+race = "warrior"
+level = 5
+atk = 2300
+def = 1300
+effect = """
+"Junk Synchron" or 1 "Synchron" Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Junk Warrior".)
+If this card is Synchro Summoned: \
+    You can Special Summon 1 Level 2 or lower Warrior or Machine monster from your hand, Deck or GY. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is Synchro Summoned using "Junk Synchron" as material, it gains these effects.
+● This card gains ATK equal to the total ATK of all Level 2 or lower monsters you control.
+● Destroy the opponent's monster that battled it at the end of the Damage Step.
+"""
+strings = [
+    "Synchro Summoned with \"Junk Synchron\"",
+    "Special Summon a Level 2 or lower Warrior or Machine monster",
+]
+
+[junk-accelerator]
+id = 900003121
+set = "junk"
+name = "Junk Accelerator"
+type = "monster synchro effect"
+attribute = "wind"
+race = "warrior"
+level = 5
+atk = 1300
+def = 2300
+effect = """
+1 "Synchron" Tuner + 1+ non-Tuner monsters
+You can only Synchro Summon "{CARD_NAME}" once per turn. \
+If this card is Synchro Summoned using "Junk Synchron" as material, \
+    your opponent cannot activate cards or effects in response to this card's effect activations, \
+    also its Synchro Summon cannot be negated. \
+If this card is Synchro Summoned: \
+    You can Special Summon as many "Synchron" monsters as possible with different Levels from your hand, Deck or GY in Defense Position. \
+    You cannot Special Summon monsters from the Extra Deck, except Synchro Monsters, the turn you activate this effect. \
+Once per turn: You can send 1 "Synchron" monster from your hand or Deck to the GY, then activate 1 of these effects;
+● Increase this card's Level by the Level of the sent monster.
+● Reduce this card's Level by the Level of the sent monster.
+"""
+strings = [
+    "Synchro Summoned with \"Junk Synchron\"",
+    "Special Summon \"Synchron\" monsters",
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
+    "Change level by \"Synchro\" monster",
+    "Increase Level",
+    "Reduce Level",
+]
+
+[mark-of-the-dragon-star]
+id = 900003140
 name = "Mark Of The Dragon Star"
 type = "spell"
 effect = """

@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.material_setcode = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
 s.listed_series = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
+s.material_setcode = {SET_ODD_EYES, SET_STARVING_VENOM, SET_VENOM}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()

@@ -83,5 +83,5 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         not Duel.IsPlayerCanSpecialSummonMonster(tp, 62125439, 0, TYPES_TOKEN, 1000, 0, 2, RACE_MACHINE, ATTRIBUTE_EARTH) then return end
 
     local token = Duel.CreateToken(tp, 62125439)
-    Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_ATTACK)
+    Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
 end
