@@ -199,7 +199,7 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e7filter(c, e, tp)
-    return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:IsLevelBelow(11) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and
+    return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:IsLevelBelow(10) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_SYNCHRO, tp, false, false)
 end
 

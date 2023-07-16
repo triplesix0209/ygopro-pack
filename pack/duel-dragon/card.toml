@@ -336,7 +336,7 @@ At the end of the Damage Step, if this card attacked, \
     and if you do, this card can attack gain. \
 Once per turn, during the End Phase, place Cosmic Counters on this card \
     until it has equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
-When this face-up card leaves the field, you can Special Summon 1 Level 11 or lower Dragon Synchro Monster \
+When this face-up card leaves the field, you can Special Summon 1 Level 10 or lower Dragon Synchro Monster \
     that is banished, or in your Extra Deck, GY. (This Special Summon is treated as a Synchro Summon.) \
 """
 strings = [
