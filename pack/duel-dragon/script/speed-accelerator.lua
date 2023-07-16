@@ -1,8 +1,8 @@
--- Synchron Warrior
+-- Speed Accelerator
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x1017}
+s.listed_series = {SET_SYNCHRON}
 s.listed_names = {62125439}
 
 function s.initial_effect(c)
@@ -28,7 +28,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1filter1(c) return c:IsSetCard(0x1017) and c:IsMonster() and c:IsAbleToHand() end
+function s.e1filter1(c) return c:IsSetCard(SET_SYNCHRON) and c:IsMonster() and c:IsAbleToHand() end
 
 function s.e1filter2(c) return c:IsSummonable(true, nil) and c:IsType(TYPE_TUNER) end
 
@@ -54,19 +54,19 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         Duel.ConfirmCards(1 - tp, g)
     end
 
-    if Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_HAND, 0, 1, nil) and
-        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+    if Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_HAND, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
         Duel.BreakEffect()
         Duel.ShuffleHand(tp)
 
         Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SUMMON)
-        local tc =
-            Utility.SelectMatchingCard(HINTMSG_SUMMON, tp, s.e1filter2, tp, LOCATION_HAND + LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
+        local tc = Utility.SelectMatchingCard(HINTMSG_SUMMON, tp, s.e1filter2, tp, LOCATION_HAND + LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
         if tc then Duel.Summon(tp, tc, true, nil) end
     end
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return r == REASON_SYNCHRO and e:GetHandler():IsLocation(LOCATION_GRAVE) end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    return r == REASON_SYNCHRO and e:GetHandler():IsLocation(LOCATION_GRAVE) and re:GetHandler():IsRace(RACE_WARRIOR + RACE_MACHINE)
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
@@ -80,9 +80,7 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) < 1 or
-        not Duel.IsPlayerCanSpecialSummonMonster(tp, 62125439, 0, TYPES_TOKEN, 1000, 0, 2, RACE_MACHINE, ATTRIBUTE_EARTH) then
-        return
-    end
+        not Duel.IsPlayerCanSpecialSummonMonster(tp, 62125439, 0, TYPES_TOKEN, 1000, 0, 2, RACE_MACHINE, ATTRIBUTE_EARTH) then return end
 
     local token = Duel.CreateToken(tp, 62125439)
     Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_ATTACK)
