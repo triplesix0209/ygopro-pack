@@ -1,4 +1,4 @@
--- Blazing Red Archfiend Dragon
+-- Nazca Red Archfiend Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

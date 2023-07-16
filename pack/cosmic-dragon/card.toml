@@ -19,10 +19,10 @@ strings = [
     "Special Summon the leaved monster",
 ]
 
-[blazing-red-dragon-archfiend]
+[nazca-red-dragon-archfiend]
 id = 900003101
 alias = 70902743
-name = "Blazing Red Archfiend Dragon"
+name = "Nazca Red Archfiend Dragon"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
@@ -275,6 +275,38 @@ strings = [
     "Change position?",
 ]
 
+
+[shooting-stardust-dragon]
+id = 900003111
+set = "stardust"
+name = "Shooting Stardust Dragon"
+type = "monster synchro effect"
+attribute = "wind"
+race = "dragon"
+level = 10
+atk = 3300
+def = 2500
+effect = """
+1 Tuner Synchro Monster + 1 non-Tuner Synchro Monster
+Once per turn, during the Main Phase, you can (Quick Effect): Immediately after this effect resolves, \
+    Synchro Summon this card from your Extra Deck using monsters you control, including "Stardust Dragon". \
+    Your opponent cannot activate cards or effects in response to this effect's activation. \
+Once per turn: You can excavate the top 5 cards of your Deck, shuffle them back in, \
+    also this card gains 1 additional attack each Battle Phase for every Tuner monsters excavated. \
+Once per turn, when another card or effect is activated \
+    that targets, or would destroy, a card(s) on the field (Quick Effect): \
+    You can negate that effect, and if you do, destroy it. \
+Once per turn, during your opponent's turn, \
+    when your opponent activates a card or effect, or when an opponent's monster declares an attack (Quick Effect): \
+    You can banish this card, and if you do, you can negate 1 attack this turn from a monster your opponent controls. \
+    During the next End Phase, Special Summon this card banished by this effect. \
+"""
+strings = [
+    "Excavate Tuner to gain multi-attack",
+    "Negate the effect",
+    "Banish this card until the end phase",
+    "Do you want negate the attack by effect of \"{CARD_NAME}\"?",
+]
 
 [mark-of-the-dragon-star]
 id = 900003120
