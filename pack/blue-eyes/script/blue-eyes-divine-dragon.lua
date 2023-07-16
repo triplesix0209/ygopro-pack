@@ -74,7 +74,6 @@ function s.initial_effect(c)
     end)
 end
 
-
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
@@ -101,7 +100,6 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetTargetCards(e):Filter(Card.IsRelateToEffect, nil, e)
     if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
 end
-
 
 function s.e4checkop(e, tp, eg, ep, ev, re, r, rp)
     local tc = eg:GetFirst()

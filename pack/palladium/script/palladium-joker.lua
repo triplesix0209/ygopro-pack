@@ -73,7 +73,8 @@ end
 
 function s.e1matcheck(e, c)
     local mg = c:GetMaterial()
-    if mg:IsExists(Card.IsCode, 1, nil, CARD_QUEEN_KNIGHT) and mg:IsExists(Card.IsCode, 1, nil, CARD_KING_KNIGHT) and mg:IsExists(Card.IsCode, 1, nil, CARD_JACK_KNIGHT) then
+    if mg:IsExists(Card.IsCode, 1, nil, CARD_QUEEN_KNIGHT) and mg:IsExists(Card.IsCode, 1, nil, CARD_KING_KNIGHT) and
+        mg:IsExists(Card.IsCode, 1, nil, CARD_JACK_KNIGHT) then
         e:GetLabelObject():SetLabel(1)
         local ec0 = Effect.CreateEffect(c)
         ec0:SetDescription(aux.Stringid(id, 0))
@@ -92,7 +93,7 @@ function s.e2filter(c, type) return c:IsType(type) and c:IsDiscardable() end
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if re:GetHandler() == c or c:IsStatus(STATUS_BATTLE_DESTROYED) then return false end
-    
+
     return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainDisablable(ev)
 end
 

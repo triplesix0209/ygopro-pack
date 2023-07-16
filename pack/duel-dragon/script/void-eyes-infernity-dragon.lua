@@ -9,8 +9,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    Synchro.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 1, 1,
-        Synchro.NonTunerEx(Card.IsRace, RACE_FIEND), 1, 99)
+    Synchro.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 1, 1, Synchro.NonTunerEx(Card.IsRace, RACE_FIEND), 1, 99)
 
     -- negate activation
     local e1 = Effect.CreateEffect(c)
@@ -64,8 +63,8 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) and Duel.Destroy(eg, REASON_EFFECT) ~= 0 and
-        c:IsRelateToEffect(e) and c:IsFaceup() then
+    if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) and Duel.Destroy(eg, REASON_EFFECT) ~= 0 and c:IsRelateToEffect(e) and
+        c:IsFaceup() then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
@@ -95,8 +94,9 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 or
-        Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) == 0 then return end
+    if not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 or Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) == 0 then
+        return
+    end
 
     -- hint
     local ec0 = Effect.CreateEffect(c)
@@ -155,7 +155,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local ec2e = ec2d:Clone()
     ec2e:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
     c:RegisterEffect(ec2e)
-    
+
     -- gain effect
     local ec3 = Effect.CreateEffect(c)
     ec3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)

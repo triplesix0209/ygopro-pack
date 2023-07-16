@@ -23,9 +23,7 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
     -- remove from duel
     Duel.DisableShuffleCheck(true)
     Duel.RemoveCards(c)
-    if c:IsPreviousLocation(LOCATION_HAND) and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 0 then
-        Duel.Draw(p, 1, REASON_RULE)
-    end
+    if c:IsPreviousLocation(LOCATION_HAND) and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 0 then Duel.Draw(p, 1, REASON_RULE) end
     e:Reset()
 
     -- deck edit & global effect
@@ -41,8 +39,7 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
         Duel.ShuffleDeck(tp)
     end
     for tc in g:Iter() do
-        if tc.global_effect and
-            not global_effect:IsExists(function(c) return c:GetOriginalCode() == tc:GetOriginalCode() end, 1, nil) then
+        if tc.global_effect and not global_effect:IsExists(function(c) return c:GetOriginalCode() == tc:GetOriginalCode() end, 1, nil) then
             tc.global_effect(tc, tp)
             global_effect:AddCard(tc)
         end
@@ -78,8 +75,9 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
         local g = Duel.GetMatchingGroup(function(c)
             return c:IsFieldSpell() and Utility.CheckActivateEffectCanApply(c, e, tp, false, true, false)
         end, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED, 0, nil)
-        if Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_FZONE, 0, 1, nil) or #g == 0 or
-            not Duel.SelectYesNo(tp, aux.Stringid(id, 1)) then return end
+        if Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_FZONE, 0, 1, nil) or #g == 0 or not Duel.SelectYesNo(tp, aux.Stringid(id, 1)) then
+            return
+        end
 
         local sc = Utility.GroupSelect(HINTMSG_TOFIELD, g, tp):GetFirst()
         Duel.ActivateFieldSpell(sc, e, tp, eg, ep, ev, re, r, rp)
@@ -97,8 +95,7 @@ function s.startup(e, tp, eg, ep, ev, re, r, rp)
     ddraw:SetCode(EVENT_PREDRAW)
     ddraw:SetCountLimit(1)
     ddraw:SetCondition(function(e, tp)
-        return s.destiny_draw == 1 and Duel.IsTurnPlayer(tp) and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 1 and
-                   Duel.GetTurnCount() > 1
+        return s.destiny_draw == 1 and Duel.IsTurnPlayer(tp) and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 1 and Duel.GetTurnCount() > 1
     end)
     ddraw:SetOperation(function(e, tp, eg, ep, ev, re, r, rp) s.DestinySequenceDeck(tp, Duel.GetDrawCount(tp), 2) end)
     Duel.RegisterEffect(ddraw, tp)

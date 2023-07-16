@@ -60,8 +60,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 
-    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter), tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, nil,
-        tp, c)
+    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter), tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, nil, tp, c)
     if #g == 0 then return end
 
     local ft = math.min(Duel.GetLocationCount(tp, LOCATION_SZONE), 3)
@@ -118,7 +117,5 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if tc:IsImmuneToEffect(ec1) or tc:IsImmuneToEffect(ec1b) then return end
     Duel.AdjustInstantly(tc)
 
-    if Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
-        Duel.ChangePosition(tc, POS_FACEUP_DEFENSE, 0, POS_FACEUP_ATTACK, 0)
-    end
+    if Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then Duel.ChangePosition(tc, POS_FACEUP_DEFENSE, 0, POS_FACEUP_ATTACK, 0) end
 end

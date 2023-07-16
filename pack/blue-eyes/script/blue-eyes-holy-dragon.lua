@@ -156,8 +156,7 @@ end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc =
-        Utility.SelectMatchingCard(HINTMSG_FACEUP, tp, Card.IsFaceup, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_FACEUP, tp, Card.IsFaceup, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
     if not tc then return end
     Duel.HintSelection(tc)
 

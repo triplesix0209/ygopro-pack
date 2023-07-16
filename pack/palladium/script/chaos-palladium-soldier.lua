@@ -50,8 +50,7 @@ function s.spcon(e, c)
     local g2 = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil, ATTRIBUTE_DARK)
 
     local g = g1:Clone():Merge(g2)
-    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g, e, tp, 2, 2, s.sprescon, 0) and
-               Duel.GetLocationCount(tp, LOCATION_MZONE) > -2
+    return #g1 > 0 and #g2 > 0 and aux.SelectUnselectGroup(g, e, tp, 2, 2, s.sprescon, 0) and Duel.GetLocationCount(tp, LOCATION_MZONE) > -2
 end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
@@ -98,8 +97,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     local b3 = Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, nil)
     local b4 = Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_HAND, 1, nil)
-    local op = Duel.SelectEffect(tp, {true, aux.Stringid(id, 0)}, {true, aux.Stringid(id, 1)}, {b3, aux.Stringid(id, 2)},
-        {b4, aux.Stringid(id, 3)})
+    local op = Duel.SelectEffect(tp, {true, aux.Stringid(id, 0)}, {true, aux.Stringid(id, 1)}, {b3, aux.Stringid(id, 2)}, {b4, aux.Stringid(id, 3)})
     e:SetLabel(op)
 
     e:SetCategory(0)
@@ -135,8 +133,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END + RESET_SELF_TURN, 2)
         c:RegisterEffect(ec2)
     elseif op == 3 then
-        local g = Utility.SelectMatchingCard(HINT_SELECTMSG, tp, Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1,
-            1, nil)
+        local g = Utility.SelectMatchingCard(HINT_SELECTMSG, tp, Card.IsAbleToRemove, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, nil)
         if #g > 0 then
             Duel.HintSelection(g)
             Duel.Remove(g, POS_FACEUP, REASON_EFFECT)

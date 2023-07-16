@@ -25,8 +25,7 @@ function s.e1con(e, tp, eg, ep, ev, re, r, rp) return (Duel.IsTurnPlayer(tp) and
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
-        return Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp) and
-                   Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
+        return Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
     end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)

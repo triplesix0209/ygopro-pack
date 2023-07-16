@@ -41,8 +41,9 @@ end
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
     if e == re or e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) or not Duel.IsChainNegatable(ev) then return false end
 
-    if re:IsHasCategory(CATEGORY_NEGATE) and
-        Duel.GetChainInfo(ev - 1, CHAININFO_TRIGGERING_EFFECT):IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
+    if re:IsHasCategory(CATEGORY_NEGATE) and Duel.GetChainInfo(ev - 1, CHAININFO_TRIGGERING_EFFECT):IsHasType(EFFECT_TYPE_ACTIVATE) then
+        return false
+    end
 
     if re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then
         local tg = Duel.GetChainInfo(ev, CHAININFO_TARGET_CARDS)
@@ -70,8 +71,7 @@ end
 
 function s.e1retcon(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:GetFlagEffect(id) > 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return c:GetFlagEffect(id) > 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
 function s.e1retop(e, tp, eg, ep, ev, re, r, rp) Duel.SpecialSummon(e:GetHandler(), 0, tp, tp, false, false, POS_FACEUP) end

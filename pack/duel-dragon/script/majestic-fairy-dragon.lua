@@ -61,8 +61,8 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1,
-        1, nil, e, tp):GetFirst()
+    local tc =
+        Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp):GetFirst()
     if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) > 0 then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)

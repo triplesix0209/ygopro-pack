@@ -58,10 +58,10 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 
     -- cannot attack
-    local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_SINGLE)
-	e4:SetCode(EFFECT_CANNOT_ATTACK)
-	c:RegisterEffect(e4)
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_SINGLE)
+    e4:SetCode(EFFECT_CANNOT_ATTACK)
+    c:RegisterEffect(e4)
 
     -- additional tribute summon
     local e5 = Effect.CreateEffect(c)

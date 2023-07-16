@@ -60,13 +60,10 @@ end
 function s.e2filter1(c) return c:IsFaceup() and c:IsLevel(4) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) end
 
 function s.e2filter2(c, e, tp)
-    return c:IsLevel(5) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return c:IsLevel(5) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_WARRIOR) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_MZONE, 0, 1, e:GetHandler())
-end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_MZONE, 0, 1, e:GetHandler()) end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()

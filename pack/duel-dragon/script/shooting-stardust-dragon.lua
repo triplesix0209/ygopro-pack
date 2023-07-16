@@ -10,8 +10,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synhcro summon
-    Synchro.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsType, TYPE_SYNCHRO), 1, 1,
-        Synchro.NonTunerEx(Card.IsType, TYPE_SYNCHRO), 1, 1)
+    Synchro.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsType, TYPE_SYNCHRO), 1, 1, Synchro.NonTunerEx(Card.IsType, TYPE_SYNCHRO), 1, 1)
 
     -- accel synchro
     local e1 = Effect.CreateEffect(c)
@@ -79,9 +78,7 @@ end
 
 function s.e1filter(c, sc) return c:IsFaceup() and c:IsCode(CARD_STARDUST_DRAGON) and sc:IsSynchroSummonable(c) end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp)
-    return Duel.GetCurrentPhase() == PHASE_MAIN1 or Duel.GetCurrentPhase() == PHASE_MAIN2
-end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() == PHASE_MAIN1 or Duel.GetCurrentPhase() == PHASE_MAIN2 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
@@ -102,8 +99,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.SynchroSummon(tp, c, mc)
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return
-    Duel.IsAbleToEnterBP() and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) >= 5 end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsAbleToEnterBP() and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) >= 5 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -125,8 +121,9 @@ end
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     if e == re or e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) or not Duel.IsChainNegatable(ev) then return false end
 
-    if re:IsHasCategory(CATEGORY_NEGATE) and
-        Duel.GetChainInfo(ev - 1, CHAININFO_TRIGGERING_EFFECT):IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
+    if re:IsHasCategory(CATEGORY_NEGATE) and Duel.GetChainInfo(ev - 1, CHAININFO_TRIGGERING_EFFECT):IsHasType(EFFECT_TYPE_ACTIVATE) then
+        return false
+    end
 
     if re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then
         local tg = Duel.GetChainInfo(ev, CHAININFO_TARGET_CARDS)
@@ -190,8 +187,7 @@ end
 
 function s.e4retcon(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:GetFlagEffect(id) > 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return c:GetFlagEffect(id) > 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
 function s.e4retop(e, tp, eg, ep, ev, re, r, rp) Duel.SpecialSummon(e:GetHandler(), 0, tp, tp, false, false, POS_FACEUP) end

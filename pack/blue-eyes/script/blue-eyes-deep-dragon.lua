@@ -60,8 +60,7 @@ function s.ovfilter(c, tp, sc) return c:IsFaceup() and c:IsSummonCode(sc, SUMMON
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
 
-    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, aux.NecroValleyFilter(Card.IsRace), tp, LOCATION_GRAVE, 0, 1, 1,
-        nil, RACE_DRAGON)
+    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, aux.NecroValleyFilter(Card.IsRace), tp, LOCATION_GRAVE, 0, 1, 1, nil, RACE_DRAGON)
     if #g > 0 then Duel.Overlay(c, g) end
 
     local og = c:GetOverlayGroup()

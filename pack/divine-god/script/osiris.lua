@@ -39,8 +39,7 @@ function s.initial_effect(c)
 end
 
 function s.e2filter(c, e, tp)
-    return c:IsPosition(POS_FACEUP) and c:IsLocation(LOCATION_MZONE) and (not e or c:IsRelateToEffect(e)) and
-               c:IsControler(1 - tp)
+    return c:IsPosition(POS_FACEUP) and c:IsLocation(LOCATION_MZONE) and (not e or c:IsRelateToEffect(e)) and c:IsControler(1 - tp)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e2filter, 1, nil, nil, tp) and e:GetHandler():CanAttack() end
