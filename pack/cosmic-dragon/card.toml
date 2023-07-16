@@ -166,8 +166,118 @@ strings = [
     "Change Level of other Synchro Monsters",
 ]
 
-[mark-of-the-dragon-star]
+[majestic-black-dragon]
+id = 900003107
+set = "majestic"
+name = "Majestic Black Dragon"
+type = "monster synchro effect"
+attribute = "dark"
+race = "dragon"
+level = 10
+atk = 3900
+def = 2600
+effect = """
+"Majestic Dragon" + "Black-Winged Dragon" + 1 non-Tuner monster
+Each time another monster effect is activated, \
+    place 1 Black Feather Counter on this card immediately after it resolves, \
+    and if you do, inflict 700 damage to them. \
+(Quick Effect): You can Tribute this card with 4 or more Black Feather Counters; \
+    banish all cards your opponent controls. \
+Once per turn: You can target 1 face-up monster your opponent controls; \
+    negate its effects until the end of this turn, \
+    and if you do, inflict damage to your opponent equal to the ATK of that target. \
+{MAJESTIC_RETURN|Black-Winged Dragon} \
+"""
+strings = [
+    "Return this card to Special Summon 1 \"Black-Winged Dragon\"",
+    "Tribute to banish your opponent cards",
+    "Negate effect & Inflict damage",
+]
+
+
+[majestic-rose-dragon]
+id = 900003108
+set = "majestic rose-dragon"
+name = "Majestic Rose Dragon"
+type = "monster synchro effect"
+attribute = "fire"
+race = "dragon"
+level = 10
+atk = 3750
+def = 2800
+effect = """
+"Majestic Dragon" + "Black Rose Dragon" + 1 non-Tuner monster
+If this card is Synchro Summoned: You can banish all cards from your opponent's GY face-down. \
+If this card attacks a Defense Position monster, inflict piercing battle damage to your opponent. \
+Once per turn: You can target 1 face-up monster your opponent controls; \
+    negate its effects, and if you do, change its ATK and DEF to 0. \
+    These changes last until the end of this turn. \
+{MAJESTIC_RETURN|Black Rose Dragon} \
+"""
+strings = [
+    "Return this card to Special Summon 1 \"Black Rose Dragon\"",
+    "Banish all cards from your opponent's GY face-down",
+    "Negate effect & Make ATK/DEF become 0",
+]
+
+[majestic-fairy-dragon]
+id = 900003109
+set = "majestic"
+name = "Majestic Fairy Dragon"
+type = "monster synchro effect"
+attribute = "light"
+race = "dragon"
+level = 10
+atk = 3600
+def = 4000
+effect = """
+"Majestic Dragon" + "Ancient Fairy Dragon" + 1 non-Tuner monster
+This card gains ATK equal to the difference between your LP and your opponent's. \
+Once per turn, during your Main Phase 1: \
+    You can Special Summon 1 Level 8 or lower monster from your hand or in either GY, \
+    but it cannot attack this turn. \
+Once per turn: You can target 1 face-up monster your opponent controls; \
+    negate its effects until the end of this turn, and if you do, gain LP equal to its ATK. \
+{MAJESTIC_RETURN|Ancient Fairy Dragon} \
+"""
+strings = [
+    "Return this card to Special Summon 1 \"Ancient Fairy Dragon\"",
+    "Special Summon 1 Level 8 or lower monster",
+    "Negate effect & Recover LP",
+]
+
+[majestic-life-dragon]
 id = 900003110
+set = "majestic"
+name = "Majestic Life Dragon"
+type = "monster synchro tuner effect"
+attribute = "earth"
+race = "dragon"
+level = 10
+atk = 3950
+def = 3400
+effect = """
+"Majestic Dragon" + "Life Stream Dragon" + 1 non-Tuner monster
+If this card is Special Summoned: \
+    You can equip up to 3 Equip Spells with different names from your hand, Deck and/or GY to this card, \
+    and if you do, your opponent cannot target those cards with card effects, \
+    also they cannot be destroyed by your opponent's card effects. \
+Any effect that would inflict damage to you makes you gain that much LP, instead. \
+Once per turn: You can target 1 face-up monster your opponent controls; \
+    negate its effects until the end of this turn, \
+    and if you do, you can change its battle position. \
+{MAJESTIC_RETURN|Life Stream Dragon} \
+"""
+strings = [
+    "Return this card to Special Summon 1 \"Life Stream Dragon\"",
+    "Equip Spells to this card",
+    "Negate effect & Change position",
+    "Change position?",
+]
+
+
+[mark-of-the-dragon-star]
+id = 900003120
 name = "Mark Of The Dragon Star"
 type = "spell"
 effect = """
