@@ -10,8 +10,8 @@ function s.initial_effect(c)
     c:EnableCounterPermit(COUNTER_FEATHER)
 
     -- synchro summon    
-    CosmicDragon.AddMajesticProcedure(c, s, CARD_BLACK_WINGED_DRAGON)
-    CosmicDragon.AddMajesticReturn(c, CARD_BLACK_WINGED_DRAGON, aux.Stringid(id, 0))
+    DuelDragon.AddMajesticProcedure(c, s, CARD_BLACK_WINGED_DRAGON)
+    DuelDragon.AddMajesticReturn(c, CARD_BLACK_WINGED_DRAGON, aux.Stringid(id, 0))
 
     -- place counter
     local e1reg = Effect.CreateEffect(c)

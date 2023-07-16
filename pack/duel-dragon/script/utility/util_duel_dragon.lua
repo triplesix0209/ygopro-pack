@@ -1,9 +1,9 @@
 -- init
-if not aux.CosmicDragonProcedure then aux.CosmicDragonProcedure = {} end
-if not CosmicDragon then CosmicDragon = aux.CosmicDragonProcedure end
+if not aux.DuelDragonProcedure then aux.DuelDragonProcedure = {} end
+if not DuelDragon then DuelDragon = aux.DuelDragonProcedure end
 
 -- function
-function CosmicDragon.AddMajesticProcedure(c, s, dragon_code)
+function DuelDragon.AddMajesticProcedure(c, s, dragon_code)
     s.material = {21159309, dragon_code}
     s.listed_names = {21159309, dragon_code}
     s.synchro_nt_required = 1
@@ -29,7 +29,7 @@ function CosmicDragon.AddMajesticProcedure(c, s, dragon_code)
     c:RegisterEffect(efftuner)
 end
 
-function CosmicDragon.AddMajesticReturn(c, dragon_code, description)
+function DuelDragon.AddMajesticReturn(c, dragon_code, description)
     local eff = Effect.CreateEffect(c)
     eff:SetDescription(description)
     eff:SetCategory(CATEGORY_TODECK + CATEGORY_SPECIAL_SUMMON)

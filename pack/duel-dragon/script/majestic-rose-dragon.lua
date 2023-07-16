@@ -7,8 +7,8 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    CosmicDragon.AddMajesticProcedure(c, s, CARD_BLACK_ROSE_DRAGON)
-    CosmicDragon.AddMajesticReturn(c, CARD_BLACK_ROSE_DRAGON, aux.Stringid(id, 0))
+    DuelDragon.AddMajesticProcedure(c, s, CARD_BLACK_ROSE_DRAGON)
+    DuelDragon.AddMajesticReturn(c, CARD_BLACK_ROSE_DRAGON, aux.Stringid(id, 0))
 
     -- banish
     local e1 = Effect.CreateEffect(c)

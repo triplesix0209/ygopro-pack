@@ -308,6 +308,46 @@ strings = [
     "Do you want negate the attack by effect of \"{CARD_NAME}\"?",
 ]
 
+[shooting-cosmic-quasar-dragon]
+id = 900003112
+rarity = "gold"
+name = "Shooting Cosmic Quasar Dragon"
+type = "monster synchro effect"
+attribute = "light"
+race = "dragon"
+level = 12
+atk = 4000
+def = 4000
+effect = """
+1 Tuner Synchro Monster + 2+ non-Tuner Synchro Monsters
+Must be Synchro Summoned. \
+This card's Synchro Summon and its effects cannot be negated. \
+After this card is Synchro Summoned, place Signer Counters on this card \
+    equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
+Cannot be Tributed, or used as material for an Summon. \
+Unaffected by other monsters' effects. \
+When another card or effect is activated (Quick Effect): \
+    You can remove 1 Signer Counter from this card; \
+    negate that effect, and if you do, destroy 1 other card on the field. \
+If this card battles an opponent's monster, \
+    negate the effects of that monster during the Damage Step only. \
+At the end of the Damage Step, if this card attacked, \
+    you can remove 1 Signer Counter from this card, \
+    and if you do, this card can attack gain. \
+Once per turn, during the End Phase, place Signer Counters on this card \
+    until it has equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
+When this face-up card leaves the field, you can Special Summon 1 Level 10 or lower Dragon Synchro Monster \
+    that is banished, or in your Extra Deck, GY. (This Special Summon is treated as a Synchro Summon.) \
+    If you Special Summoned "Shooting Star Dragon" by this effect, \
+    you take no damage this turn. \
+"""
+strings = [
+    "Negate the effect & Destroy 1 card on the field",
+    "Remove Signer Counter to attack again?",
+    "Special Summon 1 Level 10 or lower Dragon Synchro Monster?",
+    "Affected by effect \"{CARD_NAME}\": take no damage",
+]
+
 [mark-of-the-dragon-star]
 id = 900003120
 name = "Mark Of The Dragon Star"
