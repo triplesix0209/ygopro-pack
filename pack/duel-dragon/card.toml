@@ -422,8 +422,6 @@ effect = """
 You can discard this card; add 1 "Synchron" monster from your Deck to your hand, \
     then, immediately after this effect resolves, you can Normal Summon 1 Tuner monster. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-If this card is sent to the GY as Synchro Material of a Warrior or Machine Synchro Monster: \
-    You can Special Summon 1 "Synchron Token" (Machine/EARTH/Level 2/ATK 1000/DEF 0) in Defense Position. \
 """
 strings = ["Normal Summon 1 Tuner monster?"]
 

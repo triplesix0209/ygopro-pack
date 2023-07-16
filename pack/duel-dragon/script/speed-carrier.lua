@@ -16,16 +16,6 @@ function s.initial_effect(c)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
-
-    -- token
-    local e2 = Effect.CreateEffect(c)
-    e2:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_TOKEN)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e2:SetCode(EVENT_BE_MATERIAL)
-    e2:SetCondition(s.e2con)
-    e2:SetTarget(s.e2tg)
-    e2:SetOperation(s.e2op)
-    c:RegisterEffect(e2)
 end
 
 function s.e1filter1(c) return c:IsSetCard(SET_SYNCHRON) and c:IsMonster() and c:IsAbleToHand() end
@@ -62,26 +52,4 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         local tc = Utility.SelectMatchingCard(HINTMSG_SUMMON, tp, s.e1filter2, tp, LOCATION_HAND + LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
         if tc then Duel.Summon(tp, tc, true, nil) end
     end
-end
-
-function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    return r == REASON_SYNCHRO and e:GetHandler():IsLocation(LOCATION_GRAVE) and re:GetHandler():IsRace(RACE_WARRIOR + RACE_MACHINE)
-end
-
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-                   Duel.IsPlayerCanSpecialSummonMonster(tp, 62125439, 0, TYPES_TOKEN, 1000, 0, 2, RACE_MACHINE, ATTRIBUTE_EARTH)
-    end
-
-    Duel.SetOperationInfo(0, CATEGORY_TOKEN, nil, 1, 0, 0)
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, 0)
-end
-
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    if Duel.GetLocationCount(tp, LOCATION_MZONE) < 1 or
-        not Duel.IsPlayerCanSpecialSummonMonster(tp, 62125439, 0, TYPES_TOKEN, 1000, 0, 2, RACE_MACHINE, ATTRIBUTE_EARTH) then return end
-
-    local token = Duel.CreateToken(tp, 62125439)
-    Duel.SpecialSummon(token, 0, tp, tp, false, false, POS_FACEUP_DEFENSE)
 end
