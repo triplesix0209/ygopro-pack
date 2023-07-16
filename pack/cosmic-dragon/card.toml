@@ -19,9 +19,155 @@ strings = [
     "Special Summon the leaved monster",
 ]
 
-[mark-of-the-dragon-star]
+[blazing-red-dragon-archfiend]
 id = 900003101
-rarity = "gold"
+alias = 70902743
+name = "Blazing Red Archfiend Dragon"
+type = "monster synchro effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 3000
+def = 2000
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Red Dragon Archfiend".)
+Once per turn, during your Main Phase 1: \
+    You can destroy as many face-up Attack Position monsters on the field as possible with ATK less than or equal to this card's (other than this card). \
+    Other monsters cannot attack the turn you activate this effect. \
+After damage calculation, if this card attacked an opponent's Defense Position monster: \
+    Destroy all Defense Position monsters your opponent controls. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": other monsters cannot attack this turn",
+    "Destroy monster with ATK less than or equal to this card's",
+    "Destroy all your opponent's defense position monsters",
+]
+
+[stardust-crimson-dragon]
+id = 900003102
+alias = 44508094
+name = "Stardust Crimson Dragon"
+type = "monster synchro tuner effect"
+attribute = "wind"
+race = "dragon"
+level = 8
+atk = 2500
+def = 2000
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Stardust Dragon" and non-Tuner Monter)
+When another card or effect is activated \
+    that targets, or would destroy, a card(s) on the field (Quick Effect): \
+    You can Tribute this card; negate the activation, and if you do, destroy it. \
+    During the End Phase, if this effect was activated this turn (and was not negated), \
+    Special Summon this card from your GY. \
+"""
+strings = ["Negate the activation"]
+
+[black-winged-crimson-dragon]
+id = 900003103
+alias = 9012916
+name = "Black-Winged Crimson Dragon"
+type = "monster synchro effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 2800
+def = 1600
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Black-Winged Dragon".)
+If you would take damage from a card effect, place 1 Black Feather Counter on this card instead. \
+If you take damage from an attack not involving this card, place 1 Black Feather Counter on this card. \
+This card gains 100 ATK for each Black Feather Counter on it. \
+Once per turn: You can target 1 face-up monster your opponent controls; \
+    the target loses 700 ATK for each Black Feather Counter on this card, \
+    and if it does, remove all Black Feather Counters on this card \
+    and inflict damage to your opponent equal to that lost ATK. \
+    This is a Quick Effect if this card has 4 or more Black Feather Counter on it. \
+"""
+strings = ["Remove counter to down ATK and inflict damage"]
+
+[black-rose-crimson-dragon]
+id = 900003104
+alias = 73580471
+set = "rose-dragon"
+name = "Black Rose Crimson Dragon"
+type = "monster synchro effect"
+attribute = "fire"
+race = "dragon"
+level = 8
+atk = 2400
+def = 1800
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Black Rose Dragon".)
+If this card is Summoned: You can destroy any number of cards you control, \
+    and if you do, destroy the same number of cards your opponent controls. \
+Once per turn: \
+    You can target 1 Tuner or Plant monster that is banished or in your GY, and 1 face-up monster your opponent controls; \
+    shuffle the first target into the Deck, and if you do, \
+    the second target's ATK/DEF becomes half its current ATK/DEF until the End Phase. \
+"""
+strings = ["Destroy cards on the field", "Halve ATK/DEF of 1 monster"]
+
+[ancient-fairy-crimson-dragon]
+id = 900003105
+alias = 25862681
+name = "Ancient Fairy Crimson Dragon"
+type = "monster synchro effect"
+attribute = "light"
+race = "dragon"
+level = 8
+atk = 2100
+def = 3000
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Ancient Fairy Dragon".)
+You can Special Summon 1 Level 4 or lower monster from your hand, \
+    but that monster cannot attack this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn: You can destroy as many Field Spells on the field as possible (min. 1), \
+    and if you do, gain 1000 LP for each destroyed cards, \
+    then you can add 1 Field Spell from your Deck or GY to your hand. \
+Once per turn, after resolving a Field Spell that was activated during your turn: \
+    This card gain 1000 ATK until the end of your opponent's turn. \
+"""
+strings = [
+    "Special Summon 1 Level 4 or lower monster",
+    "Destroy Field Spells",
+    "Add 1 Field Spell to your hand?",
+]
+
+[life-stream-crimson-dragon]
+id = 900003106
+alias = 25165047
+name = "Crimson Life Stream Dragon"
+type = "monster synchro tuner effect"
+attribute = "earth"
+race = "dragon"
+level = 8
+atk = 2900
+def = 2400
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Life Stream Dragon".)
+If this card was Synchro Summoned using a Synchro Monster as material: You can make your LP become 8000. \
+After this card is Special Summoned, you take no effect damage until the end of your opponent's turn. \
+Once per turn: You can discard 1 card; add 1 Equip Spell from your Deck or GY to your hand. \
+Once per turn: You can declare a Level from 1 to 12; \
+    all other Synchro Monsters you currently control become that Level until the end of this turn. \
+"""
+strings = [
+    "Make your LP become 8000",
+    "Affected by effect \"{CARD_NAME}\": take no effect damage",
+    "Add 1 Equip Spell to your hand",
+    "Change Level of other Synchro Monsters",
+]
+
+[mark-of-the-dragon-star]
+id = 900003110
 name = "Mark Of The Dragon Star"
 type = "spell"
 effect = """
