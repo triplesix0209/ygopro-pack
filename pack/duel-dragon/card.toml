@@ -344,6 +344,69 @@ strings = [
     "Special Summon 1 Dragon Synchro Monster?",
 ]
 
+[salvation-dragon]
+id = 900003113
+alias = 21159309
+name = "Salvation Dragon"
+type = "monster tuner effect"
+attribute = "light"
+race = "dragon"
+level = 1
+atk = 0
+def = 0
+effect = """
+(This card's name is always treated as "Majestic Dragon".)
+Cannot be used as Synchro Material, except for the Synchro Summon of a "Majestic" monster. \
+If this card is added to your hand: You can Special Summon it, \
+    then, if you control a Level 7 or higher Dragon Synchro Monster, \
+    you can Special Summon 1 Level 1 Dragon monster from your hand or Deck. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Special Summon 1 Level 1 monster?"]
+
+[majestic-wills-dragon]
+id = 900003114
+set = "majestic"
+name = "Majestic Wills Dragon"
+type = "monster effect"
+attribute = "light"
+race = "dragon"
+level = 1
+atk = 0
+def = 0
+effect = """
+If you Synchro Summon a Dragon monster: \
+    You can Special Summon this card from your GY. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn, during your opponent's Main Phase, you can (Quick Effect): Immediately after this effect resolves, \
+    Synchro Summon a "Majestic" monster using this card you control. \
+A "Majestic" Synchro Monster that was Synchro Summoned using this card as material gains the following effect.
+● Cannot be returned to the Deck.
+● Cannot be targeted by your opponent's card effects.
+"""
+strings = [
+    "Synchro Summon a \"Majestic\" Synchro Monster",
+    "Cannot be returned to the Deck",
+]
+
+[core-warrior]
+id = 900003115
+name = "Core Warrior"
+type = "monster effect"
+attribute = "wind"
+race = "warrior"
+level = 2
+atk = 1000
+def = 500
+effect = """
+You can discard this card; add 1 "Synchron" monster from your Deck to your hand, \
+    then, immediately after this effect resolves, you can Normal Summon 1 Tuner monster. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is sent to the GY as Synchro Material: \
+    You can Special Summon 1 "Synchron Token" (Machine/EARTH/Level 2/ATK 1000/DEF 0) in Attack Position. \
+"""
+strings = ["Normal Summon 1 Tuner monster?"]
+
 [mark-of-the-dragon-star]
 id = 900003120
 name = "Mark Of The Dragon Star"

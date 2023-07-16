@@ -1,6 +1,6 @@
 -- Majestic Black Dragon
 Duel.LoadScript("util.lua")
-Duel.LoadScript("util_cosmic_dragon.lua")
+Duel.LoadScript("util_duel_dragon.lua")
 local s, id = GetID()
 
 s.counter_list = {COUNTER_FEATHER}
