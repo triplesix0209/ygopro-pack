@@ -504,11 +504,10 @@ effect = """
 "Junk Synchron" or 1 "Synchron" Tuner + 1+ non-Tuner monsters
 (This card's name is always treated as "Junk Warrior".)
 If this card is Synchro Summoned: \
-    You can Special Summon 1 Level 2 or lower Warrior or Machine monster from your hand, Deck or GY. \
+    You can Special Summon 1 Level 2 or lower Warrior or Machine monster from your hand or Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card is Synchro Summoned using "Junk Synchron" as material, it gains these effects.
 ● This card gains ATK equal to the total ATK of all Level 2 or lower monsters you control.
-● Destroy the opponent's monster that battled it at the end of the Damage Step.
 """
 strings = [
     "Synchro Summoned with \"Junk Synchron\"",
@@ -527,24 +526,74 @@ atk = 1300
 def = 2300
 effect = """
 1 "Synchron" Tuner + 1+ non-Tuner monsters
-You can only Synchro Summon "{CARD_NAME}" once per turn. \
 If this card is Synchro Summoned using "Junk Synchron" as material, \
     your opponent cannot activate cards or effects in response to this card's effect activations, \
     also its Synchro Summon cannot be negated. \
 If this card is Synchro Summoned: \
     You can Special Summon as many "Synchron" monsters as possible with different Levels from your hand, Deck or GY in Defense Position. \
     You cannot Special Summon monsters from the Extra Deck, except Synchro Monsters, the turn you activate this effect. \
-Once per turn: You can send 1 "Synchron" monster from your hand or Deck to the GY, then activate 1 of these effects;
-● Increase this card's Level by the Level of the sent monster.
-● Reduce this card's Level by the Level of the sent monster.
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Synchro Summoned with \"Junk Synchron\"",
     "Special Summon \"Synchron\" monsters",
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
-    "Change level by \"Synchro\" monster",
-    "Increase Level",
-    "Reduce Level",
+]
+
+[junk-dracosmasher]
+id = 900003122
+set = "junk"
+name = "Junk Dracosmasher"
+type = "monster synchro effect"
+attribute = "earth"
+race = "machine"
+level = 9
+atk = 2800
+def = 2300
+effect = """
+"Synchron" Tuner + 1+ non-Tuner monsters
+If this card is Synchro Summoned: You can target other cards on the field, \
+    up to the number of non-Tuner monsters used as Synchro Material Monsters for this card, \
+    destroy them, and if you do, this card gains 500 ATK for each destroyed card. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card destroys a monster by battle: \
+    Inflict damage to your opponent equal to that monster's original ATK. \
+If this card is Synchro Summoned using "Junk" monster as material, it gains these effects.
+● Cannot be destroyed by card effects.
+● If this attacking card destroys an opponent's monster by battle: \
+    You can target 1 face-up Defense Position monster your opponent controls; \
+    change that target to Attack Position, \
+    then this card can make a second attack in a row, on that monster.
+"""
+strings = [
+    "Synchro Summoned with \"Junk\" monster",
+    "Destroy cards on the field",
+    "Inflict damage",
+    "Change position a monster to attack again",
+]
+
+[cosmic-synchron]
+id = 900003123
+set = "synchron"
+name = "Cosmic Synchron"
+type = "monster synchro tuner effect"
+attribute = "light"
+race = "machine"
+level = 2
+atk = 1500
+def = 200
+effect = """
+1 Tuner + 1 non-Tuner monster
+If you Special Summon a Dragon Synchro Monster while this card is in your GY \
+    (except during the Damage Step, or when this card is used as a Synchro Material): \
+    You can Special Summon this card in Defense Position, but banish it when it leaves the field, \
+    also for the rest of this turn, you cannot Special Summon from the Extra Deck, except Synchro Monsters. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+A Synchro Monster that used this card as material is unaffected by your opponent's activated effects \
+    during the turn it is Synchro Summoned. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
 ]
 
 [mark-of-the-dragon-star]
