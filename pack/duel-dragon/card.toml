@@ -594,10 +594,10 @@ strings = [
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
 ]
 
-[red-archfiend-synchron]
+[archfiend-synchron]
 id = 900003124
 set = "archfiend synchron"
-name = "Red Archfiend Synchron"
+name = "Archfiend Synchron"
 type = "monster tuner effect"
 attribute = "dark"
 race = "fiend"
@@ -612,6 +612,34 @@ If this card is sent to the GY as Synchro Material for a Level 7 or 8 Dragon Syn
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Its effect activations and its effects cannot be negated"]
+
+[rose-synchron]
+id = 900003125
+set = "rose synchron"
+name = "Rose Synchron"
+type = "monster tuner effect"
+attribute = "light"
+race = "plant"
+level = 2
+atk = 800
+def = 1700
+effect = """
+"""
+strings = []
+
+[faith-synchron]
+id = 900003126
+set = "synchron"
+name = "Faith Synchron"
+type = "monster tuner effect"
+attribute = "light"
+race = "fairy"
+level = 1
+atk = 100
+def = 100
+effect = """
+"""
+strings = []
 
 [mark-of-the-dragon-star]
 id = 900003140
