@@ -400,8 +400,6 @@ level = 1
 atk = 100
 def = 100
 effect = """
-This card on the field can be treated as a Level 2 monster when used for a Synchro Summon. \
-    This effect cannot be negated. \
 If this card is in your GY: \
     You can Tribute 1 Level 4 or lower non-Tuner monster; Special Summon this card. \
     You must control a Tuner to activate and to resolve this effect. \
@@ -624,6 +622,8 @@ level = 2
 atk = 800
 def = 1700
 effect = """
+This card on the field can be treated as a Level 3 monster when used for a Synchro Summon. \
+    This effect cannot be negated. \
 """
 strings = []
 
