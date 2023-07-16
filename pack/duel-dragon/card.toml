@@ -594,28 +594,65 @@ strings = [
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
 ]
 
+[red-archfiend-synchron]
+id = 900003124
+set = "archfiend synchron"
+name = "Red Archfiend Synchron"
+type = "monster tuner effect"
+attribute = "dark"
+race = "fiend"
+level = 3
+atk = 1000
+def = 1500
+effect = """
+If this card would be used as Synchro Material, 1 monster in your hand can be used as 1 of the other materials. \
+A Synchro Monster's effect activations and its effects that used this card as material cannot be negated during the turn it is Synchro Summoned. \
+If this card is sent to the GY as Synchro Material for a Level 7 or 8 Dragon Synchro Monster: \
+    You can add 1 "Burning Soul" from your Deck to your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Its effect activations and its effects cannot be negated"]
+
 [mark-of-the-dragon-star]
 id = 900003140
 name = "Mark Of The Dragon Star"
 type = "spell"
 effect = """
-Activate 1 of these effects. This effect's activation and effect cannot be negated.
+Activate 1 of these effects, but you cannot apply that same effect of "{CARD_NAME}" again this turn. \
+This effect's activation and effect cannot be negated.
 ● Shuffle 1 Tuner from your hand or GY into the Deck, then draw 2 cards.
-● Special Summon from your Extra Deck, \
-    1 "Power Tool" Synchro Monster or 1 Level 7 or 8 Dragon Synchro Monster, \
-    except a monster that mentions a Synchro Monster as material, \
-    but it cannot attack or activate its effects this turn, \
-    also for the rest of this turn, you cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. \
-    (This Special Summon is treated as a Synchro Summon.)
-If your Synchro Monster(s) you control is destroyed by your opponent's attack or card effect while this card is in your GY: \
-    You can shuffle 1 card that mentions "The Crimson Dragon" is banished or in your GY into the Deck; \
-    Special Summon 1 "The Crimson Dragon" from your Extra Deck. \
+● Special Summon 1 "The Crimson Dragon" from your Extra Deck.
+During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY: \
+    You can target 1 card that mentions "The Crimson Dragon" is banished or in your GY; shuffle it into the Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Shuffle Tuner into the Deck",
-    "Summon a Synchro Monster",
-    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
+    "Special Summon \"The Crimson Dragon\"",
+]
+
+[let-rev-it-up]
+id = 900003141
+name = "Let's Rev It Up!"
+type = "spell continuous"
+effect = """
+When this card is activated: \
+    Add 1 "Synchron" Tuner from your Deck to your hand, \
+    then you can send 1 Warrior or Machine monster from your Deck to the GY, whose Level is lower than the added monster. \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+You can only control 1 "{CARD_NAME}". \
+Your opponent cannot activate cards or effects in response to the effect activations of your "Synchron" monster. \
+Each time a monster(s) is Synchro Summoned, place 2 Signal Counters on this card. \
+You can remove any number of Signal Counters from your field; \
+    apply this effect, depending on the number of Signal Counters removed.
+● 4 (Quick Effect): Immediately after this effect resolves, Synchro Summon using monsters you control as material.
+● 7: Draw 2 cards, then send 1 card from your hand to the GY.
+● 10: Special Summon 1 monster in your GY.
+"""
+strings = [
+    "4 Counters: Synchro Summon",
+    "7 Counters: Draw 2 cards, then send 1 card from your hand to the GY",
+    "10 Counters: Special Summon 1 monster in either GY",
 ]
 
 [void-eyes-infernity-dragon]
