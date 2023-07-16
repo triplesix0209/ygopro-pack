@@ -19,10 +19,10 @@ strings = [
     "Special Summon the leaved monster",
 ]
 
-[nazca-red-dragon-archfiend]
+[red-dragonator-archfiend]
 id = 900003101
 alias = 70902743
-name = "Nazca Red Archfiend Dragon"
+name = "Red Dragonator Archfiend"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
