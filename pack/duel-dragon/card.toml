@@ -397,8 +397,8 @@ type = "monster effect"
 attribute = "earth"
 race = "machine"
 level = 1
-atk = 100
-def = 100
+atk = 200
+def = 200
 effect = """
 If this card is in your GY: \
     You can Tribute 1 Level 4 or lower non-Tuner monster; Special Summon this card. \
@@ -599,9 +599,9 @@ name = "Archfiend Synchron"
 type = "monster tuner effect"
 attribute = "dark"
 race = "fiend"
-level = 3
-atk = 1000
-def = 1500
+level = 4
+atk = 1600
+def = 1000
 effect = """
 If this card would be used as Synchro Material, 1 monster in your hand can be used as 1 of the other materials. \
 A Synchro Monster's effect activations and its effects that used this card as material cannot be negated during the turn it is Synchro Summoned. \
@@ -618,26 +618,17 @@ name = "Rose Synchron"
 type = "monster tuner effect"
 attribute = "light"
 race = "plant"
-level = 2
+level = 3
 atk = 800
-def = 1700
+def = 0
 effect = """
-This card on the field can be treated as a Level 3 monster when used for a Synchro Summon. \
+This card on the field can be treated as a Level 4 monster when used for a Synchro Summon. \
     This effect cannot be negated. \
-"""
-strings = []
-
-[faith-synchron]
-id = 900003126
-set = "synchron"
-name = "Faith Synchron"
-type = "monster tuner effect"
-attribute = "light"
-race = "fairy"
-level = 1
-atk = 100
-def = 100
-effect = """
+If this card is in the GY: You can target 1 non-Tuner monster in your GY; \
+    banish both this card and that target, and if you do, Special Summon 1 Plant or Dragon Synchro Monster from your Extra Deck \
+    whose Level equals the total Levels of the banished monsters. \
+    (This Special Summon is treated as a Synchro Summon.) \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 
