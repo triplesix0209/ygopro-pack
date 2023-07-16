@@ -77,7 +77,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e6)
 end
 
-function s.e1filter(c) return c:IsSpellTrap() and c:ListsCode(CARD_CRIMSON_DRAGON) and c:IsAbleToHand() end
+function s.e1filter(c) return c:IsSpellTrap() and c:ListsCode(CARD_CRIMSON_DRAGON) and not c:IsCode(id) and c:IsAbleToHand() end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
