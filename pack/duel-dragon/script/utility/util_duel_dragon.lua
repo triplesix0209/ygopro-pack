@@ -2,6 +2,9 @@
 if not aux.DuelDragonProcedure then aux.DuelDragonProcedure = {} end
 if not DuelDragon then DuelDragon = aux.DuelDragonProcedure end
 
+-- constant
+DuelDragon.COUNTER_COSMIC = 0x9001
+
 -- function
 function DuelDragon.AddMajesticProcedure(c, s, dragon_code)
     s.material = {21159309, dragon_code}
