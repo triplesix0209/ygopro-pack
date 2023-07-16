@@ -1,5 +1,51 @@
+[mausoleum-signer-dragons]
+id = 900003100
+name = "Mausoleum of the Signer Dragons"
+type = "spell field"
+effect = """
+When this card is activated: You can add 1 Spell/Trap that mentions "The Crimson Dragon" from your Deck to your hand, except "{CARD_NAME}". \
+Special Summons of your Dragon Synchro Monsters cannot be negated. \
+Neither player can return your Dragon Synchro Monster that mentions a Synchro Monster as material from the field to the Extra Deck. \
+If you Synchro Summon a Dragon monster: You can draw 1 card. \
+If a Dragon Synchro Monster(s) you control leaves the field by your card effect, or to activate the effect of your card: \
+    You can Special Summon 1 of those monsters. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card in its owner's control is destroyed by an opponent's card effect: \
+    You can Special Summon 1 "The Crimson Dragon" from your Extra Deck. \
+"""
+strings = [
+    "Add \"Mark Of The Dragon Star\" to your hand?",
+    "Draw 1 card",
+    "Special Summon the leaved monster",
+]
+
+[mark-of-the-dragon-star]
+id = 900003101
+rarity = "gold"
+name = "Mark Of The Dragon Star"
+type = "spell"
+effect = """
+Activate 1 of these effects. This effect's activation and effect cannot be negated.
+● Shuffle 1 Tuner from your hand or GY into the Deck, then draw 2 cards.
+● Special Summon from your Extra Deck, \
+    1 "Power Tool" Synchro Monster or 1 Level 7 or 8 Dragon Synchro Monster, \
+    except a monster that mentions a Synchro Monster as material, \
+    but it cannot attack or activate its effects this turn, \
+    also for the rest of this turn, you cannot Special Summon monsters from the Extra Deck, except Synchro Monsters. \
+    (This Special Summon is treated as a Synchro Summon.)
+If your Synchro Monster(s) you control is destroyed by your opponent's attack or card effect while this card is in your GY: \
+    You can shuffle 1 card that mentions "The Crimson Dragon" is banished or in your GY into the Deck; \
+    Special Summon 1 "The Crimson Dragon" from your Extra Deck. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Shuffle Tuner into the Deck",
+    "Summon a Synchro Monster",
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
+]
+
 [void-eyes-infernity-dragon]
-id = 900003008
+id = 900003199
 set = "void infernity"
 name = "Void-Eyes Infernity Dragon"
 type = "monster synchro effect"
