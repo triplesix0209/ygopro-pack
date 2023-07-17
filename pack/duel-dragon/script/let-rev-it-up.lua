@@ -109,7 +109,7 @@ end
 function s.e2chainlimit(e, rp, tp) return tp == rp end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    if eg:IsExists(Card.IsSummonType, 1, nil, SUMMON_TYPE_SYNCHRO) then e:GetHandler():AddCounter(COUNTER_SIGNAL, 2) end
+    if eg:IsExists(Card.IsSummonType, 1, nil, SUMMON_TYPE_SYNCHRO) then e:GetHandler():AddCounter(COUNTER_SIGNAL, 1) end
 end
 
 function s.effcost(ct)
