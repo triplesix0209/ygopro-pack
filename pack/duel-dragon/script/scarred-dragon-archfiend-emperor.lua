@@ -63,7 +63,7 @@ function s.initial_effect(c)
 
     -- banish
     local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 5))
+    e5:SetDescription(aux.Stringid(id, 4))
     e5:SetCategory(CATEGORY_REMOVE)
     e5:SetType(EFFECT_TYPE_QUICK_O)
     e5:SetCode(EVENT_CHAINING)
@@ -171,7 +171,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) or Duel.Remove(c, POS_FACEUP, REASON_EFFECT) == 0 then return end
 
     c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 0)
-    if Duel.GetAttacker() and Duel.GetAttacker():GetControler() ~= tp and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 6)) then
+    if Duel.GetAttacker() and Duel.GetAttacker():GetControler() ~= tp and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 5)) then
         Duel.NegateAttack()
     else
         local ec1 = Effect.CreateEffect(c)
@@ -180,7 +180,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetRange(LOCATION_REMOVED)
         ec1:SetLabel(0)
         ec1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-            if e:GetLabel() ~= 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 6)) then return end
+            if e:GetLabel() ~= 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 5)) then return end
 
             Utility.HintCard(e:GetHandler())
             Duel.NegateAttack()
