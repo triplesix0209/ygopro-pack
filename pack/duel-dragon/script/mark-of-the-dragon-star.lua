@@ -78,7 +78,8 @@ function s.e2filter(c, e, tp)
 end
 
 function s.e2check(e, tp)
-    return Duel.GetFlagEffect(tp, id + 2 * 10000) == 0 and Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp)
+    return Duel.GetFlagEffect(tp, id + 2 * 10000) == 0 and Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp) and
+               Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
