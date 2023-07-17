@@ -3,13 +3,25 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.synchro_nt_required = 1
+s.listed_series = {SET_RED_DRAGON_ARCHFIEND}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    Synchro.AddProcedure(c, nil, 3, 3, Synchro.NonTunerEx(
-        function(c, val, sc, sumtype, tp) return c:IsType(TYPE_SYNCHRO, sc, sumtype, tp) end), 1, 1)
+    Synchro.AddProcedure(c, nil, 3, 3, Synchro.NonTunerEx(function(c, val, scard, sumtype, tp)
+        return c:IsRace(RACE_DRAGON, scard, sumtype, tp) and c:IsAttribute(ATTRIBUTE_DARK, scard, sumtype, tp) and
+                   c:IsType(TYPE_SYNCHRO, scard, sumtype, tp)
+    end), 1, 1)
+
+    -- special summon limit
+    local splimit = Effect.CreateEffect(c)
+    splimit:SetType(EFFECT_TYPE_SINGLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE + EFFECT_FLAG_SINGLE_RANGE)
+    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
+    splimit:SetRange(LOCATION_EXTRA)
+    splimit:SetValue(aux.synlimit)
+    c:RegisterEffect(splimit)
 
     -- double tuner
     local doubletuner = Effect.CreateEffect(c)
@@ -35,9 +47,7 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e2:SetCode(EFFECT_UPDATE_ATTACK)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetValue(function(e, c)
-        return Duel.GetMatchingGroupCount(Card.IsType, c:GetControler(), LOCATION_GRAVE, 0, nil, TYPE_TUNER) * 500
-    end)
+    e2:SetValue(function(e, c) return Duel.GetMatchingGroupCount(Card.IsType, c:GetControler(), LOCATION_GRAVE, 0, nil, TYPE_TUNER) * 500 end)
     c:RegisterEffect(e2)
 
     -- indes
@@ -90,9 +100,7 @@ end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:GetMaterial():IsExists(function(mc)
-        return mc:IsAttribute(ATTRIBUTE_DARK) and mc:IsRace(RACE_DRAGON) and mc:IsType(TYPE_SYNCHRO)
-    end, 1, nil)
+    return c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:GetMaterial():IsExists(function(mc) return mc:IsSetCard(SET_RED_DRAGON_ARCHFIEND) end, 1, nil)
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -193,8 +201,7 @@ end
 
 function s.e5retcon(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:GetFlagEffect(id) > 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return c:GetFlagEffect(id) > 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
 function s.e5retop(e, tp, eg, ep, ev, re, r, rp) Duel.SpecialSummon(e:GetHandler(), 0, tp, tp, false, false, POS_FACEUP) end

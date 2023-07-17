@@ -686,34 +686,9 @@ strings = [
     "7 Counters: Draw 2 cards, then send 1 card from your hand to the GY",
     "10 Counters: Special Summon 1 monster in either GY",
 ]
-[blazing-soul-dragon]
-id = 900003129
-set = "red-dragon-archfiend"
-name = "Blazing Soul Dragon"
-type = "monster synchro effect"
-attribute = "dark"
-race = "dragon"
-level = 8
-atk = 0
-def = 3000
-effect = """
-1 Tuner + 1+ non-Tuner monsters
-(This card is always treated as an "Red Dragon Archfiend" card.)
-During the Main Phase (Quick Effect): You can Tribute this Synchro Summoned card; \
-    Special Summon 1 Level 8 or lower "Red Dragon Archfiend" Synchro Monster from your Extra Deck, \
-    and if you do, it cannot be destroyed by your opponent's card effects. \
-    (This Special Summon is treated as a Synchro Summon.) \
-If this face-up card leaves the field: \
-    You can take 1 Spell/Trap from your Deck to your hand, \
-    that mentions "Red Dragon Archfiend" or a "Red Dragon Archfiend" monster, \
-    and either add it to your hand, or Set it, \
-    and if it was a Trap, you can activate it this turn. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
-"""
-strings = ["Special Summon a \"Red Dragon Archfiend\" monster"]
 
 [scarred-dragon-archfiend-emperor]
-id = 900003130
+id = 900003129
 rarity = "gold"
 set = "red-dragon-archfiend"
 name = "Scar-Red Dragon Archfiend Emperor"
@@ -722,10 +697,11 @@ attribute = "dark"
 race = "dragon"
 level = 12
 atk = 4000
-def = 3500
+def = 4000
 effect = """
-3 Tuners + 1 non-Tuner Synchro Monster
-If this card is Synchro Summoned using a DARK Dragon Synchro monster as material: \
+3 Tuners + 1 non-Tuner DARK Dragon Synchro Monster
+Must first be Synchro Summoned. \
+If this card is Synchro Summoned using a "Red Dragon Archfiend" monster as material: \
     You can activate this effect; for the rest of this turn, \
     your opponent cannot activate cards, also cards your opponent controls cannot activate their effects, \
     then negate the effects of all face-up monsters your opponent currently control. \
