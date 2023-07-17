@@ -348,7 +348,7 @@ Once per turn: You can target 1 face-up monster your opponent controls; \
 """
 strings = [
     "Return this card to Special Summon 1 \"Ancient Fairy Dragon\"",
-    "Special Summon 1 Level 8 or lower monster",
+    "Special Summon a monster",
     "Negate effect & Recover LP",
 ]
 
