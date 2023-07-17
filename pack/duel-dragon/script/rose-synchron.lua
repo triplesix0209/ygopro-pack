@@ -31,9 +31,8 @@ function s.e2filter1(c, e, tp)
 end
 
 function s.e2filter2(c, lv, e, tp)
-    return
-        c:IsRace(RACE_PLANT + RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:GetLevel() == lv and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and
-            c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_SYNCHRO, tp, false, false)
+    return (c:IsRace(RACE_PLANT) or c:IsSetCard(SET_ROSE_DRAGON)) and c:IsType(TYPE_SYNCHRO) and c:GetLevel() == lv and
+               Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_SYNCHRO, tp, false, false)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
