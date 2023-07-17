@@ -44,7 +44,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e2filter(c, e, tp) return c:IsLevelBelow(8) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+function s.e2filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
 function s.e2con() return Duel.GetCurrentPhase() == PHASE_MAIN1 end
 

@@ -340,7 +340,7 @@ effect = """
 "Majestic Dragon" + "Ancient Fairy Dragon" + 1 non-Tuner monster
 This card gains ATK equal to the difference between your LP and your opponent's. \
 Once per turn, during your Main Phase 1: \
-    You can Special Summon 1 Level 8 or lower monster from your hand or in either GY, \
+    You can Special Summon 1 monster from your hand or in either GY, \
     but it cannot attack this turn. \
 Once per turn: You can target 1 face-up monster your opponent controls; \
     negate its effects until the end of this turn, and if you do, gain LP equal to its ATK. \
