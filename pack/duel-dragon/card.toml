@@ -211,7 +211,7 @@ def = 4000
 effect = """
 1 Tuner Synchro Monster + 2+ non-Tuner Synchro Monsters
 Must be Synchro Summoned. \
-This card's Synchro Summon and its effect activations and its effects cannot be negated. \
+This card's Synchro Summon and its effects cannot be negated. \
 After this card is Synchro Summoned, place Cosmic Counters on this card \
     equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
 Cannot be Tributed, or used as material for an Summon. \
