@@ -637,7 +637,8 @@ effect = """
 If this card would be used as Synchro Material, 1 monster in your hand can be used as 1 of the other materials. \
 A Synchro Monster's effect activations and its effects that used this card as material cannot be negated during the turn it is Synchro Summoned. \
 If this card is sent to the GY as Synchro Material for a Level 7 or 8 Dragon Synchro Monster: \
-    You can add 1 "Burning Soul" from your Deck or GY to your hand. \
+    You can add 1 "Burning Soul" or 1 Spell/Trap that mentions "Red Dragon Archfiend" or lists a "Red Dragon Archfiend" monster in its text, \
+    from your Deck or GY to your hand. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Its effect activations and its effects cannot be negated"]
