@@ -1,4 +1,4 @@
--- Shooting Cosmic Quasar Dragon
+-- Majestic Quasar Dragon
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_duel_dragon.lua")
 local s, id = GetID()

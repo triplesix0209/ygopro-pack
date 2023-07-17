@@ -198,10 +198,11 @@ strings = [
     "Do you want negate the attack by effect of \"{CARD_NAME}\"?",
 ]
 
-[shooting-cosmic-quasar-dragon]
+[majestic-quasar-dragon]
 id = 900003108
+set = "majestic"
 rarity = "gold"
-name = "Shooting Cosmic Quasar Dragon"
+name = "Majestic Quasar Dragon"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
