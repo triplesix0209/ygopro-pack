@@ -2,7 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {10723472}
+s.listed_names = {10723472, CARD_RED_DRAGON_ARCHFIEND}
+s.listed_series = {SET_RED_DRAGON_ARCHFIEND}
 
 function s.initial_effect(c)
     -- hand synchro
@@ -111,7 +112,10 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         aux.Stringid(id, 0))
 end
 
-function s.e3filter(c) return c:IsCode(10723472) and c:IsAbleToHand() end
+function s.e3filter(c)
+    if not c:IsAbleToHand() then return false end
+    return c:IsCode(10723472) or (c:IsSpellTrap() and (c:ListsCode(CARD_RED_DRAGON_ARCHFIEND) or c:ListsArchetype(SET_RED_DRAGON_ARCHFIEND)))
+end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
