@@ -78,7 +78,7 @@ function s.initial_effect(c)
     -- negate effect (activate)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 0))
-    e3:SetCategory(CATEGORY_DISABLE)
+    e3:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
     e3:SetType(EFFECT_TYPE_QUICK_O)
     e3:SetCode(EVENT_CHAINING)
     e3:SetRange(LOCATION_MZONE)
@@ -152,10 +152,15 @@ end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
+    local rc = re:GetHandler()
+
     Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, #eg, 0, 0)
+    if rc:IsDestructable() and rc:IsRelateToEffect(re) then Duel.SetOperationInfo(0, CATEGORY_DESTROY, eg, 1, 0, 0) end
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp) Duel.NegateEffect(ev) end
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
+end
 
 function s.e4con(e) return (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL) and e:GetHandler():GetBattleTarget() end
 
