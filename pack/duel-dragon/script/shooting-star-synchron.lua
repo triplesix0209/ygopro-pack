@@ -15,7 +15,7 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_DELAY)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetRange(LOCATION_GRAVE)
-    e1:SetCountLimit(1, id)
+    e1:SetCountLimit(1, id, EFFECT_COUNT_CODE_DUEL)
     e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
@@ -47,26 +47,17 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if c:IsRelateToEffect(e) and Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) > 0 then
+    if not c:IsRelateToEffect(e) and Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) > 0 then
         local ec1 = Effect.CreateEffect(c)
-        ec1:SetDescription(3300)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
-        ec1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
-        ec1:SetValue(LOCATION_REMOVED)
-        ec1:SetReset(RESET_EVENT + RESETS_REDIRECT)
-        c:RegisterEffect(ec1, true)
+        ec1:SetDescription(aux.Stringid(id, 0))
+        ec1:SetType(EFFECT_TYPE_FIELD)
+        ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+        ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+        ec1:SetTargetRange(1, 0)
+        ec1:SetTarget(function(e, tc, sump, sumtype, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsType(TYPE_SYNCHRO) end)
+        ec1:SetReset(RESET_PHASE + PHASE_END)
+        Duel.RegisterEffect(ec1, tp)
     end
-
-    local ec2 = Effect.CreateEffect(c)
-    ec2:SetDescription(aux.Stringid(id, 0))
-    ec2:SetType(EFFECT_TYPE_FIELD)
-    ec2:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
-    ec2:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-    ec2:SetTargetRange(1, 0)
-    ec2:SetTarget(function(e, tc, sump, sumtype, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsType(TYPE_SYNCHRO) end)
-    ec2:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec2, tp)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return r == REASON_SYNCHRO end
