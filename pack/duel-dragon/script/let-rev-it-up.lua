@@ -29,6 +29,8 @@ function s.acttg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
     Duel.SetPossibleOperationInfo(0, CATEGORY_TOGRAVE, nil, 1, tp, LOCATION_DECK)
+
+    if Duel.GetFieldGroupCount(tp, LOCATION_MZONE, 0) == 0 then Duel.SetChainLimit(function(e, rp, tp) return tp == rp end) end
 end
 
 function s.actop(e, tp, eg, ep, ev, re, r, rp)
