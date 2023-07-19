@@ -687,8 +687,7 @@ Target 1 Dragon Synchro you control; equip this card to it, and this equipped ca
 Negate any your opponent's card effects effects that target the equipped monster. \
 If the equipped monster card's effect destroys a card(s) \
     and it is a "Red Dragon Archfiend" monster, \
-    it gains 500 ATK for each destroyed card \
-    (even if this card leaves the field). \
+    it gains 500 ATK for each destroyed card, until the end of this turn. \
 If a DARK Dragon Synchro Monster is Synchro Summoned to your field while this card is in your GY: \
     You can add this card to your hand. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
