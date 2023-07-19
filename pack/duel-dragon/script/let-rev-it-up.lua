@@ -76,6 +76,7 @@ function s.actop(e, tp, eg, ep, ev, re, r, rp)
     ec2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     ec2:SetCode(EVENT_CHAINING)
     ec2:SetOperation(s.e2op)
+    ec2:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec2, tp)
 
     -- draw
@@ -85,6 +86,7 @@ function s.actop(e, tp, eg, ep, ev, re, r, rp)
     ec3:SetCode(EVENT_SPSUMMON_SUCCESS)
     ec3:SetCondition(s.e3con)
     ec3:SetOperation(s.e3op)
+    ec3:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec3, tp)
 end
 
