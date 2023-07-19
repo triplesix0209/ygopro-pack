@@ -78,7 +78,7 @@ function s.initial_effect(c)
     -- negate effect (activate)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 0))
-    e3:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
+    e3:SetCategory(CATEGORY_DISABLE)
     e3:SetType(EFFECT_TYPE_QUICK_O)
     e3:SetCode(EVENT_CHAINING)
     e3:SetRange(LOCATION_MZONE)
@@ -147,30 +147,15 @@ function s.e3con(e, tp, eg, ep, ev, re, r, rp) return e ~= re and not e:GetHandl
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:IsCanRemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_COST) end
-
     c:RemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_COST)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
     if chk == 0 then return true end
-
-    local g = Duel.GetMatchingGroup(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, #eg, 0, 0)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    Duel.NegateEffect(ev)
-
-    local g = Duel.GetMatchingGroup(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
-    if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
-        local sg = Utility.GroupSelect(HINTMSG_DESTROY, g, tp, 1, 1)
-        Duel.HintSelection(sg)
-        Duel.Destroy(sg, REASON_EFFECT)
-    end
-end
+function s.e3op(e, tp, eg, ep, ev, re, r, rp) Duel.NegateEffect(ev) end
 
 function s.e4con(e) return (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL) and e:GetHandler():GetBattleTarget() end
 
