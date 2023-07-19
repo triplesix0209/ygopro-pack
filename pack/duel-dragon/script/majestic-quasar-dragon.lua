@@ -152,20 +152,23 @@ function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
     if chk == 0 then return true end
 
-    Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, #eg, 0, 0)
-    local g = Duel.GetMatchingGroup(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, e:GetHandler())
+    local g = Duel.GetMatchingGroup(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, #eg, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    if not Duel.NegateEffect(ev) then return end
+    local c = e:GetHandler()
+    Duel.NegateEffect(ev)
 
-    local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, e:GetHandler())
-    if #g > 0 then
-        Duel.HintSelection(g)
-        Duel.Destroy(g, REASON_EFFECT)
+    local g = Duel.GetMatchingGroup(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
+    if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
+        local sg = Utility.GroupSelect(HINTMSG_DESTROY, g, tp, 1, 1)
+        Duel.HintSelection(sg)
+        Duel.Destroy(sg, REASON_EFFECT)
     end
 end
 
@@ -178,7 +181,7 @@ function s.e5con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetAttacker() == e:Ge
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsFacedown() or not c:IsCanRemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_EFFECT) or not c:CanChainAttack(0) or
-        not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
+        not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then return end
 
     c:RemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_EFFECT)
     Duel.ChainAttack()
@@ -208,7 +211,7 @@ end
 
 function s.e7op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then return end
+    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then return end
 
     local sc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e7filter), tp,
         LOCATION_REMOVED + LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, 1, nil, e, tp):GetFirst()

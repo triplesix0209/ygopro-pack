@@ -217,7 +217,7 @@ Cannot be Tributed, or used as material for an Summon. \
 Unaffected by other monsters' effects. \
 When another card or effect is activated (Quick Effect): \
     You can remove 1 Cosmic Counter from this card; \
-    negate that effect, and if you do, destroy 1 other card on the field. \
+    negate that effect, also you can destroy 1 other card on the field. \
 If this card battles an opponent's monster, \
     negate the effects of that monster during the Damage Step only. \
 At the end of the Damage Step, if this card attacked, \
@@ -230,6 +230,7 @@ When this face-up card leaves the field, you can Special Summon 1 Level 10 or lo
 """
 strings = [
     "Negate the effect & Destroy 1 card on the field",
+    "Destroy 1 card on the field?",
     "Remove Cosmic Counter to attack again?",
     "Special Summon 1 Dragon Synchro Monster?",
 ]
