@@ -106,8 +106,6 @@ function s.e3filter(c, tp) return c:IsFaceup() and c:IsSummonPlayer(tp) and c:Is
 function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3filter, 1, e:GetHandler(), tp) and Duel.IsPlayerCanDraw(tp, 1) end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    if not Duel.SelectYesNo(tp, aux.Stringid(id, 1)) then return end
-
     Utility.HintCard(e)
     Duel.Draw(tp, 1, REASON_EFFECT)
 end

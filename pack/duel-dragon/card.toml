@@ -660,12 +660,9 @@ Add 1 "Synchron" Tuner from your Deck to your hand, then you can send 1 Warrior 
 Also for the rest of this turn, apply these effects.
 ● Summons of your "Palladium" monsters cannot be negated.
 ● Your opponent cannot activate cards or effects in response to the effect activations of your "Synchron" monster.
-● If you Synchro Summon a Synchro Monster: You can draw 1 card.
+● If you Synchro Summon a Synchro Monster, you draw 1 card.
 """
-strings = [
-    "Affected by effect \"{CARD_NAME}\"",
-    "Draw 1 card via \"{CARD_NAME}\"?",
-]
+strings = ["Affected by effect \"{CARD_NAME}\""]
 
 [scarred-dragon-archfiend-emperor]
 id = 900003128
