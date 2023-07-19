@@ -45,7 +45,7 @@ function s.actop(e, tp, eg, ep, ev, re, r, rp)
         if tc:IsLocation(LOCATION_HAND) and Duel.GetMatchingGroupCount(s.actfilter2, tp, LOCATION_DECK, 0, nil, tc) > 0 and
             Duel.SelectEffectYesNo(tp, c, 504) then
             Duel.BreakEffect()
-            local sg = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter2, tp, LOCATION_DECK, 0, 1, 1, nil, tc)
+            local sg = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.actfilter2, tp, LOCATION_DECK, 0, 1, 1, nil, tc)
             Duel.SendtoGrave(sg, REASON_EFFECT)
         end
     end
