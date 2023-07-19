@@ -568,13 +568,15 @@ atk = 1500
 def = 200
 effect = """
 1 Tuner + 1 non-Tuner monster
+If this card you control is used as Synchro material, you can treat it as a non-Tuner. \
+    This effect cannot be negated. \
+A Synchro Monster that used this card as material is unaffected by your opponent's activated effects \
+    during the turn it is Synchro Summoned. \
 If you Special Summon a Dragon Synchro Monster while this card is in your GY \
     (except during the Damage Step, or when this card is used as a Synchro Material): \
     You can Special Summon this card in Defense Position, \
     also for the rest of this turn, you cannot Special Summon from the Extra Deck, except Synchro Monsters. \
     You can only use this effect of "{CARD_NAME}" once per Duel. \
-A Synchro Monster that used this card as material is unaffected by your opponent's activated effects \
-    during the turn it is Synchro Summoned. \
 """
 strings = [
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
