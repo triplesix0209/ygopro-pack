@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x3f}
+s.listed_series = {SET_MAJESTIC}
 
 function s.initial_effect(c)
     -- synchro limit
@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_BE_SYNCHRO_MATERIAL)
     e1:SetValue(function(e, c)
         if not c then return false end
-        return not c:IsSetCard(0x3f)
+        return not c:IsSetCard(SET_MAJESTIC)
     end)
     c:RegisterEffect(e1)
 

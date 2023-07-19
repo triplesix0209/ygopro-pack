@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x3f}
+s.listed_series = {SET_MAJESTIC}
 
 function s.initial_effect(c)
     -- special summon
@@ -42,9 +42,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1filter(c, tp)
-    return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO)
-end
+function s.e1filter(c, tp) return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e1filter, 1, nil, tp) end
 
@@ -59,10 +57,19 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
+    if Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) > 0 then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetDescription(3300)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
+        ec1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
+        ec1:SetValue(LOCATION_REMOVED)
+        ec1:SetReset(RESET_EVENT + RESETS_REDIRECT)
+        c:RegisterEffect(ec1, true)
+    end
 end
 
-function s.e2filter(c, mg) return c:IsSetCard(0x3f) and c:IsSynchroSummonable(mg) end
+function s.e2filter(c, mg) return c:IsSetCard(SET_MAJESTIC) and c:IsSynchroSummonable(mg) end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     return Duel.GetTurnPlayer() ~= tp and (Duel.GetCurrentPhase() == PHASE_MAIN1 or Duel.GetCurrentPhase() == PHASE_MAIN2)
@@ -90,7 +97,7 @@ end
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = c:GetReasonCard()
-    return r == REASON_SYNCHRO and tc:IsSetCard(0x3f)
+    return r == REASON_SYNCHRO and tc:IsSetCard(SET_MAJESTIC)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)

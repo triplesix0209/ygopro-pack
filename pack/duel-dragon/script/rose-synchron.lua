@@ -12,17 +12,21 @@ function s.initial_effect(c)
     e1:SetValue(function(e, c) return 4 * 65536 + e:GetHandler():GetLevel() end)
     c:RegisterEffect(e1)
 
-    -- special summon
+    -- grave synchro summon
     local e2 = Effect.CreateEffect(c)
     e2:SetCategory(CATEGORY_REMOVE + CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetRange(LOCATION_GRAVE)
     e2:SetCountLimit(1, id)
+    e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+    Duel.AddCustomActivityCounter(id, ACTIVITY_SPSUMMON, s.e2counterfilter)
 end
+
+function s.e2counterfilter(c) return not c:IsSummonLocation(LOCATION_EXTRA) or c:IsType(TYPE_SYNCHRO) end
 
 function s.e2filter1(c, e, tp)
     local lv = e:GetHandler():GetLevel()
@@ -33,6 +37,23 @@ end
 function s.e2filter2(c, lv, e, tp)
     return (c:IsRace(RACE_PLANT) or c:IsSetCard(SET_ROSE_DRAGON)) and c:IsType(TYPE_SYNCHRO) and c:GetLevel() == lv and
                Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_SYNCHRO, tp, false, false)
+end
+
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.GetCustomActivityCount(id, tp, ACTIVITY_SPSUMMON) == 0 end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(aux.Stringid(id, 0))
+    ec1:SetType(EFFECT_TYPE_FIELD)
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+    ec1:SetTargetRange(1, 0)
+    ec1:SetTarget(function(e, tc, sump, sumtype, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsType(TYPE_SYNCHRO) end)
+    ec1:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec1, tp)
+
+    aux.addTempLizardCheck(c, tp, function(e, c) return not c:IsOriginalType(TYPE_SYNCHRO) end)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)

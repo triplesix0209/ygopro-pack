@@ -394,7 +394,7 @@ atk = 0
 def = 0
 effect = """
 If you Synchro Summon a Dragon monster: \
-    You can Special Summon this card from your GY. \
+    You can Special Summon this card from your GY in Defense Position, but banish it when it leaves the field. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during your opponent's Main Phase, you can (Quick Effect): Immediately after this effect resolves, \
     Synchro Summon a "Majestic" monster using this card you control. \
@@ -432,7 +432,7 @@ level = 1
 atk = 200
 def = 200
 effect = """
-If this card is in your GY: \
+If this card is in your hand or GY: \
     You can Tribute 1 Level 4 or lower non-Tuner monster; Special Summon this card. \
     You must control a Tuner to activate and to resolve this effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -455,27 +455,8 @@ You can discard this card; add 1 "Synchron" monster from your Deck to your hand,
 """
 strings = ["Normal Summon 1 Tuner monster?"]
 
-[junk-striker]
-id = 900003119
-name = "Junk Striker"
-set = "junk"
-type = "monster effect"
-attribute = "earth"
-race = "warrior"
-level = 3
-atk = 1500
-def = 900
-effect = """
-You can discard this card; add 1 Level 2 or lower Warrior or Machine monster from your Deck to your hand. \
-If a "Synchron" monster(s) is Normal or Special Summoned (except during the Damage Step): \
-    You can Special Summon this card from your hand or GY in Defense Position, \
-    but banish it when it leaves the field. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
-"""
-strings = []
-
 [starjunk-servant]
-id = 900003120
+id = 900003119
 set = "junk"
 name = "Starjunk Servant"
 type = "monster effect"
@@ -486,7 +467,8 @@ atk = 1500
 def = 1000
 effect = """
 If you control a "Stardust" or "Junk" monster, you can Special Summon this card (from your hand). \
-If this card is Normal or Special Summoned: You can target 1 "Stardust" or "Junk" monster on the field, then activate 1 of these effects;
+If this card is Normal or Special Summoned: You can target 1 "Stardust" or "Junk" monster on the field, \
+    then activate 1 of these effects;
 ● Increase its Level by 1.
 ● Reduce its Level by 1.
 """
@@ -497,7 +479,7 @@ strings = [
 ]
 
 [starjunk-synchron]
-id = 900003121
+id = 900003120
 alias = 63977008
 set = "junk synchron"
 name = "Starjunk Synchron"
@@ -518,7 +500,7 @@ For a Synchro Summon, you can substitute this card for any 1 "Synchron" Tuner. \
 strings = []
 
 [starjunk-warrior]
-id = 900003122
+id = 900003121
 alias = 60800381
 set = "junk warrior"
 name = "Starjunk Warrior"
@@ -543,7 +525,7 @@ strings = [
 ]
 
 [junk-accelerator]
-id = 900003123
+id = 900003122
 set = "junk"
 name = "Junk Accelerator"
 type = "monster synchro effect"
@@ -569,7 +551,7 @@ strings = [
 ]
 
 [junk-dracosmasher]
-id = 900003124
+id = 900003123
 set = "junk"
 name = "Junk Dracosmasher"
 type = "monster synchro effect"
@@ -600,10 +582,10 @@ strings = [
     "Change position a monster to attack again",
 ]
 
-[cosmic-synchron]
-id = 900003125
+[shooting-star-synchron]
+id = 900003124
 set = "synchron"
-name = "Cosmic Synchron"
+name = "Shooting Star Synchron"
 type = "monster synchro tuner effect"
 attribute = "light"
 race = "machine"
@@ -625,7 +607,7 @@ strings = [
 ]
 
 [archfiend-synchron]
-id = 900003126
+id = 900003125
 set = "archfiend synchron"
 name = "Archfiend Synchron"
 type = "monster tuner effect"
@@ -645,7 +627,7 @@ If this card is sent to the GY as Synchro Material for a Level 7 or 8 Dragon Syn
 strings = ["Its effect activations and its effects cannot be negated"]
 
 [rose-synchron]
-id = 900003127
+id = 900003126
 set = "rose synchron"
 name = "Rose Synchron"
 type = "monster tuner effect"
@@ -661,12 +643,15 @@ If this card is in the GY: You can target 1 non-Tuner monster in your GY; \
     banish both this card and that target, and if you do, Special Summon 1 Plant or "Rose Dragon" Synchro Monster from your Extra Deck \
     whose Level equals the total Levels of the banished monsters. \
     (This Special Summon is treated as a Synchro Summon.) \
+    You cannot Special Summon monsters from the Extra Deck, except Synchro Monsters, the turn you activate this effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
+]
 
 [let-rev-it-up]
-id = 900003128
+id = 900003127
 name = "Let's Rev It Up!"
 type = "spell continuous"
 effect = """
@@ -681,7 +666,7 @@ You can remove any number of Signal Counters from your field; \
     apply this effect, depending on the number of Signal Counters removed.
 ● 4 (Quick Effect): Immediately after this effect resolves, Synchro Summon using monsters you control as material.
 ● 7: Draw 2 cards, then send 1 card from your hand to the GY.
-● 10: Special Summon 1 monster in your GY.
+● 10: Special Summon 1 monster in your hand or GY.
 """
 strings = [
     "4 Counters: Synchro Summon",
@@ -690,7 +675,7 @@ strings = [
 ]
 
 [scarred-dragon-archfiend-emperor]
-id = 900003129
+id = 900003128
 rarity = "gold"
 set = "red-dragon-archfiend"
 name = "Scar-Red Dragon Archfiend Emperor"
@@ -728,7 +713,7 @@ strings = [
 ]
 
 [ruthless-inferno]
-id = 900003131
+id = 900003129
 name = "Ruthless Inferno"
 type = "trap"
 effect = """

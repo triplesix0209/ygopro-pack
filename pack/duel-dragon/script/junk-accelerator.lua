@@ -90,7 +90,7 @@ function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
 
-    aux.addTempLizardCheck(e:GetHandler(), tp, function(e, c) return not c:IsOriginalType(TYPE_SYNCHRO) end)
+    aux.addTempLizardCheck(c, tp, function(e, c) return not c:IsOriginalType(TYPE_SYNCHRO) end)
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
