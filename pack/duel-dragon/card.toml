@@ -568,8 +568,6 @@ atk = 1500
 def = 200
 effect = """
 1 Tuner + 1 non-Tuner monster
-If this card you control is used as Synchro material, you can treat it as a non-Tuner. \
-    This effect cannot be negated. \
 A Synchro Monster that used this card as material is unaffected by your opponent's activated effects \
     during the turn it is Synchro Summoned. \
 If you Special Summon a Dragon Synchro Monster while this card is in your GY \

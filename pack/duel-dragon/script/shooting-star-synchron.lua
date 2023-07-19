@@ -8,40 +8,32 @@ function s.initial_effect(c)
     -- synchro summon
     Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTuner(nil), 1, 1)
 
-    -- can be treated as a non-Tuner
+    -- gain effect
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
-    e1:SetCode(EFFECT_NONTUNER)
-    e1:SetRange(LOCATION_MZONE)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e1:SetCode(EVENT_BE_MATERIAL)
+    e1:SetCondition(s.e1con)
+    e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- gain effect
+    -- special summon
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-    e2:SetCode(EVENT_BE_MATERIAL)
+    e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e2:SetProperty(EFFECT_FLAG_DELAY)
+    e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e2:SetRange(LOCATION_GRAVE)
+    e2:SetCountLimit(1, id, EFFECT_COUNT_CODE_DUEL)
     e2:SetCondition(s.e2con)
+    e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-
-    -- special summon
-    local e3 = Effect.CreateEffect(c)
-    e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    e3:SetProperty(EFFECT_FLAG_DELAY)
-    e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e3:SetRange(LOCATION_GRAVE)
-    e3:SetCountLimit(1, id, EFFECT_COUNT_CODE_DUEL)
-    e3:SetCondition(s.e3con)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return r == REASON_SYNCHRO end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return r == REASON_SYNCHRO end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local rc = c:GetReasonCard()
 
@@ -56,21 +48,21 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     rc:RegisterEffect(ec1)
 end
 
-function s.e3filter1(c, tp) return c:IsRace(RACE_DRAGON) and c:IsType((TYPE_SYNCHRO)) and c:IsSummonPlayer(tp) end
+function s.e2filter1(c, tp) return c:IsRace(RACE_DRAGON) and c:IsType((TYPE_SYNCHRO)) and c:IsSummonPlayer(tp) end
 
-function s.e3filter2(c, tp, mc) return c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:IsSummonPlayer(tp) and c:GetMaterial():IsContains(mc) end
+function s.e2filter2(c, tp, mc) return c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:IsSummonPlayer(tp) and c:GetMaterial():IsContains(mc) end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return
-    eg:IsExists(s.e3filter1, 1, nil, tp) and not eg:IsExists(s.e3filter2, 1, nil, tp, e:GetHandler()) end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return
+    eg:IsExists(s.e2filter1, 1, nil, tp) and not eg:IsExists(s.e2filter2, 1, nil, tp, e:GetHandler()) end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsRelateToEffect(e) and Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) > 0 then
         local ec1 = Effect.CreateEffect(c)
