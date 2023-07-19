@@ -381,33 +381,8 @@ strings = [
     "Change position?",
 ]
 
-[majestic-wills-dragon]
-id = 900003115
-set = "majestic"
-name = "Majestic Wills Dragon"
-type = "monster effect"
-attribute = "light"
-race = "dragon"
-level = 1
-atk = 0
-def = 0
-effect = """
-If you Special Summon a Level 7 or 8 Dragon monster: \
-    You can Special Summon this card from your hand or GY in Defense Position, but banish it when it leaves the field. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn, during your opponent's Main Phase, you can (Quick Effect): Immediately after this effect resolves, \
-    Synchro Summon a "Majestic" monster using this card you control. \
-A "Majestic" Synchro Monster that was Synchro Summoned using this card as material gains the following effect.
-● Cannot be returned to the Deck.
-● Cannot be targeted by your opponent's card effects.
-"""
-strings = [
-    "Synchro Summon a \"Majestic\" Synchro Monster",
-    "Cannot be returned to the Deck",
-]
-
 [majestic-salvation]
-id = 900003116
+id = 900003115
 set = "majestic"
 name = "Majestic Salvation"
 type = "spell quick-play"
@@ -415,13 +390,13 @@ effect = """
 Choose 1 Level 10 or higher Dragon Synchro Monster you control that mentions a Synchro Monster as material, \
     except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
 ● This card's effect activations and its activated effects cannot be negated.
-● The first time this card would be destroyed each turn, by battle or card effect, it is not destroyed.
-● Each time this card declares an attack, it gains 1000 ATK/DEF.
+● Cannot be targeted by your opponent's card effects.
+● Cannot be returned to the Deck.
 """
-strings = ["Affected by \"{CARD_NAME}\"", "Gain 1000 ATK/DEF"]
+strings = ["Affected by \"{CARD_NAME}\""]
 
 [junk-bot]
-id = 900003117
+id = 900003116
 name = "Junk Bot"
 set = "junk"
 type = "monster effect"
@@ -439,7 +414,7 @@ If this card is in your hand or GY: \
 strings = []
 
 [speed-carrier]
-id = 900003118
+id = 900003117
 name = "Speed Accelerator"
 type = "monster effect"
 attribute = "wind"
@@ -455,7 +430,7 @@ You can discard this card; add 1 "Synchron" monster from your Deck to your hand,
 strings = ["Normal Summon 1 Tuner monster?"]
 
 [starjunk-servant]
-id = 900003119
+id = 900003118
 set = "junk"
 name = "Starjunk Servant"
 type = "monster effect"
@@ -478,7 +453,7 @@ strings = [
 ]
 
 [starjunk-synchron]
-id = 900003120
+id = 900003119
 alias = 63977008
 set = "junk synchron"
 name = "Starjunk Synchron"
@@ -499,7 +474,7 @@ For a Synchro Summon, you can substitute this card for any 1 "Synchron" Tuner. \
 strings = []
 
 [starjunk-warrior]
-id = 900003121
+id = 900003120
 alias = 60800381
 set = "junk warrior"
 name = "Starjunk Warrior"
@@ -524,7 +499,7 @@ strings = [
 ]
 
 [junk-accelerator]
-id = 900003122
+id = 900003121
 set = "junk"
 name = "Junk Accelerator"
 type = "monster synchro effect"
@@ -550,7 +525,7 @@ strings = [
 ]
 
 [junk-dracosmasher]
-id = 900003123
+id = 900003122
 set = "junk"
 name = "Junk Dracosmasher"
 type = "monster synchro effect"
@@ -582,7 +557,7 @@ strings = [
 ]
 
 [shooting-star-synchron]
-id = 900003124
+id = 900003123
 set = "synchron"
 name = "Shooting Star Synchron"
 type = "monster synchro tuner effect"
@@ -606,7 +581,7 @@ strings = [
 ]
 
 [archfiend-synchron]
-id = 900003125
+id = 900003124
 set = "archfiend synchron"
 name = "Archfiend Synchron"
 type = "monster tuner effect"
@@ -626,7 +601,7 @@ If this card is sent to the GY as Synchro Material for a Level 7 or 8 Dragon Syn
 strings = ["Its effect activations and its effects cannot be negated"]
 
 [rose-synchron]
-id = 900003126
+id = 900003125
 set = "rose synchron"
 name = "Rose Synchron"
 type = "monster tuner effect"
@@ -650,7 +625,7 @@ strings = [
 ]
 
 [let-rev-it-up]
-id = 900003127
+id = 900003126
 name = "Let's Rev It Up!"
 type = "spell"
 effect = """
@@ -666,7 +641,7 @@ Also for the rest of this turn, apply these effects.
 strings = ["Affected by effect \"{CARD_NAME}\""]
 
 [scarred-dragon-archfiend-emperor]
-id = 900003128
+id = 900003127
 rarity = "gold"
 set = "red-dragon-archfiend"
 name = "Scar-Red Dragon Archfiend Emperor"
@@ -704,7 +679,7 @@ strings = [
 ]
 
 [ruthless-inferno]
-id = 900003129
+id = 900003128
 name = "Ruthless Inferno"
 type = "trap"
 effect = """
