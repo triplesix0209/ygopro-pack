@@ -39,42 +39,29 @@ function s.initial_effect(c)
     e3:SetValue(1)
     c:RegisterEffect(e3)
 
-    -- draw
+    -- special summon
     local e4 = Effect.CreateEffect(c)
     e4:SetDescription(aux.Stringid(id, 1))
-    e4:SetCategory(CATEGORY_DRAW)
+    e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    e4:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_PLAYER_TARGET)
-    e4:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e4:SetProperty(EFFECT_FLAG_DELAY)
+    e4:SetCode(EVENT_LEAVE_FIELD)
     e4:SetRange(LOCATION_FZONE)
-    e4:SetCondition(s.e4con)
+    e4:SetCountLimit(1, id)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- special summon
+    -- special summon the crimson dragon
     local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 2))
     e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e5:SetProperty(EFFECT_FLAG_DELAY)
-    e5:SetCode(EVENT_LEAVE_FIELD)
-    e5:SetRange(LOCATION_FZONE)
-    e5:SetCountLimit(1, id)
+    e5:SetCode(EVENT_DESTROYED)
+    e5:SetCondition(s.e5con)
     e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
-
-    -- special summon the crimson dragon
-    local e6 = Effect.CreateEffect(c)
-    e6:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    e6:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e6:SetProperty(EFFECT_FLAG_DELAY)
-    e6:SetCode(EVENT_DESTROYED)
-    e6:SetCondition(s.e6con)
-    e6:SetTarget(s.e6tg)
-    e6:SetOperation(s.e6op)
-    c:RegisterEffect(e6)
 end
 
 function s.e1filter(c) return c:IsSpellTrap() and c:ListsCode(CARD_CRIMSON_DRAGON) and not c:IsCode(id) and c:IsAbleToHand() end
@@ -91,60 +78,40 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.ConfirmCards(1 - tp, tc)
 end
 
-function s.e4filter(c, tp) return c:IsFaceup() and c:IsSummonPlayer(tp) and c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:IsRace(RACE_DRAGON) end
-
-function s.e4con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e4filter, 1, e:GetHandler(), tp) end
+function s.e4filter(c, e, tp, r, rp)
+    return c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousControler(tp) and (c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO)) and rp == tp and
+               ((r & REASON_EFFECT) == REASON_EFFECT or (r & REASON_COST) == REASON_COST) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsPlayerCanDraw(tp, 1) end
-
-    Duel.SetTargetPlayer(tp)
-    Duel.SetTargetParam(1)
-    Duel.SetOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, 1)
+    if chk == 0 then return eg:IsExists(s.e4filter, 1, nil, e, tp, r, rp) end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_GRAVE + LOCATION_REMOVED)
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
-    Duel.Draw(p, d, REASON_EFFECT)
-end
-
-function s.e5filter(c, e, tp, r, rp)
-    return c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousControler(tp) and (c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO)) and rp == tp and
-               ((r & REASON_EFFECT) == REASON_EFFECT or (r & REASON_COST) == REASON_COST) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
-end
-
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return eg:IsExists(s.e5filter, 1, nil, e, tp, r, rp) end
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_GRAVE + LOCATION_REMOVED)
-end
-
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
-
-    local g = eg:Filter(s.e5filter, nil, e, tp, r, rp)
+    local g = eg:Filter(s.e4filter, nil, e, tp, r, rp)
     local tc = Utility.GroupSelect(HINTMSG_SPSUMMON, g, tp, 1, 1, nil):GetFirst()
     Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP)
 end
 
-function s.e6filter(c, e, tp)
+function s.e5filter(c, e, tp)
     return c:IsCode(CARD_CRIMSON_DRAGON) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
-function s.e6con(e, tp, eg, ep, ev, re, r, rp)
+function s.e5con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return rp == 1 - tp and c:IsReason(REASON_EFFECT) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 
-function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e6filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp) end
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp) end
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_EXTRA)
 end
 
-function s.e6op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e6filter, tp, LOCATION_EXTRA, 0, 1, 1, nil, e, tp)
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e5filter, tp, LOCATION_EXTRA, 0, 1, 1, nil, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end

@@ -6,7 +6,6 @@ effect = """
 When this card is activated: You can add 1 Spell/Trap that mentions "The Crimson Dragon" from your Deck to your hand, except "{CARD_NAME}". \
 Special Summons of your Dragon Synchro Monsters cannot be negated. \
 Neither player can return your Dragon Synchro Monster that mentions a Synchro Monster as material from the field to the Extra Deck. \
-If you Synchro Summon a Dragon monster: You can draw 1 card. \
 If a Dragon Synchro Monster(s) you control leaves the field by your card effect, or to activate the effect of your card: \
     You can Special Summon 1 of those monsters. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -15,7 +14,6 @@ If this card in its owner's control is destroyed by an opponent's card effect: \
 """
 strings = [
     "1 Spell/Trap that mentions \"The Crimson Dragon\"?",
-    "Draw 1 card",
     "Special Summon the leaved monster",
 ]
 
@@ -411,7 +409,7 @@ strings = [
 id = 900003116
 set = "majestic"
 name = "Majestic Salvation"
-type = "spell"
+type = "spell quick-play"
 effect = """
 Choose 1 Level 10 or higher Dragon Synchro Monster you control that mentions a Synchro Monster as material, \
     except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
@@ -653,25 +651,19 @@ strings = [
 [let-rev-it-up]
 id = 900003127
 name = "Let's Rev It Up!"
-type = "spell continuous"
+type = "spell"
 effect = """
-When this card is activated: \
-    Add 1 "Synchron" Tuner from your Deck to your hand, \
+You can only activate 1 "{CARD_NAME}" per turn. \
+Add 1 "Synchron" Tuner from your Deck to your hand, \
     then you can send 1 Warrior or Machine monster from your Deck to the GY, whose Level is lower than the added monster. \
-    You can only activate 1 "{CARD_NAME}" per turn. \
-You can only control 1 "{CARD_NAME}". \
-Your opponent cannot activate cards or effects in response to the effect activations of your "Synchron" monster. \
-Each time a monster(s) is Synchro Summoned, place 1 Signal Counters on this card. \
-You can remove any number of Signal Counters from your field; \
-    apply this effect, depending on the number of Signal Counters removed.
-● 4 (Quick Effect): Immediately after this effect resolves, Synchro Summon using monsters you control as material.
-● 7: Draw 2 cards, then send 1 card from your hand to the GY.
-● 10: Special Summon 1 monster in your hand or GY.
+Also for the rest of this turn, apply these effects.
+● Summons of your "Palladium" monsters cannot be negated.
+● Your opponent cannot activate cards or effects in response to the effect activations of your "Synchron" monster.
+● If you Synchro Summon a Synchro Monster: You can draw 1 card.
 """
 strings = [
-    "4 Counters: Synchro Summon",
-    "7 Counters: Draw 2 cards, then send 1 card from your hand to the GY",
-    "10 Counters: Special Summon 1 monster in either GY",
+    "Affected by effect \"{CARD_NAME}\"",
+    "Draw 1 card via \"{CARD_NAME}\"?",
 ]
 
 [scarred-dragon-archfiend-emperor]
