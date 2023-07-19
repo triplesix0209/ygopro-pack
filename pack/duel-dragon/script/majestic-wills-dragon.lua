@@ -11,7 +11,7 @@ function s.initial_effect(c)
     e1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e1:SetProperty(EFFECT_FLAG_DELAY)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e1:SetRange(LOCATION_GRAVE)
+    e1:SetRange(LOCATION_HAND + LOCATION_GRAVE)
     e1:SetCountLimit(1, id)
     e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
@@ -42,7 +42,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1filter(c, tp) return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_SYNCHRO) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end
+function s.e1filter(c, tp) return c:IsControler(tp) and c:IsLevel(7, 8) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e1filter, 1, nil, tp) end
 
