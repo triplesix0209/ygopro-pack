@@ -384,7 +384,7 @@ strings = [
 id = 900003115
 set = "majestic"
 name = "Majestic Salvation"
-type = "spell quick-play"
+type = "spell"
 effect = """
 Choose 1 "Majestic" Dragon Synchro Monster you control, \
     except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
