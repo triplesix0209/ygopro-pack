@@ -2,6 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_series = {SET_MAJESTIC}
+
 function s.initial_effect(c)
     -- activate
     local e1 = Effect.CreateEffect(c)
@@ -13,12 +15,7 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c)
-    local mt = c:GetMetatable()
-    local ct = 0
-    if mt.synchro_tuner_required then ct = ct + mt.synchro_tuner_required end
-    if mt.synchro_nt_required then ct = ct + mt.synchro_nt_required end
-
-    return c:IsFaceup() and c:IsLevelAbove(10) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and ct > 0 and c:GetFlagEffect(id) == 0
+    return c:IsFaceup() and c:IsSetCard(SET_MAJESTIC) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:GetFlagEffect(id) == 0
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_MZONE, 0, 1, nil) end end
@@ -51,23 +48,38 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     ec1c:SetCode(EFFECT_CANNOT_DISABLE)
     tc:RegisterEffect(ec1c)
 
-    -- no return
+    -- cannot be tributed, nor be used as a material
     local ec2 = Effect.CreateEffect(c)
-    ec2:SetType(EFFECT_TYPE_SINGLE)
-    ec2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    ec2:SetType(EFFECT_TYPE_FIELD)
+    ec2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    ec2:SetCode(EFFECT_CANNOT_RELEASE)
     ec2:SetRange(LOCATION_MZONE)
-    ec2:SetCode(EFFECT_CANNOT_TO_DECK)
-    ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
+    ec2:SetTargetRange(0, 1)
+    ec2:SetTarget(function(e, tc) return tc == e:GetHandler() end)
     tc:RegisterEffect(ec2)
+    local ec2b = Effect.CreateEffect(c)
+    ec2b:SetType(EFFECT_TYPE_SINGLE)
+    ec2b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    ec2b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
+    tc:RegisterEffect(ec2b)
 
-    -- untargetable
+    -- no return
     local ec3 = Effect.CreateEffect(c)
-    ec3:SetDescription(3031)
     ec3:SetType(EFFECT_TYPE_SINGLE)
     ec3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    ec3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     ec3:SetRange(LOCATION_MZONE)
-    ec3:SetValue(aux.tgoval)
+    ec3:SetCode(EFFECT_CANNOT_TO_DECK)
     ec3:SetReset(RESET_EVENT + RESETS_STANDARD)
     tc:RegisterEffect(ec3)
+
+    -- untargetable
+    local ec4 = Effect.CreateEffect(c)
+    ec4:SetDescription(3031)
+    ec4:SetType(EFFECT_TYPE_SINGLE)
+    ec4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    ec4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    ec4:SetRange(LOCATION_MZONE)
+    ec4:SetValue(aux.tgoval)
+    ec4:SetReset(RESET_EVENT + RESETS_STANDARD)
+    tc:RegisterEffect(ec4)
 end

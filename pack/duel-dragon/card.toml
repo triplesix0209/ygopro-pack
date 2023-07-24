@@ -218,7 +218,7 @@ If this card battles an opponent's monster, \
     negate the effects of that monster during the Damage Step only. \
 At the end of the Damage Step, if this card attacked, \
     you can remove 1 Cosmic Counter from this card, \
-    and if you do, this card can attack gain. \
+    and if you do, it can attack gain. \
 Once per turn, during the End Phase, place Cosmic Counters on this card \
     until it has equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
 When another card or effect is activated (Quick Effect): \
@@ -386,10 +386,10 @@ set = "majestic"
 name = "Majestic Salvation"
 type = "spell quick-play"
 effect = """
-Choose 1 Level 10 or higher Dragon Synchro Monster you control that mentions a Synchro Monster as material, \
+Choose 1 "Majestic" Dragon Synchro Monster you control, \
     except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
 ● This card's effect activations and its activated effects cannot be negated.
-● Your opponent cannot Tribute it, nor use it as material for an Summon.
+● Your opponent cannot Tribute this card, nor use it as material for an Summon.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
 """

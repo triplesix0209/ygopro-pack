@@ -2,8 +2,6 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_ROSE_DRAGON}
-
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
