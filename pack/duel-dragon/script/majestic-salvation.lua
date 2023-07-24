@@ -9,6 +9,7 @@ function s.initial_effect(c)
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_ACTIVATE)
     e1:SetCode(EVENT_FREE_CHAIN)
+    e1:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
@@ -43,7 +44,6 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     ec1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     tc:RegisterEffect(ec1b)
 
-    
     -- prevent negation
     local ec2 = Effect.CreateEffect(c)
     ec2:SetType(EFFECT_TYPE_FIELD)

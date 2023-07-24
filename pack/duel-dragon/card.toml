@@ -384,8 +384,9 @@ strings = [
 id = 900003115
 set = "majestic"
 name = "Majestic Salvation"
-type = "spell"
+type = "spell equip"
 effect = """
+You can only activate 1 "{CARD_NAME}" per turn. \
 Choose 1 "Majestic" Dragon Synchro Monster you control, \
     except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
 ● Your opponent cannot Tribute this card, nor use it as material for an Summon.
