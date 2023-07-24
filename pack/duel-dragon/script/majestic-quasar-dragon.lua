@@ -44,20 +44,6 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(nodiseff)
 
-    -- cannot be release, or be material
-    local matlimit = Effect.CreateEffect(c)
-    matlimit:SetType(EFFECT_TYPE_SINGLE)
-    matlimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    matlimit:SetCode(EFFECT_UNRELEASABLE_SUM)
-    matlimit:SetValue(1)
-    c:RegisterEffect(matlimit)
-    local matlimit2 = matlimit:Clone()
-    matlimit2:SetCode(EFFECT_UNRELEASABLE_NONSUM)
-    c:RegisterEffect(matlimit2)
-    local matlimit3 = matlimit:Clone()
-    matlimit3:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    c:RegisterEffect(matlimit3)
-
     -- place counter (synchro summoned)
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
@@ -75,48 +61,48 @@ function s.initial_effect(c)
     e2:SetValue(function(e, re) return re:IsActiveType(TYPE_MONSTER) and re:GetOwner() ~= e:GetOwner() end)
     c:RegisterEffect(e2)
 
-    -- negate effect (activate)
-    local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 0))
-    e3:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
-    e3:SetType(EFFECT_TYPE_QUICK_O)
-    e3:SetCode(EVENT_CHAINING)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCondition(s.e3con)
-    e3:SetCost(s.e3cost)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
-
     -- negate effect (battle)
-    local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_FIELD)
-    e4:SetCode(EFFECT_DISABLE)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetTargetRange(0, LOCATION_MZONE)
-    e4:SetCondition(s.e4con)
-    e4:SetTarget(s.e4tg)
-    c:RegisterEffect(e4)
-    local e4b = e4:Clone()
-    e4b:SetCode(EFFECT_DISABLE_EFFECT)
-    c:RegisterEffect(e4b)
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetCode(EFFECT_DISABLE)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetTargetRange(0, LOCATION_MZONE)
+    e3:SetCondition(s.e3con)
+    e3:SetTarget(s.e3tg)
+    c:RegisterEffect(e3)
+    local e3b = e3:Clone()
+    e3b:SetCode(EFFECT_DISABLE_EFFECT)
+    c:RegisterEffect(e3b)
 
     -- chain attack
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e4:SetCode(EVENT_DAMAGE_STEP_END)
+    e4:SetRange(LOCATION_MZONE)
+    e4:SetCondition(s.e4con)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
+
+    -- place counter (end phase)
     local e5 = Effect.CreateEffect(c)
     e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e5:SetCode(EVENT_DAMAGE_STEP_END)
+    e5:SetCode(EVENT_PHASE + PHASE_END)
     e5:SetRange(LOCATION_MZONE)
+    e5:SetCountLimit(1)
     e5:SetCondition(s.e5con)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
-
-    -- place counter (end phase)
+    
+    -- negate effect (activate)
     local e6 = Effect.CreateEffect(c)
-    e6:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e6:SetCode(EVENT_PHASE + PHASE_END)
+    e6:SetDescription(aux.Stringid(id, 0))
+    e6:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
+    e6:SetType(EFFECT_TYPE_QUICK_O)
+    e6:SetCode(EVENT_CHAINING)
     e6:SetRange(LOCATION_MZONE)
-    e6:SetCountLimit(1)
     e6:SetCondition(s.e6con)
+    e6:SetCost(s.e6cost)
+    e6:SetTarget(s.e6tg)
     e6:SetOperation(s.e6op)
     c:RegisterEffect(e6)
 
@@ -142,33 +128,13 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if ct > 0 then c:AddCounter(DuelDragon.COUNTER_COSMIC, ct) end
 end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return e ~= re and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) end
+function s.e3con(e) return (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL) and e:GetHandler():GetBattleTarget() end
 
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return c:IsCanRemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_COST) end
-    c:RemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_COST)
-end
+function s.e3tg(e, c) return c == e:GetHandler():GetBattleTarget() end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return true end
-    local rc = re:GetHandler()
+function s.e4con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetAttacker() == e:GetHandler() end
 
-    Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, #eg, 0, 0)
-    if rc:IsDestructable() and rc:IsRelateToEffect(re) then Duel.SetOperationInfo(0, CATEGORY_DESTROY, eg, 1, 0, 0) end
-end
-
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
-end
-
-function s.e4con(e) return (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL) and e:GetHandler():GetBattleTarget() end
-
-function s.e4tg(e, c) return c == e:GetHandler():GetBattleTarget() end
-
-function s.e5con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetAttacker() == e:GetHandler() end
-
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsFacedown() or not c:IsCanRemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_EFFECT) or not c:CanChainAttack(0) or
         not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then return end
@@ -177,15 +143,35 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     Duel.ChainAttack()
 end
 
-function s.e6con(e, tp, eg, ep, ev, re, r, rp)
+function s.e5con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return c:IsFaceup() and c:GetCounter(DuelDragon.COUNTER_COSMIC) < s.max_counter(e)
 end
 
-function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local ct = s.max_counter(e) - c:GetCounter(DuelDragon.COUNTER_COSMIC)
     c:AddCounter(DuelDragon.COUNTER_COSMIC, ct)
+end
+
+function s.e6con(e, tp, eg, ep, ev, re, r, rp) return e ~= re and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) end
+
+function s.e6cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:IsCanRemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_COST) end
+    c:RemoveCounter(tp, DuelDragon.COUNTER_COSMIC, 1, REASON_COST)
+end
+
+function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
+    local rc = re:GetHandler()
+
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, #eg, 0, 0)
+    if rc:IsDestructable() and rc:IsRelateToEffect(re) then Duel.SetOperationInfo(0, CATEGORY_DESTROY, eg, 1, 0, 0) end
+end
+
+function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
 end
 
 function s.e7filter(c, e, tp)
