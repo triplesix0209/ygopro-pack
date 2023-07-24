@@ -71,8 +71,7 @@ end
 
 function s.e5con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return rp == 1 - tp and c:IsReason(REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousControler(tp) and
-               c:IsPreviousPosition(POS_FACEUP)
+    return rp == 1 - tp and c:IsReason(REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousControler(tp)
 end
 
 function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
