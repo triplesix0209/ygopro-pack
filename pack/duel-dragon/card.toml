@@ -394,7 +394,7 @@ The equipped monster gains the following effects.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
 If this face-up card in its owner's control is destroyed by an opponent's card effect: \
-    You can Special Summon 1 "Crimson Dragon" from your Extra Deck. \
+    You can Special Summon 1 "The Crimson Dragon" from your Extra Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
