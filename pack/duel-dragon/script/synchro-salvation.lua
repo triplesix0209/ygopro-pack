@@ -2,6 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names = {CARD_CRIMSON_DRAGON}
 s.listed_series = {SET_MAJESTIC}
 
 function s.initial_effect(c)
@@ -48,6 +49,38 @@ function s.initial_effect(c)
     e4:SetType(EFFECT_TYPE_EQUIP)
     e4:SetCode(EFFECT_CANNOT_TO_DECK)
     c:RegisterEffect(e4)
+
+    -- special summon The Crimsom Dragon
+    local e5 = Effect.CreateEffect(c)
+    e5:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e5:SetProperty(EFFECT_FLAG_DELAY)
+    e5:SetCode(EVENT_DESTROYED)
+    e5:SetCountLimit(1, id)
+    e5:SetCondition(s.e5con)
+    e5:SetTarget(s.e5tg)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
 end
 
 function s.eqfilter(c) return c:IsSetCard(SET_MAJESTIC) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end
+
+function s.e5filter(c, e, tp)
+    return c:IsCode(CARD_CRIMSON_DRAGON) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and Duel.GetLocationCountFromEx(tp, tp, nil, c)
+end
+
+function s.e5con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return rp == 1 - tp and c:IsReason(REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousControler(tp) and
+               c:IsPreviousPosition(POS_FACEUP)
+end
+
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp) end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_EXTRA)
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e5filter, tp, LOCATION_EXTRA, 0, 1, 1, nil, e, tp)
+    if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
+end
