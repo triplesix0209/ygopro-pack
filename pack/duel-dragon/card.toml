@@ -211,27 +211,27 @@ effect = """
 1 Tuner Synchro Monster + 2+ non-Tuner Synchro Monsters
 Must be Synchro Summoned. \
 This card's Synchro Summon and its effects cannot be negated. \
-After this card is Synchro Summoned, place Cosmic Counters on this card \
+After this card is Synchro Summoned, place Cosmic Counters on it \
     equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
 Unaffected by other monsters' effects. \
 If this card battles an opponent's monster, \
     negate the effects of that monster during the Damage Step only. \
 At the end of the Damage Step, if this card attacked, \
     you can remove 1 Cosmic Counter from this card, \
-    and if you do, it can attack gain. \
+    and if you do, it can attack again. \
 Once per turn, during the End Phase, place Cosmic Counters on this card \
     until it has equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
 When another card or effect is activated (Quick Effect): \
     You can remove 1 Cosmic Counter from this card; \
     negate that effect, and if you do, destroy that card. \
-When this face-up card leaves the field, you can Special Summon 1 Level 10 or lower Dragon Synchro Monster \
-    that is banished, or in your Extra Deck, GY. (This Special Summon is treated as a Synchro Summon.) \
+When this face-up card leaves the field: \
+    You can Special Summon 1 Level 10 or lower Dragon Synchro Monster from your Extra Deck. \
+    (This Special Summon is treated as a Synchro Summon.) \
 """
 strings = [
     "Negate the effect & Destroy 1 card on the field",
     "Destroy 1 card on the field?",
     "Remove Cosmic Counter to attack again?",
-    "Special Summon 1 Dragon Synchro Monster?",
 ]
 
 [mark-of-the-dragon-star]

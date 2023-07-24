@@ -92,7 +92,7 @@ function s.initial_effect(c)
     e5:SetCondition(s.e5con)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
-    
+
     -- negate effect (activate)
     local e6 = Effect.CreateEffect(c)
     e6:SetDescription(aux.Stringid(id, 0))
@@ -108,8 +108,9 @@ function s.initial_effect(c)
 
     -- special summon
     local e7 = Effect.CreateEffect(c)
-    e7:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    e7:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+    e7:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e7:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e7:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
     e7:SetCode(EVENT_LEAVE_FIELD)
     e7:SetCondition(s.e7con)
     e7:SetOperation(s.e7op)
@@ -175,24 +176,22 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e7filter(c, e, tp)
-    return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:IsLevelBelow(10) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and
+    return c:IsLevelBelow(10) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_SYNCHRO, tp, false, false)
 end
 
 function s.e7con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousLocation(LOCATION_ONFIELD) and
-               Duel.IsExistingMatchingCard(s.e7filter, tp, LOCATION_REMOVED + LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, nil, e, tp)
+    return c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousLocation(LOCATION_ONFIELD)
+end
+
+function s.e7tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e7filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp) end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_EXTRA)
 end
 
 function s.e7op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then return end
-
-    local sc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e7filter), tp,
-        LOCATION_REMOVED + LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, 1, nil, e, tp):GetFirst()
-    if not sc then return end
-
-    Utility.HintCard(c)
-    if Duel.SpecialSummon(sc, SUMMON_TYPE_SYNCHRO, tp, tp, false, false, POS_FACEUP) ~= 0 then sc:CompleteProcedure() end
+    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e7filter, tp, LOCATION_EXTRA, 0, 1, 1, nil, e, tp):GetFirst()
+    if tc and Duel.SpecialSummon(tc, SUMMON_TYPE_SYNCHRO, tp, tp, false, false, POS_FACEUP) then tc:CompleteProcedure() end
 end
