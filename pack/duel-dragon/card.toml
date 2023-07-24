@@ -388,8 +388,8 @@ type = "spell"
 effect = """
 Choose 1 "Majestic" Dragon Synchro Monster you control, \
     except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
-● This card's effect activations and its activated effects cannot be negated.
 ● Your opponent cannot Tribute this card, nor use it as material for an Summon.
+● This card's effect activations and its activated effects cannot be negated.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
 """
