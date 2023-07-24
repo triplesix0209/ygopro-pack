@@ -5,82 +5,55 @@ local s, id = GetID()
 s.listed_series = {SET_MAJESTIC}
 
 function s.initial_effect(c)
+    c:SetUniqueOnField(1, 0, id)
+
     -- activate
-    local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_ACTIVATE)
-    e1:SetCode(EVENT_FREE_CHAIN)
-    e1:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
-    e1:SetTarget(s.e1tg)
-    e1:SetOperation(s.e1op)
-    c:RegisterEffect(e1)
-end
-
-function s.e1filter(c)
-    return c:IsFaceup() and c:IsSetCard(SET_MAJESTIC) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:GetFlagEffect(id) == 0
-end
-
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_MZONE, 0, 1, nil) end end
-
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tc = Utility.SelectMatchingCard(HINTMSG_FACEUP, tp, s.e1filter, tp, LOCATION_MZONE, 0, 1, 1, nil):GetFirst()
-    if not tc then return end
-
-    Duel.HintSelection(tc)
-    tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 0))
+    aux.AddEquipProcedure(c, nil, aux.FilterBoolFunction(s.eqfilter))
 
     -- cannot be tributed, nor be used as a material
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    ec1:SetCode(EFFECT_CANNOT_RELEASE)
-    ec1:SetRange(LOCATION_MZONE)
-    ec1:SetTargetRange(0, 1)
-    ec1:SetTarget(function(e, tc) return tc == e:GetHandler() end)
-    tc:RegisterEffect(ec1)
-    local ec1b = Effect.CreateEffect(c)
-    ec1b:SetType(EFFECT_TYPE_SINGLE)
-    ec1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    ec1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
-    tc:RegisterEffect(ec1b)
+    local e1 = Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_FIELD)
+    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e1:SetCode(EFFECT_CANNOT_RELEASE)
+    e1:SetRange(LOCATION_SZONE)
+    e1:SetTargetRange(0, 1)
+    e1:SetTarget(function(e, tc) return tc == e:GetHandler():GetEquipTarget() end)
+    c:RegisterEffect(e1)
+    local e1b = Effect.CreateEffect(c)
+    e1b:SetType(EFFECT_TYPE_EQUIP)
+    e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(e1b)
 
     -- prevent negation
-    local ec2 = Effect.CreateEffect(c)
-    ec2:SetType(EFFECT_TYPE_FIELD)
-    ec2:SetCode(EFFECT_CANNOT_INACTIVATE)
-    ec2:SetRange(LOCATION_MZONE)
-    ec2:SetTargetRange(1, 0)
-    ec2:SetValue(function(e, ct)
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetCode(EFFECT_CANNOT_INACTIVATE)
+    e2:SetRange(LOCATION_SZONE)
+    e2:SetTargetRange(1, 0)
+    e2:SetValue(function(e, ct)
         local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
-        return te:GetHandler() == e:GetHandler()
+        return te:GetHandler() == e:GetHandler():GetEquipTarget()
     end)
-    ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
-    tc:RegisterEffect(ec2)
-    local ec2b = ec2:Clone()
-    ec2b:SetCode(EFFECT_CANNOT_DISEFFECT)
-    tc:RegisterEffect(ec2b)
-    local ec2c = Effect.CreateEffect(c)
-    ec2c:SetType(EFFECT_TYPE_SINGLE)
-    ec2c:SetCode(EFFECT_CANNOT_DISABLE)
-    tc:RegisterEffect(ec2c)
+    e2:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
+    c:RegisterEffect(e2b)
 
     -- no return
-    local ec3 = Effect.CreateEffect(c)
-    ec3:SetType(EFFECT_TYPE_SINGLE)
-    ec3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    ec3:SetRange(LOCATION_MZONE)
-    ec3:SetCode(EFFECT_CANNOT_TO_DECK)
-    ec3:SetReset(RESET_EVENT + RESETS_STANDARD)
-    tc:RegisterEffect(ec3)
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_EQUIP)
+    e3:SetCode(EFFECT_CANNOT_TO_DECK)
+    c:RegisterEffect(e3)
 
     -- untargetable
-    local ec4 = Effect.CreateEffect(c)
-    ec4:SetDescription(3031)
-    ec4:SetType(EFFECT_TYPE_SINGLE)
-    ec4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    ec4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    ec4:SetRange(LOCATION_MZONE)
-    ec4:SetValue(aux.tgoval)
-    ec4:SetReset(RESET_EVENT + RESETS_STANDARD)
-    tc:RegisterEffect(ec4)
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_EQUIP)
+    e4:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e4:SetValue(aux.tgoval)
+    c:RegisterEffect(e4)
 end
+
+function s.eqfilter(c) return c:IsSetCard(SET_MAJESTIC) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end

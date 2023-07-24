@@ -384,17 +384,17 @@ strings = [
 id = 900003115
 set = "majestic"
 name = "Majestic Salvation"
-type = "spell"
+type = "spell equip"
 effect = """
-You can only activate 1 "{CARD_NAME}" per turn. \
-Choose 1 "Majestic" Dragon Synchro Monster you control, \
-    except monster(s) already affected by "{CARD_NAME}", it gains the following effects.
+You can only control 1 "Majestic Salvation". \
+Equip only to a "Majestic" Dragon Synchro Monster. \
+The equipped monster gains the following effects.
 ● Your opponent cannot Tribute this card, nor use it as material for an Summon.
 ● This card's effect activations and its activated effects cannot be negated.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
 """
-strings = ["Affected by \"{CARD_NAME}\""]
+strings = []
 
 [junk-bot]
 id = 900003116
