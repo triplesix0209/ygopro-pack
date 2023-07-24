@@ -40,18 +40,18 @@ function s.initial_effect(c)
     e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(e2b)
 
-    -- no return
+    -- untargetable
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_EQUIP)
-    e3:SetCode(EFFECT_CANNOT_TO_DECK)
+    e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e3:SetValue(aux.tgoval)
     c:RegisterEffect(e3)
 
-    -- untargetable
+    -- no return
     local e4 = Effect.CreateEffect(c)
     e4:SetType(EFFECT_TYPE_EQUIP)
-    e4:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-    e4:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e4:SetValue(aux.tgoval)
+    e4:SetCode(EFFECT_CANNOT_TO_DECK)
     c:RegisterEffect(e4)
 end
 
