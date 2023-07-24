@@ -1,4 +1,4 @@
--- Majestic Salvation
+-- Synchro Salvation
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

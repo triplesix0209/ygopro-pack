@@ -380,10 +380,10 @@ strings = [
     "Change position?",
 ]
 
-[majestic-salvation]
+[synchro-salvation]
 id = 900003115
-set = "majestic"
-name = "Majestic Salvation"
+set = "synchro"
+name = "Synchro Salvation"
 type = "spell equip"
 effect = """
 Equip only to a "Majestic" Dragon Synchro Monster. \
