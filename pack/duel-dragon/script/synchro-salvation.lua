@@ -10,34 +10,29 @@ function s.initial_effect(c)
     -- activate
     aux.AddEquipProcedure(c, nil, aux.FilterBoolFunction(s.eqfilter))
 
-    -- cannot be tributed, nor be used as a material
+    -- act limit
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e1:SetCode(EFFECT_CANNOT_RELEASE)
+    e1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e1:SetCode(EVENT_CHAINING)
     e1:SetRange(LOCATION_SZONE)
-    e1:SetTargetRange(0, 1)
-    e1:SetTarget(function(e, tc) return tc == e:GetHandler():GetEquipTarget() end)
+    e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        if re:GetHandler() == e:GetHandler():GetEquipTarget() then Duel.SetChainLimit(function(e, rp, tp) return tp == rp end) end
+    end)
     c:RegisterEffect(e1)
-    local e1b = Effect.CreateEffect(c)
-    e1b:SetType(EFFECT_TYPE_EQUIP)
-    e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(e1b)
 
-    -- prevent negation
+    -- cannot be tributed, nor be used as a material
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetCode(EFFECT_CANNOT_INACTIVATE)
+    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e2:SetCode(EFFECT_CANNOT_RELEASE)
     e2:SetRange(LOCATION_SZONE)
-    e2:SetTargetRange(1, 0)
-    e2:SetValue(function(e, ct)
-        local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
-        return te:GetHandler() == e:GetHandler():GetEquipTarget()
-    end)
+    e2:SetTargetRange(0, 1)
+    e2:SetTarget(function(e, tc) return tc == e:GetHandler():GetEquipTarget() end)
     c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
+    local e2b = Effect.CreateEffect(c)
+    e2b:SetType(EFFECT_TYPE_EQUIP)
+    e2b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    e2b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e2b)
 
     -- untargetable

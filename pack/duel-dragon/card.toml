@@ -389,8 +389,8 @@ effect = """
 Equip only to a "Majestic" Dragon Synchro Monster. \
 You can only control 1 "{CARD_NAME}". \
 The equipped monster gains the following effects.
+● Your opponent cannot activate cards or effects in response to the activation of this card's effects.
 ● Your opponent cannot Tribute this card, nor use it as material for an Summon.
-● This card's effect activations and its activated effects cannot be negated.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
 """
