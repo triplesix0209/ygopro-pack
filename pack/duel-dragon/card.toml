@@ -386,7 +386,7 @@ set = "synchro"
 name = "Synchro Salvation"
 type = "spell equip"
 effect = """
-Equip only to a "Majestic" Dragon Synchro Monster. \
+Equip only to a Dragon Synchro Monster that mentions a Synchro Monster as material. \
 You can only control 1 "{CARD_NAME}". \
 The equipped monster gains the following effects.
 ● Your opponent cannot activate cards or effects in response to the activation of this card's effects.

@@ -3,7 +3,6 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_CRIMSON_DRAGON}
-s.listed_series = {SET_MAJESTIC}
 
 function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
@@ -63,7 +62,13 @@ function s.initial_effect(c)
     c:RegisterEffect(e5)
 end
 
-function s.eqfilter(c) return c:IsSetCard(SET_MAJESTIC) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end
+function s.eqfilter(c)
+    local mt = c:GetMetatable()
+    local ct = 0
+    if mt.synchro_tuner_required then ct = ct + mt.synchro_tuner_required end
+    if mt.synchro_nt_required then ct = ct + mt.synchro_nt_required end
+    return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and ct > 0
+end
 
 function s.e5filter(c, e, tp)
     return c:IsCode(CARD_CRIMSON_DRAGON) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and Duel.GetLocationCountFromEx(tp, tp, nil, c)
