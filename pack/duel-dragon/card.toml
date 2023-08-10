@@ -561,10 +561,10 @@ strings = [
     "Change position a monster to attack again",
 ]
 
-[shooting-star-synchron]
+[star-synchron]
 id = 900003123
 set = "synchron"
-name = "Shooting Star Synchron"
+name = "Star Synchron"
 type = "monster synchro tuner effect"
 attribute = "light"
 race = "machine"
@@ -575,15 +575,14 @@ effect = """
 1 Tuner + 1 non-Tuner monster
 A Synchro Monster that used this card as material is unaffected by your opponent's activated effects \
     during the turn it is Synchro Summoned. \
-If you Special Summon a Dragon Synchro Monster while this card is in your GY \
+Once per Chain, during your opponent's Main Phase, you can (Quick Effect): \
+    Immediately after this effect resolves, Synchro Summon using this card you control. \
+If you Special Summon a Level 8 Dragon Synchro Monster while this card is in your GY \
     (except during the Damage Step, or when this card is used as a Synchro Material): \
-    You can Special Summon this card in Defense Position, \
-    also for the rest of this turn, you cannot Special Summon from the Extra Deck, except Synchro Monsters. \
+    You can Special Summon this card in Defense Position. \
     You can only use this effect of "{CARD_NAME}" once per Duel. \
 """
-strings = [
-    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Synchro Monsters",
-]
+strings = []
 
 [archfiend-synchron]
 id = 900003124
