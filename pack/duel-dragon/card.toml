@@ -226,7 +226,7 @@ When another card or effect is activated (Quick Effect): \
     negate that effect, and if you do, destroy that card. \
 If this face-up card leaves the field: \
     You can Special Summon 1 Level 10 or lower Dragon Synchro Monster from your Extra Deck. \
-    (This Special Summon is treated as a Synchro Summon.) \
+    (This is treated as a Synchro Summon.) \
 """
 strings = [
     "Negate the effect & Destroy 1 card on the field",
@@ -621,7 +621,7 @@ This card on the field can be treated as a Level 4 monster when used for a Synch
 If this card is in the GY: You can target 1 non-Tuner monster in your GY; \
     banish both this card and that target, and if you do, Special Summon 1 Plant or "Rose Dragon" Synchro Monster from your Extra Deck \
     whose Level equals the total Levels of the banished monsters. \
-    (This Special Summon is treated as a Synchro Summon.) \
+    (This is treated as a Synchro Summon.) \
     You cannot Special Summon monsters from the Extra Deck, except Synchro Monsters, the turn you activate this effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
