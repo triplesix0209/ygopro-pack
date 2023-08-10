@@ -687,7 +687,8 @@ id = 900003128
 name = "Ruthless Inferno"
 type = "trap"
 effect = """
-Target 1 Dragon Synchro you control; equip this card to it, and this equipped card cannot be destroyed by card effects. \
+Target 1 "Red Dragon Archfiend" monster or Dragon Synchro Monster you control; \
+    equip this card to it, and this equipped card cannot be destroyed by card effects. \
 Negate any your opponent's card effects effects that target the equipped monster. \
 If the equipped monster card's effect destroys a card(s) and it is a "Red Dragon Archfiend" monster, \
     it gains 500 ATK for each destroyed card, until the end of the next turn. \

@@ -47,7 +47,10 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.e1filter(c) return c:IsFaceup() and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) end
+function s.e1filter(c)
+    if c:IsFacedown() then return false end
+    return c:IsSetCard(SET_RED_DRAGON_ARCHFIEND) or (c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO))
+end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then return e:IsHasType(EFFECT_TYPE_ACTIVATE) and Duel.IsExistingTarget(s.e1filter, tp, LOCATION_MZONE, 0, 1, nil) end
