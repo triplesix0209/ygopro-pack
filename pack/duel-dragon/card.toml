@@ -417,11 +417,12 @@ If this card is in your hand or GY: \
 """
 strings = []
 
-[speed-carrier]
+[junk-striker]
 id = 900003117
-name = "Speed Accelerator"
+set = "junk"
+name = "Junk Striker"
 type = "monster effect"
-attribute = "wind"
+attribute = "earth"
 race = "warrior"
 level = 2
 atk = 1000
