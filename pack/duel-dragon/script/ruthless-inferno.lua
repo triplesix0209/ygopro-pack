@@ -2,19 +2,10 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names = {CARD_RED_DRAGON_ARCHFIEND}
 s.listed_series = {SET_RED_DRAGON_ARCHFIEND}
 
 function s.initial_effect(c)
-    -- activate from hand
-    local acthand = Effect.CreateEffect(c)
-    acthand:SetType(EFFECT_TYPE_SINGLE)
-    acthand:SetCode(EFFECT_TRAP_ACT_IN_HAND)
-    acthand:SetCondition(function(e)
-        return Duel.IsExistingMatchingCard(function(c) return c:IsFaceup() and c:IsSetCard(SET_RED_DRAGON_ARCHFIEND) end, e:GetHandlerPlayer(),
-            LOCATION_MZONE, 0, 1, nil)
-    end)
-    c:RegisterEffect(acthand)
-
     -- activate
     local e1 = Effect.CreateEffect(c)
     e1:SetCategory(CATEGORY_EQUIP)
@@ -43,9 +34,8 @@ function s.initial_effect(c)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- to hand
+    -- set
     local e4 = Effect.CreateEffect(c)
-    e4:SetCategory(CATEGORY_TOHAND)
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e4:SetProperty(EFFECT_FLAG_DELAY)
     e4:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -107,7 +97,10 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if g:IsContains(e:GetHandler():GetEquipTarget()) and re:GetOwnerPlayer() ~= e:GetOwnerPlayer() then Duel.NegateEffect(ev) end
 end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return (r & REASON_EFFECT) ~= 0 and re and re:GetOwner() == e:GetHandler():GetEquipTarget() end
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
+    local eqc = e:GetHandler():GetEquipTarget()
+    return (r & REASON_EFFECT) ~= 0 and re and re:GetOwner() == eqc and eqc:IsSetCard(SET_RED_DRAGON_ARCHFIEND)
+end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -116,27 +109,24 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_UPDATE_ATTACK)
     ec1:SetValue(#eg * 500)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 2)
     eqc:RegisterEffect(ec1)
 end
 
 function s.e4filter(c, tp)
-    return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO) and c:IsControler(tp) and
-               c:IsSummonType(SUMMON_TYPE_SYNCHRO)
+    if not c:IsControler(tp) then return false end
+    return c:IsSetCard(SET_RED_DRAGON_ARCHFIEND) or (c:IsType(TYPE_SYNCHRO) and c:ListsCode(CARD_RED_DRAGON_ARCHFIEND))
 end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e4filter, 1, nil, tp) end
+
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToHand() end
-
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, c, 1, tp, 0)
+    if chk == 0 then return c:IsSSetable() end
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, c, 1, 0, 0)
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if c:IsRelateToEffect(e) then
-        Duel.SendtoHand(c, nil, REASON_EFFECT)
-        Duel.ConfirmCards(1 - tp, c)
-    end
+    if c:IsRelateToEffect(e) then Duel.SSet(tp, c) end
 end

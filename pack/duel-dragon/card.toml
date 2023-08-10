@@ -687,14 +687,12 @@ id = 900003128
 name = "Ruthless Inferno"
 type = "trap"
 effect = """
-If you control a "Red Dragon Archfiend" monster, you can activate this card from your hand. \
 Target 1 Dragon Synchro you control; equip this card to it, and this equipped card cannot be destroyed by card effects. \
 Negate any your opponent's card effects effects that target the equipped monster. \
-If the equipped monster card's effect destroys a card(s) \
-    and it is a "Red Dragon Archfiend" monster, \
-    it gains 500 ATK for each destroyed card, until the end of this turn. \
-If a DARK Dragon Synchro Monster is Synchro Summoned to your field while this card is in your GY: \
-    You can add this card to your hand. \
+If the equipped monster card's effect destroys a card(s) and it is a "Red Dragon Archfiend" monster, \
+    it gains 500 ATK for each destroyed card, until the end of the next turn. \
+If a "Red Dragon Archfiend" monster or a Synchro Monster that mentions "Red Dragon Archfiend" is Special Summoned to your field: \
+    You can Set this card from your GY. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
