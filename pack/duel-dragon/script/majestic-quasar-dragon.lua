@@ -44,7 +44,7 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e2:SetCode(EFFECT_IMMUNE_EFFECT)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetValue(function(e, re) return re:IsActiveType(TYPE_MONSTER) and re:GetOwner() ~= e:GetOwner() end)
+    e2:SetValue(function(e, te) return te:IsMonsterEffect() and te:GetOwnerPlayer() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e2)
 
     -- negate effect (battle)
