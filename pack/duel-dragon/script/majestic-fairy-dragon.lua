@@ -16,7 +16,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_UPDATE_ATTACK)
     e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetValue(function(e, c) return math.abs(Duel.GetLP(0) - Duel.GetLP(1)) end)
+    e1:SetValue(function(e, c) return math.ceil(math.abs(Duel.GetLP(0) - Duel.GetLP(1)) / 2) end)
     c:RegisterEffect(e1)
 
     -- special summon

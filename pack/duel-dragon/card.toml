@@ -233,26 +233,8 @@ strings = [
     "Remove Cosmic Counter to attack again?",
 ]
 
-[mark-of-the-dragon-star]
-id = 900003109
-name = "Mark Of The Dragon Star"
-type = "spell"
-effect = """
-Activate 1 of these effects, but you cannot apply that same effect of "{CARD_NAME}" again this turn. \
-This effect's activation and effect cannot be negated.
-● Shuffle 1 Tuner from your hand or GY into the Deck, then draw 2 cards.
-● Special Summon 1 "The Crimson Dragon" from your Extra Deck.
-During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY: \
-    You can target 1 card that mentions "The Crimson Dragon" is banished or in your GY; shuffle it into the Deck. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-"""
-strings = [
-    "Shuffle Tuner into the Deck",
-    "Special Summon \"The Crimson Dragon\"",
-]
-
 [salvation-dragon]
-id = 900003110
+id = 900003109
 alias = 21159309
 name = "Salvation Dragon"
 type = "monster tuner effect"
@@ -272,7 +254,7 @@ If this card is added to your hand: You can Special Summon it, \
 strings = ["Special Summon 1 Level 1 monster?"]
 
 [majestic-black-dragon]
-id = 900003111
+id = 900003110
 set = "majestic"
 name = "Majestic Black Dragon"
 type = "monster synchro effect"
@@ -300,7 +282,7 @@ strings = [
 ]
 
 [majestic-rose-dragon]
-id = 900003112
+id = 900003111
 set = "majestic rose-dragon"
 name = "Majestic Rose Dragon"
 type = "monster synchro effect"
@@ -325,7 +307,7 @@ strings = [
 ]
 
 [majestic-fairy-dragon]
-id = 900003113
+id = 900003112
 set = "majestic"
 name = "Majestic Fairy Dragon"
 type = "monster synchro effect"
@@ -336,7 +318,7 @@ atk = 3600
 def = 4000
 effect = """
 "Majestic Dragon" + "Ancient Fairy Dragon" + 1 non-Tuner monster
-This card gains ATK equal to the difference between your LP and your opponent's. \
+This card gains ATK equal to half of the difference between your LP and your opponent's. \
 Once per turn, during your Main Phase 1: \
     You can Special Summon 1 monster from your hand or in either GY, \
     but it cannot attack this turn. \
@@ -351,7 +333,7 @@ strings = [
 ]
 
 [majestic-life-dragon]
-id = 900003114
+id = 900003113
 set = "majestic"
 name = "Majestic Life Dragon"
 type = "monster synchro tuner effect"
@@ -377,6 +359,25 @@ strings = [
     "Equip Spells to this card",
     "Negate effect & Change position",
     "Change position?",
+]
+
+
+[mark-of-the-dragon-star]
+id = 900003114
+name = "Mark Of The Dragon Star"
+type = "spell"
+effect = """
+Activate 1 of these effects, but you cannot apply that same effect of "{CARD_NAME}" again this turn. \
+This effect's activation and effect cannot be negated.
+● Shuffle 1 Tuner from your hand or GY into the Deck, then draw 2 cards.
+● Special Summon 1 "The Crimson Dragon" from your Extra Deck.
+During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY: \
+    You can target 1 card that mentions "The Crimson Dragon" is banished or in your GY; shuffle it into the Deck. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Shuffle Tuner into the Deck",
+    "Special Summon \"The Crimson Dragon\"",
 ]
 
 [synchro-salvation]
