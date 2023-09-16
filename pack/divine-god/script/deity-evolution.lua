@@ -83,25 +83,15 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         ec2b:SetCode(EFFECT_CANNOT_DISEFFECT)
         tc:RegisterEffect(ec2b)
 
-        -- unstoppable attack
+        -- make your opponent send to gy
         local ec3 = Effect.CreateEffect(c)
-        ec3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_GRANT)
-        ec3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-        ec3:SetCode(EFFECT_UNSTOPPABLE_ATTACK)
-        ec3:SetRange(LOCATION_MZONE)
+        ec3:SetCategory(CATEGORY_TOGRAVE)
+        ec3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O + EFFECT_TYPE_GRANT)
+        ec3:SetCode(EVENT_ATTACK_ANNOUNCE)
+        ec3:SetTarget(s.e1togytg)
+        ec3:SetOperation(s.e1togyop)
         ec3:SetReset(RESET_EVENT + RESETS_STANDARD)
         tc:RegisterEffect(ec3)
-        Utility.ResetListEffect(tc, nil, EFFECT_CANNOT_ATTACK)
-
-        -- make your opponent send to gy
-        local ec4 = Effect.CreateEffect(c)
-        ec4:SetCategory(CATEGORY_TOGRAVE)
-        ec4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O + EFFECT_TYPE_GRANT)
-        ec4:SetCode(EVENT_ATTACK_ANNOUNCE)
-        ec4:SetTarget(s.e1togytg)
-        ec4:SetOperation(s.e1togyop)
-        ec4:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec4)
     end
 end
 
