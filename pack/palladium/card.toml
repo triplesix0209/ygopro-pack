@@ -818,7 +818,7 @@ Activate 1 of these effects.
 ● When an opponent's monster declares an attack: \
     Negate that attack, also destroy all your opponent's Attack Position monsters.
 If this Set card is destroyed by your opponent's card effect and sent to your GY: \
-    You can Set this card from your GY and 1 Spell/Trap Card from your hand or Deck, except "{CARD_NAME}". \
+    You can Set this card from your GY and 1 Continuous Trap from your hand, Deck, or GY. \
     They can be activated this turn. \
 """
 strings = []
