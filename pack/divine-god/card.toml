@@ -279,6 +279,7 @@ strings = [
 
 [deity-evolution]
 id = 900000010
+rarity = "gold"
 name = "Deity Evolution"
 type = "spell quick-play"
 effect = """\

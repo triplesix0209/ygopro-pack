@@ -103,13 +103,25 @@ function s.initial_effect(c)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- avoid damage when leaving the field
+    -- place card underneath
     local e5 = Effect.CreateEffect(c)
-    e5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
-    e5:SetCode(EVENT_LEAVE_FIELD)
+    e5:SetDescription(aux.Stringid(id, 1))
+    e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e5:SetCode(EVENT_PHASE + PHASE_END)
+    e5:SetRange(LOCATION_FZONE)
+    e5:SetCountLimit(1)
     e5:SetCondition(s.e5con)
+    e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
+
+    -- gain effect
+    local e6 = Effect.CreateEffect(c)
+    e6:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e6:SetCode(EVENT_ADJUST)
+    e6:SetRange(LOCATION_FZONE)
+    e6:SetOperation(s.e6op)
+    c:RegisterEffect(e6)
 end
 
 function s.e3val(e, ct)
@@ -160,24 +172,53 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e5con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsPreviousPosition(POS_FACEUP) and not c:IsLocation(LOCATION_DECK)
-end
+function s.e5filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
+
+function s.e5con(e, tp) return Duel.IsTurnPlayer(tp) end
+
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc) if chk == 0 then return Duel.IsExistingTarget(s.e5filter, tp, LOCATION_DECK, 0, 1, nil) end end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 1))
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_CHANGE_DAMAGE)
-    ec1:SetTargetRange(1, 0)
-    ec1:SetValue(0)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1, tp)
-    local ec1b = ec1:Clone()
-    ec1b:SetCode(EFFECT_NO_EFFECT_DAMAGE)
-    ec1b:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1b, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter, tp, LOCATION_DECK, 0, 1, 1, nil)
+    if #g > 0 then Duel.Overlay(c, g) end
+end
+
+
+function s.e6filter(c)
+    if c:GetFlagEffect(id) ~= 0 then return false end
+    return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS)
+end
+
+function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local g = c:GetOverlayGroup():Filter(s.e6filter, nil)
+    if #g <= 0 then return end
+
+    for tc in g:Iter() do
+        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe4000, 0, 0)
+        local code = tc:GetOriginalCode()
+        if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe4000)
+            local reset = Effect.CreateEffect(c)
+            reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+            reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+            reset:SetCode(EVENT_ADJUST)
+            reset:SetRange(LOCATION_MZONE)
+            reset:SetLabel(cid)
+            reset:SetLabelObject(tc)
+            reset:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+                local cid = e:GetLabel()
+                local c = e:GetHandler()
+                local tc = e:GetLabelObject()
+                local g = c:GetOverlayGroup():Filter(function(c) return c:GetFlagEffect(id) > 0 end, nil)
+                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) then
+                    c:ResetEffect(cid, RESET_COPY)
+                    tc:ResetFlagEffect(id)
+                end
+            end)
+            reset:SetReset(RESET_EVENT + 0x1fe4000)
+            c:RegisterEffect(reset, true)
+        end
+    end
 end
