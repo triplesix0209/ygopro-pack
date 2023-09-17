@@ -3,6 +3,8 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
+    c:AddSetcodesRule(id, true, SET_PALLADIUM)
+    
     -- activate (target)
     local e1 = Effect.CreateEffect(c)
     e1:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)

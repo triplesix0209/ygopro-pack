@@ -807,10 +807,11 @@ strings = [
 
 [palladium-mirror-force]
 id = 900000134
-set = "palladium"
+alias = 44095762
 name = "Palladium Mirror Force"
-type = "trap counter"
+type = "trap"
 effect = """\
+(This card's name is always treated as "Mirror Force" and it is "Palladium" card.)
 Activate 1 of these effects.
 ● When your opponent activates a monster effect that targets a monster(s) you control: \
     Negate that effect, also destroy all your opponent's Attack Position monsters.
@@ -829,7 +830,7 @@ name = "Thousand Palladium Arrows"
 type = "spell quick-play"
 effect = """\
 If you control "Palladium" monster: \
-    Target 1 card your opponent controls; destroy it, \
+    Target 1 card on the field; destroy it, \
     and if you do, 1 "Palladium Oracle Mahad" you control gains 500 ATK. \
 If you control Level 6 or higher "Palladium" Spellcaster monster, \
     except the turn this card was sent to the GY: \
@@ -843,18 +844,15 @@ strings = []
 id = 900000136
 set = "palladium"
 name = "Spellbinding Palladium Circle"
-type = "trap continuous"
+type = "trap counter"
 effect = """\
 If you control "Palladium Oracle Mahad", you can activate this card from your hand. \
-Target 1 face-up monster your opponent controls; \
-    it loses 700 ATK/DEF and its effects are negated, \
-    also it cannot attack or change its battle position. \
-    When it leaves the field, destroy this card. \
+Target 1 face-up monster on the field; equip this card to it. \
+It loses 700 ATK/DEF, also it cannot attack or change its battle position. \
 If you control Level 6 or higher "Palladium" Spellcaster monster, \
     except the turn this card was sent to the GY: \
     You can return this card from your GY to the bottom of the Deck, \
-    then target 1 face-up card your opponent controls; \
-    negate its effects until the end of this turn. \
+    then target 1 face-up card on the field; negate its effects until the end of this turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
