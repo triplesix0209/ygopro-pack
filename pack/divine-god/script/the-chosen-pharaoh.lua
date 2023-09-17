@@ -242,7 +242,7 @@ function s.e5cost(e, tp, eg, ep, ev, re, r, rp, chk)
     end
 
     Duel.DiscardHand(tp, s.e5filter1, 1, 1, REASON_COST + REASON_DISCARD)
-    local sg = aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e5rescon, 1, tp, HINTMSG_RELEASE, s.e5rescon, nil, true)
+    local sg = aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e5rescon, 1, tp, HINTMSG_RELEASE, s.e5rescon, nil, false)
     Duel.Release(sg, REASON_COST)
     Duel.Remove(c, POS_FACEUP, REASON_COST)
 end
