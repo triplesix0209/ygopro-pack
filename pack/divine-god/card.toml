@@ -254,6 +254,7 @@ name = "The Chosen Pharaoh"
 type = "trap continuous"
 effect = """\
 The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+Your opponent cannot target this card with card effects. \
 Original DIVINE monster in your GY cannot be banished, \
     also negate any your opponent's card effect that would move them. \
 If this face-up card leaves the field, return all monster you control into the Deck, ignoring card effects. \
