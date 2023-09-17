@@ -91,8 +91,11 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     ec3:SetCode(EFFECT_CANNOT_ATTACK)
     c:RegisterEffect(ec3, true)
     local ec4 = ec1:Clone()
-    ec4:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
+    ec4:SetCode(EFFECT_CANNOT_TRIGGER)
     c:RegisterEffect(ec4, true)
+    local ec5 = ec1:Clone()
+    ec5:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
+    c:RegisterEffect(ec5, true)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end

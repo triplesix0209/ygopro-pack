@@ -848,7 +848,7 @@ type = "trap counter"
 effect = """\
 If you control "Palladium Oracle Mahad", you can activate this card from your hand. \
 Target 1 face-up monster on the field; equip this card to it. \
-It loses 700 ATK/DEF, also it cannot attack or change its battle position. \
+It loses 700 ATK/DEF, also it cannot attack, cannot activate its effect, or change its battle position. \
 If you control Level 6 or higher "Palladium" Spellcaster monster, \
     except the turn this card was sent to the GY: \
     You can return this card from your GY to the bottom of the Deck, \
