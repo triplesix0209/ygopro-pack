@@ -8,15 +8,6 @@ s.listed_series = {SET_SUPREME_KING_DRAGON, SET_SUPREME_KING_GATE}
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
 
-    -- start of duel
-    local startup = Effect.CreateEffect(c)
-    startup:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    startup:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    startup:SetCode(EVENT_STARTUP)
-    startup:SetRange(0xff)
-    startup:SetOperation(s.startupop)
-    Duel.RegisterEffect(startup, 0)
-
     -- special summon
     local sp = Effect.CreateEffect(c)
     sp:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
@@ -27,23 +18,23 @@ function s.initial_effect(c)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
 
-    -- search
+    -- add to extra
     local pe1 = Effect.CreateEffect(c)
-    pe1:SetDescription(aux.Stringid(id, 1))
-    pe1:SetCategory(CATEGORY_DESTROY + CATEGORY_TOHAND + CATEGORY_SEARCH)
-    pe1:SetType(EFFECT_TYPE_IGNITION)
-    pe1:SetRange(LOCATION_PZONE)
-    pe1:SetCost(s.pe1cost)
-    pe1:SetTarget(s.pe1tg)
+    pe1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    pe1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    pe1:SetCode(EVENT_STARTUP)
+    pe1:SetRange(0xff)
     pe1:SetOperation(s.pe1op)
-    c:RegisterEffect(pe1)
+    Duel.RegisterEffect(pe1, 0)
 
-    -- reduce damage
+    -- search
     local pe2 = Effect.CreateEffect(c)
-    pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    pe2:SetCode(EVENT_PRE_BATTLE_DAMAGE)
+    pe2:SetDescription(aux.Stringid(id, 1))
+    pe2:SetCategory(CATEGORY_DESTROY + CATEGORY_TOHAND + CATEGORY_SEARCH)
+    pe2:SetType(EFFECT_TYPE_IGNITION)
     pe2:SetRange(LOCATION_PZONE)
-    pe2:SetCondition(s.pe2con)
+    pe2:SetCost(s.pe2cost)
+    pe2:SetTarget(s.pe2tg)
     pe2:SetOperation(s.pe2op)
     c:RegisterEffect(pe2)
 
@@ -79,7 +70,7 @@ function s.initial_effect(c)
 
     -- special summon other monster
     local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(aux.Stringid(id, 3))
+    me4:SetDescription(aux.Stringid(id, 2))
     me4:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_ATKCHANGE)
     me4:SetType(EFFECT_TYPE_QUICK_O)
     me4:SetCode(EVENT_FREE_CHAIN)
@@ -90,16 +81,6 @@ function s.initial_effect(c)
     me4:SetTarget(s.me4tg)
     me4:SetOperation(s.me4op)
     c:RegisterEffect(me4)
-end
-
-function s.startupfilter(c) return c:IsSetCard(SET_ODD_EYES) and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON) and c:IsAttack(2500) end
-
-function s.startupop(e)
-    local c = e:GetHandler()
-    local tp = c:GetOwner()
-
-    local g = Duel.GetMatchingGroup(s.startupfilter, tp, LOCATION_DECK, 0, nil)
-    if #g > 0 then Duel.SendtoExtraP(g, tp, REASON_EFFECT) end
 end
 
 function s.spfilter1(c, tp) return c:IsControler(1 - tp) and c:IsType(TYPE_PENDULUM) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
@@ -143,44 +124,36 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.pe1filter(c) return c:IsType(TYPE_PENDULUM) and c:IsAttackBelow(1500) and c:IsAbleToHand() end
+function s.pe1op(e)
+    local c = e:GetHandler()
+    local tp = c:GetOwner()
+    Duel.SendtoExtraP(c, tp, REASON_EFFECT)
+end
 
-function s.pe1cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.pe2filter(c) return c:IsType(TYPE_PENDULUM) and c:IsAttackBelow(1500) and c:IsAbleToHand() end
+
+function s.pe2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.CheckReleaseGroupCost(tp, Card.IsSetCard, 1, false, nil, nil, SET_SUPREME_KING_DRAGON) end
     local g = Duel.SelectReleaseGroupCost(tp, Card.IsSetCard, 1, 1, false, nil, nil, SET_SUPREME_KING_DRAGON)
     Duel.Release(g, REASON_COST)
 end
 
-function s.pe1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.pe1filter, tp, LOCATION_DECK, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.pe2filter, tp, LOCATION_DECK, 0, 1, nil) end
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, c, 1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
 end
 
-function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
+function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or Duel.Destroy(c, REASON_EFFECT) == 0 then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.pe1filter, tp, LOCATION_DECK, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.pe2filter, tp, LOCATION_DECK, 0, 1, 1, nil)
     if #g > 0 then
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)
-    end
-end
-
-function s.pe2con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return ep == tp and c:GetFlagEffect(id) == 0
-end
-
-function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
-        Utility.HintCard(c)
-        c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
-        Duel.ChangeBattleDamage(tp, 0)
     end
 end
 

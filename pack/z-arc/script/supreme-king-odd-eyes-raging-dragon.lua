@@ -52,66 +52,72 @@ function s.initial_effect(c)
     local me1c = me1:Clone()
     me1c:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     c:RegisterEffect(me1c)
-    local me1d = me1:Clone()
-    me1d:SetCode(EFFECT_CANNOT_TO_DECK)
-    c:RegisterEffect(me1d)
 
-    -- place into pendulum zone
+    -- cannot return to deck
     local me2 = Effect.CreateEffect(c)
-    me2:SetDescription(2203)
-    me2:SetCategory(CATEGORY_DESTROY)
-    me2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    me2:SetCode(EVENT_DESTROYED)
-    me2:SetProperty(EFFECT_FLAG_DELAY)
-    me2:SetCondition(s.me2con)
-    me2:SetTarget(s.me2tg)
-    me2:SetOperation(s.me2op)
+    me2:SetType(EFFECT_TYPE_SINGLE)
+    me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    me2:SetCode(EFFECT_CANNOT_TO_DECK)
+    me2:SetRange(LOCATION_MZONE)
+    me2:SetValue(1)
     c:RegisterEffect(me2)
 
-    -- gain effect
+    -- place into pendulum zone
     local me3 = Effect.CreateEffect(c)
-    me3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    me3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    me3:SetCode(EVENT_SPSUMMON_SUCCESS)
+    me3:SetDescription(2203)
+    me3:SetCategory(CATEGORY_DESTROY)
+    me3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    me3:SetCode(EVENT_DESTROYED)
+    me3:SetProperty(EFFECT_FLAG_DELAY)
     me3:SetCondition(s.me3con)
+    me3:SetTarget(s.me3tg)
     me3:SetOperation(s.me3op)
     c:RegisterEffect(me3)
-    local me3check = Effect.CreateEffect(c)
-    me3check:SetType(EFFECT_TYPE_SINGLE)
-    me3check:SetCode(EFFECT_MATERIAL_CHECK)
-    me3check:SetValue(s.me3check)
-    me3check:SetLabelObject(me3)
-    c:RegisterEffect(me3check)
+
+    -- gain effect
+    local me4 = Effect.CreateEffect(c)
+    me4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    me4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    me4:SetCode(EVENT_SPSUMMON_SUCCESS)
+    me4:SetCondition(s.me4con)
+    me4:SetOperation(s.me4op)
+    c:RegisterEffect(me4)
+    local me4check = Effect.CreateEffect(c)
+    me4check:SetType(EFFECT_TYPE_SINGLE)
+    me4check:SetCode(EFFECT_MATERIAL_CHECK)
+    me4check:SetValue(s.me4check)
+    me4check:SetLabelObject(me4)
+    c:RegisterEffect(me4check)
 
     -- indes
-    local me4 = Effect.CreateEffect(c)
-    me4:SetType(EFFECT_TYPE_SINGLE)
-    me4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    me4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    me4:SetRange(LOCATION_MZONE)
-    me4:SetCondition(s.effcon)
-    me4:SetValue(aux.indoval)
-    c:RegisterEffect(me4)
-
-    -- can make a second attack
     local me5 = Effect.CreateEffect(c)
     me5:SetType(EFFECT_TYPE_SINGLE)
-    me5:SetCode(EFFECT_EXTRA_ATTACK)
+    me5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    me5:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    me5:SetRange(LOCATION_MZONE)
     me5:SetCondition(s.effcon)
-    me5:SetValue(1)
+    me5:SetValue(aux.indoval)
     c:RegisterEffect(me5)
 
-    -- negate & destroy
+    -- can make a second attack
     local me6 = Effect.CreateEffect(c)
-    me6:SetDescription(aux.Stringid(id, 2))
-    me6:SetCategory(CATEGORY_DESTROY)
-    me6:SetType(EFFECT_TYPE_IGNITION)
-    me6:SetRange(LOCATION_MZONE)
-    me6:SetCountLimit(1)
+    me6:SetType(EFFECT_TYPE_SINGLE)
+    me6:SetCode(EFFECT_EXTRA_ATTACK)
     me6:SetCondition(s.effcon)
-    me6:SetTarget(s.me6tg)
-    me6:SetOperation(s.me6op)
+    me6:SetValue(1)
     c:RegisterEffect(me6)
+
+    -- negate & destroy
+    local me7 = Effect.CreateEffect(c)
+    me7:SetDescription(aux.Stringid(id, 2))
+    me7:SetCategory(CATEGORY_DESTROY)
+    me7:SetType(EFFECT_TYPE_IGNITION)
+    me7:SetRange(LOCATION_MZONE)
+    me7:SetCountLimit(1)
+    me7:SetCondition(s.effcon)
+    me7:SetTarget(s.me7tg)
+    me7:SetOperation(s.me7op)
+    c:RegisterEffect(me7)
 end
 
 function s.lnkmatfilter(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
@@ -162,44 +168,44 @@ function s.pe1op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.MoveToField(g:GetFirst(), tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
-function s.me2con(e, tp, eg, ep, ev, re, r, rp)
+function s.me3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
 end
 
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if chk == 0 then return #g > 0 end
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if Duel.Destroy(g, REASON_EFFECT) > 0 and c:IsRelateToEffect(e) then Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
 end
 
-function s.me3checkfilter(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_LINK) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
+function s.me4checkfilter(c, sc) return c:IsType(TYPE_PENDULUM, sc, SUMMON_TYPE_LINK) and c:IsSummonType(SUMMON_TYPE_PENDULUM) end
 
-function s.me3check(e, c)
+function s.me4check(e, c)
     local g = c:GetMaterial()
-    if g:IsExists(s.me3checkfilter, 1, nil, c) then
+    if g:IsExists(s.me4checkfilter, 1, nil, c) then
         e:GetLabelObject():SetLabel(1)
     else
         e:GetLabelObject():SetLabel(0)
     end
 end
 
-function s.me3con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and e:GetLabel() == 1 end
+function s.me4con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and e:GetLabel() == 1 end
 
-function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     e:GetHandler():RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
 end
 
 function s.effcon(e) return e:GetHandler():GetFlagEffect(id) > 0 end
 
-function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me7tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local ng = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSpellTrap), tp, 0, LOCATION_ONFIELD, nil)
     local dg = Duel.GetFieldGroup(tp, 0, LOCATION_ONFIELD)
     if chk == 0 then return #dg > 0 end
@@ -208,7 +214,7 @@ function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, dg, #dg, 0, 0)
 end
 
-function s.me6op(e, tp, eg, ep, ev, re, r, rp)
+function s.me7op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
 
     local ng = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSpellTrap), tp, 0, LOCATION_ONFIELD, nil)
