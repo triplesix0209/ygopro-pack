@@ -109,7 +109,7 @@ strings = [
 
 [supreme-king-servant-dragon-odd-eyes]
 id = 900005003
-alias = 96733134
+set = "supreme-king-dragon odd-eyes"
 name = "Supreme King Servant Dragon Odd-Eyes"
 type = "monster pendulum effect"
 attribute = "dark"
@@ -119,12 +119,13 @@ scale = 4
 atk = 2500
 def = 2000
 pendulum-effect = """\
-At the start of the Duel, add all "Odd-Eyes" Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
-You can Tribute 1 "Supreme King Dragon" monster; destroy this card, and if you do, add 1 Pendulum Monster with 1500 or less ATK from your Deck to your hand. \
+At the start of the Duel, add all "Odd-Eyes" Dragon Pendulum Monster with 2500 ATK from your Deck to your Extra Deck face-up. \
+You can Tribute 1 "Supreme King Dragon" monster; destroy this card, and if you do, \
+    add 1 Pendulum Monster with 1500 or less ATK from your Deck to your hand. \
 Once per turn, you can reduce the battle damage you take to 0. \
 """
 effect = """\
-(This card is always treated as "Supreme King Dragon Odd-Eyes")
+(This card is always treated as an "Supreme King Dragon" card.)
 If a Pendulum Monster(s) is Pendulum Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your hand, Deck, Extra Deck, or GY) \
     by Tributing 2 face-up "Supreme King Dragon" monsters. \
@@ -135,8 +136,9 @@ The first time each Pendulum Monster you control would be destroyed each turn, \
 If your Pendulum Monster battles an opponent's monster, any battle damage it inflicts to your opponent is doubled. \
 During the Battle Phase (Quick Effect): You can Tribute this card; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
-    from your Extra Deck in Defense Position, except "Supreme King Dragon Odd-Eyes", \
-    and if you do, the ATK of all Pendulum Monsters your opponent currently controls become 0, until the end of this turn. \
+    from your Extra Deck in Defense Position, except "{CARD_NAME}", \
+    and if you do, the ATK of all Pendulum Monsters your opponent currently controls become 0, \
+    if you control "Supreme King Z-ARC". \
 """
 strings = [
     "Special Summon \"{CARD_NAME}\"?",
@@ -147,7 +149,7 @@ strings = [
 
 [supreme-king-servant-dragon-starving-venom]
 id = 900005004
-alias = 43387895
+set = "supreme-king-dragon starving-venom"
 name = "Supreme King Servant Dragon Starving Venom"
 type = "monster fusion effect"
 attribute = "dark"
@@ -157,7 +159,7 @@ atk = 2800
 def = 2000
 effect = """\
 2 DARK Pendulum Monsters
-(This card is always treated as "Supreme King Dragon Starving Venom")
+(This card is always treated as an "Supreme King Dragon" card.)
 You can also Special Summon this card from your Extra Deck by Tributing the above cards you control. \
 If a Fusion Monster(s) is Fusion Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
@@ -172,7 +174,8 @@ Once per turn, during your Main Phase or either player's Battle Phase (Quick Eff
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
     from your Extra Deck in Defense Position, \
-    and if you do, the ATK of all Fusion Monsters your opponent currently controls become 0, until the end of this turn. \
+    and if you do, the ATK of all Fusion Monsters your opponent currently controls become 0, \
+    if you control "Supreme King Z-ARC". \
 """
 strings = [
     "Special Summon \"{CARD_NAME}\"?",
@@ -182,7 +185,7 @@ strings = [
 
 [supreme-king-servant-dragon-clear-wing]
 id = 900005005
-alias = 70771599
+set = "supreme-king-dragon clear-wing"
 name = "Supreme King Servant Dragon Clear Wing"
 type = "monster synchro effect"
 attribute = "dark"
@@ -192,7 +195,7 @@ atk = 2500
 def = 2000
 effect = """\
 1 Tuner + 1+ non-Tuner DARK Pendulum Monsters
-(This card is always treated as "Supreme King Dragon Clear Wing")
+(This card is always treated as an "Supreme King Dragon" card.)
 If a Synchro Monster(s) is Synchro Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
     by Tributing 2 face-up "Supreme King Dragon" monsters. (This is treated as a Synchro Summon). \
@@ -207,7 +210,8 @@ Once per turn, before damage calculation, if this card battles an opponent's mon
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
     from your Extra Deck in Defense Position, \
-    and if you do, the ATK of all Synchro Monsters your opponent currently controls become 0, until the end of this turn. \
+    and if you do, the ATK of all Synchro Monsters your opponent currently controls become 0, \
+    if you control "Supreme King Z-ARC". \
 """
 strings = [
     "Special Summon \"{CARD_NAME}\"?",
@@ -217,7 +221,7 @@ strings = [
 
 [supreme-king-servant-dragon-dark-rebellion]
 id = 900005006
-alias = 42160203
+set = "supreme-king-dragon rebellion"
 name = "Supreme King Servant Dragon Dark Rebellion"
 type = "monster xyz effect"
 attribute = "dark"
@@ -227,7 +231,7 @@ atk = 2500
 def = 2000
 effect = """\
 2 Level 4 DARK Pendulum Monsters
-(This card is always treated as "Supreme King Dragon Dark Rebellion")
+(This card is always treated as an "Supreme King Dragon" card.)
 If a Xyz Monster(s) is Xyz Summoned to your opponent's field, \
     while you control "Supreme King Z-ARC", you can Special Summon this card (from your Extra Deck or GY) \
     by using 2 face-up "Supreme King Dragon" monsters as material. (This is treated as a Xyz Summon). \
@@ -239,7 +243,8 @@ Once per turn, before damage calculation, if this card battles an opponent's mon
 During the Battle Phase (Quick Effect): You can return this card to the Extra Deck; \
     Special Summon up to 2 face-up "Supreme King Dragon" and/or "Supreme King Gate" Pendulum Monsters \
     from your Extra Deck in Defense Position, \
-    and if you do, the ATK of all Xyz Monsters your opponent currently controls become 0, until the end of this turn. \
+    and if you do, the ATK of all Xyz Monsters your opponent currently controls become 0, \
+    if you control "Supreme King Z-ARC". \
 """
 strings = [
     "Special Summon \"{CARD_NAME}\"?",

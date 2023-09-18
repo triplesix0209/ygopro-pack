@@ -92,7 +92,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me4)
 end
 
-function s.startupfilter(c) return c:IsSetCard(SET_ODD_EYES) and c:IsType(TYPE_PENDULUM) and c:IsAttack(2500) end
+function s.startupfilter(c) return c:IsSetCard(SET_ODD_EYES) and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON) and c:IsAttack(2500) end
 
 function s.startupop(e)
     local c = e:GetHandler()
@@ -224,14 +224,15 @@ function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     max = math.min(max, aux.CheckSummonGate(tp) or max)
 
     local sg = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me4filter, tp, LOCATION_EXTRA, 0, 1, max, nil, e, tp)
-    if #sg > 0 and Duel.SpecialSummon(sg, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) > 0 then
+    if #sg > 0 and Duel.SpecialSummon(sg, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) > 0 and
+        Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_ONFIELD, 0, 1, nil) then
         local tg = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType, TYPE_PENDULUM), tp, 0, LOCATION_MZONE, nil)
         for tc in tg:Iter() do
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetCode(EFFECT_SET_ATTACK_FINAL)
             ec1:SetValue(0)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
             tc:RegisterEffect(ec1)
         end
     end
