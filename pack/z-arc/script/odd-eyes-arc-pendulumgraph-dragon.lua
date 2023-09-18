@@ -2,8 +2,6 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_ODD_EYES}
-
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
 
