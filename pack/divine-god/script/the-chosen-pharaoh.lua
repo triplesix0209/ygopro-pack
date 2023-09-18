@@ -100,7 +100,7 @@ function s.initial_effect(c)
     e6:SetType(EFFECT_TYPE_QUICK_O)
     e6:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_INACTIVATE)
     e6:SetCode(EVENT_FREE_CHAIN)
-    e6:SetRange(LOCATION_SZONE + LOCATION_GRAVE)
+    e6:SetRange(LOCATION_SZONE)
     e6:SetHintTiming(0, TIMING_END_PHASE)
     e6:SetCountLimit(1, id, EFFECT_COUNT_CODE_DUEL)
     e6:SetCost(s.e6cost)
@@ -245,15 +245,13 @@ function s.e6cost(e, tp, eg, ep, ev, re, r, rp, chk)
     mg:Merge(g3)
 
     if chk == 0 then
-        return c:IsAbleToRemoveAsCost() and Duel.IsExistingMatchingCard(s.e6filter1, tp, LOCATION_HAND, 0, 1, nil) and
-                   Duel.CheckReleaseGroupCost(tp, nil, 2, false, nil, c) and #g1 > 0 and #g2 > 0 and #g3 > 0 and
-                   aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e6rescon, 0)
+        return Duel.IsExistingMatchingCard(s.e6filter1, tp, LOCATION_HAND, 0, 1, nil) and Duel.CheckReleaseGroupCost(tp, nil, 2, false, nil, c) and
+                   #g1 > 0 and #g2 > 0 and #g3 > 0 and aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e6rescon, 0)
     end
 
     Duel.DiscardHand(tp, s.e6filter1, 1, 1, REASON_COST + REASON_DISCARD)
     local sg = aux.SelectUnselectGroup(mg, e, tp, 3, 3, s.e6rescon, 1, tp, HINTMSG_RELEASE, s.e6rescon, nil, false)
     Duel.Release(sg, REASON_COST)
-    Duel.Remove(c, POS_FACEUP, REASON_COST)
 end
 
 function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
