@@ -17,9 +17,10 @@ function s.initial_effect(c)
     c:RegisterEffect(e1)
 end
 
-function s.e1sumcheck(c, e, tp) return not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) and c:IsSummonableCard() end
-
-function s.e1filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, s.e1sumcheck(c, e, tp), false, POS_FACEUP) end
+function s.e1filter(c, e, tp)
+    if c:IsSummonableCard() then return c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP) end
+    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP)
+end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return (Duel.IsTurnPlayer(tp) and Duel.IsMainPhase()) or Duel.IsTurnPlayer(1 - tp) end
 
@@ -38,7 +39,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if not tc or not tc:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
 
-    local check = s.e1sumcheck(tc, e, tp)
+    local check = not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) and c:IsSummonableCard()
     if Duel.SpecialSummon(tc, 0, tp, tp, check, false, POS_FACEUP) ~= 0 and check then
         tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
         local ec1 = Effect.CreateEffect(c)
