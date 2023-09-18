@@ -17,8 +17,29 @@ strings = [
     "Special Summon the leaved monster",
 ]
 
-[red-dragonator-archfiend]
+[stardust-crimson-dragon]
 id = 900003101
+alias = 44508094
+name = "Stardust Crimson Dragon"
+type = "monster synchro tuner effect"
+attribute = "wind"
+race = "dragon"
+level = 8
+atk = 2500
+def = 2000
+effect = """
+1 Tuner + 1+ non-Tuner monsters
+(This card's name is always treated as "Stardust Dragon" and non-Tuner Monter)
+When another card or effect is activated \
+    that targets, or would destroy, a card(s) on the field (Quick Effect): \
+    You can Tribute this card; negate the activation, and if you do, destroy it. \
+    During the End Phase, if this effect was activated this turn (and was not negated), \
+    Special Summon this card from your GY. \
+"""
+strings = ["Negate the activation"]
+
+[red-dragonator-archfiend]
+id = 900003102
 alias = 70902743
 name = "Red Dragonator Archfiend"
 type = "monster synchro effect"
@@ -41,27 +62,6 @@ strings = [
     "Destroy monster with ATK less than or equal to this card's",
     "Destroy all your opponent's defense position monsters",
 ]
-
-[stardust-crimson-dragon]
-id = 900003102
-alias = 44508094
-name = "Stardust Crimson Dragon"
-type = "monster synchro tuner effect"
-attribute = "wind"
-race = "dragon"
-level = 8
-atk = 2500
-def = 2000
-effect = """
-1 Tuner + 1+ non-Tuner monsters
-(This card's name is always treated as "Stardust Dragon" and non-Tuner Monter)
-When another card or effect is activated \
-    that targets, or would destroy, a card(s) on the field (Quick Effect): \
-    You can Tribute this card; negate the activation, and if you do, destroy it. \
-    During the End Phase, if this effect was activated this turn (and was not negated), \
-    Special Summon this card from your GY. \
-"""
-strings = ["Negate the activation"]
 
 [black-winged-crimson-dragon]
 id = 900003103
