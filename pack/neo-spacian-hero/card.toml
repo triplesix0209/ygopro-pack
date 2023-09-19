@@ -1,7 +1,29 @@
-[elemental-hero-spacian-neos]
+[contact-space]
+id = 900002100
+alias = 42015635
+name = "Contact Space"
+type = "spell field"
+effect = """\
+(This card's name is always treated as "Neo Space".)
+When this card is activated: You can add 1 "Neo-Spacian" monster or 1 Level 4 or lower "Neos" monster from your Deck to your hand. \
+If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material is destroyed by battle, \
+    or has left the field because of a card effect: \
+    You can Special Summon 1 "Elemental HERO Neos" from your hand, Deck, Extra Deck, or GY, \
+    ignoring its Summoning conditions and treated as Special Summoned properly. \
+You can only use each above effects of "{CARD_NAME}" once per turn. \
+Unaffected by "Neos" card effects. This effect cannot be negated. \
+Fusion Monsters that lists "Elemental HERO Neos" as material do not have to activate their effects during the End Phase \
+    that shuffle them into the Extra Deck. \
+"""
+strings = [
+    "Add 1 \"Neos\" or \"Neo-Spacian\" monster to your hand?",
+    "Special Summon \"Elemental HERO Neos\"",
+]
+
+[elemental-hero-astrum-neos]
 id = 900002101
 alias = 89943723
-name = "Elemental HERO Spacian Neos"
+name = "Elemental HERO Astrum Neos"
 type = "monster fusion effect"
 attribute = "light"
 race = "warrior"
@@ -10,11 +32,31 @@ atk = 2500
 def = 2000
 effect = """\
 (This card's name is always treated as "Elemental HERO Neos".)
-1 "HERO" monster + 1 monster on the field
-Must first be either Fusion Summoned, or Special Summoned by its own effect. \
-If this card is Fusion Summoned: You can Special Summon 1 "Neo-Spacian" monster from your hand. \
-If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material shuffled into the Extra Deck by its own effect: \
-    You can Special Summon this card from your Extra Deck. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
+1 "HERO" monster + 1 Level 5 or lower monster
+Must first be either Fusion Summoned, or Special Summoned by shuffling 1 Level 7 "Neos" monster you control into the Deck. \
+If this card is Special Summoned from the Extra Deck: \
+    You can Special Summon 1 "Neo-Spacian" monster from your hand, but that monster cannot attack this turn, \
+    and if you do, until the end of your opponent's turn, this card gains ATK equal to that monster's ATK, \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[elemental-hero-neu]
+id = 900002102
+set = "elemental-hero neos"
+name = "Elemental HERO Neu"
+type = "monster effect"
+attribute = "light"
+race = "warrior"
+level = 4
+atk = 1900
+def = 1300
+effect = """\
+(This card is always treated as an "Neos" card.)
+While "Neo Space" is on the field, this card's name becomes "Elemental HERO Neos" while on the field or in the GY. \
+    This effect cannot be negated. \
+When this card is Normal or Special Summoned: \
+    You can add 1 "Elemental HERO Neos" or 1 Spell/Trap that mentions it your Deck to your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
