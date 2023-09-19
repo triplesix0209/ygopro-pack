@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
-s.listed_series = {SET_NEOS, SET_NEO_SPACIAN}
+s.listed_series = {SET_NEOS}
 
 function s.initial_effect(c)
     -- activate
@@ -14,7 +14,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- special summon "neos"
+    -- special summon "Neos"
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -28,25 +28,29 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- immune
+    -- "Neos" fusions can choose to not return
     local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_SINGLE)
-    e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
-    e3:SetCode(EFFECT_IMMUNE_EFFECT)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetCode(42015635)
     e3:SetRange(LOCATION_FZONE)
-    e3:SetValue(function(e, te) return te:GetHandler():IsSetCard(SET_NEOS) end)
+    e3:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
     c:RegisterEffect(e3)
 
-    -- "Neos" fusions can choose to not return
+    -- immune
     local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_FIELD)
-    e4:SetCode(42015635)
+    e4:SetType(EFFECT_TYPE_SINGLE)
+    e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
+    e4:SetCode(EFFECT_IMMUNE_EFFECT)
     e4:SetRange(LOCATION_FZONE)
-    e4:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
+    e4:SetValue(function(e, te)
+        local c = e:GetOwner()
+        local tc = te:GetOwner()
+        return tc ~= c and tc:IsSetCard(SET_NEOS)
+    end)
     c:RegisterEffect(e4)
 end
 
-function s.e1filter(c) return c:IsAbleToHand() and c:IsMonster() and (c:IsSetCard(SET_NEO_SPACIAN) or (c:IsSetCard(SET_NEOS) and c:IsLevelBelow(4))) end
+function s.e1filter(c) return c:IsAbleToHand() and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS) end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()

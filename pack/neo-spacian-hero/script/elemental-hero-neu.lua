@@ -8,7 +8,7 @@ function s.initial_effect(c)
     -- change name
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
+    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     e1:SetCode(EFFECT_CHANGE_CODE)
     e1:SetRange(LOCATION_MZONE + LOCATION_GRAVE)
     e1:SetCondition(function() return Duel.IsEnvironment(42015635) end)

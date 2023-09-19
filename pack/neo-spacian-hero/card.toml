@@ -5,15 +5,16 @@ name = "Contact Space"
 type = "spell field"
 effect = """\
 (This card's name is always treated as "Neo Space".)
-When this card is activated: You can add 1 "Neo-Spacian" monster or 1 Level 4 or lower "Neos" monster from your Deck to your hand. \
-If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material is destroyed by battle, \
-    or has left the field because of a card effect: \
+When this card is activated: You can add 1 LIGHT "Neos" monster from your Deck to your hand. \
+If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material \
+    is destroyed by battle, or leaves the field because of a card effect: \
     You can Special Summon 1 "Elemental HERO Neos" from your hand, Deck, Extra Deck, or GY, \
     ignoring its Summoning conditions and treated as Special Summoned properly. \
 You can only use each above effects of "{CARD_NAME}" once per turn. \
-Unaffected by "Neos" card effects. This effect cannot be negated. \
 Fusion Monsters that lists "Elemental HERO Neos" as material do not have to activate their effects during the End Phase \
     that shuffle them into the Extra Deck. \
+Unaffected by other "Neos" cards' effects. \
+    This effect cannot be negated. \
 """
 strings = [
     "Add 1 \"Neos\" or \"Neo-Spacian\" monster to your hand?",
@@ -35,8 +36,8 @@ effect = """\
 1 "HERO" monster + 1 Level 5 or lower monster
 Must first be either Fusion Summoned, or Special Summoned by shuffling 1 Level 7 "Neos" monster you control into the Deck. \
 If this card is Special Summoned from the Extra Deck: \
-    You can Special Summon 1 "Neo-Spacian" monster from your hand, but that monster cannot attack this turn, \
-    and if you do, until the end of your opponent's turn, this card gains ATK equal to that monster's ATK, \
+    You can Special Summon 1 "Neo-Spacian" monster from your hand, but it cannot attack this turn, \
+    and if you do, this card gains ATK equal to that monster's ATK until the end of your opponent's turn, \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
