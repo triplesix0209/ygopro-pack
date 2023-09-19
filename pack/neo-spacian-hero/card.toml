@@ -1,0 +1,20 @@
+[elemental-hero-spacian-neos]
+id = 900002101
+alias = 89943723
+name = "Elemental HERO Spacian Neos"
+type = "monster fusion effect"
+attribute = "light"
+race = "warrior"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+(This card's name is always treated as "Elemental HERO Neos".)
+1 "HERO" monster + 1 monster on the field
+Must first be either Fusion Summoned, or Special Summoned by its own effect. \
+If this card is Fusion Summoned: You can Special Summon 1 "Neo-Spacian" monster from your hand. \
+If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material shuffled into the Extra Deck by its own effect: \
+    You can Special Summon this card from your Extra Deck. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
