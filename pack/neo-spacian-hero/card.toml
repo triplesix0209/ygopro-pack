@@ -61,6 +61,20 @@ When this card is Normal or Special Summoned: \
 """
 strings = []
 
+[elemental-hero-divinity-neos]
+id = 900002103
+name = "Elemental HERO Divinity Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "divine"
+race = "warrior"
+level = 12
+atk = 2500
+def = 2500
+effect = """\
+"""
+strings = []
+
 [elemental-hero-abyss-neos]
 id = 900002104
 name = "Elemental HERO Abyss Neos"
@@ -97,9 +111,8 @@ effect = """\
 "Elemental HERO Neos" + "Neo-Spacian Aqua Dolphin" + "Neo-Spacian Flare Scarab"
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
-When a Spell/Trap card or effect is activated: \
-    You can negate the activation, and if you do, destroy that card, \
-    and if you do that, banish 1 random card from your opponent's hand. \
+Once per turn, when another card, or its effect, is activated (Quick Effect): \
+    You can negate the activation, and if you do, destroy that card. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
     send all monsters on the field to the GY. \
@@ -120,9 +133,7 @@ effect = """\
 "Elemental HERO Neos" + "Neo-Spacian Aqua Dolphin" + "Neo-Spacian Grand Mole"
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
-If this card is Special Summoned from the Extra Deck: \
-    Shuffle all Spells/Traps and face-down cards on the field into the Deck, \
-    then this card gains 200 ATK for each card returned. \
+Once per turn: You can return all Spell and Trap Cards on the field to the hand. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
     you can target up to 3 cards that are banished or in the GY; \
@@ -145,11 +156,11 @@ effect = """\
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
 If this card is Special Summoned from the Extra Deck: \
-    You can target cards on the field up to the number of Spells/Traps on the field; \
-    destroy those targets, then this card gains 400 ATK for each card destroyed. \
+    You can target another cards on the field up to the number of Spells/Traps on the field; \
+    destroy those targets, and if you do, this card gains 400 ATK for each destroyed card. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    your opponent's card effects are negated until your next Standby Phase. \
+    negate the effects of all face-up monsters on the field. \
 """
 strings = []
 
@@ -169,9 +180,9 @@ Must first be Special Summoned (from your Extra Deck) by shuffling the above car
     (You do not use "Polymerization".) \
 If this card is Special Summoned from the Extra Deck: \
     You can target cards on the field up to the number of cards in both players hand; \
-    negate their effects, and if you do, destroy those targets, then gain 500 LP for each card destroyed. \
+    destroy those targets, then gain 500 LP for each destroyed card. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    you can draw cards up to the number of face-up cards this card destroyed by battle or by card effect this turn. \
+    you can draw cards equal to the number of cards this card destroyed by battle or by card effect this turn. \
 """
 strings = []
