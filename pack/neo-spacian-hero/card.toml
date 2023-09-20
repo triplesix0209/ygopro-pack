@@ -17,7 +17,7 @@ Unaffected by other "Neos" cards' effects. \
     This effect cannot be negated. \
 """
 strings = [
-    "Add 1 \"Neos\" or \"Neo-Spacian\" monster to your hand?",
+    "Add 1 \"Neos\" monster to your hand?",
     "Special Summon \"Elemental HERO Neos\"",
 ]
 
