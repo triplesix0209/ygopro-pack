@@ -76,61 +76,15 @@ effect = """\
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
 If this card is Special Summoned from the Extra Deck: \
-    You can banish all cards in your opponent's Spell/Trap Zone or Monster Zone (whichever has more.) \
+    Banish all cards in your opponent's Spell/Trap Zone or Monster Zone (whichever has more.) \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
     opponent cannot declare an attack until the end of the next turn. \
 """
 strings = []
 
-[elemental-hero-hellfire-neos]
-id = 900002105
-name = "Elemental HERO Hellfire Neos"
-set = "elemental-hero neos"
-type = "monster fusion effect"
-attribute = "fire"
-race = "warrior"
-level = 9
-atk = 3000
-def = 2500
-effect = """\
-"Elemental HERO Neos" + "Neo-Spacian Flare Scarab" + "Neo-Spacian Dark Panther"
-Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
-    (You do not use "Polymerization".) \
-If this card is Special Summoned from the Extra Deck: \
-    You can target cards on the field up to the number of Spells/Traps on the field; \
-    destroy those targets, then this card gains 400 ATK for each card destroyed. \
-Once per turn, during the End Phase: \
-    Shuffle this card into the Extra Deck, and if you do, \
-    your opponent's card effects are negated until your next Standby Phase. \
-"""
-strings = []
-
-[elemental-hero-nimbus-neos]
-id = 900002106
-name = "Elemental HERO Nimbus Neos"
-set = "elemental-hero neos"
-type = "monster fusion effect"
-attribute = "light"
-race = "warrior"
-level = 9
-atk = 3000
-def = 2500
-effect = """\
-"Elemental HERO Neos" + "Neo-Spacian Glow Moss" + "Neo-Spacian Air Hummingbird"
-Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
-    (You do not use "Polymerization".) \
-If this card is Special Summoned from the Extra Deck: \
-    You can target cards on the field up to the number of cards in both players hand; \
-    negate their effects, and if you do, destroy those targets, then gain 500 LP for each card destroyed. \
-Once per turn, during the End Phase: \
-    Shuffle this card into the Extra Deck, and if you do, \
-    you can draw cards up to the number of face-up cards this card destroyed by battle or by card effect this turn. \
-"""
-strings = []
-
 [elemental-hero-steam-neos]
-id = 900002107
+id = 900002105
 name = "Elemental HERO Steam Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -153,7 +107,7 @@ Once per turn, during the End Phase: \
 strings = []
 
 [elemental-hero-stratumine-neos]
-id = 900002108
+id = 900002106
 name = "Elemental HERO Stratumine Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -173,5 +127,51 @@ Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
     you can target up to 3 cards that are banished or in the GY; \
     shuffle those targets into the Deck. \
+"""
+strings = []
+
+[elemental-hero-hellfire-neos]
+id = 900002107
+name = "Elemental HERO Hellfire Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "fire"
+race = "warrior"
+level = 9
+atk = 3000
+def = 2500
+effect = """\
+"Elemental HERO Neos" + "Neo-Spacian Flare Scarab" + "Neo-Spacian Dark Panther"
+Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
+    (You do not use "Polymerization".) \
+If this card is Special Summoned from the Extra Deck: \
+    You can target cards on the field up to the number of Spells/Traps on the field; \
+    destroy those targets, then this card gains 400 ATK for each card destroyed. \
+Once per turn, during the End Phase: \
+    Shuffle this card into the Extra Deck, and if you do, \
+    your opponent's card effects are negated until your next Standby Phase. \
+"""
+strings = []
+
+[elemental-hero-nimbus-neos]
+id = 900002108
+name = "Elemental HERO Nimbus Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "light"
+race = "warrior"
+level = 9
+atk = 3000
+def = 2500
+effect = """\
+"Elemental HERO Neos" + "Neo-Spacian Glow Moss" + "Neo-Spacian Air Hummingbird"
+Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
+    (You do not use "Polymerization".) \
+If this card is Special Summoned from the Extra Deck: \
+    You can target cards on the field up to the number of cards in both players hand; \
+    negate their effects, and if you do, destroy those targets, then gain 500 LP for each card destroyed. \
+Once per turn, during the End Phase: \
+    Shuffle this card into the Extra Deck, and if you do, \
+    you can draw cards up to the number of face-up cards this card destroyed by battle or by card effect this turn. \
 """
 strings = []
