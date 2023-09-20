@@ -42,10 +42,10 @@ If this card is Special Summoned from the Extra Deck: \
 """
 strings = []
 
-[elemental-hero-neu]
+[elemental-hero-neos-armiger]
 id = 900002102
 set = "elemental-hero neos"
-name = "Elemental HERO Neu"
+name = "Elemental HERO Neos Armiger"
 type = "monster effect"
 attribute = "light"
 race = "warrior"
@@ -53,7 +53,6 @@ level = 4
 atk = 1900
 def = 1300
 effect = """\
-(This card is always treated as an "Neos" card.)
 While "Neo Space" is on the field, this card's name becomes "Elemental HERO Neos" while on the field or in the GY. \
     This effect cannot be negated. \
 When this card is Normal or Special Summoned: \

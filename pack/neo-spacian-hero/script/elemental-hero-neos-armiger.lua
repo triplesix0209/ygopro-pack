@@ -1,4 +1,4 @@
--- Elemental HERO Neu
+-- Elemental HERO Neos Armiger
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
