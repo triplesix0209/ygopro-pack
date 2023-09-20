@@ -90,7 +90,6 @@ strings = ["Remove counter to down ATK and inflict damage"]
 [black-rose-crimson-dragon]
 id = 900003104
 alias = 73580471
-set = "rose-dragon"
 name = "Black Rose Crimson Dragon"
 type = "monster synchro effect"
 attribute = "fire"
@@ -166,8 +165,8 @@ strings = [
 
 [shooting-stardust-dragon]
 id = 900003107
-set = "stardust"
 name = "Shooting Stardust Dragon"
+set = "stardust"
 type = "monster synchro effect"
 attribute = "wind"
 race = "dragon"
@@ -198,9 +197,9 @@ strings = [
 
 [majestic-quasar-dragon]
 id = 900003108
-set = "majestic"
 rarity = "gold"
 name = "Majestic Quasar Dragon"
+set = "majestic"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
@@ -255,8 +254,8 @@ strings = ["Special Summon 1 Level 1 monster?"]
 
 [majestic-black-dragon]
 id = 900003110
-set = "majestic"
 name = "Majestic Black Dragon"
+set = "majestic"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
@@ -283,8 +282,8 @@ strings = [
 
 [majestic-rose-dragon]
 id = 900003111
-set = "majestic rose-dragon"
 name = "Majestic Rose Dragon"
+set = "majestic rose-dragon"
 type = "monster synchro effect"
 attribute = "fire"
 race = "dragon"
@@ -308,8 +307,8 @@ strings = [
 
 [majestic-fairy-dragon]
 id = 900003112
-set = "majestic"
 name = "Majestic Fairy Dragon"
+set = "majestic"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
@@ -334,8 +333,8 @@ strings = [
 
 [majestic-life-dragon]
 id = 900003113
-set = "majestic"
 name = "Majestic Life Dragon"
+set = "majestic"
 type = "monster synchro tuner effect"
 attribute = "earth"
 race = "dragon"
@@ -382,8 +381,8 @@ strings = [
 
 [synchro-salvation]
 id = 900003115
-set = "synchro"
 name = "Synchro Salvation"
+set = "synchro"
 type = "spell equip"
 effect = """
 Equip only to a Dragon Synchro Monster that mentions a Synchro Monster as material. \
@@ -419,8 +418,8 @@ strings = []
 
 [junk-striker]
 id = 900003117
-set = "junk"
 name = "Junk Striker"
+set = "junk"
 type = "monster effect"
 attribute = "earth"
 race = "warrior"
@@ -436,8 +435,8 @@ strings = ["Normal Summon 1 Tuner monster?"]
 
 [starjunk-servant]
 id = 900003118
-set = "junk"
 name = "Starjunk Servant"
+set = "junk"
 type = "monster effect"
 attribute = "wind"
 race = "warrior"
@@ -460,8 +459,8 @@ strings = [
 [starjunk-synchron]
 id = 900003119
 alias = 63977008
-set = "junk synchron"
 name = "Starjunk Synchron"
+set = "junk synchron"
 type = "monster tuner effect"
 attribute = "wind"
 race = "warrior"
@@ -481,8 +480,8 @@ strings = []
 [starjunk-warrior]
 id = 900003120
 alias = 60800381
-set = "junk warrior"
 name = "Starjunk Warrior"
+set = "junk warrior"
 type = "monster synchro effect"
 attribute = "wind"
 race = "warrior"
@@ -505,8 +504,8 @@ strings = [
 
 [junk-accelerator]
 id = 900003121
-set = "junk"
 name = "Junk Accelerator"
+set = "junk"
 type = "monster synchro effect"
 attribute = "wind"
 race = "warrior"
@@ -531,8 +530,8 @@ strings = [
 
 [junk-dracosmasher]
 id = 900003122
-set = "junk"
 name = "Junk Dracosmasher"
+set = "junk"
 type = "monster synchro effect"
 attribute = "earth"
 race = "machine"
@@ -563,8 +562,8 @@ strings = [
 
 [star-synchron]
 id = 900003123
-set = "synchron"
 name = "Star Synchron"
+set = "synchron"
 type = "monster synchro tuner effect"
 attribute = "light"
 race = "machine"
@@ -586,8 +585,8 @@ strings = []
 
 [archfiend-synchron]
 id = 900003124
-set = "archfiend synchron"
 name = "Archfiend Synchron"
+set = "archfiend synchron"
 type = "monster tuner effect"
 attribute = "dark"
 race = "fiend"
@@ -606,8 +605,8 @@ strings = ["Its effect activations and its effects cannot be negated"]
 
 [rose-synchron]
 id = 900003125
-set = "rose synchron"
 name = "Rose Synchron"
+set = "rose synchron"
 type = "monster tuner effect"
 attribute = "earth"
 race = "plant"
@@ -647,8 +646,8 @@ strings = ["Affected by effect \"{CARD_NAME}\""]
 [scarred-dragon-archfiend-emperor]
 id = 900003127
 rarity = "gold"
-set = "red-dragon-archfiend"
 name = "Scar-Red Dragon Archfiend Emperor"
+set = "red-dragon-archfiend"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
@@ -700,8 +699,8 @@ strings = []
 
 [void-eyes-infernity-dragon]
 id = 900003150
-set = "void infernity"
 name = "Void-Eyes Infernity Dragon"
+set = "void infernity"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"

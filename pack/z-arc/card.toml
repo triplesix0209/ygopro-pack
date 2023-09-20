@@ -18,8 +18,8 @@ strings = ["Destroy 1 face-up card to search"]
 
 [odd-eyes-arc-pendulumgraph-dragon]
 id = 900005001
-set = "odd-eyes pendulumgraph"
 name = "Odd-Eyes Arc Pendulumgraph Dragon"
+set = "odd-eyes pendulumgraph"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -136,8 +136,8 @@ strings = [
 
 [supreme-king-servant-dragon-odd-eyes]
 id = 900005004
-set = "supreme-king-dragon odd-eyes"
 name = "Supreme King Servant Dragon Odd-Eyes"
+set = "supreme-king-dragon odd-eyes"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -174,8 +174,8 @@ strings = [
 
 [supreme-king-servant-dragon-starving-venom]
 id = 900005005
-set = "supreme-king-dragon starving-venom"
 name = "Supreme King Servant Dragon Starving Venom"
+set = "supreme-king-dragon starving-venom"
 type = "monster fusion effect"
 attribute = "dark"
 race = "dragon"
@@ -210,8 +210,8 @@ strings = [
 
 [supreme-king-servant-dragon-clear-wing]
 id = 900005006
-set = "supreme-king-dragon clear-wing"
 name = "Supreme King Servant Dragon Clear Wing"
+set = "supreme-king-dragon clear-wing"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
@@ -246,8 +246,8 @@ strings = [
 
 [supreme-king-servant-dragon-dark-rebellion]
 id = 900005007
-set = "supreme-king-dragon rebellion"
 name = "Supreme King Servant Dragon Dark Rebellion"
+set = "supreme-king-dragon rebellion"
 type = "monster xyz effect"
 attribute = "dark"
 race = "dragon"
@@ -279,8 +279,8 @@ strings = [
 
 [supreme-king-odd-eyes-venom-dragon]
 id = 900005008
-set = "supreme-king odd-eyes venom"
 name = "Supreme King Odd-Eyes Venom Dragon"
+set = "supreme-king odd-eyes venom"
 type = "monster fusion pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -312,8 +312,8 @@ strings = [
 
 [supreme-king-odd-eyes-wing-dragon]
 id = 900005009
-set = "supreme-king odd-eyes"
 name = "Supreme King Odd-Eyes Wing Dragon"
+set = "supreme-king odd-eyes"
 type = "monster synchro pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -349,8 +349,8 @@ strings = [
 
 [supreme-king-odd-eyes-rebellion-dragon]
 id = 900005010
-set = "supreme-king rebellion odd-eyes"
 name = "Supreme King Odd-Eyes Rebellion Dragon"
+set = "supreme-king rebellion odd-eyes"
 type = "monster xyz pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -384,8 +384,8 @@ strings = [
 
 [supreme-king-odd-eyes-raging-dragon]
 id = 900005011
-set = "supreme-king odd-eyes"
 name = "Supreme King Odd-Eyes Raging Dragon"
+set = "supreme-king odd-eyes"
 type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -422,8 +422,8 @@ strings = [
 
 [supreme-king-dragon-oddwurm]
 id = 900005012
-set = "supreme-king-dragon odd-eyes"
 name = "Supreme King Dragon Oddwurm"
+set = "supreme-king-dragon odd-eyes"
 type = "monster effect"
 attribute = "dark"
 race = "dragon"
@@ -448,8 +448,8 @@ strings = ["Inflict damage equal to the destroyed monster's original ATK"]
 
 [supreme-king-gate-despair]
 id = 900005013
-set = "supreme-king-gate"
 name = "Supreme King Gate Despair"
+set = "supreme-king-gate"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "fiend"
@@ -476,8 +476,8 @@ strings = ["Special Summon a Dragon-Type Fusion or Synchro Monster"]
 
 [supreme-king-gate-hope]
 id = 900005014
-set = "supreme-king-gate"
 name = "Supreme King Gate Hope"
+set = "supreme-king-gate"
 type = "monster pendulum effect"
 attribute = "light"
 race = "fiend"
@@ -505,8 +505,8 @@ strings = ["Special Summon a Dragon-Type Xyz or Pendulum Monster"]
 
 [supreme-king-dragon-venowurm]
 id = 900005015
-set = "supreme-king-dragon"
 name = "Supreme King Dragon Venowurm"
+set = "supreme-king-dragon"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -532,8 +532,8 @@ strings = []
 
 [supreme-king-dragon-wingwurm]
 id = 900005016
-set = "supreme-king-dragon"
 name = "Supreme King Dragon Wingwurm"
+set = "supreme-king-dragon"
 type = "monster pendulum tuner effect"
 attribute = "dark"
 race = "dragon"
@@ -559,8 +559,8 @@ strings = ["Make monster become Tuner"]
 
 [supreme-king-dragon-rebelliwurm]
 id = 900005017
-set = "supreme-king-dragon"
 name = "Supreme King Dragon Rebelliwurm"
+set = "supreme-king-dragon"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -588,8 +588,8 @@ strings = ["Make Xyz monster gain Level"]
 
 [supreme-king-dragon-goldwurm]
 id = 900005018
-set = "supreme-king-dragon"
 name = "Supreme King Dragon Goldwurm"
+set = "supreme-king-dragon"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -616,8 +616,8 @@ strings = [
 
 [supreme-king-dragon-silverwurm]
 id = 900005019
-set = "supreme-king-dragon"
 name = "Supreme King Dragon Silverwurm"
+set = "supreme-king-dragon"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -644,8 +644,8 @@ strings = [
 
 [magician-odd-eyes]
 id = 900005020
-set = "magician odd-eyes pendulum-dragon"
 name = "Odd-Eyes Magician"
+set = "magician odd-eyes pendulum-dragon"
 type = "monster pendulum effect"
 attribute = "dark"
 race = "spellcaster"
@@ -682,8 +682,8 @@ strings = [
 
 [magician-starving-venom]
 id = 900005021
-set = "magician starving-venom fusion-dragon"
 name = "Starving Venom Magician"
+set = "magician starving-venom fusion-dragon"
 type = "monster fusion pendulum effect"
 attribute = "dark"
 race = "spellcaster"
@@ -714,8 +714,8 @@ strings = [
 
 [magician-clear-wing]
 id = 900005022
-set = "magician clear-wing synchro-dragon"
 name = "Clear Wing Magician"
+set = "magician clear-wing synchro-dragon"
 type = "monster synchro pendulum tuner effect"
 attribute = "wind"
 race = "spellcaster"
@@ -743,8 +743,8 @@ strings = ["Inflict damage equal to the ATK of \"Clear Wing\" dragon"]
 
 [magician-dark-rebellion]
 id = 900005023
-set = "magician rebellion xyz-dragon"
 name = "Dark Rebellion Magician"
+set = "magician rebellion xyz-dragon"
 type = "monster xyz pendulum effect"
 attribute = "dark"
 race = "spellcaster"
@@ -777,8 +777,8 @@ strings = [
 
 [astrochrono-sorcerer]
 id = 900005024
-name = "Astrochrono Sorcerer"
 type = "monster fusion pendulum effect"
+name = "Astrochrono Sorcerer"
 attribute = "light dark"
 race = "spellcaster"
 level = 11
@@ -842,9 +842,9 @@ strings = [
 
 [supreme-presence]
 id = 900005026
-set = "supreme-king"
 rarity = "gold"
 name = "Presence of the Supreme King"
+set = "supreme-king"
 type = "spell link"
 link = 3
 link-arrow = "top-left top top-right"

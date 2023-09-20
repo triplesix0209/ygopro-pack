@@ -1,8 +1,8 @@
 [blue-eyes-legend-dragon]
 id = 900001100
 alias = 89631139
-set = "blue-eyes"
 name = "Blue-Eyes Legend Dragon"
+set = "blue-eyes"
 type = "monster normal"
 attribute = "light"
 race = "dragon"
@@ -21,8 +21,8 @@ strings = ["Destroy battling monster"]
 
 [blue-eyes-divine-dragon]
 id = 900001101
-set = "blue-eyes"
 name = "Blue-Eyes Divine Dragon"
+set = "blue-eyes"
 type = "monster fusion effect"
 attribute = "light"
 race = "dragon"
@@ -49,8 +49,8 @@ strings = [
 
 [blue-eyes-holy-dragon]
 id = 900001102
-set = "blue-eyes"
 name = "Blue-Eyes Holy Dragon"
+set = "blue-eyes"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
@@ -75,8 +75,8 @@ strings = ["Negate & destroy card on the field"]
 
 [blue-eyes-deep-dragon]
 id = 900001103
-set = "blue-eyes"
 name = "Blue-Eyes Deep Dragon"
+set = "blue-eyes"
 type = "monster xyz effect"
 attribute = "light"
 race = "dragon"
@@ -102,8 +102,8 @@ strings = ["Xyz Summon by using \"Blue-Eyes White Dragon\""]
 
 [blue-eyes-chaos-infinity-dragon]
 id = 900001104
-set = "chaos blue-eyes"
 name = "Blue-Eyes Chaos Infinity Dragon"
+set = "chaos blue-eyes"
 type = "monster link effect"
 attribute = "light"
 race = "dragon"

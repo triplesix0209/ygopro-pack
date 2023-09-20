@@ -1,5 +1,6 @@
 [mirror-force-launcher]
 generate-pic = false
+card-limit = "ocg tcg"
 id = 29649320
 name = "Mirror Force Launcher"
 type = "trap continuous"
