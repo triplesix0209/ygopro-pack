@@ -94,13 +94,12 @@ If this card is Special Summoned from the Extra Deck: \
     (whichever has more, your choice, if tied). \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    neither player can declare an attack until the end of the next turn. \
+    send all cards on the field to the GY. \
 """
 strings = [
     "Banish all cards in your opponent's Spell/Trap Zone or Monster Zone",
     "Banish cards in Spell/Trap Zone",
     "Banish cards in Monster Zone",
-    "Affected by effect \"{CARD_NAME}\": cannot declare an attack",
 ]
 
 [elemental-hero-steam-neos]
@@ -122,9 +121,12 @@ Once per turn, when another card, or its effect, is activated (Quick Effect): \
     and if you do that, this card gain 400 ATK. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    negate the effects of all face-up monsters on the field. \
+    neither player can declare an attack until the end of the next turn. \
 """
-strings = ["Negate the activation and destroy & gain ATK"]
+strings = [
+    "Negate the activation and destroy & gain ATK",
+    "Affected by effect \"{CARD_NAME}\": cannot declare an attack",
+]
 
 [elemental-hero-stratumine-neos]
 id = 900002106
@@ -140,15 +142,17 @@ effect = """\
 "Elemental HERO Neos" + "Neo-Spacian Aqua Dolphin" + "Neo-Spacian Grand Mole"
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
-Once per turn: You can target up to 3 face-up cards that are banished or in either GY; \
-    shuffle those targets into the Deck. \
+Once per turn: You can shuffle into the Deck, \
+    1 other card from either player's hand, field, or GY. \
+    (The card in your opponent's hand is chosen at random.) \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    return all Spell and Trap Cards on the field to the hand. \
+    shuffle all banished cards into the Deck(s). \
 """
 strings = [
-    "Shuffle up to 3 cards into the Deck",
-    "Return all Spell and Trap Cards on the field to the hand",
+    "Shuffle 1 card into the Deck",
+    "Shuffle card on field, either GY, or your hand",
+    "Shuffle random card in your opponent's hand",
 ]
 
 [elemental-hero-hellfire-neos]

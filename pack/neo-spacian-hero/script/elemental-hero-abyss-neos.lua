@@ -60,14 +60,14 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2info(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 3))
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
-    ec1:SetTargetRange(1, 1)
-    ec1:SetReset(RESET_PHASE + PHASE_END, 2)
-    Duel.RegisterEffect(ec1, tp)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToGrave, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
+    Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_TODECK, c, 1, 0, 0)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToGrave, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
+    Duel.SendtoGrave(g, REASON_EFFECT)
 end

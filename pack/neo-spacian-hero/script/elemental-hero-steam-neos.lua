@@ -30,8 +30,8 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- negate effect
-    aux.EnableNeosReturn(c, CATEGORY_DISABLE, nil, s.e2op)
+    -- prevent attack
+    aux.EnableNeosReturn(c, nil, nil, s.e2op)
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
@@ -62,15 +62,12 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, LOCATION_MZONE, LOCATION_MZONE, nil)
-    for tc in g:Iter() do
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_DISABLE)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec1)
-        local ec1b = ec1:Clone()
-        ec1b:SetCode(EFFECT_DISABLE_EFFECT)
-        tc:RegisterEffect(ec1b)
-    end
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(aux.Stringid(id, 1))
+    ec1:SetType(EFFECT_TYPE_FIELD)
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+    ec1:SetTargetRange(1, 1)
+    ec1:SetReset(RESET_PHASE + PHASE_END, 2)
+    Duel.RegisterEffect(ec1, tp)
 end
