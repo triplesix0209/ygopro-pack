@@ -117,7 +117,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local lv = e:GetLabel()
     local g = Duel.GetMatchingGroup(s.e4filter, tp, LOCATION_MZONE, 0, c)
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)

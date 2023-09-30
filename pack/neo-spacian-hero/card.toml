@@ -90,12 +90,18 @@ effect = """\
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
 If this card is Special Summoned from the Extra Deck: \
-    Banish all cards in your opponent's Spell/Trap Zone or Monster Zone (whichever has more.) \
+    Banish all cards in your opponent's Spell/Trap Zone or Monster Zone \
+    (whichever has more, your choice, if tied). \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    opponent cannot declare an attack until the end of the next turn. \
+    neither player can declare an attack until the end of the next turn. \
 """
-strings = []
+strings = [
+    "Banish all cards in your opponent's Spell/Trap Zone or Monster Zone",
+    "Banish cards in Spell/Trap Zone",
+    "Banish cards in Monster Zone",
+    "Affected by effect \"{CARD_NAME}\": cannot declare an attack",
+]
 
 [elemental-hero-steam-neos]
 id = 900002105
@@ -112,12 +118,13 @@ effect = """\
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
 Once per turn, when another card, or its effect, is activated (Quick Effect): \
-    You can negate the activation, and if you do, destroy that card. \
+    You can negate the activation, and if you do, destroy that card, \
+    and if you do that, this card gain 400 ATK. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    send all monsters on the field to the GY. \
+    negate the effects of all face-up monsters on the field. \
 """
-strings = []
+strings = ["Negate the activation and destroy & gain ATK"]
 
 [elemental-hero-stratumine-neos]
 id = 900002106
@@ -133,13 +140,16 @@ effect = """\
 "Elemental HERO Neos" + "Neo-Spacian Aqua Dolphin" + "Neo-Spacian Grand Mole"
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
-Once per turn: You can return all Spell and Trap Cards on the field to the hand. \
+Once per turn: You can target up to 3 face-up cards that are banished or in either GY; \
+    shuffle those targets into the Deck. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    you can target up to 3 cards that are banished or in the GY; \
-    shuffle those targets into the Deck. \
+    return all Spell and Trap Cards on the field to the hand. \
 """
-strings = []
+strings = [
+    "Shuffle up to 3 cards into the Deck",
+    "Return all Spell and Trap Cards on the field to the hand",
+]
 
 [elemental-hero-hellfire-neos]
 id = 900002107
@@ -160,7 +170,7 @@ If this card is Special Summoned from the Extra Deck: \
     destroy those targets, and if you do, this card gains 400 ATK for each destroyed card. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    negate the effects of all face-up monsters on the field. \
+    destroy 1 card on the field. \
 """
 strings = []
 

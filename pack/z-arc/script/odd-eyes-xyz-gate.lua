@@ -88,7 +88,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local tc2 = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e1filter2, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp, tc1):GetFirst()
     local sg = Group.FromCards(tc1, tc2)
     if Duel.SpecialSummon(sg, 0, tp, tp, false, false, POS_FACEUP) > 0 then
-        for tc in aux.Next(sg) do if tc:IsLocation(LOCATION_MZONE) then s.e1disop(c, tc, tc1:GetLevel()) end end
+        for tc in sg:Iter() do if tc:IsLocation(LOCATION_MZONE) then s.e1disop(c, tc, tc1:GetLevel()) end end
     else
         return
     end

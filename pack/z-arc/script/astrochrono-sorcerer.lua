@@ -148,7 +148,7 @@ function s.me3regfilter(c) return (c:IsReason(REASON_EFFECT) and c:GetReasonPlay
 
 function s.me3regop(e, tp, eg, ep, ev, re, r, rp)
     local g = eg:Filter(s.me3regfilter, nil)
-    for tc in aux.Next(g) do tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 0) end
+    for tc in g:Iter() do tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 0) end
 end
 
 function s.me3filter(c, e, tp)

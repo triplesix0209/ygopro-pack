@@ -123,7 +123,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.RegisterEffect(ec1, tp)
 
     local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
-    for tc in aux.Next(g) do
+    for tc in g:Iter() do
         local ec2 = Effect.CreateEffect(c)
         ec2:SetType(EFFECT_TYPE_SINGLE)
         ec2:SetCode(EFFECT_DISABLE)

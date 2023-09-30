@@ -16,6 +16,47 @@ function s.initial_effect(c)
             Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_COST + REASON_MATERIAL)
         end, function(e) return not e:GetHandler():IsLocation(LOCATION_EXTRA) end)
 
-    -- return
-    aux.EnableNeosReturn(c, nil, nil, nil)
+    -- shuffle cards into deck
+    local e1 = Effect.CreateEffect(c)
+    e1:SetDescription(aux.Stringid(id, 0))
+    e1:SetCategory(CATEGORY_TODECK)
+    e1:SetType(EFFECT_TYPE_IGNITION)
+    e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e1:SetRange(LOCATION_MZONE)
+    e1:SetCountLimit(1)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
+    c:RegisterEffect(e1)
+
+    -- return all Spell and Trap Cards to the hand
+    aux.EnableNeosReturn(c, CATEGORY_TOHAND, s.e2info, s.e2op)
+end
+
+function s.e1filter(c) return c:IsFaceup() and c:IsAbleToDeck() end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    local loc = LOCATION_GRAVE + LOCATION_REMOVED
+    if chk == 0 then return Duel.IsExistingTarget(s.e1filter, tp, loc, loc, 1, nil) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TODECK)
+    local g = Duel.SelectTarget(tp, s.e1filter, tp, loc, loc, 1, 3, nil)
+    Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local tg = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect, nil, e)
+    if #tg > 0 then Duel.SendtoDeck(tg, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
+end
+
+function s.e2filter(c) return c:IsType(TYPE_SPELL + TYPE_TRAP) and c:IsAbleToHand() end
+
+function s.e2info(e, tp, eg, ep, ev, re, r, rp)
+    local g = Duel.GetMatchingGroup(s.e2filter, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_TODECK, e:GetHandler(), 1, 0, 0)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Duel.GetMatchingGroup(s.e2filter, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
+    Duel.SendtoHand(g, nil, REASON_EFFECT)
 end
