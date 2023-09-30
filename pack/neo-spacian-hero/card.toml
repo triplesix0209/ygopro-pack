@@ -170,11 +170,11 @@ effect = """\
 Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
     (You do not use "Polymerization".) \
 If this card is Special Summoned from the Extra Deck: \
-    You can target another cards on the field up to the number of Spells/Traps on the field; \
-    destroy those targets, and if you do, this card gains 400 ATK for each destroyed card. \
+    Target another cards on the field up to the number of Spells/Traps on the field; \
+    destroy them, and if you do, this card gains 400 ATK for each destroyed card. \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
-    destroy 1 card on the field. \
+    negate the effects of all face-up monsters on the field. \
 """
 strings = []
 
