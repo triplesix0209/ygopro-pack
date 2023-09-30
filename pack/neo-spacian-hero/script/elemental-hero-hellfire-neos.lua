@@ -21,7 +21,6 @@ function s.initial_effect(c)
     e1:SetDescription(aux.Stringid(id, 0))
     e1:SetCategory(CATEGORY_DESTROY + CATEGORY_ATKCHANGE)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
-    e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
@@ -35,18 +34,18 @@ end
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_EXTRA) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    local ct = Duel.GetMatchingGroupCount(Card.IsSpellTrap, tp, s, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
-    if chk == 0 then return ct > 0 and Duel.IsExistingTarget(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, ct, c)
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+    if chk == 0 then return true end
+    local ct = Duel.GetMatchingGroupCount(Card.IsSpellTrap, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
+    local g = Duel.GetMatchingGroup(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, e:GetHandler())
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, ct, 0, 0)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetTargetCards(e):Filter(Card.IsRelateToEffect, nil, e)
+    local max = Duel.GetMatchingGroupCount(Card.IsSpellTrap, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, max, c)
+    Duel.HintSelection(g)
+
     local ct = Duel.Destroy(g, REASON_EFFECT)
     if ct > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
         local ec1 = Effect.CreateEffect(c)

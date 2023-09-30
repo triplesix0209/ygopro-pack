@@ -35,7 +35,6 @@ function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousL
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
-
     local g = Duel.GetMatchingGroup(aux.TRUE, tp, 0, LOCATION_ONFIELD, nil)
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
 end
