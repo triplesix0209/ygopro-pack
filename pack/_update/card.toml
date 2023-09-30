@@ -11,3 +11,102 @@ If this Set card is destroyed by your opponent's card effect and sent to your GY
     You can Set this card from your GY and 1 "Mirror Force" from your hand, Deck, or GY. They can be activated this turn. \
 """
 strings = ["Add \"Mirror Force\""]
+
+[elemental-hero-glow-neos]
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+id = 85507811
+name = "Elemental HERO Glow Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "light"
+race = "warrior"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+"Elemental HERO Neos" + "Neo-Spacian Glow Moss"
+Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
+    (You do not use "Polymerization".) \
+During the End Phase: Shuffle this card into the Extra Deck. \
+Once per turn, during your Main Phase 1: You can target 1 face-up card your opponent controls; \
+    destroy that target, then apply the effect based on its type.
+● Monster: This card cannot attack this turn.
+● Spell: This card can attack your opponent directly this turn.
+● Trap: Change this card to Defense Position.
+"""
+strings = ["", "Destroy that target, then apply the effect based on its type"]
+
+[elemental-hero-dark-neos]
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+id = 28677304
+name = "Elemental HERO Dark Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "dark"
+race = "warrior"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+"Elemental HERO Neos" + "Neo-Spacian Dark Panther"
+Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
+    (You do not use "Polymerization".) \
+If this card is not already targeting a monster with its effect: \
+    You can target 1 face-up Effect Monster on the field; \
+    while you control this face-up card, that target's effect on the field is negated. \
+During the End Phase: Shuffle this card into the Extra Deck. \
+"""
+strings = ["", "Negate the effect of 1 face-up card on the field"]
+
+[elemental-hero-aqua-neos]
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+id = 55171412
+name = "Elemental HERO Aqua Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "water"
+race = "warrior"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+"Elemental HERO Neos" + "Neo-Spacian Aqua Dolphin"
+Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
+    (You do not use "Polymerization".) \
+Once per turn: You can discard 1 card; \
+    destroy 1 random card in your opponent's hand. \
+During the End Phase: Shuffle this card into the Extra Deck. \
+"""
+strings = [
+    "",
+    "Discard 1 card to destroy 1 random card in your opponent's hand",
+]
+
+[elemental-hero-grand-neos]
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+id = 48996569
+name = "Elemental HERO Grand Neos"
+set = "elemental-hero neos"
+type = "monster fusion effect"
+attribute = "earth"
+race = "warrior"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+"Elemental HERO Neos" + "Neo-Spacian Grand Mole"
+Must first be Special Summoned (from your Extra Deck) by shuffling the above cards you control into the Deck. \
+    (You do not use "Polymerization".) \
+Once per turn: You can target 1 monster your opponent controls; \
+    return that target to the hand. \
+During the End Phase: Shuffle this card into the Extra Deck.
+"""
+strings = ["", "Return 1 monster your opponent controls to the hand"]

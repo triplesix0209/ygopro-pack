@@ -2,6 +2,133 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names = {CARD_NEOS}
+s.material_setcode = {SET_HERO, SET_ELEMENTAL_HERO, SET_NEOS, SET_NEO_SPACIAN}
+
 function s.initial_effect(c)
-    
+    c:EnableReviveLimit()
+
+    -- fusion summon
+    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, CARD_NEOS)
+
+    -- special summon limit
+    local splimit = Effect.CreateEffect(c)
+    splimit:SetType(EFFECT_TYPE_SINGLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
+    splimit:SetValue(aux.fuslimit)
+    c:RegisterEffect(splimit)
+
+    -- summon cannot be negated
+    local spsafe = Effect.CreateEffect(c)
+    spsafe:SetType(EFFECT_TYPE_SINGLE)
+    spsafe:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    spsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    spsafe:SetCondition(function(e) return e:GetHandler():GetSummonType() == SUMMON_TYPE_FUSION end)
+    c:RegisterEffect(spsafe)
+
+    -- cannot be tributed, be used as a material, nor return to Extra Deck
+    local norelease = Effect.CreateEffect(c)
+    norelease:SetType(EFFECT_TYPE_FIELD)
+    norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    norelease:SetCode(EFFECT_CANNOT_RELEASE)
+    norelease:SetRange(LOCATION_MZONE)
+    norelease:SetTargetRange(0, 1)
+    norelease:SetTarget(function(e, tc) return tc == e:GetHandler() end)
+    c:RegisterEffect(norelease)
+    local nomaterial = Effect.CreateEffect(c)
+    nomaterial:SetType(EFFECT_TYPE_SINGLE)
+    nomaterial:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    nomaterial:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(nomaterial)
+    local noreturn = Effect.CreateEffect(c)
+    noreturn:SetType(EFFECT_TYPE_SINGLE)
+    noreturn:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noreturn:SetCode(EFFECT_CANNOT_TO_DECK)
+    c:RegisterEffect(noreturn)
+    local noreturn2 = noreturn:Clone()
+    noreturn2:SetCode(EFFECT_CANNOT_TO_HAND)
+    c:RegisterEffect(noreturn2)
+
+    -- material check
+    local matcheck = Effect.CreateEffect(c)
+    matcheck:SetType(EFFECT_TYPE_SINGLE)
+    matcheck:SetCode(EFFECT_MATERIAL_CHECK)
+    matcheck:SetValue(s.matcheck)
+    c:RegisterEffect(matcheck)
+
+    -- fusion summoned
+    local e1 = Effect.CreateEffect(c)
+    e1:SetCategory(CATEGORY_REMOVE + CATEGORY_ATKCHANGE)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
+    c:RegisterEffect(e1)
+
+    -- immune
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_SINGLE)
+    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e2:SetCode(EFFECT_IMMUNE_EFFECT)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCondition(function(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end)
+    e2:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
+    c:RegisterEffect(e2)
+end
+
+function s.fusfilter(c, fc, sumtype, tp, sub, mg, sg)
+    return c:IsSetCard(SET_NEO_SPACIAN, fc, sumtype, tp) and c:GetAttribute(fc, sumtype, tp) ~= 0 and
+               (not sg or not sg:IsExists(function(c, attr, fc, sumtype, tp)
+            return c:IsSetCard(SET_NEO_SPACIAN, fc, sumtype, tp) and c:IsAttribute(attr, fc, sumtype, tp) and not c:IsHasEffect(511002961)
+        end, 1, c, c:GetAttribute(fc, sumtype, tp), fc, sumtype, tp))
+end
+
+function s.matcheck(e, c)
+    local g = c:GetMaterial():Filter(Card.IsSetCard, nil, SET_NEO_SPACIAN)
+    if #g >= 6 then
+        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), EFFECT_FLAG_CLIENT_HINT, 1, 0,
+            aux.Stringid(id, 0))
+    end
+end
+
+function s.e1filter(c) return c:IsLevel(7) and c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS) and c:IsAbleToRemove() end
+
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, nil) end
+
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, #c:GetMaterial(), 0, LOCATION_EXTRA + LOCATION_GRAVE)
+    Duel.SetChainLimit(function(e, rp, tp) return tp == rp end)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local max = #c:GetMaterial()
+    local g = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, s.e1filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, max, nil)
+    Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
+    local og = Duel.GetOperatedGroup()
+    if #og == 0 then return end
+
+    for tc in og:Iter() do
+        local code = tc:GetOriginalCode()
+        c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
+    end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_COPY_INHERIT)
+    ec1:SetCode(EFFECT_SET_BASE_ATTACK)
+    ec1:SetValue(c:GetBaseAttack() + #og * 500)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE)
+    c:RegisterEffect(ec1)
+    local ec1b = ec1:Clone()
+    ec1b:SetCode(EFFECT_SET_BASE_DEFENSE)
+    ec1b:SetValue(c:GetBaseDefense() + #og * 500)
+    c:RegisterEffect(ec1b)
 end
