@@ -3,13 +3,14 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
-s.material_setcode = {SET_HERO, SET_ELEMENTAL_HERO, SET_NEOS, SET_NEO_SPACIAN}
+s.material_setcode = {SET_NEOS, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, CARD_NEOS)
+    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99,
+        function(c, fc, sumtype, tp) return c:IsLevel(7) and c:IsSetCard(SET_NEOS, fc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

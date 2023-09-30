@@ -72,7 +72,7 @@ level = 12
 atk = 2500
 def = 2500
 effect = """\
-"Elemental HERO Neos" + 4+ "Neo-Spacian" monsters with different Attributes
+1 Level 7 "Neos" monster + 4+ "Neo-Spacian" monsters with different Attributes
 Must be Fusion Summoned with the above Fusion Materials. \
 This card's Fusion Summon cannot be negated. \
 Your opponent cannot Tribute this card, nor use it as material for an Summon, \
