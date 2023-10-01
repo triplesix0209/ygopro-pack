@@ -492,39 +492,8 @@ Monsters you control cannot be destroyed by card effects. \
 """
 strings = []
 
-[horus]
-id = 900000018
-rarity = "gold"
-name = "Black Flame Divine Dragon of Horus"
-set = "horus"
-type = "monster xyz effect"
-attribute = "divine"
-race = "dragon"
-level = 10
-atk = 3000
-def = 1800
-effect = """\
-2+ Level 8 or higher monsters with the same Level and different Attributes and Types
-Must first be Xyz Summoned with the above materials. \
-This card's Xyz Summon cannot be negated. \
-Your opponent cannot Tribute it, nor use it as material for an Summon. \
-    This effect cannot be negated nor be copied. \
-This card gains effects based on the number of materials attached to it.
-● 1+: This card's battle position cannot be changed by card effects, \
-    also control of it cannot switch. \
-    This effect cannot be negated nor be copied.
-● 2+: Your opponent cannot target this card with card effects, \
-    also unaffected by your opponent's Spell effects. \
-    This effect cannot be negated nor be copied.
-● 3+: When a Spell Card or effect is activated (Quick Effect): \
-    You can negate that effect, and if you do, destroy it. \
-    You must control this face-up card to activate and to resolve this effect.
-● 4+: This card gains the original effects of all "Horus" monsters attached to it.
-"""
-strings = []
-
 [nephthys]
-id = 900000019
+id = 900000018
 rarity = "gold"
 name = "Divine Phoenix of Nephthys"
 set = "nephthys"
@@ -562,3 +531,34 @@ strings = [
     "Destroy all monsters your opponent controls",
     "Destroy all Spells and Traps your opponent controls",
 ]
+
+[horus]
+id = 900000019
+rarity = "gold"
+name = "Black Flame Divine Dragon of Horus"
+set = "horus"
+type = "monster xyz effect"
+attribute = "divine"
+race = "dragon"
+level = 10
+atk = 3000
+def = 1800
+effect = """\
+2+ Level 8 or higher monsters with the same Level and different Attributes and Types
+Must first be Xyz Summoned with the above materials. \
+This card's Xyz Summon cannot be negated. \
+Your opponent cannot Tribute it, nor use it as material for an Summon. \
+    This effect cannot be negated nor be copied. \
+This card gains effects based on the number of materials attached to it.
+● 1+: This card's battle position cannot be changed by card effects, \
+    also control of it cannot switch. \
+    This effect cannot be negated nor be copied.
+● 2+: Your opponent cannot target this card with card effects, \
+    also unaffected by your opponent's Spell effects. \
+    This effect cannot be negated nor be copied.
+● 3+: When a Spell Card or effect is activated (Quick Effect): \
+    You can negate that effect, and if you do, destroy it. \
+    You must control this face-up card to activate and to resolve this effect.
+● 4+: This card gains the original effects of all "Horus" monsters attached to it.
+"""
+strings = []
