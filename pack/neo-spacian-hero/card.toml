@@ -247,7 +247,7 @@ You can banish this card from your GY; \
     and if you do, it gains these effects depending on the monster used as material.
 ● An "Yubel" monster: \
     This card cannot be destroyed by card effects. \
-    If this card battles an opponent's monster: You gain LP equal to that monster's DEF.
+    If this card battles an opponent's monster: You can gain LP equal to that opponent's monster's DEF.
 ● An "Ultimate Crystal" monster: \
     Your opponent cannot target this card with card effects. \
     If this card attacks an opponent's monster, negate the effects of that monster, during the Damage Step only.
@@ -256,7 +256,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = [
     "Special Summon to your field",
     "Special Summon to opponent's field",
-    "Fusion Summon using \"Clash of Souls\"",
-    "Fusion Summoned using \"Yubel\" as material",
-    "Fusion Summoned using a \"Ultimate Crystal\" monster as material",
+    "Fusion Summon using \"{CARD_NAME}\"",
+    "Summoned with \"{CARD_NAME}\" using a \"Yubel\" monster",
+    "Summoned with \"{CARD_NAME}\" using a \"Ultimate Crystal\" monster",
 ]
