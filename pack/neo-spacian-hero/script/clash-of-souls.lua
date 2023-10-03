@@ -79,7 +79,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetTargetRange(1, 0)
     ec1:SetTarget(s.e2chaintg)
     ec1:SetOperation(s.e2chainop)
-    ec1:SetValue(aux.TRUE)
+    ec1:SetValue(s.e2chainval)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
 end
@@ -163,3 +163,5 @@ function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
         tc:RegisterEffect(ec3b)
     end
 end
+
+function s.e2chainval(tc) return tc:ListsCodeAsMaterial(CARD_NEOS) end
