@@ -103,19 +103,18 @@ function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
         Duel.SpecialSummonStep(tc, sumtype, tp, tp, false, false, sumpos)
     end
 
-    -- gain effect
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(3001)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    ec1:SetRange(LOCATION_MZONE)
-    ec1:SetValue(1)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-    tc:RegisterEffect(ec1)
-
-    if mat:IsExists(Card.IsCode, 1, nil, CARD_YUBEL) then
+    if mat:IsExists(Card.IsSetCard, 1, nil, SET_YUBEL) then
         tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 3))
+
+        -- indes effect
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+        ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+        ec1:SetRange(LOCATION_MZONE)
+        ec1:SetValue(1)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
+        tc:RegisterEffect(ec1)
 
         -- recover
         local ec2 = Effect.CreateEffect(c)
@@ -145,22 +144,32 @@ function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
     if mat:IsExists(Card.IsSetCard, 1, nil, SET_ULTIMATE_CRYSTAL) then
         tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 4))
 
+        -- untargetable
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+        ec1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+        ec1:SetRange(LOCATION_MZONE)
+        ec1:SetValue(aux.tgoval)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
+        c:RegisterEffect(ec1)
+
         -- disable
-        local ec3 = Effect.CreateEffect(c)
-        ec3:SetType(EFFECT_TYPE_FIELD)
-        ec3:SetCode(EFFECT_DISABLE)
-        ec3:SetRange(LOCATION_MZONE)
-        ec3:SetTargetRange(0, LOCATION_MZONE)
-        ec3:SetCondition(function(e)
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_FIELD)
+        ec2:SetCode(EFFECT_DISABLE)
+        ec2:SetRange(LOCATION_MZONE)
+        ec2:SetTargetRange(0, LOCATION_MZONE)
+        ec2:SetCondition(function(e)
             local c = e:GetHandler()
             return Duel.GetAttacker() == c and c:GetBattleTarget() and
                        (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL)
         end)
-        ec3:SetTarget(function(e, c) return c == e:GetHandler():GetBattleTarget() end)
-        tc:RegisterEffect(ec3)
-        local ec3b = ec3:Clone()
-        ec3b:SetCode(EFFECT_DISABLE_EFFECT)
-        tc:RegisterEffect(ec3b)
+        ec2:SetTarget(function(e, c) return c == e:GetHandler():GetBattleTarget() end)
+        tc:RegisterEffect(ec2)
+        local ec2b = ec2:Clone()
+        ec2b:SetCode(EFFECT_DISABLE_EFFECT)
+        tc:RegisterEffect(ec2b)
     end
 end
 
