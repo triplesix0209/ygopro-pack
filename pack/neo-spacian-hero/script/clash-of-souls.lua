@@ -152,7 +152,7 @@ function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
         ec1:SetRange(LOCATION_MZONE)
         ec1:SetValue(aux.tgoval)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        c:RegisterEffect(ec1)
+        tc:RegisterEffect(ec1)
 
         -- disable
         local ec2 = Effect.CreateEffect(c)
