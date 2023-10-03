@@ -88,7 +88,7 @@ function s.e2chainfilter(c, e) return c:IsMonster() and c:IsCanBeFusionMaterial(
 
 function s.e2chaintg(e, te, tp, value)
     if not value or value & SUMMON_TYPE_FUSION == 0 then return Group.CreateGroup() end
-    return Duel.GetMatchingGroup(s.e2chainfilter, tp, LOCATION_MZONE, LOCATION_MZONE, nil, te)
+    return Duel.GetMatchingGroup(s.e2chainfilter, tp, LOCATION_HAND + LOCATION_MZONE, LOCATION_MZONE, nil, te)
 end
 
 function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
