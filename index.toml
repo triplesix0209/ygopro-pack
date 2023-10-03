@@ -7,7 +7,7 @@ packs = [
     "./pack/divine-god",
     "./pack/palladium",
     "./pack/blue-eyes",
-    "./pack/neo-spacian-hero",
+    "./pack/elemental-neo-spacian",
     "./pack/cosmic-dragon",
     "./pack/z-arc",
 ]
@@ -17,7 +17,7 @@ skip_compile_packs = [
     "./pack/divine-god",
     "./pack/palladium",
     "./pack/blue-eyes",
-    # "./pack/neo-spacian-hero",
+    # "./pack/elemental-neo-spacian",
     "./pack/cosmic-dragon",
     "./pack/z-arc",    
 ]
