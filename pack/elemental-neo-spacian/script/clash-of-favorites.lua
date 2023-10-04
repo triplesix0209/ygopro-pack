@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_NEOS, CARD_YUBEL}
-s.listed_series = {SET_ARMED_DRAGON, SET_ULTIMATE_CRYSTAL, SET_YUBEL}
+s.listed_names = {CARD_NEOS, CARD_YUBEL, 48130397}
+s.listed_series = {SET_ULTIMATE_CRYSTAL, SET_ARMED_DRAGON}
 
 function s.initial_effect(c)
     -- activate
@@ -17,21 +17,23 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- extra material
+    -- search "super polymerization"
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_QUICK_O)
-    e2:SetCode(EVENT_FREE_CHAIN)
+    e2:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e2:SetCode(EVENT_PREDRAW)
     e2:SetRange(LOCATION_GRAVE)
-    e2:SetHintTiming(0, TIMINGS_CHECK_MONSTER_E)
     e2:SetCountLimit(1, {id, 2})
-    e2:SetCost(aux.bfgcost)
+    e2:SetCondition(s.e2con)
+    e2:SetCost(s.e2cost)
+    e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 end
 
 function s.e1filter(c, e, tp, to_tp)
-    return c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP_ATTACK, to_tp) and
-               (c:IsCode(CARD_YUBEL) or c:IsSetCard({SET_ARMED_DRAGON, SET_ULTIMATE_CRYSTAL}))
+    if not c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP_ATTACK, to_tp) then return false end
+    return c:IsCode(CARD_YUBEL) or c:IsSetCard(SET_ULTIMATE_CRYSTAL) or (c:IsLevel(10) and c:IsSetCard(SET_ARMED_DRAGON))
 end
 
 function s.e1check1(e, tp)
@@ -58,8 +60,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         op == 1 and tp or 1 - tp):GetFirst()
     if not tc then return end
 
-    if Duel.SpecialSummonStep(tc, 0, tp, op == 1 and tp or 1 - tp, true, false, POS_FACEUP_ATTACK) then
-        -- cannot attack directly
+    if Duel.SpecialSummon(tc, 0, tp, op == 1 and tp or 1 - tp, true, false, POS_FACEUP_ATTACK) ~= 0 then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetDescription(3207)
         ec1:SetType(EFFECT_TYPE_SINGLE)
@@ -67,147 +68,49 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
         tc:RegisterEffect(ec1)
-
-        -- cannot activate effect
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetDescription(3302)
-        ec2:SetType(EFFECT_TYPE_SINGLE)
-        ec2:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-        ec2:SetCode(EFFECT_CANNOT_TRIGGER)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        tc:RegisterEffect(ec2)
     end
-    Duel.SpecialSummonComplete()
+end
+
+function s.e2filter(c) return c:IsCode(48130397) and c:IsAbleToHand() end
+
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    return Duel.IsTurnPlayer(tp) and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 0 and Duel.GetDrawCount(tp) > 0 and
+               (Duel.GetTurnCount() > 1 or Duel.IsDuelType(DUEL_1ST_TURN_DRAW)) and
+               Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_NEOS), tp, LOCATION_ONFIELD, 0, 1, nil)
+end
+
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:IsAbleToDeckAsCost() end
+    Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_COST)
+end
+
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, 0, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
+    local dt = Duel.GetDrawCount(tp)
+    if dt == 0 then return false end
+    _replace_count = 1
+    _replace_max = dt
+
+    -- give up normal draw
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 2))
     ec1:SetType(EFFECT_TYPE_FIELD)
     ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    ec1:SetCode(EFFECT_CHAIN_MATERIAL)
+    ec1:SetCode(EFFECT_DRAW_COUNT)
     ec1:SetTargetRange(1, 0)
-    ec1:SetTarget(s.e2chaintg)
-    ec1:SetOperation(s.e2chainop)
-    ec1:SetValue(s.e2chainval)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
+    ec1:SetValue(0)
+    ec1:SetReset(RESET_PHASE + PHASE_DRAW)
     Duel.RegisterEffect(ec1, tp)
-end
+    if _replace_count > _replace_max then return end
 
-function s.e2chainfilter(c, e) return c:IsMonster() and c:IsCanBeFusionMaterial() and not c:IsImmuneToEffect(e) end
-
-function s.e2chaintg(e, te, tp, value)
-    if not value or value & SUMMON_TYPE_FUSION == 0 then return Group.CreateGroup() end
-    return Duel.GetMatchingGroup(s.e2chainfilter, tp, LOCATION_HAND + LOCATION_MZONE, LOCATION_MZONE, nil, te)
-end
-
-function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
-    local c = e:GetHandler()
-    if not sumtype then sumtype = SUMMON_TYPE_FUSION end
-    tc:SetMaterial(mat)
-    Duel.SendtoGrave(mat, REASON_EFFECT + REASON_MATERIAL + REASON_FUSION)
-    Duel.BreakEffect()
-    if sg then
-        sg:AddCard(tc)
-    else
-        Duel.SpecialSummonStep(tc, sumtype, tp, tp, false, false, sumpos)
-    end
-
-    if mat:IsExists(Card.IsSetCard, 1, nil, SET_YUBEL) then
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 3))
-
-        -- indes effect
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-        ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-        ec1:SetRange(LOCATION_MZONE)
-        ec1:SetValue(1)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec1)
-
-        -- recover
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetDescription(1119)
-        ec2:SetCategory(CATEGORY_RECOVER)
-        ec2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-        ec2:SetCode(EVENT_BATTLE_CONFIRM)
-        ec2:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-            local bc = e:GetHandler():GetBattleTarget()
-            return bc and bc:IsControler(1 - tp) and bc:GetDefense() > 0
-        end)
-        ec2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
-            if chk == 0 then return true end
-            local bc = e:GetHandler():GetBattleTarget()
-            Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, bc:GetDefense())
-        end)
-        ec2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-            local bc = e:GetHandler():GetBattleTarget()
-            if bc and bc:IsFaceup() and bc:IsControler(1 - tp) and bc:IsRelateToBattle() then
-                Duel.Recover(tp, bc:GetDefense(), REASON_EFFECT)
-            end
-        end)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec2)
-    end
-
-    if mat:IsExists(Card.IsSetCard, 1, nil, SET_ARMED_DRAGON) then
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 4))
-
-        -- indes battle
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-        ec1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-        ec1:SetRange(LOCATION_MZONE)
-        ec1:SetValue(1)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec1)
-
-        -- prevent actvations when battling
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetType(EFFECT_TYPE_FIELD)
-        ec2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-        ec2:SetCode(EFFECT_CANNOT_ACTIVATE)
-        ec2:SetRange(LOCATION_MZONE)
-        ec2:SetTargetRange(0, 1)
-        ec2:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
-        ec2:SetValue(function(e, re, tp) return re:IsHasType(EFFECT_TYPE_ACTIVATE) end)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec2)
-    end
-
-    if mat:IsExists(Card.IsSetCard, 1, nil, SET_ULTIMATE_CRYSTAL) then
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 5))
-
-        -- untargetable
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-        ec1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-        ec1:SetRange(LOCATION_MZONE)
-        ec1:SetValue(aux.tgoval)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec1)
-
-        -- disable
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetType(EFFECT_TYPE_FIELD)
-        ec2:SetCode(EFFECT_DISABLE)
-        ec2:SetRange(LOCATION_MZONE)
-        ec2:SetTargetRange(0, LOCATION_MZONE)
-        ec2:SetCondition(function(e)
-            local c = e:GetHandler()
-            return Duel.GetAttacker() == c and c:GetBattleTarget() and
-                       (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL)
-        end)
-        ec2:SetTarget(function(e, c) return c == e:GetHandler():GetBattleTarget() end)
-        tc:RegisterEffect(ec2)
-        local ec2b = ec2:Clone()
-        ec2b:SetCode(EFFECT_DISABLE_EFFECT)
-        tc:RegisterEffect(ec2b)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e2filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
     end
 end
-
-function s.e2chainval(tc) return tc:ListsCodeAsMaterial(CARD_NEOS) end

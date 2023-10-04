@@ -216,8 +216,24 @@ When this card is Normal or Special Summoned: \
 """
 strings = []
 
-[contact-call]
+[favorite-fusion]
 id = 900002109
+set = "favorite fusion"
+name = "Favorite Fusion"
+type = "spell"
+effect = """\
+Fusion Summon 1 "Elemental HERO" Fusion Monster from your Extra Deck, \
+    using monsters from your hand, Deck or field as Fusion Material, \
+    also for the rest of this turn after this card resolves, \
+    you cannot Special Summon monsters, except "HERO" monsters. \
+You can only activate 1 "{CARD_NAME}" per turn. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon monsters, except \"HERO\" monsters",
+]
+
+[contact-call]
+id = 900002110
 name = "Contact Call"
 type = "spell"
 effect = """\
@@ -233,42 +249,25 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = []
 
 [clash-of-favorites]
-id = 900002110
+id = 900002111
 set = "favorite"
 name = "Clash of Favorites"
 type = "trap"
 effect = """\
-Special Summon 1 "Yubel", 1 "Armed Dragon" monster, or 1 "Ultimate Crystal" monster, \
-    from your hand, Deck to either player's field in Attack Position, ignoring its Summoning conditions, \
-    but it cannot attack directly, and also it cannot activate its effects this turn, \
-    if you do not control "Elemental HERO Neos", \
-    you can only Summon to your opponent's side of the field. \
-You can banish this card from your GY; \
-    Any time you Fusion Summon a Fusion Monster that lists "Elemental HERO Neos" as material this turn, \
-    you can using monsters from your hand or either field as Fusion Material, \
-    and if you do, it gains these effects depending on the monster used as material.
-● An "Yubel" monster: \
-    This card cannot be destroyed by card effects. \
-    If this card battles an opponent's monster: You can gain LP equal to that opponent's monster's DEF.
-● An "Armed Dragon" monster: \
-    This card cannot be destroyed by battle. \
-    If this card attacks, your opponent cannot activate any Spell/Trap until the end of the Damage Step.
-● An "Ultimate Crystal" monster: \
-    Your opponent cannot target this card with card effects. \
-    If this card attacks an opponent's monster, negate the effects of that monster, during the Damage Step only.
+Special Summon from your hand or Deck to either player's field in Attack Position, \
+    1 "Yubel", 1 "Ultimate Crystal" monster, or 1 Level 10 "Armed Dragon" monster, \
+    ignoring its Summoning conditions, but it cannot attack directly. \
+    You can only Summon to your opponent's side of the field, unless you control "Elemental HERO Neos". \
+During your Draw Phase, if this card is in your GY and you control "Elemental HERO Neos", before you draw: \
+    You can shuffle this card into the Deck; \
+    give up your normal draw this turn, and if you do, \
+    add 1 "Super Polymerization" from your Deck or GY to your hand. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = [
-    "Special Summon to your field",
-    "Special Summon to opponent's field",
-    "Fusion Summon using \"{CARD_NAME}\"",
-    "Summoned with \"{CARD_NAME}\" using a \"Yubel\" monster",
-    "Summoned with \"{CARD_NAME}\" using a \"Armed Dragon\" monster",
-    "Summoned with \"{CARD_NAME}\" using a \"Ultimate Crystal\" monster",
-]
+strings = ["Special Summon to your field", "Special Summon to opponent's field"]
 
 [favorite-soul]
-id = 900002111
+id = 900002112
 set = "favorite"
 name = "Favorite Soul"
 type = "trap continuous"
@@ -284,16 +283,3 @@ strings = [
     "Special Summon 1 \"Elemental HERO Neos\"",
     "Search 1 \"Fusion\" Spell",
 ]
-
-[elemental-fusion]
-id = 900002112
-alias = 24094653
-set = "fusion"
-name = "Elemental Fusion"
-type = "spell"
-effect = """\
-(This card's name is always treated as "Polymerization".)
-Fusion Summon 1 Fusion Monster from your Extra Deck, using monsters from your hand or field as Fusion Material. \
-If you use your "Elemental HERO" monster as Fusion Material, you can also use 1 monster from your Deck as material. \
-"""
-strings = []
