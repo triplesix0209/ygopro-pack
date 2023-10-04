@@ -58,7 +58,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         op == 1 and tp or 1 - tp):GetFirst()
     if not tc then return end
 
-    if Duel.SpecialSummonStep(tc, 0, tp, op == 1 and tp or 1 - tp, true, false, POS_FACEUP_ATTACK) > 0 then
+    if Duel.SpecialSummonStep(tc, 0, tp, op == 1 and tp or 1 - tp, true, false, POS_FACEUP_ATTACK) then
         -- cannot attack directly
         local ec1 = Effect.CreateEffect(c)
         ec1:SetDescription(3207)
