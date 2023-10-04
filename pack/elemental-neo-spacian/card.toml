@@ -237,7 +237,7 @@ id = 900002111
 name = "Clash of Souls"
 type = "trap"
 effect = """\
-Special Summon 1 "Armed Dragon" monster, 1 "Ultimate Crystal" monster or 1 "Yubel" monster, \
+Special Summon 1 "Yubel", 1 "Armed Dragon" monster, or 1 "Ultimate Crystal" monster, \
     from your hand, Deck to either player's field in Attack Position, ignoring its Summoning conditions, \
     but it cannot attack directly, and also it cannot activate its effects this turn, \
     if you do not control "Elemental HERO Neos", \
@@ -246,22 +246,22 @@ You can banish this card from your GY; \
     Any time you Fusion Summon a Fusion Monster that lists "Elemental HERO Neos" as material this turn, \
     you can using monsters from your hand or either field as Fusion Material, \
     and if you do, it gains these effects depending on the monster used as material.
+● An "Yubel" monster: \
+    This card cannot be destroyed by card effects. \
+    If this card battles an opponent's monster: You can gain LP equal to that opponent's monster's DEF.
 ● An "Armed Dragon" monster: \
     This card cannot be destroyed by battle. \
     If this card attacks, your opponent cannot activate any Spell/Trap until the end of the Damage Step.
 ● An "Ultimate Crystal" monster: \
     Your opponent cannot target this card with card effects. \
     If this card attacks an opponent's monster, negate the effects of that monster, during the Damage Step only.
-● An "Yubel" monster: \
-    This card cannot be destroyed by card effects. \
-    If this card battles an opponent's monster: You can gain LP equal to that opponent's monster's DEF.
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = [
     "Special Summon to your field",
     "Special Summon to opponent's field",
     "Fusion Summon using \"{CARD_NAME}\"",
-    "Summoned with \"{CARD_NAME}\" using a \"Armed Dragon\" monster",
     "Summoned with \"{CARD_NAME}\" using a \"Yubel\" monster",
+    "Summoned with \"{CARD_NAME}\" using a \"Armed Dragon\" monster",
     "Summoned with \"{CARD_NAME}\" using a \"Ultimate Crystal\" monster",
 ]

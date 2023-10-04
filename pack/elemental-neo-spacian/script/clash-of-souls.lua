@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_NEOS}
+s.listed_names = {CARD_NEOS, CARD_YUBEL}
 s.listed_series = {SET_ARMED_DRAGON, SET_ULTIMATE_CRYSTAL, SET_YUBEL}
 
 function s.initial_effect(c)
@@ -31,7 +31,7 @@ end
 
 function s.e1filter(c, e, tp, to_tp)
     return c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP_ATTACK, to_tp) and
-               c:IsSetCard({SET_ARMED_DRAGON, SET_ULTIMATE_CRYSTAL, SET_YUBEL})
+               (c:IsCode(CARD_YUBEL) or c:IsSetCard({SET_ARMED_DRAGON, SET_ULTIMATE_CRYSTAL}))
 end
 
 function s.e1check1(e, tp)
@@ -114,34 +114,8 @@ function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
         Duel.SpecialSummonStep(tc, sumtype, tp, tp, false, false, sumpos)
     end
 
-    if mat:IsExists(Card.IsSetCard, 1, nil, SET_ARMED_DRAGON) then
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 3))
-
-        -- indes battle
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-        ec1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-        ec1:SetRange(LOCATION_MZONE)
-        ec1:SetValue(1)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec1)
-
-        -- prevent actvations when battling
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetType(EFFECT_TYPE_FIELD)
-        ec2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-        ec2:SetCode(EFFECT_CANNOT_ACTIVATE)
-        ec2:SetRange(LOCATION_MZONE)
-        ec2:SetTargetRange(0, 1)
-        ec2:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
-        ec2:SetValue(function(e, re, tp) return re:IsHasType(EFFECT_TYPE_ACTIVATE) end)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
-        tc:RegisterEffect(ec2)
-    end
-
     if mat:IsExists(Card.IsSetCard, 1, nil, SET_YUBEL) then
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 4))
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 3))
 
         -- indes effect
         local ec1 = Effect.CreateEffect(c)
@@ -174,6 +148,32 @@ function s.e2chainop(e, te, tp, tc, mat, sumtype, sg, sumpos)
                 Duel.Recover(tp, bc:GetDefense(), REASON_EFFECT)
             end
         end)
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
+        tc:RegisterEffect(ec2)
+    end
+
+    if mat:IsExists(Card.IsSetCard, 1, nil, SET_ARMED_DRAGON) then
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 4))
+
+        -- indes battle
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+        ec1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+        ec1:SetRange(LOCATION_MZONE)
+        ec1:SetValue(1)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
+        tc:RegisterEffect(ec1)
+
+        -- prevent actvations when battling
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_FIELD)
+        ec2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+        ec2:SetCode(EFFECT_CANNOT_ACTIVATE)
+        ec2:SetRange(LOCATION_MZONE)
+        ec2:SetTargetRange(0, 1)
+        ec2:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
+        ec2:SetValue(function(e, re, tp) return re:IsHasType(EFFECT_TYPE_ACTIVATE) end)
         ec2:SetReset(RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD)
         tc:RegisterEffect(ec2)
     end
