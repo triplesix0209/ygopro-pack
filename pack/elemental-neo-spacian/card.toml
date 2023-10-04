@@ -42,27 +42,9 @@ If this card is Special Summoned from the Extra Deck: \
 """
 strings = []
 
-[elemental-hero-neos-armiger]
-id = 900002102
-name = "Elemental HERO Neos Armiger"
-set = "elemental-hero neos"
-type = "monster effect"
-attribute = "light"
-race = "warrior"
-level = 4
-atk = 1900
-def = 1300
-effect = """\
-While "Neo Space" is on the field, this card's name becomes "Elemental HERO Neos" while on the field or in the GY. \
-    This effect cannot be negated. \
-When this card is Normal or Special Summoned: \
-    You can add 1 "Elemental HERO Neos" or 1 Spell/Trap that mentions it your Deck to your hand. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-"""
-strings = []
-
 [divinity-neos]
-id = 900002103
+id = 900002102
+rarity = "gold"
 name = "Divinity Neos"
 set = "neos"
 type = "monster fusion effect"
@@ -90,7 +72,7 @@ If this card is Fusion Summoned using 6 or more "Neo-Spacian" monsters, \
 strings = ["Fusion Summoned using 6+ \"Neo-Spacian\" monster"]
 
 [elemental-hero-abyss-neos]
-id = 900002104
+id = 900002103
 name = "Elemental HERO Abyss Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -117,7 +99,7 @@ strings = [
 ]
 
 [elemental-hero-steam-neos]
-id = 900002105
+id = 900002104
 name = "Elemental HERO Steam Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -143,7 +125,7 @@ strings = [
 ]
 
 [elemental-hero-stratumine-neos]
-id = 900002106
+id = 900002105
 name = "Elemental HERO Stratumine Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -170,7 +152,7 @@ strings = [
 ]
 
 [elemental-hero-hellfire-neos]
-id = 900002107
+id = 900002106
 name = "Elemental HERO Hellfire Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -193,7 +175,7 @@ Once per turn, during the End Phase: \
 strings = []
 
 [elemental-hero-nimbus-neos]
-id = 900002108
+id = 900002107
 name = "Elemental HERO Nimbus Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -212,6 +194,25 @@ If this card is Special Summoned from the Extra Deck: \
 Once per turn, during the End Phase: \
     Shuffle this card into the Extra Deck, and if you do, \
     each player draws until they have 5 cards in their hand. \
+"""
+strings = []
+
+[elemental-hero-neos-armiger]
+id = 900002108
+name = "Elemental HERO Neos Armiger"
+set = "elemental-hero neos"
+type = "monster effect"
+attribute = "light"
+race = "warrior"
+level = 4
+atk = 1900
+def = 1300
+effect = """\
+While "Neo Space" is on the field, this card's name becomes "Elemental HERO Neos" while on the field or in the GY. \
+    This effect cannot be negated. \
+When this card is Normal or Special Summoned: \
+    You can add 1 "Elemental HERO Neos" or 1 Spell/Trap that mentions it your Deck to your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 
