@@ -61,10 +61,10 @@ When this card is Normal or Special Summoned: \
 """
 strings = []
 
-[elemental-hero-divinity-neos]
+[divinity-neos]
 id = 900002103
-name = "Elemental HERO Divinity Neos"
-set = "elemental-hero neos"
+name = "Divinity Neos"
+set = "neos"
 type = "monster fusion effect"
 attribute = "divine"
 race = "warrior"

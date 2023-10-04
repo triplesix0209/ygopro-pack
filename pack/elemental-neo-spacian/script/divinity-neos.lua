@@ -1,4 +1,4 @@
--- Elemental HERO Divinity Neos
+-- Divinity Neos
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
