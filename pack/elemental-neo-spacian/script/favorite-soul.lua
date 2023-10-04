@@ -112,5 +112,8 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if not e:GetHandler():IsRelateToEffect(e) then return end
 
     local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter, tp, LOCATION_DECK, 0, 1, 1, nil, tp)
-    if #g > 0 then Duel.SendtoHand(g, nil, REASON_EFFECT) end
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
+    end
 end
