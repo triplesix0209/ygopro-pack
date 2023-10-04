@@ -28,7 +28,7 @@ function s.initial_effect(c)
     spsafe:SetCondition(function(e) return e:GetHandler():GetSummonType() == SUMMON_TYPE_FUSION end)
     c:RegisterEffect(spsafe)
 
-    -- cannot be tributed, be used as a material, nor return to Extra Deck
+    -- cannot be tributed, be used as a material
     local norelease = Effect.CreateEffect(c)
     norelease:SetType(EFFECT_TYPE_FIELD)
     norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -43,14 +43,6 @@ function s.initial_effect(c)
     nomaterial:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
-    local noreturn = Effect.CreateEffect(c)
-    noreturn:SetType(EFFECT_TYPE_SINGLE)
-    noreturn:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    noreturn:SetCode(EFFECT_CANNOT_TO_DECK)
-    c:RegisterEffect(noreturn)
-    local noreturn2 = noreturn:Clone()
-    noreturn2:SetCode(EFFECT_CANNOT_TO_HAND)
-    c:RegisterEffect(noreturn2)
 
     -- material check
     local matcheck = Effect.CreateEffect(c)
@@ -59,26 +51,35 @@ function s.initial_effect(c)
     matcheck:SetValue(s.matcheck)
     c:RegisterEffect(matcheck)
 
-    -- fusion summoned
+    -- "Neos" fusions can choose to not return
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_REMOVE + CATEGORY_ATKCHANGE)
-    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e1:SetProperty(EFFECT_FLAG_DELAY)
-    e1:SetCondition(s.e1con)
-    e1:SetTarget(s.e1tg)
-    e1:SetOperation(s.e1op)
+    e1:SetType(EFFECT_TYPE_FIELD)
+    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e1:SetCode(42015635)
+    e1:SetRange(LOCATION_MZONE)
+    e1:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
     c:RegisterEffect(e1)
 
-    -- immune
+    -- fusion summoned
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e2:SetCode(EFFECT_IMMUNE_EFFECT)
-    e2:SetRange(LOCATION_MZONE)
-    e2:SetCondition(function(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end)
-    e2:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
+    e2:SetCategory(CATEGORY_REMOVE + CATEGORY_ATKCHANGE)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e2:SetProperty(EFFECT_FLAG_DELAY)
+    e2:SetCondition(s.e2con)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+
+    -- immune
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_SINGLE)
+    e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e3:SetCode(EFFECT_IMMUNE_EFFECT)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCondition(function(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end)
+    e3:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
+    c:RegisterEffect(e3)
 end
 
 function s.fusfilter(c, fc, sumtype, tp, sub, mg, sg)
@@ -96,22 +97,22 @@ function s.matcheck(e, c)
     end
 end
 
-function s.e1filter(c) return c:IsLevel(7) and c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS) and c:IsAbleToRemove() end
+function s.e2filter(c) return c:IsLevel(7) and c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS) and c:IsAbleToRemove() end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, nil) end
 
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, #c:GetMaterial(), 0, LOCATION_EXTRA + LOCATION_GRAVE)
     Duel.SetChainLimit(function(e, rp, tp) return tp == rp end)
 end
 
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local max = #c:GetMaterial()
-    local g = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, s.e1filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, max, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, s.e2filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, max, nil)
     Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
     local og = Duel.GetOperatedGroup()
     if #og == 0 then return end
