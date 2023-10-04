@@ -269,6 +269,7 @@ strings = [
 
 [favorite-soul]
 id = 900002111
+set = "favorite"
 name = "Favorite Soul"
 type = "trap continuous"
 effect = """\
