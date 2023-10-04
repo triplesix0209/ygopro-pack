@@ -216,10 +216,9 @@ When this card is Normal or Special Summoned: \
 """
 strings = []
 
-[neo-space-contact]
-id = 900002110
-name = "Neo Space Contact"
-set = "neos"
+[contact-call]
+id = 900002109
+name = "Contact Call"
 type = "spell"
 effect = """\
 Send 1 Normal Spell that lists a "Neo-Spacian" card, \
@@ -233,9 +232,10 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = []
 
-[clash-of-souls]
-id = 900002111
-name = "Clash of Souls"
+[clash-of-favorites]
+id = 900002110
+set = "favorite"
+name = "Clash of Favorites"
 type = "trap"
 effect = """\
 Special Summon 1 "Yubel", 1 "Armed Dragon" monster, or 1 "Ultimate Crystal" monster, \
@@ -265,4 +265,21 @@ strings = [
     "Summoned with \"{CARD_NAME}\" using a \"Yubel\" monster",
     "Summoned with \"{CARD_NAME}\" using a \"Armed Dragon\" monster",
     "Summoned with \"{CARD_NAME}\" using a \"Ultimate Crystal\" monster",
+]
+
+[favorite-soul]
+id = 900002111
+name = "Favorite Soul"
+type = "trap continuous"
+effect = """\
+"Elemental HERO Neos" and all Fusion Monsters that lists it as material you control gain 500 ATK. \
+If this face-up card leaves the field: Shuffle all monsters you control into the Deck. \
+You can only use the following effect of "{CARD_NAME}" once per turn. You can activate 1 of these effects;
+● Special Summon 1 "Elemental HERO Neos" from your hand or GY.
+● Add 1 "Fusion" or "Polymerization" Normal or Quick-Play Spell from your Deck to your hand, \
+    with a different name from the cards in your GY. \
+"""
+strings = [
+    "Special Summon 1 \"Elemental HERO Neos\"",
+    "Search 1 \"Fusion\" Spell",
 ]

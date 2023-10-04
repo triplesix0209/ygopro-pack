@@ -1,4 +1,4 @@
--- Clash of Souls
+-- Clash of Favorites
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

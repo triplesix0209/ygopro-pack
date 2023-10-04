@@ -1,4 +1,4 @@
--- Neo Space Contact
+-- Contact Call
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
