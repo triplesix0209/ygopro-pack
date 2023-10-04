@@ -223,7 +223,7 @@ name = "Favorite Fusion"
 type = "spell"
 effect = """\
 Fusion Summon 1 "Elemental HERO" Fusion Monster from your Extra Deck, \
-    using monsters from your hand, Deck or field as Fusion Material, \
+    using monsters from your hand or Deck as Fusion Material, \
     also for the rest of this turn after this card resolves, \
     you cannot Special Summon monsters, except "HERO" monsters. \
 You can only activate 1 "{CARD_NAME}" per turn. \

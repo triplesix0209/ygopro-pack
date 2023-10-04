@@ -9,6 +9,7 @@ function s.initial_effect(c)
     local e1 = Fusion.CreateSummonEff({
         handler = c,
         fusfilter = aux.FilterBoolFunction(Card.IsSetCard, SET_ELEMENTAL_HERO),
+        matfilter = Fusion.MatInHand,
         extrafil = s.e1extrafil,
         extratg = s.e1extratg,
         stage2 = s.e1stage2
