@@ -256,7 +256,7 @@ You can banish this card from your GY; \
 ● An "Ultimate Crystal" monster: \
     Your opponent cannot target this card with card effects. \
     If this card attacks an opponent's monster, negate the effects of that monster, during the Damage Step only.
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Special Summon to your field",
