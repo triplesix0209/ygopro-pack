@@ -284,3 +284,16 @@ strings = [
     "Special Summon 1 \"Elemental HERO Neos\"",
     "Search 1 \"Fusion\" Spell",
 ]
+
+[elemental-fusion]
+id = 900002112
+alias = 24094653
+set = "fusion"
+name = "Elemental Fusion"
+type = "spell"
+effect = """\
+(This card's name is always treated as "Polymerization".)
+Fusion Summon 1 Fusion Monster from your Extra Deck, using monsters from your hand or field as Fusion Material. \
+If you use your "Elemental HERO" monster as Fusion Material, you can also use 1 monster from your Deck as material. \
+"""
+strings = []
