@@ -4,13 +4,15 @@ local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
 s.listed_series = {SET_NEO_SPACIAN}
-s.material_setcode = {SET_HERO, SET_ELEMENTAL_HERO, SET_NEOS, SET_NEO_SPACIAN}
+s.material_setcode = {SET_NEOS, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, CARD_NEOS)
+    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, function(c, fc, sumtype, tp)
+        return c:IsLevel(7) and c:IsType(TYPE_NORMAL, fc, sumtype, tp) and c:IsSetCard(SET_NEOS, fc, sumtype, tp)
+    end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -103,13 +105,14 @@ function s.e1filter(c)
     return c:IsSetCard(SET_NEO_SPACIAN) or (c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS))
 end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_EXTRA) end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, nil) end
+    local ct = #c:GetMaterial()
+    if chk == 0 then return ct > 0 and Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, 1, nil) end
 
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, #c:GetMaterial(), 0, LOCATION_EXTRA + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, ct, 0, LOCATION_EXTRA + LOCATION_GRAVE)
     Duel.SetChainLimit(function(e, rp, tp) return tp == rp end)
 end
 
