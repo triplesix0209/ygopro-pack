@@ -60,7 +60,7 @@ function s.initial_effect(c)
     matcheck:SetValue(s.matcheck)
     c:RegisterEffect(matcheck)
 
-    -- fusion summoned
+    -- gain effect & atk
     local e1 = Effect.CreateEffect(c)
     e1:SetCategory(CATEGORY_REMOVE + CATEGORY_ATKCHANGE)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
@@ -103,7 +103,7 @@ function s.e1filter(c)
     return c:IsSetCard(SET_NEO_SPACIAN) or (c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS))
 end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_EXTRA) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
