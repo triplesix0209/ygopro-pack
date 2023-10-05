@@ -5,6 +5,7 @@ pic_field_path = "D:/Games/EdoPro/pics/field"
 packs = [
     "./pack/_update",
     "./pack/divine-god",
+    "./pack/sacred-beast",
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/elemental-neo-spacian",
@@ -15,9 +16,10 @@ packs = [
 skip_compile_packs = [
     "./pack/_update",
     "./pack/divine-god",
+    # "./pack/sacred-beast",
     "./pack/palladium",
     "./pack/blue-eyes",
-    # "./pack/elemental-neo-spacian",
+    "./pack/elemental-neo-spacian",
     "./pack/cosmic-dragon",
     "./pack/z-arc",    
 ]
