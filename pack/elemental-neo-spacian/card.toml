@@ -368,7 +368,8 @@ name = "Favorite Fusion"
 set = "favorite fusion"
 type = "spell"
 effect = """\
-Fusion Summon 1 Fusion Monster that list a "Elemental HERO" monster as material from your Extra Deck, \
+Fusion Summon from your Extra Deck, \
+    1 Fusion Monster that mentions a "HERO" monster as material, \
     using monsters from your hand or Deck as Fusion Material, \
     also for the rest of this turn after this card resolves, \
     you cannot Special Summon monsters, except "HERO" monsters. \

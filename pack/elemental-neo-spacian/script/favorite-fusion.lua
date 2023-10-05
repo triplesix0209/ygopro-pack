@@ -2,13 +2,13 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_HERO, SET_ELEMENTAL_HERO}
+s.listed_series = {SET_HERO}
 
 function s.initial_effect(c)
     -- activate
     local e1 = Fusion.CreateSummonEff({
         handler = c,
-        fusfilter = aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial, SET_ELEMENTAL_HERO),
+        fusfilter = aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial, SET_HERO),
         matfilter = Fusion.MatInHand,
         extrafil = s.e1extrafil,
         extratg = s.e1extratg,
