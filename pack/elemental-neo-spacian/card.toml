@@ -13,7 +13,7 @@ If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material 
 You can only use each above effects of "{CARD_NAME}" once per turn. \
 Fusion Monsters that lists "Elemental HERO Neos" as material do not have to activate their effects during the End Phase \
     that shuffle them into the Extra Deck. \
-Unaffected by other "Neos" cards' effects. \
+Face-up Spell/Trap you control unaffected by other "Neos" cards' effects. \
     This effect cannot be negated. \
 """
 strings = [

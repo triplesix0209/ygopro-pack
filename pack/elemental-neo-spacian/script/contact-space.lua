@@ -36,12 +36,14 @@ function s.initial_effect(c)
     e3:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
     c:RegisterEffect(e3)
 
-    -- immune
+    -- spell/trap immune
     local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_SINGLE)
+    e4:SetType(EFFECT_TYPE_FIELD)
     e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     e4:SetCode(EFFECT_IMMUNE_EFFECT)
     e4:SetRange(LOCATION_FZONE)
+    e4:SetTargetRange(LOCATION_SZONE, 0)
+    e4:SetTarget(function(e, tc) tc:IsFaceup() end)
     e4:SetValue(function(e, te)
         local c = e:GetOwner()
         local tc = te:GetOwner()
