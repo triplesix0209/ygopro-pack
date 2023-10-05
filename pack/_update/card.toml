@@ -1,7 +1,7 @@
 [mirror-force-launcher]
+id = 29649320
 generate-pic = false
 card-limit = "ocg tcg"
-id = 29649320
 name = "Mirror Force Launcher"
 type = "trap continuous"
 effect = """\
@@ -13,10 +13,10 @@ If this Set card is destroyed by your opponent's card effect and sent to your GY
 strings = ["Add \"Mirror Force\""]
 
 [elemental-hero-glow-neos]
+id = 85507811
 generate-pic = false
 generate-script = false
 card-limit = "ocg tcg"
-id = 85507811
 name = "Elemental HERO Glow Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -39,10 +39,10 @@ Once per turn, during your Main Phase 1: You can target 1 face-up card your oppo
 strings = ["", "Destroy that target, then apply the effect based on its type"]
 
 [elemental-hero-dark-neos]
+id = 28677304
 generate-pic = false
 generate-script = false
 card-limit = "ocg tcg"
-id = 28677304
 name = "Elemental HERO Dark Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -63,10 +63,10 @@ During the End Phase: Shuffle this card into the Extra Deck. \
 strings = ["", "Negate the effect of 1 face-up card on the field"]
 
 [elemental-hero-aqua-neos]
+id = 55171412
 generate-pic = false
 generate-script = false
 card-limit = "ocg tcg"
-id = 55171412
 name = "Elemental HERO Aqua Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -89,10 +89,10 @@ strings = [
 ]
 
 [elemental-hero-grand-neos]
+id = 48996569
 generate-pic = false
 generate-script = false
 card-limit = "ocg tcg"
-id = 48996569
 name = "Elemental HERO Grand Neos"
 set = "elemental-hero neos"
 type = "monster fusion effect"
@@ -110,3 +110,72 @@ Once per turn: You can target 1 monster your opponent controls; \
 During the End Phase: Shuffle this card into the Extra Deck.
 """
 strings = ["", "Return 1 monster your opponent controls to the hand"]
+
+[opening-of-the-spirit-gates]
+id = 80312545
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Opening of the Spirit Gates"
+type = "spell continuous"
+effect = """
+When this card is activated: Add 1 "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", \
+    or "Raviel, Lord of Phantasms", OR 1 monster that specifically lists any of those cards in its text, \
+    from your Deck to your hand. \
+Once per turn: You can discard 1 card; \
+    Special Summon 1 Fiend monster with 0 ATK/DEF from your GY. \
+Once per turn, if you control a Level 10 monster: \
+    You can add 1 Continuous Spell from your GY to your hand. \
+You can only activate 1 "Opening of the Spirit Gates" per turn. \
+"""
+strings = [
+    "Search card mentions Sacred Beast",
+    "Special Summon 1 Fiend monster with 0 ATK/DEF",
+    "Return 1 Continuous Spell from GY to hand",
+]
+
+[awakening-of-the-sacred-beasts]
+id = 53701259
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Awakening of the Sacred Beasts"
+type = "trap continuous"
+effect = """
+This card gains these effects based on the number of \
+    "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", and/or "Raviel, Lord of Phantasms" \
+    with different names you control.
+● 1+: Each time your opponent Normal or Special Summons a monster(s): \
+    Gain LP equal to the ATK of that monster(s).
+● 2+: Negate the activated effects of monsters your opponent controls.
+● 3: Any monsters sent to your opponent's GY are banished instead.
+Once per your turn, if you control a Level 10 monster: \
+    You can add 1 Continuous Trap from your GY to your hand. \
+"""
+strings = ["Return 1 Continuous Trap from GY to hand"]
+
+[hyper-blaze]
+id = 16317140
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Hyper Blaze"
+type = "trap continuous"
+effect = """
+To Special Summon "Uria, Lord of Searing Flames" using its own procedure, \
+    you can also use face-down Traps you control. \
+Once per battle, when an attack is declared involving your "Uria, Lord of Searing Flames": \
+    You can send 1 Trap from your hand or Deck to the GY; \
+    its ATK/DEF become the number of face-up Traps on the field and in the GYs x 1000, \
+    for the rest of this turn. \
+Once per turn: You can discard 1 card; \
+    add to your hand or Special Summon, \
+    1 "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms" \
+    from your GY, ignoring its Summoning conditions. \
+"""
+strings = [
+    "Send Trap to gain ATK",
+    "Return or Special Summon 1 Sacred Beast",
+    "Select a Sacred Beast",
+    "Special Summon it",
+]

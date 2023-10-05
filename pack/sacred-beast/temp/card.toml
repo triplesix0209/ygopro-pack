@@ -1,0 +1,100 @@
+# [yubel-desperate-incarnate]
+# id = 900002006
+# alias = 4779091
+# name = "Yubel - Desperate Incarnate"
+# type = "monster effect"
+# attribute = "dark"
+# race = "fiend"
+# level = 11
+# atk = 0
+# def = 0
+# effect = """\
+# (This card's name is always treated as "Yubel - Terror Incarnate".)
+# Cannot be Normal Summoned/Set. \
+# Must be Special Summoned by "Yubel". \
+# You can discard this card; add 1 "Yubel", or 1 card that mentions it, \
+#     from your Deck to your hand, except "{CARD_NAME}". \
+#     You can only use this effect of "{CARD_NAME}" once per turn. \
+# Cannot be destroyed by battle, also you take no damage from battles involving this card. \
+# At the end of the Damage Step, if this face-up Attack Position card battles an opponent's monster: \
+#     Inflict damage to your opponent equal to that monster's ATK, also destroy 1 other card on the field. \
+# If this face-up card leaves the field: \
+#     You can Special Summon 1 "Yubel - The Ultimate Nightmare", \
+#     or 1 Fusion Monster that mentions it as material, \
+#     from your hand, Deck, GY or Extra Deck. ignoring its Summoning conditions. \
+#     (This is treated as a Fusion Summon, if able.) \
+# """
+# strings = ["Inflict damage & destroy 1 card on the field"]
+
+# [yubel-the-ultimate-phantasmal-nightmare]
+# id = 900002007
+# rarity = "gold"
+# set = "phantasm"
+# name = "Yubel - The Ultimate Phantasmal Nightmare"
+# type = "monster fusion effect"
+# attribute = "dark"
+# race = "fiend"
+# level = 12
+# atk = 0
+# def = 0
+# effect = """\
+# "Yubel - The Ultimate Nightmare" + 1 "Phantasm" Fusion Monster
+# Must be Fusion Summoned with the above Fusion Materials. \
+# Control of it cannot switch. \
+# This card's name is also treated as "Armityle the Chaos Phantasm" while it is on the field. \
+# This card's battle position cannot be changed by card effects. \
+# Cannot be Tributed, or used as material for an Summon by your opponent. \
+# Cannot be destroyed by battle. \
+# The above effects cannot be negated. \
+# Your opponent takes any battle damage you would have taken from battles involving this card. \
+# At the end of the Damage Step, if this face-up Attack Position card battles an opponent's monster: \
+#     Inflict damage to your opponent equal to that monster's ATK, also destroy that monster. \
+# Once per turn (Quick Effect): \
+#     You can banish 1 face-up monster your opponent controls, and if you do, \
+#     Special Summon 1 "Phantasmal Nightmare Token" (Fiend/DARK/Level 12/ATK ?/DEF 0). \
+#     The Token's ATK/DEF become the original ATK/DEF of that monster, \
+#     also you take no damage from battles involving it. \
+# """
+# strings = [
+#     "Inflict damage & destroy battling monster",
+#     "Banish 1 face-up monster & create token",
+# ]
+
+# [phantasmal-nightmare-token]
+# id = 900002008
+# set = "phantasm"
+# name = "Phantasmal Nightmare Token"
+# type = "monster token"
+# attribute = "dark"
+# race = "fiend"
+# level = 12
+# atk = "?"
+# def = 0
+# effect = """\
+# Special Summoned with the effect of "Yubel - The Ultimate Phantasmal Nightmare". \
+# This Token's ATK/DEF become the original ATK/DEF of the banished monster, \
+#     also you take no damage from battles involving it. \
+# """
+# strings = []
+
+# [seed-of-desolation]
+# id = 900002009
+# name = "Seed of Desolation"
+# type = "monster effect"
+# attribute = "dark"
+# race = "plant"
+# level = 1
+# atk = 0
+# def = 0
+# effect = """\
+# You can reveal this card in your hand, then target 1 face-up monster you control; \
+#     Destroy it, and if you do, Special Summon this card from your hand or 1 "Yubel" from your hand or Deck. \
+# (Quick Effect): You can banish this card from your GY, then target 1 Fiend monster you control; \
+#     Destroy it, and if you do, you can draw 1 card. \
+# You can only use each effect of "{CARD_NAME}" once per turn.
+# """
+# strings = [
+#     "Special Summon this card",
+#     "Special Summon \"Yubel\"",
+#     "Draw 1 card?",
+# ]
