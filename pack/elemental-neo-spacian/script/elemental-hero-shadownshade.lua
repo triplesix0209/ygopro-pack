@@ -26,9 +26,9 @@ function s.initial_effect(c)
     e2:SetRange(LOCATION_GRAVE)
     e2:SetCondition(function(e) return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(), 69832741) end)
     e2:SetOperation(Fusion.BanishMaterial)
-    e2:SetValue(function(e, c) return c:IsSetCard(SET_HERO) end)
+    e2:SetValue(function(e, c) return c:IsSetCard(SET_HERO) and c:IsType(TYPE_FUSION) end)
     c:RegisterEffect(e2)
-    
+
     -- gain effect
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
