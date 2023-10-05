@@ -55,16 +55,16 @@ level = 12
 atk = 2500
 def = 2500
 effect = """\
-1 Level 7 "Neos" monster + 4+ "Neo-Spacian" monsters with different Attributes
-Must be Fusion Summoned with the above Fusion Materials. \
+"Elemental HERO Neos" + 4+ "Neo-Spacian" monsters with different Attributes
+Must be Fusion Summoned with the above materials. \
 This card's Fusion Summon cannot be negated. \
 Your opponent cannot Tribute this card, nor use it as material for an Summon. \
-Fusion Monsters that lists "Elemental HERO Neos" as material do not have to activate their effects during the End Phase \
-    that shuffle them into the Extra Deck. \
+Fusion Monsters that lists "Elemental HERO Neos" as material \
+    do not have to activate their effects during the End Phase that shuffle them into the Extra Deck. \
 The above effects cannot be negated nor be copied. \
 If this card is Fusion Summoned: \
     You can banish any number of Level 7 or lower "Neo-Spacian" monster or Fusion Monster that lists "Elemental HERO Neos" as material \
-    from your GY and/or Extra Deck, up to the number of material used for its Summon, \
+    from your GY and/or Extra Deck, up to the number of material used for this card's Fusion Summon, \
     and if you do, this card gains monster's effect and 500 original ATK/DEF for each banished monster. \
     Your opponent cannot activate cards or effects in response to this effect's activation. \
 If this card is Fusion Summoned using 6 or more "Neo-Spacian" monsters, \
@@ -368,8 +368,7 @@ name = "Favorite Fusion"
 set = "favorite fusion"
 type = "spell"
 effect = """\
-Fusion Summon from your Extra Deck, \
-    1 Fusion Monster that mentions a "HERO" monster as material, \
+Fusion Summon 1 "Elemental HERO" Fusion Monster from your Extra Deck, \
     using "HERO" monsters from your hand or Deck as Fusion Material, \
     also for the rest of this turn after this card resolves, \
     you cannot Special Summon monsters, except "HERO" monsters. \
