@@ -8,7 +8,7 @@ function s.initial_effect(c)
     -- activate
     local e1 = Fusion.CreateSummonEff({
         handler = c,
-        fusfilter = aux.FilterBoolFunction(Card.IsSetCard, SET_ELEMENTAL_HERO),
+        fusfilter = aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial, SET_ELEMENTAL_HERO),
         matfilter = Fusion.MatInHand,
         extrafil = s.e1extrafil,
         extratg = s.e1extratg,
