@@ -217,11 +217,11 @@ When this card is Normal or Special Summoned: \
 """
 strings = []
 
-[elemental-hero-wingedman]
+[elemental-hero-wingman]
 id = 900002109
 alias = 21844576
-name = "Elemental HERO Wingedman"
-set = "elemental-hero"
+name = "Elemental HERO Wingman"
+set = "elemental-hero wingman"
 type = "monster effect"
 attribute = "wind"
 race = "warrior"
@@ -231,8 +231,13 @@ def = 1000
 effect = """\
 (This card's name is always treated as "Elemental HERO Avian".)
 This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+If this card is in your hand or GY: You can discard 1 other "HERO" monster; \
+    Special Summon this card, but banish it when it leaves the field. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+A "Elemental HERO" Fusion Monster that was Special Summoned using this card gains these effects.
+● This card gains 400 ATK.
 """
-strings = []
+strings = ["Summoned using \"{CARD_NAME}\""]
 
 [elemental-hero-blazinatrix]
 id = 900002110
@@ -247,9 +252,18 @@ atk = 1200
 def = 800
 effect = """\
 (This card's name is always treated as "Elemental HERO Burstinatrix".)
-This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
+You can return this card you control to your hand; \
+    Special Summon 1 "HERO" monster from your hand or GY, \
+    except "Elemental HERO Burstinatrix". \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+A "Elemental HERO" Fusion Monster that was Special Summoned using this card gains these effects.
+● This card can attack all monsters your opponent controls, once each.
 """
-strings = []
+strings = [
+    "Summoned using \"{CARD_NAME}\"",
+    "Special Summon 1 \"HERO\" monster from your hand or GY",
+]
 
 [elemental-hero-boulderman]
 id = 900002111
@@ -264,7 +278,7 @@ atk = 800
 def = 2000
 effect = """\
 (This card's name is always treated as "Elemental HERO Clayman".)
-This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 """
 strings = []
 
@@ -281,7 +295,7 @@ atk = 1600
 def = 1400
 effect = """\
 (This card's name is always treated as "Elemental HERO Sparkman".)
-This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 """
 strings = []
 
@@ -298,7 +312,7 @@ atk = 800
 def = 1200
 effect = """\
 (This card's name is always treated as "Elemental HERO Bubbleman".)
-This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 """
 strings = []
 
@@ -315,7 +329,7 @@ atk = 1600
 def = 1800
 effect = """\
 (This card's name is always treated as "Elemental HERO Necroshade".)
-This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 """
 strings = []
 
