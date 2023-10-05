@@ -3,6 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
+s.listed_series = {SET_NEO_SPACIAN}
 s.material_setcode = {SET_NEOS, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
@@ -97,7 +98,10 @@ function s.matcheck(e, c)
     end
 end
 
-function s.e2filter(c) return c:IsLevel(7) and c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS) and c:IsAbleToRemove() end
+function s.e2filter(c)
+    if not c:IsAbleToRemove() or not aux.SpElimFilter(c, true) or not c:IsLevelBelow(7) then return false end
+    return c:IsSetCard(SET_NEO_SPACIAN) or (c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS))
+end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
 
