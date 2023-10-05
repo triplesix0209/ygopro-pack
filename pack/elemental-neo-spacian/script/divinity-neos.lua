@@ -99,7 +99,8 @@ function s.matcheck(e, c)
 end
 
 function s.e2filter(c)
-    if not c:IsAbleToRemove() or not aux.SpElimFilter(c, true) or not c:IsLevelBelow(7) then return false end
+    if not c:IsAbleToRemove() or (c:IsLocation(LOCATION_GRAVE) and not aux.SpElimFilter(c, true)) then return false end
+    if not c:IsLevelBelow(7) then return false end
     return c:IsSetCard(SET_NEO_SPACIAN) or (c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS))
 end
 
