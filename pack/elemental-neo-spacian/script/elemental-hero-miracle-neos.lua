@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
-s.listed_series = {SET_NEO_SPACIAN}
+s.listed_series = {SET_NEO_SPACIAN, SET_NEOS}
 s.material_setcode = {SET_NEOS, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
@@ -101,11 +101,10 @@ end
 
 function s.e1filter(c)
     if not c:IsAbleToRemove() or (c:IsLocation(LOCATION_GRAVE) and not aux.SpElimFilter(c, true)) then return false end
-    if not c:IsLevelBelow(7) then return false end
-    return c:IsSetCard(SET_NEO_SPACIAN) or (c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS))
+    return c:IsSetCard(SET_NEO_SPACIAN) or (c:IsLevel(7) and c:IsType(TYPE_FUSION) and c:ListsCodeAsMaterial(CARD_NEOS))
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
