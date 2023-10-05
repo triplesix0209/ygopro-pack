@@ -9,7 +9,7 @@ function s.initial_effect(c)
     local e1 = Fusion.CreateSummonEff({
         handler = c,
         fusfilter = aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial, SET_HERO),
-        matfilter = Fusion.MatInHand,
+        matfilter = s.e1matfilter,
         extrafil = s.e1extrafil,
         extratg = s.e1extratg,
         stage2 = s.e1stage2
@@ -18,11 +18,15 @@ function s.initial_effect(c)
     c:RegisterEffect(e1)
 end
 
-function s.e1extrafil(e, tp, mg) return Duel.GetMatchingGroup(Fusion.IsMonsterFilter(Card.IsAbleToGrave), tp, LOCATION_DECK, 0, nil), s.fcheck end
+function s.e1fusfilter(c) return c:IsSetCard(SET_HERO) and c:IsAbleToGrave() end
+
+function s.e1matfilter(c) return c:IsLocation(LOCATION_HAND) and s.e1fusfilter(c) end
+
+function s.e1extrafil(e, tp, mg) return Duel.GetMatchingGroup(Fusion.IsMonsterFilter(s.e1fusfilter), tp, LOCATION_DECK, 0, nil), s.fcheck end
 
 function s.e1extratg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
-    Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 0, tp, LOCATION_HAND + LOCATION_ONFIELD + LOCATION_DECK)
+    Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 0, tp, LOCATION_HAND + LOCATION_DECK)
 end
 
 function s.e1stage2(e, tc, tp, mg, chk)
