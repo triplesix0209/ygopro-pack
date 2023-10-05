@@ -36,8 +36,8 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e3:SetProperty(EFFECT_FLAG_EVENT_PLAYER + EFFECT_FLAG_CANNOT_DISABLE)
     e3:SetCode(EVENT_BE_MATERIAL)
-    e3:SetCondition(s.e3effcon)
-    e3:SetOperation(s.e3effop)
+    e3:SetCondition(s.e3con)
+    e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 end
 
@@ -51,28 +51,26 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-                   Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_GRAVE, 0, 1, nil, e, tp)
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND, 0, 1, nil, e, tp)
     end
 
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e2filter), tp, LOCATION_HAND + LOCATION_GRAVE, 0, 1, 1, nil, e,
-        tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter, tp, LOCATION_HAND, 0, 1, 1, nil, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 
-function s.e3efffilter(c) return c:IsType(TYPE_FUSION) and c:IsSetCard(SET_ELEMENTAL_HERO) end
+function s.e3filter(c) return c:IsType(TYPE_FUSION) and c:IsSetCard(SET_ELEMENTAL_HERO) end
 
-function s.e3effcon(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3efffilter, 1, nil) end
+function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3filter, 1, nil) end
 
-function s.e3effop(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = eg:Filter(s.e3efffilter, nil, SET_HERO):GetFirst()
+    local tc = eg:Filter(s.e3filter, nil, SET_HERO):GetFirst()
     if not tc then return end
 
     tc:RegisterFlagEffect(0, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 0))

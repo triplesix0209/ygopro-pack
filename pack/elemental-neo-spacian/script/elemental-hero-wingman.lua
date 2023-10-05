@@ -18,7 +18,7 @@ function s.initial_effect(c)
     e1b:SetValue(TYPE_EFFECT)
     c:RegisterEffect(e1b)
 
-    -- special summon itself from hand or GY
+    -- special summon itself
     local e2 = Effect.CreateEffect(c)
     e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_IGNITION)
@@ -34,8 +34,8 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e3:SetProperty(EFFECT_FLAG_EVENT_PLAYER + EFFECT_FLAG_CANNOT_DISABLE)
     e3:SetCode(EVENT_BE_MATERIAL)
-    e3:SetCondition(s.e3effcon)
-    e3:SetOperation(s.e3effop)
+    e3:SetCondition(s.e3con)
+    e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 end
 
@@ -44,7 +44,7 @@ function s.e2filter(c) return c:IsSetCard(SET_HERO) and c:IsDiscardable() end
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND, 0, 1, c) end
-    Duel.DiscardHand(tp, s.e2filter, 1, 1, REASON_COST + REASON_DISCARD)
+    Duel.DiscardHand(tp, s.e2filter, 1, 1, REASON_COST + REASON_DISCARD, c)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -68,13 +68,13 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3efffilter(c) return c:IsType(TYPE_FUSION) and c:IsSetCard(SET_ELEMENTAL_HERO) end
+function s.e3filter(c) return c:IsType(TYPE_FUSION) and c:IsSetCard(SET_ELEMENTAL_HERO) end
 
-function s.e3effcon(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3efffilter, 1, nil) end
+function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3filter, 1, nil) end
 
-function s.e3effop(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = eg:Filter(s.e3efffilter, nil, SET_HERO):GetFirst()
+    local tc = eg:Filter(s.e3filter, nil, SET_HERO):GetFirst()
     if not tc then return end
 
     tc:RegisterFlagEffect(0, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 0))

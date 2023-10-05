@@ -254,15 +254,14 @@ effect = """\
 (This card's name is always treated as "Elemental HERO Burstinatrix".)
 This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 You can return this card you control to your hand; \
-    Special Summon 1 "HERO" monster from your hand or GY, \
-    except "Elemental HERO Burstinatrix". \
+    Special Summon 1 "HERO" monster from your hand, except "Elemental HERO Burstinatrix". \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 A "Elemental HERO" Fusion Monster that was Special Summoned using this card gains these effects.
 ● This card can attack all monsters your opponent controls, once each.
 """
 strings = [
     "Summoned using \"{CARD_NAME}\"",
-    "Special Summon 1 \"HERO\" monster from your hand or GY",
+    "Return to hand & Special Summon 1 \"HERO\" monster from your hand",
 ]
 
 [elemental-hero-boulderman]
@@ -279,8 +278,17 @@ def = 2000
 effect = """\
 (This card's name is always treated as "Elemental HERO Clayman".)
 This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
+(Quick Effect): You can discard this card; \
+    until the end of this turn, "HERO" monsters you control cannot be destroyed by battle. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+A "Elemental HERO" Fusion Monster that was Special Summoned using this card gains these effects.
+● Once per turn (Quick Effect): You can target 1 monster your opponent controls; it loses 800 ATK and DEF.
 """
-strings = []
+strings = [
+    "Summoned using \"{CARD_NAME}\"",
+    "Affected by effect \"{CARD_NAME}\": \"HERO\" monsters you control cannot be destroyed by battle",
+    "Make 1 monster your opponent controls loses 800 ATK and DEF",
+]
 
 [elemental-hero-thunderman]
 id = 900002112
@@ -296,8 +304,18 @@ def = 1400
 effect = """\
 (This card's name is always treated as "Elemental HERO Sparkman".)
 This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
+You can Tribute this card; Special Summon 1 of your banished "HERO" monsters. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+A "Elemental HERO" Fusion Monster that was Special Summoned using this card gains these effects.
+● Once per turn, if this card battles a monster, during damage calculation: \
+    You can make this card gains ATK equal to half the ATK of the opponent's monster it is battling \
+    during that damage calculation only.
 """
-strings = []
+strings = [
+    "Summoned using \"{CARD_NAME}\"",
+    "Tribute itself & Special Summon 1 banished \"HERO\" monsters",
+    "Make this card gains ATK equal to half the ATK of the opponent's monster it is battling",
+]
 
 [elemental-hero-aquaman]
 id = 900002113
@@ -314,7 +332,7 @@ effect = """\
 (This card's name is always treated as "Elemental HERO Bubbleman".)
 This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 """
-strings = []
+strings = ["Summoned using \"{CARD_NAME}\""]
 
 [elemental-hero-shadownshade]
 id = 900002114
@@ -331,7 +349,7 @@ effect = """\
 (This card's name is always treated as "Elemental HERO Necroshade".)
 This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
 """
-strings = []
+strings = ["Summoned using \"{CARD_NAME}\""]
 
 [favorite-fusion]
 id = 900002115
