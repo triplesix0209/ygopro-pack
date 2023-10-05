@@ -217,10 +217,112 @@ When this card is Normal or Special Summoned: \
 """
 strings = []
 
+[elemental-hero-wingedman]
+id = 900002109
+alias = 21844576
+name = "Elemental HERO Wingedman"
+set = "elemental-hero"
+type = "monster effect"
+attribute = "wind"
+race = "warrior"
+level = 3
+atk = 1000
+def = 1000
+effect = """\
+(This card's name is always treated as "Elemental HERO Avian".)
+This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+"""
+strings = []
+
+[elemental-hero-blazinatrix]
+id = 900002110
+alias = 58932615
+name = "Elemental HERO Blazinatrix"
+set = "elemental-hero"
+type = "monster effect"
+attribute = "fire"
+race = "warrior"
+level = 3
+atk = 1200
+def = 800
+effect = """\
+(This card's name is always treated as "Elemental HERO Burstinatrix".)
+This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+"""
+strings = []
+
+[elemental-hero-boulderman]
+id = 900002111
+alias = 84327329
+name = "Elemental HERO Boulderman"
+set = "elemental-hero"
+type = "monster effect"
+attribute = "earth"
+race = "warrior"
+level = 4
+atk = 800
+def = 2000
+effect = """\
+(This card's name is always treated as "Elemental HERO Clayman".)
+This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+"""
+strings = []
+
+[elemental-hero-thunderman]
+id = 900002112
+alias = 20721928
+name = "Elemental HERO Thunderman"
+set = "elemental-hero"
+type = "monster effect"
+attribute = "light"
+race = "warrior"
+level = 4
+atk = 1600
+def = 1400
+effect = """\
+(This card's name is always treated as "Elemental HERO Sparkman".)
+This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+"""
+strings = []
+
+[elemental-hero-aquaman]
+id = 900002113
+alias = 79979666
+name = "Elemental HERO Aquaman"
+set = "elemental-hero"
+type = "monster effect"
+attribute = "water"
+race = "warrior"
+level = 4
+atk = 800
+def = 1200
+effect = """\
+(This card's name is always treated as "Elemental HERO Bubbleman".)
+This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+"""
+strings = []
+
+[elemental-hero-shadownshade]
+id = 900002114
+alias = 89252153
+name = "Elemental HERO Shadownshade"
+set = "elemental-hero"
+type = "monster effect"
+attribute = "dark"
+race = "warrior"
+level = 5
+atk = 1600
+def = 1800
+effect = """\
+(This card's name is always treated as "Elemental HERO Necroshade".)
+This card is treated as a Normal Monster while face-up on the field or in the hand or GY. \
+"""
+strings = []
+
 [favorite-fusion]
 id = 900002115
-set = "favorite fusion"
 name = "Favorite Fusion"
+set = "favorite fusion"
 type = "spell"
 effect = """\
 Fusion Summon 1 "Elemental HERO" Fusion Monster from your Extra Deck, \
@@ -251,8 +353,8 @@ strings = []
 
 [clash-of-favorites]
 id = 900002117
-set = "favorite"
 name = "Clash of Favorites"
+set = "favorite"
 type = "trap"
 effect = """\
 Special Summon from your hand or Deck to either player's field in Attack Position, \
@@ -269,8 +371,8 @@ strings = ["Special Summon to your field", "Special Summon to opponent's field"]
 
 [favorite-soul]
 id = 900002118
-set = "favorite"
 name = "Favorite Soul"
+set = "favorite"
 type = "trap continuous"
 effect = """\
 "Elemental HERO Neos" and all Fusion Monsters that lists it as material you control gain 500 ATK. \
