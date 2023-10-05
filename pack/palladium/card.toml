@@ -217,7 +217,7 @@ If you control no monsters, or your opponent controls a monster with 2000 or mor
 If this card attacks a monster, before damage calculation: \
     You can change the battle position of that monster. \
 When you Ritual or Fusion Summon a "Palladium" monster, \
-    you can banish this card from your GY as 1 of materials. \
+    you can banish this card from your GY as materials. \
 """
 strings = ["Change battle position of battling monster"]
 
