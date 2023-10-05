@@ -89,9 +89,10 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     ec1:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
     ec1:SetCountLimit(1)
-    ec1:SetCondition(s.e3con)
-    ec1:SetOperation(s.e3op)
-    c:RegisterEffect(ec1)
+    ec1:SetCondition(s.e3effcon)
+    ec1:SetOperation(s.e3effop)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+    tc:RegisterEffect(ec1, true)
 end
 
 function s.e3effcon(e, tp, eg, ep, ev, re, r, rp)

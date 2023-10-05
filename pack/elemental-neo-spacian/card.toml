@@ -331,6 +331,10 @@ def = 1200
 effect = """\
 (This card's name is always treated as "Elemental HERO Bubbleman".)
 This card is treated as a Normal Monster while face-up on the field or in the hand, GY. \
+If this card is Special Summoned by the effect of a "HERO" monster: You can draw 1 card. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+A "Elemental HERO" Fusion Monster that was Special Summoned using this card gains these effects.
+● Your opponent cannot target this card with monster effects.
 """
 strings = ["Summoned using \"{CARD_NAME}\""]
 
