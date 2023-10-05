@@ -130,8 +130,8 @@ You can only activate 1 "Opening of the Spirit Gates" per turn. \
 """
 strings = [
     "Search card mentions Sacred Beast",
-    "Special Summon 1 Fiend monster with 0 ATK/DEF",
-    "Return 1 Continuous Spell from GY to hand",
+    "Special Summon a Fiend monster with 0 ATK/DEF",
+    "Add Continuous Spell from GY to hand",
 ]
 
 [awakening-of-the-sacred-beasts]
@@ -152,7 +152,7 @@ This card gains these effects based on the number of \
 Once per your turn, if you control a Level 10 monster: \
     You can add 1 Continuous Trap from your GY to your hand. \
 """
-strings = ["Return 1 Continuous Trap from GY to hand"]
+strings = ["Add Continuous Trap from GY to hand"]
 
 [hyper-blaze]
 id = 16317140

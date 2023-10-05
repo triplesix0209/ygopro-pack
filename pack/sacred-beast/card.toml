@@ -27,7 +27,7 @@ This card gains these effects based on the number of \
 strings = [
     "Add card that mentions Sacred Beast?",
     "Draw 2 card",
-    "Attach 1 Continuous Spell/Trap to this card",
+    "Attach Continuous Spell/Trap & gain effects",
 ]
 
 [raviel]
