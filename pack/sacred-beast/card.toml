@@ -1,7 +1,7 @@
-[the-eye-of-nightmare]
+[the-seed-of-fallen-paradise]
 id = 900002000
 alias = 13301895
-name = "The Eye of Nightmare"
+name = "The Seed of Fallen Paradise"
 type = "spell field"
 effect = """
 (This card's name is always treated as "Fallen Paradise".)
