@@ -89,12 +89,12 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2tg1(e, c) return c:IsFaceup() and c:IsCode(6007213, 32491822, 69890967, 43378048) end
+function s.e2tg1(e, c) return c:IsFaceup() and (c == e:GetHandler() or c:IsCode(6007213, 32491822, 69890967, 43378048)) end
 
 function s.e2tg2(e, c, rp, r, re)
     local tp = e:GetHandlerPlayer()
-    return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and rp == 1 - tp and r == REASON_EFFECT and
-               c:IsCode(6007213, 32491822, 69890967, 43378048)
+    return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and rp == 1 - tp and r == REASON_EFFECT and
+               (c == e:GetHandler() or c:IsCode(6007213, 32491822, 69890967, 43378048))
 end
 
 function s.e2val(e, re, rp) return rp == 1 - e:GetHandlerPlayer() end
@@ -119,7 +119,10 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Draw(p, d, REASON_EFFECT)
 end
 
-function s.e6filter(c, og) return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) end
+function s.e6filter(c, og)
+    return c:IsFaceup() and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) and c:IsType(TYPE_CONTINUOUS) and
+               c:ListsCode(6007213, 32491822, 69890967)
+end
 
 function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
