@@ -16,7 +16,7 @@ function s.initial_effect(c)
     -- activation and effect cannot be negated
     local nonegate = Effect.CreateEffect(c)
     nonegate:SetType(EFFECT_TYPE_FIELD)
-    nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
     nonegate:SetCode(EFFECT_CANNOT_INACTIVATE)
     nonegate:SetRange(LOCATION_ONFIELD)
     nonegate:SetTargetRange(1, 0)
@@ -176,7 +176,9 @@ function s.e5filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
 
 function s.e5con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsTurnPlayer(tp) end
 
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc) if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_DECK, 0, 1, nil) end end
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_DECK, 0, 1, nil) end
+end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()

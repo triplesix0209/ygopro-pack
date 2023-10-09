@@ -16,7 +16,7 @@ function s.initial_effect(c)
     -- activation and effect cannot be negated
     local nonegate = Effect.CreateEffect(c)
     nonegate:SetType(EFFECT_TYPE_FIELD)
-    nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    nonegate:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
     nonegate:SetCode(EFFECT_CANNOT_INACTIVATE)
     nonegate:SetRange(LOCATION_ONFIELD)
     nonegate:SetTargetRange(1, 0)
