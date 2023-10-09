@@ -83,11 +83,11 @@ end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local d = Duel.GetAttackTarget()
-    if chk == 0 then return Duel.GetAttacker() == e:GetHandler() and d and d:IsDefensePos() and d:IsRelateToBattle() end
+    if chk == 0 then return Duel.GetAttacker() == e:GetHandler() and d and d:IsAttack(0) and d:IsRelateToBattle() end
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, d, 1, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local d = Duel.GetAttackTarget()
-    if d ~= nil and d:IsRelateToBattle() and d:IsDefensePos() then Duel.Destroy(d, REASON_EFFECT) end
+    if d ~= nil and d:IsRelateToBattle() and d:IsAttack(0) then Duel.Destroy(d, REASON_EFFECT) end
 end
