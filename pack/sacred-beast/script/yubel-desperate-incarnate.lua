@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {78371393, 31764700}
+s.listed_names = {CARD_YUBEL, 31764700}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -64,7 +64,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.e1filter(c) return c:IsAbleToHand() and not c:IsCode(id) and (c:IsCode(78371393) or c:ListsCode(78371393)) end
+function s.e1filter(c) return c:IsAbleToHand() and not c:IsCode(id) and (c:IsCode(CARD_YUBEL) or c:ListsCode(CARD_YUBEL)) end
 
 function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()

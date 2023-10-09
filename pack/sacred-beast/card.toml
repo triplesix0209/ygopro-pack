@@ -19,7 +19,7 @@ This card gains these effects based on the number of \
 ● 1+: Once per turn: You can draw 2 cards.
 ● 2+: Once per turn: You can activate a Continuous Trap from your hand or the turn it was Set.
 ● 3+: Once per turn: You can target 1 face-up Continuous Spell/Trap on your field or in your GY, \
-    that mentions "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms", \
+    that mentions "Yubel", "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms", \
     with a different name from the cards attached to this card; \
     attach it to this card and if you do this card gains that card's effects.
 """
@@ -157,3 +157,31 @@ strings = [
     "Special Summon it?",
     "Give control to your opponent",
 ]
+
+[yubel-desperate-incarnate]
+id = 900002005
+alias = 4779091
+name = "Yubel - Desperate Incarnate"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 11
+atk = 0
+def = 0
+effect = """\
+(This card's name is always treated as "Yubel - Terror Incarnate".)
+Cannot be Normal Summoned/Set. \
+Must be Special Summoned by "Yubel". \
+You can discard this card; add 1 "Yubel", or 1 card that mentions it, \
+    from your Deck to your hand, except "{CARD_NAME}". \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Cannot be destroyed by battle, also you take no damage from battles involving this card. \
+At the end of the Damage Step, if this face-up Attack Position card battles an opponent's monster: \
+    Inflict damage to your opponent equal to that monster's ATK, also destroy 1 other card on the field. \
+When this face-up card leaves the field: \
+    You can Special Summon 1 "Yubel - The Ultimate Nightmare", \
+    or 1 Fusion Monster that mentions it as material, \
+    from your hand, Deck, GY or Extra Deck. ignoring its Summoning conditions. \
+    (This is treated as a Fusion Summon, if able.) \
+"""
+strings = ["Inflict damage & destroy 1 card on the field"]

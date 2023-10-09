@@ -1,7 +1,7 @@
 -- The Seed of Fallen Paradise
 Duel.LoadScript("util.lua")
 local s, id = GetID()
-s.listed_names = {6007213, 32491822, 69890967, 43378048}
+s.listed_names = {CARD_YUBEL, 6007213, 32491822, 69890967, 43378048}
 
 function s.initial_effect(c)
     -- activate
@@ -121,7 +121,7 @@ end
 
 function s.e6filter(c, og)
     return c:IsFaceup() and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) and c:IsType(TYPE_CONTINUOUS) and
-               c:ListsCode(6007213, 32491822, 69890967)
+               c:ListsCode(CARD_YUBEL, 6007213, 32491822, 69890967)
 end
 
 function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
