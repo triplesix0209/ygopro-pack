@@ -28,7 +28,7 @@ function s.initial_effect(c)
     e1b:SetValue(s.e1tg)
     c:RegisterEffect(e1b)
 
-    -- atk down & indes
+    -- atk down
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_ATKCHANGE)
@@ -44,13 +44,12 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2, false, REGISTER_FLAG_DETACH_XMAT)
 
-    -- send to gy
+    -- damage
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetCategory(CATEGORY_TOGRAVE)
-    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3:SetCode(EVENT_DAMAGE_STEP_END)
-    e3:SetCondition(s.e3con)
+    e3:SetCategory(CATEGORY_DAMAGE)
+    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
+    e3:SetCode(EVENT_BATTLE_DESTROYING)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -84,32 +83,21 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetValue(0)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         tc:RegisterEffect(ec1)
-
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetDescription(3000)
-        ec2:SetType(EFFECT_TYPE_SINGLE)
-        ec2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
-        ec2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-        ec2:SetValue(1)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        tc:RegisterEffect(ec2)
     end
 end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    e:SetLabelObject(bc)
-
-    return c == Duel.GetAttacker() and bc and c:IsStatus(STATUS_OPPO_BATTLE) and bc:IsOnField() and bc:IsRelateToBattle()
-end
-
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return e:GetLabelObject():IsAbleToRemove() end
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, e:GetLabelObject(), 1, 0, 0)
+    if chk == 0 then return true end
+    local bc = e:GetHandler():GetBattleTarget()
+    local atk = bc:GetBaseAttack()
+    if atk < 0 then atk = 0 end
+
+    Duel.SetTargetPlayer(1 - tp)
+    Duel.SetTargetParam(atk)
+    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, atk)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local bc = e:GetLabelObject()
-    if bc:IsRelateToBattle() then Duel.SendtoGrave(bc, REASON_EFFECT) end
+    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
+    Duel.Damage(p, d, REASON_EFFECT)
 end

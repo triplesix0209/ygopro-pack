@@ -15,12 +15,11 @@ While you control a Link Monster, \
     also your opponent cannot target monsters you control with card effects, except this one. \
 Once per turn (Quick Effect): You can detach 1 material from this card, \
     then target 1 face-up monster on the field; \
-    until the end of this turn, change its ATK to 0, also it cannot be destroyed by battle. \
-At the end of the Damage Step, when this card attacks an opponent's monster, \
-    but the opponent's monster was not destroyed by the battle: \
-    You can send that monster to the GY. \
+    until the end of this turn, change its ATK to 0. \
+If this card destroys an opponent's monster by battle: \
+    Inflict damage to your opponent equal to the destroyed monster's original ATK. \
 """
 strings = [
-    "Make 1 monster ATK become 0 and cannot be destroyed by battle",
-    "Send the battled monster to the GY",
+    "Make 1 monster ATK become 0",
+    "Inflict damage equal to the destroyed monster's original ATK",
 ]
