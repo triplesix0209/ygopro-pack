@@ -2,18 +2,16 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {31764700, 43378048, 900002008}
-s.material_setcode = {0x145}
-
-local PHANTASMAL_NIGHTMARE_TOKEN = 900002008
+local PHANTASMAL_NIGHTMARE_TOKEN = 900002007
+s.listed_names = {31764700, 43378048, PHANTASMAL_NIGHTMARE_TOKEN}
+s.material_setcode = {SET_YUBEL, 0x145}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, false, false, 31764700, function(c, fc, sumtype, tp)
-        return c:IsType(TYPE_FUSION, fc, sumtype, tp) and c:IsSetCard(0x145, fc, sumtype, tp)
-    end)
+    Fusion.AddProcMix(c, false, false, 31764700,
+        function(c, fc, sumtype, tp) return c:IsType(TYPE_FUSION, fc, sumtype, tp) and c:IsSetCard(0x145, fc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -79,7 +77,7 @@ function s.initial_effect(c)
     e1:SetValue(1)
     c:RegisterEffect(e1)
 
-    -- destroy
+    -- banish battle
     local e2reg = Effect.CreateEffect(c)
     e2reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e2reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -88,7 +86,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_DESTROY)
+    e2:SetCategory(CATEGORY_REMOVE)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_F)
     e2:SetCode(EVENT_DAMAGE_STEP_END)
     e2:SetTarget(s.e2tg)
@@ -96,7 +94,7 @@ function s.initial_effect(c)
     e2:SetLabelObject(e2reg)
     c:RegisterEffect(e2)
 
-    -- banish & special summon token
+    -- banish effect & special summon token
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_REMOVE + CATEGORY_SPECIAL_SUMMON + CATEGORY_TOKEN)
@@ -105,6 +103,7 @@ function s.initial_effect(c)
     e3:SetRange(LOCATION_MZONE)
     e3:SetHintTiming(0, TIMINGS_CHECK_MONSTER)
     e3:SetCountLimit(1)
+    e3:SetCost(s.e3cost)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -124,15 +123,28 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local bc = e:GetLabelObject():GetLabelObject()
     if chk == 0 then return bc end
 
-    if bc:IsRelateToBattle() then Duel.SetOperationInfo(0, CATEGORY_DESTROY, bc, 1, 0, 0) end
+    if bc:IsRelateToBattle() then Duel.SetOperationInfo(0, CATEGORY_REMOVE, bc, 1, 0, 0) end
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local bc = e:GetLabelObject():GetLabelObject()
-    if bc:IsRelateToBattle() then Duel.Destroy(bc, REASON_EFFECT) end
+    if bc:IsRelateToBattle() then Duel.Remove(bc, POS_FACEUP, REASON_EFFECT) end
 end
 
 function s.e3filter(c) return c:IsFaceup() and c:IsAbleToRemove() end
+
+function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(3206)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
+end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then return Duel.IsExistingTarget(s.e3filter, tp, 0, LOCATION_MZONE, 1, nil) end
