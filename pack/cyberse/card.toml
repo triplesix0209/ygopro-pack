@@ -13,7 +13,8 @@ effect = """\
 While you control a Link Monster, \
     monsters your opponent controls cannot target monsters you control for attacks, except this one, \
     also your opponent cannot target monsters you control with card effects, except this one. \
-Once per turn: You can detach 1 material from this card, then target 1 face-up monster your opponent controls; \
+Once per turn (Quick Effect): You can detach 1 material from this card, \
+    then target 1 face-up monster your opponent controls; \
     Its ATK becomes 0. \
 If this card attacks a monster with 0 ATK your opponent controls, \
     before damage calculation: You can destroy that monster. \
