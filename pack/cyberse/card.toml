@@ -1,0 +1,21 @@
+[cyberse-digital-dragon]
+id = 900006001
+set = "cyber"
+name = "Cyberse Digital Dragon"
+type = "monster xyz effect"
+attribute = "dark"
+race = "cyberse"
+level = 4
+atk = 2500
+def = 2000
+effect = """\
+2 Level 4 monsters
+While you control a Link Monster, \
+    monsters your opponent controls cannot target monsters you control for attacks, except this one, \
+    also your opponent cannot target monsters you control with card effects, except this one. \
+Once per turn: You can detach 1 material from this card, then target 1 face-up monster your opponent controls; \
+    Its ATK becomes 0. \
+If this card attacks a monster with 0 ATK your opponent controls, \
+    before damage calculation: You can destroy that monster. \
+"""
+strings = ["Make 1 monster ATK become 0", "Destroy the battling monster"]
