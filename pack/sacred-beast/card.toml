@@ -189,8 +189,8 @@ strings = ["Inflict damage & destroy 1 card on the field"]
 [yubel-ultimate-phantasmal-nightmare]
 id = 900002006
 rarity = "gold"
-set = "phantasm"
-name = "Yubel - The Ultimate Phantasmal Nightmare"
+name = "The Ultimate Phantasmal Nightmare"
+set = "yubel phantasm"
 type = "monster fusion effect"
 attribute = "dark"
 race = "fiend"
