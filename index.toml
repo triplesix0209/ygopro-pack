@@ -16,7 +16,7 @@ packs = [
 skip_compile_packs = [
     "./pack/_update",
     "./pack/divine-god",
-    # "./pack/sacred-beast",
+    "./pack/sacred-beast",
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/elemental-neos",
