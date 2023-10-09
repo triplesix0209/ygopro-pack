@@ -15,33 +15,24 @@ function s.initial_effect(c)
 
     -- immune
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetCode(EFFECT_IMMUNE_EFFECT)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e2:SetRange(LOCATION_FZONE)
-    e2:SetValue(function(e, te) return te:GetOwnerPlayer() ~= e:GetHandlerPlayer() and te:IsActivated() end)
+    e2:SetTargetRange(LOCATION_ONFIELD, 0)
+    e2:SetTarget(s.e2tg1)
+    e2:SetValue(aux.tgoval)
     c:RegisterEffect(e2)
-
-    -- protect sacred beasts
-    local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD)
-    e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-    e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e3:SetRange(LOCATION_FZONE)
-    e3:SetTargetRange(LOCATION_MZONE, 0)
-    e3:SetTarget(s.e3tg1)
-    e3:SetValue(aux.tgoval)
-    c:RegisterEffect(e3)
-    local e3b = e3:Clone()
-    e3b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    e3b:SetValue(s.e3val)
-    c:RegisterEffect(e3b)
-    local e3c = e3:Clone()
-    e3c:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_PLAYER_TARGET)
-    e3c:SetCode(EFFECT_CANNOT_REMOVE)
-    e3c:SetTargetRange(1, 1)
-    e3c:SetTarget(s.e3tg2)
-    c:RegisterEffect(e3c)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e2b:SetValue(s.e2val)
+    c:RegisterEffect(e2b)
+    local e2c = e2:Clone()
+    e2c:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_PLAYER_TARGET)
+    e2c:SetCode(EFFECT_CANNOT_REMOVE)
+    e2c:SetTargetRange(1, 1)
+    e2c:SetTarget(s.e2tg2)
+    c:RegisterEffect(e2c)
 
     -- draw
     local e4 = Effect.CreateEffect(c)
@@ -98,16 +89,15 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3tg1(e, c) return c:IsFaceup() and c:IsCode(6007213, 32491822, 69890967, 43378048) end
+function s.e2tg1(e, c) return c:IsFaceup() and (c == e:GetHandler() or c:IsCode(6007213, 32491822, 69890967, 43378048)) end
 
-function s.e3tg2(e, c, rp, r, re)
+function s.e2tg2(e, c, rp, r, re)
     local tp = e:GetHandlerPlayer()
-    return
-        c:IsFaceup() and c:IsCode(6007213, 32491822, 69890967, 43378048) and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and rp == 1 - tp and r ==
-            REASON_EFFECT
+    return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and rp == 1 - tp and r == REASON_EFFECT and
+               (c == e:GetHandler() or c:IsCode(6007213, 32491822, 69890967, 43378048))
 end
 
-function s.e3val(e, re, rp) return rp == 1 - e:GetHandlerPlayer() end
+function s.e2val(e, re, rp) return rp == 1 - e:GetHandlerPlayer() end
 
 function s.sbfilter(c) return c:IsFaceup() and c:IsCode(6007213, 32491822, 69890967) end
 
