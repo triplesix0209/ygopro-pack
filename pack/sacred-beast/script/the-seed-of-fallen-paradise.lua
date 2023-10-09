@@ -93,7 +93,7 @@ function s.e2tg1(e, c) return c:IsFaceup() and c:IsCode(6007213, 32491822, 69890
 
 function s.e2tg2(e, c, rp, r, re)
     local tp = e:GetHandlerPlayer()
-    return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and rp == 1 - tp and r == REASON_EFFECT and
+    return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and rp == 1 - tp and r == REASON_EFFECT and
                c:IsCode(6007213, 32491822, 69890967, 43378048)
 end
 
