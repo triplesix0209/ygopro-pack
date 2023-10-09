@@ -28,7 +28,7 @@ function s.initial_effect(c)
     e1b:SetValue(s.e1tg)
     c:RegisterEffect(e1b)
 
-    -- atk down
+    -- atk down & indes
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_ATKCHANGE)
@@ -44,12 +44,13 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2, false, REGISTER_FLAG_DETACH_XMAT)
 
-    -- destroy
+    -- send to gy
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetCategory(CATEGORY_DESTROY)
+    e3:SetCategory(CATEGORY_TOGRAVE)
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3:SetCode(EVENT_BATTLE_CONFIRM)
+    e3:SetCode(EVENT_DAMAGE_STEP_END)
+    e3:SetCondition(s.e3con)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -67,10 +68,10 @@ function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingTarget(Card.HasNonZeroAttack, tp, 0, LOCATION_MZONE, 1, nil) end
+    if chk == 0 then return Duel.IsExistingTarget(Card.HasNonZeroAttack, tp, LOCATION_MZONE, LOCATION_MZONE, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, Card.HasNonZeroAttack, tp, 0, LOCATION_MZONE, 1, 1, nil)
+    Duel.SelectTarget(tp, Card.HasNonZeroAttack, tp, LOCATION_MZONE, LOCATION_MZONE, 1, 1, nil)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
@@ -81,18 +82,34 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_SET_ATTACK_FINAL)
         ec1:SetValue(0)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         tc:RegisterEffect(ec1)
+
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetDescription(3000)
+        ec2:SetType(EFFECT_TYPE_SINGLE)
+        ec2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
+        ec2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+        ec2:SetValue(1)
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec2)
     end
 end
 
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local bc = c:GetBattleTarget()
+    e:SetLabelObject(bc)
+
+    return c == Duel.GetAttacker() and bc and c:IsStatus(STATUS_OPPO_BATTLE) and bc:IsOnField() and bc:IsRelateToBattle()
+end
+
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local d = Duel.GetAttackTarget()
-    if chk == 0 then return Duel.GetAttacker() == e:GetHandler() and d and d:IsAttack(0) and d:IsRelateToBattle() end
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, d, 1, 0, 0)
+    if chk == 0 then return e:GetLabelObject():IsAbleToRemove() end
+    Duel.SetOperationInfo(0, CATEGORY_REMOVE, e:GetLabelObject(), 1, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local d = Duel.GetAttackTarget()
-    if d ~= nil and d:IsRelateToBattle() and d:IsAttack(0) then Duel.Destroy(d, REASON_EFFECT) end
+    local bc = e:GetLabelObject()
+    if bc:IsRelateToBattle() then Duel.SendtoGrave(bc, REASON_EFFECT) end
 end
