@@ -67,10 +67,10 @@ function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingTarget(Card.HasNonZeroAttack, tp, LOCATION_MZONE, LOCATION_MZONE, 1, nil) end
+    if chk == 0 then return Duel.IsExistingTarget(Card.HasNonZeroAttack, tp, 0, LOCATION_MZONE, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_FACEUP)
-    Duel.SelectTarget(tp, Card.HasNonZeroAttack, tp, LOCATION_MZONE, LOCATION_MZONE, 1, 1, nil)
+    Duel.SelectTarget(tp, Card.HasNonZeroAttack, tp, 0, LOCATION_MZONE, 1, 1, nil)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
