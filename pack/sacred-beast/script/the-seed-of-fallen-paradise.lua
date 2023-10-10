@@ -117,7 +117,10 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Draw(p, d, REASON_EFFECT)
 end
 
-function s.e6filter(c, og) return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) end
+function s.e6filter(c, og)
+    return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:ListsCode(6007213, 32491822, 69890967) and
+               not og:IsExists(Card.IsCode, 1, nil, c:GetCode())
+end
 
 function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
