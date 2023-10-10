@@ -1,7 +1,8 @@
 -- The Seed of Fallen Paradise
 Duel.LoadScript("util.lua")
 local s, id = GetID()
-s.listed_names = {6007213, 32491822, 69890967, 43378048}
+s.listed_names = {6007213, 32491822, 69890967}
+s.listed_series = {0x145}
 
 function s.initial_effect(c)
     -- activate
@@ -87,12 +88,12 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2tg1(e, c) return c:IsFaceup() and c:IsCode(6007213, 32491822, 69890967, 43378048) end
+function s.e2tg1(e, c) return c:IsFaceup() and (c:IsCode(6007213, 32491822, 69890967) or (c:IsSetCard(0x145) and c:IsType(TYPE_FUSION))) end
 
 function s.e2tg2(e, c, rp, r, re)
     local tp = e:GetHandlerPlayer()
     return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and rp == 1 - tp and r == REASON_EFFECT and
-               c:IsCode(6007213, 32491822, 69890967, 43378048)
+               (c:IsCode(6007213, 32491822, 69890967) or (c:IsSetCard(0x145) and c:IsType(TYPE_FUSION)))
 end
 
 function s.e2val(e, re, rp) return rp == 1 - e:GetHandlerPlayer() end
