@@ -117,14 +117,14 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Draw(p, d, REASON_EFFECT)
 end
 
-function s.e6filter(c, og) return c:IsType(TYPE_CONTINUOUS) and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) end
+function s.e6filter(c, og) return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) end
 
 function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local og = c:GetOverlayGroup()
-    if chk == 0 then return Duel.IsExistingTarget(s.e6filter, tp, LOCATION_GRAVE, 0, 1, c, og) end
+    if chk == 0 then return Duel.IsExistingTarget(s.e6filter, tp, LOCATION_ONFIELD + LOCATION_GRAVE, 0, 1, c, og) end
 
-    local g = Duel.SelectTarget(tp, s.e6filter, tp, LOCATION_GRAVE, 0, 1, 1, c, og)
+    local g = Duel.SelectTarget(tp, s.e6filter, tp, LOCATION_ONFIELD + LOCATION_GRAVE, 0, 1, 1, c, og)
     Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0)
 end
 
