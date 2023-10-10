@@ -149,7 +149,7 @@ Once per turn, during the End Phase, if this card's control was changed this tur
     ignoring its Summoning conditions. (This is treated as a Fusion Summon.) \
 The above effects cannot be negated. \
 Cannot be destroyed by battle. \
-Gains 10,000 ATK during your turn only. \
+This card's original ATK becomes 10,000 ATK during your turn only. \
 Once per turn: You can give control of this card to your opponent. \
 """
 strings = [
