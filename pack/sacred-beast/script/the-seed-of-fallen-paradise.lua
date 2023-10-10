@@ -47,32 +47,16 @@ function s.initial_effect(c)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- quick act trap
-    local e5 = Effect.CreateEffect(c)
-    e5:SetType(EFFECT_TYPE_FIELD)
-    e5:SetCode(EFFECT_TRAP_ACT_IN_HAND)
-    e5:SetRange(LOCATION_FZONE)
-    e5:SetTargetRange(LOCATION_HAND, 0)
-    e5:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
-    e5:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return s.sbcount(e:GetHandlerPlayer()) >= 2 end)
-    e5:SetTarget(function(e, tc) return tc:IsType(TYPE_CONTINUOUS) end)
-    c:RegisterEffect(e5)
-    local e5b = e5:Clone()
-    e5b:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-    e5b:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
-    e5b:SetTargetRange(LOCATION_SZONE, 0)
-    c:RegisterEffect(e5b)
-
     -- attach spell/trap
-    local e6 = Effect.CreateEffect(c)
-    e6:SetDescription(aux.Stringid(id, 2))
-    e6:SetType(EFFECT_TYPE_IGNITION)
-    e6:SetRange(LOCATION_FZONE)
-    e6:SetCountLimit(1)
-    e6:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return s.sbcount(e:GetHandlerPlayer()) >= 3 end)
-    e6:SetTarget(s.e6tg)
-    e6:SetOperation(s.e6op)
-    c:RegisterEffect(e6)
+    local e5 = Effect.CreateEffect(c)
+    e5:SetDescription(aux.Stringid(id, 2))
+    e5:SetType(EFFECT_TYPE_IGNITION)
+    e5:SetRange(LOCATION_FZONE)
+    e5:SetCountLimit(1)
+    e5:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return s.sbcount(e:GetHandlerPlayer()) >= 2 end)
+    e5:SetTarget(s.e5tg)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
 end
 
 function s.e1filter(c) return c:ListsCode(6007213, 32491822, 69890967) and c:IsAbleToHand() end
@@ -119,21 +103,20 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Draw(p, d, REASON_EFFECT)
 end
 
-function s.e6filter(c, og)
-    return c:IsFaceup() and not og:IsExists(Card.IsCode, 1, nil, c:GetCode()) and c:IsType(TYPE_CONTINUOUS) and
-               c:ListsCode(6007213, 32491822, 69890967)
+function s.e5filter(c, og)
+    return c:IsType(TYPE_CONTINUOUS) and c:ListsCode(6007213, 32491822, 69890967) and not og:IsExists(Card.IsCode, 1, nil, c:GetCode())
 end
 
-function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local og = c:GetOverlayGroup()
-    if chk == 0 then return Duel.IsExistingTarget(s.e6filter, tp, LOCATION_ONFIELD + LOCATION_GRAVE, 0, 1, c, og) end
+    if chk == 0 then return Duel.IsExistingTarget(s.e5filter, tp, LOCATION_GRAVE, 0, 1, c, og) end
 
-    local g = Duel.SelectTarget(tp, s.e6filter, tp, LOCATION_ONFIELD + LOCATION_GRAVE, 0, 1, 1, c, og)
+    local g = Duel.SelectTarget(tp, s.e5filter, tp, LOCATION_GRAVE, 0, 1, 1, c, og)
     Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0)
 end
 
-function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
     if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end

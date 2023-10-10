@@ -17,16 +17,19 @@ This card gains these effects based on the number of \
     "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", and/or "Raviel, Lord of Phantasms" \
     with different names you control.
 ● 1+: Once per turn: You can draw 2 cards.
-● 2+: Once per turn: You can activate a Continuous Trap from your hand or the turn it was Set.
-● 3+: Once per turn: You can target 1 face-up Continuous Spell/Trap on your field or in your GY, \
+● 2+: Once per turn: You can target 1 Continuous Spell/Trap in your GY, \
     that mentions "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms", \
+    with a different name from the cards attached to this card; \
+    attach it to this card and if you do this card gains that card's effects.
+● 3+: Once per turn: You can target 1 face-up Continuous Spell/Trap you control, \
     with a different name from the cards attached to this card; \
     attach it to this card and if you do this card gains that card's effects.
 """
 strings = [
     "Add card that mentions Sacred Beast?",
     "Draw 2 card",
-    "Attach Continuous Spell/Trap & gain effects",
+    "Attach 1 Continuous Spell/Trap in your GY",
+    "Attach 1 Continuous Spell/Trap you control",
 ]
 
 [raviel]
