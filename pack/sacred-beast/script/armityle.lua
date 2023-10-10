@@ -166,8 +166,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
 
     local p = e:GetHandler():GetOwner()
-    if Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 and Duel.IsExistingMatchingCard(s.e2filter, p, LOCATION_EXTRA, 0, 1, nil, e, p) >
-        0 then
+    if Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 and Duel.IsExistingMatchingCard(s.e2filter, p, LOCATION_EXTRA, 0, 1, nil, e, p) > 0 then
         if Duel.SelectEffectYesNo(p, c, aux.Stringid(id, 1)) then
             Duel.BreakEffect()
 
@@ -176,7 +175,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
                 local ec1 = Effect.CreateEffect(c)
                 ec1:SetDescription(3210)
                 ec1:SetType(EFFECT_TYPE_SINGLE)
-                ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+                ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
                 ec1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
                 ec1:SetValue(1)
                 ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
