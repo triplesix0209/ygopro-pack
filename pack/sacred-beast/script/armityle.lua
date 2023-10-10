@@ -171,16 +171,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
             Duel.BreakEffect()
 
             local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, p, s.e2filter, p, LOCATION_EXTRA, 0, 1, 1, nil, e, p):GetFirst()
-            if Duel.SpecialSummon(tc, SUMMON_TYPE_FUSION, p, p, true, false, POS_FACEUP) > 0 then
-                local ec1 = Effect.CreateEffect(c)
-                ec1:SetDescription(3210)
-                ec1:SetType(EFFECT_TYPE_SINGLE)
-                ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
-                ec1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
-                ec1:SetValue(1)
-                ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-                tc:RegisterEffect(ec1, true)
-            end
+            Duel.SpecialSummon(tc, SUMMON_TYPE_FUSION, p, p, true, false, POS_FACEUP)
             tc:CompleteProcedure()
         end
     end
