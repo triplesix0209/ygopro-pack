@@ -166,7 +166,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
 
     local p = e:GetHandler():GetOwner()
-    if Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 and Duel.IsExistingMatchingCard(s.e2filter, p, LOCATION_EXTRA, 0, 1, nil, e, p) > 0 then
+    if Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 and Duel.IsExistingMatchingCard(s.e2filter, p, LOCATION_EXTRA, 0, 1, nil, e, p) then
         if Duel.SelectEffectYesNo(p, c, aux.Stringid(id, 1)) then
             Duel.BreakEffect()
 

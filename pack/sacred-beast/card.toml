@@ -155,6 +155,6 @@ Once per turn: You can give control of this card to your opponent. \
 """
 strings = [
     "Cannot switch control",
-    "Special Summon it?",
+    "Special Summon 1 \"Phantasm\" Fusion Monster?",
     "Give control to your opponent",
 ]
