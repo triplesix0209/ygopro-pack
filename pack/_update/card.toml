@@ -179,3 +179,18 @@ strings = [
     "Select a Sacred Beast",
     "Special Summon it",
 ]
+
+[unending-nightmare]
+id = 69452756
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Unending Nightmare"
+type = "trap continuous"
+effect = """
+You can pay 1000 LP, then target 1 face-up Spell/Trap on the field; destroy it. \
+You can only activate this effect of "Unending Nightmare" once per Chain. \
+"""
+strings = [
+    "Pay 1000 LP, destroy 1 face-up Spell/Trap",
+]
