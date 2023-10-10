@@ -3,6 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {6007213, 32491822, 69890967}
+s.listed_series = {0x145}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -52,7 +53,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- banish
+    -- control changed trigger
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE + EFFECT_CANNOT_DISABLE)
@@ -143,6 +144,11 @@ function s.e2regop(e, tp, eg, ep, ev, re, r, rp)
     c:RegisterEffect(ec1)
 end
 
+function s.e2filter(c, e, tp)
+    return c:IsSetCard(0x145) and c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_FUSION, tp, true, false) and
+               Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0
+end
+
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return true end
@@ -159,13 +165,24 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, LOCATION_ONFIELD, 0, c)
     Duel.Remove(g, POS_FACEUP, REASON_EFFECT)
 
-    if Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 then
-        local p = e:GetHandler():GetOwner()
-        if c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_FUSION, p, true, false) and Duel.GetLocationCountFromEx(p, p, nil, c) > 0 and
-            Duel.SelectEffectYesNo(p, c, aux.Stringid(id, 1)) then
+    local p = e:GetHandler():GetOwner()
+    if Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 and Duel.IsExistingMatchingCard(s.e2filter, p, LOCATION_EXTRA, 0, 1, nil, e, p) >
+        0 then
+        if Duel.SelectEffectYesNo(p, c, aux.Stringid(id, 1)) then
             Duel.BreakEffect()
-            Duel.SpecialSummon(c, SUMMON_TYPE_FUSION, p, p, true, false, POS_FACEUP)
-            c:CompleteProcedure()
+
+            local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, p, s.e2filter, p, LOCATION_EXTRA, 0, 1, 1, nil, e, p):GetFirst()
+            if Duel.SpecialSummon(tc, SUMMON_TYPE_FUSION, p, p, true, false, POS_FACEUP) > 0 then
+                local ec1 = Effect.CreateEffect(c)
+                ec1:SetDescription(3210)
+                ec1:SetType(EFFECT_TYPE_SINGLE)
+                ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+                ec1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
+                ec1:SetValue(1)
+                ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+                tc:RegisterEffect(ec1, true)
+            end
+            tc:CompleteProcedure()
         end
     end
 end
