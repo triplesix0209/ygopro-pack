@@ -279,14 +279,16 @@ strings = [
 
 [deity-evolution]
 id = 900000010
+alias = 7373632
 rarity = "gold"
 name = "Deity Evolution"
 type = "spell quick-play"
 effect = """\
+(This card's name is always treated as "Divine Evolution".)
 The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
 Choose 1 monster you control whose original Type is Divine-Beast \
     or whose original name is "The Wicked Avatar", "The Wicked Dreadroot", or "The Wicked Eraser" \
-    except a monster(s) already affected by "Divine Evolution" or "Deity Evolution", \
+    except a monster(s) already affected by "Divine Evolution", \
 it gains the following effect, ignoring card effects. This is treated as effects gained from "Divine Evolution".
 ● Gain 1000 ATK/DEF.
 ● Its Divine Hierarchy become it's base Divine Hierarchy increase by 1.
@@ -297,7 +299,7 @@ During your Main Phase, if this card is in your GY and you control a original Di
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = [
-    "Affected by \"{CARD_NAME}\"",
+    "Affected by \"Divine Evolution\"",
     "Make your opponent send 1 monster to the GY",
 ]
 
@@ -315,7 +317,7 @@ effect = """\
 You can only Special Summon "{CARD_NAME}(s)" once per turn. \
 The activation and effect of this card's effects cannot be negated. \
 If this card is Special Summoned: \
-    You can add to your hand 1 "Obelisk the Tormentor", from your Deck, GY, or Outside (if dont have any), \
+    You can add to your hand 1 "Obelisk the Tormentor" from your Deck or GY, \
     also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
 This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
 While you control this Link Summoned card, \
@@ -345,7 +347,7 @@ effect = """\
 You can only Special Summon "{CARD_NAME}(s)" once per turn. \
 The activation and effect of this card's effects cannot be negated. \
 If this card is Special Summoned: \
-    You can add to your hand 1 "Slifer the Sky Dragon", from your Deck, GY, or Outside (if dont have any), \
+    You can add to your hand 1 "Slifer the Sky Dragon" from your Deck or GY, \
     also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
 This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
 While you control this Link Summoned card, \
@@ -375,7 +377,7 @@ effect = """\
 You can only Special Summon "{CARD_NAME}(s)" once per turn. \
 The activation and effect of this card's effects cannot be negated. \
 If this card is Special Summoned: \
-    You can add to your hand 1 "The Winged Dragon of Ra", from your Deck, GY, or Outside (if dont have any), \
+    You can add to your hand 1 "The Winged Dragon of Ra" from your Deck or GY, \
     also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
 This card's original ATK become equal to the combined ATK on the field of the monsters used for its Link Summon. \
 This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
@@ -410,24 +412,20 @@ effect = """\
 You can only Special Summon "{CARD_NAME}(s)" once per turn. \
 The activation and effect of this card's effects cannot be negated. \
 If this card is Special Summoned: \
-    You can add to your hand 1 "The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar", \
-    from your Deck, GY or Outside (if dont have any), \
+    You can add to your hand 1 "The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar" from your Deck or GY, \
     also you cannot Summon monsters for the rest of this turn, except Level 10 "Wicked" monsters. \
 This card can be treated as 3 Tributes for the Tribute Summon of a Level 10 "Wicked" monster. \
 While you control this Link Summoned card, \
     you can Tribute Summon 1 Level 10 \"Wicked\" monster in Attack Position during your Main Phase, \
     in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
-If you Tribute this card for the Tribute Summon of a Level 10 \"Wicked\" monster, it gains this effect.
-● After Normal Summoned, you can add to your hand 1 "Deity Evolution", \
-    from your Deck, GY or Outside (if dont have any).
+If you Tribute this card for the Tribute Summon of \
+    "The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar", it gains this effect.
+● After Normal Summoned, you can add 1 Spell/Trap that mentions this card from your Deck or GY to your hand.
 """
 strings = [
     "Affected by effect \"{CARD_NAME}\": cannot Summon monsters for the rest of this turn, except Level 10 \"Wicked\" monsters",
     "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add \"The Wicked Dreadroot\"",
-    "Add \"The Wicked Eraser\"",
-    "Add \"The Wicked Avatar\"",
-    "Add \"Deity Evolution\" to your hand?",
+    "Add Spell/Trap that mentions this card?",
 ]
 
 [sun-god-descend]

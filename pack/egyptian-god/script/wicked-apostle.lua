@@ -71,64 +71,20 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.e1filter(c, code) return c:IsCode(code) and c:IsAbleToHand() end
-
-function s.e1check1(tp)
-    return not Utility.IsOwnAny(Card.IsCode, tp, 62180201) or
-               Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, 62180201)
-end
-
-function s.e1check2(tp)
-    return not Utility.IsOwnAny(Card.IsCode, tp, 57793869) or
-               Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, 57793869)
-end
-
-function s.e1check3(tp)
-    return not Utility.IsOwnAny(Card.IsCode, tp, 21208154) or
-               Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, 21208154)
-end
+function s.e1filter(c) return c:IsCode({62180201, 57793869, 21208154}) and c:IsAbleToHand() end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return s.e1check1(tp) or s.e1check2(tp) or s.e1check3(tp) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local opt = {}
-    local sel = {}
-    if s.e1check1(tp) then
-        table.insert(opt, aux.Stringid(id, 2))
-        table.insert(sel, 1)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e1filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
     end
-    if s.e1check2(tp) then
-        table.insert(opt, aux.Stringid(id, 3))
-        table.insert(sel, 2)
-    end
-    if s.e1check3(tp) then
-        table.insert(opt, aux.Stringid(id, 4))
-        table.insert(sel, 3)
-    end
-
-    local code = nil
-    local op = sel[Duel.SelectOption(tp, table.unpack(opt)) + 1]
-    if op == 1 then
-        code = 62180201
-    elseif op == 2 then
-        code = 57793869
-    elseif op == 3 then
-        code = 21208154
-    end
-
-    local tc = nil
-    if Utility.IsOwnAny(Card.IsCode, tp, code) then
-        tc = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, code):GetFirst()
-    else
-        tc = Duel.CreateToken(tp, code)
-    end
-
-    Duel.SendtoHand(tc, nil, REASON_EFFECT)
-    Duel.ConfirmCards(1 - tp, tc)
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetDescription(aux.Stringid(id, 0))
@@ -163,22 +119,16 @@ function s.e4regop(e, tp, eg, ep, ev, re, r, rp)
     rc:RegisterEffect(eff, true)
 end
 
-function s.e4filter(c) return c:IsCode(900000010) and c:IsAbleToHand() end
+function s.e4filter(c, code) return c:ListsCode(code) and c:IsAbleToHand() end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if Utility.IsOwnAny(Card.IsCode, tp, 900000010) and not Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) then
-        return
-    end
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 5)) then return end
+    if not Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, c:GetCode()) or
+        not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then return end
 
-    local tc = nil
-    if Utility.IsOwnAny(Card.IsCode, tp, 900000010) then
-        tc = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil):GetFirst()
-    else
-        tc = Duel.CreateToken(tp, 900000010)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e4filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
     end
-
-    Duel.SendtoHand(tc, nil, REASON_EFFECT)
-    Duel.ConfirmCards(1 - tp, tc)
 end
