@@ -38,3 +38,18 @@ Unaffected by other card effects that would make it leave the field, \
     except cards that mentions it and monsters with higher Divine Hierarchy. \
 The above effects cannot be negated nor be copied.\
 """
+
+APOSTLE_EFFECT = """\
+If this card is Link Summoned: You can add to your hand 1 {0} from your Deck or GY. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+While you control this Link Summoned card, \
+    you can Tribute Summon 1 {1} monster in Attack Position during your Main Phase, \
+    in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
+This card can be treated as 3 Tributes for the Tribute Summon of a {1} monster. \
+    This effect cannot be negated.\
+"""
+
+APOSTLE_GAIN_EFFECT = """\
+If you Tribute this card for the Tribute Summon of {0}, it gains this effect.
+● After Normal Summoned, you can add 1 Spell/Trap that mentions this card from your Deck or GY to your hand.\
+"""

@@ -361,6 +361,85 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     c:RegisterEffect(reset)
 end
 
+function Divine.Apostle(id, c, tribute_filter, gain_op, ...)
+    -- search divine-beast
+    local e1 = Effect.CreateEffect(c)
+    e1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCountLimit(1, id)
+    e1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end)
+    e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        if chk == 0 then
+            return Duel.IsExistingMatchingCard(function(c) return c:IsCode(...) and c:IsAbleToHand() end, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1,
+                nil)
+        end
+        Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
+    end)
+    e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
+        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(function(c) return c:IsCode(...) and c:IsAbleToHand() end),
+            tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+        if #g > 0 then
+            Duel.SendtoHand(g, nil, REASON_EFFECT)
+            Duel.ConfirmCards(1 - tp, g)
+        end
+    end)
+    c:RegisterEffect(e1)
+
+    -- additional tribute summon
+    local e2 = Effect.CreateEffect(c)
+    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(LOCATION_HAND, 0)
+    e2:SetCondition(function(e) return Duel.IsMainPhase() and e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end)
+    e2:SetTarget(tribute_filter)
+    e2:SetValue(1)
+    c:RegisterEffect(e2)
+
+    -- triple tribute
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_SINGLE)
+    e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e3:SetCode(EFFECT_TRIPLE_TRIBUTE)
+    e3:SetValue(tribute_filter)
+    c:RegisterEffect(e3)
+
+    -- effect gain
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e4:SetCode(EVENT_BE_PRE_MATERIAL)
+    e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+        local rc = e:GetHandler():GetReasonCard()
+        return r == REASON_SUMMON and rc:IsFaceup() and rc:IsCode(...)
+    end)
+    e4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
+        local rc = c:GetReasonCard()
+        local eff = Effect.CreateEffect(c)
+        eff:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+        eff:SetCode(EVENT_SUMMON_SUCCESS)
+        eff:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+            if not Duel.IsExistingMatchingCard(aux.NecroValleyFilter(function(c)
+                return c:IsSpellTrap() and c:ListsCode(...) and c:IsAbleToHand()
+            end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) and not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
+
+            local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(
+                function(c) return c:IsSpellTrap() and c:ListsCode(...) and c:IsAbleToHand() end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+            Duel.SendtoHand(g, nil, REASON_EFFECT)
+            Duel.ConfirmCards(1 - tp, g)
+        end)
+        eff:SetReset(RESET_EVENT + RESETS_STANDARD)
+        rc:RegisterEffect(eff, true)
+
+        if (gain_op ~= nil) then gain_op(e, tp, eg, ep, ev, re, r, rp, rc) end
+    end)
+    c:RegisterEffect(e4)
+end
+
 function ResetEffectFilter(te, c)
     local tc = te:GetOwner()
     if tc == c or tc:ListsCode(c:GetCode()) then return false end

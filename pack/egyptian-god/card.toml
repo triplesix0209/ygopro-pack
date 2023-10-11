@@ -314,21 +314,10 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 2400
 effect = """\
 3 monsters
-You can only Special Summon "{CARD_NAME}(s)" once per turn. \
-The activation and effect of this card's effects cannot be negated. \
-If this card is Special Summoned: \
-    You can add to your hand 1 "Obelisk the Tormentor" from your Deck or GY, \
-    also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
-This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
-While you control this Link Summoned card, \
-    you can Tribute Summon 1 Divine-Beast monster in Attack Position during your Main Phase, \
-    in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
-If you Tribute this card for the Tribute Summon of "Obelisk the Tormentor", it gains this effect.
-● After Normal Summoned, you can add to your hand 1 "Fist of Fate", \
-    from your Deck, GY or Outside (if dont have any).
+{APOSTLE_EFFECT|"Obelisk the Tormentor"|Divine-Beast} \
+{APOSTLE_GAIN_EFFECT|"Obelisk the Tormentor"}
 """
 strings = [
-    "Affected by effect \"{CARD_NAME}\": cannot Summon monsters for the rest of this turn, except Divine-Beast monsters",
     "Tribute Summon (via \"{CARD_NAME}\")",
     "Add \"Fist of Fate\" to your hand?",
 ]
@@ -344,21 +333,10 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 2000
 effect = """\
 3 monsters
-You can only Special Summon "{CARD_NAME}(s)" once per turn. \
-The activation and effect of this card's effects cannot be negated. \
-If this card is Special Summoned: \
-    You can add to your hand 1 "Slifer the Sky Dragon" from your Deck or GY, \
-    also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
-This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
-While you control this Link Summoned card, \
-    you can Tribute Summon 1 Divine-Beast monster in Attack Position during your Main Phase, \
-    in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
-If you Tribute this card for the Tribute Summon of "Slifer the Sky Dragon", it gains this effect.
-● After Normal Summoned, you can add to your hand 1 "Thunderforce Attack", \
-    from your Deck, GY or Outside (if dont have any).
+{APOSTLE_EFFECT|"Slifer the Sky Dragon"|Divine-Beast} \
+{APOSTLE_GAIN_EFFECT|"Slifer the Sky Dragon"}
 """
 strings = [
-    "Affected by effect \"{CARD_NAME}\": cannot Summon monsters for the rest of this turn, except Divine-Beast monsters",
     "Tribute Summon (via \"{CARD_NAME}\")",
     "Add \"Thunderforce Attack\" to your hand?",
 ]
@@ -371,27 +349,14 @@ attribute = "fire"
 race = "illusionist"
 link = 3
 link-arrow = "bottom-left bottom bottom-right"
-atk = "?"
+atk = 3300
 effect = """\
 3 monsters
-You can only Special Summon "{CARD_NAME}(s)" once per turn. \
-The activation and effect of this card's effects cannot be negated. \
-If this card is Special Summoned: \
-    You can add to your hand 1 "The Winged Dragon of Ra" from your Deck or GY, \
-    also you cannot Summon monsters for the rest of this turn, except Divine-Beast monsters. \
-This card's original ATK become equal to the combined ATK on the field of the monsters used for its Link Summon. \
-This card can be treated as 3 Tributes for the Tribute Summon of a Divine-Beast monster. \
-Cannot attack. \
-While you control this Link Summoned card, \
-    you can Tribute Summon 1 Divine-Beast monster in Attack Position during your Main Phase, \
-    in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
-If you Tribute this card for the Tribute Summon of "The Winged Dragon of Ra", it gains this effect.
+{APOSTLE_EFFECT|"The Winged Dragon of Ra"|Divine-Beast} \
+{APOSTLE_GAIN_EFFECT|"The Winged Dragon of Ra"}
 ● This card's original ATK/DEF become the combined ATK/DEF on the field of the monsters Tributed for its Summon.
-● After Normal Summoned, you can add to your hand 1 "Blaze Cannon" or 1 "Sun God Unification", \
-    from your Deck, GY or Outside (if dont have any).
 """
 strings = [
-    "Affected by effect \"{CARD_NAME}\": cannot Summon monsters for the rest of this turn, except Divine-Beast monsters",
     "Tribute Summon (via \"{CARD_NAME}\")",
     "Add specific card to your hand?",
     "Add \"Blaze Cannon\"",
@@ -409,21 +374,10 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 0
 effect = """\
 3 monsters
-You can only Special Summon "{CARD_NAME}(s)" once per turn. \
-The activation and effect of this card's effects cannot be negated. \
-If this card is Special Summoned: \
-    You can add to your hand 1 "The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar" from your Deck or GY, \
-    also you cannot Summon monsters for the rest of this turn, except Level 10 "Wicked" monsters. \
-This card can be treated as 3 Tributes for the Tribute Summon of a Level 10 "Wicked" monster. \
-While you control this Link Summoned card, \
-    you can Tribute Summon 1 Level 10 \"Wicked\" monster in Attack Position during your Main Phase, \
-    in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
-If you Tribute this card for the Tribute Summon of \
-    "The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar", it gains this effect.
-● After Normal Summoned, you can add 1 Spell/Trap that mentions this card from your Deck or GY to your hand.
+{APOSTLE_EFFECT|"The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar"|Level 10 DARK Fiend monster} \
+{APOSTLE_GAIN_EFFECT|"The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar"}
 """
 strings = [
-    "Affected by effect \"{CARD_NAME}\": cannot Summon monsters for the rest of this turn, except Level 10 \"Wicked\" monsters",
     "Tribute Summon (via \"{CARD_NAME}\")",
     "Add Spell/Trap that mentions this card?",
 ]
