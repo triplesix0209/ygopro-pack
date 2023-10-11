@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {16178681, 900005028}
+s.listed_names = {16178681, 900005029}
 
 function s.initial_effect(c)
     -- activate
@@ -116,7 +116,7 @@ function s.e1disop(c, tc)
     tc:RegisterEffect(ec1b)
 end
 
-function s.e2filter(c) return c:IsCode(900005028) and c:IsAbleToHand() end
+function s.e2filter(c) return c:IsCode(900005029) and c:IsAbleToHand() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
