@@ -12,7 +12,7 @@ function s.initial_effect(c)
     Link.AddProcedure(c, nil, 3, 3)
 
     -- apostle effect
-    Divine.Apostle(id, c, s.tribute_filter, nil, 62180201, 57793869, 21208154)
+    Divine.Apostle(id, c, {62180201, 57793869, 21208154}, s.tribute_filter)
 end
 
 function s.tribute_filter(e, c) return c:IsLevel(10) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_FIEND) end

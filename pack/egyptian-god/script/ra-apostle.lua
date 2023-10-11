@@ -12,7 +12,7 @@ function s.initial_effect(c)
     Link.AddProcedure(c, nil, 3, 3)
 
     -- apostle effect
-    Divine.Apostle(id, c, aux.TargetBoolFunction(Card.IsAttribute, ATTRIBUTE_DIVINE), s.gain_op, CARD_RA)
+    Divine.Apostle(id, c, CARD_RA, aux.TargetBoolFunction(Card.IsAttribute, ATTRIBUTE_DIVINE), s.gain_op)
 end
 
 function s.gain_op(e, tp, eg, ep, ev, re, r, rp, rc)

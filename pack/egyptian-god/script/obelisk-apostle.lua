@@ -12,6 +12,6 @@ function s.initial_effect(c)
     Link.AddProcedure(c, nil, 3, 3)
 
     -- apostle effect
-    Divine.Apostle(id, c, aux.TargetBoolFunction(Card.IsAttribute, ATTRIBUTE_DIVINE), nil, 10000000)
+    Divine.Apostle(id, c, 10000000, aux.TargetBoolFunction(Card.IsAttribute, ATTRIBUTE_DIVINE))
 end
 

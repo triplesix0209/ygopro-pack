@@ -361,7 +361,7 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     c:RegisterEffect(reset)
 end
 
-function Divine.Apostle(id, c, tribute_filter, gain_op, ...)
+function Divine.Apostle(id, c, god_code, tribute_filter, gain_op)
     -- search divine-beast
     local e1 = Effect.CreateEffect(c)
     e1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
@@ -372,15 +372,15 @@ function Divine.Apostle(id, c, tribute_filter, gain_op, ...)
     e1:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end)
     e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         if chk == 0 then
-            return Duel.IsExistingMatchingCard(function(c) return c:IsCode(...) and c:IsAbleToHand() end, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1,
-                nil)
+            return Duel.IsExistingMatchingCard(function(c) return c:IsCode(god_code) and c:IsAbleToHand() end, tp, LOCATION_DECK + LOCATION_GRAVE, 0,
+                1, nil)
         end
         Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
     end)
     e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(function(c) return c:IsCode(...) and c:IsAbleToHand() end),
-            tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp,
+            aux.NecroValleyFilter(function(c) return c:IsCode(god_code) and c:IsAbleToHand() end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
         if #g > 0 then
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
@@ -414,7 +414,7 @@ function Divine.Apostle(id, c, tribute_filter, gain_op, ...)
     e4:SetCode(EVENT_BE_PRE_MATERIAL)
     e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
         local rc = e:GetHandler():GetReasonCard()
-        return r == REASON_SUMMON and rc:IsFaceup() and rc:IsCode(...)
+        return r == REASON_SUMMON and rc:IsFaceup() and rc:IsCode(god_code)
     end)
     e4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
@@ -424,11 +424,25 @@ function Divine.Apostle(id, c, tribute_filter, gain_op, ...)
         eff:SetCode(EVENT_SUMMON_SUCCESS)
         eff:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
             if not Duel.IsExistingMatchingCard(aux.NecroValleyFilter(function(c)
-                return c:IsSpellTrap() and c:ListsCode(...) and c:IsAbleToHand()
-            end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) and not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
+                if type(god_code) == 'table' then
+                    for i, code in ipairs(god_code) do
+                        if not c:ListsCode(code) then return false end
+                    end
+                else
+                    if not c:ListsCode(god_code) then return false end
+                end
+                return c:IsSpellTrap() and c:IsAbleToHand()
+            end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) then return end
+            if not Duel.SelectEffectYesNo(tp, rc, aux.Stringid(id, 1)) then return end
 
-            local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(
-                function(c) return c:IsSpellTrap() and c:ListsCode(...) and c:IsAbleToHand() end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+            local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(function(c)
+                if type(god_code) == 'table' then
+                    for i, code in ipairs(god_code) do if not c:ListsCode(code) then return false end end
+                else
+                    if not c:ListsCode(god_code) then return false end
+                end
+                return c:IsSpellTrap() and c:IsAbleToHand()
+            end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
         end)

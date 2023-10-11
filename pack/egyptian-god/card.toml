@@ -319,7 +319,7 @@ effect = """\
 """
 strings = [
     "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add \"Fist of Fate\" to your hand?",
+    "Add Spell/Trap that mentions this card?",
 ]
 
 [osiris-apostle]
@@ -338,7 +338,7 @@ effect = """\
 """
 strings = [
     "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add \"Thunderforce Attack\" to your hand?",
+    "Add Spell/Trap that mentions this card?",
 ]
 
 [ra-apostle]
@@ -358,9 +358,7 @@ effect = """\
 """
 strings = [
     "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add specific card to your hand?",
-    "Add \"Blaze Cannon\"",
-    "Add \"Sun God Unification\"",
+    "Add Spell/Trap that mentions this card?",
 ]
 
 [wicked-apostle]
