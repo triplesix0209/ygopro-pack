@@ -1,7 +1,7 @@
-[blue-eyes-legend-dragon]
-id = 900001100
+[blue-eyes-white-legend-dragon]
+id = 900001101
 alias = 89631139
-name = "Blue-Eyes Legend Dragon"
+name = "Blue-Eyes White Legend Dragon"
 set = "blue-eyes"
 type = "monster normal"
 attribute = "light"
@@ -20,7 +20,7 @@ If this card attacks a monster, before damage calculation: \
 strings = ["Destroy battling monster"]
 
 [blue-eyes-divine-dragon]
-id = 900001101
+id = 900001102
 name = "Blue-Eyes Divine Dragon"
 set = "blue-eyes"
 type = "monster fusion effect"
@@ -48,7 +48,7 @@ strings = [
 ]
 
 [blue-eyes-holy-dragon]
-id = 900001102
+id = 900001103
 name = "Blue-Eyes Holy Dragon"
 set = "blue-eyes"
 type = "monster synchro effect"
@@ -74,7 +74,7 @@ You can Tribute this card; \
 strings = ["Negate & destroy card on the field"]
 
 [blue-eyes-deep-dragon]
-id = 900001103
+id = 900001104
 name = "Blue-Eyes Deep Dragon"
 set = "blue-eyes"
 type = "monster xyz effect"
@@ -101,7 +101,7 @@ If this card on the field is destroyed by card effect: \
 strings = ["Xyz Summon by using \"Blue-Eyes White Dragon\""]
 
 [blue-eyes-chaos-infinity-dragon]
-id = 900001104
+id = 900001105
 name = "Blue-Eyes Chaos Infinity Dragon"
 set = "chaos blue-eyes"
 type = "monster link effect"

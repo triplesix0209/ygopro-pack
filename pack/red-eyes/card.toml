@@ -1,0 +1,24 @@
+[red-eyes-black-inferno-dragon]
+id = 900001201
+alias = 74677422
+name = "Red-Eyes Black Inferno Dragon"
+set = "red-eyes"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 7
+atk = 2400
+def = 2000
+effect = """\
+(This card's name is always treated as Red-Eyes Black Dragon".)
+This card is treated as a Normal Monster while in the hand or GY. \
+    This effect cannot be negated. \
+If this card is sent from the hand or Deck to the GY, you can Special Summon this card. \
+    You can only use each effect of "{CARD_NAME}" once per turn. \
+Once per turn, if damage calculation is performed involving this card, at the end of the Battle Phase: \
+    You can inflict damage to your opponent equal to this card's original ATK. \
+"""
+strings = [
+    "Special Summon this card?",
+    "Inflict damage equal to this card's original ATK",
+]
