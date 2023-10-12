@@ -21,6 +21,7 @@ strings = ["Destroy battling monster"]
 
 [blue-eyes-ultra-dragon]
 id = 900001102
+alias = 23995346
 name = "Blue-Eyes Ultra Dragon"
 set = "blue-eyes"
 type = "monster fusion effect"
@@ -30,6 +31,7 @@ level = 12
 atk = 4500
 def = 3800
 effect = """\
+(This card's name is always treated as "Blue-Eyes Ultimate Dragon".)
 "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon"
 A Fusion Summon of this card can only be done with the above materials. \
 Your opponent cannot target or destroy this card with card effects. \
@@ -49,9 +51,9 @@ strings = [
     "Can make a second and third attack",
 ]
 
-[blue-eyes-holy-dragon]
+[blue-eyes-holy-shining-dragon]
 id = 900001103
-name = "Blue-Eyes Holy Dragon"
+name = "Blue-Eyes Holy Shining Dragon"
 set = "blue-eyes"
 type = "monster synchro effect"
 attribute = "light"
@@ -75,9 +77,9 @@ You can Tribute this card; \
 """
 strings = ["Negate & destroy card on the field"]
 
-[blue-eyes-deep-dragon]
+[blue-eyes-deep-hope-dragon]
 id = 900001104
-name = "Blue-Eyes Deep Dragon"
+name = "Blue-Eyes Deep Hope Dragon"
 set = "blue-eyes"
 type = "monster xyz effect"
 attribute = "light"
