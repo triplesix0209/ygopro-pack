@@ -15,7 +15,7 @@ This card is treated as a Normal Monster while in the hand or GY. \
     This effect cannot be negated. \
 If this card is sent from the hand or Deck to the GY: You can Special Summon this card. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn, if damage calculation is performed involving this card, at the end of the Battle Phase: \
+Once per turn, during the End Phase, if this card attacked a monster this turn: \
     You can inflict damage to your opponent equal to this card's original ATK. \
 """
 strings = ["Inflict damage equal to this card's original ATK"]
@@ -45,3 +45,31 @@ Once per turn: You can target 1 Level 7 or lower "Red-Eyes" monster \
     inflict damage to your opponent equal to its original ATK. \
 """
 strings = ["Shuffle 1 \"Red-Eyes\" monster into the Deck"]
+
+[red-eyes-darkness-flare-metal-dragon]
+id = 900001204
+name = "Red-Eyes Darkness Flare Metal Dragon"
+set = "red-eyes"
+type = "monster xyz effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 2800
+def = 2400
+effect = """\
+2 Level 8 DARK monsters
+You can also Xyz Summon this card by detaching 1 material from a Rank 7 "Red-Eyes" Xyz Monster you control, \
+    then using that monster as material. (Transfer its materials to this card.) \
+This Xyz Summoned card cannot be destroyed by card effects. \
+Once per turn, when your opponent activates a card or effect (Quick Effect): \
+    You can detach 1 material from this card; \
+    negate the activation, and if you do, destroy it. \
+If this card has "Red-Eyes Flare Metal Dragon" as material, it gains these effects.
+● Gains 300 ATK for each material attached to it.
+● If this card destroys your opponent's card(s) by battle or its effects: \
+    Attach the destroyed card(s) to it.
+"""
+strings = [
+    "Xyz Summon by using a Rank 7 \"Red-Eyes\" Xyz Monster",
+    "Negate the activation & destroy",
+]

@@ -30,15 +30,20 @@ function s.initial_effect(c)
     c:RegisterEffect(e1)
 
     -- inflict damage
+    local e2reg = Effect.CreateEffect(c)
+    e2reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e2reg:SetCode(EVENT_DAMAGE_STEP_END)
+    e2reg:SetCondition(s.e2regcon)
+    e2reg:SetOperation(s.e2regop)
+    c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_DAMAGE)
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e2:SetCode(EVENT_PHASE + PHASE_BATTLE)
+    e2:SetCode(EVENT_PHASE + PHASE_END)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1)
-    e2:SetCondition(s.e2con)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
@@ -58,11 +63,15 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetBattledGroupCount() > 0 end
+function s.e2regcon(e, tp, eg, ep, ev, re, r, rp) return Duel.GetAttacker() == e:GetHandler() and Duel.GetAttackTarget() end
+
+function s.e2regop(e, tp, eg, ep, ev, re, r, rp)
+    e:GetHandler():RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), 0, 1)
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return true end
     local c = e:GetHandler()
+    if chk == 0 then return c:GetFlagEffect(id) ~= 0 end
     local dmg = c:GetBaseAttack()
     Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, dmg)
 end
