@@ -43,7 +43,7 @@ At the end of the Damage Step, if this Fusion Summoned card attacked: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Fusion Summoned with an Normal Monster",
+    "Fusion Summoned using a Normal Monster",
     "Destroy other card on the field",
     "Make second and third attack",
     "Can make a second and third attack",

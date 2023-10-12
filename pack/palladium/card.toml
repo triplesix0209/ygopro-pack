@@ -453,13 +453,13 @@ Once per turn, when another card or effect is activated (Quick Effect): \
     You can discard 1 card; \
     negate the activation, and if you do, destroy that card, \
     and if you do that, this card gains 1000 ATK. \
-If this card is Fusion Summoned using an Normal Monster, it gains these effects.
+If this card is Fusion Summoned using a Normal Monster, it gains these effects.
 ● The destruction by battle of your opponent's monsters cannot be negated.
 ● Thrice per turn: You can destroy 1 card your opponent controls.
 """
 strings = [
     "Negate activation, then destroy",
-    "Fusion Summoned with an Normal Monster",
+    "Fusion Summoned using a Normal Monster",
     "Destroy card your opponent controls",
 ]
 

@@ -34,8 +34,14 @@ effect = """\
 3 "Red-Eyes" Dragon monsters
 A Fusion Summon of this card can only be done with the above materials. \
 If this card is Fusion Summoned: \
-    You can equip up to 3 Equip Spells with different names from your Deck and/or GY to this card. \
+    You can add up to 3 "Red-Eyes" Trap with different names from your Deck and/or GY to your hand. \
+    If this card was Fusion Summoned using "Red-Eyes Black Dragon" as material, you can also add Equip Spells. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 Your opponent cannot target face-up Spells/Traps you control with card effects, \
     also they cannot be destroyed by your opponent's card effects. \
+Once per turn: You can target 1 Level 7 or lower "Red-Eyes" monster \
+    that is banished or in your GY, except "{CARD_NAME}"; shuffle it into the Deck, \
+    and if you do, if you control this face-up Fusion Summoned card, \
+    inflict damage to your opponent equal to its original ATK. \
 """
-strings = []
+strings = ["Shuffle 1 \"Red-Eyes\" monster into the Deck"]
