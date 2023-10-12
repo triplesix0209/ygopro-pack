@@ -50,7 +50,7 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
+    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
     Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
 end
 
