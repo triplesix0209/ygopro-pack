@@ -19,9 +19,9 @@ If this card attacks a monster, before damage calculation: \
 """
 strings = ["Destroy battling monster"]
 
-[blue-eyes-divine-dragon]
+[blue-eyes-ultra-dragon]
 id = 900001102
-name = "Blue-Eyes Divine Dragon"
+name = "Blue-Eyes Ultra Dragon"
 set = "blue-eyes"
 type = "monster fusion effect"
 attribute = "light"
@@ -37,7 +37,8 @@ Once per turn: You can target up to 3 other cards on the field; destroy them. \
     This card cannot attack the turn this effect is activated. \
 If this card attacks, your opponent cannot activate cards or effects until the end of the Damage Step. \
 At the end of the Damage Step, if this Fusion Summoned card attacked: \
-    This card can make a second and third attack during each Battle Phase this turn. \
+    You can send 1 Dragon Fusion Monster from your Extra Deck to the GY; \
+    this card can make a second and third attack during each Battle Phase this turn. \
     Other monsters cannot attack during the turn you activate this effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """

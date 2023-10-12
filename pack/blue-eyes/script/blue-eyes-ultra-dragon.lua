@@ -1,4 +1,4 @@
--- Blue-Eyes Divine Dragon
+-- Blue-Eyes Ultra Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
@@ -62,9 +62,13 @@ function s.initial_effect(c)
         local e4check = Effect.CreateEffect(c)
         e4check:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
         e4check:SetCode(EVENT_ATTACK_ANNOUNCE)
-        e4check:SetOperation(s.e4checkop)
+        e4check:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+            local tc = eg:GetFirst()
+            if tc:GetFlagEffect(id) > 0 then return end
+            s[ep] = s[ep] + 1
+            tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
+        end)
         Duel.RegisterEffect(e4check, 0)
-
         s[0] = 0
         s[1] = 0
         aux.AddValuesReset(function()
@@ -101,12 +105,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
 end
 
-function s.e4checkop(e, tp, eg, ep, ev, re, r, rp)
-    local tc = eg:GetFirst()
-    if tc:GetFlagEffect(id) > 0 then return end
-    s[ep] = s[ep] + 1
-    tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
-end
+function s.e4filter(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_FUSION) and c:IsAbleToGraveAsCost() end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -115,7 +114,11 @@ end
 
 function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return s[tp] < 2 end
+    if chk == 0 then return s[tp] <= 1 and Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_EXTRA, 0, 1, nil) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOGRAVE)
+    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_EXTRA, 0, 1, 1, nil)
+    Duel.SendtoGrave(g, REASON_COST)
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_FIELD)
