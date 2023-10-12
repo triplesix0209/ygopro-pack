@@ -24,6 +24,7 @@ function s.initial_effect(c)
     e1:SetCode(EVENT_TO_GRAVE)
     e1:SetCountLimit(1, id)
     e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
@@ -42,15 +43,17 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp)
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsPreviousLocation(LOCATION_HAND + LOCATION_DECK) end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    return c:IsPreviousLocation(LOCATION_HAND + LOCATION_DECK) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) and
-               Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
+    if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
+    if not c:IsRelateToEffect(e) then return end
     Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
 end
 
