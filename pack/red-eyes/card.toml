@@ -31,7 +31,7 @@ level = 11
 atk = 3600
 def = 3000
 effect = """\
-"Red-Eyes Black Dragon" + "Red-Eyes Black Dragon" + "Red-Eyes Black Dragon"
+3 "Red-Eyes" Dragon monsters
 A Fusion Summon of this card can only be done with the above materials. \
 """
 strings = []

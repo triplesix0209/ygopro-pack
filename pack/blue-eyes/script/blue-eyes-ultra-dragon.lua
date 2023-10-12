@@ -26,7 +26,7 @@ function s.initial_effect(c)
 
     -- destroy
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_DESTROY)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -36,6 +36,11 @@ function s.initial_effect(c)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+    local e2reg = Effect.CreateEffect(c)
+    e2reg:SetType(EFFECT_TYPE_SINGLE)
+    e2reg:SetCode(EFFECT_MATERIAL_CHECK)
+    e2reg:SetValue(s.e2matcheck)
+    c:RegisterEffect(e2reg)
 
     -- act limit
     local e3 = Effect.CreateEffect(c)
@@ -50,7 +55,7 @@ function s.initial_effect(c)
 
     -- multi attack
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 1))
+    e4:SetDescription(aux.Stringid(id, 2))
     e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e4:SetCode(EVENT_DAMAGE_STEP_END)
     e4:SetCountLimit(1, id)
@@ -78,6 +83,13 @@ function s.initial_effect(c)
     end)
 end
 
+function s.e2matcheck(e, c)
+    if c:GetMaterial():IsExists(Card.IsType, 1, nil, TYPE_NORMAL) then
+        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), EFFECT_FLAG_CLIENT_HINT, 1, 0,
+            aux.Stringid(id, 0))
+    end
+end
+
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
@@ -91,12 +103,15 @@ function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     c:RegisterEffect(ec1)
 end
 
-function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then return Duel.IsExistingTarget(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
 
+    local max = 1
+    if c:GetFlagEffect(id) ~= 0 then max = 3 end
+
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 3, c)
+    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, max, c)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
@@ -136,7 +151,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) then return end
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 2))
+    ec1:SetDescription(aux.Stringid(id, 3))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_EXTRA_ATTACK)
