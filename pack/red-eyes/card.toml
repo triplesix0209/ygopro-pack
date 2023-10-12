@@ -14,7 +14,7 @@ effect = """\
 This card is treated as a Normal Monster while in the hand or GY. \
     This effect cannot be negated. \
 If this card is sent from the hand or Deck to the GY: You can Special Summon this card. \
-    You can only use each effect of "{CARD_NAME}" once per turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, if damage calculation is performed involving this card, at the end of the Battle Phase: \
     You can inflict damage to your opponent equal to this card's original ATK. \
 """
@@ -33,5 +33,9 @@ def = 3000
 effect = """\
 3 "Red-Eyes" Dragon monsters
 A Fusion Summon of this card can only be done with the above materials. \
+If this card is Fusion Summoned: \
+    You can equip up to 3 Equip Spells with different names from your Deck and/or GY to this card. \
+Your opponent cannot target face-up Spells/Traps you control with card effects, \
+    also they cannot be destroyed by your opponent's card effects. \
 """
 strings = []

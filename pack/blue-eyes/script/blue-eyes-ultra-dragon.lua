@@ -42,38 +42,27 @@ function s.initial_effect(c)
     e2reg:SetValue(s.e2matcheck)
     c:RegisterEffect(e2reg)
 
-    -- act limit
-    local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD)
-    e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCode(EFFECT_CANNOT_ACTIVATE)
-    e3:SetTargetRange(0, 1)
-    e3:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
-    e3:SetValue(1)
-    c:RegisterEffect(e3)
-
     -- multi attack
-    local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 2))
-    e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e4:SetCode(EVENT_DAMAGE_STEP_END)
-    e4:SetCountLimit(1, id)
-    e4:SetCondition(s.e4con)
-    e4:SetCost(s.e4cost)
-    e4:SetOperation(s.e4op)
-    c:RegisterEffect(e4)
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 2))
+    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e3:SetCode(EVENT_DAMAGE_STEP_END)
+    e3:SetCountLimit(1, id)
+    e3:SetCondition(s.e3con)
+    e3:SetCost(s.e3cost)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
     aux.GlobalCheck(s, function()
-        local e4check = Effect.CreateEffect(c)
-        e4check:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-        e4check:SetCode(EVENT_ATTACK_ANNOUNCE)
-        e4check:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local e3check = Effect.CreateEffect(c)
+        e3check:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+        e3check:SetCode(EVENT_ATTACK_ANNOUNCE)
+        e3check:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
             local tc = eg:GetFirst()
             if tc:GetFlagEffect(id) > 0 then return end
             s[ep] = s[ep] + 1
             tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
         end)
-        Duel.RegisterEffect(e4check, 0)
+        Duel.RegisterEffect(e3check, 0)
         s[0] = 0
         s[1] = 0
         aux.AddValuesReset(function()
@@ -120,19 +109,19 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
 end
 
-function s.e4filter(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_FUSION) and c:IsAbleToGraveAsCost() end
+function s.e3filter(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_FUSION) and c:IsAbleToGraveAsCost() end
 
-function s.e4con(e, tp, eg, ep, ev, re, r, rp)
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     return c:IsSummonType(SUMMON_TYPE_FUSION) and Duel.GetAttacker() == c
 end
 
-function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return s[tp] <= 1 and Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_EXTRA, 0, 1, nil) end
+    if chk == 0 then return s[tp] <= 1 and Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_EXTRA, 0, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOGRAVE)
-    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_EXTRA, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter, tp, LOCATION_EXTRA, 0, 1, 1, nil)
     Duel.SendtoGrave(g, REASON_COST)
 
     local ec1 = Effect.CreateEffect(c)
@@ -146,7 +135,7 @@ function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.RegisterEffect(ec1, tp)
 end
 
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
