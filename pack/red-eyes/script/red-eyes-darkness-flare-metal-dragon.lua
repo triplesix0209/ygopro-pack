@@ -8,7 +8,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 8, 2, s.xyzovfilter, aux.Stringid(id, 0), 2, s.xyzop)
+    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 8, 3, s.xyzovfilter, aux.Stringid(id, 0))
 
     -- indes
     local e1 = Effect.CreateEffect(c)
@@ -59,12 +59,6 @@ end
 
 function s.xyzovfilter(c, tp, sc)
     return c:IsFaceup() and c:IsSetCard(SET_RED_EYES, sc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, sc, SUMMON_TYPE_XYZ, tp) and c:GetRank() == 7
-end
-
-function s.xyzop(e, tp, chk, mc)
-    if chk == 0 then return mc:CheckRemoveOverlayCard(tp, 1, REASON_COST) end
-    mc:RemoveOverlayCard(tp, 1, 1, REASON_COST)
-    return true
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return ep ~= tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev) end
