@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_BLUEEYES_W_DRAGON}
+s.listed_series = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -74,7 +74,7 @@ end
 
 function s.synfilter(c, val, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
 
-function s.spfilter(c) return c:IsFaceup() and c:IsCode(CARD_BLUEEYES_W_DRAGON) and c:IsReleasable() end
+function s.spfilter(c) return c:IsFaceup() and not c:IsType(TYPE_EFFECT) and c:IsSetCard(SET_BLUE_EYES) and c:IsReleasable() end
 
 function s.spcon(e, c)
     if not aux.exccon(e) then return false end

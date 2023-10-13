@@ -67,7 +67,7 @@ effect = """\
 2 Tuners + 1 non-Tuner LIGHT Dragon monster
 Except the turn this card was sent to the GY, \
     you can Special Summon this card (from your GY) \
-    by Tributing 1 "Blue-Eyes White Dragon" you control. \
+    by Tributing 1 non-Effect "Blue-Eyes" monster you control. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 After this card is Special Summoned, until the end of the next turn, \
     Dragon monsters you control cannot be destroyed by card effects. \
@@ -88,12 +88,11 @@ set = "blue-eyes"
 type = "monster xyz effect"
 attribute = "light"
 race = "dragon"
-rank = 10
+rank = 8
 atk = 0
 def = 0
 effect = """\
-3 Level 10 LIGHT Dragon monsters
-You can also Xyz Summon this card by using 1 "Blue-Eyes White Dragon" you control as the material. \
+2 Level 8 LIGHT Dragon monsters
 When a "Blue-Eyes" monster(s) you control is destroyed by battle or an opponent's card effect, except "{CARD_NAME}": \
     You can Special Summon this card from your Extra Deck (this is treated as an Xyz Summon) \
     or GY (except the turn this card was sent to the GY). \

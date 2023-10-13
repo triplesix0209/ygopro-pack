@@ -2,14 +2,13 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_BLUEEYES_W_DRAGON}
 s.listed_series = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, s.xyzfilter, 10, 3, s.xyzovfilter, aux.Stringid(id, 0))
+    Xyz.AddProcedure(c, s.xyzfilter, 8, 2)
 
     -- atk up
     local e1 = Effect.CreateEffect(c)
@@ -55,8 +54,6 @@ function s.initial_effect(c)
 end
 
 function s.xyzfilter(c, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
-
-function s.xyzovfilter(c, tp, sc) return c:IsFaceup() and c:IsSummonCode(sc, SUMMON_TYPE_XYZ, tp, CARD_BLUEEYES_W_DRAGON) end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
