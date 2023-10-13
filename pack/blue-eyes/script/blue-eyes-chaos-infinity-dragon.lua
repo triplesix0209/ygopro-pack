@@ -3,13 +3,12 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
-s.listed_series = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, nil, 2, 4, function(g, lc, sumtype, tp) return g:CheckWithSumEqual(Card.GetLevel, 8) end)
+    Link.AddProcedure(c, s.lnkfilter, 3)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

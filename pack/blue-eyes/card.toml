@@ -120,7 +120,7 @@ link = 4
 link-arrow = "left bottom-left bottom-right right"
 atk = 4000
 effect = """\
-2+ monsters, whose total Levels exactly equal to 8
+3+ LIGHT Dragon monsters
 Must be Link Summoned. \
 You can also Link Summon this card by sending 1 Ritual Spell from your hand or Set on your field \
     and using 1 a "Blue-Eyes White Dragon" you control as the material. \
