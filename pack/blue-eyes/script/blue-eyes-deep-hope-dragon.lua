@@ -9,7 +9,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, s.xyzfilter, 8, 2, s.xyzovfilter, aux.Stringid(id, 0))
+    Xyz.AddProcedure(c, s.xyzfilter, 10, 3, s.xyzovfilter, aux.Stringid(id, 0))
 
     -- atk up
     local e1 = Effect.CreateEffect(c)
@@ -24,8 +24,8 @@ function s.initial_effect(c)
     local e2 = Effect.CreateEffect(c)
     e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    e2:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
-    e2:SetRange(LOCATION_GRAVE)
+    e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+    e2:SetRange(LOCATION_EXTRA + LOCATION_GRAVE)
     e2:SetCode(EVENT_DESTROYED)
     e2:SetCountLimit(1, id)
     e2:SetCondition(s.e2con)
@@ -79,22 +79,40 @@ end
 
 function s.e2filter(c, tp)
     return c:IsPreviousSetCard(SET_BLUE_EYES) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_MZONE) and
-               c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE + REASON_EFFECT) and not c:IsCode(id)
+               (c:IsReason(REASON_BATTLE) or c:IsReason(REASON_EFFECT) and c:GetReasonPlayer() ~= tp) and not c:IsCode(id)
 end
 
-function s.e2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e2filter, 1, nil, tp) end
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    return eg:IsExists(s.e2filter, 1, nil, tp) and (e:GetHandler():IsLocation(LOCATION_EXTRA) or not aux.exccon(e))
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsCanBeSpecialSummoned(e, 0, tp, true, false) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 end
+    if chk == 0 then
+        if c:IsLocation(LOCATION_EXTRA) then
+            return Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0 and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_XYZ, tp, false, false)
+        else
+            return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+        end
+    end
 
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 or not c:IsRelateToEffect(e) then return end
-    Duel.SpecialSummon(c, 0, tp, tp, true, false, POS_FACEUP)
+    if not c:IsRelateToEffect(e) then return end
+
+    local sumtype
+    if c:IsLocation(LOCATION_EXTRA) then
+        if Duel.GetLocationCountFromEx(tp, tp, nil, c) == 0 then return end
+        sumtype = SUMMON_TYPE_XYZ
+    else
+        if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
+        sumtype = 0
+    end
+
+    Duel.SpecialSummon(c, sumtype, tp, tp, false, false, POS_FACEUP)
 end
 
 function s.e3filter(c, tp)

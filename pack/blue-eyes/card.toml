@@ -65,13 +65,15 @@ atk = 3000
 def = 2500
 effect = """\
 2 Tuners + 1 non-Tuner LIGHT Dragon monster
-Except the turn this card was sent to the GY, you can Special Summon this card (from your GY) \
+Except the turn this card was sent to the GY, \
+    you can Special Summon this card (from your GY) \
     by Tributing 1 "Blue-Eyes White Dragon" you control. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 After this card is Special Summoned, until the end of the next turn, \
     Dragon monsters you control cannot be destroyed by card effects. \
 Gains 300 ATK for each Dragon monster in your GY. \
-When your opponent activates a card or effect that targets this card or another Dragon monster(s) you control (Quick Effect): \
+When your opponent activates a card or effect that targets this card \
+    or another Dragon monster(s) you control (Quick Effect): \
     You can negate that effect. \
 You can Tribute this card; \
     negate the effects of 1 other face-up card on the field, also destroy it. \
@@ -90,14 +92,15 @@ rank = 10
 atk = 0
 def = 0
 effect = """\
-2 Level 10 LIGHT Dragon monsters
+3 Level 10 LIGHT Dragon monsters
 You can also Xyz Summon this card by using 1 "Blue-Eyes White Dragon" you control as the material. \
-If this card is Special Summoned, attach 1 Dragon monster in your GY to this card, if able, \
-    then this card's original ATK becomes equal to the ATK of the material monster attached to it with the highest ATK. \
-    This effect cannot be negated. \
-If a face-up "Blue-Eyes" monster(s) you control is destroyed by battle or card effect, \
-    except "{CARD_NAME}": You can Special Summon this card from your GY. \
+When a "Blue-Eyes" monster(s) you control is destroyed by battle or an opponent's card effect, except "{CARD_NAME}": \
+    You can Special Summon this card from your Extra Deck (this is treated as an Xyz Summon) \
+    or GY (except the turn this card was sent to the GY). \
     You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is Special Summoned, attach 1 Dragon monster in your GY to this card, if able, \
+    then this card's original ATK becomes equal to the highest ATK of the material monster attached to it. \
+    This effect cannot be negated. \
 If a Dragon monster(s) you control would be destroyed by battle, \
     you can detach 1 material from this card instead. \
 If this card on the field is destroyed by card effect: \
@@ -117,10 +120,10 @@ link = 4
 link-arrow = "left bottom-left bottom-right right"
 atk = 4000
 effect = """\
-3+ monsters, including an LIGHT Dragon monster
+2+ monsters, whose total Levels exactly equal to 8
 Must be Link Summoned. \
 You can also Link Summon this card by sending 1 Ritual Spell from your hand or Set on your field \
-    and using 1 "Blue-Eyes White Dragon" you control as the material. \
+    and using 1 a "Blue-Eyes White Dragon" you control as the material. \
 Your opponent cannot target or destroy this card with card effects. \
 If this card was Link Summoned using a "Blue-Eyes White Dragon", when it declares an attack: \
     You can change the battle positions of as many monsters your opponent controls as possible, \
