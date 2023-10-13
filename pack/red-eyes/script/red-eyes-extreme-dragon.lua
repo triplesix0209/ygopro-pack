@@ -10,8 +10,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMixN(c, false, false,
-        function(c, fc, sumtype, tp) return c:IsSetCard(SET_RED_EYES, fc, sumtype, tp) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end, 3)
+    Fusion.AddProcMixN(c, false, false, function(c, fc, sumtype, tp) return c:IsLevel(7) and c:IsSetCard(SET_RED_EYES, fc, sumtype, tp) end, 3)
 
     -- add to hand
     local e1 = Effect.CreateEffect(c)
