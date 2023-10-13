@@ -112,17 +112,14 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsRace, RACE_DRAGON), tp, LOCATION_MZONE, 0, nil)
-    for tc in g:Iter() do
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetDescription(3001)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
-        ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-        ec1:SetValue(1)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 2)
-        tc:RegisterEffect(ec1)
-    end
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_FIELD)
+    ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    ec1:SetTargetRange(LOCATION_MZONE, 0)
+    ec1:SetTarget(aux.TargetBoolFunction(Card.IsRace, RACE_DRAGON))
+    ec1:SetValue(1)
+    ec1:SetReset(RESET_PHASE + PHASE_END, 2)
+    Duel.RegisterEffect(ec1, tp)
 end
 
 function s.e3filter(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_DRAGON) end

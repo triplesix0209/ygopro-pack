@@ -69,7 +69,7 @@ Except the turn this card was sent to the GY, you can Special Summon this card (
     by Tributing 1 "Blue-Eyes White Dragon" you control. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 After this card is Special Summoned, until the end of the next turn, \
-    Dragon monsters you currently control cannot be destroyed by card effects. \
+    Dragon monsters you control cannot be destroyed by card effects. \
 Gains 300 ATK for each Dragon monster in your GY. \
 When your opponent activates a card or effect that targets this card or another Dragon monster(s) you control (Quick Effect): \
     You can negate that effect. \
@@ -117,7 +117,7 @@ link = 4
 link-arrow = "left bottom-left bottom-right right"
 atk = 4000
 effect = """\
-3+ monsters, including an "Blue-Eyes" monster
+3+ monsters, including an LIGHT Dragon monster
 Must be Link Summoned. \
 You can also Link Summon this card by sending 1 Ritual Spell from your hand or Set on your field \
     and using 1 "Blue-Eyes White Dragon" you control as the material. \

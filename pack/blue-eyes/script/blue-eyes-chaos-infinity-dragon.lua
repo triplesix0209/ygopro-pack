@@ -10,7 +10,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, nil, 3, 4, function(g, lc, sumtype, tp) return g:IsExists(Card.IsSetCard, 1, nil, SET_BLUE_EYES, lc, sumtype, tp) end)
+    Link.AddProcedure(c, nil, 3, 4, function(g, lc, sumtype, tp) return g:IsExists(s.lnkfilter, 1, nil, lc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -69,6 +69,8 @@ function s.initial_effect(c)
     e3:SetValue(DOUBLE_DAMAGE)
     c:RegisterEffect(e3)
 end
+
+function s.lnkfilter(c, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
 
 function s.spfilter1(c) return c:IsRitualSpell() and c:IsAbleToGraveAsCost() and (c:IsFacedown() or not c:IsOnField()) end
 
