@@ -46,6 +46,20 @@ Once per turn: You can target 1 Level 7 or lower "Red-Eyes" monster \
 """
 strings = ["Shuffle 1 \"Red-Eyes\" monster into the Deck"]
 
+[red-eyes-steel-dragon-lord]
+id = 900001203
+name = "Red-Eyes Steel Dragon Lord"
+set = "red-eyes"
+type = "monster synchro effect"
+attribute = "dark"
+race = "dragon"
+level = 10
+atk = 3100
+def = 2700
+effect = """\
+"""
+strings = []
+
 [red-eyes-darkness-flare-metal-dragon]
 id = 900001204
 name = "Red-Eyes Darkness Flare Metal Dragon"
@@ -53,11 +67,11 @@ set = "red-eyes"
 type = "monster xyz effect"
 attribute = "dark"
 race = "dragon"
-level = 8
+level = 9
 atk = 2800
 def = 2400
 effect = """\
-3 Level 8 DARK monsters
+3 Level 9 DARK monsters
 You can also Xyz Summon this card by using a Rank 7 "Red-Eyes" Xyz Monster you control as material. \
     (Transfer its materials to this card.) \
 This Xyz Summoned card cannot be destroyed by card effects. \
