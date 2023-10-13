@@ -2,9 +2,9 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.material_setcode = {SET_RED_EYES}
 s.listed_names = {CARD_REDEYES_B_DRAGON}
 s.listed_series = {SET_RED_EYES}
+s.material_setcode = {SET_RED_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()

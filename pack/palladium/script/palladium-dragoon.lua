@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {71703785, CARD_BLUEEYES_W_DRAGON}
-s.material_setcode = {SET_PALLADIUM, SET_BLUE_EYES}
+s.material_setcode = {SET_PALLADIUM}
 
 Duel.EnableUnofficialProc(PROC_CANNOT_BATTLE_INDES)
 
@@ -11,7 +11,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, true, true, 71703785, {CARD_BLUEEYES_W_DRAGON, s.fusfilter})
+    Fusion.AddProcMix(c, true, true, 71703785, s.fusfilter)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -73,7 +73,7 @@ function s.initial_effect(c)
     c:RegisterEffect(effmat)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(TYPE_EFFECT, fc, sumtype, tp) end
+function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(8) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -120,7 +120,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.effcheck(e, c)
-    local ct = c:GetMaterial():FilterCount(Card.IsType, nil, TYPE_NORMAL)
+    local ct = c:GetMaterial():FilterCount(Card.IsCode, nil, CARD_BLUEEYES_W_DRAGON)
     e:GetLabelObject():SetLabel(ct)
 end
 

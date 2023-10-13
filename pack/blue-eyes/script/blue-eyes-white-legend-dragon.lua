@@ -3,6 +3,19 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
+    -- normal monster
+    local addtype = Effect.CreateEffect(c)
+    addtype:SetType(EFFECT_TYPE_SINGLE)
+    addtype:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
+    addtype:SetCode(EFFECT_ADD_TYPE)
+    addtype:SetRange(LOCATION_HAND + LOCATION_GRAVE)
+    addtype:SetValue(TYPE_NORMAL)
+    c:RegisterEffect(addtype)
+    local addtype2 = addtype:Clone()
+    addtype2:SetCode(EFFECT_REMOVE_TYPE)
+    addtype2:SetValue(TYPE_EFFECT)
+    c:RegisterEffect(addtype2)
+    
     -- special summon
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)

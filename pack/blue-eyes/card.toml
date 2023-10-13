@@ -3,7 +3,7 @@ id = 900001101
 alias = 89631139
 name = "Blue-Eyes White Legend Dragon"
 set = "blue-eyes"
-type = "monster normal"
+type = "monster effect"
 attribute = "light"
 race = "dragon"
 level = 8
@@ -11,6 +11,8 @@ atk = 3000
 def = 2500
 effect = """\
 (This card's name is always treated as "Blue-Eyes White Dragon".)
+This card is treated as a Normal Monster while in the hand or GY. \
+    This effect cannot be negated. \
 You can Special Summon this card (from your hand) by \
     revealing 1 Level 1 LIGHT Tuner in your hand. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
