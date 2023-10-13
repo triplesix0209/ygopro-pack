@@ -1,7 +1,7 @@
-[red-eyes-black-inferno-dragon]
+[red-eyes-black-feral-dragon]
 id = 900001201
 alias = 74677422
-name = "Red-Eyes Black Inferno Dragon"
+name = "Red-Eyes Black Feral Dragon"
 set = "red-eyes"
 type = "monster effect"
 attribute = "dark"

@@ -1,4 +1,4 @@
--- Red-Eyes Black Inferno Dragon
+-- Red-Eyes Black Feral Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
