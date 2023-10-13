@@ -4,13 +4,12 @@ local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
 s.listed_series = {SET_BLUE_EYES}
-s.material_setcode = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsSetCard, SET_BLUE_EYES), 8, 2, s.ovfilter, aux.Stringid(id, 0))
+    Xyz.AddProcedure(c, s.xyzfilter, 8, 2, s.xyzovfilter, aux.Stringid(id, 0))
 
     -- atk up
     local e1 = Effect.CreateEffect(c)
@@ -55,7 +54,9 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.ovfilter(c, tp, sc) return c:IsFaceup() and c:IsSummonCode(sc, SUMMON_TYPE_XYZ, tp, CARD_BLUEEYES_W_DRAGON) end
+function s.xyzfilter(c, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
+
+function s.xyzovfilter(c, tp, sc) return c:IsFaceup() and c:IsSummonCode(sc, SUMMON_TYPE_XYZ, tp, CARD_BLUEEYES_W_DRAGON) end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -97,8 +98,8 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3filter(c, tp)
-    return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsPosition(POS_FACEUP) and c:IsReason(REASON_EFFECT) and
-               not c:IsReason(REASON_REPLACE) and c:IsSetCard(SET_BLUE_EYES)
+    return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE) and
+               not c:IsReason(REASON_REPLACE) and c:IsRace(RACE_DRAGON)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)

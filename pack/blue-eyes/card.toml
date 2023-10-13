@@ -60,18 +60,18 @@ set = "blue-eyes"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
-level = 9
+level = 10
 atk = 3000
 def = 2500
 effect = """\
-1 Tuner + 1 non-Tuner "Blue-Eyes" monster
+2 Tuners + 1 non-Tuner LIGHT Dragon monster
 Except the turn this card was sent to the GY, you can Special Summon this card (from your GY) \
     by Tributing 1 "Blue-Eyes White Dragon" you control. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 After this card is Special Summoned, until the end of the next turn, \
     Dragon monsters you currently control cannot be destroyed by card effects. \
 Gains 300 ATK for each Dragon monster in your GY. \
-When your opponent activates a card or effect that targets a "Blue-Eyes" monster(s) you control (Quick Effect): \
+When your opponent activates a card or effect that targets this card or another Dragon monster(s) you control (Quick Effect): \
     You can negate that effect. \
 You can Tribute this card; \
     negate the effects of 1 other face-up card on the field, also destroy it. \
@@ -86,11 +86,11 @@ set = "blue-eyes"
 type = "monster xyz effect"
 attribute = "light"
 race = "dragon"
-rank = 8
+rank = 10
 atk = 0
 def = 0
 effect = """\
-2 Level 8 "Blue-Eyes" monsters
+2 Level 10 LIGHT Dragon monsters
 You can also Xyz Summon this card by using 1 "Blue-Eyes White Dragon" you control as the material. \
 If this card is Special Summoned, attach 1 Dragon monster in your GY to this card, if able, \
     then this card's original ATK becomes equal to the ATK of the material monster attached to it with the highest ATK. \
@@ -98,7 +98,7 @@ If this card is Special Summoned, attach 1 Dragon monster in your GY to this car
 If a face-up "Blue-Eyes" monster(s) you control is destroyed by battle or card effect, \
     except "{CARD_NAME}": You can Special Summon this card from your GY. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-If a "Blue-Eyes" monster(s) you control would be destroyed by card effect, \
+If a Dragon monster(s) you control would be destroyed by battle, \
     you can detach 1 material from this card instead. \
 If this card on the field is destroyed by card effect: \
     You can destroy all monsters your opponent controls, and if you do, \

@@ -3,14 +3,12 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
-s.listed_series = {SET_BLUE_EYES}
-s.material_setcode = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- synchro summon
-    Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTunerEx(Card.IsSetCard, SET_BLUE_EYES), 1, 1)
+    Synchro.AddProcedure(c, nil, 2, 2, Synchro.NonTunerEx(s.synfilter), 1, 1)
 
     -- special summon
     local sp = Effect.CreateEffect(c)
@@ -74,6 +72,8 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
+function s.synfilter(c, val, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
+
 function s.spfilter(c) return c:IsFaceup() and c:IsCode(CARD_BLUEEYES_W_DRAGON) and c:IsReleasable() end
 
 function s.spcon(e, c)
@@ -125,12 +125,12 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3filter(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(SET_BLUE_EYES) end
+function s.e3filter(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_DRAGON) end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
     if rp == tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
     local tg = Duel.GetChainInfo(ev, CHAININFO_TARGET_CARDS)
-    return tg and tg:IsExists(s.e3filter, 1, nil, tp) and Duel.IsChainDisablable(ev)
+    return tg and (tg:IsContains(e:GetHandler()) or tg:IsExists(s.e3filter, 1, e:GetHandler(), tp)) and Duel.IsChainDisablable(ev)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
