@@ -2,6 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names ={44405066}
 s.listed_series = {SET_RED_EYES}
 
 function s.initial_effect(c)
@@ -41,7 +42,7 @@ function s.initial_effect(c)
     e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e3:SetCode(EFFECT_UPDATE_ATTACK)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCondition(function(e) return e:GetHandler():GetOverlayGroup():IsExists(s.efffilter, 1, nil) end)
+    e3:SetCondition(function(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 44405066) end)
     e3:SetValue(function(e, c) return c:GetOverlayCount() * 300 end)
     c:RegisterEffect(e3)
 
@@ -78,8 +79,6 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
 end
 
-function s.efffilter(c) return c:IsSetCard(SET_RED_EYES) and c:IsType(XYZ) end
-
 function s.e4filter(c, tp, rc, re)
     return not c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_BATTLE + REASON_EFFECT) and
                (c:GetReasonCard() == rc or (re and re:GetOwner() == rc))
@@ -87,7 +86,7 @@ end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:GetOverlayGroup():IsExists(s.efffilter, 1, nil) and eg:IsExists(s.e4filter, 1, nil, tp, c, re)
+    return c:GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 44405066) and eg:IsExists(s.e4filter, 1, nil, tp, c, re)
 end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk) if chk == 0 then return e:GetHandler():IsType(TYPE_XYZ) end end
