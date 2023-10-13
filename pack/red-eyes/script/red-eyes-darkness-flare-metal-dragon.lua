@@ -8,7 +8,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- xyz summon
-    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 9, 3, s.xyzovfilter, aux.Stringid(id, 0))
+    Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 8, 3, s.xyzovfilter, aux.Stringid(id, 0))
 
     -- indes
     local e1 = Effect.CreateEffect(c)

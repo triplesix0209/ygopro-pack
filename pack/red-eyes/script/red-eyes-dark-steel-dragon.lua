@@ -1,4 +1,4 @@
--- Red-Eyes Steel Dragon Lord
+-- Red-Eyes Dark Steel Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

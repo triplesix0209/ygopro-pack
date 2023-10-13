@@ -3,6 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
+s.listed_series = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -44,18 +45,26 @@ function s.initial_effect(c)
     e1b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1b)
 
+    -- material check
+    local effreg = Effect.CreateEffect(c)
+    effreg:SetType(EFFECT_TYPE_SINGLE)
+    effreg:SetCode(EFFECT_MATERIAL_CHECK)
+    effreg:SetValue(function(e, c)
+        local g = c:GetMaterial()
+        if g:IsExists(Card.IsCode, 1, nil, CARD_BLUEEYES_W_DRAGON) then
+            c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_LEAVE | RESET_TEMP_REMOVE), EFFECT_FLAG_CLIENT_HINT, 1,
+                0, aux.Stringid(id, 0))
+        end
+    end)
+    c:RegisterEffect(effreg)
+
     -- change position
-    local e2reg = Effect.CreateEffect(c)
-    e2reg:SetType(EFFECT_TYPE_SINGLE)
-    e2reg:SetCode(EFFECT_MATERIAL_CHECK)
-    e2reg:SetValue(s.e2regval)
-    c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(528)
     e2:SetCategory(CATEGORY_POSITION + CATEGORY_ATKCHANGE + CATEGORY_DEFCHANGE)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e2:SetCode(EVENT_ATTACK_ANNOUNCE)
-    e2:SetCondition(s.e2con)
+    e2:SetCondition(function(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
@@ -65,6 +74,7 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_SINGLE)
     e3:SetCode(EFFECT_PIERCE)
     e3:SetValue(DOUBLE_DAMAGE)
+    e3:SetCondition(function(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end)
     c:RegisterEffect(e3)
 end
 
@@ -73,8 +83,8 @@ function s.lnkfilter(c, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, s
 function s.spfilter1(c) return c:IsRitualSpell() and c:IsAbleToGraveAsCost() and (c:IsFacedown() or not c:IsOnField()) end
 
 function s.spfilter2(c, sc, tp)
-    return c:IsCanBeLinkMaterial(sc, tp) and Duel.GetLocationCountFromEx(tp, tp, c, sc) > 0 and
-               c:IsSummonCode(sc, SUMMON_TYPE_LINK, tp, CARD_BLUEEYES_W_DRAGON)
+    return c:IsFaceup() and c:IsCanBeLinkMaterial(sc, tp) and Duel.GetLocationCountFromEx(tp, tp, c, sc) > 0 and c:IsLevel(8) and
+               c:IsSetCard(SET_BLUE_EYES, sc, SUMMON_TYPE_LINK, tp)
 end
 
 function s.spcon(e, c)
@@ -113,19 +123,6 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
 
     g1:DeleteGroup()
     g2:DeleteGroup()
-end
-
-function s.e2regval(e, c)
-    local g = c:GetMaterial()
-    if g:IsExists(Card.IsCode, 1, nil, CARD_BLUEEYES_W_DRAGON) then
-        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_LEAVE | RESET_TEMP_REMOVE), EFFECT_FLAG_CLIENT_HINT, 1, 0,
-            aux.Stringid(id, 0))
-    end
-end
-
-function s.e2con(e)
-    local c = e:GetHandler()
-    return c:IsSummonType(SUMMON_TYPE_LINK) and c:GetFlagEffect(id) ~= 0
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
