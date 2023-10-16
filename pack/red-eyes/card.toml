@@ -57,7 +57,7 @@ level = 9
 atk = 2400
 def = 2000
 effect = """\
-"Red-Eyes Black Dragon" + 1 "Red-Eyes" monster
+"Red-Eyes Black Dragon" + 1 Normal Monster
 At the start of the Damage Step, if this card battles an opponent's monster: \
     You can destroy that opponent's monster. \
 If this card destroys a monster by battle or by its own effect: It gains 1000 ATK, \

@@ -10,7 +10,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, false, false, CARD_REDEYES_B_DRAGON, aux.FilterBoolFunctionEx(Card.IsSetCard, SET_RED_EYES))
+    Fusion.AddProcMix(c, false, false, CARD_REDEYES_B_DRAGON, aux.FilterBoolFunctionEx(Card.IsType, TYPE_NORMAL))
 
     -- destroy battling
     local e1 = Effect.CreateEffect(c)
