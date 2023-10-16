@@ -110,6 +110,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 
     Duel.SpecialSummon(c, sumtype, tp, tp, false, false, POS_FACEUP)
+    c:CompleteProcedure()
 end
 
 function s.e3filter(c, tp)
