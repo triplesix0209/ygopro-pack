@@ -46,8 +46,32 @@ Once per turn: You can target 1 Level 7 or lower "Red-Eyes" monster \
 """
 strings = ["Shuffle 1 \"Red-Eyes\" monster into the Deck"]
 
-[red-eyes-dark-steel-dragon]
+[red-eyes-blaster-dragon]
 id = 900001203
+name = "Red-Eyes Blaster Dragon"
+set = "red-eyes"
+type = "monster fusion effect"
+attribute = "dark"
+race = "dragon"
+level = 9
+atk = 2400
+def = 2000
+effect = """\
+"Red-Eyes Black Dragon" + 1 "Red-Eyes" monster
+At the start of the Damage Step, if this card battles an opponent's monster: \
+    You can destroy that opponent's monster. \
+If this card destroys a monster by battle or by its own effect: It gains 1000 ATK. \
+If this card's ATK becomes 4500 or higher (except during the Damage Step): \
+    Destroy this card, and if you do, Special Summon 1 "Red-Eyes Black Dragon" from your GY. \
+"""
+strings = [
+    "Destroy the battling monster",
+    "Gain 1000 ATK",
+    "Destroy this card and Special Summon \"Red-Eyes Black Dragon\"",
+]
+
+[red-eyes-dark-steel-dragon]
+id = 900001204
 name = "Red-Eyes Dark Steel Dragon"
 set = "red-eyes"
 type = "monster xyz effect"
@@ -75,7 +99,7 @@ strings = [
 ]
 
 [red-eyes-darkness-flare-metal-dragon]
-id = 900001204
+id = 900001205
 name = "Red-Eyes Darkness Flare Metal Dragon"
 set = "red-eyes"
 type = "monster xyz effect"
@@ -94,7 +118,7 @@ Once per turn, when your opponent activates a card or effect (Quick Effect): \
     negate the activation, and if you do, destroy it. \
 If this card has "Red-Eyes Flare Metal Dragon" as material, it gains these effects.
 ● Gains 300 ATK for each material attached to it.
-● If this card destroys your opponent's card(s) by battle or its effects: \
+● If this card destroys a card(s) by battle or by its own effect: \
     Attach the destroyed card(s) to it.
 """
 strings = [

@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names ={44405066}
+s.listed_names = {44405066}
 s.listed_series = {SET_RED_EYES}
 
 function s.initial_effect(c)
@@ -79,10 +79,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
 end
 
-function s.e4filter(c, tp, rc, re)
-    return not c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_BATTLE + REASON_EFFECT) and
-               (c:GetReasonCard() == rc or (re and re:GetOwner() == rc))
-end
+function s.e4filter(c, tp, rc, re) return c:IsReason(REASON_BATTLE + REASON_EFFECT) and (c:GetReasonCard() == rc or (re and re:GetOwner() == rc)) end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
