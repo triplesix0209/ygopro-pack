@@ -26,6 +26,7 @@ function s.initial_effect(c)
     local e1reg = Effect.CreateEffect(c)
     e1reg:SetType(EFFECT_TYPE_SINGLE)
     e1reg:SetCode(EFFECT_MATERIAL_CHECK)
+    e1reg:SetLabelObject(e1)
     e1reg:SetValue(s.e1matcheck)
     c:RegisterEffect(e1reg)
 
@@ -57,15 +58,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1matcheck(e, c)
-    if c:GetMaterial():IsExists(Card.IsCode, 1, nil, CARD_REDEYES_B_DRAGON) then
-        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), 0, 1)
-    end
-end
+function s.e1matcheck(e, c) if c:GetMaterial():IsExists(Card.IsCode, 1, nil, CARD_REDEYES_B_DRAGON) then e:GetLabelObject():SetLabel(1) end end
 
 function s.e1filter(c, e)
     if not c:IsAbleToHand() then return false end
-    return (c:IsSetCard(SET_RED_EYES) and c:IsTrap()) or (e:GetHandler():GetFlagEffect(id) ~= 0 and c:IsType(TYPE_EQUIP))
+    return (c:IsSetCard(SET_RED_EYES) and c:IsTrap()) or (e:GetLabel()==1 and c:IsType(TYPE_EQUIP))
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
