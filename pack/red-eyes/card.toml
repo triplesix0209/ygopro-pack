@@ -60,15 +60,13 @@ effect = """\
 "Red-Eyes Black Dragon" + 1 "Red-Eyes" monster
 At the start of the Damage Step, if this card battles an opponent's monster: \
     You can destroy that opponent's monster. \
-If this card destroys a monster by battle or by its own effect: It gains 1000 ATK. \
-If this card's ATK becomes 4500 or higher (except during the Damage Step): \
-    Destroy this card, and if you do, Special Summon 1 "Red-Eyes Black Dragon" from your GY. \
+If this card destroys a monster by battle or by its own effect: It gains 1000 ATK, \
+    then if its ATK becomes 4500 or higher, destroy it. \
+If this card is destroyed by battle or card effect: \
+    You can Special Summon 1 "Red-Eyes Black Dragon" from your GY. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = [
-    "Destroy the battling monster",
-    "Gain 1000 ATK",
-    "Destroy this card and Special Summon \"Red-Eyes Black Dragon\"",
-]
+strings = ["Destroy the battling monster", "Gain 1000 ATK"]
 
 [red-eyes-dark-steel-dragon]
 id = 900001204
@@ -124,4 +122,22 @@ If this card has "Red-Eyes Flare Metal Dragon" as material, it gains these effec
 strings = [
     "Xyz Summon by using a Rank 7 \"Red-Eyes\" Xyz Monster",
     "Negate the activation & destroy",
+]
+
+[red-eyes-metalmorph]
+id = 900001206
+name = "Red-Eyes Metalmorph"
+set = "red-eyes"
+type = "trap"
+effect = """\
+Target 1 "Red-Eyes" monster you control; equip this card to it. \
+It cannot be targeted by an opponent's card effects. \
+If it attacks, it gains ATK equal to half the ATK of the attack target, during damage calculation only. \
+You can send this Equip Card to the GY; \
+    Set 1 "Red-Eyes" Trap directly from your Deck or GY, except "{CARD_NAME}". \
+    It can be activated this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Send this card to GY & Set 1 \"Red-Eyes\" Trap directly from your Deck or GY",
 ]
