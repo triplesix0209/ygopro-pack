@@ -53,12 +53,26 @@ set = "red-eyes"
 type = "monster xyz effect"
 attribute = "dark"
 race = "dragon"
-level = 9
+level = 10
 atk = 2800
 def = 2400
 effect = """\
+2 Level 10 monsters with same Type and Attribute
+You can also Xyz Summon this card by using 1 Level 9 or higher "Red-Eyes" monster you control as material. \
+If this card would be destroyed by battle or card effect, you can detach 1 material from this card instead. \
+During your Main Phase: You can Special Summon 1 Dragon monster or "Red-Eyes" monster, except "{CARD_NAME}", \
+    that is banished or from your hand or GY. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card has an "Red-Eyes" monster as material, it gains these effects.
+● Gains 400 ATK for each Dragon monster in your GY.
+● When your opponent activates a Spell Card (Quick Effect): \
+    You can discard 1 card; negate the activation, and if you do, destroy it.
 """
-strings = []
+strings = [
+    "Xyz Summon by using a Level 10 \"Red-Eyes\" monster",
+    "Special Summon 1 \"Red-Eyes\" monster or Dragon monster",
+    "Discard to negate the activation",
+]
 
 [red-eyes-darkness-flare-metal-dragon]
 id = 900001204
