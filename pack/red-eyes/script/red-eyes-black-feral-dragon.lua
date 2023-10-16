@@ -66,7 +66,7 @@ end
 function s.e2regcon(e, tp, eg, ep, ev, re, r, rp) return Duel.GetAttacker() == e:GetHandler() and Duel.GetAttackTarget() end
 
 function s.e2regop(e, tp, eg, ep, ev, re, r, rp)
-    e:GetHandler():RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), 0, 1)
+    e:GetHandler():RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD | RESET_PHASE | PHASE_END & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), 0, 1)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
