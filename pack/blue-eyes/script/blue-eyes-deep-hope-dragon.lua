@@ -80,7 +80,7 @@ function s.e2filter(c, tp)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
-    return eg:IsExists(s.e2filter, 1, nil, tp) and (e:GetHandler():IsLocation(LOCATION_EXTRA) or not aux.exccon(e))
+    return eg:IsExists(s.e2filter, 1, nil, tp) and (e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.exccon(e))
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
