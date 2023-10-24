@@ -58,7 +58,7 @@ This card's original ATK/DEF are equal to the number of cards in your hand x 100
 If a monster(s) is Normal or Special Summoned to your opponent's field, \
     or a monster(s) is take control by your opponent, while this card is able to attack: \
     Choose that monster(s) as a Target; it loses 2000 ATK or DEF depending on its battle position, \
-    then if its ATK or DEF are 0, destroy it. \
+    then if its affected ATK or DEF equals to 0, destroy it. \
 """
 strings = ["Reduce the monster(s)' ATK or DEF"]
 
