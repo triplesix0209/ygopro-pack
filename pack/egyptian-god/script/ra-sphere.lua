@@ -58,12 +58,15 @@ function s.initial_effect(c)
     e1c:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     c:RegisterEffect(e1c)
 
-    -- cannot be equipped with card
+    -- destroy equip
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    e2:SetCode(Divine.EFFECT_NO_EQUIP)
-    e2:SetRange(LOCATION_MZONE)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e2:SetCode(EVENT_EQUIP)
+    e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local g = eg:Filter(function(ec) return ec:GetEquipTarget() == e:GetHandler() end, nil)
+        if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
+    end)
     c:RegisterEffect(e2)
 
     -- immune

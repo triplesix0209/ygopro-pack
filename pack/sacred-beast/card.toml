@@ -47,7 +47,7 @@ effect = """\
 Cannot be Normal Summoned/Set. \
 Must first be Special Summoned (from your hand) by Tributing 3 Fiend monsters. \
 This card's Special Summon cannot be negated. \
-Control of it cannot switch. \
+Its control cannot switch. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 Negate the effects of your opponent's monsters destroyed by battle with this card. \
 The above effects cannot be negated. \
@@ -80,7 +80,7 @@ effect = """\
 Cannot be Normal Summoned/Set. \
 Must first be Special Summoned (from your hand) by sending 3 face-up Traps you control to the GY. \
 This card's Special Summon cannot be negated. \
-Control of it cannot switch. \
+Its control cannot switch. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 Gains 1000 ATK/DEF for each Trap in your GY. \
 The above effects cannot be negated. \
@@ -109,7 +109,7 @@ effect = """\
 Cannot be Normal Summoned/Set. \
 Must first be Special Summoned (from your hand) by sending 3 face-up Continuous Spells you control to the GY. \
 This card's Special Summon cannot be negated. \
-Control of it cannot switch. \
+Its control cannot switch. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 While this card is in face-up Defense Position, \
     monsters your opponent controls cannot target monsters for attacks, except this one. \
@@ -143,7 +143,7 @@ This card's Special Summon cannot be negated. \
 This card's battle position cannot be changed by card effects. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 If this card's control was changed to your opponent, \
-    its effects are negated, and also control of it cannot switch. \
+    its effects are negated, and also its control cannot switch. \
 Once per turn, during the End Phase, if this card's control was changed this turn: \
     Banish all other cards you control, also shuffle it into the Extra Deck, \
     then the this card's owner can Special Summon 1 "Phantasm" Fusion Monster from the Extra Deck, \

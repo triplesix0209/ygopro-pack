@@ -90,7 +90,7 @@ Once while this Normal Summoned card is face-up on the field, you can also use t
     Cards and effects cannot be activated in response to this effect's activation. \
     This effect cannot be negated. \
 If your "De-Fusion" targets this Fusion Monster, apply these effect instead: \
-    The target loses its above effects, negate its attack if any, \
+    "The target loses its above effects, negate its attack if any, \
     cannot attack or activate its effects during this turn, \
     its ATK/DEF become 0, and if it do, its controller gains LP equal to that lost ATK". \
 """
@@ -120,7 +120,7 @@ If your "The Winged Dragon of Ra" is Normal Summoned to your field, \
     or your opponent's field, Dimension Change it to this card with the same Divine Hierarchy. \
 This card's effects cannot be negated nor be copied. \
 Cannot be Tributed, nor be used as material for an Summon. \
-Cannot be equipped with Equip Cards. \
+If card(s) is equipped to it, destroy that card(s). \
 Unaffected by other card effects, except effects of monsters with the equal or higher Divine Hierarchy. \
 Cannot attack. \
 Neither player can target it for attacks nor with card effects, \
@@ -157,7 +157,7 @@ If "The Winged Dragon of Ra" you control would be destroyed by its own effect, \
     and this card's original ATK/DEF become the same as that monster's ATK/DEF on the field. \
 This card's effects cannot be negated nor be copied. \
 Cannot be Tributed, nor be used as material for an Summon. \
-Cannot be equipped with Equip Cards. \
+If card(s) is equipped to it, destroy that card(s). \
 Unaffected by other card effects, cannot be destroyed by battle, \
     also you take no battle damage from that battle, \
     except with monsters with the higher Divine Hierarchy. \
@@ -501,7 +501,7 @@ Your opponent cannot Tribute it, nor use it as material for an Summon. \
     This effect cannot be negated nor be copied. \
 This card gains effects based on the number of materials attached to it.
 ● 1+: This card's battle position cannot be changed by card effects, \
-    also control of it cannot switch. \
+    also its control cannot switch. \
     This effect cannot be negated nor be copied.
 ● 2+: Your opponent cannot target this card with card effects, \
     also unaffected by your opponent's Spell effects. \

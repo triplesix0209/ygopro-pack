@@ -4,7 +4,6 @@ if not Divine then Divine = aux.DivineProcedure end
 
 -- constant: flag
 Divine.FLAG_DIVINE_EVOLUTION = 513000065
-Divine.EFFECT_NO_EQUIP = EVENT_CUSTOM + 900000001
 
 -- function
 function Divine.IsDivineEvolution(c) return c:GetFlagEffect(Divine.FLAG_DIVINE_EVOLUTION) > 0 end
@@ -94,12 +93,15 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
 
-    -- cannot be equipped with card
+    -- destroy equip
     local noequip = Effect.CreateEffect(c)
-    noequip:SetType(EFFECT_TYPE_SINGLE)
-    noequip:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    noequip:SetCode(Divine.EFFECT_NO_EQUIP)
-    noequip:SetRange(LOCATION_MZONE)
+    noequip:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    noequip:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noequip:SetCode(EVENT_EQUIP)
+    noequip:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local g = eg:Filter(function(ec) return ec:GetEquipTarget() == e:GetHandler() end, nil)
+        if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
+    end)
     c:RegisterEffect(noequip)
 
     -- battle indes & avoid damage
@@ -153,64 +155,31 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     reset:SetOperation(function(e, tp, eg, ep, ev, re, r, rp) Utility.ResetListEffect(e:GetHandler(), ResetEffectFilter) end)
     c:RegisterEffect(reset)
 
-    -- redirect attack & effect target
+    -- redirect attack & effect
     local redirect = Effect.CreateEffect(c)
     redirect:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     redirect:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    redirect:SetCode(EVENT_SUMMON_SUCCESS)
-    redirect:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        return Duel.GetTurnPlayer() == 1 - tp and e:GetHandler():IsPosition(POS_FACEUP_DEFENSE)
-    end)
+    redirect:SetCode(EVENT_SPSUMMON_SUCCESS)
     redirect:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_FIELD)
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-        ec1:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
-        ec1:SetRange(LOCATION_MZONE)
-        ec1:SetTargetRange(0, LOCATION_MZONE)
-        ec1:SetValue(function(e, c) return c ~= e:GetHandler() end)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        c:RegisterEffect(ec1)
-
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetType(EFFECT_TYPE_FIELD)
-        ec2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_SET_AVAILABLE + EFFECT_FLAG_CANNOT_DISABLE)
-        ec2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-        ec2:SetRange(LOCATION_MZONE)
-        ec2:SetTargetRange(LOCATION_MZONE, 0)
-        ec2:SetTarget(function(e, tc) return tc ~= c end)
-        ec2:SetValue(aux.tgoval)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        c:RegisterEffect(ec2)
-
-        for i = 1, Duel.GetCurrentChain() do
-            local tgp, tg = Duel.GetChainInfo(i, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TARGET_CARDS)
-            if tgp ~= tp and tg and tg:IsExists(function(c, tp) return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) end, 1, nil, tp) then
-                local g = Group.FromCards(c):Merge(tg:Filter(function(c, tp)
-                    return c:IsControler(tp) and not c:IsLocation(LOCATION_MZONE)
-                end, nil, tp))
-                Duel.ChangeTargetCard(i, g)
-            end
-        end
-
+        if c:IsAttackPos() then return end
+        
         local ac = Duel.GetAttacker()
-        if ac and ac:IsControler(1 - tp) and ac:CanAttack() and ac:IsRelateToBattle() and not ac:IsImmuneToEffect(e) then
-            Duel.CalculateDamage(ac, c)
+        if Duel.CheckEvent(EVENT_ATTACK_ANNOUNCE) and ac:CanAttack() and ac:GetAttackableTarget():IsContains(c) and
+            Duel.SelectEffectYesNo(tp, c, 666002) then
+            Duel.HintSelection(c, true)
+            Duel.ChangeAttackTarget(c)
         end
+
+        local te, tg = Duel.GetChainInfo(ev + 1, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TARGET_CARDS)
+        if te and te ~= re and te:IsHasProperty(EFFECT_FLAG_CARD_TARGET) and #tg == 1 and c:IsCanBeEffectTarget(te) and
+            Duel.SelectEffectYesNo(tp, c, 666002) then Duel.ChangeTargetCard(ev + 1, Group.FromCards(c)) end
     end)
     c:RegisterEffect(redirect)
-    local redirect2 = redirect:Clone()
-    redirect2:SetCode(EVENT_SPSUMMON_SUCCESS)
-    c:RegisterEffect(redirect2)
-    local redirect3 = redirect:Clone()
-    redirect3:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
-    c:RegisterEffect(redirect3)
 
     -- return to where was special summon
     local spreturn = Effect.CreateEffect(c)
-    spreturn:SetDescription(666002)
+    spreturn:SetDescription(666003)
     spreturn:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     spreturn:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     spreturn:SetRange(LOCATION_MZONE)
@@ -301,12 +270,15 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
 
-    -- cannot be equipped with card
+    -- destroy equip
     local noequip = Effect.CreateEffect(c)
-    noequip:SetType(EFFECT_TYPE_SINGLE)
-    noequip:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    noequip:SetCode(Divine.EFFECT_NO_EQUIP)
-    noequip:SetRange(LOCATION_MZONE)
+    noequip:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    noequip:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noequip:SetCode(EVENT_EQUIP)
+    noequip:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local g = eg:Filter(function(ec) return ec:GetEquipTarget() == e:GetHandler() end, nil)
+        if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
+    end)
     c:RegisterEffect(noequip)
 
     -- battle indes & avoid damage
@@ -425,9 +397,7 @@ function Divine.Apostle(id, c, god_code, tribute_filter, gain_op)
         eff:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
             if not Duel.IsExistingMatchingCard(aux.NecroValleyFilter(function(c)
                 if type(god_code) == 'table' then
-                    for i, code in ipairs(god_code) do
-                        if not c:ListsCode(code) then return false end
-                    end
+                    for i, code in ipairs(god_code) do if not c:ListsCode(code) then return false end end
                 else
                     if not c:ListsCode(god_code) then return false end
                 end
@@ -460,12 +430,4 @@ function ResetEffectFilter(te, c)
     if tc:IsMonster() and Divine.GetDivineHierarchy(tc) > Divine.GetDivineHierarchy(c) then return false end
     return not te:IsHasProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_FIELD_ONLY) and
                (te:GetTarget() == aux.PersistentTargetFilter or not te:IsHasType(EFFECT_TYPE_GRANT)) and te:GetCode() ~= EFFECT_SPSUMMON_PROC
-end
-
-local base_equip = Duel.Equip
-Duel.Equip = function(...)
-    local params = {...}
-    local tc = params[3]
-    if tc:IsHasEffect(Divine.EFFECT_NO_EQUIP) then return 0 end
-    return base_equip(...)
 end
