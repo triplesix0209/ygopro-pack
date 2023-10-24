@@ -42,9 +42,9 @@ APOSTLE_EFFECT = """\
 If this card is Link Summoned: You can add to your hand 1 {0} from your Deck or GY. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 While you control this Link Summoned card, \
-    you can Tribute Summon 1 {1} monster in Attack Position during your Main Phase, \
+    you can Tribute Summon 1 {1} in Attack Position during your Main Phase, \
     in addition to your Normal Summon/Set. (You can only gain this effect once per turn.) \
-This card can be treated as 3 Tributes for the Tribute Summon of a {1} monster. \
+This card can be treated as 3 Tributes for the Tribute Summon of a {1}. \
     This effect cannot be negated.\
 """
 

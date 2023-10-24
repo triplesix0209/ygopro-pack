@@ -314,7 +314,7 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 2400
 effect = """\
 3 monsters
-{APOSTLE_EFFECT|"Obelisk the Tormentor"|Divine-Beast} \
+{APOSTLE_EFFECT|"Obelisk the Tormentor"|Divine-Beast monster} \
 {APOSTLE_GAIN_EFFECT|"Obelisk the Tormentor"}
 """
 strings = [
@@ -333,7 +333,7 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 2000
 effect = """\
 3 monsters
-{APOSTLE_EFFECT|"Slifer the Sky Dragon"|Divine-Beast} \
+{APOSTLE_EFFECT|"Slifer the Sky Dragon"|Divine-Beast monster} \
 {APOSTLE_GAIN_EFFECT|"Slifer the Sky Dragon"}
 """
 strings = [
@@ -352,7 +352,7 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 3300
 effect = """\
 3 monsters
-{APOSTLE_EFFECT|"The Winged Dragon of Ra"|Divine-Beast} \
+{APOSTLE_EFFECT|"The Winged Dragon of Ra"|Divine-Beast monster} \
 {APOSTLE_GAIN_EFFECT|"The Winged Dragon of Ra"}
 ● This card's original ATK/DEF become the combined ATK/DEF on the field of the monsters Tributed for its Summon.
 """
