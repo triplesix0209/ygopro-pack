@@ -57,16 +57,14 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local dg = Group.CreateGroup()
 
     for tc in tg:Iter() do
-        local preatk = tc:GetAttack()
-        local predef = tc:GetDefense()
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(tc:IsAttackPos() and EFFECT_UPDATE_ATTACK or EFFECT_UPDATE_DEFENSE)
         ec1:SetValue(-2000)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
         tc:RegisterEffect(ec1)
-
-        if (preatk ~= 0 and tc:IsAttack(0)) or (predef ~= 0 and tc:IsDefense(0)) then dg:AddCard(tc) end
+        
+        if tc:IsAttack(0) or tc:IsDefense(0) then dg:AddCard(tc) end
     end
 
     if #dg > 0 then
