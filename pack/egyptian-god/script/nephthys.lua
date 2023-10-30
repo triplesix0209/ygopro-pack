@@ -46,10 +46,26 @@ function s.initial_effect(c)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
 
+    -- control cannot switch
+    local noswitch = Effect.CreateEffect(c)
+    noswitch:SetType(EFFECT_TYPE_SINGLE)
+    noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
+    noswitch:SetRange(LOCATION_MZONE)
+    c:RegisterEffect(noswitch)
+
+    -- battle position cannot be changed by effect
+    local nopos = Effect.CreateEffect(c)
+    nopos:SetType(EFFECT_TYPE_SINGLE)
+    nopos:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    nopos:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
+    nopos:SetRange(LOCATION_MZONE)
+    c:RegisterEffect(nopos)
+
     -- atk up
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
+    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     e1:SetCode(EFFECT_UPDATE_ATTACK)
     e1:SetRange(LOCATION_MZONE)
     e1:SetValue(function(e, c) return s.rebirth_count * 100 end)
@@ -135,7 +151,6 @@ function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
         local e3 = Effect.CreateEffect(c)
         e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
         e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-        e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_INACTIVATE)
         e3:SetCode(EVENT_PHASE + PHASE_STANDBY)
         e3:SetRange(LOCATION_GRAVE)
         e3:SetCountLimit(1)
@@ -151,6 +166,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, c, 1, 0, LOCATION_GRAVE)
+    Duel.SetChainLimit(aux.FALSE)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
