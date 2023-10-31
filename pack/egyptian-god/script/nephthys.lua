@@ -129,7 +129,7 @@ function s.e2con(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_MZONE, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_MZONE, 0, 1, nil) end
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
@@ -141,7 +141,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e2repop(e, tp, eg, ep, ev, re, r, rp)
-    local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, 1 - tp, s.e2filter, 1 - tp, LOCATION_HAND + LOCATION_DECK + LOCATION_MZONE, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, 1 - tp, s.e2filter, 1 - tp, LOCATION_MZONE, 0, 1, 1, nil)
     if #g > 0 then Duel.Destroy(g, REASON_EFFECT + REASON_RULE) end
 end
 
