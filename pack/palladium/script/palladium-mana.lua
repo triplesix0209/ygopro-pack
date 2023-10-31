@@ -34,7 +34,8 @@ function s.initial_effect(c)
     e3:SetCategory(CATEGORY_ATKCHANGE)
     e3:SetType(EFFECT_TYPE_QUICK_O)
     e3:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
-    e3:SetRange(LOCATION_HAND + LOCATION_MZONE)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCountLimit(1)
     e3:SetCondition(s.e3con)
     e3:SetCost(s.e3cost)
     e3:SetOperation(s.e3op)
@@ -73,9 +74,15 @@ end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToGraveAsCost() end
+    if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
 
-    Duel.SendtoGrave(c, REASON_COST)
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(3206)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp, chk)

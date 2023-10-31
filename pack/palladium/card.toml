@@ -58,11 +58,13 @@ When a card or effect is activated that targets a Spellcaster monster(s) you con
     while this card is in your hand or GY (Quick Effect): You can Special Summon this card. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 "Palladium" Spellcaster monsters and Level 7 or higher Spellcaster monsters you control cannot be destroyed by card effects. \
-During damage calculation, if your other "Palladium" Spellcaster monster battles an opponent's monster (Quick Effect): \
-    You can send this card from your hand or face-up field to the GY; \
-    that monster you control gains ATK equal to this card's original ATK during that damage calculation only. \
+Once per turn, during damage calculation, if your other "Palladium" Spellcaster monster \
+    battles an opponent's monster (Quick Effect): \
+    You can make that monster you control gains ATK \
+    equal to this card's original ATK during that damage calculation only. \
+    This card cannot declare an attack the turn this effect is activated. \
 """
-strings = ["Send this card to GY to up ATK"]
+strings = ["Make the battling monster gains ATK"]
 
 [palladium-seto]
 id = 900000103

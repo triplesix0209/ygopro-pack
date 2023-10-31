@@ -511,3 +511,29 @@ This card gains these effects, based on the number of materials attached to it.
 ● 4+: This card gains the original effects of all "Horus" monsters attached to it.
 """
 strings = []
+
+[pharaoh-avatar-horus]
+id = 900000020
+name = "Pharaoh, Avatar of Horus"
+set = "horus"
+type = "monster effect"
+attribute = "light"
+race = "warrior"
+level = 8
+atk = 1800
+def = 3000
+effect = """\
+If you control "King's Sarcophagus", you can Special Summon this card (from your GY). \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+You can only use each of the following effects of "{CARD_NAME}" once per turn. \
+You can send both this card and 1 other Level 8 monster from your hand to the GY; \
+    add 1 Spell/Trap that lists a "Horus" card from your Deck to your hand, \
+    then you can draw 1 card. \
+If another card(s) you control leaves the field by an opponent's card effect (except during the Damage Step): \
+    You can inflict damage to your opponent equal to the number of monsters with different original Types you control x 600. \
+    You must control this face-up card to activate and to resolve this effect. \
+"""
+strings = [
+    "Draw 1 card?",
+    "Inflict damage equal to monster types you control x 600",
+]

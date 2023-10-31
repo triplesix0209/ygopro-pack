@@ -583,10 +583,10 @@ If you Special Summon a Level 8 Dragon Synchro Monster while this card is in you
 """
 strings = []
 
-[archfiend-synchron]
+[red-synchron]
 id = 900003124
-name = "Archfiend Synchron"
-set = "archfiend synchron"
+name = "Red Synchron"
+set = "synchron"
 type = "monster tuner effect"
 attribute = "dark"
 race = "fiend"

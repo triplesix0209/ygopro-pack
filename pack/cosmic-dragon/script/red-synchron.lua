@@ -1,4 +1,4 @@
--- Archfiend Synchron
+-- Red Synchron
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
