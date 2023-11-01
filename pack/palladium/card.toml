@@ -138,7 +138,7 @@ id = 900000106
 name = "Palladium Guardian Shada"
 set = "palladium guardian"
 type = "monster effect"
-attribute = "light"
+attribute = "dark"
 race = "warrior"
 level = 4
 atk = 1400
@@ -158,7 +158,7 @@ id = 900000107
 name = "Palladium Gardna Karim"
 set = "palladium"
 type = "monster effect"
-attribute = "light"
+attribute = "dark"
 race = "warrior"
 level = 4
 atk = 100
@@ -417,7 +417,7 @@ level = 8
 atk = 2800
 def = 2300
 effect = """\
-"Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Spellcaster monster
+"Palladium Oracle Mahad" or "Palladium Oracle Mana" + 1 Level 6 or 7 Spellcaster monster
 Must first be Fusion Summoned with the above materials. \
 Spellcaster monsters you control cannot be destroyed by card effects. \
 Your opponent cannot target Spells/Traps you control with card effects, \

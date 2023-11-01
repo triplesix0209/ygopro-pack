@@ -9,7 +9,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, false, false, {71703785, 42006475}, aux.FilterBoolFunctionEx(Card.IsRace, RACE_SPELLCASTER))
+    Fusion.AddProcMix(c, false, false, {71703785, 42006475}, s.fusfilter)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -71,6 +71,8 @@ function s.initial_effect(c)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 end
+
+function s.fusfilter(c, fc, sumtype, tp) return (c:IsLevel(6) or c:IsLevel(7)) and c:IsRace(RACE_SPELLCASTER, fc, sumtype, tp) end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp) return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) end
 
