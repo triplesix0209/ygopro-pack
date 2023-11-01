@@ -512,7 +512,7 @@ If another card(s) you control leaves the field by an opponent's card effect (ex
 """
 strings = [
     "Draw 1 card?",
-    "Inflict damage equal to monster types you control x 600",
+    "Inflict damage equal to monster types you control",
 ]
 
 [sun-god-descend]
