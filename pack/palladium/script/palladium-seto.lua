@@ -3,10 +3,10 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_BLUEEYES_W_DRAGON}
-s.listed_series = {0xdd}
+s.listed_series = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
-    -- search dragon
+    -- search
     local e1 = Effect.CreateEffect(c)
     e1:SetDescription(aux.Stringid(id, 0))
     e1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH + CATEGORY_TODECK)
@@ -44,7 +44,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1filter(c) return c:IsLevel(8) and c:IsRace(RACE_DRAGON) and c:IsAttackAbove(3000) and c:IsDefenseBelow(2500) and c:IsAbleToHand() end
+function s.e1filter(c) return c:IsSetCard(SET_BLUE_EYES) and c:IsAbleToHand() end
 
 function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
@@ -77,7 +77,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e2filter1(c, e, tp)
-    return c:IsFaceup() and c:IsSetCard(0xdd) and c:IsCanBeFusionMaterial() and
+    return c:IsFaceup() and c:IsSetCard(SET_BLUE_EYES) and c:IsCanBeFusionMaterial() and
                Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c)
 end
 

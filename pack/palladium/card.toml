@@ -75,8 +75,7 @@ atk = 0
 def = 0
 effect = """\
 You can reveal this card in your hand; \
-    add from your Deck or GY to your hand, \
-    1 Level 8 Dragon monster with 3000 or more ATK and 2500 or less DEF. \
+    add 1 "Blue-Eyes" monster from your Deck or GY to your hand. \
     You cannot Normal Summon monsters the turn you activate this effect. \
 You can discard this card, then target 1 "Blue-Eyes" monster you control; \
     Fusion Summon 1 Dragon Fusion Monster from your Extra Deck that lists that monster on the field as Fusion Material, \
