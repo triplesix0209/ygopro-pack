@@ -88,18 +88,32 @@ function s.initial_effect(c)
     e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
     e3:SetCode(EVENT_CHAINING)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCondition(s.e3con)
+    e3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 3 and s.e3con(e, tp, eg, ep, ev, re, r, rp) end)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- gain effect
+    -- send to grave
     local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e4:SetCode(EVENT_ADJUST)
+    e4:SetDescription(aux.Stringid(id, 0))
+    e4:SetCategory(CATEGORY_TOGRAVE)
+    e4:SetType(EFFECT_TYPE_IGNITION)
     e4:SetRange(LOCATION_MZONE)
+    e4:SetCountLimit(1)
+    e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 4 end)
+    e4:SetCost(s.e4cost)
+    e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
+
+    -- gain effect
+    local e5 = Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e5:SetCode(EVENT_ADJUST)
+    e5:SetRange(LOCATION_MZONE)
+    e5:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayCount() >= 5 end)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
 end
 
 function s.xyzfilter(c, xyz, sumtype, tp) return c:IsLevelAbove(8) end
@@ -109,8 +123,7 @@ function s.xyzcheck(g, tp, xyz)
 end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return not c:IsStatus(STATUS_BATTLE_DESTROYED) and c:GetOverlayCount() >= 3 and re:IsActiveType(TYPE_SPELL) and Duel.IsChainDisablable(ev)
+    return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:IsActiveType(TYPE_SPELL) and Duel.IsChainDisablable(ev)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -128,21 +141,49 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.NegateEffect(ev) and rc:IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
 end
 
-function s.e4filter(c)
-    if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsSetCard(SET_HORUS) and c:IsMonster()
+function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(3206)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_CANNOT_ATTACK_ANNOUNCE)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
+end
+
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsAbleToGrave, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
+    Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 1, PLAYER_EITHER, LOCATION_ONFIELD)
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = c:GetOverlayGroup():Filter(s.e4filter, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, Card.IsAbleToGrave, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c)
+    if #g > 0 then
+        Duel.HintSelection(g, true)
+        Duel.SendtoGrave(g, REASON_EFFECT)
+    end
+end
+
+function s.e5filter(c)
+    if c:GetFlagEffect(id) ~= 0 then return false end
+    return c:IsSetCard(SET_HORUS) and c:IsMonster()
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local g = c:GetOverlayGroup():Filter(s.e5filter, nil)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe4000, 0, 0)
+        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe5000, 0, 0)
         local code = tc:GetOriginalCode()
         if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
-            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe4000)
+            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe5000)
             local reset = Effect.CreateEffect(c)
             reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
             reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -155,12 +196,12 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
                 local c = e:GetHandler()
                 local tc = e:GetLabelObject()
                 local g = c:GetOverlayGroup():Filter(function(c) return c:GetFlagEffect(id) > 0 end, nil)
-                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) then
+                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) or c:GetOverlayCount() < 5 then
                     c:ResetEffect(cid, RESET_COPY)
                     tc:ResetFlagEffect(id)
                 end
             end)
-            reset:SetReset(RESET_EVENT + 0x1fe4000)
+            reset:SetReset(RESET_EVENT + 0x1fe5000)
             c:RegisterEffect(reset, true)
         end
     end

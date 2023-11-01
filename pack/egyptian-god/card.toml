@@ -247,203 +247,8 @@ strings = [
     "Affected by effect \"{CARD_NAME}\": cannot activate Spell/Trap Cards",
 ]
 
-[the-chosen-pharaoh]
-id = 900000009
-rarity = "gold"
-name = "The Chosen Pharaoh"
-type = "trap continuous"
-effect = """\
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
-Your opponent cannot target this card with card effects. \
-Original DIVINE monster in your GY cannot be banished, \
-    also negate any your opponent's card effect that would move them. \
-If this face-up card leaves the field, return all monster you control into the Deck, ignoring card effects. \
-You can only use the following effect of "{CARD_NAME}" once per turn. You can activate 1 of these effects;
-● Special Summon 1 original Divine-Beast monster from your hand or GY, ignoring its Summoning conditions, \
-    but if you Special Summoned from the GY, send that monster to the GY during the End Phase.
-● Choose 1 original Divine-Beast monster you control or is in your GY, \
-    add to your hand, or Set, 1 Spell/Trap that mentions it from your Deck, \
-    with a different name from the cards you control and in your GY.
-You can discard 1 "The True Name" and Tribute 3 monsters whose original names are \
-    "Obelisk the Tormentor", "Slifer the Sky Dragon", "The Winged Dragon of Ra"; \
-    Special Summon 1 "Holactie the Creator of Light" from Outside, ignoring its Summoning conditions. \
-    Cards and effects cannot be activated in response to this effect's activation. \
-    You can only use this effect of "{CARD_NAME}" once per Duel. \
-"""
-strings = [
-    "Special Summon a Divine-Beast",
-    "Summoned by \"{CARD_NAME}\"",
-    "Add or Set Spell/Trap that mentions Divine-Beast",
-    "Call \"Holactie the Creator of Light\"",
-]
-
-[deity-evolution]
-id = 900000010
-alias = 7373632
-rarity = "gold"
-name = "Deity Evolution"
-type = "spell quick-play"
-effect = """\
-(This card's name is always treated as "Divine Evolution".)
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
-Choose 1 monster you control whose original Type is Divine-Beast \
-    or whose original name is "The Wicked Avatar", "The Wicked Dreadroot", or "The Wicked Eraser" \
-    except a monster(s) already affected by "Divine Evolution", \
-it gains the following effect, ignoring card effects. This is treated as effects gained from "Divine Evolution".
-● Gain 1000 ATK/DEF.
-● Its Divine Hierarchy become it's base Divine Hierarchy increase by 1.
-● Its effect activations and its activated effects cannot be negated.
-● When this card declares an attack: You can make your opponent send 1 monster they control to the GY (their choice)
-During your Main Phase, if this card is in your GY and you control a original Divine-Beast monster: \
-    You can discard 1 Spell; add this card to your hand. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
-"""
-strings = [
-    "Affected by \"Divine Evolution\"",
-    "Make your opponent send 1 monster to the GY",
-]
-
-[obelisk-apostle]
-id = 900000011
-name = "Obelisk's Apostle"
-type = "monster link effect"
-attribute = "earth"
-race = "illusionist"
-link = 3
-link-arrow = "bottom-left bottom bottom-right"
-atk = 2400
-effect = """\
-3 monsters
-{APOSTLE_EFFECT|"Obelisk the Tormentor"|Divine-Beast monster} \
-{APOSTLE_GAIN_EFFECT|"Obelisk the Tormentor"}
-"""
-strings = [
-    "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add Spell/Trap that mentions this card?",
-]
-
-[osiris-apostle]
-id = 900000012
-name = "Osiris's Apostle"
-type = "monster link effect"
-attribute = "light"
-race = "illusionist"
-link = 3
-link-arrow = "bottom-left bottom bottom-right"
-atk = 2000
-effect = """\
-3 monsters
-{APOSTLE_EFFECT|"Slifer the Sky Dragon"|Divine-Beast monster} \
-{APOSTLE_GAIN_EFFECT|"Slifer the Sky Dragon"}
-"""
-strings = [
-    "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add Spell/Trap that mentions this card?",
-]
-
-[ra-apostle]
-id = 900000013
-name = "Ra's Apostle"
-type = "monster link effect"
-attribute = "fire"
-race = "illusionist"
-link = 3
-link-arrow = "bottom-left bottom bottom-right"
-atk = 3300
-effect = """\
-3 monsters
-{APOSTLE_EFFECT|"The Winged Dragon of Ra"|Divine-Beast monster} \
-{APOSTLE_GAIN_EFFECT|"The Winged Dragon of Ra"}
-● This card's original ATK/DEF become the combined ATK/DEF on the field of the monsters Tributed for its Summon.
-"""
-strings = [
-    "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add Spell/Trap that mentions this card?",
-]
-
-[wicked-apostle]
-id = 900000014
-name = "The Wicked Apostle"
-type = "monster link effect"
-attribute = "dark"
-race = "fiend"
-link = 3
-link-arrow = "bottom-left bottom bottom-right"
-atk = 0
-effect = """\
-3 monsters
-{APOSTLE_EFFECT|"The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar"|Level 10 DARK Fiend monster} \
-{APOSTLE_GAIN_EFFECT|"The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar"}
-"""
-strings = [
-    "Tribute Summon (via \"{CARD_NAME}\")",
-    "Add Spell/Trap that mentions this card?",
-]
-
-[sun-god-descend]
-id = 900000015
-name = "Sun God Descend"
-type = "spell quick-play"
-effect = """\
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
-During the Main Phase: \
-    Tribute 3 monsters on your field or your opponent's, \
-    then Special Summon 1 "The Winged Dragon of Ra" from your hand or Deck, ignoring its Summoning conditions, \
-    and if you do, its original ATK/DEF become the combined ATK/DEF on the field of the Tributed monsters. \
-    If you Tributed monsters on your opponent's field, it cannot attack this turn. \
-    You cannot Normal Summon/Set during the turn you Special Summon with this effect. \
-If this card is in your GY: \
-    You can target 1 "The Winged Dragon of Ra" or 1 card that mentions it \
-    that is banished, or in your GY, except "{CARD_NAME}"; \
-    shuffle both this card and that target into the Deck, \
-    then draw 1 card. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
-"""
-strings = [
-    "Tribute your monsters",
-    "Tribute your opponent's monsters",
-    "Affected by effect \"{CARD_NAME}\": cannot Normal Summon/Set monsters for the rest of this turn",
-]
-
-[god-slime-2]
-id = 900000016
-name = "Egyptian God Slime II"
-type = "monster fusion effect"
-attribute = "water"
-race = "aqua"
-level = 10
-atk = 2000
-def = 2000
-effect = """\
-1 Aqua monster + 1 Level 10 WATER monster
-Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 Level 10 Aqua monster with 0 ATK. \
-This card can be treated as 1 or 3 Tributes for the Tribute Summon of a monster. \
-Cannot be destroyed by battle. \
-Monsters your opponent controls with ATK equal to or less than this card cannot attack, \
-    also they cannot activate their effects. \
-"""
-strings = []
-
-[god-slime-3]
-id = 900000017
-name = "Egyptian God Slime III"
-type = "monster fusion effect"
-attribute = "water"
-race = "aqua"
-level = 10
-atk = 3300
-def = 1800
-effect = """\
-1 Aqua monster + 1 Level 10 WATER monster
-Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 Level 10 Aqua monster with 0 ATK. \
-This card can be treated as 1 or 3 Tributes for the Tribute Summon of a monster. \
-Cannot be destroyed by battle. \
-Monsters you control cannot be destroyed by card effects. \
-"""
-strings = []
-
 [nephthys]
-id = 900000018
+id = 900000009
 rarity = "gold"
 name = "Divine Phoenix of Nephthys"
 set = "nephthys"
@@ -484,7 +289,7 @@ strings = [
 ]
 
 [horus]
-id = 900000019
+id = 900000010
 rarity = "gold"
 name = "Black Flame Divine Dragon of Horus"
 set = "horus"
@@ -508,12 +313,184 @@ This card gains these effects, based on the number of materials attached to it.
 ● 3+: When a Spell Card or effect is activated (Quick Effect): \
     You can negate that effect, and if you do, destroy it. \
     You must control this face-up card to activate and to resolve this effect.
-● 4+: This card gains the original effects of all "Horus" monsters attached to it.
+● 4+: Once per turn, you can send 1 other card from the field to the GY. \
+    This card cannot declare an attack the turn this effect is activated.
+● 5+: This card gains the original effects of all "Horus" monsters attached to it.
+"""
+strings = ["Send 1 other card to the GY"]
+
+[deity-evolution]
+id = 900000011
+alias = 7373632
+rarity = "gold"
+name = "Deity Evolution"
+type = "spell quick-play"
+effect = """\
+(This card's name is always treated as "Divine Evolution".)
+The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+Choose 1 monster you control whose original Type is Divine-Beast \
+    or whose original name is "The Wicked Avatar", "The Wicked Dreadroot", or "The Wicked Eraser" \
+    except a monster(s) already affected by "Divine Evolution", \
+it gains the following effect, ignoring card effects. This is treated as effects gained from "Divine Evolution".
+● Gain 1000 ATK/DEF.
+● Its Divine Hierarchy become it's base Divine Hierarchy increase by 1.
+● Its effect activations and its activated effects cannot be negated.
+● When this card declares an attack: You can make your opponent send 1 monster they control to the GY (their choice)
+During your Main Phase, if this card is in your GY and you control a original Divine-Beast monster: \
+    You can discard 1 Spell; add this card to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = [
+    "Affected by \"Divine Evolution\"",
+    "Make your opponent send 1 monster to the GY",
+]
+
+[the-chosen-pharaoh]
+id = 900000012
+rarity = "gold"
+name = "The Chosen Pharaoh"
+type = "trap continuous"
+effect = """\
+The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+Your opponent cannot target this card with card effects. \
+Original DIVINE monster in your GY cannot be banished, \
+    also negate any your opponent's card effect that would move them. \
+If this face-up card leaves the field, return all monster you control into the Deck, ignoring card effects. \
+You can only use the following effect of "{CARD_NAME}" once per turn. You can activate 1 of these effects;
+● Special Summon 1 original Divine-Beast monster from your hand or GY, ignoring its Summoning conditions, \
+    but if you Special Summoned from the GY, send that monster to the GY during the End Phase.
+● Choose 1 original Divine-Beast monster you control or is in your GY, \
+    add to your hand, or Set, 1 Spell/Trap that mentions it from your Deck, \
+    with a different name from the cards you control and in your GY.
+You can discard 1 "The True Name" and Tribute 3 monsters whose original names are \
+    "Obelisk the Tormentor", "Slifer the Sky Dragon", "The Winged Dragon of Ra"; \
+    Special Summon 1 "Holactie the Creator of Light" from Outside, ignoring its Summoning conditions. \
+    Cards and effects cannot be activated in response to this effect's activation. \
+    You can only use this effect of "{CARD_NAME}" once per Duel. \
+"""
+strings = [
+    "Special Summon a Divine-Beast",
+    "Summoned by \"{CARD_NAME}\"",
+    "Add or Set Spell/Trap that mentions Divine-Beast",
+    "Call \"Holactie the Creator of Light\"",
+]
+
+[obelisk-apostle]
+id = 900000013
+name = "Obelisk's Apostle"
+type = "monster link effect"
+attribute = "earth"
+race = "illusionist"
+link = 3
+link-arrow = "bottom-left bottom bottom-right"
+atk = 2400
+effect = """\
+3 monsters
+{APOSTLE_EFFECT|"Obelisk the Tormentor"|Divine-Beast monster} \
+{APOSTLE_GAIN_EFFECT|"Obelisk the Tormentor"}
+"""
+strings = [
+    "Tribute Summon (via \"{CARD_NAME}\")",
+    "Add Spell/Trap that mentions this card?",
+]
+
+[osiris-apostle]
+id = 900000014
+name = "Osiris's Apostle"
+type = "monster link effect"
+attribute = "light"
+race = "illusionist"
+link = 3
+link-arrow = "bottom-left bottom bottom-right"
+atk = 2000
+effect = """\
+3 monsters
+{APOSTLE_EFFECT|"Slifer the Sky Dragon"|Divine-Beast monster} \
+{APOSTLE_GAIN_EFFECT|"Slifer the Sky Dragon"}
+"""
+strings = [
+    "Tribute Summon (via \"{CARD_NAME}\")",
+    "Add Spell/Trap that mentions this card?",
+]
+
+[ra-apostle]
+id = 900000015
+name = "Ra's Apostle"
+type = "monster link effect"
+attribute = "fire"
+race = "illusionist"
+link = 3
+link-arrow = "bottom-left bottom bottom-right"
+atk = 3300
+effect = """\
+3 monsters
+{APOSTLE_EFFECT|"The Winged Dragon of Ra"|Divine-Beast monster} \
+{APOSTLE_GAIN_EFFECT|"The Winged Dragon of Ra"}
+● This card's original ATK/DEF become the combined ATK/DEF on the field of the monsters Tributed for its Summon.
+"""
+strings = [
+    "Tribute Summon (via \"{CARD_NAME}\")",
+    "Add Spell/Trap that mentions this card?",
+]
+
+[wicked-apostle]
+id = 900000016
+name = "The Wicked Apostle"
+type = "monster link effect"
+attribute = "dark"
+race = "fiend"
+link = 3
+link-arrow = "bottom-left bottom bottom-right"
+atk = 0
+effect = """\
+3 monsters
+{APOSTLE_EFFECT|"The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar"|Level 10 DARK Fiend monster} \
+{APOSTLE_GAIN_EFFECT|"The Wicked Dreadroot", "The Wicked Eraser" or "The Wicked Avatar"}
+"""
+strings = [
+    "Tribute Summon (via \"{CARD_NAME}\")",
+    "Add Spell/Trap that mentions this card?",
+]
+
+[god-slime-2]
+id = 900000017
+name = "Egyptian God Slime II"
+type = "monster fusion effect"
+attribute = "water"
+race = "aqua"
+level = 10
+atk = 2000
+def = 2000
+effect = """\
+1 Aqua monster + 1 Level 10 WATER monster
+Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 Level 10 Aqua monster with 0 ATK. \
+This card can be treated as 1 or 3 Tributes for the Tribute Summon of a monster. \
+Cannot be destroyed by battle. \
+Monsters your opponent controls with ATK equal to or less than this card cannot attack, \
+    also they cannot activate their effects. \
+"""
+strings = []
+
+[god-slime-3]
+id = 900000018
+name = "Egyptian God Slime III"
+type = "monster fusion effect"
+attribute = "water"
+race = "aqua"
+level = 10
+atk = 3300
+def = 1800
+effect = """\
+1 Aqua monster + 1 Level 10 WATER monster
+Must first be either Fusion Summoned, or Special Summoned from your Extra Deck by Tributing 1 Level 10 Aqua monster with 0 ATK. \
+This card can be treated as 1 or 3 Tributes for the Tribute Summon of a monster. \
+Cannot be destroyed by battle. \
+Monsters you control cannot be destroyed by card effects. \
 """
 strings = []
 
 [pharaoh-avatar-horus]
-id = 900000020
+id = 900000019
 name = "Pharaoh, Avatar of Horus"
 set = "horus"
 type = "monster effect"
@@ -536,4 +513,29 @@ If another card(s) you control leaves the field by an opponent's card effect (ex
 strings = [
     "Draw 1 card?",
     "Inflict damage equal to monster types you control x 600",
+]
+
+[sun-god-descend]
+id = 900000020
+name = "Sun God Descend"
+type = "spell quick-play"
+effect = """\
+The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+During the Main Phase: \
+    Tribute 3 monsters on your field or your opponent's, \
+    then Special Summon 1 "The Winged Dragon of Ra" from your hand or Deck, ignoring its Summoning conditions, \
+    and if you do, its original ATK/DEF become the combined ATK/DEF on the field of the Tributed monsters. \
+    If you Tributed monsters on your opponent's field, it cannot attack this turn. \
+    You cannot Normal Summon/Set during the turn you Special Summon with this effect. \
+If this card is in your GY: \
+    You can target 1 "The Winged Dragon of Ra" or 1 card that mentions it \
+    that is banished, or in your GY, except "{CARD_NAME}"; \
+    shuffle both this card and that target into the Deck, \
+    then draw 1 card. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Tribute your monsters",
+    "Tribute your opponent's monsters",
+    "Affected by effect \"{CARD_NAME}\": cannot Normal Summon/Set monsters for the rest of this turn",
 ]
