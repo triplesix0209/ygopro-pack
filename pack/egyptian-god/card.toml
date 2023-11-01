@@ -337,7 +337,7 @@ it gains the following effect, ignoring card effects. This is treated as effects
 ● Its effect activations and its activated effects cannot be negated.
 ● When this card declares an attack: You can make your opponent send 1 monster they control to the GY (their choice)
 During your Main Phase, if this card is in your GY and you control a original Divine-Beast monster: \
-    You can discard 1 Spell; add this card to your hand. \
+    You can discard 1 Spell; Set this card. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = [

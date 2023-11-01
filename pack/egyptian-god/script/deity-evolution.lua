@@ -21,7 +21,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- return to hand
+    -- set itself from GY
     local e2 = Effect.CreateEffect(c)
     e2:SetCategory(CATEGORY_TOHAND)
     e2:SetType(EFFECT_TYPE_IGNITION)
@@ -118,15 +118,11 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToHand() end
-
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, c, 1, 0, 0)
+    if chk == 0 then return c:IsSSetable() end
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, c, 1, 0, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if c:IsRelateToEffect(e) then
-        Duel.SendtoHand(c, nil, REASON_EFFECT)
-        Duel.ConfirmCards(1 - tp, c)
-    end
+    if c:IsRelateToEffect(e) and c:IsSSetable() then Duel.SSet(tp, c) end
 end
