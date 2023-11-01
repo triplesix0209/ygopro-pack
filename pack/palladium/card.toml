@@ -15,10 +15,7 @@ Once per turn, during your End Phase: \
     You can place 1 Field Spell or 1 Continuous Spell/Trap from your Deck underneath this card. \
 This card gains the original effects of all Field Spells and Continuous Spell/Trap(s) underneath it. \
 """
-strings = [
-    "Add \"The True Name\" to your hand",
-    "Place 1 card underneath it",
-]
+strings = ["Add \"The True Name\" to your hand", "Place 1 card underneath it"]
 
 [palladium-mahad]
 id = 900000101
@@ -600,7 +597,7 @@ strings = ["Banish 1 monster in GY and gain ATK"]
 [chaos-palladium-soldier]
 id = 900000125
 name = "Chaos Palladium Soldier - Envoy of the Creation"
-set = "palladium black-luster-soldier"
+set = "black-luster-soldier palladium"
 type = "monster ritual effect"
 attribute = "light"
 race = "warrior"
@@ -653,8 +650,34 @@ strings = [
     "Banish 1 card your opponent control",
 ]
 
-[chaos-end-ruler]
+[black-luster-soldier-palladium-swordsman]
 id = 900000127
+name = "Black Luster Soldier - Palladium Swordsman"
+set = "black-luster-soldier palladium"
+type = "monster synchro effect"
+attribute = "dark"
+race = "warrior"
+level = 8
+atk = 3000
+def = 2500
+effect = """\
+1 Tuner + 1+ non-Tuner LIGHT or DARK monsters
+For this card's Synchro Summon, you can treat 1 LIGHT or DARK monster you control as a Tuner. \
+If any card(s) have been banished this turn, this card becomes unaffected by your opponent's card effects. \
+You can only use 1 of the following effects of "{CARD_NAME}" per turn, and only once that turn. \
+During the Main Phase (Quick Effect): You can target 1 monster on the field; \
+    banish it until the Standby Phase of the next turn. \
+During your Main Phase, except the turn this card was sent to the GY: \
+    You can banish this card from your GY; Special Summon, from your Deck, Extra Deck or GY, \
+    1 "Chaos" Synchro Monster or 1 "Black Luster Soldier" monster, except "{CARD_NAME}", \
+    ignoring the Summoning conditions and treated as Special Summoned properly. \
+"""
+strings = [
+    "Banish 1 monster on the field until the Standby Phase of the next turn",
+]
+
+[chaos-end-ruler]
+id = 900000128
 name = "Chaos End Ruler - Envoy of the Palladium"
 set = "chaos palladium"
 type = "monster xyz effect"
@@ -690,8 +713,24 @@ strings = [
     "Affected by effect \"{CARD_NAME}\": other monsters cannot attack",
 ]
 
+[palladium-sacrophagus]
+id = 900000129
+name = "Palladium Sacrophagus"
+set = "palladium"
+type = "spell"
+effect = """\
+Banish 1 card face-down from your hand, Deck, Extra Deck, or in either GY, \
+    also once when a card effect with the same name is resolving, \
+    you can reveal the banished card and negate the effects of that card. \
+During your End Phase, except the turn this card was sent to the GY: \
+    You can return it to the bottom of the Deck, \
+    and if you do, add 1 your banished card to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
+
 [palladium-forbidden-art]
-id = 900000128
+id = 900000130
 name = "Forbidden Art of Palladium"
 set = "palladium fusion"
 type = "spell quick-play"
@@ -709,7 +748,7 @@ Activate 1 of these effects.
 strings = []
 
 [palladium-fusion-mastery]
-id = 900000129
+id = 900000131
 alias = 95286165
 name = "Palladium Fusion Mastery"
 type = "spell quick-play"
@@ -735,7 +774,7 @@ strings = [
 ]
 
 [palladium-reborn]
-id = 900000130
+id = 900000132
 alias = 83764718
 name = "Palladium Reborn"
 type = "spell quick-play"
@@ -749,7 +788,7 @@ You can also Special Summon a monster that can be Normal Summoned, ignoring its 
 strings = []
 
 [palladium-swords-light]
-id = 900000131
+id = 900000133
 name = "Swords of Palladium Light"
 set = "palladium"
 type = "spell quick-play"
@@ -769,25 +808,8 @@ You can send this card with no Spell Counter to the GY; draw 3 cards. \
 """
 strings = []
 
-[palladium-sacrophagus]
-id = 900000132
-name = "Palladium Sacrophagus"
-set = "palladium"
-type = "spell quick-play"
-effect = """\
-If you control no monsters, you can activate this card from your hand in either player's turn. \
-Banish 1 card face-down from your hand, Deck, Extra Deck, or in either GY, \
-    also once when a card effect with the same name is resolving, \
-    you can reveal the banished card and negate the effects of that card. \
-During your End Phase, except the turn this card was sent to the GY: \
-    You can return it to the bottom of the Deck, \
-    and if you do, add 1 your banished card to your hand. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
-"""
-strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
-
 [palladium-diadhank]
-id = 900000133
+id = 900000134
 name = "Palladium Diadhank"
 set = "palladium"
 type = "spell equip"
@@ -808,7 +830,7 @@ strings = [
 ]
 
 [palladium-mirror-force]
-id = 900000134
+id = 900000135
 alias = 44095762
 name = "Palladium Mirror Force"
 type = "trap"
@@ -826,7 +848,7 @@ If this Set card is destroyed by your opponent's card effect and sent to your GY
 strings = []
 
 [thousand-palladium-arrows]
-id = 900000135
+id = 900000136
 name = "Thousand Palladium Arrows"
 set = "palladium"
 type = "spell quick-play"
@@ -843,7 +865,7 @@ If you control Level 6 or higher "Palladium" Spellcaster monster, \
 strings = []
 
 [spellbinding-palladium-circle]
-id = 900000136
+id = 900000137
 name = "Spellbinding Palladium Circle"
 set = "palladium"
 type = "trap counter"
