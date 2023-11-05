@@ -73,11 +73,11 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_UPDATE_ATTACK)
-    ec1:SetValue(1000)
+    ec1:SetValue(500)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
     c:RegisterEffect(ec1)
 
-    if c:IsAttackAbove(4500) then
+    if c:IsAttackAbove(4000) then
         Duel.BreakEffect()
         Duel.Destroy(c, REASON_EFFECT)
     end

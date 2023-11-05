@@ -65,12 +65,12 @@ function s.initial_effect(c)
     eff:SetCondition(s.effcon)
     eff:SetOperation(s.effop)
     c:RegisterEffect(eff)
-    local effmat = Effect.CreateEffect(c)
-    effmat:SetType(EFFECT_TYPE_SINGLE)
-    effmat:SetCode(EFFECT_MATERIAL_CHECK)
-    effmat:SetValue(s.effcheck)
-    effmat:SetLabelObject(eff)
-    c:RegisterEffect(effmat)
+    local effmatcheck = Effect.CreateEffect(c)
+    effmatcheck:SetType(EFFECT_TYPE_SINGLE)
+    effmatcheck:SetCode(EFFECT_MATERIAL_CHECK)
+    effmatcheck:SetValue(s.effmatcheck)
+    effmatcheck:SetLabelObject(eff)
+    c:RegisterEffect(effmatcheck)
 end
 
 function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(8) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end
@@ -119,16 +119,17 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.effcheck(e, c)
-    local ct = c:GetMaterial():FilterCount(Card.IsCode, nil, CARD_BLUEEYES_W_DRAGON)
-    e:GetLabelObject():SetLabel(ct)
+function s.effmatcheck(e, c)
+    if c:GetMaterial():FilterCount(Card.IsCode, nil, CARD_BLUEEYES_W_DRAGON) > 0 then
+        c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD - RESET_TOFIELD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
+        e:GetLabelObject():SetLabel(1)
+    end
 end
 
 function s.effcon(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) and e:GetLabel() > 0 end
 
 function s.effop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    c:RegisterFlagEffect(id, RESET_EVENT + (RESETS_STANDARD & ~RESET_TURN_SET), EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
 
     -- always Battle destroy
     local e4 = Effect.CreateEffect(c)

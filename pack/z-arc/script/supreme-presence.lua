@@ -79,13 +79,13 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 
     -- material check
-    local eff = Effect.CreateEffect(c)
-    eff:SetType(EFFECT_TYPE_FIELD)
-    eff:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_SET_AVAILABLE + EFFECT_FLAG_IGNORE_RANGE)
-    eff:SetCode(EFFECT_MATERIAL_CHECK)
-    eff:SetRange(LOCATION_SZONE)
-    eff:SetValue(s.effcheck)
-    c:RegisterEffect(eff)
+    local effmatcheck = Effect.CreateEffect(c)
+    effmatcheck:SetType(EFFECT_TYPE_FIELD)
+    effmatcheck:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_SET_AVAILABLE + EFFECT_FLAG_IGNORE_RANGE)
+    effmatcheck:SetCode(EFFECT_MATERIAL_CHECK)
+    effmatcheck:SetRange(LOCATION_SZONE)
+    effmatcheck:SetValue(s.effmatcheck)
+    c:RegisterEffect(effmatcheck)
 
     -- fusion: special summon
     local e5 = Effect.CreateEffect(c)
@@ -223,7 +223,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     c:RegisterEffect(ec2)
 end
 
-function s.effcheck(e, c)
+function s.effmatcheck(e, c)
     local g = c:GetMaterial()
     if c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) and g:IsExists(Card.IsType, 1, nil, TYPE_PENDULUM) then
         c:RegisterFlagEffect(id, RESET_EVENT + 0x4fe0000 + RESET_PHASE + PHASE_END, 0, 1)

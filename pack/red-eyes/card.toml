@@ -31,7 +31,7 @@ level = 11
 atk = 3600
 def = 3000
 effect = """\
-3 "Red-Eyes" monsters
+3 Level 7 "Red-Eyes" monsters
 A Fusion Summon of this card can only be done with the above materials. \
 If this card is Fusion Summoned: \
     You can add up to 3 "Red-Eyes" Trap with different names from your Deck and/or GY to your hand. \
@@ -46,22 +46,46 @@ Once per turn: You can target 1 Level 7 or lower "Red-Eyes" monster \
 """
 strings = ["Shuffle 1 \"Red-Eyes\" monster into the Deck"]
 
-[red-eyes-blaster-dragon]
+[archfiend-darkness-skull-dragon]
 id = 900001203
+name = "Archfiend Darkness Skull Dragon"
+set = "archfiend"
+type = "monster fusion effect"
+attribute = "dark"
+race = "dragon"
+level = 10
+atk = 3600
+def = 3300
+effect = """\
+1 "Red-Eyes" Dragon monster + 1 Level 8 or higher DARK Dragon Fusion monster
+This Fusion Summoned card unaffected by other monsters' effects. \
+If this card is Fusion Summoned: Destroy all monsters your opponent controls, and if you do, \
+    inflict damage to your opponent equal to the highest original ATK among those destroyed monsters (your choice, if tied). \
+During the End Phase, if this card is Fusion Summoned using an Normal Monster: \
+    inflict 200 damage to your opponent for each card on the field. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Fusion Summoned using an Normal Monster",
+    "Inflict 200 damage to your opponent for each card on the field",
+]
+
+[red-eyes-blaster-dragon]
+id = 900001204
 name = "Red-Eyes Blaster Dragon"
 set = "red-eyes"
 type = "monster fusion effect"
 attribute = "dark"
 race = "dragon"
-level = 9
+level = 7
 atk = 2400
 def = 2000
 effect = """\
 "Red-Eyes Black Dragon" + 1 Gemini Monster
 At the start of the Damage Step, if this card battles an opponent's monster: \
     You can destroy that opponent's monster. \
-If this card destroys a monster by battle or by its own effect: It gains 1000 ATK, \
-    then if its ATK becomes 4500 or higher, destroy it. \
+If this card destroys a monster by battle or by its own effect: It gains 500 ATK, \
+    then if its ATK becomes 4000 or higher, destroy it. \
 If this card is destroyed by battle or card effect: \
     You can Special Summon 1 "Red-Eyes Black Dragon" from your GY. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -69,7 +93,7 @@ If this card is destroyed by battle or card effect: \
 strings = ["Destroy the battling monster", "Gain 1000 ATK"]
 
 [red-eyes-dark-steel-dragon]
-id = 900001204
+id = 900001205
 name = "Red-Eyes Dark Steel Dragon"
 set = "red-eyes"
 type = "monster xyz effect"
@@ -97,7 +121,7 @@ strings = [
 ]
 
 [red-eyes-darkness-flare-metal-dragon]
-id = 900001205
+id = 900001206
 name = "Red-Eyes Darkness Flare Metal Dragon"
 set = "red-eyes"
 type = "monster xyz effect"
@@ -125,7 +149,7 @@ strings = [
 ]
 
 [red-eyes-metalmorph]
-id = 900001206
+id = 900001207
 name = "Red-Eyes Metalmorph"
 set = "red-eyes"
 type = "trap"
