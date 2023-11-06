@@ -78,8 +78,8 @@ type = "monster fusion effect"
 attribute = "dark"
 race = "dragon"
 level = 7
-atk = 2400
-def = 2000
+atk = 2800
+def = 2400
 effect = """\
 "Red-Eyes Black Dragon" + 1 Gemini Monster
 At the start of the Damage Step, if this card battles an opponent's monster: \
@@ -148,8 +148,24 @@ strings = [
     "Negate the activation & destroy",
 ]
 
+[meteor-flare-fusion]
+id = 900001208
+alias = 6172122
+name = "Meteor Flare Fusion"
+type = "spell"
+effect = """\
+(This card's name is always treated as "Red-Eyes Fusion".)
+Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    using monsters from your hand or field as Fusion Material, \
+    including a "Red-Eyes" monster that it lists as material, \
+    and if you do, its name becomes "Red-Eyes Black Dragon". \
+If you control "Red-Eyes Black Dragon", you can use 1 monster from your Deck or Extra Deck as Fusion Material. \
+You can only activate 1 "{CARD_NAME}" per turn. \
+"""
+strings = []
+
 [red-eyes-metalmorph]
-id = 900001207
+id = 900001209
 name = "Red-Eyes Metalmorph"
 set = "red-eyes"
 type = "trap"
