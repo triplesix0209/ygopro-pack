@@ -11,7 +11,7 @@ atk = 3000
 def = 2500
 effect = """\
 (This card's name is always treated as "Blue-Eyes White Dragon".)
-This card is treated as a Normal Monster while in the hand or GY. \
+This card is treated as a Normal Monster while in the hand, GY, or on the field. \
     This effect cannot be negated. \
 You can Special Summon this card (from your hand) by \
     revealing 1 Level 1 LIGHT Tuner in your hand. \
