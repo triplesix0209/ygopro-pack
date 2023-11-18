@@ -155,11 +155,10 @@ name = "Meteor Flare Fusion"
 type = "spell"
 effect = """\
 (This card's name is always treated as "Red-Eyes Fusion".)
-Fusion Summon 1 Fusion Monster from your Extra Deck, \
-    using monsters from your hand or field as Fusion Material, \
+Fusion Summon 1 Fusion Monster from your Extra Deck,\
+    by shuffling the materials from your hand, field, and/or GY into the Deck, \
     including a "Red-Eyes" monster that it lists as material, \
     and if you do, its name becomes "Red-Eyes Black Dragon". \
-If you control "Red-Eyes Black Dragon", you can use 1 monster from your Deck or Extra Deck as Fusion Material. \
 You can only activate 1 "{CARD_NAME}" per turn. \
 """
 strings = []
