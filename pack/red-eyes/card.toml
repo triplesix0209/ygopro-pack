@@ -87,7 +87,7 @@ At the start of the Damage Step, if this card battles an opponent's monster: \
 If this card destroys a monster by battle or by its own effect: It gains 500 ATK, \
     then if its ATK becomes 4000 or higher, destroy it. \
 If this card is destroyed by battle or card effect: \
-    You can Special Summon 1 "Red-Eyes Black Dragon" from your GY. \
+    You can Special Summon 1 "Red-Eyes Black Dragon" from your hand, Deck, or GY. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Destroy the battling monster", "Gain 1000 ATK"]
