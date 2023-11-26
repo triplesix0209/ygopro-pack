@@ -643,46 +643,8 @@ Also for the rest of this turn, apply these effects.
 """
 strings = ["Affected by effect \"{CARD_NAME}\""]
 
-[scarred-dragon-archfiend-emperor]
-id = 900003127
-rarity = "gold"
-name = "Scar-Red Dragon Archfiend Emperor"
-set = "red-dragon-archfiend"
-type = "monster synchro effect"
-attribute = "dark"
-race = "dragon"
-level = 12
-atk = 4000
-def = 4000
-effect = """
-3 Tuners + 1 non-Tuner DARK Dragon Synchro Monster
-Must first be Synchro Summoned. \
-If this card is Synchro Summoned using a "Red Dragon Archfiend" monster as material: \
-    You can activate this effect; for the rest of this turn, \
-    your opponent cannot activate cards, also cards your opponent controls cannot activate their effects, \
-    then negate the effects of all face-up monsters your opponent currently control. \
-Gains 500 ATK for each Tuner in your GY. \
-Cannot be destroyed by card effects. \
-During your Main Phase 1: \
-    You can destroy all cards your opponent control, and if you do, banish them. \
-    also, for the rest of this turn, other monsters you control cannot attack. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn, during your opponent's turn, \
-    when your opponent activates a card or effect, or when an opponent's monster declares an attack (Quick Effect): \
-    You can banish this card, and if you do, you can negate 1 attack this turn from a monster your opponent controls. \
-    During the next End Phase, Special Summon this card banished by this effect. \
-"""
-strings = [
-    "Negate the effect and block card activation",
-    "Affected by effect \"{CARD_NAME}\": cannot activate cards or effects",
-    "Destroy and banish all your opponent cards",
-    "Affected by effect \"{CARD_NAME}\": other monsters you control cannot attack",
-    "Banish this card until the end phase",
-    "Do you want negate the attack by effect of \"{CARD_NAME}\"?",
-]
-
 [ruthless-inferno]
-id = 900003128
+id = 900003127
 name = "Ruthless Inferno"
 type = "trap"
 effect = """

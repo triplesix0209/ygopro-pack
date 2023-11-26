@@ -21,9 +21,9 @@ skip_compile_packs = [
     "./pack/sacred-beast",
     "./pack/palladium",
     "./pack/blue-eyes",
-    # "./pack/red-eyes",
+    "./pack/red-eyes",
     "./pack/elemental-neos",
-    "./pack/cosmic-dragon",
+    # "./pack/cosmic-dragon",
     "./pack/z-arc",
     "./pack/cyberse",
 ]
