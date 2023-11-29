@@ -112,6 +112,8 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
+
+    Utility.HintCard(c)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_FIELD)
     ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
