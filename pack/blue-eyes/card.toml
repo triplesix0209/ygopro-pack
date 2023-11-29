@@ -79,7 +79,10 @@ You can Tribute this card; \
     negate the effects of 1 other face-up card on the field, also destroy it. \
     Your opponent cannot activate cards or effects in response to this effect's activation. \
 """
-strings = ["Negate & destroy card on the field"]
+strings = [
+    "Affected by effect \"{CARD_NAME}\": Dragon monsters you control cannot be destroyed by card effects",
+    "Negate & destroy card on the field",
+]
 
 [blue-eyes-deep-hope-dragon]
 id = 900001104

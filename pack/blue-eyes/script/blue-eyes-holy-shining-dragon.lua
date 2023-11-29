@@ -62,7 +62,7 @@ function s.initial_effect(c)
 
     -- negate & destroy
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 0))
+    e4:SetDescription(aux.Stringid(id, 1))
     e4:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
     e4:SetType(EFFECT_TYPE_IGNITION)
     e4:SetRange(LOCATION_MZONE)
@@ -114,6 +114,13 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
 
     Utility.HintCard(c)
+    local ec0 = Effect.CreateEffect(c)
+    ec0:SetDescription(aux.Stringid(id, 0))
+    ec0:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
+    ec0:SetTargetRange(1, 0)
+    ec0:SetReset(RESET_PHASE + PHASE_END, 2)
+    Duel.RegisterEffect(ec0, tp)
+
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_FIELD)
     ec1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
