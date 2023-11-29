@@ -1,13 +1,13 @@
-# [millennium-hieroglyph]
-# id = 900000000
-# template = "artwork"
-# name = "Millennium Hieroglyph"
-# strings = [
-#     "Mulligan?",
-#     "Place field?",
-#     "Perform Destiny Draw?",
-#     "Perform Destiny Excavate?",
-# ]
+[millennium-hieroglyph]
+id = 900000000
+template = "artwork"
+name = "Millennium Hieroglyph"
+strings = [
+    "Mulligan?",
+    "Place field?",
+    "Perform Destiny Draw?",
+    "Perform Destiny Excavate?",
+]
 
 [obelisk]
 id = 900000001
