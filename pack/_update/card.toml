@@ -191,9 +191,7 @@ effect = """
 You can pay 1000 LP, then target 1 face-up Spell/Trap on the field; destroy it. \
 You can only activate this effect of "Unending Nightmare" once per Chain. \
 """
-strings = [
-    "Pay 1000 LP, destroy 1 face-up Spell/Trap",
-]
+strings = ["Pay 1000 LP, destroy 1 face-up Spell/Trap"]
 
 [duamutef-blessing-horus]
 id = 11335209
@@ -217,7 +215,26 @@ If another card(s) you control leaves the field by an opponent's card effect, \
     You can draw cards equal to the number of monsters with different names in your Main Monster Zone. \
     You can only use this effect of "Duamutef, Blessing of Horus" once per turn. \
 """
-strings = [
-    "Special Summon itself",
-    "Draw cards equal to monsters you control",
-]
+strings = ["Special Summon itself", "Draw cards equal to monsters you control"]
+
+[blue-eyes-alternative-white-dragon]
+id = 38517738
+alias = 38517737
+generate-script = false
+card-limit = "ocg tcg"
+name = "Blue-Eyes Alternative White Dragon"
+type = "monster effect nomi"
+attribute = "light"
+race = "dragon"
+level = 8
+atk = 3000
+def = 2500
+effect = """
+Cannot be Normal Summoned/Set. \
+Must first be Special Summoned (from your hand) by revealing "Blue-Eyes White Dragon" in your hand. \
+    You can only Special Summon "Blue-Eyes Alternative White Dragon" once per turn this way. \
+This card's name becomes "Blue-Eyes White Dragon" while it is on the field or in the Graveyard. \
+Once per turn: You can target 1 monster your opponent controls; destroy it. \
+    This card cannot attack the turn this effect is activated. \
+"""
+strings = ["Destroy 1 monster your opponent controls"]

@@ -25,5 +25,5 @@ skip_compile_packs = [
     "./pack/elemental-neos",
     "./pack/cosmic-dragon",
     "./pack/z-arc",
-    # "./pack/cyberse",
+    "./pack/cyberse",
 ]
