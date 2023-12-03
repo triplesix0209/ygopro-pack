@@ -83,7 +83,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3filter(c) return c:IsFaceup() and c:IsLevelBelow(7) and c:IsSetCard(SET_RED_EYES) and c:IsAbleToDeck() end
+function s.e3filter(c) return c:IsFaceup() and c:IsSetCard(SET_RED_EYES) and c:IsAbleToDeck() end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
