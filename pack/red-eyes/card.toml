@@ -141,14 +141,14 @@ If this card has "Red-Eyes Flare Metal Dragon" as material, it gains these effec
 ● Gains 300 ATK for each material attached to it.
 ● Once per turn, when your opponent activates a card or effect (Quick Effect): \
     You can detach 1 material from this card; \
-    negate the activation, and if you do, attach it to this card as material.
+    negate the activation, and if you do, destroy it.
 ● If this card destroys a card(s) by battle or by its own effect: \
     Attach the destroyed card(s) to it.
 """
 strings = [
     "Xyz Summon by using a Rank 7 \"Red-Eyes\" Xyz Monster",
     "Special Summon 1 Normal Monster in your GY",
-    "Negate the activation & attach",
+    "Negate the activation & destroy",
 ]
 
 [meteor-flare-fusion]

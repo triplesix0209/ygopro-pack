@@ -46,7 +46,7 @@ function s.initial_effect(c)
     -- negate
     local e4 = Effect.CreateEffect(c)
     e4:SetDescription(aux.Stringid(id, 2))
-    e4:SetCategory(CATEGORY_NEGATE)
+    e4:SetCategory(CATEGORY_NEGATE + CATEGORY_DESTROY)
     e4:SetType(EFFECT_TYPE_QUICK_O)
     e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
     e4:SetCode(EVENT_CHAINING)
@@ -104,15 +104,11 @@ end
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
     Duel.SetOperationInfo(0, CATEGORY_NEGATE, eg, #eg, 0, 0)
+    if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then Duel.SetOperationInfo(0, CATEGORY_DESTROY, eg, #eg, 0, 0) end
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local rc = re:GetHandler()
-    if Duel.NegateActivation(ev) and rc:IsRelateToEffect(re) then 
-        c:CancelToGrave()
-        Duel.Overlay(c, rc)
-    end
+    if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
 end
 
 function s.e5filter(c, tp, rc, re) return c:IsReason(REASON_BATTLE + REASON_EFFECT) and (c:GetReasonCard() == rc or (re and re:GetOwner() == rc)) end
