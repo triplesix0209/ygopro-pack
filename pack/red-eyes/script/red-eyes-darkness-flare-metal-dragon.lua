@@ -21,11 +21,10 @@ function s.initial_effect(c)
     e1:SetValue(1)
     c:RegisterEffect(e1)
 
-    -- special summon 1 Normal Monster from the GY
+    -- special summon 1 Normal Monster
     local e2 = Effect.CreateEffect(c)
     e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_QUICK_O)
-    e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetCode(EVENT_FREE_CHAIN)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, id)
@@ -78,17 +77,16 @@ function s.e2filter(c, e, tp) return c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialS
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, 0, 1, nil, e, tp)
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+                   Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_GRAVE, 0, 1, nil, e, tp)
     end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, #g, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, 0, LOCATION_HAND + LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local tc = Duel.GetFirstTarget()
-    if tc:IsRelateToEffect(e) then Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) end
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter, tp, LOCATION_HAND + LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
+    if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 
 function s.e4con(e, tp, eg, ep, ev, re, r, rp)

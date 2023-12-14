@@ -135,7 +135,7 @@ effect = """\
 You can also Xyz Summon this card by using a Rank 7 "Red-Eyes" Xyz Monster you control as material. \
     (Transfer its materials to this card.) \
 This Xyz Summoned card cannot be destroyed by card effects. \
-Once per turn (Quick Effect): You can target 1 Normal Monster in your GY; Special Summon it. \
+Once per turn (Quick Effect): You can Special Summon 1 Normal Monster from your hand or GY. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card has "Red-Eyes Flare Metal Dragon" as material, it gains these effects.
 ● Gains 300 ATK for each material attached to it.
