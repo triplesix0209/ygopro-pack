@@ -148,7 +148,7 @@ If this card has "Red-Eyes Flare Metal Dragon" as material, it gains these effec
 strings = [
     "Xyz Summon by using a Rank 7 \"Red-Eyes\" Xyz Monster",
     "Special Summon 1 Normal Monster in your GY",
-    "Negate the activation & destroy",
+    "Negate the activation & attach",
 ]
 
 [meteor-flare-fusion]

@@ -23,6 +23,7 @@ function s.initial_effect(c)
 
     -- special summon 1 Normal Monster
     local e2 = Effect.CreateEffect(c)
+    e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_QUICK_O)
     e2:SetCode(EVENT_FREE_CHAIN)
@@ -108,7 +109,10 @@ end
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local rc = re:GetHandler()
-    if Duel.NegateActivation(ev) and rc:IsRelateToEffect(re) then Duel.Overlay(c, rc) end
+    if Duel.NegateActivation(ev) and rc:IsRelateToEffect(re) then 
+        c:CancelToGrave()
+        Duel.Overlay(c, rc)
+    end
 end
 
 function s.e5filter(c, tp, rc, re) return c:IsReason(REASON_BATTLE + REASON_EFFECT) and (c:GetReasonCard() == rc or (re and re:GetOwner() == rc)) end
