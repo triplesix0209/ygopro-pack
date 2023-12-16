@@ -79,7 +79,7 @@ function s.e3efftg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then return Duel.IsExistingTarget(Card.IsNegatable, tp, 0, LOCATION_MZONE, 1, c) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_NEGATE)
-    local g = Duel.SelectTarget(tp, Card.IsNegatable, tp, 0, LOCATION_ONFIELD, 1, 1, c)
+    local g = Duel.SelectTarget(tp, Card.IsNegatable, tp, 0, LOCATION_MZONE, 1, 1, c)
     Duel.SetOperationInfo(0, CATEGORY_DISABLE, g, #g, 0, 0)
 end
 
