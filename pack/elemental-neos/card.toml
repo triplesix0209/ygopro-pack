@@ -362,8 +362,72 @@ strings = [
     "Negate the effect of 1 monster & banish it when it leaves the field",
 ]
 
-[favorite-fusion]
+[neo-spacian-black-panther]
 id = 900002115
+name = "Neo-Spacian Black Panther"
+set = "neo-spacian"
+type = "monster fusion effect"
+attribute = "dark"
+race = "beast"
+level = 4
+atk = 0
+def = 0
+effect = """\
+This card's name is also treated as "Neo-Spacian Dark Panther". \
+This card cannot be Special Summoned except with "NEX". \
+"""
+strings = []
+
+[neo-spacian-terra-mole]
+id = 900002116
+name = "Neo-Spacian Terra Mole"
+set = "neo-spacian"
+type = "monster fusion effect"
+attribute = "earth"
+race = "rock"
+level = 4
+atk = 0
+def = 0
+effect = """\
+This card's name is also treated as "Neo-Spacian Grand Mole". \
+This card cannot be Special Summoned except with "NEX". \
+"""
+strings = []
+
+[neo-spacian-sky-hummingbird]
+id = 900002117
+name = "Neo-Spacian Sky Hummingbird"
+set = "neo-spacian"
+type = "monster fusion effect"
+attribute = "wind"
+race = "winged-beast"
+level = 4
+atk = 0
+def = 0
+effect = """\
+This card's name is also treated as "Neo-Spacian Air Hummingbird". \
+This card cannot be Special Summoned except with "NEX". \
+"""
+strings = []
+
+[neo-spacian-blaze-scarab]
+id = 900002118
+name = "Neo-Spacian Blaze Scarab"
+set = "neo-spacian"
+type = "monster fusion effect"
+attribute = "fire"
+race = "insect"
+level = 4
+atk = 0
+def = 0
+effect = """\
+This card's name is also treated as "Neo-Spacian Flare Scarab". \
+This card cannot be Special Summoned except with "NEX". \
+"""
+strings = []
+
+[favorite-fusion]
+id = 900002119
 name = "Favorite Fusion"
 set = "favorite fusion"
 type = "spell"
@@ -379,7 +443,7 @@ strings = [
 ]
 
 [contact-call]
-id = 900002116
+id = 900002120
 name = "Contact Call"
 type = "spell"
 effect = """\
@@ -395,7 +459,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = []
 
 [clash-of-favorites]
-id = 900002117
+id = 900002121
 name = "Clash of Favorites"
 set = "favorite"
 type = "trap"
@@ -413,7 +477,7 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = ["Special Summon to your field", "Special Summon to opponent's field"]
 
 [favorite-soul]
-id = 900002118
+id = 900002122
 name = "Favorite Soul"
 set = "favorite"
 type = "trap continuous"
