@@ -458,8 +458,20 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = []
 
-[clash-of-favorites]
+[nex-gen]
 id = 900002121
+name = "NEX-Gen"
+type = "spell continuous"
+effect = """\
+This card's name becomes "NEX" while on the field. \
+Monsters used to Special Summon a "Neos" Fusion Monster using its own procedure are returned to the hand instead of the Deck. \
+Once per turn: You can discard 1 monster, and if you do, \
+    Special Summon 1 "Neo-Spacian" monster from your Extra Deck with the same Attribute as the discarded monster. \
+"""
+strings = []
+
+[clash-of-favorites]
+id = 900002122
 name = "Clash of Favorites"
 set = "favorite"
 type = "trap"
@@ -477,7 +489,7 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = ["Special Summon to your field", "Special Summon to opponent's field"]
 
 [favorite-soul]
-id = 900002122
+id = 900002123
 name = "Favorite Soul"
 set = "favorite"
 type = "trap continuous"
