@@ -465,16 +465,8 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = []
 
-[nex-gen]
-id = 900002121
-name = "NEX-Gen"
-type = "spell continuous"
-effect = """\
-"""
-strings = []
-
 [clash-of-favorites]
-id = 900002122
+id = 900002121
 name = "Clash of Favorites"
 set = "favorite"
 type = "trap"
@@ -492,7 +484,7 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = ["Special Summon to your field", "Special Summon to opponent's field"]
 
 [favorite-soul]
-id = 900002123
+id = 900002122
 name = "Favorite Soul"
 set = "favorite"
 type = "trap continuous"
