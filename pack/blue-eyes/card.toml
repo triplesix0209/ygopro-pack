@@ -110,27 +110,3 @@ If this card on the field is destroyed by card effect: \
     inflict 600 damage to your opponent for each Dragon monster with different names in your GY, except this card. \
 """
 strings = ["Xyz Summon by using \"Blue-Eyes White Dragon\""]
-
-[blue-eyes-chaos-infinity-dragon]
-id = 900001105
-name = "Blue-Eyes Chaos Infinity Dragon"
-set = "chaos blue-eyes"
-type = "monster link effect"
-attribute = "light"
-race = "dragon"
-link = 4
-link-arrow = "left bottom-left bottom-right right"
-atk = 4000
-effect = """\
-3+ LIGHT Dragon monsters
-Must be Link Summoned. \
-You can also Link Summon this card by sending 1 Ritual Spell from your hand or Set on your field \
-    and using 1 Level 8 "Blue-Eyes" monster you control as the material. \
-Your opponent cannot target or destroy this card with card effects. \
-If this card was Link Summoned using a "Blue-Eyes White Dragon", it gains these effects.
-● When this card declares an attack: \
-    You can change the battle positions of as many monsters your opponent controls as possible, \
-    and if you do, the ATK/DEF of those changed monsters become 0.
-● If this card attacks a Defense Position monster, inflict double piercing battle damage to your opponent. \
-"""
-strings = ["Link Summon by using \"Blue-Eyes White Dragon\""]
