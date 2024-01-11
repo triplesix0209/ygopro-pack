@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {13301895, 6007213, 32491822, 69890967}
+s.listed_names = {13301895, 6007213, 32491822, 69890967, CARD_YUBEL}
 
 function s.initial_effect(c)
     -- activate
@@ -118,7 +118,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3filter(c, og)
-    return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:ListsCode(6007213, 32491822, 69890967) and
+    return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:ListsCode(6007213, 32491822, 69890967, CARD_YUBEL) and
                not og:IsExists(Card.IsCode, 1, nil, c:GetCode())
 end
 
