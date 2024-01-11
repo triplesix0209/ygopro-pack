@@ -68,9 +68,16 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, c):GetFirst()
-    Duel.Overlay(c, sc)
-    c:CopyEffect(sc:GetCode(), RESET_EVENT + RESETS_STANDARD)
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, c):GetFirst()
+    Duel.Overlay(c, tc)
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    ec1:SetCode(EFFECT_CHANGE_CODE)
+    ec1:SetValue(tc:GetOriginalCode())
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+    c:RegisterEffect(ec1)
+    c:CopyEffect(tc:GetCode(), RESET_EVENT + RESETS_STANDARD)
 
     local g = Duel.GetMatchingGroup(s.e1filter2, tp, LOCATION_DECK, 0, nil)
     if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then

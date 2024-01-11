@@ -5,8 +5,9 @@ type = "spell field"
 effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: Attach 1 "Fallen Paradise" from your hand, Deck or GY to this card \
-    and if you do this card gains that card's effects, then you can add 1 card that mentions \
-    "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms", \
+    and if you do this card's name becomes that card and gains its effects, \
+    then you can add 1 card that mentions "Uria, Lord of Searing Flames", \
+    "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms", \
     from your Deck to your hand. \
 This card gains these effects based on the number of \
     "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", and/or "Raviel, Lord of Phantasms" \
