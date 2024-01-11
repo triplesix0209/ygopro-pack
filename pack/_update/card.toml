@@ -111,6 +111,22 @@ During the End Phase: Shuffle this card into the Extra Deck.
 """
 strings = ["", "Return 1 monster your opponent controls to the hand"]
 
+[fallen-paradise]
+id = 13301895
+generate-pic = false
+card-limit = "ocg tcg"
+name = "Fallen Paradise"
+type = "spell field"
+effect = """
+Your opponent cannot target "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", "Raviel, Lord of Phantasms", \
+    or "Armityle the Chaos Phantasm" in your Monster Zones with card effects, \
+    also those monsters cannot be destroyed by your opponent's card effects while you control them. \
+If you control "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", "Raviel, Lord of Phantasms" \
+    or "Armityle the Chaos Phantasm" in your Monster Zone: You can draw 2 cards. \
+You can only use this effect of "Fallen Paradise" once per turn. \
+"""
+strings = ["Draw 2 cards"]
+
 [opening-of-the-spirit-gates]
 id = 80312545
 generate-pic = false
