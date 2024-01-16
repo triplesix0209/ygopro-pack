@@ -15,7 +15,7 @@ Once per turn, if you control a Level 10 or higher monster: \
     or mentions "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms" \
     with a different name from the cards underneath this card. \
 """
-strings = ["Attach 1 Continuous Spell/Trap in your GY"]
+strings = ["Place 1 Spell/Trap underneath this card"]
 
 [raviel]
 id = 900002001
