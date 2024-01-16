@@ -55,14 +55,14 @@ function s.e1filter(c)
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, c):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, c):GetFirst()
     Duel.Overlay(c, tc)
 
     local te = tc:CheckActivateEffect(true, true, false)
