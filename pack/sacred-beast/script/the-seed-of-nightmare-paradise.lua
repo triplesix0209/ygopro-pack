@@ -73,7 +73,7 @@ end
 
 function s.e3filter(c)
     if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsFieldSpell() and c:IsType(TYPE_CONTINUOUS)
+    return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
