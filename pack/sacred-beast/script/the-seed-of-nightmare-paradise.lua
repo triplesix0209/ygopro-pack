@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_YUBEL, 6007213, 32491822, 69890967}
+s.listed_names = {6007213, 32491822, 69890967}
 s.listed_series = {SET_YUBEL}
 
 function s.initial_effect(c)
@@ -110,7 +110,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e4filter(c, og)
-    return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:ListsCode(6007213, 32491822, 69890967, CARD_YUBEL) and
+    return (c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS)) and (c:ListsArchetype(SET_YUBEL) or c:ListsCode(6007213, 32491822, 69890967)) and
                not og:IsExists(Card.IsCode, 1, nil, c:GetCode())
 end
 
@@ -121,7 +121,7 @@ end
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local og = c:GetOverlayGroup()
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, c, og) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, c, og) end
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
@@ -129,6 +129,6 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local og = c:GetOverlayGroup()
     if not c:IsRelateToEffect(e) then return end
 
-    local tg = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, c, og)
+    local tg = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, c, og)
     Duel.Overlay(c, tg)
 end

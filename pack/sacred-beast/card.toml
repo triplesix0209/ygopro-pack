@@ -4,16 +4,17 @@ name = "The Seed of Nightmare Paradise"
 type = "spell field"
 effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
-When this card is activated: Place 1 Field Spells that lists a "Yubel" card \
+When this card is activated: Place 1 Field Spell that lists a "Yubel" card \
     or mentions "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms" \
     from your hand, Deck or GY underneath this card, except "{CARD_NAME}", \
-    and if you do, this effect becomes that card's effect when that card is activated. \
+    and if you do, this effect becomes that card's effect when it is activated. \
 Your opponent cannot target or destroy this card with card effects. \
 This card gains the original effects of all Field Spells and Continuous Spell/Trap(s) underneath it. \
 Once per turn, if you control a Level 10 or higher monster: \
-    You can place 1 Field Spell or 1 Continuous Spell/Trap from your hand, Deck or GY underneath this card, \
-    that mentions "Yubel", "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", \
-    or "Raviel, Lord of Phantasms" with a different name from the cards underneath this card. \
+    You can place from your hand or Deck underneath this card, \
+    1 Field Spell or 1 Continuous Spell/Trap that lists a "Yubel" card \
+    or mentions "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms" \
+    with a different name from the cards underneath this card. \
 """
 strings = ["Attach 1 Continuous Spell/Trap in your GY"]
 
