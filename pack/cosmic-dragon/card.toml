@@ -388,10 +388,10 @@ effect = """
 Equip only to a Dragon Synchro Monster that mentions a Synchro Monster as material. \
 You can only control 1 "{CARD_NAME}". \
 The equipped monster gains the following effects.
-● Your opponent cannot activate cards or effects in response to the activation of its effects.
 ● Your opponent cannot Tribute this card, nor use it as material for an Summon.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
+● Its effects cannot be negated.
 If this card in its owner's control is destroyed by an opponent's card effect: \
     You can Special Summon 1 "The Crimson Dragon" from your Extra Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
