@@ -37,7 +37,7 @@ function s.initial_effect(c)
     spsafe:SetCondition(function(e) return e:GetHandler():GetSummonType() == SUMMON_TYPE_SYNCHRO and e:GetLabelObject():GetLabel() > 0 end)
     c:RegisterEffect(spsafe)
 
-    -- special summon synchrons
+    -- special summon "synchron" monsters
     local e1 = Effect.CreateEffect(c)
     e1:SetDescription(aux.Stringid(id, 1))
     e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -96,15 +96,15 @@ end
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
         local ct = Duel.GetLocationCount(tp, LOCATION_MZONE, tp, LOCATION_REASON_TOFIELD)
-        return ct > 0 and Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, e, tp)
+        return ct > 0 and Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil, e, tp)
     end
 
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_DECK)
     if e:GetLabelObject():GetLabel() > 0 then Duel.SetChainLimit(function(e, ep, tp) return tp == ep end) end
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter), tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, nil, e, tp)
+    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter), tp, LOCATION_HAND + LOCATION_DECK, 0, nil, e, tp)
     local ct = math.min(Duel.GetLocationCount(tp, LOCATION_MZONE), g:GetClassCount(Card.GetLevel))
     if ct <= 0 then return end
     if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then ct = 1 end
