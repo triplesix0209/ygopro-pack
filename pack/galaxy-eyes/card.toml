@@ -7,7 +7,7 @@ effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: Place underneath this card, \
     1 "Photon" Continuous Spell/Trap from your hand or Deck. \
-If you activated a Continuous Spell/Trap while you control a "Galaxy-Eyes" monster, \
+If you activated a Continuous Spell/Trap while you control a "Galaxy" monster, \
     you can place that card underneath this card when that card resolves. \
 This card gains the original effects of all Continuous Spell/Trap(s) underneath it. \
 """

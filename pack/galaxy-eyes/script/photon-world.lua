@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_GALAXYEYES_P_DRAGON}
-s.listed_series = {SET_PHOTON, 0x107b}
+s.listed_series = {SET_PHOTON, SET_GALAXY}
 
 function s.initial_effect(c)
     -- activate
@@ -53,7 +53,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Overlay(c, tc)
 end
 
-function s.e2filter(c) return c:IsFaceup() and c:IsSetCard(0x107b) end
+function s.e2filter(c) return c:IsFaceup() and c:IsSetCard(SET_GALAXY) end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
