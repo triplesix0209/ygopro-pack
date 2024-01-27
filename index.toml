@@ -11,6 +11,7 @@ packs = [
     "./pack/red-eyes",
     "./pack/elemental-neos",
     "./pack/cosmic-dragon",
+    "./pack/galaxy-eyes",
     "./pack/z-arc",
     "./pack/cyberse",
 ]
@@ -24,6 +25,7 @@ skip_compile_packs = [
     "./pack/red-eyes",
     "./pack/elemental-neos",
     "./pack/cosmic-dragon",
+    # "./pack/galaxy-eyes",
     "./pack/z-arc",
     "./pack/cyberse",
 ]

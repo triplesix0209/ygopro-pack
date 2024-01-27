@@ -1,0 +1,7 @@
+[photon-world]
+id = 900003100
+name = "Photon World"
+type = "spell field"
+effect = """
+"""
+strings = []
