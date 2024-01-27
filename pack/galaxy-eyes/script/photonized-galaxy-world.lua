@@ -1,8 +1,7 @@
--- Photon World
+-- Photonized Galaxy World
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_GALAXYEYES_P_DRAGON}
 s.listed_series = {SET_PHOTON, SET_GALAXY}
 
 function s.initial_effect(c)
@@ -37,31 +36,51 @@ function s.initial_effect(c)
     e3:SetRange(LOCATION_FZONE)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
+
+    -- cannot disable summon
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_FIELD)
+    e4:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
+    e4:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    e4:SetRange(LOCATION_FZONE)
+    e4:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_LINK) and c:IsControler(e:GetHandlerPlayer()) end)
+    c:RegisterEffect(e4)
 end
 
-function s.e1filter(c) return c:IsSetCard(SET_PHOTON) and c:IsType(TYPE_CONTINUOUS) end
+function s.e1filter1(c) return c:IsSetCard(SET_PHOTON) and c:IsContinuousTrap() end
+
+function s.e1filter2(c) return c:IsSetCard(SET_GALAXY) and c:IsContinuousSpell() and c:IsAbleToHand() end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
+    Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_GRAVE + LOCATION_DECK)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, c):GetFirst()
-    Duel.Overlay(c, tc)
-end
+    local g1 = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e1filter1, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil)
+    Duel.Overlay(c, g1)
 
-function s.e2filter(c) return c:IsFaceup() and c:IsSetCard(SET_GALAXY) and c:IsRace(RACE_DRAGON) end
+    if #g1 > 0 and Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_GRAVE + LOCATION_DECK, 0, 1, nil) and
+        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        local g2 = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e1filter2, tp, LOCATION_GRAVE + LOCATION_DECK, 0, 1, 1, nil)
+        if #g2 > 0 then
+            Duel.SendtoHand(g2, nil, REASON_EFFECT)
+            Duel.ConfirmCards(1 - tp, g2)
+        end
+    end
+end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if not (rp == tp and re:IsActiveType(TYPE_CONTINUOUS) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and e:GetHandler():GetFlagEffect(1) > 0 and
-        Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_MZONE, 0, 1, nil)) then return end
+    local rc = re:GetHandler()
+    if not (rp == tp and rc:IsSetCard({SET_PHOTON, SET_GALAXY}) and re:IsActiveType(TYPE_CONTINUOUS) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and
+        c:GetFlagEffect(1) > 0) then return end
     if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
 
-    Duel.Overlay(c, re:GetHandler())
+    Duel.Overlay(c, rc)
 end
 
 function s.e3filter(c)
