@@ -12,7 +12,7 @@ During your Draw Phase, before you draw: You can give up your normal draw this t
     and if you do, add 1 "The True Name" from your Deck or GY to your hand, \
     then shuffle the deck and look at the top card of your Deck. \
 Once per turn, during your End Phase: \
-    You can place 1 Field Spell or 1 Continuous Spell/Trap from your Deck underneath this card. \
+    You can place underneath this card 1 Field Spell or 1 Continuous Spell/Trap from your Deck. \
 This card gains the original effects of all Field Spells and Continuous Spell/Trap(s) underneath it. \
 """
 strings = ["Add \"The True Name\" to your hand", "Place 1 card underneath it"]

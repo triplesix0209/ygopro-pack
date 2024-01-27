@@ -4,7 +4,7 @@ name = "The Seed of Nightmare Paradise"
 type = "spell field"
 effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
-When this card is activated: Place from your hand or Deck underneath this card, 1 Field Spell that lists a "Yubel" card \
+When this card is activated: Place underneath this card from your hand or Deck, 1 Field Spell that lists a "Yubel" card \
     or mentions "Uria, Lord of Searing Flames", "Hamon, Lord of Striking Thunder", or "Raviel, Lord of Phantasms", \
     except "{CARD_NAME}", and if you do, this effect becomes that card's effect when it is activated. \
 Your opponent cannot target or destroy this card with card effects. \
