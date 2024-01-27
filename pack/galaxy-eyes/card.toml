@@ -17,3 +17,33 @@ strings = [
     "Add 1 \"Galaxy\" Continuous Spell youd hand?",
     "Place the activated card underneath this card?",
 ]
+
+[neo-galaxy-eyes-dark-matter-dragon]
+id = 900003101
+name = "Number C95: Neo Galaxy-Eyes Dark Matter Dragon"
+set = "number-c chaos galaxy-eyes"
+type = "monster xyz effect"
+attribute = "dark"
+race = "dragon"
+rank = 10
+atk = 5000
+def = 0
+effect = """\
+4 Level 10 DARK monsters
+You can also Xyz Summon this card by using a "Galaxy-Eyes" Xyz Monster you control as material. \
+    (Transfer its materials to this card.) \
+Cannot be used as material for an Xyz Summon. \
+Your opponent cannot target this card with card effects. \
+Once per turn: You can send 1 monster from your Deck to the GY; \
+    attach 1 Dragon monster from your Extra Deck or GY to this card as material, \
+    then you can banish 1 card your opponent controls or from their GY, face-down. \
+If this card has a DARK Dragon Xyz Monster as material, it gains this effect.
+● You can detach 1 material from this card; this card can make up to 3 attacks on monsters during each Battle Phase this turn.
+"""
+strings = [
+    "Xyz Summon by using \"Galaxy-Eyes\" Xyz Monster",
+    "Send 1 Dragon monster to the GY then attach Dragon monster",
+    "Banish 1 card your opponent controls or from their GY, face-down?",
+    "Detach 1 material to make up to 3 attacks on monsters",
+    "Can make up to 3 attacks on monsters",
+]
