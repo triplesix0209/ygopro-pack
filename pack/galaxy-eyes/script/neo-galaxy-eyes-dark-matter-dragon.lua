@@ -30,6 +30,7 @@ function s.initial_effect(c)
 
     -- attach & banish
     local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_REMOVE)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
@@ -55,7 +56,7 @@ function s.xyzovfilter(c, tp, xyzc)
     return c:IsFaceup() and c:IsSetCard(0x107b, xyzc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, xyzc, SUMMON_TYPE_XYZ, tp)
 end
 
-function s.e3filter1(c) return c:IsMonter() and c:IsAbleToGraveAsCost() end
+function s.e3filter1(c) return c:IsMonster() and c:IsAbleToGraveAsCost() end
 
 function s.e3filter2(c) return c:IsRace(RACE_DRAGON) end
 
