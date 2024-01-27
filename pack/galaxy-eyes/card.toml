@@ -1,9 +1,10 @@
 [photon-world]
 id = 900003100
 name = "Photon World"
-set = "photon"
+set = "photon galaxy"
 type = "spell field"
 effect = """
+(This card is always treated as a "Galaxy" card.)
 You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: Place underneath this card, \
     1 "Photon" Continuous Spell/Trap from your hand or Deck. \
