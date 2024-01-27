@@ -53,7 +53,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Overlay(c, tc)
 end
 
-function s.e2filter(c) return c:IsFaceup() and c:IsSetCard(SET_GALAXY) end
+function s.e2filter(c) return c:IsFaceup() and c:IsSetCard(SET_GALAXY) and c:IsRace(RACE_DRAGON) end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
