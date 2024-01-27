@@ -78,7 +78,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local rc = re:GetHandler()
     if not (rp == tp and rc:IsSetCard({SET_PHOTON, SET_GALAXY}) and re:IsActiveType(TYPE_CONTINUOUS) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and
         c:GetFlagEffect(1) > 0) then return end
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
+    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
 
     Duel.Overlay(c, rc)
 end
