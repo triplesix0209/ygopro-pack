@@ -79,7 +79,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if #g1 == 0 then return end
     Duel.Overlay(c, g1)
 
-    if Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD + LOCATION_GRAVE, 0, 1, nil) and
+    if Duel.IsExistingMatchingCard(Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD + LOCATION_GRAVE, 1, nil) and
         Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
         local g2 = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD + LOCATION_GRAVE, 1, 1, nil)
         Duel.Remove(g2, POS_FACEDOWN, REASON_EFFECT)

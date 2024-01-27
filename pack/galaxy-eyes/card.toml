@@ -42,7 +42,7 @@ If this card has a DARK Dragon Xyz Monster as material, it gains this effect.
 """
 strings = [
     "Xyz Summon by using \"Galaxy-Eyes\" Xyz Monster",
-    "Send 1 Dragon monster to the GY then attach Dragon monster",
+    "Send 1 monster to the GY then attach Dragon monster",
     "Banish 1 card your opponent controls or from their GY, face-down?",
     "Detach 1 material to make up to 3 attacks on monsters",
     "Can make up to 3 attacks on monsters",
