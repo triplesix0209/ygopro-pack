@@ -1,11 +1,14 @@
 [photon-world]
 id = 900003100
 name = "Photon World"
+set = "photon"
 type = "spell field"
 effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: Place underneath this card, \
-    1 "Photon" or "Galaxy" Continuous Spell/Trap from your hand or Deck, \
-    and if you do, this effect becomes that card's effect when it is activated. \
+    1 "Photon" Continuous Spell/Trap from your hand or Deck. \
+If you activated a Continuous Spell/Trap while you control a "Galaxy-Eyes" monster, \
+    you can place that card underneath this card when that card resolves. \
+This card gains the original effects of all Continuous Spell/Trap(s) underneath it. \
 """
-strings = []
+strings = ["Place the activated card underneath this card?"]
