@@ -34,7 +34,7 @@ You can Special Summon this card (from your hand) by Tributing 2 LIGHT monsters 
 During the Battle Step, if this card battles an opponent's monster (Quick Effect): \
     You can target that opponent's monster; banish both this card from the field and that target. \
     Return those banished monsters to the field at the end of the Battle Phase, \
-    and if you do, your opponent's monster effects are negated. \
+    and if you banished an Xyz Monster, its effects are negated. \
 """
 strings = ["Banish both this card from the field and that target"]
 
@@ -51,11 +51,20 @@ def = 2500
 effect = """\
 2 Level 8 LIGHT monsters
 (This card is always treated as a "Photon" card.)
-You can also Xyz Summon this card by using a "Galaxy-Eyes" Dragon monster you control as material. \
+You can also Xyz Summon this card by using a Level 8 "Galaxy-Eyes" Dragon monster you control as material. \
     (Transfer its materials to this card.) \
 Cannot be used as material for an Xyz Summon the turn it was Xyz Summoned. \
+Xyz Monster your opponent controls loses 500 ATK/DEF for each its material. \
+Once per turn (Quick Effect): You can detach 1 material from this card, \
+    then target 1 monster your opponent controls; banish it, \
+    and if you banished an Xyz Monster, this card gains 1000 ATK for each material it had when it was banished. \
+    Return those banished monsters to the field at the End Phase, \
+    and if you do, your opponent's monster effects are negated. \
 """
-strings = ["Xyz Summon by using a \"Galaxy-Eyes\" Dragon monster"]
+strings = [
+    "Xyz Summon by using a Level 8 \"Galaxy-Eyes\" Dragon monster",
+    "Detach 1 material to banish 1 monster until the End Phase",
+]
 
 [neo-galaxy-eyes-dark-matter-dragon]
 id = 900003110

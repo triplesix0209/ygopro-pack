@@ -96,7 +96,7 @@ function s.e2retop(e, tp, eg, ep, ev, re, r, rp)
     g:DeleteGroup()
 
     for tc in sg:Iter() do
-        if Duel.ReturnToField(tc) and tc:IsFaceup() and tc ~= c then
+        if Duel.ReturnToField(tc) and tc ~= c and tc:IsFaceup() and tc:IsType(TYPE_XYZ) then
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetCode(EFFECT_DISABLE)
