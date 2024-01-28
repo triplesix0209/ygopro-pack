@@ -109,4 +109,4 @@ If this card on the field is destroyed by card effect: \
     You can destroy all monsters your opponent controls, and if you do, \
     inflict 600 damage to your opponent for each Dragon monster with different names in your GY, except this card. \
 """
-strings = ["Xyz Summon by using \"Blue-Eyes White Dragon\""]
+strings = []

@@ -1,4 +1,4 @@
--- Galaxy-Eyes Photonized Dragon
+-- Galaxy-Eyes Luminous Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

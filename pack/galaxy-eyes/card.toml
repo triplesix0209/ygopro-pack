@@ -18,11 +18,10 @@ strings = [
     "Place the activated card underneath this card?",
 ]
 
-[galaxy-eyes-photonized-dragon]
+[galaxy-eyes-luminous-dragon]
 id = 900003101
 alias = 93717133
-name = "Galaxy-Eyes Photonized Dragon"
-set = "photon galaxy-eyes"
+name = "Galaxy-Eyes Luminous Dragon"
 type = "monster effect"
 attribute = "light"
 race = "dragon"
@@ -38,6 +37,22 @@ During the Battle Step, if this card battles an opponent's monster (Quick Effect
     and if you do, your opponent's monster effects are negated. \
 """
 strings = ["Banish both this card from the field and that target"]
+
+[galaxy-eyes-full-armor-luminous-dragon]
+id = 900003102
+name = "Galaxy-Eyes Full Armor Luminous Dragon"
+set = "photon galaxy-eyes"
+type = "monster xyz effect"
+attribute = "light"
+race = "dragon"
+rank = 8
+atk = 3000
+def = 2500
+effect = """\
+2 Level 8 LIGHT monsters
+You can also Xyz Summon this card by using a "Galaxy-Eyes" Dragon monster you control as material. \
+"""
+strings = ["Xyz Summon by using a \"Galaxy-Eyes\" Dragon monster"]
 
 [neo-galaxy-eyes-dark-matter-dragon]
 id = 900003110
