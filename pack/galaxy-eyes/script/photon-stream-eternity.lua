@@ -48,7 +48,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.IsExistingMatchingCard(s.e1filter2, tp, LOCATION_ONFIELD, 0, 1, nil) and #g > 0 then
         Duel.BreakEffect()
         local ng = g:Filter(s.disfilter, nil)
-        for nc in aux.Next(ng) do
+        for nc in ng:Iter() do
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetCode(EFFECT_DISABLE)

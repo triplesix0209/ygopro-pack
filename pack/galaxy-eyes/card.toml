@@ -18,8 +18,29 @@ strings = [
     "Place the activated card underneath this card?",
 ]
 
-[neo-galaxy-eyes-dark-matter-dragon]
+[galaxy-eyes-photonized-dragon]
 id = 900003101
+alias = 93717133
+name = "Galaxy-Eyes Photonized Dragon"
+set = "photon galaxy-eyes"
+type = "monster effect"
+attribute = "light"
+race = "dragon"
+level = 8
+atk = 3000
+def = 2500
+effect = """\
+(This card's name is always treated as "Galaxy-Eyes Photon Dragon".)
+You can Special Summon this card (from your hand) by Tributing 2 LIGHT monsters with 2000 or more ATK. \
+During the Battle Step, if this card battles an opponent's monster (Quick Effect): \
+    You can target that opponent's monster; banish both this card from the field and that target. \
+    Return those banished monsters to the field at the end of the Battle Phase, \
+    and if you do, your opponent's monster effects are negated. \
+"""
+strings = ["Banish both this card from the field and that target"]
+
+[neo-galaxy-eyes-dark-matter-dragon]
+id = 900003110
 name = "Number C95: Neo Galaxy-Eyes Dark Matter Dragon"
 set = "number-c chaos galaxy-eyes"
 type = "monster xyz effect"
@@ -50,7 +71,7 @@ strings = [
 ]
 
 [photon-stream-eternity]
-id = 900003102
+id = 900003111
 name = "Photon Stream of Eternity"
 set = "photon"
 type = "spell quick-play"
