@@ -39,6 +39,7 @@ Once per turn: You can send 1 monster from your Deck to the GY; \
     then you can banish 1 card your opponent controls or from their GY, face-down. \
 If this card has a DARK Dragon Xyz Monster as material, it gains this effect.
 ● You can detach 1 material from this card; this card can make up to 3 attacks on monsters during each Battle Phase this turn.
+● If this card destroys an opponent's monster by battle, attach that monster to this card as material.
 """
 strings = [
     "Xyz Summon by using \"Galaxy-Eyes\" Xyz Monster",
@@ -47,3 +48,12 @@ strings = [
     "Detach 1 material to make up to 3 attacks on monsters",
     "Can make up to 3 attacks on monsters",
 ]
+
+[eternity-photon-stream]
+id = 900003102
+name = "Eternity Photon Stream"
+set = "photon"
+type = "spell quick-play"
+effect = """
+"""
+strings = []

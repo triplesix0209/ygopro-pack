@@ -50,6 +50,14 @@ function s.initial_effect(c)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4, false, REGISTER_FLAG_DETACH_XMAT)
+
+    -- attach battle
+    local e5 = Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e5:SetCode(EVENT_BATTLE_DESTROYING)
+    e5:SetCondition(s.e5con)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
 end
 
 function s.xyzovfilter(c, tp, xyzc)
@@ -86,9 +94,9 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e4filter(c) return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ) end
+function s.efffilter(c) return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ) end
 
-function s.e4con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayGroup():IsExists(s.e4filter, 1, nil) and Duel.IsAbleToEnterBP() end
+function s.e4con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayGroup():IsExists(s.efffilter, 1, nil) and Duel.IsAbleToEnterBP() end
 
 function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
@@ -113,4 +121,16 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetValue(2)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     c:RegisterEffect(ec1)
+end
+
+function s.e5con(e, tp, eg, ep, ev, re, r, rp)
+    return e:GetHandler():GetOverlayGroup():IsExists(s.efffilter, 1, nil) and aux.bdocon(e, tp, eg, ep, ev, re, r, rp)
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local bc = c:GetBattleTarget()
+    if not c:IsRelateToBattle() or not bc then return end
+
+    Duel.Overlay(c, bc)
 end
