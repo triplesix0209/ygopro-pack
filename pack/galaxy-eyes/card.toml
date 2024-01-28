@@ -49,11 +49,16 @@ strings = [
     "Can make up to 3 attacks on monsters",
 ]
 
-[eternity-photon-stream]
+[photon-stream-eternity]
 id = 900003102
-name = "Eternity Photon Stream"
+name = "Photon Stream of Eternity"
 set = "photon"
 type = "spell quick-play"
 effect = """
+If you control a "Galaxy-Eyes" Xyz Monster: banish all Spell/Trap cards your opponent controls, \
+    then, if you control "Number 62: Galaxy-Eyes Prime Photon Dragon" or a Xyz Monster that mentions it, \
+    negate the effects of all face-up monsters your opponent controls (if any). \
+You can only activate this card during your turn, unless you control \
+    "Number 62: Galaxy-Eyes Prime Photon Dragon" or a Xyz Monster that mentions it. \
 """
 strings = []
