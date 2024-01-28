@@ -50,7 +50,10 @@ atk = 3000
 def = 2500
 effect = """\
 2 Level 8 LIGHT monsters
+(This card is always treated as a "Photon" card.)
 You can also Xyz Summon this card by using a "Galaxy-Eyes" Dragon monster you control as material. \
+    (Transfer its materials to this card.) \
+Cannot be used as material for an Xyz Summon the turn it was Xyz Summoned. \
 """
 strings = ["Xyz Summon by using a \"Galaxy-Eyes\" Dragon monster"]
 

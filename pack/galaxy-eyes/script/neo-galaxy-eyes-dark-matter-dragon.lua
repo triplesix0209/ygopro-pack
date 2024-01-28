@@ -11,7 +11,7 @@ function s.initial_effect(c)
     -- xyz summon
     Xyz.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_DARK), 10, 4, s.xyzovfilter, aux.Stringid(id, 0))
 
-    -- xyzlimit
+    -- cannot be xyz material
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
     e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
