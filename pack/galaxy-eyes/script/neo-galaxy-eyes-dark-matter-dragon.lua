@@ -144,7 +144,7 @@ end
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = c:GetBattleTarget()
-    if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) then return end
+    if not c:IsRelateToEffect(e) or not tc then return end
 
     local g = Group.FromCards(c, tc)
     if Duel.Remove(g, 0, REASON_EFFECT + REASON_TEMPORARY) ~= 0 then
@@ -170,5 +170,5 @@ function s.e5retop(e, tp, eg, ep, ev, re, r, rp)
     local sg = g:Filter(function(c) return c:GetFlagEffect(id) ~= 0 end, nil)
     g:DeleteGroup()
 
-    Duel.ReturnToField(sg)
+    for tc in sg:Iter() do Duel.ReturnToField(tc) end
 end
