@@ -1,5 +1,5 @@
 [photonized-galaxy-world]
-id = 900003100
+id = 900004100
 name = "Photonized Galaxy World"
 set = "photon galaxy"
 type = "spell field"
@@ -19,7 +19,7 @@ strings = [
 ]
 
 [numeron-dragon-lord]
-id = 900003101
+id = 900004101
 name = "Numeron Dragon Lord"
 set = "numeron"
 type = "monster xyz effect"
@@ -34,7 +34,7 @@ strings = [
 ]
 
 [galaxy-eyes-luminous-dragon]
-id = 900003102
+id = 900004102
 alias = 93717133
 name = "Galaxy-Eyes Luminous Dragon"
 type = "monster effect"
@@ -54,7 +54,7 @@ During the Battle Step, if this card battles an opponent's monster (Quick Effect
 strings = ["Banish both this card from the field and that target"]
 
 [galaxy-eyes-full-armor-luminous-dragon]
-id = 900003103
+id = 900004103
 name = "Galaxy-Eyes Full Armor Luminous Dragon"
 set = "photon galaxy-eyes"
 type = "monster xyz effect"
@@ -82,7 +82,7 @@ strings = [
 ]
 
 [neo-galaxy-eyes-dark-matter-dragon]
-id = 900003104
+id = 900004104
 name = "Number C95: Neo Galaxy-Eyes Dark Matter Dragon"
 set = "number-c chaos galaxy-eyes"
 type = "monster xyz effect"
@@ -117,7 +117,7 @@ strings = [
 ]
 
 [photon-stream-eternity]
-id = 900003105
+id = 900004105
 name = "Photon Stream of Eternity"
 set = "photon"
 type = "spell quick-play"
