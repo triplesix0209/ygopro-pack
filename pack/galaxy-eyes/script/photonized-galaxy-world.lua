@@ -109,7 +109,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
                 local c = e:GetHandler()
                 local tc = e:GetLabelObject()
                 local g = c:GetOverlayGroup():Filter(function(c) return c:GetFlagEffect(id) > 0 end, nil)
-                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) or c:GetOverlayCount() < 5 then
+                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) then
                     c:ResetEffect(cid, RESET_COPY)
                     tc:ResetFlagEffect(id)
                 end
