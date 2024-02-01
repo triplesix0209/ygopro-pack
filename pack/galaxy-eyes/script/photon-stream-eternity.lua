@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {31801517}
-s.listed_series = {0x107b}
+s.listed_series = {SET_GALAXY_EYES}
 
 function s.initial_effect(c)
     -- activate
@@ -19,7 +19,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e1)
 end
 
-function s.e1filter1(c) return c:IsFaceup() and c:IsSetCard(0x107b) end
+function s.e1filter1(c) return c:IsFaceup() and c:IsSetCard(SET_GALAXY_EYES) end
 
 function s.e1filter2(c) return c:IsFaceup() and (c:IsCode(31801517) or (c:IsType(TYPE_XYZ) and c:ListsCode(31801517))) end
 

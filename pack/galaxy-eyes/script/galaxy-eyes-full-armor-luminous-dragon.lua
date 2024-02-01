@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {0x107b}
+s.listed_series = {SET_GALAXY_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -48,7 +48,7 @@ function s.initial_effect(c)
 end
 
 function s.xyzovfilter(c, tp, xyzc)
-    return c:IsFaceup() and c:IsSetCard(0x107b, xyzc, SUMMON_TYPE_XYZ, tp) and c:IsRace(RACE_DRAGON, xyzc, SUMMON_TYPE_XYZ) and c:IsLevel(8)
+    return c:IsFaceup() and c:IsSetCard(SET_GALAXY_EYES, xyzc, SUMMON_TYPE_XYZ, tp) and c:IsRace(RACE_DRAGON, xyzc, SUMMON_TYPE_XYZ) and c:IsLevel(8)
 end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
