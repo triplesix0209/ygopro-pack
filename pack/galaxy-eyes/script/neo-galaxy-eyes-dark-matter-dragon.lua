@@ -19,26 +19,31 @@ function s.initial_effect(c)
     e1:SetValue(1)
     c:RegisterEffect(e1)
 
-    -- cannot be destroyed by effects
+    -- attach & banish
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetCategory(CATEGORY_REMOVE)
+    e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetValue(1)
+    e2:SetCountLimit(1)
+    e2:SetCost(s.e2cost)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- attach & banish
+    -- untargetable & indes
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetCategory(CATEGORY_REMOVE)
-    e3:SetType(EFFECT_TYPE_IGNITION)
+    e3:SetType(EFFECT_TYPE_SINGLE)
+    e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1)
-    e3:SetCost(s.e3cost)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
+    e3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayGroup():IsExists(s.efffilter, 1, nil) end)
+    e3:SetValue(aux.tgoval)
     c:RegisterEffect(e3)
+    local e3b = e3:Clone()
+    e3b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e3b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(e3b)
 
     -- multi attack
     local e4 = Effect.CreateEffect(c)
@@ -52,45 +57,32 @@ function s.initial_effect(c)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4, false, REGISTER_FLAG_DETACH_XMAT)
-
-    -- banish battle
-    local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 5))
-    e5:SetCategory(CATEGORY_REMOVE)
-    e5:SetType(EFFECT_TYPE_QUICK_O)
-    e5:SetCode(EVENT_FREE_CHAIN)
-    e5:SetRange(LOCATION_MZONE)
-    e5:SetHintTiming(TIMING_BATTLE_PHASE)
-    e5:SetCondition(s.e5con)
-    e5:SetTarget(s.e5tg)
-    e5:SetOperation(s.e5op)
-    c:RegisterEffect(e5)
 end
 
 function s.xyzovfilter(c, tp, xyzc)
     return c:IsFaceup() and c:IsSetCard(SET_GALAXY_EYES, xyzc, SUMMON_TYPE_XYZ, tp) and c:IsType(TYPE_XYZ, xyzc, SUMMON_TYPE_XYZ, tp)
 end
 
-function s.e3filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGraveAsCost() end
+function s.e2filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGraveAsCost() end
 
-function s.e3filter2(c) return c:IsRace(RACE_DRAGON) end
+function s.e2filter2(c) return c:IsRace(RACE_DRAGON) end
 
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_DECK, 0, 1, nil) end
-    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil) end
+    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
     Duel.SendtoGrave(g, REASON_COST)
 end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, nil) end
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, nil) end
     Duel.SetPossibleOperationInfo(0, CATEGORY_REMOVE, nil, 1, 0, LOCATION_ONFIELD + LOCATION_GRAVE)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
 
-    local g1 = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, s.e3filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 1, nil)
+    local g1 = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, s.e2filter2, tp, LOCATION_GRAVE + LOCATION_EXTRA, 0, 1, 1, nil)
     if #g1 == 0 then return end
     Duel.Overlay(c, g1)
 
@@ -128,47 +120,4 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetValue(2)
     ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
     c:RegisterEffect(ec1)
-end
-
-function s.e5con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsBattlePhase() and not e:GetHandler():IsStatus(STATUS_CHAINING) end
-
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local c = e:GetHandler()
-    local bc = c:GetBattleTarget()
-    if chk == 0 then return bc and bc:IsOnField() and c:IsAbleToRemove() and bc:IsAbleToRemove() end
-
-    local g = Group.FromCards(c, bc)
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
-end
-
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tc = c:GetBattleTarget()
-    if not c:IsRelateToEffect(e) or not tc then return end
-
-    local g = Group.FromCards(c, tc)
-    if Duel.Remove(g, 0, REASON_EFFECT + REASON_TEMPORARY) ~= 0 then
-        local og = Duel.GetOperatedGroup()
-        local oc = og:GetFirst()
-        for tc in aux.Next(og) do tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1) end
-        og:KeepAlive()
-
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-        ec1:SetCode(EVENT_PHASE + PHASE_BATTLE)
-        ec1:SetCountLimit(1)
-        ec1:SetLabelObject(og)
-        ec1:SetOperation(s.e5retop)
-        ec1:SetReset(RESET_PHASE + PHASE_BATTLE)
-        Duel.RegisterEffect(ec1, tp)
-    end
-end
-
-function s.e5retop(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetOwner()
-    local g = e:GetLabelObject()
-    local sg = g:Filter(function(c) return c:GetFlagEffect(id) ~= 0 end, nil)
-    g:DeleteGroup()
-
-    for tc in sg:Iter() do Duel.ReturnToField(tc) end
 end
