@@ -9,6 +9,7 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
     e1:SetCode(EVENT_TO_HAND)
     e1:SetRange(LOCATION_HAND)
+    e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
@@ -34,6 +35,8 @@ function s.initial_effect(c)
     e3:SetValue(s.e3val)
     c:RegisterEffect(e3)
 end
+
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return not e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()

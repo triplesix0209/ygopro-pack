@@ -30,7 +30,7 @@ atk = 2500
 def = 2100
 effect = """\
 (This card's name is always treated as "Palladium Oracle Mahad".)
-If this card is added to your hand: You can Special Summon it from your hand. \
+If this card is added to your hand, except from the field: You can Special Summon it. \
 You can reveal this card in your hand; add 1 Spell/Trap that mentions it, \
     from your Deck to your hand, then place 1 card from your hand on top of the Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
