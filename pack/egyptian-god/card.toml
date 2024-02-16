@@ -118,12 +118,12 @@ effect = """\
 If your "The Winged Dragon of Ra" is Normal Summoned to your field, \
     its original ATK/DEF become the combined ATK/DEF on the field of the monsters Tributed for its Summon, \
     or your opponent's field, Dimension Change it to this card with the same Divine Hierarchy. \
-This card's effects cannot be negated nor be copied. \
-Cannot be Tributed, nor be used as material for an Summon. \
+This card's effects cannot be negated or be copied. \
+Cannot be Tributed, or be used as material for an Summon. \
 If card(s) is equipped to it, destroy that card(s). \
 Unaffected by other card effects, except effects of monsters with the equal or higher Divine Hierarchy. \
 Cannot attack. \
-Neither player can target it for attacks nor with card effects, \
+Neither player can target it for attacks or with card effects, \
     but does not prevent your opponent from attacking you directly. \
 Once per turn, except the turn this card was Dimension Changed (Quick Effect): \
     You can reveal 1 "Ancient Chant" from everywhere; \
@@ -155,8 +155,8 @@ If "The Winged Dragon of Ra" is Special Summoned from the GY to your field in fa
 If "The Winged Dragon of Ra" you control would be destroyed by its own effect, \
     Dimension Change it to this card with the same Divine Hierarchy instead, \
     and this card's original ATK/DEF become the same as that monster's ATK/DEF on the field. \
-This card's effects cannot be negated nor be copied. \
-Cannot be Tributed, nor be used as material for an Summon. \
+This card's effects cannot be negated or be copied. \
+Cannot be Tributed, or be used as material for an Summon. \
 If card(s) is equipped to it, destroy that card(s). \
 Unaffected by other card effects, cannot be destroyed by battle, \
     also you take no battle damage from that battle, \
@@ -263,11 +263,11 @@ effect = """\
 Must first be Synchro Summoned with the above materials. \
 For this card's Synchro Summon, you can treat 1 Ritual Summoned monster you control as a Tuner. \
 This card's Synchro Summon cannot be negated. \
-Your opponent cannot Tribute it, nor use it as material for an Summon. \
+Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
 Its battle position cannot be changed by card effects. \
 This card gain 100 ATK for each time "{CARD_NAME}" is Special Summoned by its own effect this Duel. \
-The above effects cannot be negated nor be copied. \
+The above effects cannot be negated or be copied. \
 Once per turn, when your opponent activates a card or effect (Quick Effect): \
     You can activate this effect; the activated effect becomes \
     "Your opponent destroys 1 \"Nephthys\" monster they control, ignoring card effects". \
@@ -303,10 +303,10 @@ effect = """\
 2+ Level 8 or higher monsters with the same Level and different Attributes and Types
 Must first be Xyz Summoned with the above materials. \
 This card's Xyz Summon cannot be negated. \
-Your opponent cannot Tribute it, nor use it as material for an Summon. \
+Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
 Its battle position cannot be changed by card effects. \
-The above effects cannot be negated nor be copied. \
+The above effects cannot be negated or be copied. \
 This card gains these effects, based on the number of materials attached to it.
 ● 1+: Your opponent cannot target this card with card effects.
 ● 2+: This card is Unaffected by your opponent's Spell effects.
@@ -327,7 +327,7 @@ name = "Deity Evolution"
 type = "spell quick-play"
 effect = """\
 (This card's name is always treated as "Divine Evolution".)
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 Choose 1 monster you control whose original Type is Divine-Beast \
     or whose original name is "The Wicked Avatar", "The Wicked Dreadroot", or "The Wicked Eraser" \
     except a monster(s) already affected by "Divine Evolution", \
@@ -351,7 +351,7 @@ rarity = "gold"
 name = "The Chosen Pharaoh"
 type = "trap continuous"
 effect = """\
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 Your opponent cannot target this card with card effects. \
 Original DIVINE monster in your GY cannot be banished, \
     also negate any your opponent's card effect that would move them. \
@@ -520,7 +520,7 @@ id = 900000020
 name = "Sun God Descend"
 type = "spell quick-play"
 effect = """\
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 During the Main Phase: \
     Tribute 3 monsters on your field or your opponent's, \
     then Special Summon 1 "The Winged Dragon of Ra" from your hand or Deck, ignoring its Summoning conditions, \

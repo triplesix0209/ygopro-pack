@@ -10,7 +10,7 @@ function s.initial_effect(c)
     -- activate
     aux.AddEquipProcedure(c, nil, aux.FilterBoolFunction(s.eqfilter))
 
-    -- cannot be tributed, nor be used as a material
+    -- cannot be tributed, or be used as a material
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
     e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)

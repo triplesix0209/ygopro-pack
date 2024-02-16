@@ -32,7 +32,7 @@ function s.initial_effect(c)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     c:RegisterEffect(sumsafe)
 
-    -- cannot be tributed, nor be used as a material
+    -- cannot be tributed, or be used as a material
     local norelease = Effect.CreateEffect(c)
     norelease:SetType(EFFECT_TYPE_FIELD)
     norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)

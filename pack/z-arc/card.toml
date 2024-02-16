@@ -83,7 +83,7 @@ At the start of the Duel: Fusion, Synchro, and Xyz Monsters that in the GYs or b
     except "Supreme King Z-ARC", gain these effects.
 ● Control and battle position of monster whose original name is "Supreme King Z-ARC" cannot be changed by card effects, \
     cannot be used as material for an Summon. \
-    Such monster cannot be destroyed by battle or card effects, nor be Tributed, \
+    Such monster cannot be destroyed by battle or card effects, or be Tributed, \
     and unaffected by card effects that would make it leave the field, \
     except by its controller.
 """
@@ -850,7 +850,7 @@ link = 3
 link-arrow = "top-left top top-right"
 effect = """\
 You can only control 1 "{CARD_NAME}". \
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 When this card is activated: \
     Place 2 "Supreme King Gate" Pendulum Monsters with different names \
     from your hand, Deck, and/or Extra Deck face-up in your Pendulum Zone, \

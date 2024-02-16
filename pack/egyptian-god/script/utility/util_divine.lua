@@ -61,7 +61,7 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(nodiseff)
 
-    -- cannot be tributed, nor be used as a material
+    -- cannot be tributed, or be used as a material
     local norelease = Effect.CreateEffect(c)
     norelease:SetType(EFFECT_TYPE_FIELD)
     norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -238,7 +238,7 @@ function Divine.WickedGod(s, c, divine_hierarchy)
     nodiseff:SetCode(EFFECT_CANNOT_DISEFFECT)
     c:RegisterEffect(nodiseff)
 
-    -- cannot be tributed, nor be used as a material
+    -- cannot be tributed, or be used as a material
     local norelease = Effect.CreateEffect(c)
     norelease:SetType(EFFECT_TYPE_FIELD)
     norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)

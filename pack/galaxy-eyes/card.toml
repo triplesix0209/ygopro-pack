@@ -34,12 +34,12 @@ Must be Special Summoned (from your Extra Deck) by overlaying all Xyz Monsters y
     including 1 "Number 100: Numeron Dragon". \
     (Transfer its materials to this card.) \
 This card's Special Summon cannot be negated. \
-Your opponent cannot Tribute this card, nor use it as material for an Summon. \
+Your opponent cannot Tribute this card, or use it as material for an Summon. \
 Its battle position cannot be changed by card effects. \
 Its control cannot switch. \
 Cannot be destroyed by battle, except with an "Number" monster. \
 This card gains the original effects of all "Number" Xyz Monsters attached to it. \
-The above effects cannot be negated nor be copied. \
+The above effects cannot be negated or be copied. \
 """
 strings = []
 

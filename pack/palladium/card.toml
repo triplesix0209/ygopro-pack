@@ -3,7 +3,7 @@ id = 900000100
 name = "Millennium Ascension"
 type = "spell field"
 effect = """\
-The activation of this card, or its effects, cannot be negated, nor can its effects be negated. \
+The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 Summons of your "Palladium" monsters cannot be negated. \
 Your opponent cannot target or destroy Level/Rank 10 or higher monsters you control with card effects, \
     also theirs effect activations and theirs card effects cannot be negated. \
