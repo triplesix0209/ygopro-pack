@@ -427,7 +427,7 @@ Once per turn, when a card or effect is activated: \
 If this card is destroyed by battle or card effect: \
     You can shuffle it into the Extra Deck; \
     Special Summon both 1 "Palladium Oracle Mahad" and 1 "Palladium Oracle Mana", \
-    that are banished or are in your hand, Deck, GY. \
+    that are in your hand, Deck, GY or banishment. \
 """
 strings = []
 
@@ -532,7 +532,7 @@ Must first be Fusion Summoned with the above materials. \
 If this card is Fusion Summoned: \
     You can add 1 card in your GY to your hand. \
 While you control this Fusion Summoned card: \
-    You can Special Summon 1 LIGHT or DARK monster that is banished or is in your GY, except "{CARD_NAME}". \
+    You can Special Summon 1 LIGHT or DARK monster that is in your GY or banishment, except "{CARD_NAME}". \
 (Quick Effect): You can Tribute 1 LIGHT and 1 DARK monster; \
     banish all monsters your opponent controls. \
 If this card attacks a monster, before damage calculation: \
@@ -690,7 +690,7 @@ effect = """\
 (This card's Attribute is also DARK.)
 Must first be Xyz Summoned. \
 This card's Xyz Summon, activation and effect cannot be negated. \
-This card gains 100 ATK/DEF for each banished cards and cards in either GY. \
+This card gains 100 ATK/DEF for each cards in either GY and banishment. \
 This card gains these effects, based on the materials attached to it.
 ● Spellcaster Ritual Monster, once per turn: \
     You can banish 1 other card on the field face-down. \
@@ -755,7 +755,7 @@ effect = """\
 (This card's name is always treated as "De-Fusion" and it is "Palladium" card.)
 Activate 1 of these effects.
 ● Target 1 Fusion Monster on the field; return it to the Extra Deck, then, \
-    if all the Fusion Materials that were used for its Fusion Summon are banished and/or are in your hand, Deck, GY, \
+    if all the Fusion Materials that were used for its Fusion Summon are in your hand, Deck, GY, and/or banishment, \
     you can Special Summon all of them.
 ● This turn, the activation of your cards and effects that include an effect that Fusion Summons a Fusion Monster cannot be negated, \
     and your opponent cannot activate cards or effects when a monster is Fusion Summoned this way, \

@@ -40,7 +40,7 @@ If this card is Fusion Summoned: \
 Your opponent cannot target face-up Spells/Traps you control with card effects, \
     also they cannot be destroyed by your opponent's card effects. \
 Once per turn: You can target 1 "Red-Eyes" monster \
-    that is banished or in your GY, except "{CARD_NAME}"; shuffle it into the Deck, \
+    that in your GY or banishment, except "{CARD_NAME}"; shuffle it into the Deck, \
     and if you do, if you control this face-up Fusion Summoned card, \
     inflict damage to your opponent equal to its original ATK. \
 """
@@ -107,7 +107,7 @@ effect = """\
 You can also Xyz Summon this card by using 1 Level 9 or higher "Red-Eyes" monster you control as material. \
 If this card would be destroyed by battle or card effect, you can detach 1 material from this card instead. \
 During your Main Phase: You can Special Summon 1 Dragon monster or "Red-Eyes" monster, except "{CARD_NAME}", \
-    that is banished or from your hand or GY. \
+    that from your hand, GY, or banishment. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card has an "Red-Eyes" monster as material, it gains these effects.
 ● Gains 400 ATK for each Dragon monster in your GY.

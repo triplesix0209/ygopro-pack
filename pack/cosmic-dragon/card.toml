@@ -103,7 +103,8 @@ effect = """
 If this card is Summoned: You can destroy any number of cards you control, \
     and if you do, destroy the same number of cards your opponent controls. \
 Once per turn: \
-    You can target 1 Tuner or Plant monster that is banished or in your GY, and 1 face-up monster your opponent controls; \
+    You can target 1 Tuner or Plant monster in your GY or banishment, \
+    and 1 face-up monster your opponent controls; \
     shuffle the first target into the Deck, and if you do, \
     the second target's ATK/DEF becomes half its current ATK/DEF until the End Phase. \
 """
@@ -371,7 +372,7 @@ This effect's activation and effect cannot be negated.
 ● Shuffle 1 Tuner from your hand or GY into the Deck, then draw 2 cards.
 ● Special Summon 1 "The Crimson Dragon" from your Extra Deck.
 During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY: \
-    You can target 1 card that mentions "The Crimson Dragon" is banished or in your GY; shuffle it into the Deck. \
+    You can target 1 card that mentions "The Crimson Dragon" in your GY or banishment; shuffle it into the Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [

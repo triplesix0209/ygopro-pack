@@ -459,7 +459,7 @@ Send 1 Normal Spell that lists a "Neo-Spacian" card, \
     this effect becomes that Spell's effect when that card is activated. \
 During your End Phase, if this card is in your GY: \
     You can target 1 Spell/Trap that mentions "Elemental HERO Neos" or lists a "Neo-Spacian" card, \
-    that is banished or in your GY, except "{CARD_NAME}"; \
+    that in your GY or banishment, except "{CARD_NAME}"; \
     shuffle both this card and that target into the Deck. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """

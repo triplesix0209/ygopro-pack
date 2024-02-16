@@ -529,7 +529,7 @@ During the Main Phase: \
     You cannot Normal Summon/Set during the turn you Special Summon with this effect. \
 If this card is in your GY: \
     You can target 1 "The Winged Dragon of Ra" or 1 card that mentions it \
-    that is banished, or in your GY, except "{CARD_NAME}"; \
+    that in your GY or banishment, except "{CARD_NAME}"; \
     shuffle both this card and that target into the Deck, \
     then draw 1 card. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
