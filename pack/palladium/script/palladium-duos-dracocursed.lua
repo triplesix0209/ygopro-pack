@@ -96,6 +96,7 @@ end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, chk, c)
     local g = Duel.SelectReleaseGroup(tp, s.spfilter1, 1, 1, false, true, true, c, tp, nil, false, nil, tp, c)
+    if g ~= nil then return false end
     g:Merge(Duel.SelectReleaseGroup(tp, s.spfilter2, 1, 1, true, true, true, c, tp, nil, false, nil, tp, c))
 
     if g then
