@@ -175,7 +175,7 @@ function s.me1pencon1(e, c, og)
     local ft = Duel.GetLocationCountFromEx(tp)
     if ft <= 0 then return false end
 
-    if og then
+    if og ~= nil then
         return og:Filter(Card.IsLocation, nil, LOCATION_EXTRA):IsExists(Pendulum.Filter, 1, nil, e, tp, lscale, rscale)
     else
         return Duel.IsExistingMatchingCard(Pendulum.Filter, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, lscale, rscale)
