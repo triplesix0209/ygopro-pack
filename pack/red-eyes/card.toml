@@ -27,7 +27,7 @@ set = "red-eyes"
 type = "monster fusion effect"
 attribute = "dark"
 race = "dragon"
-level = 11
+level = 10
 atk = 3600
 def = 3000
 effect = """\
@@ -55,7 +55,7 @@ attribute = "dark"
 race = "dragon"
 level = 10
 atk = 3600
-def = 3300
+def = 2800
 effect = """\
 1 "Red-Eyes" Dragon monster + 1 Level 8 or higher DARK Dragon Fusion monster
 This Fusion Summoned card unaffected by other monsters' effects. \
