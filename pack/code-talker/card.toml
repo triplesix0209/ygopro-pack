@@ -67,3 +67,44 @@ Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card p
     but that monster cannot attack this turn. \
 """
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
+
+[dracode-talkeron]
+id = 900006004
+set = "code-talker"
+name = "Dracode Talkeron"
+type = "monster link effect"
+attribute = "dark"
+race = "cyberse"
+link = 4
+link-arrow = "top bottom-left bottom bottom-right"
+atk = 2500
+effect = """\
+2+ Effect monsters
+Gains 500 ATK for each monster it points to. \
+You can target cards in either GY up to the number of monsters co-linked to this card; \
+    shuffle them into the Deck. \
+When your opponent activates a card or effect (Quick Effect): \
+    You can destroy 1 monster this card points to, \
+    and if you do, negate the activation, \
+    and if you do, destroy that card. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Shuffle cards in GY into the deck",
+    "Destroy 1 monster this card points to negate the activation",
+]
+
+[firewall-dragon-pyrosoul]
+id = 900006005
+set = "firewall"
+name = "Firewall Dragon Pyrosoul"
+type = "monster link effect"
+attribute = "fire"
+race = "cyberse"
+link = 5
+link-arrow = "left right bottom-left bottom bottom-right"
+atk = 3000
+effect = """\
+3+ Cyberse monsters with different Attributes
+"""
+strings = []
