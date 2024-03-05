@@ -12,15 +12,25 @@ function s.initial_effect(c)
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 2, 99,
         function(g, sc, sumtype, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, sumtype, tp) end)
 
-    -- indes
+    -- protect
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
     e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
-    e1:SetTarget(function(e, c) return c:IsFaceup() and (c == e:GetHandler() or e:GetHandler():GetLinkedGroup():IsContains(c)) end)
-    e1:SetValue(1)
+    e1:SetTargetRange(LOCATION_MZONE, 0)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or e:GetHandler():GetLinkedGroup():IsContains(c) end)
+    e1:SetValue(aux.indoval)
     c:RegisterEffect(e1)
+    local e1b = e1:Clone()
+    e1b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e1b:SetCode(EFFECT_CANNOT_REMOVE)
+    e1b:SetTargetRange(1, 1)
+    e1b:SetTarget(function(e, c, rp, r, re)
+        local tp = e:GetHandlerPlayer()
+        return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and rp == 1 - tp and r & REASON_EFFECT ~= 0 and
+                   (c == e:GetHandler() or e:GetHandler():GetLinkedGroup():IsContains(c))
+    end)
+    c:RegisterEffect(e1b)
 
     -- atk up
     local e2 = Effect.CreateEffect(c)

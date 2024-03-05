@@ -60,7 +60,7 @@ effect = """\
 If this card is Link Summoned: You can add from your Deck to your hand \
     1 card that mentions a "Code Talker" card. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Cannot be attacked while in the Extra Monster Zone. \
+Your opponent cannot target this card for attacks or with card effects while in the Extra Monster Zone. \
 Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card points to into the Extra Deck, \
     and if you do, Special Summon 1 Link-3 "Code Talker" monster from your Extra Deck with a different name, \
     except "{CARD_NAME}" (this is treated as an Link Summon), \
@@ -68,30 +68,29 @@ Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card p
 """
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
-[dracode-talkeron]
+[decode-dragon]
 id = 900006004
-set = "code-talker"
-name = "Dracode Talkeron"
+name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
 race = "cyberse"
 link = 4
 link-arrow = "top bottom-left bottom bottom-right"
-atk = 2500
+atk = 2800
 effect = """\
-2+ Effect monsters
-Gains 500 ATK for each monster it points to. \
-You can target cards in either GY up to the number of monsters co-linked to this card; \
-    shuffle them into the Deck. \
+2+ Cyberse monsters
+Your opponent cannot activate cards or effects in response to this card's effect activations. \
 When your opponent activates a card or effect (Quick Effect): \
     You can destroy 1 monster this card points to, \
-    and if you do, negate the activation, \
-    and if you do, destroy that card. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
+    and if you do, negate the activation. \
+You can target face-up cards in either GY and/or banishment \
+    up to the number of monsters co-linked to this card; \
+    shuffle them into the Deck. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Shuffle cards in GY into the deck",
     "Destroy 1 monster this card points to negate the activation",
+    "Shuffle cards in GY into the deck",
 ]
 
 [firewall-dragon-pyrosoul]
@@ -107,7 +106,7 @@ atk = 3000
 effect = """\
 3+ Cyberse monsters with different Attributes
 You can only control 1 "{CARD_NAME}". \
-This card and face-up monsters this card points to cannot be destroyed by your opponent's card effects. \
+This card and monsters you control this card points to cannot be destroyed, or banished, by your opponent's card effects. \
 While this card is co-linked, it and its co-linked monsters gain 500 ATK for each number of monsters co-linked to them, \
     also your opponent cannot any of them with card effects. \
 (Quick Effect): You can pay 1000 LP; Set from your GY, 1 "Cynet" Quick-Play Spell or 1 "Cynet" Trap. \
