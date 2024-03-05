@@ -26,14 +26,20 @@ function s.initial_effect(c)
     e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_TODECK)
     e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, {id, 1})
+    e2:SetCondition(aux.NOT(s.e2quickcon))
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetType(EFFECT_TYPE_QUICK_O)
+    e2b:SetCode(EVENT_FREE_CHAIN)
+    e2b:SetHintTiming(0, TIMINGS_CHECK_MONSTER_E)
+    e2b:SetCondition(s.e2quickcon)
+    c:RegisterEffect(e2b)
 end
-
-function s.effchainlimit(e, ep, tp) return tp == ep end
 
 function s.e1filter(c) return not c:IsStatus(STATUS_BATTLE_DESTROYED) end
 
@@ -47,7 +53,6 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, lg, 1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_NEGATE, eg, 1, 0, 0)
-    Duel.SetChainLimit(s.effchainlimit)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
@@ -62,6 +67,8 @@ end
 
 function s.e2filter(c) return c:IsFaceup() and c:IsAbleToDeck() end
 
+function s.e2quickcon(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsInExtraMZone() end
+
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     local ct = #(c:GetMutualLinkedGroup():Filter(Card.IsMonster, nil))
@@ -72,7 +79,6 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TODECK)
     local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, 1, ct, nil)
     Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
-    Duel.SetChainLimit(s.effchainlimit)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)

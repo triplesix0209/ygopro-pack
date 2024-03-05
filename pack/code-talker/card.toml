@@ -79,13 +79,13 @@ link-arrow = "top bottom-left bottom bottom-right"
 atk = 2800
 effect = """\
 2+ Cyberse monsters
-Your opponent cannot activate cards or effects in response to this card's effect activations. \
 When your opponent activates a card or effect (Quick Effect): \
     You can destroy 1 monster this card points to, \
     and if you do, negate the activation. \
 You can target face-up cards in either GY and/or banishment \
     up to the number of monsters co-linked to this card; \
     shuffle them into the Deck. \
+    This is a Quick Effect if this card is in Extra Monster Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
