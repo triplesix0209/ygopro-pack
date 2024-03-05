@@ -100,7 +100,7 @@ function s.e1val(e, tc) return not tc:IsType(SET_NUMBER) end
 
 function s.e2filter(c)
     if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsSetCard(SET_NUMBER) and c:IsType(TYPE_XYZ)
+    return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
