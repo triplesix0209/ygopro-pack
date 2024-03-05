@@ -44,3 +44,24 @@ If this card you control would be used as Link Material for a Cyberse monster, \
     you can also use 1 Cyberse monster in your hand as material. \
 """
 strings = []
+
+[stormcode-talker]
+id = 900006003
+set = "code-talker"
+name = "Stormcode Talker"
+type = "monster link effect"
+attribute = "dark"
+race = "cyberse"
+link = 3
+link-arrow = "bottom-left bottom bottom-right"
+atk = 2300
+effect = """\
+2+ Cyberse monsters
+Cannot be attacked while in the Extra Monster Zone. \
+Link Summons of your Link Monsters cannot be negated. \
+Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card points to into the Extra Deck, \
+    and if you do, Special Summon 1 Link-3 "Code Talker" monster from your Extra Deck with a different name, \
+    except "{CARD_NAME}" (this is treated as an Link Summon), \
+    but that monster cannot attack this turn. \
+"""
+strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
