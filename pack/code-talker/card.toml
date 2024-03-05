@@ -107,7 +107,7 @@ atk = 3000
 effect = """\
 3+ Cyberse monsters with different Attributes
 You can only control 1 "{CARD_NAME}". \
-This card and face-up monsters this card points to cannot be destroyed by by your opponent's card effects. \
+This card and face-up monsters this card points to cannot be destroyed by your opponent's card effects. \
 While this card is co-linked, it and its co-linked monsters gain 500 ATK for each number of monsters co-linked to them, \
     also your opponent cannot any of them with card effects. \
 (Quick Effect): You can pay 1000 LP; Set from your GY, 1 "Cynet" Quick-Play Spell or 1 "Cynet" Trap. \
