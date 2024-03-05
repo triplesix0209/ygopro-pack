@@ -60,7 +60,7 @@ effect = """\
 If this card is Link Summoned: You can add from your Deck to your hand \
     1 card that mentions a "Code Talker" card. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Your opponent cannot target this card for attacks or with card effects while in the Extra Monster Zone. \
+Cannot be attacked while in the Extra Monster Zone. \
 Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card points to into the Extra Deck, \
     and if you do, Special Summon 1 Link-3 "Code Talker" monster from your Extra Deck with a different name, \
     except "{CARD_NAME}" (this is treated as an Link Summon), \

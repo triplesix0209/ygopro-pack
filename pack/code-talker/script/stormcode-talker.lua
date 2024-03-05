@@ -31,10 +31,6 @@ function s.initial_effect(c)
     e2:SetCondition(function(e) return e:GetHandler():IsInExtraMZone() end)
     e2:SetValue(aux.imval1)
     c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e2b:SetValue(aux.tgoval)
-    c:RegisterEffect(e2b)
 
     -- shuffle monster into the Deck and then special summon
     local e3 = Effect.CreateEffect(c)
