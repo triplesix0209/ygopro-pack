@@ -57,8 +57,9 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 2300
 effect = """\
 2+ Cyberse monsters
+If this card is Link Summoned: You can add from your Deck to your hand \
+    1 card that mentions a "Code Talker" card. \
 Cannot be attacked while in the Extra Monster Zone. \
-Link Summons of your Link Monsters cannot be negated. \
 Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card points to into the Extra Deck, \
     and if you do, Special Summon 1 Link-3 "Code Talker" monster from your Extra Deck with a different name, \
     except "{CARD_NAME}" (this is treated as an Link Summon), \

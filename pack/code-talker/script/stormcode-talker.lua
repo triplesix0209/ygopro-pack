@@ -10,23 +10,26 @@ function s.initial_effect(c)
     -- link summon
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 2)
 
-    -- cannot be attacked
+    -- search from deck
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e1:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetCondition(function(e) return e:GetHandler():IsInExtraMZone() end)
-    e1:SetValue(aux.imval1)
+    e1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCountLimit(1, {id, 1})
+    e1:SetCondition(s.e1con)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- cannot disable summon
+    -- cannot be attacked
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    e2:SetType(EFFECT_TYPE_SINGLE)
+    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e2:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
-    e2:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_LINK) and c:IsControler(e:GetHandlerPlayer()) end)
+    e2:SetCondition(function(e) return e:GetHandler():IsInExtraMZone() end)
+    e2:SetValue(aux.imval1)
     c:RegisterEffect(e2)
 
     -- shuffle monster into the Deck and then special summon
@@ -36,10 +39,27 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1, id)
+    e3:SetCountLimit(1, {id, 2})
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
+end
+
+function s.e1filter(c) return c:ListsArchetype(SET_CODE_TALKER) and c:IsAbleToHand() end
+
+function s.e1con(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_DECK, 0, 1, nil) end
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e1filter, tp, LOCATION_DECK, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
+    end
 end
 
 function s.e3filter1(c, e, tp)

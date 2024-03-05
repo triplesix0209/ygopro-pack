@@ -10,7 +10,7 @@ function s.initial_effect(c)
     -- link summon
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 2, 2)
 
-    -- add from Deck to hand
+    -- search from deck
     local e1 = Effect.CreateEffect(c)
     e1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
