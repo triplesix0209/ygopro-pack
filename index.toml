@@ -13,7 +13,7 @@ packs = [
     "./pack/cosmic-dragon",
     "./pack/galaxy-eyes",
     "./pack/z-arc",
-    "./pack/cyberse",
+    "./pack/code-talker",
 ]
 
 skip_compile_packs = [
