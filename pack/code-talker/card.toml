@@ -106,14 +106,21 @@ atk = 4000
 effect = """\
 3+ Cyberse monsters with different Attributes
 You can only control 1 "{CARD_NAME}". \
-This card and other monsters you control it points to cannot be destroyed, or banished, by your opponent's card effects. \
-While this card is co-linked, it and its co-linked monsters gain 500 ATK for each number of cards co-linked to them, \
-    also your opponent cannot any of them with card effects. \
+While this card is co-linked, \
+    it and its co-linked cards cannot be destroyed, or banished, by your opponent's card effects, \
+    these monsters gain 500 ATK for each number of cards co-linked to them, \
+    also your opponent cannot target any of them with card effects. \
 Once while face-up on the field: \
-    You can pay 2000 LP, then Target 1 Link Monster you control; \
+    You can pay 2000 LP, then Target 1 other "Firewall" Link Monster you control; \
     Place it face-up in your Spell & Trap Zone this card points to as a Link Spell, \
     and if you do, if this card is co-linked to that monster, \
     it gains the original effects of that monster. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+You can Target 1 other Link Monster you control this card points to; Destroy it, \
+    and if you do, Special Summon 1 Cyberse Link Monster from your Extra Deck, \
+    with Link Rating equal or lower than the destroyed monster's (this is treated as an Link Summon), \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Place 1 Link Monster as Link Spell"]
+strings = [
+    "Place 1 Link Monster as Link Spell",
+    "Destroy to Link Summon 1 Cyberse monster",
+]
