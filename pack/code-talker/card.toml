@@ -101,7 +101,7 @@ type = "monster link effect"
 attribute = "fire"
 race = "cyberse"
 link = 5
-link-arrow = "left right top-left top top-right"
+link-arrow = "left right top-left bottom top-right"
 atk = 3000
 effect = """\
 3+ Cyberse monsters with different Attributes
