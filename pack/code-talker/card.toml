@@ -98,18 +98,22 @@ id = 900006005
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
-attribute = "fire"
+attribute = "light"
 race = "cyberse"
-link = 5
-link-arrow = "left right top-left bottom top-right"
-atk = 3000
+link = 6
+link-arrow = "left right top-left top top-right bottom"
+atk = 4000
 effect = """\
 3+ Cyberse monsters with different Attributes
 You can only control 1 "{CARD_NAME}". \
-This card and monsters you control this card points to cannot be destroyed, or banished, by your opponent's card effects. \
-While this card is co-linked, it and its co-linked monsters gain 500 ATK for each number of monsters co-linked to them, \
+This card and other monsters you control it points to cannot be destroyed, or banished, by your opponent's card effects. \
+While this card is co-linked, it and its co-linked monsters gain 500 ATK for each number of cards co-linked to them, \
     also your opponent cannot any of them with card effects. \
-(Quick Effect): You can pay 1000 LP; Set from your GY, 1 "Cynet" Quick-Play Spell or 1 "Cynet" Trap. \
+Once while face-up on the field: \
+    You can pay 2000 LP, then Target 1 Link Monster you control; \
+    Place it face-up in your Spell & Trap Zone this card points to as a Link Spell, \
+    and if you do, if this card is co-linked to that monster, \
+    it gains the original effects of that monster. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Set 1 \"Cynet\" Quick-Play Spell or Trap"]
+strings = ["Place 1 Link Monster as Link Spell"]
