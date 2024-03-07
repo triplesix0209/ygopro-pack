@@ -254,3 +254,23 @@ Once per turn: You can target 1 monster your opponent controls; destroy it. \
     This card cannot attack the turn this effect is activated. \
 """
 strings = ["Destroy 1 monster your opponent controls"]
+
+[code-hack]
+id = 33750856
+generate-pic = false
+card-limit = "ocg tcg"
+name = "Code Hack"
+type = "trap continuous"
+effect = """
+Cyberse Link Monsters you control cannot be destroyed by your opponent's card effects. \
+Once per turn, during the Battle Step, if your monster battles an opponent's monster: \
+    You can activate this effect; that opponent's monster's ATK becomes 0 until the end of this turn, \
+    also for that battle, monsters cannot be destroyed by battle and neither player takes battle damage. \
+    That opponent's monster must be face-up on the field to activate and to resolve this effect. \
+When your opponent activates a card or effect during a Damage Step that your "Code Talker" monster is attacking in: \
+    You can banish this card from your GY; negate the activation, and if you do, your attacking monster gains 700 ATK. \
+"""
+strings = [
+    "Make opponent's monster's ATK becomes 0",
+    "Negate the activation & up 700 ATK for attacking monster",
+]
