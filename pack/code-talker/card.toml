@@ -82,19 +82,43 @@ effect = """\
 When your opponent activates a card or effect (Quick Effect): \
     You can destroy 1 monster this card points to, \
     and if you do, negate the activation. \
-You can target face-up cards in either GY and/or banishment \
-    up to the number of monsters co-linked to this card; \
-    shuffle them into the Deck. \
-    This is a Quick Effect if this card is in Extra Monster Zone. \
+During the End Phase: \
+    You can target 1 Cyberse monster in either GY that was destroyed this turn; \
+    Special Summon it. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Destroy 1 monster this card points to negate the activation",
+    "Special Summon 1 Cyberse monster was destroyed this turn",
+]
+
+[firewall-dragon-negative]
+id = 900006005
+set = "firewall"
+name = "Firewall Dragon Negative"
+type = "monster link effect"
+attribute = "dark"
+race = "cyberse"
+link = 6
+link-arrow = "left right top-left top top-right bottom"
+atk = 3500
+effect = """\
+3+ Cyberse monsters
+(Quick Effect): You can target face-up cards in either GY and/or banishment \
+    up to the number of co-linked monsters on the field; \
+    place them on the bottom of the Deck, \
+    also this card gains 500 ATK for each shuffled card. \
+If a monster this card points to is destroyed by battle, or sent to the GY: \
+    You can Special Summon 1 Cyberse monster from your Deck. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
     "Shuffle cards in GY into the deck",
+    "Special Summon a Cyberse monster from your Deck",
 ]
 
 [firewall-dragon-pyrosoul]
-id = 900006005
+id = 900006006
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"

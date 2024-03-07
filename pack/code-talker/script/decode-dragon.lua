@@ -21,24 +21,18 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- shuffle card
+    -- special summon
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 1))
-    e2:SetCategory(CATEGORY_TODECK)
-    e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e2:SetCode(EVENT_PHASE + PHASE_END)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetCountLimit(1, {id, 1})
-    e2:SetCondition(aux.NOT(s.e2quickcon))
+    e2:SetCountLimit(1, id)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetType(EFFECT_TYPE_QUICK_O)
-    e2b:SetCode(EVENT_FREE_CHAIN)
-    e2b:SetHintTiming(0, TIMINGS_CHECK_MONSTER_E)
-    e2b:SetCondition(s.e2quickcon)
-    c:RegisterEffect(e2b)
 end
 
 function s.e1filter(c) return not c:IsStatus(STATUS_BATTLE_DESTROYED) end
@@ -65,23 +59,27 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.NegateActivation(ev)
 end
 
-function s.e2filter(c) return c:IsFaceup() and c:IsAbleToDeck() end
-
-function s.e2quickcon(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsInExtraMZone() end
+function s.e2filter(c, e, tp, tid)
+    return c:GetTurnID() == tid and (c:GetReason() & REASON_DESTROY) ~= 0 and c:IsRace(RACE_CYBERSE) and
+               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local c = e:GetHandler()
-    local ct = #(c:GetMutualLinkedGroup():Filter(Card.IsMonster, nil))
+    local tid = Duel.GetTurnCount()
     if chk == 0 then
-        return ct > 0 and Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, 1, nil)
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+                   Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp, tid)
     end
 
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TODECK)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, 1, ct, nil)
-    Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
+    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp, tid)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, #g, 0, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Duel.GetTargetCards(e)
-    if #g > 0 then Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
+    local c = e:GetHandler()
+    local tc = Duel.GetFirstTarget()
+    if not tc:IsRelateToEffect(e) then return end
+
+    Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP)
 end
