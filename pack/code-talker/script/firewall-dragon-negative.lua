@@ -87,7 +87,7 @@ function s.e2regfilter1(c, tp, zone)
     return c:IsPreviousLocation(LOCATION_MZONE) and bit.extract(zone, seq) ~= 0
 end
 
-function s.e2regfilter2(c, tp, zone) return not c:IsReason(REASON_BATTLE) and s.cfilter(c, tp, zone) end
+function s.e2regfilter2(c, tp, zone) return not c:IsReason(REASON_BATTLE) and s.e2regfilter1(c, tp, zone) end
 
 function s.e2regcon1(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e2regfilter1, 1, nil, tp, e:GetHandler():GetLinkedZone()) end
 
