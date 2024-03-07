@@ -72,12 +72,16 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 
     local ct = Duel.GetOperatedGroup():FilterCount(Card.IsLocation, nil, LOCATION_DECK)
     if ct > 0 then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(ct * 500)
-        ec1:SetReset(RESET_EVENT | RESETS_STANDARD_DISABLE)
-        c:RegisterEffect(ec1)
+        local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
+        local tc = g:GetFirst()
+        for tc in aux.Next(g) do
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetCode(EFFECT_UPDATE_ATTACK)
+            ec1:SetValue(ct * -500)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+            tc:RegisterEffect(ec1)
+        end
     end
 end
 

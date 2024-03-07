@@ -107,7 +107,7 @@ effect = """\
 (Quick Effect): You can target face-up cards in either GY and/or banishment \
     up to the number of co-linked monsters on the field; \
     place them on the bottom of the Deck, \
-    also this card gains 500 ATK for each shuffled card. \
+    also all monsters your opponent currently controls lose 500 ATK for each shuffled card. \
 If a monster this card points to is destroyed by battle, or sent to the GY: \
     You can Special Summon 1 Cyberse monster from your Deck. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
