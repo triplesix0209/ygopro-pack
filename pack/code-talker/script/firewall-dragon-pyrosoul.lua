@@ -119,7 +119,7 @@ function s.e3filter1(c, e, tp)
 end
 
 function s.e3filter2(c, e, tp, tc)
-    return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(c:GetLink()) and
+    return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(tc:GetLink()) and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false)
 end
 
