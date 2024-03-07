@@ -8,7 +8,7 @@ function s.initial_effect(c)
     -- link summon
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 3)
 
-    -- shuffle card
+    -- shuffle
     local e1 = Effect.CreateEffect(c)
     e1:SetDescription(aux.Stringid(id, 1))
     e1:SetCategory(CATEGORY_TODECK)
@@ -23,7 +23,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- special summon from your Deck
+    -- special summon
     local e2reg = Effect.CreateEffect(c)
     e2reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     e2reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -49,13 +49,19 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
+function s.e1count(tp)
+    return Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsMonster), tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil):GetBinClassCount(function(c)
+        return c:GetType() & (TYPE_RITUAL + TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
+    end)
+end
+
 function s.e1filter(c) return c:IsFaceup() and c:IsAbleToDeck() end
 
 function s.e1con() return Duel.GetCurrentPhase() ~= PHASE_DAMAGE or not Duel.IsDamageCalculated() end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    local ct = Duel.GetMatchingGroupCount(function(c) return c:GetMutualLinkedGroupCount() > 0 end, tp, LOCATION_MZONE, LOCATION_MZONE, nil)
+    local ct = s.e1count(tp)
     if chk == 0 then
         return ct > 0 and Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, 1, nil)
     end

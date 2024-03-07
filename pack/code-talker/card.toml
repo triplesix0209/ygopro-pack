@@ -105,7 +105,7 @@ atk = 3500
 effect = """\
 3+ Cyberse monsters
 (Quick Effect): You can target face-up cards in either GY and/or banishment \
-    up to the number of co-linked monsters on the field; \
+    up to the number of different card types (Ritual, Fusion, Synchro, Xyz) you control and in your GY; \
     place them on the bottom of the Deck, \
     also all monsters your opponent currently controls lose 500 ATK for each shuffled card. \
 If a monster this card points to is destroyed by battle, or sent to the GY: \
