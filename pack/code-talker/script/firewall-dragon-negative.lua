@@ -91,7 +91,7 @@ function s.e2regfilter2(c, tp, zone) return not c:IsReason(REASON_BATTLE) and s.
 
 function s.e2regcon1(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e2regfilter1, 1, nil, tp, e:GetHandler():GetLinkedZone()) end
 
-function s.e2regcon2(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.cfilter2, 1, nil, tp, e:GetHandler():GetLinkedZone()) end
+function s.e2regcon2(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e2regfilter2, 1, nil, tp, e:GetHandler():GetLinkedZone()) end
 
 function s.e2regop(e, tp, eg, ep, ev, re, r, rp) Duel.RaiseSingleEvent(e:GetHandler(), EVENT_CUSTOM + id, e, 0, tp, 0, 0) end
 
