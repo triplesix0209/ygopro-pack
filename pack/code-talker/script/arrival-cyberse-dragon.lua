@@ -72,7 +72,7 @@ function s.e3checkzone(p, zone) return Duel.GetLocationCount(p, LOCATION_SZONE, 
 
 function s.e3filter(c, zone)
     local p = c:GetOwner()
-    return c:IsSetCard(RACE_CYBERSE) and c:IsLinkMonster() and c:CheckUniqueOnField(p, LOCATION_SZONE) and
+    return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:CheckUniqueOnField(p, LOCATION_SZONE) and
                (c:IsLocation(LOCATION_MZONE) or not c:IsForbidden()) and s.e3checkzone(p, zone)
 end
 
