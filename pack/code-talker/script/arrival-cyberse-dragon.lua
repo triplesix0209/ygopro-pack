@@ -1,8 +1,6 @@
--- Firewall Dragon Pyrosoul
+-- The Arrival Cyberse Dragon
 Duel.LoadScript("util.lua")
 local s, id = GetID()
-
-s.listed_series = {SET_FIREWALL}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -71,7 +69,7 @@ function s.e2checkzone(p, zone) return Duel.GetLocationCount(p, LOCATION_SZONE, 
 
 function s.e2filter(c, zone)
     local p = c:GetOwner()
-    return c:IsSetCard(SET_FIREWALL) and c:IsLinkMonster() and c:CheckUniqueOnField(p, LOCATION_SZONE) and
+    return c:IsSetCard(RACE_CYBERSE) and c:IsLinkMonster() and c:CheckUniqueOnField(p, LOCATION_SZONE) and
                (c:IsLocation(LOCATION_MZONE) or not c:IsForbidden()) and s.e2checkzone(p, zone)
 end
 

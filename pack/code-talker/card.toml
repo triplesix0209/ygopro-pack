@@ -1,5 +1,37 @@
-[cyberse-digital-dragon]
+
+[arrival-cyberse-dragon]
 id = 900006001
+set = "cyber"
+name = "The Arrival Cyberse Dragon"
+type = "monster link effect"
+attribute = "divine"
+race = "cyberse"
+link = 7
+link-arrow = "left right top-left top-right bottom-left bottom bottom-right"
+atk = 4000
+effect = """\
+3+ Cyberse monsters with different Attributes
+You can only control 1 "{CARD_NAME}". \
+While this card is co-linked, \
+    it and its co-linked cards cannot be destroyed, or banished, by your opponent's card effects, \
+    these monsters gain 500 ATK for each number of cards co-linked to them, \
+    also your opponent cannot target any of them with card effects. \
+You can pay 2000 LP, then Target 1 other Cyberse Link Monster you control; \
+    Place it face-up in your Spell & Trap Zone this card points to as a Link Spell, \
+    and if you do, if this card is co-linked to that monster, \
+    it gains the original effects of that monster. \
+You can Target 1 other Link Monster you control this card points to; Destroy it, \
+    and if you do, Special Summon 1 Cyberse Link Monster from your Extra Deck, \
+    with Link Rating equal or lower than the destroyed monster's (this is treated as an Link Summon), \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Place 1 Link Monster as Link Spell",
+    "Destroy to Link Summon 1 Cyberse monster",
+]
+
+[cyberse-digital-dragon]
+id = 900006002
 set = "cyber"
 name = "Cyberse Digital Dragon"
 type = "monster xyz effect"
@@ -25,7 +57,7 @@ strings = [
 ]
 
 [storm-coder]
-id = 900006002
+id = 900006003
 set = "code-talker"
 name = "Storm Coder"
 type = "monster link effect"
@@ -46,7 +78,7 @@ If this card you control would be used as Link Material for a Cyberse monster, \
 strings = []
 
 [stormcode-talker]
-id = 900006003
+id = 900006004
 set = "code-talker"
 name = "Stormcode Talker"
 type = "monster link effect"
@@ -69,7 +101,7 @@ Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card p
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
 [decode-dragon]
-id = 900006004
+id = 900006005
 name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
@@ -93,7 +125,7 @@ strings = [
 ]
 
 [firewall-dragon-negative]
-id = 900006005
+id = 900006006
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"
@@ -115,35 +147,4 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = [
     "Shuffle cards in GY into the deck",
     "Special Summon a Cyberse monster from your Deck",
-]
-
-[firewall-dragon-pyrosoul]
-id = 900006006
-set = "firewall"
-name = "Firewall Dragon Pyrosoul"
-type = "monster link effect"
-attribute = "light"
-race = "cyberse"
-link = 6
-link-arrow = "left right top-left top-right bottom-left bottom-right"
-atk = 4000
-effect = """\
-3+ Cyberse monsters with different Attributes
-You can only control 1 "{CARD_NAME}". \
-While this card is co-linked, \
-    it and its co-linked cards cannot be destroyed, or banished, by your opponent's card effects, \
-    these monsters gain 500 ATK for each number of cards co-linked to them, \
-    also your opponent cannot target any of them with card effects. \
-You can pay 2000 LP, then Target 1 other "Firewall" Link Monster you control; \
-    Place it face-up in your Spell & Trap Zone this card points to as a Link Spell, \
-    and if you do, if this card is co-linked to that monster, \
-    it gains the original effects of that monster. \
-You can Target 1 other Link Monster you control this card points to; Destroy it, \
-    and if you do, Special Summon 1 Cyberse Link Monster from your Extra Deck, \
-    with Link Rating equal or lower than the destroyed monster's (this is treated as an Link Summon), \
-You can only use each effect of "{CARD_NAME}" once per turn. \
-"""
-strings = [
-    "Place 1 Link Monster as Link Spell",
-    "Destroy to Link Summon 1 Cyberse monster",
 ]
