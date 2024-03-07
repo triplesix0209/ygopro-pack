@@ -66,6 +66,14 @@ function s.initial_effect(c)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
+
+    -- gain effect
+    local e5 = Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e5:SetCode(EVENT_ADJUST)
+    e5:SetRange(LOCATION_MZONE)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
 end
 
 function s.e3checkzone(p, zone) return Duel.GetLocationCount(p, LOCATION_SZONE, p, REASON_EFFECT, zone) > 0 end
@@ -106,11 +114,6 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetValue(TYPE_SPELL + TYPE_LINK)
         ec1:SetReset(RESET_EVENT + (RESETS_STANDARD & ~RESET_TURN_SET))
         tc:RegisterEffect(ec1)
-
-        if c:GetMutualLinkedGroup():IsContains(tc) then
-            local code = tc:GetOriginalCode()
-            c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD, 1)
-        end
     end
 end
 
@@ -141,6 +144,44 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
         if tc then
             Duel.SpecialSummon(tc, SUMMON_TYPE_LINK, tp, tp, false, false, POS_FACEUP)
             tc:CompleteProcedure()
+        end
+    end
+end
+
+function s.e5filter(c)
+    if c:GetFlagEffect(id) ~= 0 then return false end
+    return c:IsRace(RACE_CYBERSE) and c:IsLinkSpell()
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local g = c:GetMutualLinkedGroup():Filter(s.e5filter, nil)
+    if #g <= 0 then return end
+
+    for tc in g:Iter() do
+        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe5000, 0, 0)
+        local code = tc:GetOriginalCode()
+        if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe5000)
+            local reset = Effect.CreateEffect(c)
+            reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+            reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+            reset:SetCode(EVENT_ADJUST)
+            reset:SetRange(LOCATION_MZONE)
+            reset:SetLabel(cid)
+            reset:SetLabelObject(tc)
+            reset:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+                local cid = e:GetLabel()
+                local c = e:GetHandler()
+                local tc = e:GetLabelObject()
+                local g = c:GetMutualLinkedGroup():Filter(function(c) return c:GetFlagEffect(id) > 0 end, nil)
+                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) then
+                    c:ResetEffect(cid, RESET_COPY)
+                    tc:ResetFlagEffect(id)
+                end
+            end)
+            reset:SetReset(RESET_EVENT + 0x1fe5000)
+            c:RegisterEffect(reset, true)
         end
     end
 end
