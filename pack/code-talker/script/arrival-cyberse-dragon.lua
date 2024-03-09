@@ -7,8 +7,8 @@ function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 2, 99,
-        function(g, sc, sumtype, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, sumtype, tp) end)
+    Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_CYBERSE, sc, sumtype, tp) and c:IsType(TYPE_LINK, sc, sumtype, tp) end, 3,
+        99, function(g, sc, sumtype, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, sumtype, tp) end)
 
     -- cannot link material
     local e1 = Effect.CreateEffect(c)

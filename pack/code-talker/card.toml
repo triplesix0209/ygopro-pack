@@ -10,7 +10,7 @@ link = 7
 link-arrow = "left right top-left top-right bottom-left bottom bottom-right"
 atk = 4000
 effect = """\
-3+ Cyberse monsters with different Attributes
+3+ Cyberse Link Monsters with different Attributes
 You can only control 1 "{CARD_NAME}". \
 Cannot be used as Link Material. \
 Co-linked cards you control cannot be destroyed, or banished, by your opponent's card effects. \
