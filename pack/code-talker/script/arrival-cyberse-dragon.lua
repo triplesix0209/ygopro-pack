@@ -18,30 +18,24 @@ function s.initial_effect(c)
     e1:SetValue(1)
     c:RegisterEffect(e1)
 
-    -- protect
+    -- co-linked protect
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e2:SetRange(LOCATION_MZONE)
     e2:SetTargetRange(LOCATION_ONFIELD, 0)
-    e2:SetCondition(function(e) return e:GetHandler():GetMutualLinkedGroupCount() > 0 end)
-    e2:SetTarget(function(e, c) return c == e:GetHandler() or e:GetHandler():GetLinkedGroup():IsContains(c) end)
-    e2:SetValue(aux.tgoval)
+    e2:SetTarget(function(e, c) return c:GetMutualLinkedGroupCount() > 0 end)
+    e2:SetValue(aux.indoval)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    e2b:SetValue(aux.indoval)
-    c:RegisterEffect(e2b)
-    local e2c = e2:Clone()
-    e2c:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e2c:SetCode(EFFECT_CANNOT_REMOVE)
-    e2c:SetTargetRange(1, 1)
-    e2c:SetTarget(function(e, c, rp, r, re)
+    e2b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e2b:SetCode(EFFECT_CANNOT_REMOVE)
+    e2b:SetTargetRange(1, 1)
+    e2b:SetTarget(function(e, c, rp, r, re)
         local tp = e:GetHandlerPlayer()
-        return c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and rp == 1 - tp and r & REASON_EFFECT ~= 0 and
-                   (c == e:GetHandler() or e:GetHandler():GetLinkedGroup():IsContains(c))
+        return c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and rp == 1 - tp and r & REASON_EFFECT ~= 0 and c:GetMutualLinkedGroupCount() > 0
     end)
-    c:RegisterEffect(e2c)
+    c:RegisterEffect(e2b)
 
     -- place link
     local e3 = Effect.CreateEffect(c)
@@ -107,6 +101,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if tc:IsLocation(LOCATION_MZONE) and not s.e3checkzone(tc:GetOwner(), zone) then
         Duel.SendtoGrave(tc, REASON_RULE, nil, PLAYER_NONE)
     elseif Duel.MoveToField(tc, tp, tc:GetOwner(), LOCATION_SZONE, POS_FACEUP, true, zone) then
+        -- treated as link spell
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -114,6 +109,16 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetValue(TYPE_SPELL + TYPE_LINK)
         ec1:SetReset(RESET_EVENT + (RESETS_STANDARD & ~RESET_TURN_SET))
         tc:RegisterEffect(ec1)
+
+        -- untargetable
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetDescription(3061)
+        ec2:SetType(EFFECT_TYPE_SINGLE)
+        ec2:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+        ec2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+        ec2:SetValue(aux.tgoval)
+        ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
+        tc:RegisterEffect(ec2)
     end
 end
 

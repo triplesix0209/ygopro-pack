@@ -13,11 +13,10 @@ effect = """\
 3+ Cyberse monsters with different Attributes
 You can only control 1 "{CARD_NAME}". \
 Cannot be used as Link Material. \
-While this card is co-linked, \
-    it and your cards this card points to cannot be destroyed, or banished, by your opponent's card effects, \
-    also your opponent cannot target any of them with card effects. \
+Co-linked cards you control cannot be destroyed, or banished, by your opponent's card effects. \
 You can pay 2000 LP, then target 1 other Cyberse Link Monster you control; \
-    Place it face-up in your Spell & Trap Zone this card points to as a Link Spell. \
+    Place it face-up in your Spell & Trap Zone this card points to as a Link Spell, \
+    also your opponent cannot target it with card effects. \
 You can target 1 other Link Monster you control this card points to; destroy it, \
     and if you do, Special Summon 1 Cyberse Link Monster from your Extra Deck, \
     with Link Rating equal or lower than the destroyed monster's (this is treated as an Link Summon). \
