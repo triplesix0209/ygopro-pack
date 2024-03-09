@@ -145,6 +145,6 @@ If a monster this card points to is destroyed by battle, or sent to the GY: \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Shuffle cards in GY into the deck",
+    "Shuffle cards into the deck and down ATK",
     "Special Summon a Cyberse monster from your Deck",
 ]
