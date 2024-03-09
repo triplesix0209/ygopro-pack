@@ -146,5 +146,5 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Shuffle cards into the deck and down ATK",
-    "Special Summon a Cyberse monster from your Deck",
+    "Special Summon 1 Cyberse monster from your Deck",
 ]
