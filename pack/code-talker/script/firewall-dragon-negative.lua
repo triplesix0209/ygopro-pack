@@ -76,7 +76,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetTargetCards(e)
     if #g == 0 or Duel.SendtoDeck(g, nil, SEQ_DECKBOTTOM, REASON_EFFECT) == 0 then return end
 
-    local ct = Duel.GetOperatedGroup():FilterCount(Card.IsLocation, nil, LOCATION_DECK)
+    local ct = Duel.GetOperatedGroup():FilterCount(Card.IsLocation, nil, LOCATION_DECK + LOCATION_EXTRA)
     if ct > 0 then
         local g = Duel.GetMatchingGroup(Card.IsFaceup, tp, 0, LOCATION_MZONE, nil)
         local tc = g:GetFirst()
