@@ -18,14 +18,14 @@ function s.initial_effect(c)
     e1:SetValue(1)
     c:RegisterEffect(e1)
 
-    -- co-linked protect
+    -- protect
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
     e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e2:SetRange(LOCATION_MZONE)
     e2:SetTargetRange(LOCATION_ONFIELD, 0)
     e2:SetCondition(function(e) return e:GetHandler():GetMutualLinkedGroupCount() > 0 end)
-    e2:SetTarget(function(e, c) return c == e:GetHandler() or e:GetHandler():GetMutualLinkedGroup():IsContains(c) end)
+    e2:SetTarget(function(e, c) return c == e:GetHandler() or e:GetHandler():GetLinkedGroup():IsContains(c) end)
     e2:SetValue(aux.tgoval)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()

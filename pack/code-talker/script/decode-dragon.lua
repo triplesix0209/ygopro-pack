@@ -59,27 +59,25 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.NegateActivation(ev)
 end
 
-function s.e2filter(c, e, tp, tid)
-    return c:GetTurnID() == tid and (c:GetReason() & REASON_DESTROY) ~= 0 and c:IsRace(RACE_CYBERSE) and
-               c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+function s.e2filter(c, e, tp, zone)
+    return c:IsRace(RACE_CYBERSE) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local tid = Duel.GetTurnCount()
+    local c = e:GetHandler()
+    local zone = c:GetLinkedZone(tp) & 0x1f
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-                   Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp, tid)
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingTarget(s.e2filter, tp, LOCATION_GRAVE, 0, 1, nil, e, tp, zone)
     end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp, tid)
+    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp, zone)
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, #g, 0, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if not tc:IsRelateToEffect(e) then return end
-
-    Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP)
+    local zone = c:GetLinkedZone(tp) & 0x1f
+    if tc and tc:IsRelateToEffect(e) and zone ~= 0 then Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP, zone) end
 end
