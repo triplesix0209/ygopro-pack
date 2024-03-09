@@ -37,26 +37,26 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(e2b)
 
-    -- place link
+    -- special summon
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 0))
+    e3:SetCategory(CATEGORY_DESTROY + CATEGORY_SPECIAL_SUMMON)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(s.e3cost)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- special summon
+    -- place link
     local e4 = Effect.CreateEffect(c)
     e4:SetDescription(aux.Stringid(id, 1))
-    e4:SetCategory(CATEGORY_DESTROY + CATEGORY_SPECIAL_SUMMON)
     e4:SetType(EFFECT_TYPE_IGNITION)
     e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e4:SetRange(LOCATION_MZONE)
     e4:SetCountLimit(1, {id, 2})
+    e4:SetCost(s.e4cost)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
@@ -70,35 +70,35 @@ function s.initial_effect(c)
     c:RegisterEffect(e5)
 end
 
-function s.e3checkzone(p, zone) return Duel.GetLocationCount(p, LOCATION_SZONE, p, REASON_EFFECT, zone) > 0 end
+function s.e4checkzone(p, zone) return Duel.GetLocationCount(p, LOCATION_SZONE, p, REASON_EFFECT, zone) > 0 end
 
-function s.e3filter(c, zone)
+function s.e4filter(c, zone)
     local p = c:GetOwner()
     return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:CheckUniqueOnField(p, LOCATION_SZONE) and
-               (c:IsLocation(LOCATION_MZONE) or not c:IsForbidden()) and s.e3checkzone(p, zone)
+               (c:IsLocation(LOCATION_MZONE) or not c:IsForbidden()) and s.e4checkzone(p, zone)
 end
 
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.CheckLPCost(tp, 2000) end
     Duel.PayLPCost(tp, 2000)
 end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local zone = c:GetLinkedZone() >> 8
-    if chk == 0 then return Duel.IsExistingTarget(s.e3filter, tp, LOCATION_MZONE, 0, 1, c, zone) end
+    if chk == 0 then return Duel.IsExistingTarget(s.e4filter, tp, LOCATION_MZONE, 0, 1, c, zone) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)
-    Duel.SelectTarget(tp, s.e3filter, tp, LOCATION_MZONE, 0, 1, 1, c, zone)
+    Duel.SelectTarget(tp, s.e4filter, tp, LOCATION_MZONE, 0, 1, 1, c, zone)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
     if not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) then return end
 
     local zone = c:GetLinkedZone() >> 8
-    if tc:IsLocation(LOCATION_MZONE) and not s.e3checkzone(tc:GetOwner(), zone) then
+    if tc:IsLocation(LOCATION_MZONE) and not s.e4checkzone(tc:GetOwner(), zone) then
         Duel.SendtoGrave(tc, REASON_RULE, nil, PLAYER_NONE)
     elseif Duel.MoveToField(tc, tp, tc:GetOwner(), LOCATION_SZONE, POS_FACEUP, true, zone) then
         -- treated as link spell
@@ -122,30 +122,30 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e4filter1(c, e, tp)
+function s.e3filter1(c, e, tp)
     return c:IsLinkMonster() and e:GetHandler():GetLinkedGroup():IsContains(c) and
-               Duel.IsExistingMatchingCard(s.e4filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c)
+               Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c)
 end
 
-function s.e4filter2(c, e, tp, tc)
+function s.e3filter2(c, e, tp, tc)
     return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(tc:GetLink()) and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false)
 end
 
-function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingTarget(s.e4filter1, tp, LOCATION_MZONE, 0, 1, c, e, tp) end
+    if chk == 0 then return Duel.IsExistingTarget(s.e3filter1, tp, LOCATION_MZONE, 0, 1, c, e, tp) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local g = Duel.SelectTarget(tp, s.e4filter1, tp, LOCATION_MZONE, 0, 1, 1, c, e, tp)
+    local g = Duel.SelectTarget(tp, s.e3filter1, tp, LOCATION_MZONE, 0, 1, 1, c, e, tp)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_EXTRA)
 end
 
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local tc = Duel.GetFirstTarget()
     if Duel.Destroy(tc, REASON_EFFECT) ~= 0 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 then
-        local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e4filter2, tp, LOCATION_EXTRA, 0, 1, 1, nil, e, tp, tc):GetFirst()
+        local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e3filter2, tp, LOCATION_EXTRA, 0, 1, 1, nil, e, tp, tc):GetFirst()
         if tc then
             Duel.SpecialSummon(tc, SUMMON_TYPE_LINK, tp, tp, false, false, POS_FACEUP)
             tc:CompleteProcedure()
