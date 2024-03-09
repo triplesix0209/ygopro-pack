@@ -11,7 +11,8 @@ link-arrow = "left right top-left top-right bottom-left bottom bottom-right"
 atk = 4000
 effect = """\
 3+ Cyberse Link Monsters with different Attributes
-You can only control 1 "{CARD_NAME}". \
+Must be Link Summoned. \
+This card's Link Summon cannot be negated. \
 Cannot be used as Link Material. \
 Co-linked cards you control cannot be destroyed, or banished, by your opponent's card effects. \
 You can target 1 other Link Monster you control this card points to; destroy it, \

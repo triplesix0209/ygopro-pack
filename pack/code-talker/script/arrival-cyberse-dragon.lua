@@ -4,11 +4,26 @@ local s, id = GetID()
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
-    c:SetUniqueOnField(1, 0, id)
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_CYBERSE, sc, sumtype, tp) and c:IsType(TYPE_LINK, sc, sumtype, tp) end, 3,
         99, function(g, sc, sumtype, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, sumtype, tp) end)
+
+    -- special summon limit
+    local splimit = Effect.CreateEffect(c)
+    splimit:SetType(EFFECT_TYPE_SINGLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
+    splimit:SetValue(aux.synlimit)
+    c:RegisterEffect(splimit)
+
+    -- summon cannot be negated
+    local spsafe = Effect.CreateEffect(c)
+    spsafe:SetType(EFFECT_TYPE_SINGLE)
+    spsafe:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    spsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    spsafe:SetCondition(function(e) return e:GetHandler():GetSummonType() == SUMMON_TYPE_LINK end)
+    c:RegisterEffect(spsafe)
 
     -- cannot link material
     local e1 = Effect.CreateEffect(c)

@@ -387,7 +387,7 @@ set = "synchro"
 type = "spell equip"
 effect = """
 Equip only to a Dragon Synchro Monster that mentions a Synchro Monster as material. \
-You can only control 1 "{CARD_NAME}". \
+    You can only control 1 "{CARD_NAME}". \
 The equipped monster gains the following effects.
 ● Your opponent cannot Tribute this card, or use it as material for an Summon.
 ● Cannot be targeted by your opponent's card effects.
