@@ -85,7 +85,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not tc:IsRelateToEffect(e) or Duel.Destroy(tc, REASON_EFFECT) == 0 then return end
 
     if c:IsRelateToEffect(e) and Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) > 0 and Duel.GetLP(tp) <= 2000 and
-        Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectYesNo(tp, aux.Stringid(id, 2)) then
+        Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
         local tc = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.e2filter2, tp, LOCATION_DECK, 0, 1, 1, nil, false):GetFirst()
         if tc and Duel.SSet(tp, tc) > 0 and (tc:IsTrap() or tc:IsQuickPlaySpell()) then
             local ec1 = Effect.CreateEffect(c)
