@@ -129,13 +129,24 @@ id = 900006006
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
-attribute = "dark"
+attribute = "fire"
 race = "cyberse"
 link = 4
 link-arrow = "left right top bottom"
 atk = 2500
 effect = """\
 2+ Cyberse monsters with different Attributes
+You can only use each of the following effects of "{CARD_NAME}" once per turn. \
+(Quick Effect): You can pay 1000 LP; \
+    You can destroy cards on the field up to the number of monsters co-linked to this card, \
+    and if you do, draw 1 card for each monster destroyed. \
+During the Main Phase, if this card is in your GY, \
+    except the turn this card was sent to the GY: \
+    You can taget 1 Cyberse Link Monster you control; \
+    destroy it, and if you do, Special Summon this card, \
+    then if your LP are 2000 or less, you can apply this effect.
+● You can Set 1 "Cynet" Spell/Trap directly from your Deck. \
+    It can be activated this turn.
 """
 strings = []
 
