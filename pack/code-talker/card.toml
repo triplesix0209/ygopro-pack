@@ -138,17 +138,21 @@ effect = """\
 2+ Cyberse monsters with different Attributes
 You can only use each of the following effects of "{CARD_NAME}" once per turn. \
 (Quick Effect): You can pay 1000 LP; \
-    You can destroy cards on the field up to the number of monsters co-linked to this card, \
-    and if you do, draw 1 card for each monster destroyed. \
-During the Main Phase, if this card is in your GY, \
-    except the turn this card was sent to the GY: \
+    You can target cards on the field up to the number of monsters co-linked to this card; \
+    Destroy them and if you do, you can draw 1 card for each card destroyed. \
+If this card is in your GY, except the turn this card was sent to the GY: \
     You can taget 1 Cyberse Link Monster you control; \
     destroy it, and if you do, Special Summon this card, \
     then if your LP are 2000 or less, you can apply this effect.
 ● You can Set 1 "Cynet" Spell/Trap directly from your Deck. \
     It can be activated this turn.
 """
-strings = []
+strings = [
+    "Destroy and draw",
+    "Draw 1 for each destroyed cards?",
+    "Set 1 \"Cynet\" Spell/Trap directly from your Deck?",
+    "Can be activated this turn",
+]
 
 [firewall-dragon-negative]
 id = 900006007
