@@ -111,7 +111,7 @@ link-arrow = "top bottom-left bottom bottom-right"
 atk = 2800
 effect = """\
 2+ Cyberse monsters
-When your opponent activates a card or effect (Quick Effect): \
+Once per Chain, when your opponent activates a card or effect (Quick Effect): \
     You can destroy 1 monster this card points to, \
     and if you do, negate the activation. \
 During the End Phase: \
