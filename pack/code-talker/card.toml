@@ -139,7 +139,7 @@ effect = """\
 You can only use each of the following effects of "{CARD_NAME}" once per turn. \
 (Quick Effect): \
     You can target cards on the field up to the number of monsters co-linked to this card; \
-    Destroy them and if you do, you can draw 1 card for each card destroyed. \
+    destroy them and if you do, you can draw 1 card for each card destroyed. \
 If this card is in your GY, except the turn this card was sent to the GY: \
     You can pay 1000 LP, then target 1 Cyberse Link Monster you control; \
     destroy it, and if you do, Special Summon this card, \
