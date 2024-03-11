@@ -21,7 +21,6 @@ function s.initial_effect(c)
     e1:SetRange(LOCATION_MZONE)
     e1:SetHintTiming(0, TIMINGS_CHECK_MONSTER_E)
     e1:SetCountLimit(1, {id, 1})
-    e1:SetCost(s.e1cost)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
@@ -34,14 +33,10 @@ function s.initial_effect(c)
     e2:SetRange(LOCATION_GRAVE)
     e2:SetCountLimit(1, {id, 2})
     e2:SetCondition(aux.exccon)
+    e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-end
-
-function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.CheckLPCost(tp, 1000) end
-    Duel.PayLPCost(tp, 1000)
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
@@ -65,6 +60,11 @@ end
 function s.e2filter1(c, tp) return c:IsFaceup() and c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and Duel.GetMZoneCount(tp, c) > 0 end
 
 function s.e2filter2(c) return c:IsSetCard(SET_CYNET) and c:IsSpellTrap() and c:IsSSetable(false) end
+
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.CheckLPCost(tp, 1000) end
+    Duel.PayLPCost(tp, 1000)
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
