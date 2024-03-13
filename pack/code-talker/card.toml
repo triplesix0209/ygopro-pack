@@ -100,8 +100,32 @@ Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card p
 """
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
-[proxy-securiry-dragon]
+[shootingcode-talker-oceanspirit]
 id = 900006005
+set = "code-talker"
+name = "Shootingcode Talker Oceanspirit"
+type = "monster link effect"
+attribute = "water"
+race = "cyberse"
+link = 3
+link-arrow = "top left bottom"
+atk = 2300
+effect = """\
+2+ Cyberse monsters with the same Attribute
+Gains 500 ATK for each Cyberse monster with different Attribute you control. \
+(Quick Effect): You can pay 1000 LP; \
+    Set 1 "Cynet" Spell/Trap directly from your Deck or GY to your hand, \
+    then if your LP are 2000 or less, you can apply this effect.
+● Special Summon 1 Link-3 or lower Cyberse monster from your GY or banishment, except "{CARD_NAME}".
+You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Pay LP to Set 1 \"Cynet\" Spell/Trap",
+    "Special Summon 1 Link-3 or lower Cyberse monster?",
+]
+
+[proxy-securiry-dragon]
+id = 900006006
 name = "Proxy Securiry Dragon"
 type = "monster link effect"
 attribute = "light"
@@ -128,7 +152,7 @@ strings = [
 ]
 
 [decode-dragon]
-id = 900006006
+id = 900006007
 name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
@@ -152,7 +176,7 @@ strings = [
 ]
 
 [firewall-dragon-pyrosoul]
-id = 900006007
+id = 900006008
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
@@ -162,7 +186,7 @@ link = 4
 link-arrow = "top left right bottom"
 atk = 2500
 effect = """\
-2+ Cyberse monsters with different Attributes
+2+ monsters with different Attributes
 You can only use each of the following effects of "{CARD_NAME}" once per turn. \
 (Quick Effect): \
     You can target other cards on the field up to the number of monsters co-linked to this card; \
@@ -181,7 +205,7 @@ strings = [
 ]
 
 [sourcecode-talker]
-id = 900006008
+id = 900006009
 set = "code-talker"
 name = "Sourcecode Talker"
 type = "monster link effect"
@@ -193,18 +217,15 @@ atk = 3000
 effect = """\
 2+ Cyberse monsters, including a Link Monster
 If this card is Link Summoned: You can target 1 Link Monster that was used as material for its Link Summon; \
-    send "Code Talker" Link Monsters with different names from your Extra Deck to the GY, except "{CARD_NAME}, \
+    banish "Code Talker" Link Monsters with different names from your Extra Deck, and/or GY, except "{CARD_NAME}, \
     up to the number of the targeted monster's Link Rating, \
-    and if you do, this card gains the sent monster's effects. \
+    and if you do, this card gains the banished monster's effects. \
     Your opponent cannot activate cards or effects in response to this effect's activation. \
-If this card is co-linked: \
-    You can add 1 "Cynet" Spell/Trap from your GY to your hand. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Add 1 \"Cynet\" Spell/Trap from your GY"]
 
 [firewall-dragon-negative]
-id = 900006009
+id = 900006010
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"

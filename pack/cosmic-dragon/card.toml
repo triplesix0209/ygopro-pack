@@ -348,7 +348,7 @@ def = 3400
 effect = """
 "Majestic Dragon" + "Life Stream Dragon" + 1 non-Tuner monster
 If this card is Special Summoned: \
-    You can equip up to 3 Equip Spells with different names from your hand, Deck and/or GY to this card, \
+    You can equip up to 3 Equip Spells with different names from your hand, Deck, and/or GY to this card, \
     and if you do, your opponent cannot target those cards with card effects, \
     also they cannot be destroyed by your opponent's card effects. \
 Any effect that would inflict damage to you makes you gain that much LP, instead. \
