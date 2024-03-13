@@ -172,8 +172,8 @@ If this card is Link Summoned: You can target 1 Link Monster that was used as ma
     up to the number of the targeted monster's Link Rating, \
     and if you do, this card gains the sent monster's effects. \
     Your opponent cannot activate cards or effects in response to this effect's activation. \
-If this card is Extra Linked: \
-    You can add 1 "Cynet" Spell/Trap from your Deck or GY to your hand. \
+If this card is co-linked: \
+    You can add 1 "Cynet" Spell/Trap from your GY to your hand. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Set 1 \"Cynet\" Spell/Trap from your GY"]
