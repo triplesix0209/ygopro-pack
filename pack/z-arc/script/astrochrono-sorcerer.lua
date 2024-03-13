@@ -195,7 +195,7 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     if ft1 > 0 then loc = loc + LOCATION_GRAVE end
     if ft2 > 0 then loc = loc + LOCATION_EXTRA end
     if loc == 0 then return end
-    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.me3filter), tp, loc, 0, nil, e, tp)
+    local g = Duel.GetMatchingGroup(s.me3filter, tp, loc, 0, nil, e, tp)
     if #g == 0 then return end
 
     local sg = aux.SelectUnselectGroup(g, e, tp, 1, ft, s.me3rescon(ft1, ft2, ft), 1, tp, HINTMSG_SPSUMMON)

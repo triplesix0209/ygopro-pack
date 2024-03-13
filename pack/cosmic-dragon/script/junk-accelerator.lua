@@ -104,7 +104,7 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter), tp, LOCATION_HAND + LOCATION_DECK, 0, nil, e, tp)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, nil, e, tp)
     local ct = math.min(Duel.GetLocationCount(tp, LOCATION_MZONE), g:GetClassCount(Card.GetLevel))
     if ct <= 0 then return end
     if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) then ct = 1 end

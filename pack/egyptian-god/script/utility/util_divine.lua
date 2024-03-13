@@ -163,7 +163,7 @@ function Divine.EgyptianGod(s, c, divine_hierarchy)
     redirect:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         if c:IsAttackPos() then return end
-        
+
         local ac = Duel.GetAttacker()
         if Duel.CheckEvent(EVENT_ATTACK_ANNOUNCE) and ac:CanAttack() and ac:GetAttackableTarget():IsContains(c) and
             Duel.SelectEffectYesNo(tp, c, 666002) then
@@ -351,8 +351,8 @@ function Divine.Apostle(id, c, god_code, tribute_filter, gain_op)
     end)
     e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp,
-            aux.NecroValleyFilter(function(c) return c:IsCode(god_code) and c:IsAbleToHand() end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, function(c) return c:IsCode(god_code) and c:IsAbleToHand() end, tp,
+            LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
         if #g > 0 then
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
@@ -395,24 +395,24 @@ function Divine.Apostle(id, c, god_code, tribute_filter, gain_op)
         eff:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
         eff:SetCode(EVENT_SUMMON_SUCCESS)
         eff:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-            if not Duel.IsExistingMatchingCard(aux.NecroValleyFilter(function(c)
+            if not Duel.IsExistingMatchingCard(function(c)
                 if type(god_code) == 'table' then
                     for i, code in ipairs(god_code) do if not c:ListsCode(code) then return false end end
                 else
                     if not c:ListsCode(god_code) then return false end
                 end
                 return c:IsSpellTrap() and c:IsAbleToHand()
-            end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) then return end
+            end, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) then return end
             if not Duel.SelectEffectYesNo(tp, rc, aux.Stringid(id, 1)) then return end
 
-            local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(function(c)
+            local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, function(c)
                 if type(god_code) == 'table' then
                     for i, code in ipairs(god_code) do if not c:ListsCode(code) then return false end end
                 else
                     if not c:ListsCode(god_code) then return false end
                 end
                 return c:IsSpellTrap() and c:IsAbleToHand()
-            end), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+            end, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
         end)

@@ -107,7 +107,7 @@ function s.e2thcon(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingC
 
 function s.e2thop(e, tp, eg, ep, ev, re, r, rp)
     Utility.HintCard(e)
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e2thfilter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e2thfilter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
     if #g > 0 then
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)

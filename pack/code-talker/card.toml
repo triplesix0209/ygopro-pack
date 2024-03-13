@@ -104,6 +104,7 @@ strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
 [decode-dragon]
 id = 900006005
+set = "code-talker"
 name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
@@ -113,6 +114,7 @@ link-arrow = "top bottom-left bottom bottom-right"
 atk = 2800
 effect = """\
 2+ Cyberse monsters
+(This card is always treated as a "Code Talker" card.)
 Once per Chain, when your opponent activates a card or effect (Quick Effect): \
     You can destroy 1 monster this card points to, \
     and if you do, negate the activation. \
@@ -126,8 +128,23 @@ strings = [
     "Special Summon 1 Cyberse monster",
 ]
 
-[firewall-dragon-pyrosoul]
+[sourcecode-talker]
 id = 900006006
+set = "code-talker"
+name = "Sourcecode Talker"
+type = "monster link effect"
+attribute = "dark"
+race = "cyberse"
+link = 5
+link-arrow = "left right bottom-left bottom bottom-right"
+atk = 2500
+effect = """\
+2+ Cyberse monsters, including a Link Monster
+"""
+strings = []
+
+[firewall-dragon-pyrosoul]
+id = 900006007
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
@@ -140,24 +157,18 @@ effect = """\
 2+ Cyberse monsters with different Attributes
 You can only use each of the following effects of "{CARD_NAME}" once per turn. \
 (Quick Effect): \
-    You can target cards on the field up to the number of monsters co-linked to this card; \
-    destroy them and if you do, you can draw 1 card for each card destroyed. \
+    You can target other cards on the field up to the number of monsters co-linked to this card; \
+    destroy them and if you do, this card gains 1000 ATK for each card destroyed until the end of this turn. \
 If this card is in your GY, except the turn this card was sent to the GY: \
-    You can pay 1000 LP, then target 1 Cyberse Link Monster you control; \
+    You can pay 1000 LP, then target 1 Cyberse monster you control; \
     destroy it, and if you do, Special Summon this card, \
     then if your LP are 2000 or less, you can apply this effect.
-● You can Set 1 "Cynet" Spell/Trap directly from your Deck. \
-    It can be activated this turn.
+● Special Summon 1 monster from your GY to either player's zones linked to this card.
 """
-strings = [
-    "Destroy and draw",
-    "Draw 1 for each destroyed cards?",
-    "Set 1 \"Cynet\" Spell/Trap directly from your Deck?",
-    "Can be activated this turn",
-]
+strings = ["Destroy and gain ATK", "Special Summon a monsters from your GY?"]
 
 [firewall-dragon-negative]
-id = 900006007
+id = 900006008
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"

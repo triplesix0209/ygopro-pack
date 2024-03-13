@@ -99,7 +99,7 @@ function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCountFromEx(tp, rp, nil) > 0 then loc = loc + LOCATION_EXTRA end
     if loc == 0 then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.pe2filter), tp, loc, 0, 1, 1, nil, e, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.pe2filter, tp, loc, 0, 1, 1, nil, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 

@@ -93,8 +93,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if Duel.GetLocationCount(tp, LOCATION_SZONE) < 2 or not c:IsRelateToEffect(e) or not c:IsSSetable() then return end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_SET, tp, aux.NecroValleyFilter(s.e3filter), tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0,
-        1, 1, nil):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.e3filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil):GetFirst()
     if not tc then return end
 
     Duel.SSet(tp, Group.FromCards(c, tc))

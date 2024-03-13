@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names={CARD_REDEYES_B_DRAGON}
+s.listed_names = {CARD_REDEYES_B_DRAGON}
 s.material_setcode = {SET_RED_EYES}
 
 function s.initial_effect(c)
@@ -11,9 +11,7 @@ function s.initial_effect(c)
         handler = c,
         fusfilter = aux.FilterBoolFunction(Card.ListsArchetypeAsMaterial, SET_RED_EYES),
         matfilter = Card.IsAbleToDeck,
-        extrafil = function(e, tp, mg)
-            return Duel.GetMatchingGroup(aux.NecroValleyFilter(Fusion.IsMonsterFilter(Card.IsAbleToDeck)), tp, LOCATION_GRAVE, 0, nil)
-        end,
+        extrafil = function(e, tp, mg) return Duel.GetMatchingGroup(Fusion.IsMonsterFilter(Card.IsAbleToDeck), tp, LOCATION_GRAVE, 0, nil) end,
         extratg = function(e, tp, eg, ep, ev, re, r, rp, chk)
             if chk == 0 then return true end
             Duel.SetOperationInfo(0, CATEGORY_TODECK, nil, 0, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE)

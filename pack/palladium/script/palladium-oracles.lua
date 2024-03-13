@@ -126,8 +126,8 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED
     if Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT) or Duel.GetLocationCount(tp, LOCATION_MZONE) < 2 then return end
 
-    local g1 = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e4filter), tp, loc, 0, nil, e, tp, 71703785)
-    local g2 = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e4filter), tp, loc, 0, nil, e, tp, 42006475)
+    local g1 = Duel.GetMatchingGroup(s.e4filter, tp, loc, 0, nil, e, tp, 71703785)
+    local g2 = Duel.GetMatchingGroup(s.e4filter, tp, loc, 0, nil, e, tp, 42006475)
     if #g1 == 0 or #g2 == 0 then return end
 
     g1 = Utility.GroupSelect(HINTMSG_SPSUMMON, g1, tp)

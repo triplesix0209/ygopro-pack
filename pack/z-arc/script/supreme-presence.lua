@@ -258,7 +258,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     if sc:IsFacedown() or Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE
-    local tc = Duel.SelectMatchingCard(tp, aux.NecroValleyFilter(s.e5filter), tp, loc, 0, 1, 1, nil, e, tp, sc):GetFirst()
+    local tc = Duel.SelectMatchingCard(tp, s.e5filter, tp, loc, 0, 1, 1, nil, e, tp, sc):GetFirst()
     if tc and Duel.SpecialSummonStep(tc, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetDescription(3302)
@@ -288,7 +288,7 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e6filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e6filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
     if #g > 0 then
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)
@@ -320,8 +320,7 @@ function s.e7op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) then return end
     if sc:IsFacedown() then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, aux.NecroValleyFilter(s.e7filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, e,
-        tp, eg:GetFirst())
+    local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e7filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, e, tp, eg:GetFirst())
     if #g == 0 then return end
 
     aux.ToHandOrElse(g, tp,

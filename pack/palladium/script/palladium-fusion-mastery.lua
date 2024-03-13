@@ -68,7 +68,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local mg = tc:GetMaterial()
     local sumtype = tc:GetSummonType()
     if Duel.SendtoDeck(tc, nil, 0, REASON_EFFECT) ~= 0 and (sumtype & SUMMON_TYPE_FUSION) == SUMMON_TYPE_FUSION and
-        mg:FilterCount(aux.NecroValleyFilter(s.e1filter2), nil, e, tp, tc, mg) == #mg and #mg > 0 and #mg <= Duel.GetLocationCount(tp, LOCATION_MZONE) and
+        mg:FilterCount(s.e1filter2, nil, e, tp, tc, mg) == #mg and #mg > 0 and #mg <= Duel.GetLocationCount(tp, LOCATION_MZONE) and
         (#mg == 1 or not Duel.IsPlayerAffectedByEffect(tp, CARD_BLUEEYES_SPIRIT)) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
         Duel.BreakEffect()
         Duel.SpecialSummon(mg, 0, tp, tp, false, false, POS_FACEUP)

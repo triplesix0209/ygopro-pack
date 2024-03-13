@@ -62,7 +62,7 @@ function s.e1matcheck(e, c) if c:GetMaterial():IsExists(Card.IsCode, 1, nil, CAR
 
 function s.e1filter(c, e)
     if not c:IsAbleToHand() then return false end
-    return (c:IsSetCard(SET_RED_EYES) and c:IsTrap()) or (e:GetLabel()==1 and c:IsType(TYPE_EQUIP))
+    return (c:IsSetCard(SET_RED_EYES) and c:IsTrap()) or (e:GetLabel() == 1 and c:IsType(TYPE_EQUIP))
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
@@ -73,7 +73,7 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Duel.GetMatchingGroup(aux.NecroValleyFilter(s.e1filter), tp, LOCATION_DECK + LOCATION_GRAVE, 0, nil, e)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, nil, e)
     if #g == 0 then return end
 
     local sg = aux.SelectUnselectGroup(g, e, tp, 1, 3, aux.dncheck, 1, tp, HINTMSG_ATOHAND)

@@ -113,7 +113,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
         if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_ZARC), tp, LOCATION_ONFIELD, 0, 1, nil) then
             loc = loc + LOCATION_GRAVE
         end
-        local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, aux.NecroValleyFilter(s.e4filter), tp, loc, 0, 1, 1, g)
+        local sg = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter, tp, loc, 0, 1, 1, g)
         if #sg > 0 then
             Duel.SendtoHand(sg, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, sg)

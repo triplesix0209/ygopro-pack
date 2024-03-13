@@ -97,7 +97,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA + LOCATION_GRAVE
     local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, aux.NecroValleyFilter(s.e2filter2), tp, loc, 0, 1, 1, nil, e, tp, ft):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter2, tp, loc, 0, 1, 1, nil, e, tp, ft):GetFirst()
     if tc then
         Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP)
         tc:CompleteProcedure()
