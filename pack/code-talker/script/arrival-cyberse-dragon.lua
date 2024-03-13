@@ -51,6 +51,11 @@ function s.initial_effect(c)
         return c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and rp == 1 - tp and r & REASON_EFFECT ~= 0 and c:GetMutualLinkedGroupCount() > 0
     end)
     c:RegisterEffect(e2b)
+    local e2c = e2:Clone()
+    e2c:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e2c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e2c:SetValue(aux.tgoval)
+    c:RegisterEffect(e2c)
 
     -- special summon
     local e3 = Effect.CreateEffect(c)
@@ -124,16 +129,6 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetValue(TYPE_SPELL + TYPE_LINK)
         ec1:SetReset(RESET_EVENT + (RESETS_STANDARD & ~RESET_TURN_SET))
         tc:RegisterEffect(ec1)
-
-        -- untargetable
-        local ec2 = Effect.CreateEffect(c)
-        ec2:SetDescription(3061)
-        ec2:SetType(EFFECT_TYPE_SINGLE)
-        ec2:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-        ec2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-        ec2:SetValue(aux.tgoval)
-        ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
-        tc:RegisterEffect(ec2)
     end
 end
 
