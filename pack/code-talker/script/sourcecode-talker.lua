@@ -77,7 +77,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         local ct = tc:GetLink()
         local g = Duel.GetMatchingGroup(s.e1filter2, tp, LOCATION_EXTRA, 0, nil)
         local sg = aux.SelectUnselectGroup(g, e, tp, 1, ct, aux.dncheck, 1, tp, HINTMSG_TOGRAVE)
-        for tc in g:Iter() do
+        for tc in sg:Iter() do
             if Duel.SendtoGrave(tc, REASON_EFFECT) > 0 then c:CopyEffect(tc:GetOriginalCode(), RESET_EVENT + RESETS_STANDARD) end
         end
     end
