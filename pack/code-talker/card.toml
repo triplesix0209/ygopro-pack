@@ -201,7 +201,7 @@ If this card is co-linked: \
     You can add 1 "Cynet" Spell/Trap from your GY to your hand. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Set 1 \"Cynet\" Spell/Trap from your GY"]
+strings = ["Add 1 \"Cynet\" Spell/Trap from your GY"]
 
 [firewall-dragon-negative]
 id = 900006009
