@@ -107,15 +107,22 @@ type = "monster link effect"
 attribute = "light"
 race = "cyberse"
 link = 3
-link-arrow = "top left right"
+link-arrow = "left right bottom"
 atk = 2000
 effect = """\
 2+ Effect Monsters
 If this card you control would be used as Link Material for a "Firewall" monster, \
     you can also use 1 Cyberse monster in your hand as material. \
+Once while face-up on the field: \
+    You can draw cards equal to the number of Cyberse monsters co-linked to this card. \
+You can banish this card from your GY, \
+    then target 1 "Firewall Dragon Darkfluid" without a counter; \
+    shuffle into the Deck, any number of Cyberse monsters \
+    with different types (Ritual, Fusion, Synchro, Xyz) in your GY and/or banishment, \
+    and if you do, place counters on the targeted monster equal to the number of of shuffled cards. \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = ["Draw cards equal to the number of monsters co-linked"]
 
 [decode-dragon]
 id = 900006006
