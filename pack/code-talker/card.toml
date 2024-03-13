@@ -165,7 +165,12 @@ If this card is in your GY, except the turn this card was sent to the GY: \
     then if your LP are 2000 or less, you can apply this effect.
 ● Special Summon 1 monster from your GY to either player's zones linked to this card.
 """
-strings = ["Destroy and gain ATK", "Special Summon a monsters from your GY?"]
+strings = [
+    "Destroy and gain ATK",
+    "Special Summon a monsters from your GY?",
+    "Special Summon to your field",
+    "Special Summon to your opponent's field",
+]
 
 [firewall-dragon-negative]
 id = 900006008

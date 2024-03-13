@@ -95,24 +95,19 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if not tc:IsRelateToEffect(e) or Duel.Destroy(tc, REASON_EFFECT) == 0 then return end
+    if not tc:IsRelateToEffect(e) or Duel.Destroy(tc, REASON_EFFECT) == 0 or not c:IsRelateToEffect(e) or
+        Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) == 0 then return end
 
-    -- local g1 = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE, 0, nil, e, tp, c, c:GetLinkedZone(tp), tp)
-    -- local g2 = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE, 0, nil, e, tp, c, c:GetLinkedZone(1 - tp), 1 - tp)
-
-    if c:IsRelateToEffect(e) and Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) > 0 and Duel.GetLP(tp) <= 2000 and
-        Duel.IsExistingMatchingCard(aux.NecroValleyFilter(s.e2filter2), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) and
-        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
-        local tc = Utility.SelectMatchingCard(HINTMSG_SET, tp, aux.NecroValleyFilter(s.e2filter2), tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil,
-            false):GetFirst()
-        if tc and Duel.SSet(tp, tc) > 0 and (tc:IsTrap() or tc:IsQuickPlaySpell()) then
-            local ec1 = Effect.CreateEffect(c)
-            ec1:SetDescription(aux.Stringid(id, 3))
-            ec1:SetType(EFFECT_TYPE_SINGLE)
-            ec1:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-            ec1:SetCode(tc:IsTrap() and EFFECT_TRAP_ACT_IN_SET_TURN or EFFECT_QP_ACT_IN_SET_TURN)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-            tc:RegisterEffect(ec1)
-        end
+    local g1 = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE, 0, nil, e, tp, c, c:GetLinkedZone(tp), tp)
+    local g2 = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE, 0, nil, e, tp, c, c:GetLinkedZone(1 - tp), 1 - tp)
+    if Duel.GetLP(tp) <= 2000 and #(g1 + g2) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
+        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
+        local sc = (g1 + g2):Select(tp, 1, 1, nil):GetFirst()
+        local b1 = g1:IsContains(sc)
+        local b2 = g2:IsContains(sc)
+        local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)})
+        local fp = op == 1 and tp or 1 - tp
+        local zone = (c:GetLinkedZone(fp) | (sc:IsLinkMonster() and c:GetToBeLinkedZone(sc, fp) or 0)) & ZONES_MMZ
+        Duel.SpecialSummon(sc, 0, tp, fp, false, false, POS_FACEUP, zone)
     end
 end
