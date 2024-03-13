@@ -58,18 +58,19 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter(c, tp) return c:IsLocation(LOCATION_MZONE) and c:IsControler(tp) end
-
 function s.e2con(c, e, tp, sg, mg, lc, og, chk)
+    local ep = e:GetHandlerPlayer()
     local ct = sg:FilterCount(Card.HasFlagEffect, nil, id)
-    return ct == 0 or ((sg + mg):Filter(s.e2filter, nil, e:GetHandlerPlayer()):IsExists(Card.IsCode, 1, og, id) and ct < 2)
+    return ct == 0 or
+               ((sg + mg):Filter(function(c, tp) return c:IsLocation(LOCATION_MZONE) and c:IsControler(tp) end, nil, ep)
+            :IsExists(Card.IsCode, 1, og, id) and ct < 2)
 end
 
 function s.e2val(chk, summon_type, e, ...)
     local c = e:GetHandler()
     if chk == 0 then
         local tp, sc = ...
-        if summon_type ~= SUMMON_TYPE_LINK or not sc:IsRace(RACE_CYBERSE) or Duel.GetFlagEffect(tp, id) > 0 then
+        if summon_type ~= SUMMON_TYPE_LINK or not sc:IsSetCard(SET_CODE_TALKER) or Duel.GetFlagEffect(tp, id) > 0 then
             return Group.CreateGroup()
         else
             s.flagmap[c] = c:RegisterFlagEffect(id, 0, 0, 1)
@@ -77,7 +78,10 @@ function s.e2val(chk, summon_type, e, ...)
         end
     elseif chk == 1 then
         local sg, sc, tp = ...
-        if summon_type & SUMMON_TYPE_LINK == SUMMON_TYPE_LINK and #sg > 0 then Duel.Hint(HINT_CARD, tp, id) end
+        if summon_type & SUMMON_TYPE_LINK == SUMMON_TYPE_LINK and #sg > 0 and Duel.GetFlagEffect(tp, id) == 0 then
+            Duel.Hint(HINT_CARD, tp, id)
+            Duel.RegisterFlagEffect(tp, id, RESET_PHASE + PHASE_END, 0, 1)
+        end
     elseif chk == 2 then
         if s.flagmap[c] then
             s.flagmap[c]:Reset()

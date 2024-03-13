@@ -7,7 +7,7 @@ type = "monster link effect"
 attribute = "dark"
 race = "cyberse"
 link = 7
-link-arrow = "left right top-left top-right bottom-left bottom bottom-right"
+link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
 atk = 4000
 effect = """\
 3+ Cyberse Link Monsters with different Attributes
@@ -71,11 +71,10 @@ atk = 1300
 effect = """\
 2 Cyberse monsters
 (This card is always treated as a "Code Talker" card.)
-If this card is Link Summoned: You can add from your Deck to your hand \
-    1 monster that mentions a "Code Talker" card. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-If this card you control would be used as Link Material for a Cyberse monster, \
+If this card is Link Summoned: You can add from your Deck to your hand 1 monster that mentions an "Code Talker". \
+If this card you control would be used as Link Material for a "Code Talker" monster, \
     you can also use 1 Cyberse monster in your hand as material. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 
@@ -91,8 +90,7 @@ link-arrow = "bottom-left bottom bottom-right"
 atk = 2300
 effect = """\
 2+ Cyberse monsters
-If this card is Link Summoned: You can add from your Deck to your hand \
-    1 card that mentions a "Code Talker" card. \
+If this card is Link Summoned: You can add from your Deck to your hand 1 card that mentions an "Code Talker". \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Cannot be attacked while in the Extra Monster Zone. \
 Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card points to into the Extra Deck, \
@@ -102,8 +100,25 @@ Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card p
 """
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
-[decode-dragon]
+[proxy-securiry-dragon]
 id = 900006005
+name = "Proxy Securiry Dragon"
+type = "monster link effect"
+attribute = "light"
+race = "cyberse"
+link = 3
+link-arrow = "top left right"
+atk = 2000
+effect = """\
+2+ Effect Monsters
+If this card you control would be used as Link Material for a "Firewall" monster, \
+    you can also use 1 Cyberse monster in your hand as material. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[decode-dragon]
+id = 900006006
 name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
@@ -127,14 +142,14 @@ strings = [
 ]
 
 [firewall-dragon-pyrosoul]
-id = 900006006
+id = 900006007
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
 attribute = "fire"
 race = "cyberse"
 link = 4
-link-arrow = "left right top bottom"
+link-arrow = "top left right bottom"
 atk = 2500
 effect = """\
 2+ Cyberse monsters with different Attributes
@@ -156,7 +171,7 @@ strings = [
 ]
 
 [sourcecode-talker]
-id = 900006007
+id = 900006008
 set = "code-talker"
 name = "Sourcecode Talker"
 type = "monster link effect"
@@ -179,14 +194,14 @@ If this card is co-linked: \
 strings = ["Set 1 \"Cynet\" Spell/Trap from your GY"]
 
 [firewall-dragon-negative]
-id = 900006008
+id = 900006009
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"
 attribute = "light"
 race = "cyberse"
 link = 6
-link-arrow = "left right top-left top top-right bottom"
+link-arrow = "top-left top top-right left right bottom"
 atk = 3500
 effect = """\
 3+ Cyberse monsters
