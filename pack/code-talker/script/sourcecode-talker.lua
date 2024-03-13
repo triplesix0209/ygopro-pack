@@ -27,6 +27,22 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     e1:SetLabelObject(e1reg)
     c:RegisterEffect(e1)
+
+    -- no LP cost
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e2:SetCode(EFFECT_LPCOST_CHANGE)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(1, 0)
+    e2:SetCondition(function(e) return Duel.GetLP(e:GetHandlerPlayer()) <= 2000 end)
+    e2:SetValue(function(e, re, rp, val)
+        if not re then return val end
+        local rc = re:GetHandler()
+        if re:IsActiveType(TYPE_MONSTER) and rc:IsSetCard(SET_CODE_TALKER) then return 0 end
+        return val
+    end)
+    c:RegisterEffect(e2)
 end
 
 function s.e1matcheck(e, c)
