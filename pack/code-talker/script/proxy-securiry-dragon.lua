@@ -91,9 +91,12 @@ end
 function s.e2filter(c) return c:IsRace(RACE_CYBERSE) and c:IsMonster() end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local ct = #(e:GetHandler():GetMutualLinkedGroup():Filter(s.e2filter, nil))
+    local c = e:GetHandler()
+    local ct = #(c:GetMutualLinkedGroup():Filter(s.e2filter, nil))
     if chk == 0 then return ct > 0 and Duel.IsPlayerCanDraw(tp, ct) end
+
     Duel.SetOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, ct)
+    c:RegisterFlagEffect(0, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
