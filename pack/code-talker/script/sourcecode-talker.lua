@@ -39,7 +39,7 @@ function s.initial_effect(c)
     e2:SetValue(function(e, re, rp, val)
         if not re then return val end
         local rc = re:GetHandler()
-        if re:IsActiveType(TYPE_MONSTER) and rc:IsSetCard(SET_CODE_TALKER) then return 0 end
+        if re:IsActiveType(TYPE_MONSTER) and rc:IsType(TYPE_LINK) and rc:IsRace(RACE_CYBERSE) then return 0 end
         return val
     end)
     c:RegisterEffect(e2)
