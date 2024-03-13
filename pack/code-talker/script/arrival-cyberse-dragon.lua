@@ -153,8 +153,8 @@ function s.e2filter1(c, e, tp)
                Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c)
 end
 
-function s.e2filter2(c, e, tp, tc)
-    return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(tc:GetLink()) and
+function s.e2filter2(c, e, tp, mc)
+    return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(mc:GetLink()) and not c:IsCode(mc:GetCode()) and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false)
 end
 

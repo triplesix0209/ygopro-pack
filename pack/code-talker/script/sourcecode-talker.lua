@@ -31,6 +31,7 @@ function s.initial_effect(c)
     -- set
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetCategory(CATEGORY_TOHAND)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, id)
@@ -84,16 +85,19 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     aux.addTempLizardCheck(c, tp)
 end
 
-function s.e2filter(c) return c:IsSetCard(SET_CYNET) and c:IsSpellTrap() and c:IsSSetable() end
+function s.e2filter(c) return c:IsSetCard(SET_CYNET) and c:IsSpellTrap() and c:IsAbleToHand() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsExtraLinked() end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_GRAVE, 0, 1, nil) end
-    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil) end
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.e2filter, tp, LOCATION_GRAVE, 0, 1, 1, nil)
-    if #g > 0 then Duel.SSet(tp, g) end
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e2filter, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
+    end
 end
