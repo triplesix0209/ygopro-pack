@@ -183,10 +183,10 @@ id = 900006008
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"
-attribute = "dark"
+attribute = "light"
 race = "cyberse"
 link = 6
-link-arrow = "left right top-left top top-right bottom"
+link-arrow = "left right top bottom-left bottom bottom-right"
 atk = 3500
 effect = """\
 3+ Cyberse monsters
