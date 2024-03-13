@@ -45,7 +45,7 @@ function s.initial_effect(c)
 
     -- place counter
     local e3 = Effect.CreateEffect(c)
-    e3:SetCategory(CATEGORY_COUNTER)
+    e3:SetCategory(CATEGORY_TODECK + CATEGORY_COUNTER)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e3:SetRange(LOCATION_GRAVE)
@@ -101,7 +101,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Draw(tp, ct, REASON_EFFECT)
 end
 
-function s.e3filter1(c) return c:IsCode(CARD_FWD_DARKFLUID) and c:GetCounter(COUNTER_FW) == 0 end
+function s.e3filter1(c) return c:IsFaceup() and c:IsCode(CARD_FWD_DARKFLUID) and c:GetCounter(COUNTER_FW) == 0 end
 
 function s.e3filter2(c)
     return c:IsFaceup() and c:IsAbleToDeck() and c:IsRace(RACE_CYBERSE) and c:IsType(TYPE_RITUAL + TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ)
@@ -116,6 +116,8 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_COUNTER)
     local g = Duel.SelectTarget(tp, s.e3filter1, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, nil)
+
+    Duel.SetOperationInfo(0, CATEGORY_TODECK, nil, 1, tp, LOCATION_GRAVE + LOCATION_REMOVED)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
