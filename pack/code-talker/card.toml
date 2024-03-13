@@ -140,8 +140,16 @@ link-arrow = "left right bottom-left bottom bottom-right"
 atk = 2500
 effect = """\
 2+ Cyberse monsters, including a Link Monster
+If this card is Link Summoned: You can target 1 Link Monster that was used as material for its Link Summon; \
+    send "Code Talker" Link Monsters from your Extra Deck to the GY, \
+    up to the number of the targeted monster's Link Rating, \
+    and if you do, this card gains the sent monster's effects. \
+    Your opponent cannot activate cards or effects in response to this effect's activation. \
+If this card is Extra Linked: \
+    You can Set 1 "Cynet" Spell/Trap from your GY. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = ["Set 1 \"Cynet\" Spell/Trap from your GY"]
 
 [firewall-dragon-pyrosoul]
 id = 900006007
