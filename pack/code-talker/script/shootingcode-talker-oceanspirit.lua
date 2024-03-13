@@ -36,7 +36,7 @@ end
 
 function s.e1val(e, c)
     local g = Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsRace, RACE_CYBERSE), e:GetHandlerPlayer(), LOCATION_MZONE, 0, nil)
-    return g:GetClassCount(Card.GetAttribute) * 500
+    return g:GetClassCount(Card.GetAttribute) * 400
 end
 
 function s.e2filter1(c) return c:IsSetCard(SET_CYNET) and c:IsSpellTrap() and c:IsSSetable() end
