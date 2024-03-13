@@ -178,7 +178,7 @@ function s.e2effop(e, tp, eg, ep, ev, re, r, rp)
     repeat
         local tc = g:GetFirst()
         local code = tc:GetOriginalCode()
-        local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD, 1)
+        local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
         c:RegisterFlagEffect(code, RESET_EVENT + RESETS_STANDARD, 0, 0)
 
         local ec0 = Effect.CreateEffect(c)
