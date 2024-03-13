@@ -112,7 +112,7 @@ link-arrow = "top left bottom"
 atk = 2300
 effect = """\
 2+ Cyberse monsters with the same Attribute
-Gains 400 ATK for each Cyberse monster with different Attribute you control. \
+Gains 500 ATK for each other Cyberse monster with different Attribute you control. \
 (Quick Effect): You can pay 1000 LP; \
     Set 1 "Cynet" Spell/Trap directly from your Deck or GY to your hand, \
     then if your LP are 2000 or less, you can apply this effect.

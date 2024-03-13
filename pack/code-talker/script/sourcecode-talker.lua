@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_CODE_TALKER, SET_CYNET}
+s.listed_series = {SET_CODE_TALKER}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
