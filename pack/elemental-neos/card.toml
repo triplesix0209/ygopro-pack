@@ -58,7 +58,8 @@ effect = """\
 1 Level 7 "Neos" Normal Monster + 4+ "Neo-Spacian" monsters with different Attributes
 Must be Fusion Summoned with the above materials. \
 This card's Fusion Summon cannot be negated. \
-Your opponent cannot Tribute this card, or use it as material for an Summon. \
+Your opponent cannot Tribute it, or use it as material for an Summon. \
+Its control cannot switch. \
 Fusion Monsters that lists "Elemental HERO Neos" as material \
     do not have to activate their effects during the End Phase that shuffle them into the Extra Deck. \
 The above effects cannot be negated or be copied. \

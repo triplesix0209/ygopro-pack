@@ -46,6 +46,14 @@ function s.initial_effect(c)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
 
+     -- control cannot switch
+     local noswitch = Effect.CreateEffect(c)
+     noswitch:SetType(EFFECT_TYPE_SINGLE)
+     noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+     noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
+     noswitch:SetRange(LOCATION_MZONE)
+     c:RegisterEffect(noswitch)
+
     -- "Neos" fusions can choose to not return
     local neospace = Effect.CreateEffect(c)
     neospace:SetType(EFFECT_TYPE_FIELD)

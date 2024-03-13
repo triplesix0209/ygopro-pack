@@ -211,15 +211,18 @@ effect = """
 1 Tuner Synchro Monster + 2+ non-Tuner Synchro Monsters
 Must be Synchro Summoned. \
 This card's Synchro Summon cannot be negated. \
+Your opponent cannot Tribute it, or use it as material for an Summon. \
+Its control cannot switch. \
 After this card is Synchro Summoned, place Cosmic Counters on it \
     equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
+Once per turn, during the End Phase, place Cosmic Counters on this card \
+    until it has equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
+The above effects cannot be negated or be copied. \
 If this card battles an opponent's monster, \
     negate the effects of that monster during the Damage Step only. \
 At the end of the Damage Step, if this card attacked, \
     you can remove 1 Cosmic Counter from this card, \
     and if you do, it can attack again. \
-Once per turn, during the End Phase, place Cosmic Counters on this card \
-    until it has equal to the number of original Dragon Synchro Monsters used as its Synchro Material. \
 When another card or effect is activated (Quick Effect): \
     You can remove 1 Cosmic Counter from this card; \
     negate that effect, and if you do, destroy that card. \
@@ -389,7 +392,6 @@ effect = """
 Equip only to a Dragon Synchro Monster that mentions a Synchro Monster as material. \
     You can only control 1 "{CARD_NAME}". \
 The equipped monster gains the following effects.
-● Your opponent cannot Tribute this card, or use it as material for an Summon.
 ● Cannot be targeted by your opponent's card effects.
 ● Cannot be returned to the Deck.
 ● Its effects cannot be negated.

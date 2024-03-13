@@ -67,7 +67,6 @@ function s.initial_effect(c)
     -- indes battle
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
     e1:SetValue(s.e1val)
     c:RegisterEffect(e1)
@@ -75,7 +74,6 @@ function s.initial_effect(c)
     -- gain effect
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     e2:SetCode(EVENT_ADJUST)
     e2:SetRange(LOCATION_MZONE)
     e2:SetOperation(s.e2op)
@@ -100,7 +98,7 @@ function s.e1val(e, tc) return not tc:IsType(SET_NUMBER) end
 
 function s.e2filter(c)
     if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
+    return not c:IsCode(id) and c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
