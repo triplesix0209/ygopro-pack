@@ -69,6 +69,14 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
         Duel.BreakEffect()
         local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter2, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp, rc):GetFirst()
-        if tc then Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) end
+        if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) > 0 then
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetDescription(3206)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+            ec1:SetCode(EFFECT_CANNOT_ATTACK)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+            tc:RegisterEffect(ec1)
+        end
     end
 end

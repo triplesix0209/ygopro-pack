@@ -96,8 +96,7 @@ If this card is Link Summoned: You can add from your Deck to your hand 1 card th
 Cannot be attacked while in the Extra Monster Zone. \
 Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card points to into the Extra Deck, \
     and if you do, Special Summon 1 Link-3 "Code Talker" monster from your Extra Deck with a different name, \
-    except "{CARD_NAME}" (this is treated as an Link Summon), \
-    but that monster cannot attack this turn. \
+    except "{CARD_NAME}" (this is treated as an Link Summon). \
 """
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
@@ -117,7 +116,8 @@ While this card is co-linked, you take no effect damage. \
 You can Tribute 1 monster this card points to; \
     this card gains ATK equal to the Tributed monster's original ATK, until the end of this turn, \
     then if you Tributed a Link Monster, you can Special Summon 1 Cyberse Link Monster from your GY, \
-    with Link Rating equal or lower but a different name, except "{CARD_NAME}". \
+    with Link Rating equal or lower but a different name, except "{CARD_NAME}", \
+    but that monster cannot attack this turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [

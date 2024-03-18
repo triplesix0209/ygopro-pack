@@ -91,13 +91,6 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
             if sc then
                 Duel.SpecialSummon(sc, SUMMON_TYPE_LINK, tp, tp, false, false, POS_FACEUP)
                 sc:CompleteProcedure()
-                local ec1 = Effect.CreateEffect(c)
-                ec1:SetDescription(3206)
-                ec1:SetType(EFFECT_TYPE_SINGLE)
-                ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
-                ec1:SetCode(EFFECT_CANNOT_ATTACK)
-                ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-                sc:RegisterEffect(ec1)
             end
         end
     end
