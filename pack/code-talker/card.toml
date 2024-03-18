@@ -100,24 +100,8 @@ Once while face-up the field: You can shuffle 1 Cyberse Link Monster this card p
 """
 strings = ["Shuffle 1 Cyberse Link Monster to Link Summon 1 \"Code Talker\""]
 
-[securecode-talker]
-id = 900006005
-set = "code-talker"
-name = "Securecode Talker"
-type = "monster link effect"
-attribute = "dark"
-race = "cyberse"
-link = 3
-link-arrow = "left right bottom"
-atk = 2300
-effect = """\
-2+ Effect Monsters
-
-"""
-strings = []
-
 [compilecode-talker]
-id = 900006006
+id = 900006005
 set = "code-talker"
 name = "Compilecode Talker"
 type = "monster link effect"
@@ -131,7 +115,7 @@ effect = """\
 strings = []
 
 [encode-talker-extended]
-id = 900006007
+id = 900006006
 set = "code-talker"
 name = "Encode Talker Extended"
 type = "monster link effect"
@@ -154,7 +138,7 @@ Once per turn, before damage calculation, \
 strings = ["Banish & recover"]
 
 [shootingcode-talker-oceanspirit]
-id = 900006008
+id = 900006007
 set = "code-talker"
 name = "Shootingcode Talker Oceanspirit"
 type = "monster link effect"
@@ -178,7 +162,7 @@ strings = [
 ]
 
 [proxy-securiry-dragon]
-id = 900006009
+id = 900006008
 name = "Proxy Securiry Dragon"
 type = "monster link effect"
 attribute = "light"
@@ -205,7 +189,7 @@ strings = [
 ]
 
 [decode-dragon]
-id = 900006010
+id = 900006009
 name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
@@ -229,7 +213,7 @@ strings = [
 ]
 
 [firewall-dragon-pyrosoul]
-id = 900006011
+id = 900006010
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
@@ -258,7 +242,7 @@ strings = [
 ]
 
 [sourcecode-talker]
-id = 900006012
+id = 900006011
 set = "code-talker"
 name = "Sourcecode Talker"
 type = "monster link effect"
@@ -279,7 +263,7 @@ While your LP are 2000 or less, you do not pay LP to activate Cyberse Link Monst
 strings = ["Add 1 \"Cynet\" Spell/Trap from your GY"]
 
 [firewall-dragon-negative]
-id = 900006013
+id = 900006012
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"
