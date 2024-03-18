@@ -154,7 +154,7 @@ function s.e2filter1(c, e, tp)
 end
 
 function s.e2filter2(c, e, tp, mc)
-    return c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(mc:GetLink()) and not c:IsCode(mc:GetCode()) and
+    return not c:IsCode({id, mc:GetCode()}) and c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(mc:GetLink()) and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false)
 end
 
