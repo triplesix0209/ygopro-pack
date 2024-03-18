@@ -16,15 +16,7 @@ function s.initial_effect(c)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(1, 0)
     e1:SetCondition(function(e) return e:GetHandler():GetMutualLinkedGroupCount() > 0 end)
-    e1:SetValue(function(e, re, val, r, rp, rc)
-        local tp = e:GetHandlerPlayer()
-        if val ~= 0 then
-            e:SetLabel(val)
-            return 0
-        else
-            return val
-        end
-    end)
+    e1:SetValue(function(e, re, val, r, rp, rc) return (r & REASON_EFFECT) == 0 and val or 0 end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
     e1b:SetCode(EFFECT_NO_EFFECT_DAMAGE)
