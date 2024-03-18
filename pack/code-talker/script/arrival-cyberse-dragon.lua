@@ -190,18 +190,19 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
+        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe5000, 0, 0)
         local code = tc:GetOriginalCode()
         if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
-            local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
-            local reset = Effect.CreateEffect(c)
-            reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-            reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-            reset:SetCode(EVENT_ADJUST)
-            reset:SetRange(LOCATION_MZONE)
-            reset:SetLabel(cid)
-            reset:SetLabelObject(tc)
-            reset:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe5000)
+
+            local reset1 = Effect.CreateEffect(c)
+            reset1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+            reset1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+            reset1:SetCode(EVENT_ADJUST)
+            reset1:SetRange(LOCATION_MZONE)
+            reset1:SetLabel(cid)
+            reset1:SetLabelObject(tc)
+            reset1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
                 local cid = e:GetLabel()
                 local c = e:GetHandler()
                 local tc = e:GetLabelObject()
@@ -211,8 +212,22 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
                     tc:ResetFlagEffect(id)
                 end
             end)
-            reset:SetReset(RESET_EVENT + RESETS_STANDARD)
-            c:RegisterEffect(reset, true)
+            reset1:SetReset(RESET_EVENT + RESETS_STANDARD)
+            c:RegisterEffect(reset1, true)
+            local reset2 = reset1:Clone()
+            reset2:SetRange(LOCATION_ONFIELD)
+            reset2:SetLabelObject(c)
+            reset2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+                local cid = e:GetLabel()
+                local c = e:GetLabelObject()
+                local tc = e:GetHandler()
+                local g = c:GetMutualLinkedGroup():Filter(function(c) return c:GetFlagEffect(id) > 0 end, nil)
+                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) then
+                    c:ResetEffect(cid, RESET_COPY)
+                    tc:ResetFlagEffect(id)
+                end
+            end)
+            tc:RegisterEffect(reset2, true)
         end
     end
 end
