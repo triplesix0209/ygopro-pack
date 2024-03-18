@@ -147,9 +147,8 @@ Co-linked Cyberse monsters you control gain 500 ATK, \
     also they cannot be destroyed by battle. \
 Once per turn, before damage calculation, \
     if your monster this card points to battles an opponent's monster: \
-    You can target that opponent's monster; \
-    banish both your monster and the targeted, \
-    and if you do, gain LP equal to the combined original ATK of those banished monster(s). \
+    You can target both those monster; banish them, and if you do, \
+    gain LP equal to the combined original ATK of those banished monster(s). \
     Return those banished monsters to the field at the end of the Battle Phase. \
 """
 strings = ["Banish & recover"]

@@ -60,21 +60,17 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if ac:IsControler(1 - tp) then ac, bc = bc, ac end
     if chk == 0 then return bc and bc:IsOnField() and bc:IsCanBeEffectTarget(e) and ac:IsAbleToRemove() and bc:IsAbleToRemove() end
 
-    Duel.SetTargetCard(bc)
     local g = Group.FromCards(ac, bc)
+    Duel.SetTargetCard(g)
+
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, g, #g, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, ac:GetTextAttack() + bc:GetTextAttack())
 end
 
-function s.rmop(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local ac = Duel.GetAttacker()
-    local bc = Duel.GetFirstTarget()
-    if ac:IsControler(1 - tp) then ac = ac:GetBattleTarget() end
-    if not ac:IsRelateToEffect(e) or not bc:IsRelateToEffect(e) then return end
-
-    local g = Group.FromCards(ac, bc)
-    if Duel.Remove(g, 0, REASON_EFFECT + REASON_TEMPORARY) ~= 0 then
+    local tg = Duel.GetTargetCards(e)
+    if #tg > 0 and Duel.Remove(tg, 0, REASON_EFFECT + REASON_TEMPORARY) ~= 0 then
         local lp = 0
         local og = Duel.GetOperatedGroup()
         for tc in aux.Next(og) do
