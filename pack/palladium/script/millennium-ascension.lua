@@ -197,10 +197,10 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe4000, 0, 0)
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
         local code = tc:GetOriginalCode()
         if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
-            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe4000)
+            local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
             local reset = Effect.CreateEffect(c)
             reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
             reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -218,7 +218,7 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
                     tc:ResetFlagEffect(id)
                 end
             end)
-            reset:SetReset(RESET_EVENT + 0x1fe4000)
+            reset:SetReset(RESET_EVENT + RESETS_STANDARD)
             c:RegisterEffect(reset, true)
         end
     end
