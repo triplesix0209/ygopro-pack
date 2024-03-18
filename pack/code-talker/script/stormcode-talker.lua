@@ -63,7 +63,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3filter1(c, e, tp)
-    return e:GetHandler():GetLinkedGroup():IsContains(c) and c:IsRace(RACE_CYBERSE) and c:IsType(TYPE_LINK) and c:IsAbleToExtra() and
+    return e:GetHandler():GetLinkedGroup():IsContains(c) and c:IsLinkMonster() and c:IsAbleToExtra() and
                Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c)
 end
 
