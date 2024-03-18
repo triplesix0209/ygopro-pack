@@ -190,10 +190,10 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe5000, 0, 0)
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
         local code = tc:GetOriginalCode()
         if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
-            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe5000)
+            local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
 
             local reset1 = Effect.CreateEffect(c)
             reset1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
