@@ -183,7 +183,7 @@ function s.e4filter(c) return c:IsRace(RACE_CYBERSE) and c:IsLinkSpell() end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.e4filter, nil)
+    local og = c:GetMutualLinkedGroup():Filter(s.e4filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
