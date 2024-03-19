@@ -97,19 +97,19 @@ end
 function s.e1val(e, tc) return not tc:IsType(SET_NUMBER) end
 
 function s.e2filter(c)
-    if c:GetFlagEffect(id) ~= 0 then return false end
     return not c:IsCode(id) and c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = c:GetOverlayGroup():Filter(s.e2filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e2filter, nil)
+    local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
         local code = tc:GetOriginalCode()
-        if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+        if not og:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+            tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
             local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
             local reset = Effect.CreateEffect(c)
             reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)

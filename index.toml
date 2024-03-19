@@ -17,15 +17,15 @@ packs = [
 ]
 
 skip_compile_packs = [
-    "./pack/_update",
-    "./pack/egyptian-god",
-    "./pack/sacred-beast",
-    "./pack/palladium",
-    "./pack/blue-eyes",
-    "./pack/red-eyes",
-    "./pack/elemental-neos",
-    "./pack/cosmic-dragon",
-    "./pack/galaxy-eyes",
-    "./pack/z-arc",
-    "./pack/code-talker",
+    # "./pack/_update",
+    # "./pack/egyptian-god",
+    # "./pack/sacred-beast",
+    # "./pack/palladium",
+    # "./pack/blue-eyes",
+    # "./pack/red-eyes",
+    # "./pack/elemental-neos",
+    # "./pack/cosmic-dragon",
+    # "./pack/galaxy-eyes",
+    # "./pack/z-arc",
+    # "./pack/code-talker",
 ]

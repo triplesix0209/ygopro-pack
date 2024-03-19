@@ -71,21 +71,19 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if op then op(e, tp, eg, ep, ev, re, r, rp) end
 end
 
-function s.e3filter(c)
-    if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS)
-end
+function s.e3filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = c:GetOverlayGroup():Filter(s.e3filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e3filter, nil)
+    local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + 0x1fe3000, 0, 0)
         local code = tc:GetOriginalCode()
-        if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
-            local cid = c:CopyEffect(code, RESET_EVENT + 0x1fe3000)
+        if not og:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+            tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
+            local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
             local reset = Effect.CreateEffect(c)
             reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
             reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -103,7 +101,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
                     tc:ResetFlagEffect(id)
                 end
             end)
-            reset:SetReset(RESET_EVENT + 0x1fe3000)
+            reset:SetReset(RESET_EVENT + RESETS_STANDARD)
             c:RegisterEffect(reset, true)
         end
     end

@@ -186,20 +186,18 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Overlay(c, g) end
 end
 
-function s.e6filter(c)
-    if c:GetFlagEffect(id) ~= 0 then return false end
-    return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS)
-end
+function s.e6filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
 
 function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = c:GetOverlayGroup():Filter(s.e6filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e6filter, nil)
+    local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
     for tc in g:Iter() do
-        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
         local code = tc:GetOriginalCode()
-        if not g:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+        if not og:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+            tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
             local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
             local reset = Effect.CreateEffect(c)
             reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
