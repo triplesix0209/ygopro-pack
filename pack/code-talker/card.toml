@@ -236,18 +236,19 @@ link-arrow = "top left right bottom"
 atk = 2500
 effect = """\
 2+ monsters with different Attributes
-You can only use each of the following effects of "{CARD_NAME}" once per turn. \
-(Quick Effect): \
+Once while face-up on the field (Quick Effect): \
     You can target other cards on the field up to the number of monsters co-linked to this card; \
-    destroy them and if you do, this card gains 1000 ATK for each card destroyed until the end of this turn. \
-If this card is in your GY, except the turn this card was sent to the GY: \
+    destroy them and if you do, this card gains 1000 ATK for each card destroyed. \
+If this card is in your GY: \
     You can pay 1000 LP, then target 1 Cyberse monster you control; \
     destroy it, and if you do, Special Summon this card, \
     then if your LP are 2000 or less, you can apply this effect.
 ● Special Summon 1 monster from your GY to either player's zones linked to this card.
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Destroy and gain ATK",
+    "Destroy other cards and gain 1000 ATK for each",
+    "Effect already used",
     "Special Summon a monsters from your GY?",
     "Special Summon to your field",
     "Special Summon to your opponent's field",

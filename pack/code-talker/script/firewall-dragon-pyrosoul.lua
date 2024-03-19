@@ -13,7 +13,7 @@ function s.initial_effect(c)
     e1:SetDescription(aux.Stringid(id, 0))
     e1:SetCategory(CATEGORY_DESTROY + CATEGORY_ATKCHANGE)
     e1:SetType(EFFECT_TYPE_QUICK_O)
-    e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
+    e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_NO_TURN_RESET)
     e1:SetCode(EVENT_FREE_CHAIN)
     e1:SetRange(LOCATION_MZONE)
     e1:SetHintTiming(TIMING_DAMAGE_STEP, TIMING_DAMAGE_STEP + TIMINGS_CHECK_MONSTER_E)
@@ -30,7 +30,6 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetRange(LOCATION_GRAVE)
     e2:SetCountLimit(1, {id, 2})
-    e2:SetCondition(aux.exccon)
     e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
@@ -46,7 +45,9 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
     local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, ct, c)
+
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+    c:RegisterFlagEffect(0, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
@@ -59,7 +60,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
         ec1:SetValue(ct * 1000)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_PHASE + PHASE_END)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD_DISABLE)
         c:RegisterEffect(ec1)
     end
 end
@@ -97,12 +98,12 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 
     local g1 = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE, 0, nil, e, tp, c, c:GetLinkedZone(tp), tp)
     local g2 = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE, 0, nil, e, tp, c, c:GetLinkedZone(1 - tp), 1 - tp)
-    if Duel.GetLP(tp) <= 2000 and #(g1 + g2) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
+    if Duel.GetLP(tp) <= 2000 and #(g1 + g2) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
         Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
         local sc = (g1 + g2):Select(tp, 1, 1, nil):GetFirst()
         local b1 = g1:IsContains(sc)
         local b2 = g2:IsContains(sc)
-        local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)})
+        local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)})
         local fp = op == 1 and tp or 1 - tp
         local zone = (c:GetLinkedZone(fp) | (sc:IsLinkMonster() and c:GetToBeLinkedZone(sc, fp) or 0)) & ZONES_MMZ
         Duel.SpecialSummon(sc, 0, tp, fp, false, false, POS_FACEUP, zone)
