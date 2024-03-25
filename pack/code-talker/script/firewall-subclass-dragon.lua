@@ -6,5 +6,5 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, nil, 2, 99, function(g, sc, sumtype, tp) return g:IsExists(Card.IsType, 1, nil, TYPE_LINK, sc, sumtype, tp) end)
+    Link.AddProcedure(c, nil, 2, 99, function(g, sc, sumtype, tp) return g:IsExists(function(c) return c:GetLink() == 4 end, 1, nil) end)
 end
