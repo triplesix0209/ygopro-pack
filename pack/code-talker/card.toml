@@ -184,7 +184,7 @@ effect = """\
 2+ Cyberse monsters with the same Attribute
 Gains 500 ATK for each other Cyberse monster with different Attribute you control. \
 (Quick Effect): You can pay 1000 LP; \
-    Add 1 "Cynet" Spell/Trap from your GY to your hand, \
+    Set 1 "Cynet" Spell/Trap from your GY to your hand, \
     then if your LP are 2000 or less, you can apply this effect.
 ● Special Summon 1 Link-3 or lower Cyberse monster from your GY or banishment, except "{CARD_NAME}".
 You can only use this effect of "{CARD_NAME}" once per turn. \

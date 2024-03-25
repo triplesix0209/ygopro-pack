@@ -38,7 +38,7 @@ function s.e1val(e, c)
     return g:GetClassCount(Card.GetAttribute) * 500
 end
 
-function s.e2filter1(c) return c:IsSetCard(SET_CYNET) and c:IsSpellTrap() and c:IsAbleToHand() end
+function s.e2filter1(c) return c:IsSetCard(SET_CYNET) and c:IsSpellTrap() and c:IsSSetable() end
 
 function s.e2filter2(c, e, tp)
     return not c:IsCode(id) and c:IsRace(RACE_CYBERSE) and c:IsLinkBelow(3) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
@@ -57,7 +57,7 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e2filter1, tp, LOCATION_GRAVE, 0, 1, 1, nil)
-    if #g == 0 or Duel.SendtoHand(g, nil, REASON_EFFECT) == 0 then return end
+    if #g == 0 or Duel.Duel.SSet(tp, g) == 0 then return end
 
     Duel.ConfirmCards(1 - tp, g)
     if Duel.GetLP(tp) <= 2000 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
