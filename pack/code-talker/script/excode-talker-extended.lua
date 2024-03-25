@@ -31,7 +31,7 @@ function s.initial_effect(c)
     local e2b = e2:Clone()
     e2b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e2b:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-    e2b:SetValue(1)
+    e2b:SetValue(aux.indoval)
     c:RegisterEffect(e2b)
 
     -- negate effect

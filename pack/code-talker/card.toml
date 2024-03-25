@@ -164,7 +164,7 @@ effect = """\
 2+ Cyberse monsters
 This card's name becomes "Excode Talker" while on the field. \
 Monsters you control this card points to gain 500 ATK, \
-    also they cannot be destroyed by card effects. \
+    also they cannot be destroyed by your opponent's card effects. \
 Once per turn, when your opponent activates a Spell/Trap Card or effect (Quick Effect): \
     you can negate that effect, and if you do, destroy that card. \
 """
