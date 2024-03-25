@@ -211,6 +211,7 @@ effect = """
 1 Tuner Synchro Monster + 2+ non-Tuner Synchro Monsters
 Must be Synchro Summoned. \
 This card's Synchro Summon cannot be negated. \
+You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
 After this card is Synchro Summoned, place Cosmic Counters on it \

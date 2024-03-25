@@ -9,6 +9,7 @@ s.synchro_nt_required = 2
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    c:SetUniqueOnField(1, 0, id)
     c:EnableCounterPermit(DuelDragon.COUNTER_COSMIC)
 
     -- synchro summon

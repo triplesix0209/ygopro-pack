@@ -13,6 +13,7 @@ effect = """\
 3+ Cyberse Link Monsters with different Attributes
 Must be Link Summoned. \
 This card's Link Summon cannot be negated. \
+You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
 The above effects cannot be negated or be copied. \

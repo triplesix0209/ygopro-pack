@@ -4,6 +4,7 @@ local s, id = GetID()
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    c:SetUniqueOnField(1, 0, id)
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_CYBERSE, sc, sumtype, tp) and c:IsType(TYPE_LINK, sc, sumtype, tp) end, 3,

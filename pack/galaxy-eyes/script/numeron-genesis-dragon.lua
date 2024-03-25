@@ -7,6 +7,7 @@ s.listed_series = {SET_NUMBER}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    c:SetUniqueOnField(1, 0, id)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

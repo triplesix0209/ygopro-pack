@@ -8,6 +8,7 @@ s.material_setcode = {SET_NEOS, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    c:SetUniqueOnField(1, 0, id)
 
     -- fusion summon
     Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, function(c, fc, sumtype, tp)
