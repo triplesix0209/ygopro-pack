@@ -306,7 +306,7 @@ link = 5
 link-arrow = "left right bottom-left bottom bottom-right"
 atk = 3000
 effect = """\
-2+ Effect monsters, including a Link Monster
+2+ monsters, including a Link Monster
 """
 strings = []
 
