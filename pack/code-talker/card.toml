@@ -303,12 +303,20 @@ type = "monster link effect"
 attribute = "light"
 race = "cyberse"
 link = 5
-link-arrow = "left right bottom-left bottom bottom-right"
+link-arrow = "top left right bottom-left bottom-right"
 atk = 3000
 effect = """\
 2+ monsters, including a Link-4 Cyberse monster
+This card gains 1000 ATK for each monster is co-linked to this card. \
+If this card is co-linked (Quick Effect): \
+    You can target 1 card on the field or GY; \
+    return it to the hand. \
+If this Link Summoned card leaves the field: \
+    You can Special Summon 1 Cyberse monster from your hand, Deck, or GY, \
+    except "{CARD_NAME}". \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = ["Return 1 card to the hand"]
 
 [firewall-dragon-negative]
 id = 900006014
