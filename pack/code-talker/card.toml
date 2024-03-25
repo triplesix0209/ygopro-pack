@@ -16,7 +16,7 @@ This card's Link Summon cannot be negated. \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
 The above effects cannot be negated or be copied. \
-Co-linked cards you control cannot be destroyed, or banished, by your opponent's card effects, \
+Co-linked cards you control cannot be destroyed by your opponent's card effects, \
     also your opponent cannot target them with card effects. \
 You can target 1 Link Monster you control this card points to; destroy it, \
     and if you do, Special Summon 1 Cyberse Link Monster from your Extra Deck, \
@@ -112,7 +112,7 @@ link = 3
 link-arrow = "left right bottom"
 atk = 2300
 effect = """\
-2+ Effect Monsters
+2+ monsters with different names, except Tokens
 While this card is co-linked, you take no effect damage. \
 You can Tribute 1 monster this card points to; \
     this card gains ATK equal to the Tributed monster's original ATK, until the end of this turn, \
@@ -140,7 +140,7 @@ effect = """\
 2+ Cyberse monsters
 This card's name becomes "Encode Talker" while on the field. \
 Co-linked Cyberse monsters you control gain 500 ATK, \
-    also they cannot be destroyed by battle. \
+    also you take no battle damage from battles involving them. \
 Once per turn, before damage calculation, \
     if your monster this card points to battles an opponent's monster: \
     You can target both those monster; banish them, and if you do, \
@@ -149,8 +149,28 @@ Once per turn, before damage calculation, \
 """
 strings = ["Banish & recover"]
 
-[shootingcode-talker-oceanspirit]
+[excode-talker-extended]
 id = 900006007
+set = "code-talker"
+name = "Excode Talker Extended"
+type = "monster link effect"
+attribute = "wind"
+race = "cyberse"
+link = 3
+link-arrow = "top left right"
+atk = 2300
+effect = """\
+2+ Cyberse monsters
+This card's name becomes "Excode Talker" while on the field. \
+Monsters you control this card points to gain 500 ATK, \
+    also they cannot be destroyed by card effects. \
+Once per turn, when your opponent activates a Spell/Trap Card or effect (Quick Effect): \
+    you can negate that effect, and if you do, destroy that card. \
+"""
+strings = ["Negate effect & destroy"]
+
+[shootingcode-talker-oceanspirit]
+id = 900006008
 set = "code-talker"
 name = "Shootingcode Talker Oceanspirit"
 type = "monster link effect"
@@ -174,7 +194,7 @@ strings = [
 ]
 
 [proxy-securiry-dragon]
-id = 900006008
+id = 900006009
 name = "Proxy Securiry Dragon"
 type = "monster link effect"
 attribute = "light"
@@ -201,7 +221,7 @@ strings = [
 ]
 
 [decode-dragon]
-id = 900006009
+id = 900006010
 name = "Decode Dragon"
 type = "monster link effect"
 attribute = "dark"
@@ -225,7 +245,7 @@ strings = [
 ]
 
 [firewall-dragon-pyrosoul]
-id = 900006010
+id = 900006011
 set = "firewall"
 name = "Firewall Dragon Pyrosoul"
 type = "monster link effect"
@@ -255,7 +275,7 @@ strings = [
 ]
 
 [sourcecode-talker]
-id = 900006011
+id = 900006012
 set = "code-talker"
 name = "Sourcecode Talker"
 type = "monster link effect"
@@ -267,7 +287,7 @@ atk = 3000
 effect = """\
 2+ Cyberse monsters, including a Link Monster
 If this card is Link Summoned: You can target 1 Link Monster that was used as material for its Link Summon; \
-    banish "Code Talker" Link Monsters with different names from your Extra Deck, and/or GY, except "{CARD_NAME}, \
+    banish Link-3 "Code Talker" monsters with different Attributes from your Extra Deck, and/or GY, except "{CARD_NAME}, \
     up to the number of the targeted monster's Link Rating, \
     and if you do, this card gains the banished monster's effects. \
     Your opponent cannot activate cards or effects in response to this effect's activation. \
@@ -275,8 +295,22 @@ While your LP are 2000 or less, you do not pay LP to activate Cyberse Link Monst
 """
 strings = ["Add 1 \"Cynet\" Spell/Trap from your GY"]
 
+[firewall-subclass-dragon]
+id = 900006013
+set = "firewall"
+name = "Firewall Subclass Dragon"
+type = "monster link effect"
+attribute = "light"
+race = "cyberse"
+link = 5
+link-arrow = "left right bottom-left bottom bottom-right"
+atk = 3000
+effect = """\
+"""
+strings = []
+
 [firewall-dragon-negative]
-id = 900006012
+id = 900006014
 set = "firewall"
 name = "Firewall Dragon Negative"
 type = "monster link effect"

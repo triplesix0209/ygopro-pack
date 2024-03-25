@@ -2,6 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names={6622715}
+
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
@@ -17,18 +19,19 @@ function s.initial_effect(c)
     e1:SetValue(6622715)
     c:RegisterEffect(e1)
 
-    -- indes
+    -- atk up & avoid battle damage
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    e2:SetCode(EFFECT_UPDATE_ATTACK)
     e2:SetRange(LOCATION_MZONE)
     e2:SetTargetRange(LOCATION_MZONE, 0)
     e2:SetTarget(function(e, c) return c:IsRace(RACE_CYBERSE) and c:GetMutualLinkedGroupCount() > 0 end)
-    e2:SetValue(1)
+    e2:SetValue(500)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_UPDATE_ATTACK)
-    e2b:SetValue(500)
+    e2b:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
+    e2b:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e2b:SetValue(1)
     c:RegisterEffect(e2b)
 
     -- banish & recover

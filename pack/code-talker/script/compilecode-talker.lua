@@ -6,7 +6,8 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsType, TYPE_EFFECT), 2)
+    Link.AddProcedure(c, aux.NOT(aux.FilterBoolFunctionEx(Card.IsType, TYPE_TOKEN)), 2, 99,
+        function(g, sc, sumtype, tp) return g:CheckDifferentProperty(Card.GetCode, sc, sumtype, tp) end)
 
     -- you take no effect damage
     local e1 = Effect.CreateEffect(c)

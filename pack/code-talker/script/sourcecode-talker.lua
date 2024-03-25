@@ -56,7 +56,9 @@ function s.e1filter1(c, e)
     return c:IsType(TYPE_LINK) and (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_REMOVED) and c:IsFaceup())) and c:IsCanBeEffectTarget(e)
 end
 
-function s.e1filter2(c) return not c:IsCode(id) and c:IsSetCard(SET_CODE_TALKER) and c:IsType(TYPE_LINK) and c:IsAbleToRemove() end
+function s.e1filter2(c) return not c:IsCode(id) and c:IsSetCard(SET_CODE_TALKER) and c:GetLink() == 3 and c:IsAbleToRemove() end
+
+function s.e1rescon(sg, e, tp) return sg:GetClassCount(Card.GetAttribute) == #sg, sg:GetClassCount(Card.GetAttribute) ~= #sg end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -82,7 +84,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if c:IsFaceup() and c:IsRelateToEffect(e) and tc:IsFaceup() and tc:IsRelateToEffect(e) then
         local ct = tc:GetLink()
         local g = Duel.GetMatchingGroup(s.e1filter2, tp, LOCATION_EXTRA + LOCATION_GRAVE, 0, nil)
-        local sg = aux.SelectUnselectGroup(g, e, tp, 1, ct, aux.dncheck, 1, tp, HINTMSG_REMOVE)
+        local sg = aux.SelectUnselectGroup(g, e, tp, 1, ct, s.e1rescon, 1, tp, HINTMSG_REMOVE)
         for tc in sg:Iter() do
             if Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) > 0 then c:CopyEffect(tc:GetOriginalCode(), RESET_EVENT + RESETS_STANDARD) end
         end

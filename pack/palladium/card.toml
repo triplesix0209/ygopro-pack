@@ -456,7 +456,7 @@ If this card is Fusion Summoned using "Blue-Eyes White Dragon", it gains these e
 ● Thrice per turn: You can destroy 1 card your opponent controls.
 """
 strings = [
-    "Negate activation, then destroy",
+    "Negate activation & destroy",
     "Fusion Summoned using \"Blue-Eyes White Dragon\"",
     "Destroy card your opponent controls",
 ]
