@@ -56,8 +56,8 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e2filter1, tp, LOCATION_GRAVE, 0, 1, 1, nil)
-    if #g == 0 or Duel.Duel.SSet(tp, g) == 0 then return end
+    local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.e2filter1, tp, LOCATION_GRAVE, 0, 1, 1, nil)
+    if #g == 0 or Duel.SSet(tp, g) == 0 then return end
 
     Duel.ConfirmCards(1 - tp, g)
     if Duel.GetLP(tp) <= 2000 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
