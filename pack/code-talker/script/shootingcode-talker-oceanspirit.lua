@@ -51,7 +51,7 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_GRAVE, 0, 1, nil) end
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, 0, LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
