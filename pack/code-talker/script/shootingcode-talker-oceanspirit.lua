@@ -59,7 +59,6 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.e2filter1, tp, LOCATION_GRAVE, 0, 1, 1, nil)
     if #g == 0 or Duel.SSet(tp, g) == 0 then return end
 
-    Duel.ConfirmCards(1 - tp, g)
     if Duel.GetLP(tp) <= 2000 and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
         Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil, e, tp) and
         Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
