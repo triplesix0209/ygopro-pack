@@ -18,8 +18,8 @@ packs = [
 
 skip_compile_packs = [
     "./pack/_update",
-    "./pack/egyptian-god",
-    # "./pack/sacred-beast",
+    # "./pack/egyptian-god",
+    "./pack/sacred-beast",
     "./pack/palladium",
     "./pack/blue-eyes",
     "./pack/red-eyes",
