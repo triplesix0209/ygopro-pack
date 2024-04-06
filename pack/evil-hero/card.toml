@@ -72,7 +72,7 @@ def = 1000
 effect = """\
 (This card's name is also treated as "Elemental HERO Avian".)
 If this card is in your hand: \
-    You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}", \
+    You can send 1 "Evil HERO" monster from your Deck to the GY, except "{CARD_NAME}", \
     and if you do, Special Summon this card from your hand. \
     You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -106,3 +106,87 @@ strings = [
     "Send 1 \"Evil HERO\" to the GY to copy its Attribute, Level, ATK/DEF",
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
 ]
+
+[evil-hero-igneous-insurgent]
+id = 900002205
+set = "evil-hero"
+name = "Evil HERO Igneous Insurgent"
+type = "monster effect"
+attribute = "earth"
+race = "fiend"
+level = 4
+atk = 800
+def = 2000
+effect = """\
+(This card's name is also treated as "Elemental HERO Clayman".)
+You can Special Summon this card (from your hand) by discarding 1 \"Evil HERO\" monster. \
+Once per turn, when your monster is targeted for an attack: You can negate the attack. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can inflict damage to your opponent equal to original Level of 1 Fiend monster you control x 200. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Negate the attack"]
+
+[evil-hero-bubbling-anger]
+id = 900002206
+set = "evil-hero"
+name = "Evil HERO Bubbling Anger"
+type = "monster effect"
+attribute = "water"
+race = "fiend"
+level = 4
+atk = 800
+def = 1200
+effect = """\
+(This card's name is also treated as "Elemental HERO Bubbleman".)
+If you control a "Evil HERO" monster, you can Special Summon this card (from your hand). \
+You take no damage from battles involving this card, \
+    also destroy an opponent's monster that battles this card at the end of the Damage Step. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can draw 2 cards, then discard 1 card. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Destroy the battled monster"]
+
+[evil-hero-black-bolt]
+id = 900002207
+set = "evil-hero"
+name = "Evil HERO Black Bolt"
+type = "monster effect"
+attribute = "light"
+race = "fiend"
+level = 4
+atk = 1600
+def = 1400
+effect = """\
+(This card's name is also treated as "Elemental HERO Sparkman".)
+You can target 1 face-up monster on the field; change its battle position. \
+You can banish this card from your GY, \
+    then target 1 your banished "Evil HERO" monster, except "{CARD_NAME}"; \
+    either add it to your hand or Special Summon it. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can destroy 1 monster your opponent controls. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Change position of 1 face-up monster"]
+
+[evil-hero-savage-heart]
+id = 900002208
+set = "evil-hero"
+name = "Evil HERO Savage Heart"
+type = "monster effect"
+attribute = "earth"
+race = "fiend"
+level = 4
+atk = 1500
+def = 1600
+effect = """\
+(This card's name is also treated as "Elemental HERO Wildheart".)
+If this card is Normal or Special Summoned: \
+    You can Special Summon 1 "Evil HERO" monster from your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+Unaffected by your opponent's Trap effects. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can negate all your opponent's Trap effects on the field this turn. \
+"""
+strings = []
