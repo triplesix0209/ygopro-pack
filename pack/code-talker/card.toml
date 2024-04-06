@@ -1,6 +1,7 @@
 
 [arrival-cyberse-dragon]
 id = 900006001
+rarity = "gold"
 set = "cyber"
 name = "The Arrival Cyberse Dragon"
 type = "monster link effect"

@@ -12,3 +12,18 @@ The activation of your cards and effects that include an effect that Fusion Summ
     also your opponent's cards and effects cannot activate when a monster is Fusion Summoned this way. \
 """
 strings = ["Add 1 Fusion Spell?"]
+
+[supreme-king-of-spirit-world]
+id = 900002201
+rarity = "gold"
+set = "supreme-king"
+name = "The Supreme King of Spirit World"
+type = "monster fusion effect"
+attribute = "dark"
+race = "warrior"
+level = 10
+atk = 2500
+def = 2000
+effect = """\
+"""
+strings = []
