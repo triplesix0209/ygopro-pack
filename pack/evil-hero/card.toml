@@ -16,7 +16,7 @@ strings = ["Add 1 Fusion Spell?"]
 [supreme-king-of-spirit-world]
 id = 900002201
 rarity = "gold"
-set = "supreme-king"
+set = "supreme-king hero"
 name = "The Supreme King of Spirit World"
 type = "monster fusion effect"
 attribute = "dark"
@@ -25,5 +25,84 @@ level = 10
 atk = 2500
 def = 2000
 effect = """\
+(This card is always treated as an "HERO" card.)
 """
 strings = []
+
+[evil-hero-cosmos]
+id = 900002202
+set = "evil-hero"
+name = "Evil HERO Cosmos"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 7
+atk = 2500
+def = 2000
+effect = """\
+You can Special Summon this card (from your hand or GY) \
+    by shuffling 1 "HERO" Fusion or Link Monster you control into the Extra Deck. \
+    You can only Special Summon "{CARD_NAME}" once per turn this way. \
+If this card attacks, during damage calculation: \
+    You can Tribute 1 face-up "HERO" monster; \
+    this card gains ATK equal to the Tributed monster's ATK, until the End Phase. \
+During your Main Phase or your opponent's turn (Quick Effect): \
+    You can shuffle into the Deck, this card you control and 1 other "HERO" monster you control or in your hand, \
+    and if you do, Special Summon 1 Fusion monster from your Extra Deck, \
+    that mentions the other Tributed monster as material \
+    and must be Special Summoned with "Dark Fusion". \
+    (This is treated as a Fusion Summon with "Dark Fusion".) \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Tribute 1 \"HERO\" to gain ATK",
+    "Special Summon 1 \"Evil HERO\" Fusion monster from Extra Deck",
+]
+
+[evil-hero-aero-scout]
+id = 900002203
+set = "evil-hero"
+name = "Evil HERO Aero Scout"
+type = "monster effect"
+attribute = "wind"
+race = "fiend"
+level = 3
+atk = 1000
+def = 1000
+effect = """\
+(This card's name is also treated as "Elemental HERO Avian".)
+If this card is in your hand: \
+    You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}", \
+    and if you do, Special Summon this card from your hand. \
+    You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can switch the original ATK/DEF of all monsters your opponent currently controls. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
+]
+
+[evil-hero-blaster-minx]
+id = 900002204
+set = "evil-hero"
+name = "Evil HERO Blaster Minx"
+type = "monster effect"
+attribute = "fire"
+race = "fiend"
+level = 3
+atk = 1200
+def = 800
+effect = """\
+(This card's name is also treated as "Elemental HERO Burstinatrix".)
+You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}", and if you do, \
+    this card's Attribute, Level and ATK/DEF become the same as that monster, until the end of next turn. \
+    You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can make 1 Fiend monster you control gains 1000 ATK. \
+"""
+strings = [
+    "Send 1 \"Evil HERO\" to the GY to copy its Attribute, Level, ATK/DEF",
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
+]
