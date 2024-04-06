@@ -353,10 +353,13 @@ type = "trap continuous"
 effect = """\
 The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 While you control an original DIVINE monster, \
-    this card cannot be destroyed, or banished, by card effects, \
+    this card is unaffected by other cards' effects, \
     also your opponent cannot target this card with card effects. \
-Original DIVINE monster in your GY cannot be banished, \
-    also negate any your opponent's card effect that would move them. \
+Level/Rank 10 or higher monsters you control cannot be destroyed, or banished, by card effects, \
+    also your opponent cannot target them with card effects, \
+    and theirs effect activations and theirs card effects cannot be negated. \
+Your opponent cannot target or destroy Level/Rank 10 or higher monsters you control with card effects, \
+    also theirs effect activations and theirs card effects cannot be negated. \
 If this face-up card leaves the field, return all monster you control into the Deck, ignoring card effects. \
 You can only use the following effect of "{CARD_NAME}" once per turn. You can activate 1 of these effects;
 ● Special Summon 1 original Divine-Beast monster from your hand or GY, ignoring its Summoning conditions, \

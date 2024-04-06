@@ -5,8 +5,7 @@ type = "spell field"
 effect = """\
 The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 Summons of your "Palladium" monsters cannot be negated. \
-Your opponent cannot target or destroy Level/Rank 10 or higher monsters you control with card effects, \
-    also theirs effect activations and theirs card effects cannot be negated. \
+Negate any your opponent's card effect that would move a card in your GY to a different place. \
 The activation and effects of "The True Name" activated on your field cannot be negated. \
 During your Draw Phase, before you draw: You can give up your normal draw this turn, \
     and if you do, add 1 "The True Name" from your Deck or GY to your hand, \

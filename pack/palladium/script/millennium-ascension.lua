@@ -49,36 +49,13 @@ function s.initial_effect(c)
     e1c:SetCode(EFFECT_CANNOT_DISABLE_FLIP_SUMMON)
     c:RegisterEffect(e1c)
 
-    -- level/rank 10 or higher monster become immune
+    -- grave protect
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e2:SetCode(EVENT_CHAIN_SOLVING)
     e2:SetRange(LOCATION_FZONE)
-    e2:SetTargetRange(LOCATION_MZONE, 0)
-    e2:SetTarget(function(e, tc) return tc:IsLevelAbove(10) or tc:IsRankAbove(10) end)
-    e2:SetValue(function(e, re, tp) return tp ~= e:GetHandlerPlayer() end)
+    e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-    e2b:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e2b:SetValue(aux.tgoval)
-    c:RegisterEffect(e2b)
-    local e2c = e2:Clone()
-    e2c:SetCode(EFFECT_CANNOT_DISABLE)
-    c:RegisterEffect(e2c)
-    local e2d = Effect.CreateEffect(c)
-    e2d:SetType(EFFECT_TYPE_FIELD)
-    e2d:SetCode(EFFECT_CANNOT_INACTIVATE)
-    e2d:SetRange(LOCATION_FZONE)
-    e2d:SetValue(function(e, ct)
-        local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
-        local tc = te:GetHandler()
-        return tp == e:GetHandler():GetControler() and (loc & LOCATION_ONFIELD) ~= 0 and (tc:IsLevelAbove(10) or tc:IsRankAbove(10))
-    end)
-    c:RegisterEffect(e2d)
-    local e2e = e2d:Clone()
-    e2e:SetCode(EFFECT_CANNOT_DISEFFECT)
-    c:RegisterEffect(e2e)
 
     -- "the true name" inactivatable
     local e3 = Effect.CreateEffect(c)
@@ -122,6 +99,32 @@ function s.initial_effect(c)
     e6:SetRange(LOCATION_FZONE)
     e6:SetOperation(s.e6op)
     c:RegisterEffect(e6)
+end
+
+function s.e2filter(c, tp, re) return c:IsRelateToEffect(re) and c:IsControler(tp) and c:IsLocation(LOCATION_GRAVE) end
+
+function s.e2discheck(tp, ev, category, re)
+    local ex, tg, ct, p, v = Duel.GetOperationInfo(ev, category)
+    if tg and #tg > 0 then return tg:IsExists(s.e2filter, 1, nil, tp, re) end
+    return false
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    if rp == tp or not Duel.IsChainDisablable(ev) then return end
+
+    local res = false
+    if not res and s.e2discheck(tp, ev, CATEGORY_SPECIAL_SUMMON, re) then res = true end
+    if not res and s.e2discheck(tp, ev, CATEGORY_REMOVE, re) then res = true end
+    if not res and s.e2discheck(tp, ev, CATEGORY_TOHAND, re) then res = true end
+    if not res and s.e2discheck(tp, ev, CATEGORY_TODECK, re) then res = true end
+    if not res and s.e2discheck(tp, ev, CATEGORY_TOEXTRA, re) then res = true end
+    if not res and s.e2discheck(tp, ev, CATEGORY_EQUIP, re) then res = true end
+    if not res and s.e2discheck(tp, ev, CATEGORY_LEAVE_GRAVE, re) then res = true end
+
+    if res then
+        Utility.HintCard(e)
+        Duel.NegateEffect(ev)
+    end
 end
 
 function s.e3val(e, ct)
