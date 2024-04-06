@@ -1,0 +1,14 @@
+[supreme-king-dark-castle]
+id = 900002200
+set = "supreme-king"
+name = "Supreme King's Dark Castle"
+type = "spell field"
+effect = """
+You can only activate 1 "{CARD_NAME}" per turn. \
+When this card is activated: Add 1 "Polymerization" Spell Card or "Fusion" Spell Card from your Deck to your hand. \
+You can Fusion Summon Fusion Monsters that must be Special Summoned with "Dark Fusion", \
+    with effects other than "Dark Fusion". \
+The activation of your cards and effects that include an effect that Fusion Summons a Fusion Monster cannot be negated, \
+    also your opponent's cards and effects cannot activate when a monster is Fusion Summoned this way. \
+"""
+strings = ["Add 1 Fusion Spell?"]
