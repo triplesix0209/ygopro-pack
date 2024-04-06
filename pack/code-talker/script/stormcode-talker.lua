@@ -68,7 +68,7 @@ function s.e3filter1(c, e, tp)
 end
 
 function s.e3filter2(c, e, tp, mc)
-    return c:IsSetCard(SET_CODE_TALKER) and c:IsLink(3) and not c:IsCode(id) and not c:IsCode(mc:GetCode()) and
+    return c:IsSetCard(SET_CODE_TALKER) and c:IsLink(3) and not c:IsCode({id, mc:GetCode()}) and
                c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false) and Duel.GetLocationCountFromEx(tp, tp, mc, c) > 0
 end
 

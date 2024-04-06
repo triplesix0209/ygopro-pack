@@ -1,7 +1,7 @@
-[contact-space]
+[neo-space-city]
 id = 900002100
 alias = 42015635
-name = "Contact Space"
+name = "Neo Space City"
 type = "spell field"
 effect = """\
 (This card's name is always treated as "Neo Space".)
@@ -499,5 +499,5 @@ You can only use the following effect of "{CARD_NAME}" once per turn. You can ac
 """
 strings = [
     "Special Summon 1 \"Elemental HERO Neos\"",
-    "Search 1 \"Fusion\" Spell",
+    "Add 1 \"Wrath of Neos\" or \"Contact Out\"",
 ]

@@ -1,4 +1,4 @@
--- Contact Space
+-- Neo Space City
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
