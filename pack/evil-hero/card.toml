@@ -13,11 +13,11 @@ The activation of your cards and effects that include an effect that Fusion Summ
 """
 strings = ["Add 1 Fusion Spell?"]
 
-[supreme-king-of-spirit-world]
+[supreme-king-hero]
 id = 900002201
 rarity = "gold"
 set = "supreme-king hero"
-name = "The Supreme King of Spirit World"
+name = "The Supreme King HERO"
 type = "monster fusion effect"
 attribute = "dark"
 race = "warrior"
@@ -188,5 +188,96 @@ If this card is Normal or Special Summoned: \
 Unaffected by your opponent's Trap effects. \
 If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
     You can negate all your opponent's Trap effects on the field this turn. \
+"""
+strings = []
+
+[evil-hero-revenge-smog]
+id = 900002209
+set = "evil-hero"
+name = "Evil HERO Revenge Smog"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 4
+atk = 1800
+def = 300
+effect = """\
+If this card is Normal or Special Summoned: You can activate 1 of these effects.
+● Inflict 300 damage to your opponent for each "Evil HERO" monster in your GY.
+● Target 1 "Evil HERO" monster in your GY; add it to your hand or Special Summon it.
+(Quick Effect): You can banish this card from your field or GY; \
+    activate 1 "Supreme King" Field Spell directly from your hand, Deck or GY. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Inflict damage or Special summon",
+    "Inflict 300 damage to your opponent for each \"Evil HERO\"",
+    "Return or Special Summon 1 \"Evil HERO\" in GY",
+    "Activate Field Spell that mentions \"Dark Fusion\"",
+]
+
+[evil-hero-cursed-shadow]
+id = 900002210
+set = "evil-hero"
+name = "Evil HERO Cursed Shadow"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 4
+atk = 1300
+def = 1500
+effect = """\
+If this card is Normal Summoned: You can declare 1 Monster Type, \
+    then Special Summon 1 "Evil Token" (Fiend/DARK/Level 7/ATK 2500/DEF 2500) in Defense Position. \
+    The Token's Type become the declared Type when it is Summoned. \
+    You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
+If this card is sent to the GY, or banished: \
+    You can add 1 "Evil HERO" monster from your Deck to your hand, except "{CARD_NAME}". \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = [
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
+]
+
+[evil-hero-infernal-executor]
+id = 900002211
+set = "evil-hero"
+name = "Evil HERO Infernal Executor"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 4
+atk = 1700
+def = 1100
+effect = """\
+If this card is in your hand or GY: \
+    You can banish 1 "Evil HERO" monster from your field or GY, except "{CARD_NAME}", \
+    and if you do, Special Summon this card. \
+If this card is Special Summoned: \
+    You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}"; \
+    this card's name becomes the sent monster's name and gains ATK equal to the Level of that monster x 100. \
+    also your opponent sends cards from the top of their Deck to the GY equal to the Level of that monster. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[evil-hero-infernal-scepter]
+id = 900002212
+set = "evil-hero"
+name = "Evil HERO Infernal Scepter"
+type = "monster effect"
+attribute = "dark"
+race = "fiend"
+level = 3
+atk = 800
+def = 1200
+effect = """\
+(Quick Effect): You can discard this card, then target 1 "Evil HERO" monster on the field; \
+    it gains ATK equal to its Level x 200 until the end of this turn. \
+If this card is sent to the GY, or banished: \
+    You can target 1 "Dark Fusion", or 1 card that mentions it, \
+    in your GY, except "{CARD_NAME}"; \
+    add it to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = []

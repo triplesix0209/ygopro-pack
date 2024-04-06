@@ -1,4 +1,4 @@
--- The Supreme King of Spirit World
+-- The Supreme King HERO
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

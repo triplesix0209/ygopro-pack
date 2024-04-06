@@ -87,7 +87,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not tc:IsRelateToEffect(e) then return end
     aux.ToHandOrElse(tc, tp,
         function() return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false) end,
-        function() Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) end, aux.Stringid(id, 3))
+        function() Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) end, 2)
 end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp)
