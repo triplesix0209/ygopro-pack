@@ -180,12 +180,12 @@ function s.e5filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
 function s.e5con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsTurnPlayer(tp) end
 
 function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_DECK, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
 end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter, tp, LOCATION_DECK, 0, 1, 1, nil)
+    local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil)
     if #g > 0 then Duel.Overlay(c, g) end
 end
 
