@@ -2,8 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_NEOS}
-s.listed_series = {SET_FUSION}
+s.listed_names = {CARD_NEOS, 52098461, 69270537}
 
 function s.initial_effect(c)
     -- activate
@@ -46,7 +45,7 @@ function s.initial_effect(c)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- search "fusion" spell
+    -- search
     local e4 = Effect.CreateEffect(c)
     e4:SetDescription(aux.Stringid(id, 1))
     e4:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
@@ -95,13 +94,10 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 
-function s.e4filter(c, tp)
-    return c:IsSetCard(SET_FUSION) and (c:IsNormalSpell() or c:IsQuickPlaySpell()) and c:IsAbleToHand() and
-               not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, c:GetCode()), tp, LOCATION_GRAVE, 0, 1, nil)
-end
+function s.e4filter(c) return c:IsCode({52098461, 69270537}) and c:IsAbleToHand() end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK, 0, 1, nil, tp) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK, 0, 1, nil) end
 
     Duel.Hint(HINT_OPSELECTED, 1 - tp, e:GetDescription())
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
@@ -110,7 +106,7 @@ end
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if not e:GetHandler():IsRelateToEffect(e) then return end
 
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter, tp, LOCATION_DECK, 0, 1, 1, nil, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter, tp, LOCATION_DECK, 0, 1, 1, nil)
     if #g > 0 then
         Duel.SendtoHand(g, nil, REASON_EFFECT)
         Duel.ConfirmCards(1 - tp, g)

@@ -495,8 +495,7 @@ effect = """\
 If this face-up card leaves the field: Shuffle all monsters you control into the Deck. \
 You can only use the following effect of "{CARD_NAME}" once per turn. You can activate 1 of these effects;
 ● Special Summon 1 "Elemental HERO Neos" from your hand or GY.
-● Add 1 "Fusion" or "Polymerization" Normal or Quick-Play Spell from your Deck to your hand, \
-    with a different name from the cards in your GY. \
+● Add 1 "Wrath of Neos" or "Contact Out" from your Deck to your hand. \
 """
 strings = [
     "Special Summon 1 \"Elemental HERO Neos\"",
