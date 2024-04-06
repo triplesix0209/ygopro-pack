@@ -34,14 +34,28 @@ function s.initial_effect(c)
     nodis:SetCode(EFFECT_CANNOT_DISABLE)
     c:RegisterEffect(nodis)
 
-    -- cannot be target
+    -- immune
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
     e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e1:SetRange(LOCATION_SZONE)
-    e1:SetValue(aux.tgoval)
+    e1:SetCondition(s.e1con)
+    e1:SetValue(1)
     c:RegisterEffect(e1)
+    local e1b = Effect.CreateEffect(c)
+    e1b:SetType(EFFECT_TYPE_FIELD)
+    e1b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e1b:SetCode(EFFECT_CANNOT_REMOVE)
+    e1b:SetRange(LOCATION_SZONE)
+    e1b:SetTargetRange(1, 1)
+    e1b:SetCondition(s.e1con)
+    e1b:SetTarget(function(e, c, tp, r) return c == e:GetHandler() and r == REASON_EFFECT end)
+    c:RegisterEffect(e1b)
+    local e1c = e1:Clone()
+    e1c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e1c:SetValue(aux.tgoval)
+    c:RegisterEffect(e1c)
 
     -- grave protect
     local e2 = Effect.CreateEffect(c)
@@ -108,6 +122,10 @@ function s.initial_effect(c)
     e6:SetOperation(s.e6op)
     c:RegisterEffect(e6)
 end
+
+function s.e1filter(c) return c:IsFaceup() and c:IsOriginalAttribute(ATTRIBUTE_DIVINE) end
+
+function s.e1con(e) return Duel.IsExistingMatchingCard(s.e1filter, e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, nil) end
 
 function s.e2filter(c, tp, re)
     return c:IsRelateToEffect(re) and c:IsControler(tp) and c:IsLocation(LOCATION_GRAVE) and c:IsOriginalAttribute(ATTRIBUTE_DIVINE)
