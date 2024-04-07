@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_DARK_FUSION}
+s.listed_names = {CARD_DARK_FUSION, 58554959}
 s.listed_series = {SET_HERO}
 s.material_setcode = {SET_HERO, SET_EVIL_HERO}
 s.dark_calling = true
@@ -11,8 +11,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, true, true, function(c, sc, st, tp) return c:IsSetCard(SET_EVIL_HERO, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end,
-        aux.FilterBoolFunctionEx(Card.IsRace, RACE_FIEND))
+    Fusion.AddProcMix(c, true, true, 22160245, aux.FilterBoolFunctionEx(Card.IsSetCard, SET_EVIL_HERO))
 
     -- lizard check
     local lizcheck = Effect.CreateEffect(c)

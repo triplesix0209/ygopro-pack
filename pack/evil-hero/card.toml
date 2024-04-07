@@ -403,7 +403,7 @@ level = 8
 atk = 2500
 def = 2100
 effect = """\
-1 "Evil HERO" Fusion Monster + 1 Fiend monster
+"Evil HERO Inferno Wing" + 1 "Evil HERO" monster
 Must be Special Summoned with "Dark Fusion". \
 Gains 300 ATK for each "HERO" card in your GY. \
 Once per turn, at the start of the damage Step, if this card battles an opponent's monster: \
@@ -428,7 +428,7 @@ level = 8
 atk = 3200
 def = 0
 effect = """\
-1 "Evil HERO" monster + 1+ monsters that were Special Summoned from the Extra Deck
+1 "Evil HERO" Fusion Monster + 1+ monsters that were Special Summoned from the Extra Deck
 Must be Special Summoned with "Dark Fusion". \
 Gains 200 ATK x the number of Fusion Materials used for this card's Fusion Summon. \
 Once per turn, during the End Phase: You can activate 1 of these effects, \

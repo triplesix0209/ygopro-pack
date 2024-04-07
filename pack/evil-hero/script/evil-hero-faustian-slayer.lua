@@ -12,7 +12,7 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMixRep(c, true, true, aux.FilterBoolFunctionEx(Card.IsSummonLocation, LOCATION_EXTRA), 1, 99,
-        aux.FilterBoolFunctionEx(Card.IsSetCard, SET_EVIL_HERO))
+        function(c, sc, st, tp) return c:IsSetCard(SET_EVIL_HERO, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end)
 
     -- lizard check
     local lizcheck = Effect.CreateEffect(c)
