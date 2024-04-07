@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_EVIL_HERO}
+s.listed_series = {SET_HERO, SET_EVIL_HERO}
 
 function s.initial_effect(c)
     -- add name
@@ -58,7 +58,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
     ec1:SetTargetRange(1, 0)
-    ec1:SetTarget(function(e, tc, sump, st, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsSetCard(0x8) end)
+    ec1:SetTarget(function(e, tc, sump, st, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsSetCard(SET_HERO) end)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
 

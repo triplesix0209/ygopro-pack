@@ -3,6 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_DARK_FUSION}
+s.listed_series = {SET_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -60,20 +61,21 @@ end
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = e:GetLabelObject()
-    if not tc:IsRelateToEffect(e) or Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) == 0 then return end
-
-    local te = tc:CheckActivateEffect(true, true, false)
-    local op = te:GetOperation()
-    if op then op(e, tp, eg, ep, ev, re, r, rp) end
 
     local ec1 = Effect.CreateEffect(c)
     ec1:SetDescription(aux.Stringid(id, 0))
     ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
     ec1:SetTargetRange(1, 0)
+    ec1:SetTarget(function(e, tc, sump, st, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsSetCard(SET_HERO) end)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
+
+    if not tc:IsRelateToEffect(e) or Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) == 0 then return end
+    local te = tc:CheckActivateEffect(true, true, false)
+    local op = te:GetOperation()
+    if op then op(e, tp, eg, ep, ev, re, r, rp) end
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
