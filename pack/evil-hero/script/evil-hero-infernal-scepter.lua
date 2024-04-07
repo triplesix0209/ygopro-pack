@@ -6,9 +6,9 @@ s.listed_names = {CARD_DARK_FUSION}
 s.listed_series = {SET_EVIL_HERO}
 
 function s.initial_effect(c)
-    -- atk up
+    -- atk/def up
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_ATKCHANGE)
+    e1:SetCategory(CATEGORY_ATKCHANGE + CATEGORY_DEFCHANGE)
     e1:SetType(EFFECT_TYPE_QUICK_O)
     e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DAMAGE_STEP)
     e1:SetCode(EVENT_FREE_CHAIN)
@@ -63,6 +63,9 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, chk)
         ec1:SetValue(tc:GetLevel() * 200)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         tc:RegisterEffect(ec1)
+        local ec1b = ec1:Clone()
+        ec1b:SetCode(EFFECT_UPDATE_DEFENSE)
+        tc:RegisterEffect(ec1b)
     end
 end
 

@@ -281,7 +281,7 @@ atk = 800
 def = 1200
 effect = """\
 (Quick Effect): You can discard this card, then target 1 "Evil HERO" monster on the field; \
-    it gains ATK equal to its Level x 200 until the end of this turn. \
+    it gains ATK/DEF equal to its Level x 200 until the end of this turn. \
 If this card is sent to the GY, or banished: \
     You can target 1 "Dark Fusion", or 1 card that mentions it, \
     in your GY, except "{CARD_NAME}"; \
