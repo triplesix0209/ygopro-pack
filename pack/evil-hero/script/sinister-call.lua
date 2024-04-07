@@ -2,6 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
+s.listed_names = {CARD_DARK_FUSION}
 s.listed_series = {SET_EVIL_HERO}
 
 function s.initial_effect(c)
@@ -59,7 +60,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end, 2)
 end
 
-function s.e2filter1(c) return c:IsFaceup() and c:IsSetCard(SET_EVIL_HERO) end
+function s.e2filter1(c) return c:IsFaceup() and c.dark_calling end
 
 function s.e2filter2(c) return c:IsSpellTrap() end
 

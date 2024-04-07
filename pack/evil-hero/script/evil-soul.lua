@@ -59,8 +59,7 @@ end
 
 function s.e2filter(c, tp)
     return c:IsFaceup() and c:IsLocation(LOCATION_MZONE) and c:IsControler(tp) and not c:IsReason(REASON_REPLACE) and
-               (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer() == 1 - tp)) and
-               (c:IsSetCard(SET_EVIL_HERO) or c.dark_calling)
+               (c:IsReason(REASON_BATTLE) or (c:IsReason(REASON_EFFECT) and c:GetReasonPlayer() == 1 - tp)) and c.dark_calling
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
