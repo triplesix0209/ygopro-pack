@@ -22,8 +22,8 @@ type = "monster fusion effect"
 attribute = "dark"
 race = "warrior"
 level = 10
-atk = 2500
-def = 2000
+atk = "?"
+def = "?"
 effect = """\
 """
 strings = []
