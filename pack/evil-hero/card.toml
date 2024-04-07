@@ -25,6 +25,8 @@ level = 10
 atk = "?"
 def = "?"
 effect = """\
+1 "HERO" monster + 1+ Effect Monsters on the field
+Must be Special Summoned with "Super Polymerization".
 """
 strings = []
 
