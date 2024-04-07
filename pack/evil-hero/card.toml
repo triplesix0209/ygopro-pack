@@ -81,9 +81,9 @@ If this card is in your hand: \
     You can send 1 "Evil HERO" monster from your Deck to the GY, except "{CARD_NAME}", \
     and if you do, Special Summon this card from your hand. \
     You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
     You can switch the original ATK/DEF of all monsters your opponent currently controls. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
@@ -104,9 +104,9 @@ effect = """\
 You can send 1 "Evil HERO" monster from your hand or Deck to the GY, except "{CARD_NAME}", and if you do, \
     this card's Attribute, Level and ATK/DEF become the same as that monster, until the end of next turn. \
     You cannot Special Summon monsters from the Extra Deck, except "HERO" monsters, the turn you activate this effect. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
 If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
     You can make 1 Fiend monster you control gains 1000 ATK. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Send 1 \"Evil HERO\" to the GY to copy its Attribute, Level, ATK/DEF",
