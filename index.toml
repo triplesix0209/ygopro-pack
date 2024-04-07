@@ -1,6 +1,7 @@
 set_name = "triplesix"
 setcodes = ["./setcode.toml"]
-pic_field_path = "D:/Games/EdoPro/pics/field"
+# pic_field_path = "D:/Games/EdoPro/pics/field"
+pic_field_path = "C:/ProjectIgnis/pics/field"
 
 packs = [
     "./pack/_update",
