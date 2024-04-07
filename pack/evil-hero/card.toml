@@ -469,3 +469,17 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = [
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
 ]
+
+[darkness-fusion]
+id = 900002221
+alias = 94820406
+name = "Darkness Fusion"
+type = "spell"
+effect = """
+(This card's name is always treated as "Dark Fusion".)
+Fusion Summon 1 Fiend Fusion Monster from your Extra Deck, \
+    using monsters from your hand or field as Fusion Material. \
+    If you control a "Supreme King" card, you can use 1 "Evil HERO" monster from your Deck as material. \
+    Your opponent cannot target the Summoned monster with card effects until the end of next turn. \
+"""
+strings = []
