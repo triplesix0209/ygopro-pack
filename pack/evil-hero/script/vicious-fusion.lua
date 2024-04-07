@@ -3,34 +3,26 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_DARK_FUSION}
-s.listed_series = {0xf8}
 
 function s.initial_effect(c)
     -- fusion summon
     local e1 = Fusion.CreateSummonEff {
         handler = c,
         fusfilter = function(c) return c.dark_calling end,
-        matfilter = Fusion.InHandMat(Card.IsAbleToRemove),
-        extrafil = function(e, tp)
-            local g = Duel.GetMatchingGroup(Fusion.IsMonsterFilter(Card.IsAbleToRemove), tp, LOCATION_MZONE + LOCATION_GRAVE, 0, nil)
-            if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0xf8), tp, LOCATION_ONFIELD, 0, 1, nil) then
-                g:Merge(Duel.GetMatchingGroup(Fusion.IsMonsterFilter(Card.IsAbleToRemove), tp, LOCATION_DECK, 0, nil))
-                local check = function(tp, sg, fc) return sg:FilterCount(Card.IsLocation, nil, LOCATION_DECK) <= 1 end
-                return g, check
+        matfilter = Fusion.OnFieldMat(Card.IsAbleToRemove),
+        extrafil = function(e, tp, mg)
+            if not Duel.IsPlayerAffectedByEffect(tp, 69832741) then
+                return Duel.GetMatchingGroup(Fusion.IsMonsterFilter(Card.IsAbleToRemove), tp, LOCATION_GRAVE, 0, nil)
             end
-            return g
+            return nil
         end,
         extraop = Fusion.BanishMaterial,
         extratg = function(e, tp, eg, ep, ev, re, r, rp, chk)
             if chk == 0 then return true end
-            local loc = LOCATION_MZONE + LOCATION_GRAVE
-            if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0xf8), tp, LOCATION_ONFIELD, 0, 1, nil) then
-                loc = loc + LOCATION_DECK
-            end
-
-            Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, loc)
+            Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_MZONE + LOCATION_GRAVE)
         end,
         chkf = FUSPROC_NOLIMIT
     }
     c:RegisterEffect(e1)
 end
+

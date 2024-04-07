@@ -477,9 +477,9 @@ name = "Darkness Fusion"
 type = "spell"
 effect = """
 (This card's name is always treated as "Dark Fusion".)
-Fusion Summon 1 Fiend Fusion Monster from your Extra Deck, \
+Fusion Summon 1 Fusion Monster from your Extra Deck, \
     using monsters from your hand or field as Fusion Material. \
-    If you control a "Supreme King" card, you can use 1 "HERO" monster from your Deck as material. \
+    If you control a "Supreme King" card, you can use 1 monster from your Deck as material. \
     Your opponent cannot target the Summoned monster with card effects until the end of next turn. \
 """
 strings = []
@@ -494,6 +494,5 @@ Fusion Summon 1 Fusion Monster from your Extra Deck, \
     that must be Special Summoned with "Dark Fusion", \
     by banishing the Fusion Materials mentioned on it from your field or GY. \
     (This is treated as a Fusion Summon with "Dark Fusion".) \
-    If you control a "Supreme King" card, you can use 1 monster from your Deck as material. \
 """
 strings = []
