@@ -520,7 +520,7 @@ Target 1 "Evil HERO" monster or 1 monster that must be Special Summoned with "Da
     Special Summon it, ignoring its Summoning conditions, \
     but it cannot attack directly this turn. \
     You can only activate 1 "{CARD_NAME}" per turn. \
-If a monster(s) that must be Special Summoned with "Dark Fusion" you control \
+If a Fusion Monster(s) that must be Special Summoned with "Dark Fusion" you control \
     would be destroyed by battle or card effect, \
     you can banish this card from your GY instead. \
 """
@@ -535,7 +535,7 @@ Add 1 "Evil HERO" monster from your Deck to your hand, \
     if you control no face-up monster, you can Special Summon it instead. \
     If you Special Summoned a Level 5 or higher monster by this effect, halve your LP. \
 You can banish this card from your GY: \
-    Destroy Spell/Trap Cards up to the number of monsters \
+    Destroy Spell/Trap Cards up to the number of Fusion Monsters \
     that must be Special Summoned with "Dark Fusion"you control, \
 You can only use each effect of "{CARD_NAME}" once per turn. \
 """
@@ -551,7 +551,7 @@ When your opponent activates a Spell/Trap Card, or monster effect: \
     negate the activation, and if you do, banish that card. \
 During your Main Phase, except the turn this card was sent to the GY: \
     You can banish this card from your GY, \
-    then target 1 monster that must be Special Summoned with "Dark Fusion" you control; \
+    then target 1 Fusion Monster that must be Special Summoned with "Dark Fusion" you control; \
     Destroy as many monsters your opponent controls as possible, with ATK higher than that monster's, \
     then inflict damage to your opponent equal to the highest original ATK among those destroyed monsters. \
     (your choice, if tied). \

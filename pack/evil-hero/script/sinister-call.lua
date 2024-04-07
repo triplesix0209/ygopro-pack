@@ -60,7 +60,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end, 2)
 end
 
-function s.e2filter1(c) return c:IsFaceup() and c.dark_calling end
+function s.e2filter1(c) return c:IsFaceup() and c:IsType(TYPE_FUSION) and c.dark_calling end
 
 function s.e2filter2(c) return c:IsSpellTrap() end
 

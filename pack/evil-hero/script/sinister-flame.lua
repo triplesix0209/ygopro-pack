@@ -68,7 +68,9 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Remove(eg, POS_FACEUP, REASON_EFFECT) end
 end
 
-function s.e2filter1(c, tp) return c:IsFaceup() and c.dark_calling and Duel.IsExistingMatchingCard(s.e2filter2, tp, 0, LOCATION_MZONE, 1, nil, c) end
+function s.e2filter1(c, tp)
+    return c:IsFaceup() and c:IsType(TYPE_FUSION) and c.dark_calling and Duel.IsExistingMatchingCard(s.e2filter2, tp, 0, LOCATION_MZONE, 1, nil, c)
+end
 
 function s.e2filter2(c, sc) return c:IsFaceup() and c:GetAttack() > sc:GetAttack() end
 
