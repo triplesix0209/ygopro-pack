@@ -461,6 +461,8 @@ If this card is Link Summoned: \
     You can target 1 "Dark Fusion" or 1 Spell/Trap that mentions it in your GY; \
     banish it, and if you do, apply that target's effect, \
     also, you cannot Special Summon monsters for the rest of this turn. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
+    You can draw 1 card. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Affected by effect \"{CARD_NAME}\": Cannot Special Summon monsters"]

@@ -21,6 +21,17 @@ function s.initial_effect(c)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
+
+    -- draw
+    local e2 = Effect.CreateEffect(c)
+    e2:SetCategory(CATEGORY_DRAW)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2:SetProperty(EFFECT_FLAG_DELAY)
+    e2:SetCode(EVENT_BE_MATERIAL)
+    e2:SetCondition(s.e2con)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
+    c:RegisterEffect(e2)
 end
 
 function s.e1filter(c)
@@ -62,4 +73,21 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     ec1:SetTargetRange(1, 0)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
+end
+
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    return (r & REASON_FUSION) == REASON_FUSION and c:IsLocation(LOCATION_GRAVE + LOCATION_REMOVED) and c:IsFaceup()
+end
+
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsPlayerCanDraw(tp, 1) end
+    Duel.SetTargetPlayer(tp)
+    Duel.SetTargetParam(1)
+    Duel.SetOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, 1)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp, chk)
+    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
+    Duel.Draw(p, d, REASON_EFFECT)
 end
