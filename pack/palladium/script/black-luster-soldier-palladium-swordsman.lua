@@ -9,7 +9,7 @@ function s.initial_effect(c)
 
     -- synchro summon
     Synchro.AddProcedure(c, nil, 1, 1, Synchro.NonTunerEx(Card.IsAttribute, ATTRIBUTE_LIGHT + ATTRIBUTE_DARK), 1, 99,
-        function(c, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK, sc, sumtype, tp) end)
+        function(c, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT + ATTRIBUTE_DARK, sc, st, tp) end)
 
     -- register if a card is removed
     aux.GlobalCheck(s, function()

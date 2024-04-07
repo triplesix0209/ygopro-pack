@@ -116,7 +116,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e5)
 end
 
-function s.xyzfilter(c, xyz, sumtype, tp) return c:IsLevelAbove(8) end
+function s.xyzfilter(c, xyz, st, tp) return c:IsLevelAbove(8) end
 
 function s.xyzcheck(g, tp, xyz)
     return g:GetClassCount(Card.GetLevel) == 1 and g:GetClassCount(Card.GetAttribute) == #g and g:GetClassCount(Card.GetRace) == #g

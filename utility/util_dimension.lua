@@ -95,7 +95,7 @@ function Dimension.CanBeDimensionChanged(c) return c:GetLocation() == 0 end
 function Dimension.Change(mc, sc, mg, change_player, target_player, pos)
     if change_player == nil then change_player = mc:GetControler() end
     if target_player == nil then target_player = mc:GetControler() end
-    local sumtype = mc:GetSummonType()
+    local st = mc:GetSummonType()
     local sumloc = mc:GetSummonLocation()
     local seq = target_player == mc:GetControler() and mc:GetSequence() or nil
     if pos == nil then pos = mc:IsAttackPos() and POS_FACEUP_ATTACK or POS_FACEUP_DEFENSE end
@@ -109,7 +109,7 @@ function Dimension.Change(mc, sc, mg, change_player, target_player, pos)
     Dimension.SendToDimension(mc, REASON_RULE)
     Dimension.ZonesRemoveCard(sc)
     Duel.MoveToField(sc, change_player, target_player, LOCATION_MZONE, pos, true, seq and 1 << seq or nil)
-    Debug.PreSummon(sc, sumtype, sumloc)
+    Debug.PreSummon(sc, st, sumloc)
     local ec1 = Effect.CreateEffect(sc)
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetCode(EFFECT_SET_CONTROL)

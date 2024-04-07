@@ -10,8 +10,8 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMix(c, false, false, 71703785, function(c, fc, sumtype, tp)
-        return c:IsType(TYPE_RITUAL, fc, sumtype, tp) and (c:IsSetCard(SET_CHAOS, fc, sumtype, tp) or c:IsSetCard(0x1048, fc, sumtype, tp))
+    Fusion.AddProcMix(c, false, false, 71703785, function(c, fc, st, tp)
+        return c:IsType(TYPE_RITUAL, fc, st, tp) and (c:IsSetCard(SET_CHAOS, fc, st, tp) or c:IsSetCard(0x1048, fc, st, tp))
     end)
 
     -- special summon limit

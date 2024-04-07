@@ -61,7 +61,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_DARK, fc, sumtype, tp) and c:IsType(TYPE_PENDULUM, fc, sumtype, tp) end
+function s.fusfilter(c, fc, st, tp) return c:IsAttribute(ATTRIBUTE_DARK, fc, st, tp) and c:IsType(TYPE_PENDULUM, fc, st, tp) end
 
 function s.contactgroup(tp) return Duel.GetReleaseGroup(tp) end
 

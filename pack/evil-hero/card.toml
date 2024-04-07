@@ -26,7 +26,12 @@ atk = "?"
 def = "?"
 effect = """\
 1 "HERO" monster + 1+ Effect Monsters on the field
-Must be Special Summoned with "Super Polymerization".
+Must be Fusion Summoned with the above materials by using "Super Polymerization". \
+This card's Fusion Summon cannot be negated. \
+You can only control 1 "{CARD_NAME}". \
+Your opponent cannot Tribute it, or use it as material for an Summon. \
+Its control cannot switch. \
+The above effects cannot be negated or be copied. \
 """
 strings = []
 

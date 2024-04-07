@@ -120,12 +120,12 @@ function s.initial_effect(c)
     c:RegisterEffect(me7)
 end
 
-function s.lnkmatfilter(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
+function s.lnkmatfilter(c, sc, st, tp) return c:IsRace(RACE_DRAGON, sc, st, tp) end
 
-function s.lnkcheckfilter(c, sc, sumtype, tp) return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
+function s.lnkcheckfilter(c, sc, st, tp) return c:IsSetCard(SET_ODD_EYES, sc, st, tp) and c:IsType(TYPE_PENDULUM, sc, st, tp) end
 
-function s.lnkcheck(g, sc, sumtype, tp)
-    if not g:IsExists(s.lnkcheckfilter, 1, nil, sc, sumtype, tp) then return false end
+function s.lnkcheck(g, sc, st, tp)
+    if not g:IsExists(s.lnkcheckfilter, 1, nil, sc, st, tp) then return false end
 
     local ritual = 0
     local fusion = 0

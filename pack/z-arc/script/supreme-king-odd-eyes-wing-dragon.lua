@@ -11,10 +11,10 @@ function s.initial_effect(c)
     Pendulum.AddProcedure(c, false)
 
     -- synchro summon
-    Synchro.AddProcedure(c, function(c, sc, sumtype, tp)
-        return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
+    Synchro.AddProcedure(c, function(c, sc, st, tp)
+        return c:IsSetCard(SET_ODD_EYES, sc, st, tp) and c:IsRace(RACE_DRAGON, sc, st, tp) and c:IsType(TYPE_PENDULUM, sc, st, tp)
     end, 1, 1, Synchro.NonTunerEx(
-        function(c, sc, sumtype, tp) return c:IsSetCard(SET_CLEAR_WING, sc, sumtype, tp) and c:IsType(TYPE_SYNCHRO, sc, sumtype, tp) end), 1, 1)
+        function(c, sc, st, tp) return c:IsSetCard(SET_CLEAR_WING, sc, st, tp) and c:IsType(TYPE_SYNCHRO, sc, st, tp) end), 1, 1)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

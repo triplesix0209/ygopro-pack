@@ -9,7 +9,7 @@ function s.initial_effect(c)
 
     -- link summon
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 2, 99,
-        function(g, sc, sumtype, tp) return g:IsExists(Card.IsType, 1, nil, TYPE_LINK, sc, sumtype, tp) end)
+        function(g, sc, st, tp) return g:IsExists(Card.IsType, 1, nil, TYPE_LINK, sc, st, tp) end)
 
     -- banish & gain effects
     local e1reg = Effect.CreateEffect(c)

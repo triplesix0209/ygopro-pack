@@ -73,7 +73,7 @@ function s.initial_effect(c)
     c:RegisterEffect(effmatcheck)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(8) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end
+function s.fusfilter(c, fc, st, tp) return c:IsLevelAbove(8) and c:IsRace(RACE_DRAGON, fc, st, tp) end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()

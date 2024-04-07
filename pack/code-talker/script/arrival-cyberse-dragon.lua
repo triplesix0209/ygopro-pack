@@ -7,8 +7,8 @@ function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
 
     -- link summon
-    Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_CYBERSE, sc, sumtype, tp) and c:IsType(TYPE_LINK, sc, sumtype, tp) end, 3,
-        99, function(g, sc, sumtype, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, sumtype, tp) end)
+    Link.AddProcedure(c, function(c, sc, st, tp) return c:IsRace(RACE_CYBERSE, sc, st, tp) and c:IsType(TYPE_LINK, sc, st, tp) end, 3,
+        99, function(g, sc, st, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, st, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

@@ -11,8 +11,8 @@ function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
 
     -- fusion summon
-    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, function(c, fc, sumtype, tp)
-        return c:IsLevel(7) and c:IsType(TYPE_NORMAL, fc, sumtype, tp) and c:IsSetCard(SET_NEOS, fc, sumtype, tp)
+    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, function(c, fc, st, tp)
+        return c:IsLevel(7) and c:IsType(TYPE_NORMAL, fc, st, tp) and c:IsSetCard(SET_NEOS, fc, st, tp)
     end)
 
     -- special summon limit
@@ -93,11 +93,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.fusfilter(c, fc, sumtype, tp, sub, mg, sg)
-    return c:IsSetCard(SET_NEO_SPACIAN, fc, sumtype, tp) and c:GetAttribute(fc, sumtype, tp) ~= 0 and
-               (not sg or not sg:IsExists(function(c, attr, fc, sumtype, tp)
-            return c:IsSetCard(SET_NEO_SPACIAN, fc, sumtype, tp) and c:IsAttribute(attr, fc, sumtype, tp) and not c:IsHasEffect(511002961)
-        end, 1, c, c:GetAttribute(fc, sumtype, tp), fc, sumtype, tp))
+function s.fusfilter(c, fc, st, tp, sub, mg, sg)
+    return c:IsSetCard(SET_NEO_SPACIAN, fc, st, tp) and c:GetAttribute(fc, st, tp) ~= 0 and
+               (not sg or not sg:IsExists(function(c, attr, fc, st, tp)
+            return c:IsSetCard(SET_NEO_SPACIAN, fc, st, tp) and c:IsAttribute(attr, fc, st, tp) and not c:IsHasEffect(511002961)
+        end, 1, c, c:GetAttribute(fc, st, tp), fc, st, tp))
 end
 
 function s.matcheck(e, c)

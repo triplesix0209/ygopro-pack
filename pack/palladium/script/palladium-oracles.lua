@@ -72,7 +72,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return (c:IsLevel(6) or c:IsLevel(7)) and c:IsRace(RACE_SPELLCASTER, fc, sumtype, tp) end
+function s.fusfilter(c, fc, st, tp) return (c:IsLevel(6) or c:IsLevel(7)) and c:IsRace(RACE_SPELLCASTER, fc, st, tp) end
 
 function s.e3con(e, tp, eg, ep, ev, re, r, rp) return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) end
 

@@ -7,7 +7,7 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMix(c, true, true, aux.FilterBoolFunctionEx(Card.IsRace, RACE_AQUA),
-        function(c, fc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_WATER, fc, sumtype, tp) and c:GetLevel() == 10 end)
+        function(c, fc, st, tp) return c:IsAttribute(ATTRIBUTE_WATER, fc, st, tp) and c:GetLevel() == 10 end)
 
     -- special summon
     local sp = Effect.CreateEffect(c)

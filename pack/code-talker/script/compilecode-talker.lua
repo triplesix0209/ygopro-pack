@@ -7,7 +7,7 @@ function s.initial_effect(c)
 
     -- link summon
     Link.AddProcedure(c, aux.NOT(aux.FilterBoolFunctionEx(Card.IsType, TYPE_TOKEN)), 2, 99,
-        function(g, sc, sumtype, tp) return g:CheckDifferentProperty(Card.GetCode, sc, sumtype, tp) end)
+        function(g, sc, st, tp) return g:CheckDifferentProperty(Card.GetCode, sc, st, tp) end)
 
     -- you take no effect damage
     local e1 = Effect.CreateEffect(c)

@@ -133,7 +133,7 @@ function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
     ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
     ec1:SetTargetRange(1, 0)
     ec1:SetLabelObject(e)
-    ec1:SetTarget(function(e, c, sump, sumtype, sumpos, targetp, se) return se ~= e:GetLabelObject() end)
+    ec1:SetTarget(function(e, c, sump, st, sumpos, targetp, se) return se ~= e:GetLabelObject() end)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
 end

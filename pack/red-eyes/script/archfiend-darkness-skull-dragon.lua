@@ -52,11 +52,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e3matcheck)
 end
 
-function s.fusfilter1(c, fc, sumtype, tp) return c:IsSetCard(SET_RED_EYES, fc, sumtype, tp) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) end
+function s.fusfilter1(c, fc, st, tp) return c:IsSetCard(SET_RED_EYES, fc, st, tp) and c:IsRace(RACE_DRAGON, fc, st, tp) end
 
-function s.fusfilter2(c, fc, sumtype, tp)
-    return c:IsLevelAbove(8) and c:IsAttribute(ATTRIBUTE_DARK, fc, sumtype, tp) and c:IsRace(RACE_DRAGON, fc, sumtype, tp) and
-               c:IsType(TYPE_FUSION, fc, sumtype, tp)
+function s.fusfilter2(c, fc, st, tp)
+    return c:IsLevelAbove(8) and c:IsAttribute(ATTRIBUTE_DARK, fc, st, tp) and c:IsRace(RACE_DRAGON, fc, st, tp) and
+               c:IsType(TYPE_FUSION, fc, st, tp)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end

@@ -10,7 +10,7 @@ function s.initial_effect(c)
 
     -- synchro summon
     Synchro.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsType, TYPE_RITUAL), 1, 1, nil, 1, 99,
-        function(c, sc, sumtype, tp) return c:IsSummonType(SUMMON_TYPE_RITUAL) end)
+        function(c, sc, st, tp) return c:IsSummonType(SUMMON_TYPE_RITUAL) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

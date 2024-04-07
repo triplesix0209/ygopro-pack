@@ -65,10 +65,10 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.fusfilter(c, fc, sumtype, tp, sub, mg, sg)
+function s.fusfilter(c, fc, st, tp, sub, mg, sg)
     return (not sg or
-               not sg:IsExists(function(c, code, fc, sumtype, tp) return c:IsSummonCode(fc, sumtype, tp, code) and not c:IsHasEffect(511002961) end,
-            1, c, c:GetCode(fc, sumtype, tp), fc, sumtype, tp)) and c:IsRace(RACE_WARRIOR, fc, sumtype, tp)
+               not sg:IsExists(function(c, code, fc, st, tp) return c:IsSummonCode(fc, st, tp, code) and not c:IsHasEffect(511002961) end,
+            1, c, c:GetCode(fc, st, tp), fc, st, tp)) and c:IsRace(RACE_WARRIOR, fc, st, tp)
 end
 
 function s.e1matcheck(e, c)

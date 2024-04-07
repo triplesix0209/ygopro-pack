@@ -122,7 +122,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me6)
 end
 
-function s.fusfilter(type) return function(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(type, fc, sumtype, tp) end end
+function s.fusfilter(type) return function(c, fc, st, tp) return c:IsRace(RACE_DRAGON, fc, st, tp) and c:IsType(type, fc, st, tp) end end
 
 function s.startupfilter(c) return not c:IsCode(CARD_ZARC) and c:IsType(TYPE_FUSION + TYPE_SYNCHRO + TYPE_XYZ) end
 

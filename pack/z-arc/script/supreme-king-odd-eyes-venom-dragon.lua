@@ -10,9 +10,9 @@ function s.initial_effect(c)
     Pendulum.AddProcedure(c, false)
 
     -- fusion summon
-    Fusion.AddProcMix(c, false, false, function(c, sc, sumtype, tp)
-        return c:IsSetCard(SET_ODD_EYES, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp)
-    end, function(c, sc, sumtype, tp) return c:IsSetCard(SET_STARVING_VENOM, sc, sumtype, tp) and c:IsType(TYPE_FUSION, sc, sumtype, tp) end)
+    Fusion.AddProcMix(c, false, false, function(c, sc, st, tp)
+        return c:IsSetCard(SET_ODD_EYES, sc, st, tp) and c:IsRace(RACE_DRAGON, sc, st, tp) and c:IsType(TYPE_PENDULUM, sc, st, tp)
+    end, function(c, sc, st, tp) return c:IsSetCard(SET_STARVING_VENOM, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

@@ -53,7 +53,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.xyzfilter(c, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
+function s.xyzfilter(c, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, st, tp) and c:IsRace(RACE_DRAGON, sc, st, tp) end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -100,16 +100,16 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
 
-    local sumtype
+    local st
     if c:IsLocation(LOCATION_EXTRA) then
         if Duel.GetLocationCountFromEx(tp, tp, nil, c) == 0 then return end
-        sumtype = SUMMON_TYPE_XYZ
+        st = SUMMON_TYPE_XYZ
     else
         if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
-        sumtype = 0
+        st = 0
     end
 
-    Duel.SpecialSummon(c, sumtype, tp, tp, false, false, POS_FACEUP)
+    Duel.SpecialSummon(c, st, tp, tp, false, false, POS_FACEUP)
     c:CompleteProcedure()
 end
 

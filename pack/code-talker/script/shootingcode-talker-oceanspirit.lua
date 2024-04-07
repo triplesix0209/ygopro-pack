@@ -9,7 +9,7 @@ function s.initial_effect(c)
 
     -- link summon
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_CYBERSE), 2, 99,
-        function(g, sc, sumtype, tp) return g:CheckSameProperty(Card.GetAttribute, sc, sumtype, tp) end)
+        function(g, sc, st, tp) return g:CheckSameProperty(Card.GetAttribute, sc, st, tp) end)
 
     -- atk up
     local e1 = Effect.CreateEffect(c)

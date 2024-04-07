@@ -66,7 +66,7 @@ function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
     ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH)
     ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
     ec1:SetTargetRange(1, 0)
-    ec1:SetTarget(function(e, c, sump, sumtype, sumpos, targetp, se) return sumtype & SUMMON_TYPE_PENDULUM == SUMMON_TYPE_PENDULUM end)
+    ec1:SetTarget(function(e, c, sump, st, sumpos, targetp, se) return st & SUMMON_TYPE_PENDULUM == SUMMON_TYPE_PENDULUM end)
     ec1:SetReset(RESET_PHASE + PHASE_END)
     Duel.RegisterEffect(ec1, tp)
 end

@@ -116,7 +116,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e6, false, REGISTER_FLAG_DETACH_XMAT)
 end
 
-function s.xyzfilter(c, sc, sumtype, tp) return c:IsSetCard(SET_CHAOS, sc, sumtype, tp) end
+function s.xyzfilter(c, sc, st, tp) return c:IsSetCard(SET_CHAOS, sc, st, tp) end
 
 function s.matcheck(e, race) return e:GetHandler():GetOverlayGroup():IsExists(function(c) return c:IsType(TYPE_RITUAL) and c:IsRace(race) end, 1, nil) end
 

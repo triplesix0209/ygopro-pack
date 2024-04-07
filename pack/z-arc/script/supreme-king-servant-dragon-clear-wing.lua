@@ -69,7 +69,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.synfilter(c, val, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_DARK, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
+function s.synfilter(c, val, sc, st, tp) return c:IsAttribute(ATTRIBUTE_DARK, sc, st, tp) and c:IsType(TYPE_PENDULUM, sc, st, tp) end
 
 function s.spfilter1(c, tp) return c:IsControler(1 - tp) and c:IsType(TYPE_SYNCHRO) and c:IsSummonType(SUMMON_TYPE_SYNCHRO) end
 

@@ -71,7 +71,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(7) and c:IsRace(RACE_WARRIOR, fc, sumtype, tp) end
+function s.fusfilter(c, fc, st, tp) return c:IsLevelAbove(7) and c:IsRace(RACE_WARRIOR, fc, st, tp) end
 
 function s.e2filter(c, tp) return c:IsMonster() and c:CheckUniqueOnField(tp) and not c:IsForbidden() end
 

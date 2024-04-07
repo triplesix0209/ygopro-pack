@@ -74,7 +74,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.fusfilter(c, fc, sumtype, tp) return c:IsLevelAbove(6) and c:IsRace(RACE_FIEND, fc, sumtype, tp) end
+function s.fusfilter(c, fc, st, tp) return c:IsLevelAbove(6) and c:IsRace(RACE_FIEND, fc, st, tp) end
 
 function s.e1filter(c) return c:IsSpellTrap() and c:IsAbleToRemove() end
 

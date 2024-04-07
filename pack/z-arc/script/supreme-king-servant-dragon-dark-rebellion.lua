@@ -57,7 +57,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.xyzfilter(c, xyz, sumtype, tp) return c:IsType(TYPE_PENDULUM, xyz, sumtype, tp) and c:IsAttribute(ATTRIBUTE_DARK, xyz, sumtype, tp) end
+function s.xyzfilter(c, xyz, st, tp) return c:IsType(TYPE_PENDULUM, xyz, st, tp) and c:IsAttribute(ATTRIBUTE_DARK, xyz, st, tp) end
 
 function s.spfilter1(c, tp) return c:IsControler(1 - tp) and c:IsType(TYPE_XYZ) and c:IsSummonType(SUMMON_TYPE_XYZ) end
 

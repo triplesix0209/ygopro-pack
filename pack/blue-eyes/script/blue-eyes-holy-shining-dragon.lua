@@ -72,7 +72,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.synfilter(c, val, sc, sumtype, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end
+function s.synfilter(c, val, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, st, tp) and c:IsRace(RACE_DRAGON, sc, st, tp) end
 
 function s.spfilter(c) return c:IsFaceup() and not c:IsType(TYPE_EFFECT) and c:IsSetCard(SET_BLUE_EYES) and c:IsReleasable() end
 

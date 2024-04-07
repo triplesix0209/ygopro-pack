@@ -114,7 +114,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me3)
 end
 
-function s.fusfilter(type) return function(c, fc, sumtype, tp) return c:IsRace(RACE_DRAGON, fc, sumtype, tp) and c:IsType(type, fc, sumtype, tp) end end
+function s.fusfilter(type) return function(c, fc, st, tp) return c:IsRace(RACE_DRAGON, fc, st, tp) and c:IsType(type, fc, st, tp) end end
 
 function s.spfilter(c, tp, sc)
     return c:IsCode(CARD_ZARC) and c:IsLevel(12) and c:IsAttribute(ATTRIBUTE_DARK) and Duel.GetLocationCountFromEx(tp, tp, c, sc) > 0

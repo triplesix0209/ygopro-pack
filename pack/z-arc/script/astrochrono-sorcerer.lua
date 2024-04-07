@@ -86,7 +86,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me4)
 end
 
-function s.fusfilter(c, sc, sumtype, tp) return c:IsRace(RACE_SPELLCASTER, sc, sumtype, tp) and c:IsType(TYPE_PENDULUM, sc, sumtype, tp) end
+function s.fusfilter(c, sc, st, tp) return c:IsRace(RACE_SPELLCASTER, sc, st, tp) and c:IsType(TYPE_PENDULUM, sc, st, tp) end
 
 function s.pe1filter(c, e, tp)
     if c:IsCode(id) or not c:IsType(TYPE_PENDULUM) then return false end
