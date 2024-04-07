@@ -25,7 +25,6 @@ level = 10
 atk = 2500
 def = 2000
 effect = """\
-(This card is always treated as an "HERO" card.)
 """
 strings = []
 

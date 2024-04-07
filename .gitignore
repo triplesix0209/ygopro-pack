@@ -3,3 +3,6 @@
 /_temp
 /pack/_temp
 /triplesix.cdb
+
+*.cdb-shm
+*.cdb-wal
