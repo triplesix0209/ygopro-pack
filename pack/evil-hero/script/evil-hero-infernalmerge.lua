@@ -37,7 +37,7 @@ function s.initial_effect(c)
     local e1reg = Effect.CreateEffect(c)
     e1reg:SetType(EFFECT_TYPE_SINGLE)
     e1reg:SetCode(EFFECT_MATERIAL_CHECK)
-    e1reg:SetValue(s.e1regval)
+    e1reg:SetValue(s.e1matcheck)
     c:RegisterEffect(e1reg)
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
@@ -60,7 +60,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1regval(e, c)
+function s.e1matcheck(e, c)
     local g = c:GetMaterial()
     local lv = 0
     for tc in aux.Next(g) do lv = lv + tc:GetOriginalLevel() end

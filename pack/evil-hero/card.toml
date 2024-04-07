@@ -391,3 +391,56 @@ If this Fusion Summoned card is destroyed by battle or card effect: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
+
+[evil-hero-darkness-inferno-wing]
+id = 900002218
+set = "evil-hero"
+name = "Evil HERO Darkness Inferno Wing"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 8
+atk = 2500
+def = 2100
+effect = """\
+1 "Evil HERO" Fusion Monster + 1 Fiend monster
+Must be Special Summoned with "Dark Fusion". \
+Gains 300 ATK for each "HERO" card in your GY. \
+Once per turn, at the start of the damage Step, if this card battles an opponent's monster: \
+    You can destroy that monster, also, this card can make a second attack in a row. \
+If this card attacks a Defense Position monster, inflict piercing battle damage. \
+If this card destroys a monster by battle or its effect: \
+    Inflict damage to your opponent equal to the original ATK or DEF (whichever is higher) of that monster. \
+"""
+strings = [
+    "Destroy the battling monster",
+    "Inflict damage to your opponent equal to the original ATK/DEF of destroyed monster",
+]
+
+[evil-hero-faustian-slayer]
+id = 900002219
+set = "evil-hero"
+name = "Evil HERO Faustian Slayer"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 8
+atk = 3200
+def = 0
+effect = """\
+1 "Evil HERO" monster + 1+ monsters that were Special Summoned from the Extra Deck
+Must be Special Summoned with "Dark Fusion". \
+Gains 200 ATK x the number of Fusion Materials used for this card's Fusion Summon. \
+Once per turn, during the End Phase: You can activate 1 of these effects, \
+    depending on the number of "HERO" monsters with different names that are in your GY or banished. \
+    You can only use this effect of "{CARD_NAME}" once per turn.
+● 2+: Set 1 "Dark Fusion" or 1 Spell/Trap that mentions it directly from your Deck.
+● 4+: Destroy 1 card your opponent controls.
+● 6+: Take control of 1 Special Summoned monster your opponent controls.
+"""
+strings = [
+    "Activate effect depending on the number of \"HERO\" in GY or banished",
+    "Set 1 \"Dark Fusion\" or Spell/Trap that mentions it",
+    "Destroy 1 card your opponent controls",
+    "Take control of 1 your opponent's monster",
+]
