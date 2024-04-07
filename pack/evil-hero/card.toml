@@ -22,8 +22,8 @@ type = "monster fusion effect"
 attribute = "dark"
 race = "warrior"
 level = 10
-atk = "?"
-def = "?"
+atk = 2500
+def = 2000
 effect = """\
 1 "HERO" monster + 1+ Effect Monsters
 Must be Fusion Summoned with the above materials by using "Super Polymerization". \
@@ -31,8 +31,6 @@ This card's Fusion Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
-This card's original ATK/DEF becomes equal to the combined original Levels \
-    of the materials used for its Fusion Summon x 500. \
 The above effects cannot be negated or be copied. \
 """
 strings = []
@@ -287,5 +285,109 @@ If this card is sent to the GY, or banished: \
     in your GY, except "{CARD_NAME}"; \
     add it to your hand. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = []
+
+[evil-hero-wicked-neptucius]
+id = 900002213
+set = "evil-hero"
+name = "Evil HERO Wicked Neptucius"
+type = "monster fusion effect"
+attribute = "water"
+race = "fiend"
+level = 5
+atk = 1800
+def = 1000
+effect = """\
+"Elemental HERO Burstinatrix" + "Elemental HERO Bubbleman"
+Must be Special Summoned with "Dark Fusion". \
+Once per turn: You can banish 1 monster from your GY, then target 1 face-up on the field; \
+    The targeted monster lose ATK equal to the banished monster's original ATK, \
+    until the end of this turn. \
+If this card destroys an opponent's monster by battle: \
+    You gain LP equal to that monster's original ATK. \
+"""
+strings = [
+    "Banish to down ATK of 1 face-up monster",
+    "Gain LP equal to destroyed monster's original ATK",
+]
+
+[evil-hero-crimson-fury]
+id = 900002214
+set = "evil-hero"
+name = "Evil HERO Crimson Fury"
+type = "monster fusion effect"
+attribute = "earth"
+race = "fiend"
+level = 6
+atk = 1900
+def = 3000
+effect = """\
+"Elemental HERO Bubbleman" + "Elemental HERO Clayman"
+Must be Special Summoned with "Dark Fusion". \
+If this card is Fusion Summoned: \
+    Target 1 face-up monster your opponent controls; its ATK and DEF are halved. \
+This card can attack while in face-up Defense Position. \
+    If it does, apply its ATK for damage calculation. \
+"""
+strings = []
+
+[evil-hero-voltic-predator]
+id = 900002215
+set = "evil-hero"
+name = "Evil HERO Voltic Predator"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 6
+atk = 2000
+def = 1000
+effect = """\
+"Elemental HERO Sparkman" + DARK monster
+Must be Special Summoned with "Dark Fusion". \
+If this card attacks a Defense Position monster, inflict double piercing battle damage. \
+If this card attacks, change it to Defense Position at the end of the Damage Step. \
+If this card leaves the field: \
+    Target 1 card your opponent controls; \
+    destroy the targeted, and if you do, banish it. \
+"""
+strings = []
+
+[evil-hero-vicious-scraper]
+id = 900002216
+set = "evil-hero"
+name = "Evil HERO Vicious Scraper"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 6
+atk = 2100
+def = 1800
+effect = """\
+1 "Evil HERO" monster + 1 Level 4 or lower monster
+Must be Special Summoned with "Dark Fusion". \
+If this card is Fusion Summoned: You can equip 1 "Vicious Claw" from your hand, Deck or GY to this card. \
+If this card inflicts battle damage to your opponent: Discard 1 random card from your opponent's hand. \
+"""
+strings = ["Discard 1 random card from your opponent's hand"]
+
+[evil-hero-infernalmerge]
+id = 900002217
+set = "evil-hero"
+name = "Evil HERO Infernalmerge"
+type = "monster fusion effect"
+attribute = "dark"
+race = "fiend"
+level = 6
+atk = "?"
+def = 0
+effect = """\
+2 "Evil HERO" non-Fusion Monsters
+Must be Special Summoned with "Dark Fusion". \
+This card's original ATK become the combined original Levels of the materials used for its Fusion Summon x 400. \
+If this Fusion Summoned card is destroyed by battle or card effect: \
+    You can target 1 "Polymerization" Spell Card or "Fusion" Spell Card in your GY; \
+    add it to your hand. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
