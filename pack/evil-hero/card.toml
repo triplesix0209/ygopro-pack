@@ -499,7 +499,7 @@ strings = []
 [dark-requiem]
 id = 900002223
 name = "Dark Requiem"
-type = "trap"
+type = "trap counter"
 effect = """
 Fusion Summon 1 Fusion Monster from your Extra Deck, \
     that must be Special Summoned with "Dark Fusion", \
