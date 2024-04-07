@@ -31,6 +31,8 @@ This card's Fusion Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
+This card's original ATK/DEF becomes equal to the combined original Levels \
+    of the materials used for its Fusion Summon x 500. \
 The above effects cannot be negated or be copied. \
 """
 strings = []

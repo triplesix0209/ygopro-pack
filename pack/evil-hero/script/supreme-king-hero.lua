@@ -53,4 +53,45 @@ function s.initial_effect(c)
     noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
+
+    -- atk/def value
+    local e1matcheck = Effect.CreateEffect(c)
+    e1matcheck:SetType(EFFECT_TYPE_SINGLE)
+    e1matcheck:SetCode(EFFECT_MATERIAL_CHECK)
+    e1matcheck:SetValue(s.e1matcheck)
+    c:RegisterEffect(e1matcheck)
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e2:SetCondition(s.e1con)
+    e2:SetOperation(s.e1op)
+    e2:SetLabelObject(e1matcheck)
+    c:RegisterEffect(e2)
+end
+
+function s.e1matcheck(e, c)
+    local lv = 0
+    local g = c:GetMaterial()
+    for tc in aux.Next(g) do lv = lv + tc:GetOriginalLevel() end
+    e:SetLabel(lv)
+end
+
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local val = e:GetLabelObject():GetLabel() * 500
+    if val > 0 then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+        ec1:SetCode(EFFECT_SET_BASE_DEFENSE)
+        ec1:SetValue(val)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+        c:RegisterEffect(ec1)
+        local ec1b = ec1:Clone()
+        ec1b:SetCode(EFFECT_SET_BASE_DEFENSE)
+        c:RegisterEffect(ec1b)
+    end
 end
