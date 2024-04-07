@@ -8,6 +8,7 @@ function s.initial_effect(c)
     -- fusion summon
     c:RegisterEffect(Fusion.CreateSummonEff({
         handler = c,
+        fusfilter = aux.FilterBoolFunction(Card.IsRace, RACE_FIEND),
         extrafil = function(e, tp)
             if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0xf8), tp, LOCATION_ONFIELD, 0, 1, nil) then
                 local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() end, tp, LOCATION_DECK, 0, nil)

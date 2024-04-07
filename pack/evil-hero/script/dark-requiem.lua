@@ -29,7 +29,7 @@ function s.initial_effect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
     e2:SetCode(EFFECT_TRAP_ACT_IN_HAND)
     e2:SetCondition(function(e)
-        return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0xf8), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil)
+        return Duel.GetFieldGroup(e:GetHandlerPlayer(), LOCATION_ONFIELD, 0):FilterCount(aux.NOT(aux.FaceupFilter(Card.IsSetCard, 0xf8)), nil) == 0
     end)
     c:RegisterEffect(e2)
 end
