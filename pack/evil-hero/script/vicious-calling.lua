@@ -1,4 +1,4 @@
--- Vicious Fusion
+-- Vicious Calling
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

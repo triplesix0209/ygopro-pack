@@ -484,15 +484,29 @@ Fusion Summon 1 Fusion Monster from your Extra Deck, \
 """
 strings = []
 
-[vicious-fusion]
+[vicious-calling]
 id = 900002222
-set = "fusion"
-name = "Vicious Fusion"
+name = "Vicious Calling"
 type = "spell"
 effect = """
 Fusion Summon 1 Fusion Monster from your Extra Deck, \
     that must be Special Summoned with "Dark Fusion", \
     by banishing the Fusion Materials mentioned on it from your field or GY. \
     (This is treated as a Fusion Summon with "Dark Fusion".) \
+"""
+strings = []
+
+[dark-requiem]
+id = 900002223
+name = "Dark Requiem"
+type = "trap"
+effect = """
+Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    that must be Special Summoned with "Dark Fusion", \
+    by shuffling the Fusion Materials mentioned on it \
+    from your hand, field, GY, or your face-up banished cards. \
+    (This is treated as a Fusion Summon with "Dark Fusion".) \
+    You can only activate 1 "{CARD_NAME}" per turn. \
+If you control no cards, except "Supreme King" cards, you can activate this card from your hand. \
 """
 strings = []
