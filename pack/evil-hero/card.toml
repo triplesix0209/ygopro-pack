@@ -479,7 +479,7 @@ effect = """
 (This card's name is always treated as "Dark Fusion".)
 Fusion Summon 1 Fiend Fusion Monster from your Extra Deck, \
     using monsters from your hand or field as Fusion Material. \
-    If you control a "Supreme King" card, you can use 1 "Evil HERO" monster from your Deck as material. \
+    If you control a "Supreme King" card, you can use 1 "HERO" monster from your Deck as material. \
     Your opponent cannot target the Summoned monster with card effects until the end of next turn. \
 """
 strings = []

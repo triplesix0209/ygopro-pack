@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_EVIL_HERO, 0xf8}
+s.listed_series = {SET_HERO, 0xf8}
 
 function s.initial_effect(c)
     -- fusion summon
@@ -11,7 +11,7 @@ function s.initial_effect(c)
         fusfilter = aux.FilterBoolFunction(Card.IsRace, RACE_FIEND),
         extrafil = function(e, tp)
             if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard, 0xf8), tp, LOCATION_ONFIELD, 0, 1, nil) then
-                local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(SET_EVIL_HERO) end, tp, LOCATION_DECK, 0, nil)
+                local g = Duel.GetMatchingGroup(function(c) return c:IsAbleToGrave() and c:IsSetCard(SET_HERO) end, tp, LOCATION_DECK, 0, nil)
                 local check = function(tp, sg, fc) return sg:FilterCount(Card.IsLocation, nil, LOCATION_DECK) <= 1 end
                 return g, check
             end
