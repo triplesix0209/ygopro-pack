@@ -16,7 +16,7 @@ function s.initial_effect(c)
     e1:SetCategory(CATEGORY_REMOVE)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
-    e1:SetRange(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetCountLimit(1, {id, 1})
     e1:SetCondition(s.e1con)
     e1:SetTarget(s.e1tg)
@@ -37,8 +37,8 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c)
-    return (c:IsCode(CARD_DARK_FUSION) or (c:IsSpellTrap() and c:ListsCode(CARD_DARK_FUSION))) and c:IsAbleToRemove() and
-               c:CheckActivateEffect(true, true, false) ~= nil
+    return (c:IsCode(CARD_DARK_FUSION) or (c:IsSpellTrap() and c:ListsCode(CARD_DARK_FUSION))) and c:IsAbleToRemove()
+        and c:CheckActivateEffect(true, true, false) ~= nil
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end
