@@ -446,7 +446,7 @@ Once per turn, during the End Phase: You can activate 1 of these effects, \
     You can only use this effect of "{CARD_NAME}" once per turn.
 ● 2+: Destroy 1 card your opponent controls.
 ● 4+: Take control of 1 Special Summoned monster your opponent controls.
-● 6+: Shuffle 1 your banished card into the Deck.
+● 6+: Shuffle 1 card in your GY or banishment into the Deck.
 """
 strings = [
     "Activate effect depending on the number of \"HERO\" in GY or banished",

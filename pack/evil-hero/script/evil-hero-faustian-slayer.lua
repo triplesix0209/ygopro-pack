@@ -97,7 +97,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
         table.insert(opt, aux.Stringid(id, 2))
         table.insert(sel, 2)
     end
-    if ct >= 6 and Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_REMOVED, 0, 1, nil) then
+    if ct >= 6 and Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) then
         table.insert(opt, aux.Stringid(id, 3))
         table.insert(sel, 3)
     end
@@ -117,7 +117,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
         Duel.SetOperationInfo(0, CATEGORY_CONTROL, g, #g, 0, 0)
     elseif op == 3 then
         e:SetCategory(CATEGORY_TODECK)
-        local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_REMOVED, 0, nil)
+        local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, nil)
         Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
     end
 end
@@ -135,7 +135,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         Duel.HintSelection(g)
         Duel.GetControl(g, tp)
     elseif op == 3 then
-        local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, s.e2filter2, tp, LOCATION_REMOVED, 0, 1, 1, nil)
+        local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, s.e2filter2, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil)
         Duel.HintSelection(g)
         Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
     end
