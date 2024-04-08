@@ -81,23 +81,23 @@ end
 
 function s.e2countfilter(c) return c:IsSetCard(SET_HERO) and c:IsMonster() and c:IsFaceup() end
 
-function s.e2filter1(c) return (c:IsCode(CARD_DARK_FUSION) or (c:IsSpellTrap() and c:ListsCode(CARD_DARK_FUSION))) and c:IsSSetable() end
+function s.e2filter1(c) return c:IsControlerCanBeChanged() and c:IsSummonType(SUMMON_TYPE_SPECIAL) end
 
-function s.e2filter2(c) return c:IsControlerCanBeChanged() or c:IsSummonType(SUMMON_TYPE_SPECIAL) end
+function s.e2filter2(c) return c:IsAbleToDeck() end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local opt = {}
     local sel = {}
     local ct = Duel.GetMatchingGroup(s.e2countfilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, nil):GetClassCount(Card.GetCode)
-    if ct >= 2 and Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil) then
+    if ct >= 2 and Duel.IsExistingMatchingCard(nil, tp, 0, LOCATION_ONFIELD, 1, nil) then
         table.insert(opt, aux.Stringid(id, 1))
         table.insert(sel, 1)
     end
-    if ct >= 4 and Duel.IsExistingMatchingCard(nil, tp, 0, LOCATION_ONFIELD, 1, nil) then
+    if ct >= 4 and Duel.IsExistingMatchingCard(s.e2filter1, tp, 0, LOCATION_MZONE, 1, nil) then
         table.insert(opt, aux.Stringid(id, 2))
         table.insert(sel, 2)
     end
-    if ct >= 6 and Duel.IsExistingMatchingCard(s.e2filter2, tp, 0, LOCATION_MZONE, 1, nil) then
+    if ct >= 6 and Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_REMOVED, 0, 1, nil) then
         table.insert(opt, aux.Stringid(id, 3))
         table.insert(sel, 3)
     end
@@ -107,14 +107,18 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     e:SetLabel(op)
 
     e:SetCategory(0)
-    if op == 2 then
+    if op == 1 then
         e:SetCategory(CATEGORY_DESTROY)
         local g = Duel.GetMatchingGroup(nil, tp, 0, LOCATION_ONFIELD, nil)
-        Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, 0, 0)
-    elseif op == 3 then
+        Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+    elseif op == 2 then
         e:SetCategory(CATEGORY_CONTROL)
-        local g = Duel.GetMatchingGroup(s.e2filter2, tp, 0, LOCATION_MZONE, nil)
-        Duel.SetOperationInfo(0, CATEGORY_CONTROL, g, 1, 0, 0)
+        local g = Duel.GetMatchingGroup(s.e2filter1, tp, 0, LOCATION_MZONE, nil)
+        Duel.SetOperationInfo(0, CATEGORY_CONTROL, g, #g, 0, 0)
+    elseif op == 3 then
+        e:SetCategory(CATEGORY_TODECK)
+        local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_REMOVED, 0, nil)
+        Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
     end
 end
 
@@ -122,16 +126,17 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local op = e:GetLabel()
 
-    if op == 1 and Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 then
-        local g = Utility.SelectMatchingCard(HINTMSG_SET, tp, s.e2filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
-        Duel.SSet(tp, g)
-    elseif op == 2 then
+    if op == 1 then
         local g = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, nil, tp, 0, LOCATION_ONFIELD, 1, 1, nil)
         Duel.HintSelection(g)
         Duel.Destroy(g, REASON_EFFECT)
-    elseif op == 3 then
-        local g = Utility.SelectMatchingCard(HINTMSG_CONTROL, tp, s.e2filter2, tp, 0, LOCATION_MZONE, 1, 1, nil)
+    elseif op == 2 then
+        local g = Utility.SelectMatchingCard(HINTMSG_CONTROL, tp, s.e2filter1, tp, 0, LOCATION_MZONE, 1, 1, nil)
         Duel.HintSelection(g)
         Duel.GetControl(g, tp)
+    elseif op == 3 then
+        local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, s.e2filter2, tp, LOCATION_REMOVED, 0, 1, 1, nil)
+        Duel.HintSelection(g)
+        Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
     end
 end

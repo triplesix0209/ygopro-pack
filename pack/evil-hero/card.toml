@@ -444,15 +444,15 @@ Gains 200 ATK x the number of Fusion Materials used for this card's Fusion Summo
 Once per turn, during the End Phase: You can activate 1 of these effects, \
     depending on the number of "HERO" monsters with different names that are in your GY or banished. \
     You can only use this effect of "{CARD_NAME}" once per turn.
-● 2+: Set 1 "Dark Fusion" or 1 Spell/Trap that mentions it directly from your Deck.
-● 4+: Destroy 1 card your opponent controls.
-● 6+: Take control of 1 Special Summoned monster your opponent controls.
+● 2+: Destroy 1 card your opponent controls.
+● 4+: Take control of 1 Special Summoned monster your opponent controls.
+● 6+: Shuffle 1 your banished card into the Deck.
 """
 strings = [
     "Activate effect depending on the number of \"HERO\" in GY or banished",
-    "Set 1 \"Dark Fusion\" or Spell/Trap that mentions it",
     "Destroy 1 card your opponent controls",
     "Take control of 1 your opponent's monster",
+    "Shuffle 1 banished card into the Deck",
 ]
 
 [xtra-hero-infernal-caller]
