@@ -77,7 +77,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- cannot be target
+    -- immune
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -87,9 +87,22 @@ function s.initial_effect(c)
     e2:SetValue(aux.imval1)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e2b:SetValue(aux.tgoval)
+    e2b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e2b:SetValue(1)
     c:RegisterEffect(e2b)
+    local e2c = e2:Clone()
+    e2c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e2c:SetValue(aux.tgoval)
+    c:RegisterEffect(e2c)
+    local e3d = Effect.CreateEffect(c)
+    e3d:SetType(EFFECT_TYPE_FIELD)
+    e3d:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3d:SetCode(EFFECT_CANNOT_REMOVE)
+    e3d:SetRange(LOCATION_MZONE)
+    e3d:SetTargetRange(1, 1)
+    e3d:SetCondition(s.e2con)
+    e3d:SetTarget(function(e, c, tp, r) return c == e:GetHandler() and r == REASON_EFFECT end)
+    c:RegisterEffect(e3d)
 
     -- apply fusion effect
     local e3 = Effect.CreateEffect(c)
@@ -105,10 +118,10 @@ end
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local mg = e:GetHandler():GetMaterial()
     if chk == 0 then return mg and #mg > 0 end
-    local lp = #mg * 500
+    local val = #mg * 1000
     Duel.SetTargetPlayer(tp)
-    Duel.SetTargetParam(lp)
-    Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, lp)
+    Duel.SetTargetParam(val)
+    Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, val)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
