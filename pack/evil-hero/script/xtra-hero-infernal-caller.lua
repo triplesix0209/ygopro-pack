@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_DARK_FUSION}
-s.listed_series = {SET_HERO, SET_EVIL_HERO}
+s.listed_series = {SET_EVIL_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
