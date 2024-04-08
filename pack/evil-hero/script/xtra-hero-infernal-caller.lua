@@ -11,16 +11,11 @@ function s.initial_effect(c)
     -- link summon
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_FIEND), 2)
 
-    -- apply effect
+    -- fusion substitute
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_REMOVE)
-    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
-    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e1:SetCountLimit(1, {id, 1})
-    e1:SetCondition(s.e1con)
-    e1:SetTarget(s.e1tg)
-    e1:SetOperation(s.e1op)
+    e1:SetType(EFFECT_TYPE_SINGLE)
+    e1:SetCode(EFFECT_FUSION_SUBSTITUTE)
+    e1:SetCondition(function(e) return e:GetHandler():IsLocation(LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE) end)
     c:RegisterEffect(e1)
 
     -- draw
@@ -29,7 +24,7 @@ function s.initial_effect(c)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e2:SetProperty(EFFECT_FLAG_DELAY)
     e2:SetCode(EVENT_BE_MATERIAL)
-    e2:SetCountLimit(1, {id, 2})
+    e2:SetCountLimit(1, id)
     e2:SetCondition(s.e2con)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
@@ -37,8 +32,8 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c)
-    return (c:IsCode(CARD_DARK_FUSION) or (c:IsSpellTrap() and c:ListsCode(CARD_DARK_FUSION))) and c:IsAbleToRemove()
-        and c:CheckActivateEffect(true, true, false) ~= nil
+    return (c:IsCode(CARD_DARK_FUSION) or (c:IsSpellTrap() and c:ListsCode(CARD_DARK_FUSION))) and c:IsAbleToRemove() and
+               c:CheckActivateEffect(true, true, false) ~= nil
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end

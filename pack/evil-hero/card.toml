@@ -457,18 +457,13 @@ link-arrow = "bottom-left bottom-right"
 atk = 1300
 effect = """\
 2 Fiend monsters
-If this card is Link Summoned: \
-    You can target 1 "Dark Fusion" or 1 Spell/Trap that mentions it in your GY; \
-    banish it, and if you do, apply that target's effect, \
-    also you cannot Special Summon monsters from the Extra Deck for the rest of this turn, \
-    except "HERO" monsters. \
+This card can be used as a substitute for any 1 Fusion Material mentioned by name on the Fusion Monster Card, \
+    but the other material(s) must be correct. \
 If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
     You can draw 1 card. \
-You can only use each effect of "{CARD_NAME}" once per turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = [
-    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except \"HERO\" monsters",
-]
+strings = []
 
 [darkness-fusion]
 id = 900002221
