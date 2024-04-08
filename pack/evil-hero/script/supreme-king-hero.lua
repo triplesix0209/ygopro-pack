@@ -8,6 +8,7 @@ s.material_setcode = {SET_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
+    c:SetUniqueOnField(1, 0, id)
 
     -- fusion summon
     Fusion.AddProcMixRep(c, false, false, function(c, sc, st, tp) return c:IsType(TYPE_EFFECT, sc, st, tp) end, 1, 99,
@@ -58,7 +59,7 @@ function s.initial_effect(c)
     -- cannot be fusion material
     local nofusmaterial = Effect.CreateEffect(c)
     nofusmaterial:SetType(EFFECT_TYPE_SINGLE)
-    nofusmaterial:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    nofusmaterial:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     nofusmaterial:SetCode(EFFECT_CANNOT_BE_FUSION_MATERIAL)
     nofusmaterial:SetRange(LOCATION_MZONE)
     nofusmaterial:SetValue(1)
@@ -72,18 +73,8 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_PLAYER_TARGET)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end)
-    e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        local mg = e:GetHandler():GetMaterial()
-        if chk == 0 then return mg and #mg > 0 end
-        local lp = #mg * 1000
-        Duel.SetTargetPlayer(tp)
-        Duel.SetTargetParam(lp)
-        Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, lp)
-    end)
-    e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
-        Duel.Recover(p, d, REASON_EFFECT)
-    end)
+    e1:SetTarget(s.e1tg)
+    e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
     -- cannot be target
@@ -92,9 +83,7 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e2:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetCondition(function(e)
-        return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType, TYPE_FUSION), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, e:GetHandler())
-    end)
+    e2:SetCondition(s.e2con)
     e2:SetValue(aux.imval1)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
@@ -111,6 +100,24 @@ function s.initial_effect(c)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
+end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local mg = e:GetHandler():GetMaterial()
+    if chk == 0 then return mg and #mg > 0 end
+    local lp = #mg * 500
+    Duel.SetTargetPlayer(tp)
+    Duel.SetTargetParam(lp)
+    Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, lp)
+end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
+    Duel.Recover(p, d, REASON_EFFECT)
+end
+
+function s.e2con(e)
+    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType, TYPE_FUSION), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, e:GetHandler())
 end
 
 function s.e3filter(c)
