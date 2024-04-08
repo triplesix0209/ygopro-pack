@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_SUPER_POLYMERIZATION}
+s.listed_names = {CARD_SUPER_POLYMERIZATION, CARD_DARK_FUSION}
 s.listed_series = {SET_FUSION}
 s.material_setcode = {SET_HERO}
 
@@ -114,8 +114,8 @@ function s.initial_effect(c)
 end
 
 function s.e3filter(c)
-    return c:IsAbleToGraveAsCost() and c:IsSetCard(SET_FUSION) and (c:GetType() == TYPE_SPELL or c:GetType() == TYPE_SPELL + TYPE_QUICKPLAY) and
-               c:CheckActivateEffect(true, true, false) ~= nil
+    return c:IsAbleToGraveAsCost() and (c:IsSetCard(SET_FUSION) or c:ListsCode(CARD_DARK_FUSION)) and
+               (c:GetType() == TYPE_SPELL or c:GetType() == TYPE_SPELL + TYPE_QUICKPLAY) and c:CheckActivateEffect(true, true, false) ~= nil
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)

@@ -36,7 +36,9 @@ The above effects cannot be negated or be copied. \
 If this card is Fusion Summoned: You can gain 1000 LP for each material used. \
 While you control another Fusion Monster, monsters cannot target this card for attacks, \
     also your opponent cannot target it with card effects. \
-You can send 1 "Fusion" or "Polymerization" Normal or Quick-Play Spell from your hand or Deck to the GY; \
+You can send from your hand or Deck to the GY, \
+    1 "Fusion" or "Polymerization" Normal or Quick-Play Spell, \
+    or 1 Normal or Quick-Play Spell that mentions "Dark Fusion"; \
     this effect becomes that Spell's effect when that card is activated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
