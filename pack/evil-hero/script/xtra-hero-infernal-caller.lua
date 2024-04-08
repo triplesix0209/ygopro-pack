@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_DARK_FUSION}
-s.listed_series = {SET_HERO}
+s.listed_series = {SET_HERO, SET_EVIL_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -14,8 +14,10 @@ function s.initial_effect(c)
     -- fusion substitute
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
+    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e1:SetCode(EFFECT_FUSION_SUBSTITUTE)
-    e1:SetCondition(function(e) return e:GetHandler():IsLocation(LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE) end)
+    e1:SetRange(LOCATION_MZONE)
+    e1:SetValue(function(e, c) return c:IsSetCard(SET_EVIL_HERO) end)
     c:RegisterEffect(e1)
 
     -- draw
@@ -29,48 +31,6 @@ function s.initial_effect(c)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-end
-
-function s.e1filter(c)
-    return (c:IsCode(CARD_DARK_FUSION) or (c:IsSpellTrap() and c:ListsCode(CARD_DARK_FUSION))) and c:IsAbleToRemove() and
-               c:CheckActivateEffect(true, true, false) ~= nil
-end
-
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end
-
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingTarget(s.e1filter, tp, LOCATION_GRAVE, 0, 1, nil) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local tc = Duel.SelectTarget(tp, s.e1filter, tp, LOCATION_GRAVE, 0, 1, 1, nil):GetFirst()
-    e:SetLabelObject(tc)
-
-    local te = tc:CheckActivateEffect(true, true, false)
-    e:SetProperty(EFFECT_FLAG_CARD_TARGET | te:GetProperty())
-    local tg = te:GetTarget()
-    if tg then tg(e, tp, eg, ep, ev, re, r, rp, 1) end
-
-    Duel.SetOperationInfo(0, CATEGORY_REMOVE, tc, 1, tp, 0)
-end
-
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local tc = e:GetLabelObject()
-
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 0))
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_OATH + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
-    ec1:SetTargetRange(1, 0)
-    ec1:SetTarget(function(e, tc, sump, st, sumpos, targetp, se) return tc:IsLocation(LOCATION_EXTRA) and not tc:IsSetCard(SET_HERO) end)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1, tp)
-
-    if not tc:IsRelateToEffect(e) or Duel.Remove(tc, POS_FACEUP, REASON_EFFECT) == 0 then return end
-    local te = tc:CheckActivateEffect(true, true, false)
-    local op = te:GetOperation()
-    if op then op(e, tp, eg, ep, ev, re, r, rp) end
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)

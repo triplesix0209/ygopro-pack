@@ -467,8 +467,9 @@ link-arrow = "bottom-left bottom-right"
 atk = 1300
 effect = """\
 2 Fiend monsters
-This card can be used as a substitute for any 1 Fusion Material mentioned by name on the Fusion Monster Card, \
-    but the other material(s) must be correct. \
+This card on the field can be used as a substitute for any 1 Fusion Material \
+    whose name is specifically listed on a "Evil HERO" Fusion Monster, \
+    but the other Fusion Material(s) must be correct. \
 If this card is used as material for a Fusion Summon, and sent to the GY or banished: \
     You can draw 1 card. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
