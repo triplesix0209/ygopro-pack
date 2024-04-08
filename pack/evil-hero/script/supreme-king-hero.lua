@@ -4,7 +4,6 @@ local s, id = GetID()
 
 s.listed_names = {CARD_SUPER_POLYMERIZATION, CARD_DARK_FUSION}
 s.listed_series = {SET_FUSION}
-s.material_setcode = {SET_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
