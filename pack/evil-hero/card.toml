@@ -11,7 +11,7 @@ You can Fusion Summon Fusion Monsters that must be Special Summoned with "Dark F
 The activation of your cards and effects that include an effect that Fusion Summons a Fusion Monster cannot be negated, \
     also your opponent's cards and effects cannot activate when a monster is Fusion Summoned this way. \
 """
-strings = ["Add 1 Fusion Spell?"]
+strings = ["Add 1 \"Fusion\" Spell?"]
 
 [supreme-king-hero]
 id = 900002201
@@ -25,15 +25,22 @@ level = 12
 atk = 2500
 def = 2000
 effect = """\
-1 "HERO" monster + 1+ Effect Monsters
+1 "HERO" Fusion Monster + 1+ Effect Monsters
 Must be Fusion Summoned with the above materials by using "Super Polymerization". \
 This card's Fusion Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Its control cannot switch. \
+This face-up card on the field cannot be used as Fusion Material. \
 The above effects cannot be negated or be copied. \
+If this card is Fusion Summoned: You can gain 1000 LP for each material used. \
+While you control another Fusion Monster, monsters cannot target this card for attacks, \
+    also your opponent cannot target it with card effects. \
+You can send 1 "Fusion" or "Polymerization" Normal or Quick-Play Spell from your hand or Deck to the GY; \
+    this effect becomes that Spell's effect when that card is activated. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = ["Apply effect of \"Fusion\" Spell"]
 
 [evil-hero-cosmos]
 id = 900002202
