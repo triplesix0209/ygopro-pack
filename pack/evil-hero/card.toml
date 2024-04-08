@@ -452,7 +452,7 @@ strings = [
     "Activate effect depending on the number of \"HERO\" in GY or banished",
     "Destroy 1 card your opponent controls",
     "Take control of 1 your opponent's monster",
-    "Shuffle 1 banished card into the Deck",
+    "Shuffle 1 card in your GY or banishment into the Deck",
 ]
 
 [xtra-hero-infernal-caller]
