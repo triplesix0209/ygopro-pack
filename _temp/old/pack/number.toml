@@ -1,0 +1,220 @@
+[card.the-last-hope-remain]
+id = 940000000
+name = "The Last Hope Remain"
+type = "spell field"
+effect = """\
+This card's activation and effect cannot be negated. \
+"Astral", "Zubaba", "Gagaga", "Gogogo", and "Dododo" monster you control can be treated as 2 monsters when used for an Xyz Summon. \
+Your opponent cannot activate cards or effects in response to the activation of your cards and effects that target an Xyz Monster(s) you control. \
+If an Xyz Monster(s) is Special Summoned to your field, you can attach 1 "Number" Xyz Monster from your Extra Deck or GY to 1 of them as material. \
+Once per turn, during your Draw Phase, instead of conducting your normal draw: \
+    You can add 1 "Rank-Up-Magic" or "Rank-Down-Magic" Spell from your Deck to your hand. \
+You can shuffle into your Deck, 1 "Double or Nothing" or "ZW -", "ZS -", "Zexal", "Number" card that is banished or in your hand or GY, \
+    and if you do, you can add to your hand 1 "Astral", "Zubaba", "Gagaga", "Gogogo", and "Dododo" monster from your Deck or GY. \
+    You can only use this effects of "The Last Hope Remain" once per turn.
+
+[ \
+Add from Outside all "ZEXAL", "ZW -" and "ZS -" Xyz monsters. \
+] \
+"""
+strings = [
+    "Attach Xyz Monster as material",
+    "Add 1 \"Rank-Up-Magic\" or \"Rank-Down-Magic\" Spell",
+    "Shuffle card into the Deck",
+]
+
+[card.rank-change-magic-numeron-force]
+id = 940000001
+set = "numeron rank-down-magic rank-up-magic"
+name = "Rank-Change-Magic Numeron Force"
+type = "spell quick-play"
+effect = """\
+(This card is always treated as a "Rank-Up-Magic" and "Rank-Down-Magic" card.)
+During the Main Phase: Target 1 Xyz Monster you control; Special Summon from your Extra Deck, \
+    1 "Number" monster with the same Type that is 1 to 3 Rank higher/lower than that monster, \
+    by using it as material. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) \
+    The monster Xyz Summoned by this effect gains this effect.
+● Your opponent cannot target this card with card effects.
+If this card is in your GY: You can shuffle it into the Deck, \
+    then, you can add 1 "ZEXAL Construction" from your Deck or GY to your hand, if able. \
+    You can only use this effect of "Rank-Change-Magic Numeron Force" once per turn.
+
+[ \
+Add from Outside all Rank-Changed versions of your "Number" Xyz monsters. \
+] \
+"""
+strings = []
+
+[card.genesis-numeron-dragon]
+id = 940000002
+set = "number numeron"
+name = "Number 100: Genesis Numeron Dragon"
+type = "monster xyz effect"
+attribute = "light"
+race = "dragon"
+rank = 1
+atk = 0
+def = 0
+effect = """\
+5 "Number" Xyz Monsters with the same Rank
+You can also Xyz Summon this card by discarding 1 "Rank-Up-Magic" Spell Card, \
+    then using 1 "Number 100: Numeron Dragon" you control as the Xyz Material. \
+    (Transfer its Xyz Materials to this card.) \
+Must be Special Summoned by its own effect. \
+This card's Special Summon, activation and effects cannot be negated. \
+Possession of this card cannot be switched. \
+Cannot be flipped face-down. \
+Cannot be Tributed, or be used as a material for a Summon by your opponent. \
+This card gains the original effects of all "Number" Xyz Monsters attached to it, except "Number 100: Genesis Numeron Dragon". \
+Once per turn (Quick Effect): You can target 1 face-up card you control or is banished; attach it and its materials to this card as material. \
+Once per turn: You can target 1 "Number" Xyz Monster in your GY, except "Number 100: Genesis Numeron Dragon"; \
+    Special Summon it, ignoring its Summoning conditions and rule (This is treated as an Xyz Summon.) \
+"""
+strings = [
+    "Xyz Summon by discarding 1 \"Rank-Up-Magic\" Spell",
+    "Attach material",
+    "Special Summon \"Number\" Xyz Monster in GY",
+]
+
+[card.utopia-beyond-the-shining]
+id = 940000003
+set = "number-c39 utopia chaos"
+name = "Number C39: Utopia Beyond the Shining"
+type = "monster xyz effect"
+attribute = "light"
+race = "warrior"
+rank = 8
+atk = 3000
+def = 3000
+effect = """\
+3 Level 8 monsters
+Must first be Special Summoned with a "Rank-Up-Magic" Spell Card targeting "Number 39: Utopia Beyond". \
+If this card battles an opponent's monster, during the Damage Step only, \
+    negate the effects of that monster while it is face-up on the field (but its effects can still be activated). \
+Once per turn (Quick Effect): You can equip 1 "ZW -" monster from your hand, Deck, GY or Extra Deck to this card, \
+    as if it were equipped by its own effect. This activation and effect cannot be negated. \
+If this card has a "Utopia" Xyz Monster as an material, it gains this effect.
+● "Number" Xyz Monster you control are unaffected by your opponent's card effects.
+● Once per turn, You can target face-up cards your opponent controls up to the number of "ZW -" monsters equipped to this card; destroy then.
+● Once per Chain, during damage calculation, if this card battles an opponent's monster (Quick Effect): \
+    You can detach 1 material from this card; double this card's current ATK until the end of this turn.
+"""
+strings = [
+    "Equip 1 \"ZW -\" monster",
+    "Destroy card up to  \"ZW -\" cards equipped",
+    "Double this card's ATK",
+]
+
+[card.hope-invented-dragon-abyss-shark]
+id = 940000004
+set = "number-c chaos"
+name = "Number C37: Hope Invented Dragon Abyss Shark"
+type = "monster xyz effect"
+attribute = "water"
+race = "sea-serpent"
+rank = 5
+atk = 2800
+def = 2100
+effect = """\
+3 Level 5 WATER monsters
+Must first be Special Summoned with a "Rank-Up-Magic" Spell Card targeting "Number 37: Hope Woven Dragon Spider Shark". \
+If this card is Special Summoned: You can attach 1 WATER monster you control or from your hand, GY to this card as an material. \
+Any monster destroyed by battle with this card is attach to it as material. \
+During the End Phase, if this card was sent to the GY this turn by battle or card effects: \
+    You can Special Summon as many monsters as possible from your GY that were sent to your GY this turn, \
+    except "Number C37: Hope Invented Dragon Abyss Shark". \
+    If you Special Summoned any WATER Xyz Monster by this effect, attach this card to 1 of those monsters as material. \
+    You can only use this effect of "Number C37: Hope Invented Dragon Abyss Shark" once per turn. \
+If this card has a Sea-Serpent Xyz Monster as material, it gains this effect.
+● This card can make a second attack during each Battle Phase.
+● Once per turn (Quick Effect): You can detach 1 material from this card; \
+    the ATK of all monsters your opponent currently controls become half.
+"""
+strings = [
+    "Attach the battled monster",
+    "Halve ATK all your opponent's monsters",
+]
+
+[card.hope-keeper-dragon-tyrant-galaxy]
+id = 940000005
+set = "number-c chaos galaxy"
+name = "Number C38: Hope Keeper Dragon Tyrant Galaxy"
+type = "monster xyz effect"
+attribute = "light"
+race = "dragon"
+rank = 9
+atk = 4500
+def = 3000
+effect = """\
+3 Level 9 monsters
+Must first be Special Summoned with a "Rank-Up-Magic" Spell Card targeting "Number 38: Hope Harbinger Dragon Titanic Galaxy". \
+Once per turn, if this card has material (Quick Effect): \
+    You can target 1 Xyz Monster you control, except "Number C38: Hope Keeper Dragon Tyrant Galaxy"; \
+    attach 1 material from this card to it. \
+If a Xyz Monster(s) you control is destroyed by battle or card effect: \
+    You can attach the destroyed monster(s) to this card as material. \
+Once per turn, when a Spell/Trap Card or effect is activated on the field (Quick Effect): \
+    You can negate that effect, and if you do, attach it to this card as material. \
+If this card has a "Galaxy" Xyz Monster as material, it gains this effect.
+● This card cannot be destroyed by card effects
+● You can Special Summon to your field any number monster attached to this card, \
+    and if you do, during the End Phase of the next turn, attach all monsters Summoned by this effect to this card as materials, or send them to the GY. \
+    You can only use this effect of "Number C38: Hope Keeper Dragon Tyrant Galaxy" once per turn.
+"""
+strings = [
+    "Transfer material",
+    "Attach the destroyed monster",
+    "Negate effect then attach",
+    "Special Summon attached monsters",
+    "Special Summoned via \"Number C38: Hope Keeper Dragon Tyrant Galaxy\"",
+]
+
+[card.utopic-astral-genesis]
+id = 940000006
+set = "utopic"
+name = "Utopic Astral Genesis"
+type = "monster effect"
+attribute = "light"
+race = "warrior"
+rank = 4
+atk = 1000
+def = 1000
+effect = """\
+(This card is always treated as a "Zubaba", "Gagaga", "Gogogo", and "Dododo" card.)
+You can reveal 1 "Number" Xyz Monster in your Extra Deck; \
+    the Levels and Attributes of all face-up "Zubaba", "Gagaga", "Gogogo", and "Dododo" monsters you currently control \
+    become the same as the revealed monster's Rank and Attribute, \
+    also you cannot Special Summon from the Extra Deck for the rest of this turn, except Xyz Monsters. \
+    You can only use this effect of "Utopic Astral Genesis" once per turn. \
+An Xyz Monster that was Summoned using this card on the field as material gains this effect.
+● If it is Xyz Summoned: Draw 1 card.
+"""
+strings = [
+    "Reveal the \"Number\" Xyz Monster",
+    "Affected by effected \"Utopic Astral Genesis\": cannot Special Summon from the Extra Deck, except Xyz Monsters",
+    "Draw 1 card",
+]
+
+[card.rank-up-magic-barian-pride]
+id = 940000007
+set = "rank-up-magic"
+name = "Rank-Up-Magic Barian's Pride"
+type = "spell"
+effect = """\
+During the Main Phase: Take 1 Xyz monster that has a number between "101" and "107" in its name, \
+    except "Number C" monsters, that you control or in your GY, Extra Deck; \
+    if that monster is in your GY or Extra Deck, ignoring its Summoning conditions and rule (This is treated as an Xyz Summon), \
+    then Special Summon from your Extra Deck, 1 "Number C" monster with the same number in its name, \
+    by using it as material. (This is treated as an Xyz Summon. Transfer its materials to the Summoned monster.) \
+    You cannot Special Summon during the turn you activate this effect, except Xyz Monsters. \
+    You can only activate 1 "Rank-Up-Magic Barian's Pride" once per turn. \
+During your Draw Phase, if you control no monster, instead of conducting your normal draw: \
+    You can add this card from your Deck or GY to your hand.
+
+[ \
+If you have "Cyz Barian Hope", add from Outside all "Number 101" through "Number 107" Xyz monsters and their "Number C" version. \
+] \
+"""
+strings = [
+    "Affected by effected \"Rank-Up-Magic Barian's Pride\": cannot Special Summon, except Xyz Monsters",
+]

@@ -1,0 +1,790 @@
+[card.asgard]
+id = 930000000
+set = "aesir"
+name = "Asgard the Aesir Realm"
+type = "spell field"
+effect = """\
+While you control "Aesir" monster, your opponent cannot target this card with card effects. \
+"Aesir" cards in your GY cannot be banished, also your opponent cannot target them with card effects. \
+During your Draw phase, if you do not control a "Aesir" monster, instead of conducting your normal draw: \
+    You can randomly add 1 "Nordic" Tuner monster from your Deck to your hand. \
+    Your opponent cannot activate cards or effects in response to this effect's activation. \
+When your opponent activates a card or effect, and you control a "Aesir" monster: \
+    You can send 1 "Nordic" card from your hand or Deck to the GY; \
+    the activated effect becomes "Your opponent destroy 1 face-up card they control, except Field Spell Card". \
+    You can only use this effect of "Asgard the Aesir Realm" once per turn. \
+"""
+strings = ["Change the effect to \"Your opponent destroy 1 card they control\""]
+
+[card.odin]
+id = 930000001
+alias = 93483212
+set = "aesir"
+name = "Odin, Father of the Aesir"
+type = "monster synchro effect"
+attribute = "divine"
+race = "creator-god"
+level = 10
+atk = 4000
+def = 3500
+effect = """\
+1 "Nordic Ascendant" Tuner + 2+ non-Tuner monsters
+${AESIR_GOD_EFFECT} \
+During your turn (Quick Effect): You can activate this effect; \
+    for the rest of this turn, while this card is on the field, \
+    original "Aesir" monsters you control are unaffected by Spell/Trap effects. \
+    Your opponent cannot activate Spell/Trap Cards in response to this effect's activation. \
+    You cannot activate this effect if only your cards or effects are in the Chain. \
+    You can only use this effect of "Odin, Allfather of the Aesir" once per turn. \
+${NORDIC_GOD_REBORN} \
+If Summoned this way: You can look at up to 5 cards from the top of your Deck, \
+    then place them on the top of the Deck in any order, then draw 1 card. \
+"""
+strings = ["\"Aesir\" monsters unaffected by Spell/Trap"]
+
+[card.frigga]
+id = 930000002
+set = "aesir"
+name = "Frigga, Mother of the Aesir"
+type = "monster synchro effect"
+attribute = "light"
+race = "creator-god"
+level = 10
+atk = 3500
+def = 4000
+effect = """\
+1 "Nordic Champion" Tuner + 2+ non-Tuner monsters
+${AESIR_GOD_EFFECT} \
+Once per turn, when your opponent's card or effect is activated that targets a card(s) (Quick Effect): \
+    You can negate the effect, and if you do, you can apply that negated effect at your own. \
+${NORDIC_GOD_REBORN} \
+If Summoned this way: You can add to your hand, or Set, 1 Spell that is banished or is in your GY. \
+"""
+strings = ["Negate the effect", "Use the negated effect"]
+
+[card.thor]
+id = 930000003
+alias = 30604579
+set = "aesir"
+name = "Thor, Lord of the Aesir"
+type = "monster synchro effect"
+attribute = "earth"
+race = "creator-god"
+level = 10
+atk = 3500
+def = 2800
+effect = """\
+1 "Nordic Beast" Tuner + 2+ non-Tuner monsters
+${AESIR_GOD_EFFECT} \
+Once per turn, during your turn (Quick Effect): You can activate this effect; until the end of this turn, \
+    negate the effects of all face-up monsters your opponent currently controls, \
+    also this card can gains the original effects of 1 monster they control while this card is face-up on the field (your choice). \
+${NORDIC_GOD_REBORN} \
+If Summoned this way: You can inflict 800 damage to your opponent for each "Aesir" monster you control. \
+"""
+strings = [
+    "Negate effects of face-up monsters your opponent currently controls",
+    "Gain effects of 1 monsters",
+]
+
+[card.sif]
+id = 930000004
+set = "aesir"
+name = "Sif, Lady of the Aesir"
+type = "monster synchro effect"
+attribute = "wind"
+race = "creator-god"
+level = 10
+atk = 2800
+def = 3500
+effect = """\
+1 "Nordic" Tuner + 2+ non-Tuner monsters
+${AESIR_GOD_EFFECT} \
+Once per turn, if the effect activation of your monster is negated by your opponent's card effect (except during the Damage Step): \
+    You can apply the negated effect, then, if that effect was activated on the field and the monster now in the GY, \
+    Special Summon it in the same position it was in when on the field, this effect's activation cannot be negated. \
+    This card must be face-up on the field to activate and to resolve this effect. \
+${NORDIC_GOD_REBORN} \
+If Summoned this way: You can gain 1000 LP for each "Aesir" monster you control. \
+"""
+strings = ["Apply the negated monster's effect"]
+
+[card.loki]
+id = 930000005
+alias = 67098114
+set = "aesir"
+name = "Loki, Lord of the Aesir"
+type = "monster synchro effect"
+attribute = "dark"
+race = "creator-god"
+level = 10
+atk = 3300
+def = 3000
+effect = """\
+1 "Nordic Alfar" Tuner + 2+ non-Tuner monsters
+${AESIR_GOD_EFFECT} \
+Once per turn, when your opponent activates a Spell/Trap Card during your turn (Quick Effect): \
+    You can negate the activation, and if you do, destroy it. \
+    Then, if it was a Spell/Trap, you can Set it to your field. \
+${NORDIC_GOD_REBORN} \
+If Summoned this way: You can add to your hand, or Set, 1 Trap that is banished or is in your GY. \
+"""
+strings = ["Negate activation", "Set the destroyed card to your field"]
+
+[card.laufey]
+id = 930000006
+set = "nordic"
+name = "Laufey the Nordic Giant"
+type = "monster link effect"
+attribute = "water"
+race = "rock"
+link-rating = 4
+link-arrows = "top left right bottom"
+atk = "?"
+effect = """\
+4 "Nordic" monsters with a Level and different names, except Tokens
+You can only Special Summon "Laufey the Nordic Giant(s)" once per turn. \
+Must be Link Summoned. \
+You can also use DARK monsters in your hand as material to Link Summon this card. \
+${NORDIC_GOD_EFFECT|Link} \
+This card's original ATK becomes equal 200 x combined Levels of Link Materials used for its Link Summon. \
+If this card leaves the field: \
+    You can shuffle this card into the Extra Deck, and if you do, \
+    Special Summon up to 4 Level 5 or lower "Nordic" monsters with different names in Defense Position, \
+    from your hand, Deck, or GY, but they cannot activate their effect this turn. \
+    You can only use this effect of "Laufey the Nordic Giant" once per turn. \
+"""
+strings = []
+
+[card.hela]
+id = 930000007
+set = "nordic"
+name = "Hela the Nordic Death"
+type = "monster fusion effect"
+attribute = "dark"
+race = "zombie"
+level = 9
+atk = 800
+def = 2800
+effect = """\
+3 "Nordic" monsters with a Level and different Types, except Token
+Must first be Special Summoned (from your Extra Deck) by sending the above cards you control to the GY. (You do not use "Polymerization".) \
+You can only control 1 "Hela the Nordic Death". \
+During the Standby Phase, if this card is in your GY: \
+    You can target 1 face-up monster you control, except "Hela the Nordic Death"; destroy it, \
+    and if you do, Special Summon this card in Defense Position. \
+    You can only use this effect of "Hela the Nordic Death" once per turn. \
+While this card is face-up on the field, "Nordic" monsters with a Level in your GY, except "Hela the Nordic Death", gain the following effect.
+● You can Special Summon this card (from your GY), \
+    but its effects are negated, cannot activate its effects, \
+    your opponent takes no battle damage from attacks involving it, \
+    send it to the GY during the End Phase, \
+    you cannot Special Summon monsters for the rest of this turn, except "Nordic" monsters. \
+    You can only Special Summon this card once per turn this ways.
+"""
+strings = [
+    "Special Summon via \"Hela the Nordic Death\"",
+    "Deal no battle damage",
+    "Affected by effect \"Hela the Nordic Death\": cannot Special Summon monsters, except \"Nordic\" monsters",
+]
+
+[card.surtr]
+id = 930000008
+set = "nordic"
+name = "Surtr, Bringer of the Nordic Ragnarok"
+type = "monster xyz effect"
+attribute = "fire"
+race = "fiend"
+rank = 12
+atk = 5000
+def = 0
+effect = """\
+3 DARK "Nordic" monsters whose original Level is 8 or higher, with different names
+Must be Xyz Summoned. \
+${NORDIC_GOD_EFFECT|Xyz} \
+This Xyz Summoned card is unaffected by other monster effects. \
+This card can attack all monsters your opponent controls, once each. \
+Negate the effects of monsters destroyed by this card (by battle or card effect), also they cannot activate its effect. \
+Once per Battle Phase, at the start of your Battle Phase: You can detach 1 material from this card; \
+    negate the effects of all face-up monsters your opponent currently controls, \
+    also this card and their ATK/DEF become their original ATK/DEF. \
+    Your opponent cannot activate monster effects in response to this effect's activation. \
+If this Xyz Summoned card is destroyed: Destroy all monsters your opponent controls. \
+"""
+strings = ["Negate effect & reset ATK/DEF"]
+
+[card.brunhild]
+id = 930000009
+set = "nordic-ascendant"
+name = "Brunhild of the Nordic Ascendant"
+type = "monster tuner effect"
+attribute = "light"
+race = "fairy"
+level = 4
+atk = 1900
+def = 1400
+effect = """\
+The Special Summon of your "Nordic" monster cannot be negated. \
+Your opponent cannot activate cards or effects in response to the activation of \
+    your "Nordic" cards and effects that includes Special Summons a monster(s). \
+You can discard 1 card; \
+    Special Summon 1 Level 5 or lower non-Tuner "Nordic" monster from your hand or Deck. \
+    You can only use this effect of "Brunhild of the Nordic Ascendant" once per turn. \
+"""
+strings = ["Special Summon non-Tuner \"Nordic\" monster from the Deck"]
+
+[card.hildr]
+id = 930000010
+set = "nordic-ascendant"
+name = "Hildr of the Nordic Ascendant"
+type = "monster effect"
+attribute = "light"
+race = "fairy"
+level = 4
+atk = 1500
+def = 1800
+effect = """\
+If you control a "Nordic" Tuner monster, you can Special Summon this card (from your hand). \
+If this card was Special Summoned by the effect of another "Nordic" card: \
+    You can Special Summon 1 Level 5 or lower non-Tuner "Nordic" monster from your Deck or GY, \
+    except "Hildr of the Nordic Ascendant", \
+    but it cannot activate its effects this turn. \
+    You can only use this effect of "Hildr of the Nordic Ascendant" once per turn. \
+"""
+strings = []
+
+[card.sigrun]
+id = 930000011
+set = "nordic-ascendant"
+name = "Sigrun of the Nordic Ascendant"
+type = "monster effect"
+attribute = "light"
+race = "fairy"
+level = 2
+atk = 800
+def = 400
+effect = """\
+If this card is sent to the GY to activate a "Nordic" monster's effect: \
+    You can Special Summon 2 "Nordic Ascendant Tokens" \
+    (Fairy/LIGHT/Level ?/ATK 0/DEF 0, this Token's Level becomes that monster's original Level.) \
+If this card is in your GY: \
+    You can Special Summon this card in Defense Position, but return it into the Deck when it leaves the field, \
+    also you cannot Special Summon monsters for the rest of this turn, except "Aesir" monsters. \
+    You must control a "Nordic" Tuner monster to activate and to resolve this effect. \
+You can only use each effect of "Sigrun of the Nordic Ascendant" once per turn. \
+"""
+strings = [
+    "Affected by effect \"Sigrun of the Nordic Ascendant\": cannot Special Summon monsters, except \"Aesir\" monsters",
+]
+
+[card.frey]
+id = 930000012
+set = "nordic-champion"
+name = "Frey of the Nordic Champions"
+type = "monster tuner effect"
+attribute = "light"
+race = "warrior"
+level = 5
+atk = 2000
+def = 2000
+effect = """\
+If you control no monsters, you can Normal Summon this card without Tributing. \
+If this card is Normal Summoned: \
+    You can add 2 "Nordic" monsters with different names, \
+    except "Frey of the Nordic Champions", \
+    from your Deck to your hand, except "Frey of the Nordic Champions". \
+    You can only use this effect of "Frey of the Nordic Champions" once per turn. \
+The Normal Summon of this card and your other "Nordic" monster cannot be negated. \
+Your opponent cannot activate cards or effects when you Summon a "Nordic" monster(s). \
+"""
+strings = []
+
+[card.beyla]
+id = 930000013
+set = "nordic-champion"
+name = "Beyla of the Nordic Champions"
+type = "monster effect"
+attribute = "wind"
+race = "warrior"
+level = 3
+atk = 1000
+def = 1000
+effect = """\
+During your Main Phase: You can reveal it (until the end of this turn), \
+    then, while this card is revealed by this effect, \
+    you can Normal Summon 1 other "Nordic" monster in addition to your Normal Summon/Set during your Main Phase. \
+    (You can only gain this effect once per turn.) \
+When you Summon a "Nordic" monster, you can: Immediately after this effect resolves, Summon this card from your hand. \
+You can only activate each effect of "Beyla of the Nordic Champions" once per turn. \
+"""
+strings = ["Summon via \"Beyla of the Nordic Champions\""]
+
+[card.hervor]
+id = 930000014
+set = "nordic-champion"
+name = "Hervor of the Nordic Champions"
+type = "monster effect"
+attribute = "wind"
+race = "warrior"
+level = 2
+atk = 700
+def = 300
+effect = """\
+If this card is sent to the GY to activate a "Nordic" card's effect: \
+    You can Special Summon 2 "Einherjar Tokens" (Warrior/EARTH/Level 4/ATK 1000/DEF 1000). \
+If this card is in your GY: You can target 1 Level 3 or higher "Nordic" monster you control; \
+    reduce its Level by 2, and if you do, Special Summon this card in Defense Position, \
+    but return it into the Deck when it leaves the field, \
+    also you cannot Special Summon monsters for the rest of this turn, except "Aesir" monsters. \
+You can only use each effect of "Hervor of the Nordic Champions" once per turn. \
+"""
+strings = [
+    "Affected by effect \"Hervor of the Nordic Champions\": cannot Special Summon monsters, except \"Aesir\" monsters",
+]
+
+[card.eir]
+id = 930000015
+set = "nordic-champion"
+name = "Eir of the Nordic Champions"
+type = "monster tuner effect"
+attribute = "wind"
+race = "warrior"
+level = 4
+atk = 1300
+def = 1200
+effect = """\
+For a Synchro Summon, you can substitute this card for any 1 "Nordic" Tuner. \
+Cannot be used as Synchro Material, except for the Synchro Summon of a "Aesir" monster. \
+Once per turn: You can send 1 "Nordic" monster from your Deck to the GY, then activate 1 of these effects;
+● Increase this card's Level by the Level of the sent monster.
+● Reduce this card's Level by the Level of the sent monster.
+"""
+strings = ["Change Level", "Increase Level", "Decrease Level"]
+
+[card.alsvid]
+id = 930000016
+set = "nordic-beast"
+name = "Alsvid of the Nordic Beasts"
+type = "monster tuner effect"
+attribute = "light"
+race = "beast"
+level = 4
+atk = 1800
+def = 800
+effect = """\
+If you control no monsters, you can Special Summon this card (from your hand). \
+Your opponent cannot activate cards or effects in response to the activation of \
+    your cards and effects that target an "Nordic" monster(s) you control. \
+You can target 1 other "Nordic" monster you control; Tribute it, and if you do, \
+    Special Summon 2 "Nordic Beast Tokens" (Beast/EARTH/Level 3/ATK 0/DEF 0), \
+    also you cannot Special Summon from the Extra Deck for the rest of this turn, except "Aesir" monsters. \
+You can only use this effect of "Alsvid of the Nordic Beasts" once per turn. \
+"""
+strings = [
+    "Destroy & Special Summon \"Nordic Beast Token\"",
+    "Affected by effect \"Alsvid of the Nordic Beasts\": cannot Special Summon, except \"Aesir\" and \"Nordic\" monsters",
+]
+
+[card.hildisvini]
+id = 930000017
+set = "nordic-beast"
+name = "Hildisvini of the Nordic Beasts"
+type = "monster effect"
+attribute = "earth"
+race = "beast"
+level = 3
+atk = 1100
+def = 800
+effect = """\
+If a "Nordic" monster you control is destroyed by your opponent's card (either by battle or by card effect): \
+    You can Special Summon this card from your hand. \
+    You can only use this effect of "Hildisvini of the Nordic Beasts" once per turn. \
+Once per turn, this face-up Defense Position card cannot be destroyed by battle or by card effects. \
+"""
+strings = []
+
+[card.ratatoskr]
+id = 930000018
+set = "nordic-beast"
+name = "Ratatoskr of the Nordic Beasts"
+type = "monster effect"
+attribute = "earth"
+race = "beast"
+level = 3
+atk = 900
+def = 1100
+effect = """\
+If this card is sent to the GY to activate a "Nordic" card's effect: \
+    You can Special Summon 2 "Nordic Beast Tokens" (Beast/EARTH/Level 3/ATK 0/DEF 0). \
+If this card is in your GY: You can shuffle 1 "Nordic" card from your hand into the Deck; \
+    Special Summon this card in Defense Position, but return it into the Deck when it leaves the field, \
+    also you cannot Special Summon monsters for the rest of this turn, except "Aesir" monsters. \
+You can only use each effect of "Ratatoskr of the Nordic Beasts" once per turn. \
+"""
+strings = [
+    "Affected by effect \"Ratatoskr of the Nordic Beasts\": cannot Special Summon monsters, except \"Aesir\" monsters",
+]
+
+[card.eikthyrnir]
+id = 930000019
+set = "nordic-beast"
+name = "Eikthyrnir of the Nordic Beasts"
+type = "monster tuner effect"
+attribute = "earth"
+race = "beast"
+level = 3
+atk = 1700
+def = 900
+effect = """\
+For a Synchro Summon, you can substitute this card for any 1 "Nordic" Tuner. \
+Cannot be used as Synchro Material, except for the Synchro Summon of a "Aesir" monster. \
+Once per turn: You can send 1 "Nordic" monster from your Deck to the GY, then activate 1 of these effects.
+● Increase this card's Level by 1, until the End Phase.
+● Reduce this card's Level by 1, until the End Phase.
+"""
+strings = ["Change Level", "Increase Level", "Decrease Level"]
+
+[card.moros]
+id = 930000020
+set = "nordic-alfar"
+name = "Moros of the Nordic Alfar"
+type = "monster tuner effect"
+attribute = "light"
+race = "spellcaster"
+level = 5
+atk = 1600
+def = 1400
+effect = """\
+You can Special Summon this card (from your hand) by destroying 1 face-up monster you control. \
+If this card you control is used as Synchro Material for a "Aesir" monster, \
+    non-Tuner "Nordic" monsters in your hand can be used as the other materials. \
+Your opponent cannot activate cards or effects in response to the activation of \
+    your "Nordic" cards and effects that includes add a card from your Deck to your hand. \
+You can shuffle 1 "Nordic" card from your hand into the Deck, and if you do, \
+    add 1 "Nordic" monster with a different name as the shuffled card from your Deck to your hand, \
+    except "Moros of the Nordic Alfar". \
+You can only use this effect of "Moros of the Nordic Alfar" once per turn. \
+"""
+strings = ["Change 1 \"Nordic\" card in hand"]
+
+[card.narfi]
+id = 930000021
+set = "nordic-alfar"
+name = "Narfi of the Nordic Alfar"
+type = "monster effect"
+attribute = "dark"
+race = "spellcaster"
+level = 3
+atk = 1400
+def = 1200
+effect = """\
+If this card is destroyed by a card effect and sent to the GY: \
+    You can shuffle it into the Deck, then add 1 "Nordic" cards from your Deck to your hand, \
+    except "Narfi of the Nordic Alfar". \
+If this card is added to your hand by the effect of an "Nordic" card: \
+    You can add 1 "Nordic" monster from your Deck or GY to your hand, except "Narfi of the Nordic Alfar", \
+    but for the rest of this turn, you cannot Normal Summon/Set or Special Summon monsters with that name. \
+You can only use each effect of "Moros of the Nordic Alfar" once per turn.
+"""
+strings = []
+
+[card.dvalinn]
+id = 930000022
+set = "nordic-alfar"
+name = "Dvalinn of The Nordic Alfar"
+type = "monster effect"
+attribute = "earth"
+race = "warrior"
+level = 2
+atk = 600
+def = 900
+effect = """\
+If this card is sent to the GY to activate a "Nordic" card's effect: \
+    You can Special Summon 2 "Malus Tokens" (Fiend/DARK/Level 1/ATK 0/DEF 0). \
+If this card is in your GY: You can target 1 face-up monster you control; \
+    destroy it, and if you do, Special Summon this card in Defense Position, \
+    but return it into the Deck when it leaves the field, \
+    also you cannot Special Summon monsters for the rest of this turn, except "Aesir" monsters. \
+You can only use each effect of "Dvalinn of The Nordic Alfar" once per turn. \
+"""
+strings = [
+    "Affected by effect \"Dvalinn of The Nordic Alfar\": cannot Special Summon monsters, except \"Aesir\" monsters",
+]
+
+[card.alp]
+id = 930000023
+set = "nordic-alfar"
+name = "Alp of the Nordic Alfar"
+type = "monster tuner effect"
+attribute = "dark"
+race = "fiend"
+level = 1
+atk = 500
+def = 500
+effect = """\
+You can Special Summon this card (from your hand) by sending 1 "Nordic" monster
+For a Synchro Summon, you can substitute this card for any 1 "Nordic" Tuner. \
+Cannot be used as Synchro Material, except for the Synchro Summon of a "Aesir" monster. \
+Once per turn: You can send 1 "Nordic" monster from your Deck to the GY, \
+    then target 1 face-up monster you control, and declare a Level from 1 to 8; \
+    it becomes that Level until the end of this turn. \
+"""
+strings = ["Change Level"]
+
+[card.idun]
+id = 930000024
+set = "nordic"
+name = "Idun the Nordic Young"
+type = "monster effect"
+attribute = "light"
+race = "fairy"
+level = 5
+atk = 0
+def = "?"
+effect = """\
+Cannot Normal Summon/Set. \
+When you take damage from a card in your opponent's possession \
+    while you control no monsters and you have a "Aesir" monster is banished or is in your GY: \
+    You can gain LP equal to the total damage you took this turn, and if you do, \
+    Special Summon this card from your hand in Defense Position. \
+    If you have "Odin, Father of the Aesir" is banished or is in your GY, you can activate this effect from your Deck. \
+    If Summoned this way, this card's original DEF becomes the amount LP you gained. \
+If this card is banished or is in your GY: \
+    You can target 5 other "Aesir" and/or "Nordic" monsters is banished or is in your GY; \
+    shuffle this card and all the targeted cards into the Deck, and if you do, draw 1 card. \
+You can only use each effect of "Idun the Nordic Young" once per turn. \
+"""
+strings = []
+
+[card.huginn-muninn]
+id = 930000025
+set = "nordic"
+name = "Huginn and Muninn the Nordic Eyes"
+type = "monster effect"
+attribute = "light"
+race = "winged-beast"
+level = 1
+atk = 100
+def = 100
+effect = """\
+During your Standby Phase or your Main Phase (Quick Effect): \
+    You can discard this card, then target 1 "Aesir" monster you control; \
+    if you not targeted "Odin, Father of the Aesir" negate its effects until the end of this turn, \
+    and if you do, look at all cards in your opponent's hand and all Set cards they control. \
+    Your opponent cannot activate cards or effects in response to this effect's activation. \
+If a "Aesir" monster is Special Summoned to your field (except during the Damage Step): \
+    You can add this card from your GY to your hand. \
+    If you Special Summoned "Odin, Father of the Aesir", you can also add this card from your Deck to your hand. \
+You can only use each effect of "Huginn and Muninn the Nordic Eyes" once per turn. \
+"""
+strings = []
+
+[card.gungnir]
+id = 930000026
+set = "nordic-relic"
+name = "Divine Nordic Relic Gungnir"
+type = "spell equip"
+effect = """\
+Equip only to a "Aesir" or "Nordic" monster. \
+Equipped monster is unaffected by card effects that prevent it from attacking. \
+Your opponent cannot target this card with card effects. \
+(Quick Effect): You can banish the equipped monster until the End Phase, then target 1 other card on the field; destroy it. \
+    If you equipped to a "Aesir" monster, you can banish 1 "Aesir" or "Nordic" monster you control instead. \
+During your Main Phase, if this card is in your GY: \
+    You can target 1 "Odin, Father of the Aesir" you control; \
+    equip this card to it. \
+You can only use each effect of "Divine Nordic Relic Gungnir" once per turn. \
+"""
+strings = []
+
+[card.brisingamen]
+id = 930000027
+set = "nordic-relic"
+name = "Divine Nordic Relic Brisingamen"
+type = "spell quick-play"
+effect = """\
+Target 1 "Aesir" or "Nordic" monster you control and 1 face-up monster your opponent controls; until the end of this turn, \
+    the ATK of the first target becomes equal to the ATK of the second target, \
+    also, if the first target was a "Aesir" monster destroys an opponent's monster by battle, \
+    inflict damage to your opponent equal to the original ATK of the destroyed monster. \
+During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY \
+    and you control "Frigga, Mother of the Aesir": \
+    You can add this card from the GY to your hand. \
+You can only use each effect of "Divine Nordic Relic Brisingamen" once per turn. \
+"""
+strings = ["Affected by effect \"Divine Nordic Relic Brisingamen\""]
+
+[card.mjollnir]
+id = 930000028
+set = "nordic-relic"
+name = "Divine Nordic Relic Mjollnir"
+type = "spell quick-play"
+effect = """\
+Target 1 "Aesir" monster you control; this turn, it can make a second attack during each Battle Phase, \
+    also each time it destroys an opponent's monster by battle, \
+    inflict 1000 damage to your opponent. \
+During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY \
+    and you control "Thor, Lord of the Aesir": \
+    You can add this card from the GY to your hand. \
+You can only use each effect of "Divine Nordic Relic Mjollnir" once per turn. \
+"""
+strings = ["Affected by effect \"Divine Nordic Relic Mjollnir\""]
+
+[card.andvaranaut]
+id = 930000029
+set = "nordic-relic"
+name = "Divine Nordic Relic Andvaranaut"
+type = "spell quick-play"
+effect = """\
+Target 1 "Aesir" or "Nordic" monster you control; until the end of this turn, \
+    its ATK/DEF become double its original ATK/DEF, but it cannot attack your opponent directly. \
+    If you target a "Aesir" monster with this effect, each time it destroys an opponent's monster by battle, \
+    gain LP equal to the original ATK of the destroyed monster. \
+During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY \
+    and you control "Sif, Lady of the Aesir": \
+    You can add this card from the GY to your hand. \
+You can only use each effect of "Divine Nordic Relic Andvaranaut" once per turn. \
+"""
+strings = ["Affected by effect \"Divine Nordic Relic Andvaranaut\""]
+
+[card.laevateinn]
+id = 930000030
+set = "nordic-relic"
+name = "Divine Nordic Relic Laevateinn"
+type = "trap"
+effect = """\
+Target 1 face-up monster on the field that destroyed a monster by battle or activated its effects this turn; \
+    destroy it. Cards and effects cannot be activated in response to this card's activation. \
+    You can only activate this card during your turn, unless you control a "Aesir" or "Nordic" monster. \
+If you control a "Aesir" monster, you can activate this card from your hand. \
+During your Main Phase, if this card is in your GY, except the turn this card was sent to the GY \
+    and you control "Loki, Lord of the Aesir": \
+    You can add this card from the GY to your hand. \
+You can only use each effect of "Divine Nordic Relic Laevateinn" once per turn. \
+"""
+strings = []
+
+[card.nordic-hall]
+id = 930000031
+set = "nordic"
+name = "Hall of the Nordic Fallen"
+type = "spell"
+effect = """\
+Target 1 "Aesir" or "Nordic" monster in your GY; Special Summon it, but destroy it during the End Phase. \
+    If you target a "Aesir" monster with this effect, it is treated as if it was Special Summoned by its own. \
+During your Main Phase, if this card is in your GY: \
+    You can banish this card from your GY; Shuffle into the Deck \
+    1 your "Nordic" Tuner monster and 2 your non-Tuner "Nordic" monsters whose total Levels equal 10, that is banished or in your GY; \
+    shuffle them into the Deck, and if you do, Special Summon 1 "Aesir" monster from your Extra Deck (This is treated as a Synchro Summon). \
+You can only use 1 "Hall of the Nordic Fallen" effect per turn, and only once that turn. \
+"""
+strings = ["Self destroy by effect of \"Hall of the Nordic Fallen\""]
+
+[card.nordic-match]
+id = 930000032
+set = "nordic"
+name = "Match for the Nordic Artifacts"
+type = "spell quick-play"
+effect = """\
+If you control a "Aesir" monster, your opponent cannot activate cards or effects in response to this card's effect activation. \
+Take 1 "Nordic" Spell/Trap Card or 1 "Gotterdammerung" from your Deck, except "Match for the Nordic Artifacts", \
+and either add it to your hand, or Set it then it can be activated this turn. \
+If "Frigga, Mother of the Aesir" is Special Summoned to your field (except during the Damage Step): \
+    You can add this card from your Deck to your hand. \
+You can only use each effect of "Match for the Nordic Artifacts" once per turn. \
+"""
+strings = []
+
+[card.nordic-strike]
+id = 930000033
+set = "nordic"
+name = "Strike of the Nordic Lord"
+type = "spell quick-play"
+effect = """\
+Target 1 "Aesir" or "Nordic" monster you control; until the end of this turn, that face-up monster is unaffected by your opponent's card effects, \
+    then if you targeted a "Aesir" monster with this effect, you can destroy 1 card on the field. \
+If this card is in your GY, except the turn this card was sent to the GY (Quick Effect): \
+    You can target 1 "Aesir" monster you control; \
+    destroy it, and if you do, add this card to your hand. \
+    You can only use this effect of "Strike of the Nordic Lord" effect per turn. \
+"""
+strings = ["Destroy 1 card on the field"]
+
+[card.nordic-way]
+id = 930000034
+set = "nordic"
+name = "Way to the Nordic Realm"
+type = "spell quick-play"
+effect = """\
+Target 1 "Aesir" or "Nordic" monster you control; destroy it, and if you do, gain LP equal to either its ATK or DEF, \
+    then if you targeted a "Aesir" monster with this effect, you take no damage this turn. \
+If a "Aesir" monster(s) you control would be destroyed by battle or card effect, \
+    you can banish this card from your GY instead. \
+"""
+strings = [
+    "Gain LP equal to its ATK",
+    "Gain LP equal to its DEF",
+    "Affected by effect \"Way to the Nordic Realm\": Take no damage this turn",
+]
+
+[card.fiery-armageddon]
+id = 930000035
+set = "nordic"
+name = "Nordic Horror - Fiery Armageddon"
+type = "trap"
+effect = """\
+You can activate this card from your hand. \
+If you control a "Aesir" monster: \
+    Target 1 Effect Monster on the field; equip this card to it. \
+    It cannot activate its effect and its effects are negated, also it loses 1000 ATK. \
+If this face-up card leaves the field: \
+    You can add 1 "Fenrir the Nordic Wolf" from your Deck or GY to your hand. \
+"""
+strings = []
+
+[card.ouroboros-break]
+id = 930000036
+set = "nordic"
+name = "Nordic Horror - Ouroboros Break"
+type = "trap"
+effect = """\
+You can activate this card from your hand. \
+If you control a "Aesir" monster: \
+    Target 1 face-up monster your opponent controls; equip this card to it. \
+    It cannot activate its effect and its effects are negated, also take control of it. \
+If this face-up card leaves the field: \
+    You can add 1 "Jormungardr the Nordic Serpent" from your Deck or GY to your hand. \
+"""
+strings = []
+
+[card.nordic-ascendant-token]
+id = 930000038
+set = "nordic-ascendant"
+name = "Nordic Ascendant Token"
+type = "monster normal token"
+attribute = "light"
+race = "fairy"
+atk = 0
+def = 0
+effect = """\
+Special Summoned with the effect of "Nordic" cards.
+"""
+strings = []
+
+
+[card.tyr-of-the-nordic-champions]
+id = 2333365
+ot = "ocg tcg"
+set = "nordic-champion"
+name = "Tyr of the Nordic Champions"
+type = "monster effect"
+attribute = "light"
+race = "warrior"
+level = 4
+atk = 2000
+def = 2000
+effect = """\
+Your opponent's monsters cannot target "Nordic" monsters for attacks, except "Tyr of the Nordic Champions". \
+If there is no other "Nordic" monster on the field, destroy this card. \
+"""
+strings = []
