@@ -18,37 +18,8 @@ strings = [
     "Place the activated card underneath this card?",
 ]
 
-[numeron-genesis-dragon]
-id = 900004101
-rarity = "gold"
-name = "Numeron Genesis Dragon"
-set = "numeron"
-type = "monster xyz effect"
-attribute = "divine"
-race = "dragon"
-rank = 13
-atk = 0
-def = 0
-effect = """\
-Cannot be Xyz Summoned. \
-Must be Special Summoned (from your Extra Deck) by overlaying all Xyz Monsters you control, \
-    including 1 "Number 100: Numeron Dragon". \
-    (Transfer its materials to this card.) \
-This card's Special Summon cannot be negated. \
-You can only control 1 "{CARD_NAME}". \
-Your opponent cannot Tribute this card, or use it as material for an Summon. \
-Its battle position cannot be changed by card effects. \
-Its control cannot switch. \
-The above effects cannot be negated or be copied. \
-Cannot be destroyed by battle, except with an "Number" monster. \
-This card gains the original effects of all "Number" Xyz Monsters \
-    that has a number between "1" and "100" in its name attached to this card, \
-    except "{CARD_NAME}". \
-"""
-strings = []
-
 [galaxy-eyes-luminous-dragon]
-id = 900004102
+id = 900004101
 alias = 93717133
 name = "Galaxy-Eyes Luminous Dragon"
 type = "monster effect"
@@ -68,7 +39,7 @@ During the Battle Step, if this card battles an opponent's monster (Quick Effect
 strings = ["Banish both this card from the field and that target"]
 
 [galaxy-eyes-full-armor-luminous-dragon]
-id = 900004103
+id = 900004102
 name = "Galaxy-Eyes Full Armor Luminous Dragon"
 set = "photon galaxy-eyes"
 type = "monster xyz effect"
@@ -96,7 +67,7 @@ strings = [
 ]
 
 [neo-galaxy-eyes-dark-matter-dragon]
-id = 900004104
+id = 900004103
 name = "Number C95: Neo Galaxy-Eyes Dark Matter Dragon"
 set = "number-c chaos galaxy-eyes"
 type = "monster xyz effect"
@@ -128,7 +99,7 @@ strings = [
 ]
 
 [photon-stream-eternity]
-id = 900004105
+id = 900004104
 name = "Photon Stream of Eternity"
 set = "photon"
 type = "spell quick-play"

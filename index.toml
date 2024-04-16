@@ -1,7 +1,7 @@
 set_name = "triplesix"
 setcodes = ["./setcode.toml"]
-# pic_field_path = "D:/Games/EdoPro/pics/field"
-pic_field_path = "C:/ProjectIgnis/pics/field"
+pic_field_path = "D:/Games/EdoPro/pics/field"
+# pic_field_path = "C:/ProjectIgnis/pics/field"
 
 packs = [
     "./pack/_update",
@@ -13,6 +13,7 @@ packs = [
     "./pack/elemental-neos",
     "./pack/evil-hero",
     "./pack/cosmic-dragon",
+    "./pack/numeron",
     "./pack/galaxy-eyes",
     "./pack/z-arc",
     "./pack/code-talker",
@@ -26,8 +27,9 @@ skip_compile_packs = [
     "./pack/red-eyes",
     "./pack/sacred-beast",
     "./pack/elemental-neos",
-    # "./pack/evil-hero",
+    "./pack/evil-hero",
     "./pack/cosmic-dragon",
+    # "./pack/numeron",
     "./pack/galaxy-eyes",
     "./pack/z-arc",
     "./pack/code-talker",
