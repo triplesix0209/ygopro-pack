@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_RANK_UP_MAGIC, SET_NUMBER_C}
+s.listed_series = {SET_RANK_UP_MAGIC, SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
 s.listed_names = {67926903}
 
 function s.initial_effect(c)
@@ -95,28 +95,24 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(e3)
 
-    -- immune
+    -- cards cannot be negated
     local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_SINGLE)
-    e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e4:SetType(EFFECT_TYPE_FIELD)
+    e4:SetCode(EFFECT_CANNOT_DISEFFECT)
     e4:SetRange(LOCATION_MZONE)
     e4:SetCondition(function(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end)
-    e4:SetValue(1)
+    e4:SetValue(function(e, ct)
+        local p = e:GetHandler():GetControler()
+        local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
+        return p == tp and te:IsActiveType(TYPE_SPELL + TYPE_TRAP) and (loc & LOCATION_ONFIELD) ~= 0 and
+                   te:GetHandler():IsSetCard({SET_BARIANS, SET_SEVENTH})
+    end)
     c:RegisterEffect(e4)
-    local e4b = Effect.CreateEffect(c)
-    e4b:SetType(EFFECT_TYPE_FIELD)
-    e4b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e4b:SetCode(EFFECT_CANNOT_REMOVE)
-    e4b:SetRange(LOCATION_MZONE)
-    e4b:SetTargetRange(1, 1)
-    e4b:SetCondition(function(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end)
-    e4b:SetTarget(function(e, c, tp, r) return c == e:GetHandler() and r == REASON_EFFECT end)
+    local e4b = e4:Clone()
+    e4b:SetCode(EFFECT_CANNOT_DISABLE)
+    e4b:SetTargetRange(LOCATION_ONFIELD, 0)
+    e4b:SetTarget(function(e, tc) return tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap() end)
     c:RegisterEffect(e4b)
-    local e4c = e4:Clone()
-    e4c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e4c:SetValue(aux.tgoval)
-    c:RegisterEffect(e4c)
 end
 
 s.rum_limit = function(c, e) return c:IsCode(67926903) end

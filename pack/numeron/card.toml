@@ -51,7 +51,6 @@ This card gains the original effects of all "Number C" Xyz Monsters \
     that has a number between "101" and "107" in its name attached to this card. \
 If this card has "Cxyz Barian Hope" as an material, it gains this effect.
 ● If you would detach an material(s) from this card, you can pay 800 LP instead.
-● This card cannot be destroyed, or banished, by card effects, \
-    also your opponent cannot target it with card effects.
+● The effects of "Barian's" and "Seventh" Spell/Trap Cards you control cannot be negated.
 """
 strings = []
