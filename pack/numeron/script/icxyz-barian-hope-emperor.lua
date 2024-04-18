@@ -17,7 +17,7 @@ function s.initial_effect(c)
     splimit:SetType(EFFECT_TYPE_SINGLE)
     splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
-    splimit:SetValue(function(e, se, sp, st) return se:GetHandler():IsSetCard(0x95) and se:GetHandler():IsSpell() end)
+    splimit:SetValue(aux.xyzlimit)
     c:RegisterEffect(splimit)
 
     -- summon cannot be negated
@@ -59,85 +59,57 @@ function s.initial_effect(c)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
 
-    -- atk/def value
-    local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
-    e1:SetCode(EFFECT_SET_BASE_ATTACK)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetValue(function(e, c) return c:GetOverlayCount() * 1000 end)
-    c:RegisterEffect(e1)
-    local e1b = e1:Clone()
-    e1b:SetCode(EFFECT_SET_BASE_DEFENSE)
-    c:RegisterEffect(e1b)
-
-    -- gain effect
-    local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e2:SetCode(EVENT_ADJUST)
-    e2:SetRange(LOCATION_MZONE)
-    e2:SetOperation(s.e2op)
-    c:RegisterEffect(e2)
-
-    -- detach replace
-    local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e3:SetCode(EFFECT_OVERLAY_REMOVE_REPLACE)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        return c:GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) and c == re:GetHandler() and ep == e:GetOwnerPlayer() and
-                   Duel.CheckLPCost(ep, 800)
-    end)
-    e3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        Duel.PayLPCost(tp, 800)
-        return ev
-    end)
-    c:RegisterEffect(e3)
-
     -- cards cannot be negated
-    local e4 = Effect.CreateEffect(c)
-    e4:SetType(EFFECT_TYPE_FIELD)
-    e4:SetCode(EFFECT_CANNOT_DISEFFECT)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetCondition(function(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end)
-    e4:SetValue(function(e, ct)
+    local e2 = Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetCode(EFFECT_CANNOT_DISEFFECT)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCondition(s.effcon)
+    e2:SetValue(function(e, ct)
         local c = e:GetHandler()
         local p = c:GetControler()
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
         if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
         return te:GetHandler() == c or (te:IsActiveType(TYPE_SPELL + TYPE_TRAP) and te:GetHandler():IsSetCard({SET_BARIANS, SET_SEVENTH}))
     end)
+    c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_CANNOT_DISABLE)
+    e2b:SetTargetRange(LOCATION_ONFIELD, 0)
+    e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap()) end)
+    c:RegisterEffect(e2b)
+
+    -- gain effect
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetCode(EVENT_ADJUST)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCondition(s.effcon)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
+
+    -- detach replace
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e4:SetCode(EFFECT_OVERLAY_REMOVE_REPLACE)
+    e4:SetRange(LOCATION_MZONE)
+    e4:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+        return s.effcon(e) and re:GetHandler() == e:GetHandler() and ep == e:GetOwnerPlayer() and Duel.CheckLPCost(ep, 800)
+    end)
+    e4:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        Duel.PayLPCost(tp, 800)
+        return ev
+    end)
     c:RegisterEffect(e4)
-    local e4b = e4:Clone()
-    e4b:SetCode(EFFECT_CANNOT_DISABLE)
-    e4b:SetTargetRange(LOCATION_ONFIELD, 0)
-    e4b:SetTarget(function(e, tc) return tc == e:GetHandler() or (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap()) end)
-    c:RegisterEffect(e4b)
 end
 
-s.rum_limit = function(c, e) return c:IsCode(67926903) end
-s.rum_xyzsummon = function(c)
-    local esum = Effect.CreateEffect(c)
-    esum:SetType(EFFECT_TYPE_FIELD)
-    esum:SetDescription(1073)
-    esum:SetCode(EFFECT_SPSUMMON_PROC)
-    esum:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    esum:SetRange(c:GetLocation())
-    esum:SetCondition(Xyz.Condition(nil, 9, 4, 4, false))
-    esum:SetTarget(Xyz.Target(nil, 9, 4, 4, false))
-    esum:SetOperation(Xyz.Operation(nil, 9, 4, 4, false))
-    esum:SetValue(SUMMON_TYPE_XYZ)
-    esum:SetReset(RESET_CHAIN)
-    c:RegisterEffect(esum)
-    return esum
-end
+function s.effcon(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end
 
-function s.e2filter(c) return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER_C) and c.xyz_number and c.xyz_number >= 101 and c.xyz_number <= 107 end
+function s.e3filter(c) return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER_C) and c.xyz_number and c.xyz_number >= 101 and c.xyz_number <= 107 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.e2filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e3filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 

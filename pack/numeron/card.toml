@@ -35,22 +35,23 @@ type = "monster xyz effect"
 attribute = "light"
 race = "warrior"
 rank = 8
-atk = "?"
-def = "?"
+atk = 0
+def = 0
 effect = """\
 4 or more Level 8 monsters
-Must be Special Summoned with a "Rank-Up-Magic" Spell targeting "Cxyz Barian Hope". \
+Must be Xyz Summoned. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute this card, or use it as material for an Summon. \
 Its battle position cannot be changed by card effects. \
 Its control cannot switch. \
-This card's original ATK/DEF are equal to the number of materials attached to it x 1000. \
+If this card is Xyz Summoned by using "Cxyz Barian Hope", \
+    this card gains its original effects. \
 The above effects cannot be negated or be copied. \
-This card gains the original effects of all "Number C" Xyz Monsters \
-    that has a number between "101" and "107" in its name attached to this card. \
 If this card has "Cxyz Barian Hope" as an material, it gains this effect.
+● The effects of this card, "Barian's" Spell/Trap and "Seventh" Spell/Trap you control cannot be negated.
+● This card gains the original effects of all "Number C" Xyz Monsters \
+    that has a number between "101" and "107" in its name attached to this card.
 ● If you would detach an material(s) from this card, you can pay 800 LP instead.
-● The effects of this card and "Barian's", "Seventh" Spell/Trap Cards you control cannot be negated.
 """
 strings = []
