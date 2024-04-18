@@ -72,5 +72,15 @@ effect = """\
 Once per turn, you can also Xyz Summon "{CARD_NAME}" \
     by using 1 Rank 5 or 6 WATER Xyz Monster you control. \
     (Transfer its materials to this card.) \
+Cannot be targeted by your opponent's card effects while it has material. \
+Once per turn: You can target 1 Special Summoned monster your opponent controls \
+    or 1 card in either GYs or banishments; \
+    attach it to this card as material, \
+    then you can detach 1 material from this card, \
+    and if you do, destroy 1 other card on the field. \
 """
-strings = ["Xyz Summon by using a Rank 5 or 6 WATER Xyz Monster"]
+strings = [
+    "Xyz Summon by using a Rank 5 or 6 WATER Xyz Monster",
+    "Attach 1 other card",
+    "Detach to destroy 1 card on the field?",
+]
