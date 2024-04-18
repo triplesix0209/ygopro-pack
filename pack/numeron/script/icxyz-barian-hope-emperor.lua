@@ -102,16 +102,17 @@ function s.initial_effect(c)
     e4:SetRange(LOCATION_MZONE)
     e4:SetCondition(function(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end)
     e4:SetValue(function(e, ct)
-        local p = e:GetHandler():GetControler()
+        local c = e:GetHandler()
+        local p = c:GetControler()
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
-        return p == tp and te:IsActiveType(TYPE_SPELL + TYPE_TRAP) and (loc & LOCATION_ONFIELD) ~= 0 and
-                   te:GetHandler():IsSetCard({SET_BARIANS, SET_SEVENTH})
+        if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
+        return te:GetHandler() == c or (te:IsActiveType(TYPE_SPELL + TYPE_TRAP) and te:GetHandler():IsSetCard({SET_BARIANS, SET_SEVENTH}))
     end)
     c:RegisterEffect(e4)
     local e4b = e4:Clone()
     e4b:SetCode(EFFECT_CANNOT_DISABLE)
     e4b:SetTargetRange(LOCATION_ONFIELD, 0)
-    e4b:SetTarget(function(e, tc) return tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap() end)
+    e4b:SetTarget(function(e, tc) return tc == e:GetHandler() or (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap()) end)
     c:RegisterEffect(e4b)
 end
 
