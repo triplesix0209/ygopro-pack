@@ -49,7 +49,7 @@ If this card is Xyz Summoned by using "Cxyz Barian Hope" as material, \
     this card gains its original effects. \
 The above effects cannot be negated or be copied. \
 If this card has "Cxyz Barian Hope" as an material, it gains this effect.
-● The effects of this card, "Barian's" Spell/Trap and "Seventh" Spell/Trap you control cannot be negated.
+● The effects of this card, "Number C", "Barian's", and "Seventh" card you control cannot be negated.
 ● This card gains the original effects of all "Number C" Xyz Monsters \
     that has a number between "101" and "107" in its name attached to this card, \
     also their's name is also treated as their orginal number.
@@ -68,9 +68,9 @@ rank = 6
 atk = 2800
 def = 1500
 effect = """\
-3 Level 5 WATER monsters
+4 Level 6 WATER monsters
 Once per turn, you can also Xyz Summon "{CARD_NAME}" \
     by using 1 Rank 5 or 6 WATER Xyz Monster you control. \
     (Transfer its materials to this card.) \
 """
-strings = []
+strings = ["Xyz Summon by using a Rank 5 or 6 WATER Xyz Monster"]

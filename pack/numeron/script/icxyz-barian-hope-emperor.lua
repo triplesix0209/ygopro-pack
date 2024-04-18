@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_BARIANS, SET_SEVENTH, SET_NUMBER_C}
+s.listed_series = {SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
 s.listed_names = {67926903}
 
 function s.initial_effect(c)
@@ -85,13 +85,13 @@ function s.initial_effect(c)
         local p = c:GetControler()
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
         if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
-        return te:GetHandler() == c or (te:IsActiveType(TYPE_SPELL + TYPE_TRAP) and te:GetHandler():IsSetCard({SET_BARIANS, SET_SEVENTH}))
+        return te:GetHandler() == c or te:GetHandler():IsSetCard({SET_NUMBER_C, SET_BARIANS, SET_SEVENTH})
     end)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
     e2b:SetCode(EFFECT_CANNOT_DISABLE)
     e2b:SetTargetRange(LOCATION_ONFIELD, 0)
-    e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap()) end)
+    e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or tc:IsSetCard({SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}) end)
     c:RegisterEffect(e2b)
 
     -- gain effect "number C101 - C107"
@@ -181,7 +181,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3numcode(c)
-    if c:IsCode(12744567) then return 48739166 end
+    if c:IsCode({12744567, 900004003}) then return 48739166 end
     if c:IsCode(67173574) then return 49678559 end
     if c:IsCode(20785975) then return 94380860 end
     if c:IsCode(49456901) then return 2061963 end
