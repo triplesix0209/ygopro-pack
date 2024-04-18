@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_RANK_UP_MAGIC, SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
+s.listed_series = {SET_BARIANS, SET_SEVENTH, SET_NUMBER_C}
 s.listed_names = {67926903}
 
 function s.initial_effect(c)
@@ -59,6 +59,21 @@ function s.initial_effect(c)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
 
+    -- gain effect "barian hope"
+    local e1 = Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCondition(s.e1con)
+    e1:SetOperation(s.e1op)
+    c:RegisterEffect(e1)
+    local e1matcheck = Effect.CreateEffect(c)
+    e1matcheck:SetType(EFFECT_TYPE_SINGLE)
+    e1matcheck:SetCode(EFFECT_MATERIAL_CHECK)
+    e1matcheck:SetValue(s.e1matcheck)
+    e1matcheck:SetLabelObject(e1)
+    c:RegisterEffect(e1matcheck)
+
     -- cards cannot be negated
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
@@ -79,7 +94,7 @@ function s.initial_effect(c)
     e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap()) end)
     c:RegisterEffect(e2b)
 
-    -- gain effect
+    -- gain effect "number C101 - C107"
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     e3:SetCode(EVENT_ADJUST)
@@ -103,6 +118,19 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ) and #e:GetLabelObject() > 0 end
+
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc = e:GetLabelObject():GetFirst()
+    c:CopyEffect(tc:GetOriginalCode(), RESET_EVENT | RESETS_STANDARD)
+end
+
+function s.e1matcheck(e, c)
+    local g = c:GetMaterial():Filter(Card.IsCode, nil, 67926903)
+    e:GetLabelObject():SetLabelObject(g)
+end
+
 function s.effcon(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end
 
 function s.e3filter(c) return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER_C) and c.xyz_number and c.xyz_number >= 101 and c.xyz_number <= 107 end
@@ -117,6 +145,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         local code = tc:GetOriginalCode()
         if not og:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
             tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
+
             local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
             local reset = Effect.CreateEffect(c)
             reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
@@ -137,6 +166,26 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
             end)
             reset:SetReset(RESET_EVENT + RESETS_STANDARD)
             c:RegisterEffect(reset, true)
+
+            local original_num_code = s.e3numcode(tc)
+            if (original_num_code) then
+                local ec1 = Effect.CreateEffect(c)
+                ec1:SetType(EFFECT_TYPE_SINGLE)
+                ec1:SetCode(EFFECT_ADD_CODE)
+                ec1:SetValue(original_num_code)
+                ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
+                tc:RegisterEffect(ec1)
+            end
         end
     end
+end
+
+function s.e3numcode(c)
+    if c:IsCode(12744567) then return 48739166 end
+    if c:IsCode(67173574) then return 49678559 end
+    if c:IsCode(20785975) then return 94380860 end
+    if c:IsCode(49456901) then return 2061963 end
+    if c:IsCode(85121942) then return 59627393 end
+    if c:IsCode(55888045) then return 63746411 end
+    if c:IsCode(68396121) then return 88177324 end
 end
