@@ -1,0 +1,25 @@
+{
+	"repos": [
+		{
+			"url": "https://github.com/triplesix0209/ygopro-pack",
+			"repo_name": "TripleSix's Pack",
+			"repo_path": "./repositories/triplesix",
+			"script_path": "script",
+			"should_update": false,
+			"should_read": true
+		},
+		{
+			"url": "https://github.com/Lahrenheit/EDOPRO-Soundpack",
+			"repo_name": "Soundpack",
+			"repo_path": "./sound/",
+			"should_update": true,
+			"should_read": true
+		}
+	],
+	"urls": [
+		{
+			"url": "https://ygoprodeck.com/cdn-cgi/image/format=auto/https://images.ygoprodeck.com/images/cards/{}.jpg",
+			"type": "pic"
+		}
+	]
+}
