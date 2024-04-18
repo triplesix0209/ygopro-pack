@@ -31,6 +31,17 @@ function s.initial_effect(c)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
+
+    -- rank change
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 3))
+    e3:SetType(EFFECT_TYPE_IGNITION)
+    e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e3:SetRange(LOCATION_GRAVE)
+    e3:SetCountLimit(1)
+    e3:SetTarget(s.e3tg)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
 end
 
 function s.xyzfilter(c, tp, sc)
@@ -74,5 +85,34 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         local g = Duel.SelectMatchingCard(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c)
         Duel.HintSelection(g)
         Duel.Destroy(g, REASON_EFFECT)
+    end
+end
+
+function s.e3filter(c) return c:IsType(TYPE_XYZ) end
+
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.IsExistingTarget(aux.TRUE, tp, LOCATION_GRAVE, 0, 1, c) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)
+    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_GRAVE, 0, 1, 6, c)
+
+    -- Operation info needed to handle the interaction with "Necrovalley"
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, c, 1, tp, LOCATION_GRAVE)
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local g = Duel.GetTargetCards(e):Filter(Card.IsFaceup, nil)
+    if not c:IsRelateToEffect(e) or #g == 0 then return end
+
+    local rk = c:GetRank()
+    for tc in g:Iter() do
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_CHANGE_RANK)
+        ec1:SetValue(rk)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec1)
     end
 end

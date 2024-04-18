@@ -78,9 +78,12 @@ Once per turn: You can target 1 Special Summoned monster your opponent controls 
     attach it to this card as material, \
     then you can detach 1 material from this card, \
     and if you do, destroy 1 other card on the field. \
+Once per turn, if this card is in the GY: You can target up to 6 other Xyz Monsters in your GY; \
+    their's Rank become equal to this card's, until the end of this turn. \
 """
 strings = [
     "Xyz Summon by using a Rank 5 or 6 WATER Xyz Monster",
     "Attach 1 other card",
     "Detach to destroy 1 card on the field?",
+    "Make other Xyz Monsters become same Rank",
 ]
