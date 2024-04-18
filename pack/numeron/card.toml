@@ -56,3 +56,21 @@ If this card has "Cxyz Barian Hope" as an material, it gains this effect.
 ● If you would detach an material(s) from this card, you can pay 800 LP instead.
 """
 strings = []
+
+[full-armored-silent-honor-dark]
+id = 900004003
+name = "Number C101: Full Armored Silent Honor DARK"
+set = "number-c chaos"
+type = "monster xyz effect"
+attribute = "water"
+race = "aqua"
+rank = 6
+atk = 2800
+def = 1500
+effect = """\
+3 Level 5 WATER monsters
+Once per turn, you can also Xyz Summon "{CARD_NAME}" \
+    by using 1 Rank 5 or 6 WATER Xyz Monster you control. \
+    (Transfer its materials to this card.) \
+"""
+strings = []
