@@ -52,7 +52,7 @@ If this card has "Cxyz Barian Hope" as an material, it gains this effect.
 ● The effects of this card, "Barian's" Spell/Trap and "Seventh" Spell/Trap you control cannot be negated.
 ● This card gains the original effects of all "Number C" Xyz Monsters \
     that has a number between "101" and "107" in its name attached to this card, \
-    also their's name is also treated as their orginal number. \
+    also their's name is also treated as their orginal number.
 ● If you would detach an material(s) from this card, you can pay 800 LP instead.
 """
 strings = []
