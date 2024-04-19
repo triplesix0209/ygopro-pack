@@ -3,6 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.xyz_number = 101
+s.listed_series = {SET_SEVENTH}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -82,18 +83,18 @@ function s.e1con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCar
 
 function s.e2filter(c, tp)
     if c:IsFacedown() or not c:CheckUniqueOnField(tp) or c:IsForbidden() then return end
-    return (c:IsLocation(LOCATION_MZONE) and c:IsMonster()) or c:IsSpellTrap()
+    return (c:IsLocation(LOCATION_MZONE) and c:IsMonster()) or (c:IsSetCard(SET_SEVENTH) and c:IsSpellTrap())
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then
-        return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_MZONE + LOCATION_REMOVED, LOCATION_MZONE, 1, c, tp) and
+        return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_MZONE + LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_MZONE, 1, c, tp) and
                    Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.CheckRemoveOverlayCard(tp, LOCATION_MZONE, 0, 1, REASON_EFFECT)
     end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_EQUIP)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_MZONE + LOCATION_REMOVED, LOCATION_MZONE, 1, 1, c, tp)
+    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_MZONE + LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_MZONE, 1, 1, c, tp)
 
     Duel.SetOperationInfo(0, CATEGORY_EQUIP, g, #g, 0, 0)
     if g:IsExists(Card.IsLocation, 1, nil, LOCATION_GRAVE) then Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0) end
