@@ -46,13 +46,14 @@ Your opponent cannot Tribute this card, or use it as material for an Summon. \
 Its battle position cannot be changed by card effects. \
 Its control cannot switch. \
 If this card is Xyz Summoned by using "Cxyz Barian Hope" as material, \
-    this card gains its original effects. \
+    this card gains its original effects and the original effects of all "Number C" Xyz Monsters \
+    that has a number between "101" and "107" in its name attached to this card, \
+    also their's name is also treated as their orginal number. \
 The above effects cannot be negated or be copied. \
 If this card has "Cxyz Barian Hope" as an material, it gains this effect.
+● Your opponent cannot target this card with card effects, \
+    also it cannot be destroyed, or banished, by card effects.
 ● The effects of this card, "Number C", "Barian's", and "Seventh" card you control cannot be negated.
-● This card gains the original effects of all "Number C" Xyz Monsters \
-    that has a number between "101" and "107" in its name attached to this card, \
-    also their's name is also treated as their orginal number.
 ● If you would detach an material(s) from this card, you can pay 800 LP instead.
 """
 strings = []
