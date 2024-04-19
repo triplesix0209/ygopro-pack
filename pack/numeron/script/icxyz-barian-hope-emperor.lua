@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
+s.listed_series = {SET_CXYZ, SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
 s.listed_names = {67926903}
 
 function s.initial_effect(c)
@@ -93,14 +93,19 @@ function s.initial_effect(c)
         local c = e:GetHandler()
         local p = c:GetControler()
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
+        local tc = te:GetHandler()
         if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
-        return te:GetHandler() == c or te:GetHandler():IsSetCard({SET_NUMBER_C, SET_BARIANS, SET_SEVENTH})
+        return te:GetHandler() == c or (tc:IsSetCard({SET_CXYZ, SET_NUMBER_C}) and tc:IsMonster()) or
+                   (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap())
     end)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
     e2b:SetCode(EFFECT_CANNOT_DISABLE)
     e2b:SetTargetRange(LOCATION_ONFIELD, 0)
-    e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or tc:IsSetCard({SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}) end)
+    e2b:SetTarget(function(e, tc)
+        return tc == e:GetHandler() or (tc:IsSetCard({SET_CXYZ, SET_NUMBER_C}) and tc:IsMonster()) or
+                   (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap())
+    end)
     c:RegisterEffect(e2b)
 
     -- detach replace
