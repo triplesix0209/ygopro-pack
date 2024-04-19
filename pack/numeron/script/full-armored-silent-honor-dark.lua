@@ -48,7 +48,7 @@ function s.initial_effect(c)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 2))
     e3:SetCategory(CATEGORY_DESTROY)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1)
@@ -80,7 +80,10 @@ function s.e1filter(c) return c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_X
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCard(s.e1filter, 0, LOCATION_GRAVE, 0, 1, nil) end
 
-function s.e2filter(c, tp) return c:IsFaceup() and c:CheckUniqueOnField(tp) and not c:IsForbidden() end
+function s.e2filter(c, tp)
+    if c:IsFacedown() or not c:CheckUniqueOnField(tp) or c:IsForbidden() then return end
+    return (c:IsLocation(LOCATION_MZONE) and c:IsMonster()) or c:IsSpellTrap()
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
@@ -123,7 +126,7 @@ function s.e3filter(c, ec) return c:GetEquipTarget() == ec end
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_SZONE, 0, 1, nil, c) end
-    Duel.SetPossibleOperationInfo(0, CATEGORY_DESTROY, nil, 1, 0, LOCATION_ONFIELD)
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, nil, 1, 0, LOCATION_ONFIELD)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
@@ -139,10 +142,9 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         end
     end
 
-    if dt > 0 and Duel.IsExistingMatchingCard(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) and
-        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
+    if dt > 0 and Duel.IsExistingMatchingCard(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, nil) then
         Duel.BreakEffect()
-        local dg = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, dt, c)
+        local dg = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, dt, nil)
         Duel.HintSelection(dg)
         Duel.Destroy(dg, REASON_EFFECT)
     end
