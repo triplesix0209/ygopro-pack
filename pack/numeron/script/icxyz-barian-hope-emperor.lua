@@ -140,17 +140,18 @@ end
 
 function s.e1matcheck(e, c)
     local g = c:GetMaterial():Filter(Card.IsCode, nil, 67926903)
+    e:SetLabel(1)
     e:GetLabelObject():SetLabelObject(g)
 end
 
 function s.e1filter(c) return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER_C) and c.xyz_number and c.xyz_number >= 101 and c.xyz_number <= 107 end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ) and #e:GetLabelObject() > 0 end
+function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ) and e:GetLabel() == 1 end
 
 function s.e1op1(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = e:GetLabelObject():GetFirst()
-    c:CopyEffect(tc:GetOriginalCode(), RESET_EVENT | RESETS_STANDARD)
+    if tc then c:CopyEffect(tc:GetOriginalCode(), RESET_EVENT | RESETS_STANDARD) end
 end
 
 function s.e1op2(e, tp, eg, ep, ev, re, r, rp)
