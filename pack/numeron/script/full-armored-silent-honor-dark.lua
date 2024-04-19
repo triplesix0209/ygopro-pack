@@ -53,6 +53,7 @@ function s.initial_effect(c)
     e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1)
+    e3:SetCondition(s.e3con)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -122,6 +123,8 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3filter(c, ec) return c:GetEquipTarget() == ec end
+
+function s.e3con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetTurnPlayer() ~= tp end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
