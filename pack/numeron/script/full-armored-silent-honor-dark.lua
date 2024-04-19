@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.xyz_number = 101
-s.listed_series = {SET_SEVENTH}
+s.listed_series = {SET_XYZ, SET_SEVENTH}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -83,7 +83,7 @@ function s.e1con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsExistingMatchingCar
 
 function s.e2filter(c, tp)
     if c:IsFacedown() or not c:CheckUniqueOnField(tp) or c:IsForbidden() then return end
-    return (c:IsLocation(LOCATION_MZONE) and c:IsMonster()) or (c:IsSetCard(SET_SEVENTH) and c:IsSpellTrap())
+    return (c:IsLocation(LOCATION_MZONE) and c:IsMonster()) or (c:IsSetCard({SET_XYZ, SET_SEVENTH}) and c:IsSpellTrap())
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
