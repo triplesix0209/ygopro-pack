@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_CXYZ, SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
+s.listed_series = {SET_NUMBER, SET_CXYZ, SET_NUMBER_C, SET_BARIANS, SET_SEVENTH}
 s.listed_names = {67926903}
 
 function s.initial_effect(c)
@@ -95,17 +95,13 @@ function s.initial_effect(c)
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
         local tc = te:GetHandler()
         if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
-        return te:GetHandler() == c or (tc:IsSetCard({SET_CXYZ, SET_NUMBER_C}) and tc:IsMonster()) or
-                   (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap())
+        return tc == c or s.e2filter(tc)
     end)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
     e2b:SetCode(EFFECT_CANNOT_DISABLE)
     e2b:SetTargetRange(LOCATION_ONFIELD, 0)
-    e2b:SetTarget(function(e, tc)
-        return tc == e:GetHandler() or (tc:IsSetCard({SET_CXYZ, SET_NUMBER_C}) and tc:IsMonster()) or
-                   (tc:IsSetCard({SET_BARIANS, SET_SEVENTH}) and tc:IsSpellTrap())
-    end)
+    e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or s.e2filter(tc) end)
     c:RegisterEffect(e2b)
 
     -- detach replace
@@ -195,3 +191,9 @@ function s.e1numcode(c)
 end
 
 function s.effcon(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end
+
+function s.e2filter(c)
+    local no = c.xyz_number
+    return (c:IsSetCard({SET_NUMBER}) and no and no >= 101 and no <= 107 and c:IsMonster()) or
+               (c:IsSetCard({SET_CXYZ, SET_NUMBER_C}) and c:IsMonster()) or (c:IsSetCard({SET_BARIANS, SET_SEVENTH}) and c:IsSpellTrap())
+end
