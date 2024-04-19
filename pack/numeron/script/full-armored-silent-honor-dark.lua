@@ -87,14 +87,13 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    local loc = LOCATION_MZONE + LOCATION_GRAVE + LOCATION_REMOVED
     if chk == 0 then
-        return Duel.IsExistingTarget(s.e2filter, tp, loc, loc, 1, c, tp) and Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and
-                   Duel.CheckRemoveOverlayCard(tp, LOCATION_MZONE, 0, 1, REASON_EFFECT)
+        return Duel.IsExistingTarget(s.e2filter, tp, LOCATION_MZONE + LOCATION_REMOVED, LOCATION_MZONE, 1, c, tp) and
+                   Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.CheckRemoveOverlayCard(tp, LOCATION_MZONE, 0, 1, REASON_EFFECT)
     end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_EQUIP)
-    local g = Duel.SelectTarget(tp, s.e2filter, tp, loc, loc, 1, 1, c, tp)
+    local g = Duel.SelectTarget(tp, s.e2filter, tp, LOCATION_MZONE + LOCATION_REMOVED, LOCATION_MZONE, 1, 1, c, tp)
 
     Duel.SetOperationInfo(0, CATEGORY_EQUIP, g, #g, 0, 0)
     if g:IsExists(Card.IsLocation, 1, nil, LOCATION_GRAVE) then Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, g, #g, 0, 0) end
