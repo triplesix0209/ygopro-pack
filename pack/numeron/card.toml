@@ -1,11 +1,14 @@
 [numeron-code]
 id = 900004000
+alias = 41418852
 rarity = "gold"
 name = "Numeron Code"
-set = "numeron"
 type = "spell field"
 effect = """
+This card's name is always treated as "Numeron Network".)
+The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
 Special Summons of your "Number" Xyz Monsters cannot be negated. \
+"Numeron" Xyz Monsters you control can activate effects without detaching material(s). \
 """
 strings = []
 
