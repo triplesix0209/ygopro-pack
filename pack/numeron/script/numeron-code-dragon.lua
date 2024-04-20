@@ -64,21 +64,21 @@ function s.initial_effect(c)
     nopos:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
     nopos:SetRange(LOCATION_MZONE)
     c:RegisterEffect(nopos)
-    
-    -- gain effect
-    local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    e1:SetCode(EVENT_ADJUST)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetOperation(s.e1op)
-    c:RegisterEffect(e1)
 
     -- indes battle
+    local e1 = Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_SINGLE)
+    e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    e1:SetValue(function(e, tc) return not tc:IsType(SET_NUMBER) end)
+    c:RegisterEffect(e1)
+
+    -- gain effect
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-    e2:SetValue(s.e2val)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e2:SetCode(EVENT_ADJUST)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 end
 
@@ -96,13 +96,13 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     Duel.Overlay(c, g)
 end
 
-function s.e1filter(c)
+function s.e2filter(c)
     return not c:IsCode(id) and c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
 end
 
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.e1filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e2filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -133,5 +133,3 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         end
     end
 end
-
-function s.e2val(e, tc) return not tc:IsType(SET_NUMBER) end
