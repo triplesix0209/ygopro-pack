@@ -21,7 +21,11 @@ Its battle position cannot be changed by card effects. \
 Its control cannot switch. \
 The above effects cannot be negated or be copied. \
 Cannot be destroyed by battle, except with an "Number" monster. \
+Special Summons of your "Number" Xyz Monsters cannot be negated. \
+Once per Chain, if an "Number" monster(s) that has a number between "1" and "100" \
+    is Special Summoned to your field (except during the Damage Step): \
+    You can target those monsters; attach them to this card as material. \
 This card gains the original effects of all "Number" Xyz Monsters \
     that has a number between "1" and "100" in its name attached to this card. \
 """
-strings = []
+strings = ["Attach Special Summoned monsters to this card"]

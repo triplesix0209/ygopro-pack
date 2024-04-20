@@ -72,14 +72,45 @@ function s.initial_effect(c)
     e1:SetValue(function(e, tc) return not tc:IsType(SET_NUMBER) end)
     c:RegisterEffect(e1)
 
-    -- gain effect
+    -- cannot disable summon
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    e2:SetCode(EVENT_ADJUST)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
+    e2:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetOperation(s.e2op)
+    e2:SetTarget(function(e, c) return c:IsSetCard(SET_NUMBER) and c:IsType(TYPE_XYZ) and c:IsControler(e:GetHandlerPlayer()) end)
     c:RegisterEffect(e2)
+
+    -- attach
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 0))
+    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e3:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DELAY)
+    e3:SetCode(EVENT_CUSTOM + id)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetTarget(s.e3tg)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
+    local g = Group.CreateGroup()
+    g:KeepAlive()
+    e3:SetLabelObject(g)
+    local e3reg = Effect.CreateEffect(c)
+    e3reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e3reg:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e3reg:SetRange(LOCATION_MZONE)
+    e3reg:SetLabelObject(e3)
+    e3reg:SetOperation(s.e3regop)
+    c:RegisterEffect(e3reg)
+
+    -- gain effect
+    local e4 = Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    e4:SetCode(EVENT_ADJUST)
+    e4:SetRange(LOCATION_MZONE)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
 end
 
 function s.spfilter(c) return c:IsFaceup() and c:IsSetCard(SET_NUMBER) and c:IsType(TYPE_XYZ) end
@@ -96,13 +127,45 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     Duel.Overlay(c, g)
 end
 
-function s.e2filter(c)
+function s.e3filter(c, e, tp)
+    return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
+end
+
+function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
+    local tg = eg:Filter(s.e3filter, nil, e, tp)
+    if #tg == 0 then return end
+    for tc in tg:Iter() do tc:RegisterFlagEffect(id, RESET_CHAIN, 0, 1) end
+    
+    local g = e:GetLabelObject():GetLabelObject()
+    if Duel.GetCurrentChain() == 0 then g:Clear() end
+    g:Merge(tg)
+    g:Remove(function(c) return c:GetFlagEffect(id) == 0 end, nil)
+    e:GetLabelObject():SetLabelObject(g)
+    Duel.RaiseSingleEvent(e:GetHandler(), EVENT_CUSTOM + id, e, 0, tp, tp, 0)
+end
+
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    local g = e:GetLabelObject():Filter(s.e3filter, nil, e, tp)
+    if chk == 0 then return #g > 0 and Duel.GetFlagEffect(tp, id) == 0 end
+    Duel.RegisterFlagEffect(tp, id, RESET_CHAIN, 0, 1)
+    Duel.SetTargetCard(g)
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+    local g = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS)
+    g = g:Filter(function(c, e) return c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) end, nil, e)
+    if #g > 0 then Duel.Overlay(c, g) end
+end
+
+function s.e4filter(c)
     return not c:IsCode(id) and c:IsType(TYPE_XYZ) and c:IsSetCard(SET_NUMBER) and c.xyz_number and c.xyz_number >= 1 and c.xyz_number <= 100
 end
 
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.e2filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e4filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
