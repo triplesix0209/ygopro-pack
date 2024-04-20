@@ -1,5 +1,5 @@
 [icxyz-barian-hope-emperor]
-id = 900004201
+id = 900004101
 rarity = "gold"
 name = "iCxyz Barian Hope Emperor"
 set = "cxyz chaos barian"
@@ -31,7 +31,7 @@ If this card has "Cxyz Barian Hope" as an material, it gains this effect.
 strings = []
 
 [full-armored-silent-honor-dark]
-id = 900004202
+id = 900004102
 name = "Number C101: Full Armored Silent Honor DARK"
 set = "number-c chaos"
 type = "monster xyz effect"
