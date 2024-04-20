@@ -77,7 +77,6 @@ function s.initial_effect(c)
     -- indes battle
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
     e2:SetValue(s.e2val)
     c:RegisterEffect(e2)
@@ -89,7 +88,7 @@ function s.spcon(e, c)
     if c == nil then return true end
     local tp = c:GetControler()
     local g = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE, 0, nil)
-    return g:IsExists(Card.IsCode, 1, nil, 57314798)
+    return g:IsExists(Card.IsOriginalCode, 1, nil, 57314798)
 end
 
 function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
