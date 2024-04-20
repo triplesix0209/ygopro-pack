@@ -15,12 +15,13 @@ packs = [
     "./pack/cosmic-dragon",
     "./pack/numeron",
     "./pack/galaxy-eyes",
+    "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
 ]
 
 skip_compile_packs = [
-    # "./pack/_update",
+    "./pack/_update",
     "./pack/egyptian-god",
     "./pack/palladium",
     "./pack/blue-eyes",
@@ -31,6 +32,7 @@ skip_compile_packs = [
     "./pack/cosmic-dragon",
     # "./pack/numeron",
     "./pack/galaxy-eyes",
+    # "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
 ]
