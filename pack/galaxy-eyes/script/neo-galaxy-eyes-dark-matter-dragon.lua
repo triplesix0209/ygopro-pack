@@ -61,7 +61,7 @@ end
 
 function s.e2filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGraveAsCost() end
 
-function s.e2filter2(c) return c:IsRace(RACE_DRAGON) end
+function s.e2filter2(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_XYZ) end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil) end
