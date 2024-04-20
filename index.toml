@@ -31,8 +31,8 @@ skip_compile_packs = [
     "./pack/evil-hero",
     "./pack/cosmic-dragon",
     # "./pack/numeron",
-    # "./pack/galaxy-eyes",
-    # "./pack/barian",
+    "./pack/galaxy-eyes",
+    "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
 ]
