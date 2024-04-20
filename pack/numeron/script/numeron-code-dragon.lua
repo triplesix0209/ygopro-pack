@@ -82,7 +82,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.spfilter(c) return c:IsFaceup() and c:IsType(TYPE_XYZ) end
+function s.spfilter(c) return c:IsFaceup() and c:IsSetCard(SET_NUMBER) and c:IsType(TYPE_XYZ) end
 
 function s.spcon(e, c)
     if c == nil then return true end

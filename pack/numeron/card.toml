@@ -11,8 +11,9 @@ atk = 0
 def = 0
 effect = """\
 Cannot be Xyz Summoned. \
-Must be Special Summoned (from your Extra Deck) by overlaying all Xyz Monsters you control, \
-    including 1 original "Number 100: Numeron Dragon". (Transfer its materials to this card.) \
+Must be Special Summoned (from your Extra Deck) by overlaying all "Number" Xyz Monsters you control, \
+    including 1 monster with original name is "Number 100: Numeron Dragon". \
+    (Transfer its materials to this card.) \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute this card, or use it as material for an Summon. \
