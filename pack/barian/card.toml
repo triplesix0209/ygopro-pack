@@ -23,10 +23,10 @@ If this card is Xyz Summoned by using "Cxyz Barian Hope" as material, \
     that has a number between "101" and "107" in its name attached to this card, \
     also their's name is also treated as their orginal number's name. \
 If this card has "Cxyz Barian Hope" as an material, it gains this effect.
+● If you would detach an material(s) from this card, you can pay 800 LP instead.
 ● The effects of this card, "Number" monsters with a number between "101" and "107" in their name, \
     as well as "Cxyz" monster, "Number C" monsters, "Barian's" Spell/Trap, and "Seventh" Spell/Trap \
     you control cannot be negated.
-● If you would detach an material(s) from this card, you can pay 800 LP instead.
 """
 strings = []
 

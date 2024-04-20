@@ -82,40 +82,35 @@ function s.initial_effect(c)
     e1matcheck2:SetLabelObject(e1b)
     c:RegisterEffect(e1matcheck2)
 
-    -- cards cannot be negated
+    -- detach replace
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetCode(EFFECT_CANNOT_DISEFFECT)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e2:SetCode(EFFECT_OVERLAY_REMOVE_REPLACE)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetCondition(s.effcon)
-    e2:SetValue(function(e, ct)
+    e2:SetCondition(s.e2con)
+    e2:SetOperation(s.e2op)
+    c:RegisterEffect(e2)
+
+    -- cards cannot be negated
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetCode(EFFECT_CANNOT_DISEFFECT)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCondition(s.effcon)
+    e3:SetValue(function(e, ct)
         local c = e:GetHandler()
         local p = c:GetControler()
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
         local tc = te:GetHandler()
         if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
-        return tc == c or s.e2filter(tc)
-    end)
-    c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_CANNOT_DISABLE)
-    e2b:SetTargetRange(LOCATION_ONFIELD, 0)
-    e2b:SetTarget(function(e, tc) return tc == e:GetHandler() or s.e2filter(tc) end)
-    c:RegisterEffect(e2b)
-
-    -- detach replace
-    local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e3:SetCode(EFFECT_OVERLAY_REMOVE_REPLACE)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
-        return s.effcon(e) and re:GetHandler() == e:GetHandler() and ep == e:GetOwnerPlayer() and Duel.CheckLPCost(ep, 800)
-    end)
-    e3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        Duel.PayLPCost(tp, 800)
-        return ev
+        return tc == c or s.e3filter(tc)
     end)
     c:RegisterEffect(e3)
+    local e3b = e3:Clone()
+    e3b:SetCode(EFFECT_CANNOT_DISABLE)
+    e3b:SetTargetRange(LOCATION_ONFIELD, 0)
+    e3b:SetTarget(function(e, tc) return tc == e:GetHandler() or s.e3filter(tc) end)
+    c:RegisterEffect(e3b)
 end
 
 function s.e1matcheck(e, c)
@@ -191,7 +186,16 @@ end
 
 function s.effcon(e) return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode, 1, nil, 67926903) end
 
-function s.e2filter(c)
+function s.e2con(e, tp, eg, ep, ev, re, r, rp)
+    return s.effcon(e) and re:GetHandler() == e:GetHandler() and ep == e:GetOwnerPlayer() and Duel.CheckLPCost(ep, 800)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    Duel.PayLPCost(tp, 800)
+    return ev
+end
+
+function s.e3filter(c)
     local no = c.xyz_number
     return (c:IsSetCard({SET_NUMBER}) and no and no >= 101 and no <= 107 and c:IsMonster()) or
                (c:IsSetCard({SET_CXYZ, SET_NUMBER_C}) and c:IsMonster()) or (c:IsSetCard({SET_BARIANS, SET_SEVENTH}) and c:IsSpellTrap())
