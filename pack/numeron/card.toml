@@ -1,7 +1,7 @@
-[numeron-genesis-dragon]
+[numeron-code-dragon]
 id = 900004001
 rarity = "gold"
-name = "Numeron Genesis Dragon"
+name = "Numeron Code Dragon"
 set = "numeron"
 type = "monster xyz effect"
 attribute = "divine"
@@ -18,10 +18,10 @@ You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute this card, or use it as material for an Summon. \
 Its battle position cannot be changed by card effects. \
 Its control cannot switch. \
-The above effects cannot be negated or be copied. \
-Cannot be destroyed by battle, except with an "Number" monster. \
 This card gains the original effects of all "Number" Xyz Monsters \
     that has a number between "1" and "100" in its name attached to this card, \
     except "{CARD_NAME}". \
+Cannot be destroyed by battle, except with an "Number" monster. \
+The above effects cannot be negated or be copied. \
 """
 strings = []
