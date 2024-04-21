@@ -11,7 +11,7 @@ Cannot be targeted by card effects. \
 Special Summons of your "Number" Xyz Monsters cannot be negated. \
 "Numeron" Xyz Monsters you control can activate effects without detaching material(s). \
 (Quick Effect): You can send 1 "Numeron" Spell/Trap Card from your hand or Deck to the GY; \
-    this effect becomes that card's effect when that card is activated. \
+    pay that card activation costs and this effect becomes that card's effect when that card is activated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Send 1 \"Numeron\" Spell/Trap to GY and activate its effect"]
@@ -64,7 +64,9 @@ type = "trap counter"
 effect = """
 When your opponent activates a Spell Card or effect, \
     while you control no other Spell/Trap Cards, except "Numeron Network": \
-    Send from your opponent's Deck to the GY, 1 Spell with different name that card, and meets its activation conditions; \
-    the activated effect becomes the sent card's effect. \
+    Reveal 1 Spell with different name that card, and meets its activation conditions, \
+    the activated effect becomes the revealed card's effect. \
+    Send the revealed card to the GY. \
+You can only activate 1 "{CARD_NAME}" per turn. \
 """
 strings = []

@@ -82,8 +82,7 @@ function s.initial_effect(c)
 end
 
 function s.e4filter(c)
-    return c:IsSetCard(SET_NUMERON) and c:IsSpellTrap() and c:IsAbleToGraveAsCost()
-        and c:CheckActivateEffect(true, true, true) ~= nil
+    return c:IsSetCard(SET_NUMERON) and c:IsSpellTrap() and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(true, true, true) ~= nil
 end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -95,13 +94,14 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     end
 
     e:SetLabel(0)
-    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil)
-    local te, ceg, cep, cev, cre, cr, crp = g:GetFirst():CheckActivateEffect(true, true, true)
-    Duel.SendtoGrave(g, REASON_COST)
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+    local te, ceg, cep, cev, cre, cr, crp = tc:CheckActivateEffect(true, true, true)
+    Duel.SendtoGrave(tc, REASON_COST)
 
-    te:SetProperty(te:GetProperty())
+    e:SetProperty(te:GetProperty())
     local tg = te:GetTarget()
     if tg then tg(e, tp, ceg, cep, cev, cre, cr, crp, 1) end
+    te:SetLabelObject(e:GetLabelObject())
     e:SetLabelObject(te)
     Duel.ClearOperationInfo(0)
 end
@@ -109,6 +109,8 @@ end
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local te = e:GetLabelObject()
     if not te then return end
+
+    e:SetLabelObject(te:GetLabelObject())
     local op = te:GetOperation()
-    if op then op(te, tp, eg, ep, ev, re, r, rp) end
+    if op then op(e, tp, eg, ep, ev, re, r, rp) end
 end

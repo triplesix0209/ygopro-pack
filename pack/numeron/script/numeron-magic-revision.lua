@@ -7,20 +7,18 @@ s.listed_names = {CARD_NUMERON_NETWORK}
 function s.initial_effect(c)
     -- Activate
     local e1 = Effect.CreateEffect(c)
+    e1:SetCategory(CATEGORY_TOGRAVE)
     e1:SetType(EFFECT_TYPE_ACTIVATE)
     e1:SetCode(EVENT_CHAINING)
+    e1:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
     e1:SetCondition(s.e1con)
-    e1:SetCost(function(e)
-        e:SetLabel(1)
-        return true
-    end)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 end
 
 function s.e1filter(c, tc)
-    return not c:IsCode(tc:GetCode()) and c:IsSpell() and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(false, true, true) ~= nil
+    return not c:IsCode(tc:GetCode()) and not c:IsPublic() and c:IsSpell() and c:IsAbleToGrave() and c:CheckActivateEffect(false, true, true) ~= nil
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
@@ -31,32 +29,23 @@ end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local ec = re:GetHandler()
-    if chk == 0 then
-        if e:GetLabel() == 0 then return false end
-        e:SetLabel(0)
-        return Duel.IsExistingMatchingCard(s.e1filter, tp, 0, LOCATION_DECK, 1, nil, ec)
-    end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, 0, LOCATION_DECK, 1, nil, ec) end
 
-    e:SetLabel(0)
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e1filter, tp, 0, LOCATION_DECK, 1, 1, nil, ec):GetFirst()
-    local te, ceg, cep, cev, cre, cr, crp = tc:CheckActivateEffect(false, true, true)
-    Duel.SendtoGrave(tc, REASON_COST)
-
-    local tg = te:GetTarget()
-    if tg then tg(e, tp, ceg, cep, cev, cre, cr, crp, 1) end
-    te:SetLabelObject(e:GetLabelObject())
-    e:SetLabelObject(te)
-    Duel.ClearOperationInfo(0)
+    Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 1, 1 - tp, LOCATION_DECK)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local te = e:GetLabelObject()
-    if not te then return end
-    Utility.HintCard(te)
+    local ec = re:GetHandler()
+    local tc = Utility.SelectMatchingCard(HINTMSG_CONFIRM, tp, s.e1filter, tp, 0, LOCATION_DECK, 1, 1, nil, ec):GetFirst()
+    if not tc then return end
+    Duel.ConfirmCards(1 - tp, tc)
 
+    Utility.HintCard(tc)
+    Duel.ChangeChainOperation(ev, aux.FALSE)
+    local te, ceg, cep, cev, cre, cr, crp = tc:CheckActivateEffect(false, true, true)
+    local tg = te:GetTarget()
+    if tg then tg(e, tp, ceg, cep, cev, cre, cr, crp, 1) end
     local op = te:GetOperation()
-    if op then
-        Duel.ChangeChainOperation(ev, aux.FALSE)
-        op(e, tp, eg, ep, ev, re, r, rp)
-    end
+    if op then op(e, tp, eg, ep, ev, re, r, rp) end
+    Duel.SendtoGrave(tc, REASON_EFFECT)
 end
