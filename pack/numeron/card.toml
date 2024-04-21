@@ -62,11 +62,10 @@ name = "Numeron Magic Revision"
 set = "numeron"
 type = "trap counter"
 effect = """
-When your opponent activates a Spell Card or effect, \
+When your opponent activates a Normal or Quick-Play Spell Card or effect, \
     while you control no other Spell/Trap Cards, except "Numeron Network": \
-    Reveal 1 Spell with different name that card, and meets its activation conditions, \
-    the activated effect becomes the revealed card's effect. \
-    Send the revealed card to the GY. \
+    Reveal 1 Normal or Quick-Play Spell with different name that card, and meets its activation conditions; \
+    send the revealed card to the GY, and if you do, the activated effect becomes that card's effect. \
 You can only activate 1 "{CARD_NAME}" per turn. \
 """
 strings = []
