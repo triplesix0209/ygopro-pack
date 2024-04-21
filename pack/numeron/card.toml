@@ -50,6 +50,7 @@ strings = ["Attach Special Summoned monsters to this card"]
 [numeron-summon-revision]
 id = 900004002
 name = "Numeron Summon Revision"
+set = "numeron"
 type = "trap counter"
 effect = """
 """
@@ -58,6 +59,7 @@ strings = []
 [numeron-magic-revision]
 id = 900004003
 name = "Numeron Magic Revision"
+set = "numeron"
 type = "trap counter"
 effect = """
 When your opponent activates a Spell Card or effect, \

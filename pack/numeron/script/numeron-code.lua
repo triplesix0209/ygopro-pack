@@ -82,7 +82,8 @@ function s.initial_effect(c)
 end
 
 function s.e4filter(c)
-    return c:IsSetCard(SET_NUMERON) and c:IsSpellTrap() and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(false, true, true) ~= nil
+    return c:IsSetCard(SET_NUMERON) and c:IsSpellTrap() and c:IsAbleToGraveAsCost()
+        and c:CheckActivateEffect(true, true, true) ~= nil
 end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -95,7 +96,7 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     e:SetLabel(0)
     local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil)
-    local te, ceg, cep, cev, cre, cr, crp = g:GetFirst():CheckActivateEffect(false, true, true)
+    local te, ceg, cep, cev, cre, cr, crp = g:GetFirst():CheckActivateEffect(true, true, true)
     Duel.SendtoGrave(g, REASON_COST)
 
     te:SetProperty(te:GetProperty())
