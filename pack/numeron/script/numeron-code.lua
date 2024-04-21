@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_NUMBER}
+s.listed_series = {SET_NUMBER, SET_NUMERON}
 
 function s.initial_effect(c)
     -- activate
@@ -44,10 +44,14 @@ function s.initial_effect(c)
 
     -- detaching cost is optional
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e2:SetCode(41418852)
+    e2:SetDescription(0)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e2:SetCode(EFFECT_OVERLAY_REMOVE_REPLACE)
     e2:SetRange(LOCATION_FZONE)
-    e2:SetTargetRange(1, 0)
+    e2:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+        return (r & REASON_COST) ~= 0 and re:IsActivated() and re:IsActiveType(TYPE_XYZ) and re:GetHandler():IsSetCard(SET_NUMERON)
+    end)
+    e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp) return ev end)
     c:RegisterEffect(e2)
 end
+
