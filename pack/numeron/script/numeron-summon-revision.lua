@@ -21,12 +21,14 @@ function s.e1filter(c, e, tp) return not c:IsPublic() and c:IsCanBeSpecialSummon
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
     local fc = Duel.GetFieldCard(tp, LOCATION_FZONE, 0)
-    return fc and fc:IsFaceup() and fc:IsCode(CARD_NUMERON_NETWORK) and Duel.GetFieldGroupCount(tp, LOCATION_MZONE, 0) == 0 and ep == 1 - tp and
-               Duel.GetCurrentChain(true) == 0 and #eg == 1 and eg:IsExists(Card.IsSummonLocation, 1, nil, LOCATION_EXTRA)
+    return fc and fc:IsFaceup() and fc:IsCode(CARD_NUMERON_NETWORK) and Duel.GetFieldGroupCount(tp, LOCATION_MZONE, 0) == 0
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, 0, LOCATION_DECK, 1, nil, e, tp) end
+    if chk == 0 then
+        return ep == 1 - tp and Duel.GetCurrentChain(true) == 0 and #eg == 1 and eg:IsExists(Card.IsSummonLocation, 1, nil, LOCATION_EXTRA) and
+                   Duel.IsExistingMatchingCard(s.e1filter, tp, 0, LOCATION_DECK, 1, nil, e, tp)
+    end
     Duel.SetOperationInfo(0, CATEGORY_DISABLE_SUMMON, eg, #eg, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, eg, #eg, 0, 0)
 end

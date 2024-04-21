@@ -45,15 +45,17 @@ function s.e1filter(c, e, tp, chain)
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp)
-    local ec = re:GetHandler()
     local fc = Duel.GetFieldCard(tp, LOCATION_FZONE, 0)
-    return fc and fc:IsFaceup() and fc:IsCode(CARD_NUMERON_NETWORK) and Duel.GetFieldGroupCount(tp, LOCATION_MZONE, 0) == 0 and rp == 1 - tp and
-               (ec:IsNormalSpell() or ec:IsQuickPlaySpell())
+    return fc and fc:IsFaceup() and fc:IsCode(CARD_NUMERON_NETWORK) and Duel.GetFieldGroupCount(tp, LOCATION_MZONE, 0) == 0
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local ec = re:GetHandler()
     local chain = Duel.GetCurrentChain()
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, 0, LOCATION_DECK, 1, nil, re, rp, chain) end
+    if chk == 0 then
+        return rp == 1 - tp and (ec:IsNormalSpell() or ec:IsQuickPlaySpell()) and
+                   Duel.IsExistingMatchingCard(s.e1filter, tp, 0, LOCATION_DECK, 1, nil, re, rp, chain)
+    end
 
     chain = chain - 1;
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_CONFIRM)

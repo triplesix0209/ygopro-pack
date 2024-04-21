@@ -84,20 +84,21 @@ function s.initial_effect(c)
     c:RegisterEffect(e4b)
 end
 
-function s.e4filter(c)
-    return c:IsSetCard(SET_NUMERON) and c:IsSpellTrap() and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(true, true, true) ~= nil
+function s.e4filter(c, tp)
+    return c:IsSetCard(SET_NUMERON) and c:IsSpellTrap() and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(true, true, true) ~= nil and
+               (Duel.GetTurnPlayer() == tp or not c:IsSpell())
 end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
         if e:GetLabel() == 0 then return false end
         e:SetLabel(0)
-
-        return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil)
+        return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil, tp)
     end
 
     e:SetLabel(0)
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_CONFIRM)
+    local tc = Duel.SelectMatchingCard(tp, s.e4filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, tp):GetFirst()
     local te, ceg, cep, cev, cre, cr, crp = tc:CheckActivateEffect(true, true, true)
     Duel.SendtoGrave(tc, REASON_COST)
 

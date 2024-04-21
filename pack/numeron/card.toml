@@ -12,6 +12,7 @@ Special Summons of your "Number" Xyz Monsters cannot be negated. \
 "Numeron" Xyz Monsters you control can activate effects without detaching material(s). \
 (Quick Effect): You can send 1 "Numeron" Spell/Trap Card from your hand or Deck to the GY; \
     pay that card activation costs and this effect becomes that card's effect when that card is activated. \
+    You can only send Spell Card during your turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Send 1 \"Numeron\" Spell/Trap to GY and activate its effect"]
