@@ -53,6 +53,12 @@ name = "Numeron Summon Revision"
 set = "numeron"
 type = "trap counter"
 effect = """
+When your opponent would Special Summon exactly 1 monster from their Extra Deck (except during the Damage Step), \
+    if "Numeron Network" is in your Field Zone and you control no monsters: \
+    Reveal 1 monster from their Deck, and if you do, \
+    negate the Summon, and if you do, destroy that monster, \
+    then Special Summon the revealed monster to their field, but its effects are negated. \
+You can only activate 1 "{CARD_NAME}" per turn. \
 """
 strings = []
 
@@ -63,7 +69,7 @@ set = "numeron"
 type = "trap counter"
 effect = """
 When your opponent activates a Normal or Quick-Play Spell Card or effect, \
-    while you control no other Spell/Trap Cards, except "Numeron Network": \
+    if "Numeron Network" is in your Field Zone and you control no monsters: \
     Reveal 1 Normal or Quick-Play Spell with different name that card, and meets its activation conditions; \
     send the revealed card to the GY, and if you do, the activated effect becomes that card's effect. \
 You can only activate 1 "{CARD_NAME}" per turn. \
