@@ -7,10 +7,14 @@ type = "spell field"
 effect = """
 This card's name is always treated as "Numeron Network".)
 The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
+Cannot be targeted by card effects. \
 Special Summons of your "Number" Xyz Monsters cannot be negated. \
 "Numeron" Xyz Monsters you control can activate effects without detaching material(s). \
+(Quick Effect): You can send 1 "Numeron" Spell/Trap Card from your hand or Deck to the GY; \
+    this effect becomes that card's effect when that card is activated. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = []
+strings = ["Send 1 \"Numeron\" Spell/Trap to GY and activate its effect"]
 
 [numeron-code-dragon]
 id = 900004001
@@ -42,3 +46,23 @@ This card gains the original effects of all "Number" Xyz Monsters \
     that has a number between "1" and "100" in its name attached to this card. \
 """
 strings = ["Attach Special Summoned monsters to this card"]
+
+[numeron-summon-revision]
+id = 900004002
+name = "Numeron Summon Revision"
+type = "trap counter"
+effect = """
+"""
+strings = []
+
+[numeron-magic-revision]
+id = 900004003
+name = "Numeron Magic Revision"
+type = "trap counter"
+effect = """
+When your opponent activates a Spell Card or effect, \
+    while you control no other Spell/Trap Cards, except "Numeron Network": \
+    Send from your opponent's Deck to the GY, 1 Spell with different name that card, and meets its activation conditions; \
+    the activated effect becomes the sent card's effect. \
+"""
+strings = []
