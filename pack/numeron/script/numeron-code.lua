@@ -79,6 +79,9 @@ function s.initial_effect(c)
     e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
+    local e4b = e4:Clone()
+    e4b:SetCode(EVENT_SPSUMMON)
+    c:RegisterEffect(e4b)
 end
 
 function s.e4filter(c)
@@ -107,6 +110,7 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    if not e:GetHandler():IsRelateToEffect(e) then return end
     local te = e:GetLabelObject()
     if not te then return end
 
