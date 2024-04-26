@@ -52,8 +52,13 @@ Once per Chain, if an "Number" monster(s) that has a number between "1" and "100
     You can target those monsters; attach them and their materials to this card as material. \
 This card gains the original effects of all "Number" Xyz Monsters \
     that has a number between "1" and "100" in its name attached to this card. \
+Once per turn: You can detach all materials from this card (min. 5); \
+    shuffle all cards from the GYs, and the banishments into the Deck. \
 """
-strings = ["Attach Special Summoned monsters to this card"]
+strings = [
+    "Attach Special Summoned monsters to this card",
+    "Shuffle all cards from the GYs, and the banishments into the Deck",
+]
 
 [numeron-summon-revision]
 id = 900004002

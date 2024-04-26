@@ -52,8 +52,9 @@ function s.xyzovfilter(c, tp, xyzc)
 end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return e:GetHandler():CheckRemoveOverlayCard(tp, 1, REASON_COST) end
-    e:GetHandler():RemoveOverlayCard(tp, 1, 1, REASON_COST)
+    local c = e:GetHandler()
+    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 1, REASON_COST) end
+    c:RemoveOverlayCard(tp, 1, 1, REASON_COST)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
