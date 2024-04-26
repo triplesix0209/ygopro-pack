@@ -32,6 +32,7 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_INACTIVATE)
     e1:SetCode(EVENT_FREE_CHAIN)
     e1:SetCountLimit(1, {id, 1}, EFFECT_COUNT_CODE_OATH)
+    e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
@@ -87,6 +88,11 @@ function s.initial_effect(c)
 end
 
 function s.e1filter1(c) return not c:IsCode(id) and c:IsFieldSpell() end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return true end
+    Duel.SetPossibleOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
+end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
