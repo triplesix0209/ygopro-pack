@@ -6,7 +6,11 @@ name = "Numeron Code"
 type = "spell field"
 effect = """
 This card's name is always treated as "Numeron Network".)
+You can only activate 1 "{CARD_NAME}" per turn. \
 The activation of this card, or its effects, cannot be negated, or can its effects be negated. \
+When this card is activated: You can place underneath this card, \
+    1 Field Spell from your hand, Deck or GY, except "{CARD_NAME}", \
+    and if you do, this card gains the original effects of that card. \
 Cannot be targeted by card effects. \
 Special Summons of your "Number" Xyz Monsters cannot be negated. \
 "Numeron" Xyz Monsters you control can activate effects without detaching material(s). \
@@ -15,7 +19,10 @@ Special Summons of your "Number" Xyz Monsters cannot be negated. \
     You can only send Spell Card during your turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Send 1 \"Numeron\" Spell/Trap to GY and activate its effect"]
+strings = [
+    "Place 1 Field Spell underneath this card?",
+    "Send 1 \"Numeron\" Spell/Trap to GY and activate its effect",
+]
 
 [numeron-code-dragon]
 id = 900004001
