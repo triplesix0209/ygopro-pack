@@ -307,6 +307,61 @@ When this card is destroyed and sent to the Graveyard while it has Xyz Material:
 """
 strings = ["Inflict damage to your opponent", "Special Summon"]
 
+[rebarian-shark]
+id = 59479050
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Number 71: Rebarian Shark"
+set = "number barian"
+type = "monster xyz effect"
+attribute = "water"
+race = "dragon"
+level = 3
+atk = 0
+def = 2000
+effect = """\
+2 Level 3 monsters
+Once per turn, if this card has material: \
+    You can target 1 "Number" Xyz Monster in your GY, except "Number 71: Rebarian Shark"; \
+    Special Summon it, and if you do, attach 1 material from this card to it. \
+If this card is sent to the GY: \
+    You can place 1 "Rank-Up-Magic" Spell from your Deck on top of your Deck. \
+"""
+strings = [
+    "Special Summon 1 \"Number\" from your GY and attach material to it",
+    "Attach 1 material to the Special Summoned monster",
+    "Place 1 \"Rank-Up-Magic\" Spell from your Deck on top of your Deck",
+]
+
+[draglubion]
+id = 28400508
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Number 97: Draglubion"
+set = "number"
+type = "monster xyz effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 3000
+def = 3000
+effect = """\
+2 Level 8 monsters
+Your opponent cannot target this card with card effects. \
+You can detach 1 material from this card; \
+    take 2 Dragon "Number" monsters with different names from your Extra Deck and/or GY, \
+    except "Number 97: Draglubion", Special Summon 1 of them and attach the other to it as material, \
+    also for the rest of this turn you cannot Special Summon other monsters, \
+    or declare an attack, except with that Special Summoned monster. \
+    You can only use this effect of "Number 97: Draglubion" once per turn. \
+"""
+strings = [
+    "Take 2 Dragon \"Number\" and Special Summon 1 of them",
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon",
+]
+
 [utopic-dragon]
 id = 51543904
 generate-pic = false
@@ -331,7 +386,11 @@ During either player's turn, when a monster effect is activated that targets thi
     You can detach 1 Xyz Material from this card; \
     negate the activation, and if you do, destroy that card. \
 """
-strings = ["", "Special Summon 1 \"Number\" from your GY", "Negate and destroy"]
+strings = [
+    "",
+    "Special Summon 1 \"Number\" from your GY with its effects are negated",
+    "Negate and destroy",
+]
 
 [utopia-dragonar]
 id = 95134948
