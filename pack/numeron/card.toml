@@ -21,6 +21,7 @@ Special Summons of your "Number" Xyz Monsters cannot be negated. \
 """
 strings = [
     "Place 1 Field Spell underneath this card?",
+    "No detach as cost (\"{CARD_NAME}\")",
     "Send 1 \"Numeron\" Spell/Trap to GY and activate its effect",
 ]
 
@@ -53,9 +54,7 @@ Once per Chain, if an "Number" monster(s) that has a number between "1" and "100
 This card gains the original effects of all "Number" Xyz Monsters \
     that has a number between "1" and "100" in its name attached to this card. \
 """
-strings = [
-    "Attach Special Summoned monsters to this card"
-]
+strings = ["Attach Special Summoned monsters to this card"]
 
 [numeron-summon-revision]
 id = 900004002

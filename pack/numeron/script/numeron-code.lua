@@ -56,6 +56,7 @@ function s.initial_effect(c)
 
     -- detaching cost is optional
     local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(aux.Stringid(id,1))
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
     e4:SetCode(EFFECT_OVERLAY_REMOVE_REPLACE)
     e4:SetRange(LOCATION_FZONE)
@@ -69,7 +70,7 @@ function s.initial_effect(c)
 
     -- copy effect
     local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 1))
+    e5:SetDescription(aux.Stringid(id, 2))
     e5:SetType(EFFECT_TYPE_QUICK_O)
     e5:SetCode(EVENT_FREE_CHAIN)
     e5:SetRange(LOCATION_FZONE)
