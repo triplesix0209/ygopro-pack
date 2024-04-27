@@ -305,7 +305,59 @@ When this card is destroyed and sent to the Graveyard while it has Xyz Material:
     You can Special Summon this card from your Graveyard. \
     "Number 103: Ragnazero" must be in your Graveyard to activate and to resolve this effect. \
 """
+strings = ["Inflict damage to your opponent", "Special Summon"]
+
+[utopic-dragon]
+id = 51543904
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Number 99: Utopic Dragon"
+set = "number utopic"
+type = "monster xyz effect"
+attribute = "light"
+race = "dragon"
+level = 10
+atk = 4000
+def = 2000
+effect = """\
+3 Level 10 monsters
+You can also Xyz Summon this card by discarding 1 "Rank-Up-Magic" Spell Card \
+    and using a "Utopia" monster you control as the Xyz Material. \
+    (Xyz Materials attached to that monster also become Xyz Materials on this card.) \
+Once per turn: You can target 1 "Number" monster in your Graveyard; \
+    Special Summon it in Defense Position, but its effects are negated. \
+During either player's turn, when a monster effect is activated that targets this face-up card: \
+    You can detach 1 Xyz Material from this card; \
+    negate the activation, and if you do, destroy that card. \
+"""
+strings = ["", "Special Summon 1 \"Number\" from your GY", "Negate and destroy"]
+
+[utopia-dragonar]
+id = 95134948
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Number 99: Utopia Dragonar"
+set = "number utopia"
+type = "monster xyz effect"
+attribute = "light"
+race = "warrior"
+level = 12
+atk = 3000
+def = 3000
+effect = """\
+3+ Level 12 monsters
+(Quick Effect): You can detach 2 materials from this card; \
+    Special Summon from your Extra Deck, 1 "Number" monster that has a number between "1" and "100" in its name. \
+    (This is treated as an Xyz Summon.) \
+    The turn you activate this effect, other monsters you control cannot attack directly, \
+    also you cannot Special Summon from the Extra Deck, except Xyz Monsters. \
+    When an opponent's monster declares an attack: You can change the ATK of the opponent's monster to 0. \
+    You can only use each effect of "Number 99: Utopia Dragonar" once per turn. \
+"""
 strings = [
-    "Inflict damage to your opponent",
-    "Special Summon"
+    "Special Summon 1 \"Number\" from your Extra Deck",
+    "Change the ATK of the opponent's monster to 0",
+    "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Xyz Monsters",
 ]
