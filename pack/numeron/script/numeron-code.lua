@@ -42,7 +42,7 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e2:SetRange(LOCATION_FZONE)
-    e2:SetValue(1)
+    e2:SetValue(aux.tgoval)
     c:RegisterEffect(e2)
 
     -- cannot disable summon
