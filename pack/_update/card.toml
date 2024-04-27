@@ -387,7 +387,7 @@ During either player's turn, when a monster effect is activated that targets thi
     negate the activation, and if you do, destroy that card. \
 """
 strings = [
-    "",
+    "Xyz Summon by using a \"Utopia\" Monster",
     "Special Summon 1 \"Number\" from your GY with its effects are negated",
     "Negate and destroy",
 ]
