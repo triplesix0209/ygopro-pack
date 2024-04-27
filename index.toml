@@ -21,7 +21,7 @@ packs = [
 ]
 
 skip_compile_packs = [
-    "./pack/_update",
+    # "./pack/_update",
     "./pack/egyptian-god",
     "./pack/palladium",
     "./pack/blue-eyes",

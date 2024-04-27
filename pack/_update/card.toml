@@ -334,6 +334,29 @@ strings = [
     "Place 1 \"Rank-Up-Magic\" Spell from your Deck on top of your Deck",
 ]
 
+[galaxy-tomahawk]
+id = 10389142
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Number 42: Galaxy Tomahawk"
+set = "number galaxy"
+type = "monster xyz effect"
+attribute = "wind"
+race = "machine"
+level = 7
+atk = 0
+def = 3000
+effect = """\
+2 Level 7 monsters
+Once per turn: You can detach 2 Xyz Materials from this card; \
+    Special Summon as many "Battle Eagle Tokens" \
+    (Machine-Type/WIND/Level 6/ATK 2000/DEF 0) as possible, \
+    destroy them during the End Phase of this turn, \
+    also your opponent takes no further battle damage this turn. \
+"""
+strings = ["Special Summon as many \"Battle Eagle Tokens\""]
+
 [draglubion]
 id = 28400508
 generate-pic = false
