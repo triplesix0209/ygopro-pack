@@ -31,20 +31,25 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- indes & untargetable
+    -- indes
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_SINGLE)
     e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e3:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayGroup():IsExists(s.efffilter, 1, nil) end)
+    e3:SetCondition(s.e1con)
     e3:SetValue(1)
     c:RegisterEffect(e3)
-    local e3b = e3:Clone()
-    e3b:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e3b:SetValue(aux.tgoval)
+    local e3b = Effect.CreateEffect(c)
+    e3b:SetType(EFFECT_TYPE_FIELD)
+    e3b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3b:SetCode(EFFECT_CANNOT_REMOVE)
+    e3b:SetRange(LOCATION_MZONE)
+    e3b:SetTargetRange(1, 1)
+    e3b:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():GetOverlayGroup():IsExists(s.efffilter, 1, nil) end)
+    e3b:SetTarget(function(e, c, tp, r) return c == e:GetHandler() and r == REASON_EFFECT end)
     c:RegisterEffect(e3b)
-
+    
     -- multi attack
     local e4 = Effect.CreateEffect(c)
     e4:SetDescription(aux.Stringid(id, 3))
