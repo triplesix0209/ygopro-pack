@@ -102,18 +102,6 @@ function s.initial_effect(c)
     e3:SetRange(LOCATION_MZONE)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
-
-    -- to deck
-    local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 1))
-    e4:SetCategory(CATEGORY_TODECK)
-    e4:SetType(EFFECT_TYPE_IGNITION)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetCountLimit(1)
-    e4:SetCost(s.e4cost)
-    e4:SetTarget(s.e4tg)
-    e4:SetOperation(s.e4op)
-    c:RegisterEffect(e4, false, REGISTER_FLAG_DETACH_XMAT)
 end
 
 function s.spfilter(c) return c:IsFaceup() and c:IsSetCard(SET_NUMBER) and c:IsType(TYPE_XYZ) end
@@ -198,21 +186,4 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
             c:RegisterEffect(reset, true)
         end
     end
-end
-
-function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 5, REASON_COST) end
-    c:RemoveOverlayCard(tp, c:GetOverlayCount(), c:GetOverlayCount(), REASON_COST)
-end
-
-function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, nil)
-    if chk == 0 then return #g > 0 end
-    Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
-end
-
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, nil)
-    if #g > 0 then Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
 end
