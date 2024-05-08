@@ -36,7 +36,7 @@ end
 function s.e1op(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
 
-    local g = Duel.GetMatchingGroup(tp, s.e1filter, tp, 0, LOCATION_DECK, 1, 1, nil, e, tp)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, 0, LOCATION_DECK, 1, 1, nil, e, tp)
     Duel.ConfirmCards(tp, g)
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_CONFIRM)
     local tc = g:Select(tp, 1, 1, nil):GetFirst()
