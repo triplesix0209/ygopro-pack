@@ -58,7 +58,7 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     end
 
     chain = chain - 1;
-    local g = Duel.GetMatchingGroup(s.e1filter, tp, 0, LOCATION_DECK, 1, 1, nil, re, rp, chain)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, 0, LOCATION_DECK, nil, re, rp, chain)
     Duel.ConfirmCards(tp, g)
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_CONFIRM)
     local tc = g:Select(tp, 1, 1, nil):GetFirst()
