@@ -18,6 +18,7 @@ packs = [
     "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
+    "./pack/deity-dragon",
 ]
 
 skip_compile_packs = [
@@ -30,9 +31,10 @@ skip_compile_packs = [
     "./pack/elemental-neos",
     "./pack/evil-hero",
     "./pack/cosmic-dragon",
-    # "./pack/numeron",
+    "./pack/numeron",
     "./pack/galaxy-eyes",
     "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
+    # "./pack/deity-dragon",
 ]
