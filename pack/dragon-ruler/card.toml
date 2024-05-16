@@ -1,0 +1,77 @@
+[halo-shines]
+id = 900007001
+name = "Halo, Dragon Ruler of Shines"
+type = "monster effect"
+attribute = "light"
+race = "dragon"
+level = 7
+atk = 2500
+def = 2100
+effect = """\
+If this card is in your hand or GY:\
+    You can banish a total of 2 LIGHT and/or Dragon monsters from your hand and/or GY, except this card; \
+    Special Summon this card. \
+During your opponent's End Phase, if you control this Special Summoned card: \
+    Return it to the hand. \
+You can discard this card and 1 LIGHT monster to the GY, \
+    then target 1 monster in your banishment; add it to your hand. \
+If this card is banished: You can add 1 LIGHT Dragon monster from your Deck to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = ["Return to the hand", "Add 1 banished monster to the hand"]
+
+[ray-radiances]
+id = 900007002
+name = "Ray, Dragon Ruler of Radiances"
+type = "monster effect"
+attribute = "light"
+race = "dragon"
+level = 4
+atk = 1700
+def = 1400
+effect = """\
+You can discard this card and 1 Dragon or LIGHT monster; \
+    Special Summon 1 "Halo, Dragon Ruler of Shines" from your Deck, \
+    but it cannot attack this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
+
+[abyss-darknesses]
+id = 900007003
+name = "Abyss, Dragon Ruler of Darknesses"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 7
+atk = 2900
+def = 1700
+effect = """\
+If this card is in your hand or GY:\
+    You can banish a total of 2 DARK and/or Dragon monsters from your hand and/or GY, except this card; \
+    Special Summon this card. \
+During your opponent's End Phase, if you control this Special Summoned card: \
+    Return it to the hand. \
+You can discard this card and 1 DARK monster to the GY, \
+    then target 1 card on the field; banish it. \
+If this card is banished: You can add 1 DARK Dragon monster from your Deck to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = ["Return to the hand", "Banish 1 card on the field"]
+
+[umbra-shadows]
+id = 900007004
+name = "Umbra, Dragon Ruler of Shadows"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 3
+atk = 1200
+def = 800
+effect = """\
+You can discard this card and 1 Dragon or DARK monster; \
+    Special Summon 1 "Abyss, Dragon Ruler of Darknesses" from your Deck, \
+    but it cannot attack this turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = []
