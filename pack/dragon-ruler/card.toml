@@ -1,6 +1,6 @@
-
 [mesaia-deity]
 id = 900007001
+rarity = "gold"
 name = "Mesaia, Supreme Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
@@ -46,7 +46,7 @@ type = "monster pendulum effect"
 attribute = "divine"
 race = "dragon"
 level = 1
-scale = 12
+scale = 13
 atk = 0
 def = 0
 pendulum-effect = """\
@@ -63,8 +63,188 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Return to the hand", "Change Attribute", "Revealed"]
 
-[halo-shines]
+[kagero-firestorms]
+id = 900007004
+rarity = "gold"
+name = "Kagero, Dragon Emperor of Firestorms"
+type = "monster fusion pendulum effect"
+attribute = "fire"
+race = "dragon"
+level = 10
+scale = 12
+atk = 3800
+def = 2200
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[kagero-embers]
+id = 900007005
+name = "Kagero, Dragon Ruler of Embers"
+type = "monster effect"
+attribute = "fire"
+race = "dragon"
+level = 4
+atk = 1500
+def = 1000
+effect = """\
+"""
+strings = []
+
+[kidisuto-continents]
+id = 900007006
+rarity = "gold"
+name = "Kidisuto, Dragon Emperor of Continents"
+type = "monster fusion pendulum effect"
+attribute = "earth"
+race = "dragon"
+level = 10
+scale = 1
+atk = 3300
+def = 2700
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[kidisuto-gorges]
+id = 900007007
+name = "Kidisuto, Dragon Ruler of Gorges"
+type = "monster effect"
+attribute = "earth"
+race = "dragon"
+level = 4
+atk = 600
+def = 1900
+effect = """\
+"""
+strings = []
+
+[akuafosu-glacials]
+id = 900007008
+rarity = "gold"
+name = "Akuafosu, Dragon Emperor of Glacials"
+type = "monster synchro pendulum effect"
+attribute = "water"
+race = "dragon"
+level = 10
+scale = 12
+atk = 3500
+def = 2500
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[akuafosu-frosts]
+id = 900007009
+name = "Akuafosu, Dragon Ruler of Frosts"
+type = "monster effect"
+attribute = "water"
+race = "dragon"
+level = 3
+atk = 1400
+def = 1100
+effect = """\
+"""
+strings = []
+
+[nekutaru-lifes]
+id = 900007010
+rarity = "gold"
+name = "Nekutaru, Dragon Emperor of Lifes"
+type = "monster synchro pendulum effect"
+attribute = "wind"
+race = "dragon"
+level = 10
+scale = 1
+atk = 3000
+def = 3000
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[nekutaru-spirits]
+id = 900007011
+name = "Nekutaru, Dragon Ruler of Spirits"
+type = "monster effect"
+attribute = "wind"
+race = "dragon"
+level = 3
+atk = 800
+def = 1700
+effect = """\
+"""
+strings = []
+
+[roiyaru-miracles]
+id = 900007012
+rarity = "gold"
+name = "Roiyaru, Dragon Emperor of Miracles"
+type = "monster xyz pendulum effect"
+attribute = "light"
+race = "dragon"
+level = 10
+scale = 12
+atk = 4000
+def = 2000
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[roiyaru-wishes]
+id = 900007013
+name = "Roiyaru, Dragon Ruler of Wishes"
+type = "monster effect"
+attribute = "light"
+race = "dragon"
+level = 4
+atk = 1900
+def = 600
+effect = """\
+"""
+strings = []
+
+[sutabeida-horizons]
+id = 900007014
+rarity = "gold"
+name = "Sutabeida, Dragon Emperor of horizons"
+type = "monster xyz pendulum effect"
+attribute = "dark"
+race = "dragon"
+level = 10
+scale = 1
+atk = 4000
+def = 2000
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
+
+[sutabeida-voids]
 id = 900007015
+name = "Sutabeida, Dragon Ruler of voids"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+atk = 1900
+def = 600
+effect = """\
+"""
+strings = []
+
+[halo-shines]
+id = 900007016
 name = "Halo, Dragon Ruler of Shines"
 type = "monster effect"
 attribute = "light"
@@ -86,7 +266,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = ["Return to the hand", "Add 1 banished monster to the hand"]
 
 [ray-radiances]
-id = 900007016
+id = 900007017
 name = "Ray, Dragon Ruler of Radiances"
 type = "monster effect"
 attribute = "light"
@@ -103,7 +283,7 @@ You can discard this card and 1 Dragon or LIGHT monster; \
 strings = []
 
 [abyss-darknesses]
-id = 900007017
+id = 900007018
 name = "Abyss, Dragon Ruler of Darknesses"
 type = "monster effect"
 attribute = "dark"
@@ -125,14 +305,14 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = ["Return to the hand", "Banish 1 card on the field"]
 
 [umbra-shadows]
-id = 900007018
+id = 900007019
 name = "Umbra, Dragon Ruler of Shadows"
 type = "monster effect"
 attribute = "dark"
 race = "dragon"
 level = 3
-atk = 1200
-def = 800
+atk = 1300
+def = 700
 effect = """\
 You can discard this card and 1 Dragon or DARK monster; \
     Special Summon 1 "Abyss, Dragon Ruler of Darknesses" from your Deck, \

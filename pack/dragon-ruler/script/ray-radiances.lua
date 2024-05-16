@@ -15,11 +15,11 @@ function s.initial_effect(c)
     c:RegisterEffect(e1)
 end
 
-s.listed_names = {900007001}
+s.listed_names = {900007016}
 
 function s.e1filter1(c) return (c:IsRace(RACE_DRAGON) or c:IsAttribute(ATTRIBUTE_LIGHT)) and c:IsDiscardable() end
 
-function s.e1filter2(c, e, tp) return c:IsCode(900007001) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+function s.e1filter2(c, e, tp) return c:IsCode(900007016) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
 function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
