@@ -10,10 +10,11 @@ atk = 0
 def = 0
 pendulum-effect = """\
 You cannot Pendulum Summon monsters, except Dragon monsters. This effect cannot be negated. \
+If you Pendulum Summon a monster(s): Return this card from the Pendulum Zone to the hand. \
 """
 effect = """\
 """
-strings = []
+strings = ["Return to the hand"]
 
 [mesaia-genesis]
 id = 900007003
@@ -27,10 +28,11 @@ atk = 0
 def = 0
 pendulum-effect = """\
 You cannot Pendulum Summon monsters, except Dragon monsters. This effect cannot be negated. \
+If you Pendulum Summon a monster(s): Return this card from the Pendulum Zone to the hand. \
 """
 effect = """\
 """
-strings = []
+strings = ["Return to the hand"]
 
 [halo-shines]
 id = 900007015
