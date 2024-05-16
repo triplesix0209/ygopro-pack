@@ -1,5 +1,39 @@
+[mesaia-origin]
+id = 900007002
+name = "Mesaia, Origin of Dragons"
+type = "monster pendulum effect"
+attribute = "light"
+race = "dragon"
+level = 1
+scale = 0
+atk = 0
+def = 0
+pendulum-effect = """\
+You cannot Pendulum Summon monsters, except Dragon monsters. This effect cannot be negated. \
+"""
+effect = """\
+"""
+strings = []
+
+[mesaia-genesis]
+id = 900007003
+name = "Mesaia, Genesis of Dragons"
+type = "monster pendulum effect"
+attribute = "light"
+race = "dragon"
+level = 1
+scale = 13
+atk = 0
+def = 0
+pendulum-effect = """\
+You cannot Pendulum Summon monsters, except Dragon monsters. This effect cannot be negated. \
+"""
+effect = """\
+"""
+strings = []
+
 [halo-shines]
-id = 900007001
+id = 900007015
 name = "Halo, Dragon Ruler of Shines"
 type = "monster effect"
 attribute = "light"
@@ -21,7 +55,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = ["Return to the hand", "Add 1 banished monster to the hand"]
 
 [ray-radiances]
-id = 900007002
+id = 900007016
 name = "Ray, Dragon Ruler of Radiances"
 type = "monster effect"
 attribute = "light"
@@ -38,7 +72,7 @@ You can discard this card and 1 Dragon or LIGHT monster; \
 strings = []
 
 [abyss-darknesses]
-id = 900007003
+id = 900007017
 name = "Abyss, Dragon Ruler of Darknesses"
 type = "monster effect"
 attribute = "dark"
@@ -60,7 +94,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 strings = ["Return to the hand", "Banish 1 card on the field"]
 
 [umbra-shadows]
-id = 900007004
+id = 900007018
 name = "Umbra, Dragon Ruler of Shadows"
 type = "monster effect"
 attribute = "dark"
