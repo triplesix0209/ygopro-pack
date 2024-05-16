@@ -2,7 +2,7 @@
 id = 900007002
 name = "Mesaia, Origin of Dragons"
 type = "monster pendulum effect"
-attribute = "light"
+attribute = "divine"
 race = "dragon"
 level = 1
 scale = 0
@@ -13,14 +13,20 @@ You cannot Pendulum Summon monsters, except Dragon monsters. This effect cannot 
 If you Pendulum Summon a monster(s): Return this card from the Pendulum Zone to the hand. \
 """
 effect = """\
+You can reveal 1 other non-DIVINE Dragon monster in your hand; \
+    until the end of this turn, this card in your hand becomes revealed \
+    and its Attribute become the same as that monster's. \
+If this card is banished, during the End Phase of this turn: \
+    Shuffle this banished card into the Deck. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Return to the hand"]
+strings = ["Return to the hand", "Change Attribute", "Revealed"]
 
 [mesaia-genesis]
 id = 900007003
 name = "Mesaia, Genesis of Dragons"
 type = "monster pendulum effect"
-attribute = "light"
+attribute = "divine"
 race = "dragon"
 level = 1
 scale = 13
@@ -31,8 +37,14 @@ You cannot Pendulum Summon monsters, except Dragon monsters. This effect cannot 
 If you Pendulum Summon a monster(s): Return this card from the Pendulum Zone to the hand. \
 """
 effect = """\
+You can reveal 1 other non-DIVINE Dragon monster in your hand; \
+    until the end of this turn, this card in your hand becomes revealed \
+    and its Attribute become the same as that monster's. \
+If this card is banished, during the End Phase of this turn: \
+    Shuffle this banished card into the Deck. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Return to the hand"]
+strings = ["Return to the hand", "Change Attribute", "Revealed"]
 
 [halo-shines]
 id = 900007015
