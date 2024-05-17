@@ -1,5 +1,5 @@
 DRAGON_EMPEROR_PENDULUM_EFFECT = """\
-Except the turn this card was placed in the Pendulum Zone (Quick Effect): \
+During either turn, except the End Phase (Quick Effect): \
     You can banish 2 {0} and/or Dragon monsters from your hand and/or GY; \
     Special Summon this card from the Pendulum Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn.\
