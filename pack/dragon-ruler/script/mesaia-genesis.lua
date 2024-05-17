@@ -1,9 +1,11 @@
 -- Mesaia, Genesis of Dragons
 Duel.LoadScript("util.lua")
+Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
+    DragonRuler.RegisterBabyShuffleEffect(s, c, id)
 
     -- pendulum summon limit
     local pe1 = Effect.CreateEffect(c)
@@ -32,22 +34,10 @@ function s.initial_effect(c)
     me1:SetDescription(aux.Stringid(id, 1))
     me1:SetType(EFFECT_TYPE_IGNITION)
     me1:SetRange(LOCATION_HAND)
-    me1:SetCountLimit(1, {id, 1})
+    me1:SetCountLimit(1, id)
     me1:SetTarget(s.me1tg)
     me1:SetOperation(s.me1op)
     c:RegisterEffect(me1)
-
-    -- shuffle
-    local me2 = Effect.CreateEffect(c)
-    me2:SetCategory(CATEGORY_TODECK)
-    me2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
-    me2:SetCode(EVENT_PHASE + PHASE_END)
-    me2:SetRange(LOCATION_REMOVED)
-    me2:SetCountLimit(1, {id, 2})
-    me2:SetCondition(s.me2con)
-    me2:SetTarget(s.me2tg)
-    me2:SetOperation(s.me2op)
-    c:RegisterEffect(me2)
 end
 
 function s.pe2filter(c, tp) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsSummonPlayer(tp) end
@@ -94,18 +84,4 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     ec2:SetCode(EFFECT_CHANGE_ATTRIBUTE)
     ec2:SetValue(tc:GetAttribute())
     c:RegisterEffect(ec2)
-end
-
-function s.me2con(e, tp, eg, ep, ev, re, r, rp) return Duel.GetTurnCount() == e:GetHandler():GetTurnID() end
-
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToDeck() end
-    Duel.SetOperationInfo(0, CATEGORY_TODECK, c, 1, 0, 0)
-end
-
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
-    Duel.SendtoDeck(c, tp, SEQ_DECKSHUFFLE, REASON_EFFECT)
 end

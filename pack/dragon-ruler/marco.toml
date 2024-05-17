@@ -14,3 +14,9 @@ Its control cannot switch. \
 The above effects cannot be negated or be copied. \
 If this card in the Monster Zone is destroyed: You can place this card in your Pendulum Zone.\
 """
+
+DRAGON_RULER_BABY_SHUFFLE_EFFECT = """\
+Once per turn, during the End Phase of the turn \
+    this card was banished to activate a Dragon monster's effect: \
+    Shuffle this banished card into the Deck.\
+"""

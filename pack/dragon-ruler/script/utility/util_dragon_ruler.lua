@@ -92,3 +92,41 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     end)
     c:RegisterEffect(pen_place)
 end
+
+function DragonRuler.RegisterBabyShuffleEffect(s, c, id)
+    local reg = Effect.CreateEffect(c)
+    reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    reg:SetCode(EVENT_REMOVE)
+    reg:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        if not re then return end
+        local c = e:GetHandler()
+        local rc = re:GetHandler()
+        if c:IsReason(REASON_COST) and rc:IsRace(RACE_DRAGON) then
+            c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
+            e:SetLabel(Duel.GetTurnCount())
+        end
+    end)
+    c:RegisterEffect(reg)
+
+    local shuffle = Effect.CreateEffect(c)
+    shuffle:SetCategory(CATEGORY_TODECK)
+    shuffle:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
+    shuffle:SetRange(LOCATION_REMOVED)
+    shuffle:SetCode(EVENT_PHASE + PHASE_END)
+    shuffle:SetCountLimit(1)
+    shuffle:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+        return e:GetLabelObject():GetLabel() == Duel.GetTurnCount() and e:GetHandler():GetFlagEffect(id) > 0
+    end)
+    shuffle:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        local c = e:GetHandler()
+        if chk == 0 then return c:IsAbleToDeck() end
+        Duel.SetOperationInfo(0, CATEGORY_TODECK, c, 1, 0, 0)
+        c:ResetFlagEffect(id)
+    end)
+    shuffle:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
+    end)
+    shuffle:SetLabelObject(reg)
+    c:RegisterEffect(shuffle)
+end
