@@ -51,7 +51,8 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     local pen_sum = Effect.CreateEffect(c)
     pen_sum:SetDescription(2)
     pen_sum:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    pen_sum:SetType(EFFECT_TYPE_IGNITION)
+    pen_sum:SetType(EFFECT_TYPE_QUICK_O)
+    pen_sum:SetCode(EVENT_FREE_CHAIN)
     pen_sum:SetRange(LOCATION_PZONE)
     pen_sum:SetCountLimit(1, {id, 0})
     pen_sum:SetCondition(aux.exccon)
@@ -72,7 +73,7 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
         Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, e:GetHandler(), 1, 0, 0)
     end)
     pen_sum:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if e:GetHandler():IsRelateToEffect(e) then Duel.SpecialSummon(e:GetHandler(), 0, tp, tp, false, false, POS_FACEUP) end
+        if e:GetHandler():IsRelateToEffect(e) then Duel.SpecialSummon(e:GetHandler(), 1, tp, tp, false, false, POS_FACEUP) end
     end)
     c:RegisterEffect(pen_sum)
 
