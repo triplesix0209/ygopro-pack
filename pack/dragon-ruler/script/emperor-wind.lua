@@ -1,4 +1,4 @@
--- Nekutaru, Dragon Emperor of Lifes
+-- Emerald, Dragon Emperor of Life Cycles
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

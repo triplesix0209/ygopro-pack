@@ -1,4 +1,4 @@
--- Kidisuto, Dragon Emperor of Continents
+-- Amber, Dragon Emperor of World Continents
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

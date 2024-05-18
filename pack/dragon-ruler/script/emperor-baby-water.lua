@@ -1,4 +1,4 @@
--- Akuafosu, Dragon of Frosts
+-- Lapis, Dragon of Frosts
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

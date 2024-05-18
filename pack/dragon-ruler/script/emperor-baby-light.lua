@@ -1,4 +1,4 @@
--- Roiyaru, Dragon of Wishes
+-- Pearl, Dragon of Wishes
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

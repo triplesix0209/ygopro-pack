@@ -86,7 +86,7 @@ strings = [
 [emperor-fire]
 id = 900007004
 rarity = "gold"
-name = "Kagero, Dragon Emperor of Firestorms"
+name = "Ruby, Dragon Emperor of Fire Storms"
 type = "monster link pendulum effect"
 attribute = "fire"
 race = "dragon"
@@ -115,7 +115,7 @@ strings = [
 [emperor-water]
 id = 900007005
 rarity = "gold"
-name = "Akuafosu, Dragon Emperor of Glacials"
+name = "Sapphire, Dragon Emperor of Ice Ages"
 type = "monster link pendulum effect"
 attribute = "water"
 race = "dragon"
@@ -134,7 +134,7 @@ strings = []
 [emperor-wind]
 id = 900007006
 rarity = "gold"
-name = "Nekutaru, Dragon Emperor of Lifes"
+name = "Emerald, Dragon Emperor of Life Cycles"
 type = "monster link pendulum effect"
 attribute = "wind"
 race = "dragon"
@@ -153,7 +153,7 @@ strings = []
 [emperor-earth]
 id = 900007007
 rarity = "gold"
-name = "Kidisuto, Dragon Emperor of Continents"
+name = "Amber, Dragon Emperor of World Continents"
 type = "monster link pendulum effect"
 attribute = "earth"
 race = "dragon"
@@ -172,7 +172,7 @@ strings = []
 [emperor-light]
 id = 900007008
 rarity = "gold"
-name = "Roiyaru, Dragon Emperor of Miracles"
+name = "Diamond, Dragon Emperor of Miracle Symphonies"
 type = "monster link pendulum effect"
 attribute = "light"
 race = "dragon"
@@ -191,7 +191,7 @@ strings = []
 [emperor-dark]
 id = 900007009
 rarity = "gold"
-name = "Sutabeida, Dragon Emperor of Horizons"
+name = "Obsidian, Dragon Emperor of Event Horizons"
 type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -209,7 +209,7 @@ strings = []
 
 [emperor-baby-fire]
 id = 900007010
-name = "Kagero, Dragon of Embers"
+name = "Garnet, Dragon of Embers"
 type = "monster link effect"
 attribute = "fire"
 race = "dragon"
@@ -223,7 +223,7 @@ strings = []
 
 [emperor-baby-water]
 id = 900007011
-name = "Akuafosu, Dragon of Frosts"
+name = "Lapis, Dragon of Frosts"
 type = "monster link effect"
 attribute = "water"
 race = "dragon"
@@ -237,7 +237,7 @@ strings = []
 
 [emperor-baby-wind]
 id = 900007012
-name = "Nekutaru, Dragon of Spirits"
+name = "Peridot, Dragon of Spirits"
 type = "monster link effect"
 attribute = "wind"
 race = "dragon"
@@ -251,7 +251,7 @@ strings = []
 
 [emperor-baby-earth]
 id = 900007013
-name = "Kidisuto, Dragon of Gorges"
+name = "Topaz, Dragon of Gorges"
 type = "monster link effect"
 attribute = "earth"
 race = "dragon"
@@ -265,7 +265,7 @@ strings = []
 
 [emperor-baby-light]
 id = 900007014
-name = "Roiyaru, Dragon of Wishes"
+name = "Pearl, Dragon of Wishes"
 type = "monster link effect"
 attribute = "light"
 race = "dragon"
@@ -279,7 +279,7 @@ strings = []
 
 [emperor-baby-dark]
 id = 900007015
-name = "Sutabeida, Dragon of Voids"
+name = "Onyx, Dragon of Voids"
 type = "monster link effect"
 attribute = "dark"
 race = "dragon"

@@ -1,4 +1,4 @@
--- Kagero, Dragon Emperor of Firestorms
+-- Ruby, Dragon Emperor of Fire Storms
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

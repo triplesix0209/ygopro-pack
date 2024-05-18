@@ -1,4 +1,4 @@
--- Sutabeida, Dragon of Voids
+-- Onyx, Dragon of Voids
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
