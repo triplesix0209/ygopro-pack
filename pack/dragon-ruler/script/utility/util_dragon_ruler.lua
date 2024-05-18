@@ -155,7 +155,7 @@ function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
     e1matcheck:SetLabelObject(e1)
     c:RegisterEffect(e1matcheck)
 
-    -- to extra deck when banish
+    -- to deck when banish
     local e2reg = Effect.CreateEffect(c)
     e2reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e2reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -171,7 +171,7 @@ function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
     end)
     c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
-    e2:SetCategory(CATEGORY_TOEXTRA)
+    e2:SetCategory(CATEGORY_TODECK)
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     e2:SetRange(LOCATION_REMOVED)
     e2:SetCode(EVENT_PHASE + PHASE_END)
@@ -180,13 +180,12 @@ function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
         return e:GetLabelObject():GetLabel() == Duel.GetTurnCount() and e:GetHandler():GetFlagEffect(id) > 0
     end)
     e2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        local c = e:GetHandler()
-        if chk == 0 then return not c:IsForbidden() end
-        Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, c, 1, 0, 0)
-        c:ResetFlagEffect(id)
+        if chk == 0 then return true end
+        Duel.SetOperationInfo(0, CATEGORY_TODECK, e:GetHandler(), 1, 0, 0)
+        e:GetHandler():ResetFlagEffect(id)
     end)
     e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoExtraP(e:GetHandler(), tp, REASON_EFFECT) end
+        if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
     end)
     e2:SetLabelObject(e2reg)
     c:RegisterEffect(e2)

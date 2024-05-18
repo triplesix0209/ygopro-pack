@@ -186,108 +186,84 @@ strings = []
 [emperor-baby-fire]
 id = 900007010
 name = "Garnet, Dragon of Embers"
-type = "monster link pendulum effect"
+type = "monster link effect"
 attribute = "fire"
 race = "dragon"
 link = 2
 link-arrow = "bottom-left bottom"
-scale = 1
 atk = 1900
-pendulum-effect = """\
-{DRAGON_BABY_PENDULUM_EFFECT|FIRE} \
-"""
 effect = """\
-{DRAGON_BABY_MONSTER_EFFECT|FIRE} \
+{DRAGON_EMPEROR_BABY_MONSTER_EFFECT|FIRE} \
 """
 strings = []
 
 [emperor-baby-water]
 id = 900007011
 name = "Lapis, Dragon of Frosts"
-type = "monster link pendulum effect"
+type = "monster link effect"
 attribute = "water"
 race = "dragon"
 link = 2
 link-arrow = "bottom bottom-right"
-scale = 1
 atk = 1900
-pendulum-effect = """\
-{DRAGON_BABY_PENDULUM_EFFECT|WATER} \
-"""
 effect = """\
-{DRAGON_BABY_MONSTER_EFFECT|WATER} \
+{DRAGON_EMPEROR_BABY_MONSTER_EFFECT|WATER} \
 """
 strings = []
 
 [emperor-baby-wind]
 id = 900007012
 name = "Peridot, Dragon of Spirits"
-type = "monster link pendulum effect"
+type = "monster link effect"
 attribute = "wind"
 race = "dragon"
 link = 2
 link-arrow = "bottom-left bottom"
-scale = 1
 atk = 1900
-pendulum-effect = """\
-{DRAGON_BABY_PENDULUM_EFFECT|WIND} \
-"""
 effect = """\
-{DRAGON_BABY_MONSTER_EFFECT|WIND} \
+{DRAGON_EMPEROR_BABY_MONSTER_EFFECT|WIND} \
 """
 strings = []
 
 [emperor-baby-earth]
 id = 900007013
 name = "Topaz, Dragon of Gorges"
-type = "monster link pendulum effect"
+type = "monster link effect"
 attribute = "earth"
 race = "dragon"
 link = 2
 link-arrow = "bottom bottom-right"
-scale = 1
 atk = 1900
-pendulum-effect = """\
-{DRAGON_BABY_PENDULUM_EFFECT|EARTH} \
-"""
 effect = """\
-{DRAGON_BABY_MONSTER_EFFECT|EARTH} \
+{DRAGON_EMPEROR_BABY_MONSTER_EFFECT|EARTH} \
 """
 strings = []
 
 [emperor-baby-light]
 id = 900007014
 name = "Pearl, Dragon of Wishes"
-type = "monster link pendulum effect"
+type = "monster link effect"
 attribute = "light"
 race = "dragon"
 link = 2
 link-arrow = "bottom-left bottom"
-scale = 1
 atk = 1900
-pendulum-effect = """\
-{DRAGON_BABY_PENDULUM_EFFECT|LIGHT} \
-"""
 effect = """\
-{DRAGON_BABY_MONSTER_EFFECT|LIGHT} \
+{DRAGON_EMPEROR_BABY_MONSTER_EFFECT|LIGHT} \
 """
 strings = []
 
 [emperor-baby-dark]
 id = 900007015
 name = "Onyx, Dragon of Voids"
-type = "monster link pendulum effect"
+type = "monster link effect"
 attribute = "dark"
 race = "dragon"
 link = 2
 link-arrow = "bottom bottom-right"
-scale = 1
 atk = 1900
-pendulum-effect = """\
-{DRAGON_BABY_PENDULUM_EFFECT|DARK} \
-"""
 effect = """\
-{DRAGON_BABY_MONSTER_EFFECT|DARK} \
+{DRAGON_EMPEROR_BABY_MONSTER_EFFECT|DARK} \
 """
 strings = []
 

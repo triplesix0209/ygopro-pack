@@ -18,11 +18,7 @@ The above effects cannot be negated or be copied. \
 If this card in the Monster Zone is destroyed: You can place this card in your Pendulum Zone.\
 """
 
-DRAGON_BABY_PENDULUM_EFFECT = """\
-.\
-"""
-
-DRAGON_BABY_MONSTER_EFFECT = """\
+DRAGON_EMPEROR_BABY_MONSTER_EFFECT = """\
 2 Dragon monsters
 If this card is Link Summoned using a {0} monster: \
     You can either add to your hand or Special Summon \
@@ -30,7 +26,7 @@ If this card is Link Summoned using a {0} monster: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during the End Phase of the turn \
     this card was banished to activate a Dragon monster's effect: \
-    Add this banished card to the Extra Deck face-up.\
+    Shuffle this banished card into the Deck.\
 """
 
 MESSIAH_BABY_PENDULUM_EFFECT = """\
