@@ -57,14 +57,6 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
 
-    -- battle position cannot be changed by effect
-    local nopos = Effect.CreateEffect(c)
-    nopos:SetType(EFFECT_TYPE_SINGLE)
-    nopos:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    nopos:SetCode(EFFECT_CANNOT_CHANGE_POS_E)
-    nopos:SetRange(LOCATION_MZONE)
-    c:RegisterEffect(nopos)
-
     -- special summon from the pendulum zone
     local pen_sum = Effect.CreateEffect(c)
     pen_sum:SetDescription(2)
