@@ -9,9 +9,8 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     Pendulum.AddProcedure(c, false)
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON, 3, nil, function(g, sc, sumtype, tp)
-        return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp)
-    end))
+    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 3, nil,
+        function(g, sc, sumtype, tp) return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)

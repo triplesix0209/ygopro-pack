@@ -9,7 +9,7 @@ function s.initial_effect(c)
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp)
-        return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsAttributeExcept(ATTRIBUTE_DIVINE, sc, sumtype, tp)
+        return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsAttribute(ATTRIBUTE_DIVINE, sc, sumtype, tp)
     end, 1, 1)
 
     -- pendulum summon limit
@@ -52,6 +52,18 @@ function s.initial_effect(c)
     me2:SetTarget(s.me2tg)
     me2:SetOperation(s.me2op)
     c:RegisterEffect(me2)
+
+    -- place in pendulum zone
+    local me3 = Effect.CreateEffect(c)
+    me3:SetDescription(aux.Stringid(id, 2))
+    me3:SetType(EFFECT_TYPE_IGNITION)
+    me3:SetRange(LOCATION_EXTRA)
+    me3:SetCountLimit(1, id)
+    me3:SetCondition(aux.exccon)
+    me3:SetCost(s.me3cost)
+    me3:SetTarget(s.me3tg)
+    me3:SetOperation(s.me3op)
+    c:RegisterEffect(me3)
 end
 
 function s.pe3filter(c, tp) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsSummonPlayer(tp) end
@@ -94,4 +106,26 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local attr = e:GetLabel()
     local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me2filter2, tp, LOCATION_DECK, 0, 1, 1, nil, attr, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
+end
+
+function s.me3filter(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) end
+
+function s.me3cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.me3filter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
+    local g = Duel.SelectMatchingCard(tp, s.me3filter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil)
+
+    Duel.Remove(g, POS_FACEUP, REASON_COST)
+end
+
+function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+end
+
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not Duel.CheckPendulumZones(tp) or not c:IsRelateToEffect(e) then return end
+    Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
 end

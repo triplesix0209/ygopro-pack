@@ -261,7 +261,7 @@ attribute = "divine"
 race = "dragon"
 link = 1
 link-arrow = "bottom-left"
-scale = 0
+scale = 13
 atk = 0
 pendulum-effect = """\
 You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
