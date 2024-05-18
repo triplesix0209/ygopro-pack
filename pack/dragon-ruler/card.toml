@@ -214,7 +214,7 @@ type = "monster link effect"
 attribute = "fire"
 race = "dragon"
 link = 2
-link-arrow = ""
+link-arrow = "bottom-left bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|FIRE} \
@@ -228,7 +228,7 @@ type = "monster link effect"
 attribute = "water"
 race = "dragon"
 link = 2
-link-arrow = ""
+link-arrow = "bottom-left bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|WATER} \
@@ -242,7 +242,7 @@ type = "monster link effect"
 attribute = "wind"
 race = "dragon"
 link = 2
-link-arrow = ""
+link-arrow = "bottom-left bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|WIND} \
@@ -256,7 +256,7 @@ type = "monster link effect"
 attribute = "earth"
 race = "dragon"
 link = 2
-link-arrow = ""
+link-arrow = "bottom-left bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|EARTH} \
@@ -270,7 +270,7 @@ type = "monster link effect"
 attribute = "light"
 race = "dragon"
 link = 2
-link-arrow = ""
+link-arrow = "bottom-left bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|LIGHT} \
@@ -284,7 +284,7 @@ type = "monster link effect"
 attribute = "dark"
 race = "dragon"
 link = 2
-link-arrow = ""
+link-arrow = "bottom-left bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|DARK} \
