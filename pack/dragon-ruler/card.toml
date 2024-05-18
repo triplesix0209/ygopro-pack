@@ -291,7 +291,7 @@ strings = [
     "Place in Pendulum Zone",
 ]
 
-[halo-shines]
+[ruler-light]
 id = 900007016
 name = "Halo, Dragon Ruler of Shines"
 type = "monster effect"
@@ -313,7 +313,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Return to the hand", "Banish 1 card on the field"]
 
-[abyss-darknesses]
+[ruler-dark]
 id = 900007017
 name = "Abyss, Dragon Ruler of Darknesses"
 type = "monster effect"
@@ -335,7 +335,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Return to the hand", "Banish 1 card on the field"]
 
-[ray-radiances]
+[ruler-baby-light]
 id = 900007018
 name = "Ray, Dragon Ruler of Radiances"
 type = "monster effect"
@@ -352,7 +352,7 @@ You can discard this card and 1 Dragon or LIGHT monster; \
 """
 strings = []
 
-[umbra-shadows]
+[ruler-baby-dark]
 id = 900007019
 name = "Umbra, Dragon Ruler of Shadows"
 type = "monster effect"
