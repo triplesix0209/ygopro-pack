@@ -59,7 +59,7 @@ strings = [
     "Place in Pendulum Zone",
 ]
 
-[emperor-fire]
+[dragon-deity-fire]
 id = 900007004
 rarity = "gold"
 name = "Ruby, Dragon Emperor of Fire Storms"
@@ -88,7 +88,7 @@ strings = [
     "Inflict damage to your opponent equal to the destroyed monster's ATK?",
 ]
 
-[emperor-water]
+[dragon-deity-water]
 id = 900007005
 rarity = "gold"
 name = "Sapphire, Dragon Emperor of Ice Ages"
@@ -109,7 +109,7 @@ This card and other co-linked Dragon monsters you control cannot be destroyed by
 """
 strings = []
 
-[emperor-wind]
+[dragon-deity-wind]
 id = 900007006
 rarity = "gold"
 name = "Emerald, Dragon Emperor of Life Cycles"
@@ -128,7 +128,7 @@ effect = """\
 """
 strings = []
 
-[emperor-earth]
+[dragon-deity-earth]
 id = 900007007
 rarity = "gold"
 name = "Amber, Dragon Emperor of World Continents"
@@ -147,7 +147,7 @@ effect = """\
 """
 strings = []
 
-[emperor-light]
+[dragon-deity-light]
 id = 900007008
 rarity = "gold"
 name = "Diamond, Dragon Emperor of Miracle Symphonies"
@@ -167,7 +167,7 @@ The effects of this card and other co-linked Dragon monsters you control cannot 
 """
 strings = []
 
-[emperor-dark]
+[dragon-deity-dark]
 id = 900007009
 rarity = "gold"
 name = "Obsidian, Dragon Emperor of Event Horizons"
@@ -187,7 +187,7 @@ Your opponent cannot target this card and other co-linked Dragon monsters you co
 """
 strings = []
 
-[emperor-baby-fire]
+[dragon-deity-baby-fire]
 id = 900007010
 name = "Garnet, Dragon of Embers"
 type = "monster link effect"
@@ -201,7 +201,7 @@ effect = """\
 """
 strings = []
 
-[emperor-baby-water]
+[dragon-deity-baby-water]
 id = 900007011
 name = "Lapis, Dragon of Frosts"
 type = "monster link effect"
@@ -215,7 +215,7 @@ effect = """\
 """
 strings = []
 
-[emperor-baby-wind]
+[dragon-deity-baby-wind]
 id = 900007012
 name = "Peridot, Dragon of Spirits"
 type = "monster link effect"
@@ -229,7 +229,7 @@ effect = """\
 """
 strings = []
 
-[emperor-baby-earth]
+[dragon-deity-baby-earth]
 id = 900007013
 name = "Topaz, Dragon of Gorges"
 type = "monster link effect"
@@ -243,7 +243,7 @@ effect = """\
 """
 strings = []
 
-[emperor-baby-light]
+[dragon-deity-baby-light]
 id = 900007014
 name = "Pearl, Dragon of Wishes"
 type = "monster link effect"
@@ -257,7 +257,7 @@ effect = """\
 """
 strings = []
 
-[emperor-baby-dark]
+[dragon-deity-baby-dark]
 id = 900007015
 name = "Onyx, Dragon of Voids"
 type = "monster link effect"
@@ -271,7 +271,7 @@ effect = """\
 """
 strings = []
 
-[ruler-light]
+[dragon-ruler-light]
 id = 900007016
 name = "Halo, Dragon Ruler of Shines"
 type = "monster effect"
@@ -293,7 +293,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Return to the hand", "Banish 1 card on the field"]
 
-[ruler-dark]
+[dragon-ruler-dark]
 id = 900007017
 name = "Abyss, Dragon Ruler of Darknesses"
 type = "monster effect"
@@ -315,7 +315,7 @@ You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = ["Return to the hand", "Banish 1 card on the field"]
 
-[ruler-baby-light]
+[dragon-ruler-baby-light]
 id = 900007018
 name = "Ray, Dragon Ruler of Radiances"
 type = "monster effect"
@@ -332,7 +332,7 @@ You can discard this card and 1 Dragon or LIGHT monster; \
 """
 strings = []
 
-[ruler-baby-dark]
+[dragon-ruler-baby-dark]
 id = 900007019
 name = "Umbra, Dragon Ruler of Shadows"
 type = "monster effect"
