@@ -6,13 +6,13 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterEmperorEffect(s, c, id, ATTRIBUTE_FIRE)
 
-    -- indes
+    -- indes & unbanishable
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
     e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or c:IsRace(RACE_DRAGON) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsRace(RACE_DRAGON) and c:GetMutualLinkedGroupCount() > 0) end)
     e1:SetValue(aux.indoval)
     c:RegisterEffect(e1)
     local e1b = Effect.CreateEffect(c)
@@ -21,7 +21,9 @@ function s.initial_effect(c)
     e1b:SetCode(EFFECT_CANNOT_REMOVE)
     e1b:SetRange(LOCATION_MZONE)
     e1b:SetTargetRange(0, 1)
-    e1b:SetTarget(function(e, c, tp, r) return (c == e:GetHandler() or c:IsRace(RACE_DRAGON)) and r == REASON_EFFECT end)
+    e1b:SetTarget(function(e, c, tp, r)
+        return (c == e:GetHandler() or (c:IsRace(RACE_DRAGON) and c:GetMutualLinkedGroupCount() > 0)) and r == REASON_EFFECT
+    end)
     c:RegisterEffect(e1b)
 
     -- destroy & damage
