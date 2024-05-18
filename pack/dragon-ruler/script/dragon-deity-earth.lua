@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_IMMUNE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsRace(RACE_DRAGON) and c:GetMutualLinkedGroupCount() > 0) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)
     e1:SetValue(function(e, te) return te:GetOwnerPlayer() ~= e:GetHandlerPlayer() and te:IsActivated() and te:IsTrapEffect() end)
     c:RegisterEffect(e1)
 end
