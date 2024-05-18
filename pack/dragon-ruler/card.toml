@@ -44,27 +44,8 @@ strings = [
     "Inflict damage to your opponent equal to the destroyed monster's ATK?",
 ]
 
-[kidisuto-continents]
-id = 900007003
-rarity = "gold"
-name = "Kidisuto, Dragon Emperor of Continents"
-type = "monster link pendulum effect"
-attribute = "earth"
-race = "dragon"
-link = 4
-link-arrow = ""
-scale = 12
-atk = 3500
-pendulum-effect = """\
-{DRAGON_EMPEROR_PENDULUM_EFFECT|EARTH} \
-"""
-effect = """\
-{DRAGON_EMPEROR_MONSTER_EFFECT|EARTH} \
-"""
-strings = []
-
 [akuafosu-glacials]
-id = 900007004
+id = 900007003
 rarity = "gold"
 name = "Akuafosu, Dragon Emperor of Glacials"
 type = "monster link pendulum effect"
@@ -83,7 +64,7 @@ effect = """\
 strings = []
 
 [nekutaru-lifes]
-id = 900007005
+id = 900007004
 rarity = "gold"
 name = "Nekutaru, Dragon Emperor of Lifes"
 type = "monster link pendulum effect"
@@ -98,6 +79,25 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_EMPEROR_MONSTER_EFFECT|WIND} \
+"""
+strings = []
+
+[kidisuto-continents]
+id = 900007005
+rarity = "gold"
+name = "Kidisuto, Dragon Emperor of Continents"
+type = "monster link pendulum effect"
+attribute = "earth"
+race = "dragon"
+link = 4
+link-arrow = ""
+scale = 12
+atk = 3500
+pendulum-effect = """\
+{DRAGON_EMPEROR_PENDULUM_EFFECT|EARTH} \
+"""
+effect = """\
+{DRAGON_EMPEROR_MONSTER_EFFECT|EARTH} \
 """
 strings = []
 
@@ -149,26 +149,12 @@ link = 2
 link-arrow = ""
 atk = 2000
 effect = """\
-{DRAGON_RULER_BABY_SHUFFLE_EFFECT} \
-"""
-strings = []
-
-[kidisuto-gorges]
-id = 900007009
-name = "Kidisuto, Dragon Ruler of Gorges"
-type = "monster link effect"
-attribute = "earth"
-race = "dragon"
-link = 2
-link-arrow = ""
-atk = 2000
-effect = """\
-{DRAGON_RULER_BABY_SHUFFLE_EFFECT} \
+{DRAGON_BABY_MONSTER_EFFECT|FIRE} \
 """
 strings = []
 
 [akuafosu-frosts]
-id = 900007010
+id = 900007009
 name = "Akuafosu, Dragon Ruler of Frosts"
 type = "monster link effect"
 attribute = "water"
@@ -177,12 +163,12 @@ link = 2
 link-arrow = ""
 atk = 2000
 effect = """\
-{DRAGON_RULER_BABY_SHUFFLE_EFFECT} \
+{DRAGON_BABY_MONSTER_EFFECT|WATER} \
 """
 strings = []
 
 [nekutaru-spirits]
-id = 900007011
+id = 900007010
 name = "Nekutaru, Dragon Ruler of Spirits"
 type = "monster link effect"
 attribute = "wind"
@@ -191,7 +177,21 @@ link = 2
 link-arrow = ""
 atk = 2000
 effect = """\
-{DRAGON_RULER_BABY_SHUFFLE_EFFECT} \
+{DRAGON_BABY_MONSTER_EFFECT|WIND} \
+"""
+strings = []
+
+[kidisuto-gorges]
+id = 900007011
+name = "Kidisuto, Dragon Ruler of Gorges"
+type = "monster link effect"
+attribute = "earth"
+race = "dragon"
+link = 2
+link-arrow = ""
+atk = 2000
+effect = """\
+{DRAGON_BABY_MONSTER_EFFECT|EARTH} \
 """
 strings = []
 
@@ -205,7 +205,7 @@ link = 2
 link-arrow = ""
 atk = 2000
 effect = """\
-{DRAGON_RULER_BABY_SHUFFLE_EFFECT} \
+{DRAGON_BABY_MONSTER_EFFECT|LIGHT} \
 """
 strings = []
 
@@ -219,7 +219,7 @@ link = 2
 link-arrow = ""
 atk = 2000
 effect = """\
-{DRAGON_RULER_BABY_SHUFFLE_EFFECT} \
+{DRAGON_BABY_MONSTER_EFFECT|DARK} \
 """
 strings = []
 
@@ -251,7 +251,11 @@ During the Main Phase, except the turn this card was added to the Extra Deck fac
     Place this face-up card from your Extra Deck in your Pendulum Zone. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
-strings = ["Add to Extra Deck", "Special Summon a Dragon from Deck", "Place in Pendulum Zone"]
+strings = [
+    "Add to Extra Deck",
+    "Special Summon a Dragon from Deck",
+    "Place in Pendulum Zone",
+]
 
 [mesaia-genesis]
 id = 900007015
@@ -281,7 +285,33 @@ During the Main Phase, except the turn this card was added to the Extra Deck fac
     Place this face-up card from your Extra Deck in your Pendulum Zone. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
-strings = ["Add to Extra Deck", "Special Summon a Dragon from Deck", "Place in Pendulum Zone"]
+strings = [
+    "Add to Extra Deck",
+    "Special Summon a Dragon from Deck",
+    "Place in Pendulum Zone",
+]
+
+[halo-shines]
+id = 900007016
+name = "Halo, Dragon Ruler of Shines"
+type = "monster effect"
+attribute = "light"
+race = "dragon"
+level = 7
+atk = 2500
+def = 2100
+effect = """\
+If this card is in your hand or GY: \
+    You can banish a total of 2 LIGHT and/or Dragon monsters from your hand and/or GY, except this card; \
+    Special Summon this card. \
+During your opponent's End Phase, if you control this Special Summoned card: \
+    Return it to the hand. \
+You can discard this card and 1 LIGHT monster to the GY, \
+    then target 1 your banished monster; add it to your hand. \
+If this card is banished: You can add 1 LIGHT Dragon monster from your Deck to your hand. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = ["Return to the hand", "Banish 1 card on the field"]
 
 [abyss-darknesses]
 id = 900007017
@@ -293,7 +323,7 @@ level = 7
 atk = 2900
 def = 1700
 effect = """\
-If this card is in your hand or GY:\
+If this card is in your hand or GY: \
     You can banish a total of 2 DARK and/or Dragon monsters from your hand and/or GY, except this card; \
     Special Summon this card. \
 During your opponent's End Phase, if you control this Special Summoned card: \

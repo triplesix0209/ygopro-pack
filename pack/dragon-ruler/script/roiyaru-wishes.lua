@@ -4,5 +4,5 @@ Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    DragonRuler.RegisterBabyShuffleEffect(s, c, id)
+    DragonRuler.RegisterBabyEffect(s, c, id, ATTRIBUTE_LIGHT)
 end

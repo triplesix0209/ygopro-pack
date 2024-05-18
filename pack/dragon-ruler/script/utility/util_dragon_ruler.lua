@@ -110,7 +110,14 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     c:RegisterEffect(pen_place)
 end
 
-function DragonRuler.RegisterBabyShuffleEffect(s, c, id)
+function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
+    c:EnableReviveLimit()
+
+    -- link summon
+    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 2, nil,
+        function(g, sc, sumtype, tp) return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp) end)
+
+    -- shuffle when banish
     local reg = Effect.CreateEffect(c)
     reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -125,7 +132,6 @@ function DragonRuler.RegisterBabyShuffleEffect(s, c, id)
         end
     end)
     c:RegisterEffect(reg)
-
     local shuffle = Effect.CreateEffect(c)
     shuffle:SetCategory(CATEGORY_TODECK)
     shuffle:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
