@@ -1,4 +1,4 @@
--- Mesaia, Origin of Dragons
+-- Messiah, Genesis of Dragons
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

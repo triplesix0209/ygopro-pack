@@ -1,7 +1,7 @@
-[mesaia-deity]
+[messiah-deity]
 id = 900007001
 rarity = "gold"
-name = "Mesaia, Supreme Deity of Dragons"
+name = "Messiah, Supreme Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "dragon"
@@ -223,9 +223,9 @@ effect = """\
 """
 strings = []
 
-[mesaia-origin]
+[messiah-origin]
 id = 900007014
-name = "Mesaia, Origin of Dragons"
+name = "Messiah, Origin of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "dragon"
@@ -257,9 +257,9 @@ strings = [
     "Place in Pendulum Zone",
 ]
 
-[mesaia-genesis]
+[messiah-genesis]
 id = 900007015
-name = "Mesaia, Genesis of Dragons"
+name = "Messiah, Genesis of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "dragon"
