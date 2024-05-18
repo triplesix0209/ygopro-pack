@@ -115,15 +115,51 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 2, nil,
-        function(g, sc, sumtype, tp) return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp) end)
+    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 2)
+
+    -- add or special summon
+    local e1 = Effect.CreateEffect(c)
+    e1:SetCategory(CATEGORY_SEARCH + CATEGORY_TOHAND + CATEGORY_SPECIAL_SUMMON)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetProperty(EFFECT_FLAG_DELAY)
+    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetCountLimit(1, id)
+    e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and e:GetLabel() == 1 end)
+    e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        if chk == 0 then
+            local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
+            return Duel.IsExistingMatchingCard(BabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute, ft, e, tp)
+        end
+
+        Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
+        Duel.SetPossibleOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK)
+    end)
+    e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
+        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, BabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute, ft, e, tp):GetFirst()
+        if not sc then return end
+
+        aux.ToHandOrElse(sc, tp, function(sc) return ft > 0 and sc:IsCanBeSpecialSummoned(e, 0, tp, false, false) end,
+            function(sc) return Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP) end, 2)
+    end)
+    c:RegisterEffect(e1)
+    local e1matcheck = Effect.CreateEffect(c)
+    e1matcheck:SetType(EFFECT_TYPE_SINGLE)
+    e1matcheck:SetCode(EFFECT_MATERIAL_CHECK)
+    e1matcheck:SetValue(function(e, c)
+        if c:GetMaterial():IsExists(Card.IsAttribute, 1, nil, attribute, c, SUMMON_TYPE_LINK, e:GetHandlerPlayer()) then
+            e:GetLabelObject():SetLabel(1)
+        end
+    end)
+    e1matcheck:SetLabelObject(e1)
+    c:RegisterEffect(e1matcheck)
 
     -- shuffle when banish
-    local reg = Effect.CreateEffect(c)
-    reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    reg:SetCode(EVENT_REMOVE)
-    reg:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    local e2reg = Effect.CreateEffect(c)
+    e2reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    e2reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e2reg:SetCode(EVENT_REMOVE)
+    e2reg:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if not re then return end
         local c = e:GetHandler()
         local rc = re:GetHandler()
@@ -132,25 +168,30 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
             e:SetLabel(Duel.GetTurnCount())
         end
     end)
-    c:RegisterEffect(reg)
-    local shuffle = Effect.CreateEffect(c)
-    shuffle:SetCategory(CATEGORY_TODECK)
-    shuffle:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
-    shuffle:SetRange(LOCATION_REMOVED)
-    shuffle:SetCode(EVENT_PHASE + PHASE_END)
-    shuffle:SetCountLimit(1)
-    shuffle:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+    c:RegisterEffect(e2reg)
+    local e2 = Effect.CreateEffect(c)
+    e2:SetCategory(CATEGORY_TODECK)
+    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
+    e2:SetRange(LOCATION_REMOVED)
+    e2:SetCode(EVENT_PHASE + PHASE_END)
+    e2:SetCountLimit(1)
+    e2:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
         return e:GetLabelObject():GetLabel() == Duel.GetTurnCount() and e:GetHandler():GetFlagEffect(id) > 0
     end)
-    shuffle:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+    e2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
         if chk == 0 then return c:IsAbleToDeck() end
         Duel.SetOperationInfo(0, CATEGORY_TODECK, c, 1, 0, 0)
         c:ResetFlagEffect(id)
     end)
-    shuffle:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+    e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
     end)
-    shuffle:SetLabelObject(reg)
-    c:RegisterEffect(shuffle)
+    e2:SetLabelObject(e2reg)
+    c:RegisterEffect(e2)
+end
+
+function BabySearchFilter(c, attribute, ft, e, tp)
+    return (c:IsLevel(3) or c:IsLevel(4)) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
+               (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
 end
