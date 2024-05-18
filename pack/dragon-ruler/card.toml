@@ -15,8 +15,76 @@ effect = """\
 """
 strings = []
 
-[emperor-fire]
+[messiah-origin]
 id = 900007002
+name = "Messiah, Origin of Dragons"
+type = "monster link pendulum effect"
+attribute = "divine"
+race = "dragon"
+link = 1
+link-arrow = "bottom-right"
+scale = 0
+atk = 0
+pendulum-effect = """\
+You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
+If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
+"""
+effect = """\
+1 non-DIVINE Dragon monster
+The Attribute of this card is also treated as FIRE, WATER, WIND, EARTH, LIGHT, and DARK \
+    while it is face-up on the field or in GY. \
+    This effect cannot be negated. \
+You can Tribute this card and discard 1 Dragon monster; \
+    Special Summon from your hand or Deck, \
+    1 Dragon monster that can be Normal Summoned/Set \
+    with the same Attribute as the discarded monster. \
+During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
+    You can banish 1 Dragon monster from your hand or GY; \
+    Place this face-up card from your Extra Deck in your Pendulum Zone. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = [
+    "Add to Extra Deck",
+    "Special Summon a Dragon from Deck",
+    "Place in Pendulum Zone",
+]
+
+[messiah-genesis]
+id = 900007003
+name = "Messiah, Genesis of Dragons"
+type = "monster link pendulum effect"
+attribute = "divine"
+race = "dragon"
+link = 1
+link-arrow = "bottom-left"
+scale = 13
+atk = 0
+pendulum-effect = """\
+You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
+If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
+"""
+effect = """\
+1 non-DIVINE Dragon monster
+The Attribute of this card is also treated as FIRE, WATER, WIND, EARTH, LIGHT, and DARK \
+    while it is face-up on the field or in GY. \
+    This effect cannot be negated. \
+You can Tribute this card, then discard 1 Dragon monster; \
+    Special Summon from your Deck or GY, \
+    1 Dragon monster that can be Normal Summoned/Set \
+    with the same Attribute as the discarded monster. \
+During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
+    You can banish 1 Dragon monster from your hand or GY; \
+    Place this face-up card from your Extra Deck in your Pendulum Zone. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+"""
+strings = [
+    "Add to Extra Deck",
+    "Special Summon a Dragon from Deck",
+    "Place in Pendulum Zone",
+]
+
+[emperor-fire]
+id = 900007004
 rarity = "gold"
 name = "Kagero, Dragon Emperor of Firestorms"
 type = "monster link pendulum effect"
@@ -45,7 +113,7 @@ strings = [
 ]
 
 [emperor-water]
-id = 900007003
+id = 900007005
 rarity = "gold"
 name = "Akuafosu, Dragon Emperor of Glacials"
 type = "monster link pendulum effect"
@@ -64,7 +132,7 @@ effect = """\
 strings = []
 
 [emperor-wind]
-id = 900007004
+id = 900007006
 rarity = "gold"
 name = "Nekutaru, Dragon Emperor of Lifes"
 type = "monster link pendulum effect"
@@ -83,7 +151,7 @@ effect = """\
 strings = []
 
 [emperor-earth]
-id = 900007005
+id = 900007007
 rarity = "gold"
 name = "Kidisuto, Dragon Emperor of Continents"
 type = "monster link pendulum effect"
@@ -102,7 +170,7 @@ effect = """\
 strings = []
 
 [emperor-light]
-id = 900007006
+id = 900007008
 rarity = "gold"
 name = "Roiyaru, Dragon Emperor of Miracles"
 type = "monster link pendulum effect"
@@ -121,7 +189,7 @@ effect = """\
 strings = []
 
 [emperor-dark]
-id = 900007007
+id = 900007009
 rarity = "gold"
 name = "Sutabeida, Dragon Emperor of Horizons"
 type = "monster link pendulum effect"
@@ -140,7 +208,7 @@ effect = """\
 strings = []
 
 [emperor-baby-fire]
-id = 900007008
+id = 900007010
 name = "Kagero, Dragon of Embers"
 type = "monster link effect"
 attribute = "fire"
@@ -154,7 +222,7 @@ effect = """\
 strings = []
 
 [emperor-baby-water]
-id = 900007009
+id = 900007011
 name = "Akuafosu, Dragon of Frosts"
 type = "monster link effect"
 attribute = "water"
@@ -168,7 +236,7 @@ effect = """\
 strings = []
 
 [emperor-baby-wind]
-id = 900007010
+id = 900007012
 name = "Nekutaru, Dragon of Spirits"
 type = "monster link effect"
 attribute = "wind"
@@ -182,7 +250,7 @@ effect = """\
 strings = []
 
 [emperor-baby-earth]
-id = 900007011
+id = 900007013
 name = "Kidisuto, Dragon of Gorges"
 type = "monster link effect"
 attribute = "earth"
@@ -196,7 +264,7 @@ effect = """\
 strings = []
 
 [emperor-baby-light]
-id = 900007012
+id = 900007014
 name = "Roiyaru, Dragon of Wishes"
 type = "monster link effect"
 attribute = "light"
@@ -210,7 +278,7 @@ effect = """\
 strings = []
 
 [emperor-baby-dark]
-id = 900007013
+id = 900007015
 name = "Sutabeida, Dragon of Voids"
 type = "monster link effect"
 attribute = "dark"
@@ -222,74 +290,6 @@ effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|DARK} \
 """
 strings = []
-
-[messiah-origin]
-id = 900007014
-name = "Messiah, Origin of Dragons"
-type = "monster link pendulum effect"
-attribute = "divine"
-race = "dragon"
-link = 1
-link-arrow = "bottom-right"
-scale = 0
-atk = 0
-pendulum-effect = """\
-You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
-If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
-"""
-effect = """\
-1 non-DIVINE Dragon monster
-The Attribute of this card is also treated as FIRE, WATER, WIND, EARTH, LIGHT, and DARK \
-    while it is face-up on the field or in GY. \
-    This effect cannot be negated. \
-You can Tribute this card and discard 1 Dragon monster; \
-    Special Summon from your Deck, \
-    1 Dragon monster that can be Normal Summoned/Set \
-    with the same Attribute as the discarded monster. \
-During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
-    You can banish 1 Dragon monster from your hand or GY; \
-    Place this face-up card from your Extra Deck in your Pendulum Zone. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
-"""
-strings = [
-    "Add to Extra Deck",
-    "Special Summon a Dragon from Deck",
-    "Place in Pendulum Zone",
-]
-
-[messiah-genesis]
-id = 900007015
-name = "Messiah, Genesis of Dragons"
-type = "monster link pendulum effect"
-attribute = "divine"
-race = "dragon"
-link = 1
-link-arrow = "bottom-left"
-scale = 13
-atk = 0
-pendulum-effect = """\
-You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
-If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
-"""
-effect = """\
-1 non-DIVINE Dragon monster
-The Attribute of this card is also treated as FIRE, WATER, WIND, EARTH, LIGHT, and DARK \
-    while it is face-up on the field or in GY. \
-    This effect cannot be negated. \
-You can Tribute this card, then discard 1 Dragon monster; \
-    Special Summon from your Deck, \
-    1 Dragon monster that can be Normal Summoned/Set \
-    with the same Attribute as the discarded monster. \
-During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
-    You can banish 1 Dragon monster from your hand or GY; \
-    Place this face-up card from your Extra Deck in your Pendulum Zone. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
-"""
-strings = [
-    "Add to Extra Deck",
-    "Special Summon a Dragon from Deck",
-    "Place in Pendulum Zone",
-]
 
 [ruler-light]
 id = 900007016

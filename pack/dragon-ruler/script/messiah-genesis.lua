@@ -78,7 +78,7 @@ end
 
 function s.me2filter1(c, e, tp)
     return c:IsDiscardable() and c:IsRace(RACE_DRAGON) and
-               Duel.IsExistingMatchingCard(s.me2filter2, tp, LOCATION_DECK, 0, 1, nil, c:GetAttribute(), e, tp)
+               Duel.IsExistingMatchingCard(s.me2filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, c:GetAttribute(), e, tp)
 end
 
 function s.me2filter2(c, attr, e, tp)
@@ -98,13 +98,13 @@ function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     e:SetLabel(sc:GetAttribute())
     Duel.SendtoGrave(sc, REASON_COST | REASON_DISCARD)
 
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK + LOCATION_GRAVE)
 end
 
 function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
     local attr = e:GetLabel()
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me2filter2, tp, LOCATION_DECK, 0, 1, 1, nil, attr, e, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.me2filter2, tp, LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, attr, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
 
