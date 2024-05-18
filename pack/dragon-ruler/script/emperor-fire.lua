@@ -60,10 +60,10 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingTarget(nil, tp, 0, LOCATION_ONFIELD, 1, c) end
+    if chk == 0 then return Duel.IsExistingTarget(nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local tc = Duel.SelectTarget(tp, nil, tp, 0, LOCATION_ONFIELD, 1, 1, c):GetFirst()
+    local tc = Duel.SelectTarget(tp, nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, tc, 1, tp, 0)
 
     if tc:IsMonster() then
