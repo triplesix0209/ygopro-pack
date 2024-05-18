@@ -111,7 +111,7 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     c:RegisterEffect(pen_place)
 end
 
-function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
+function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
     c:EnableReviveLimit()
 
     -- link summon
@@ -128,7 +128,7 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
     e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         if chk == 0 then
             local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-            return Duel.IsExistingMatchingCard(BabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute, ft, e, tp)
+            return Duel.IsExistingMatchingCard(EmperorBabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute, ft, e, tp)
         end
 
         Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
@@ -136,7 +136,8 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
     end)
     e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, BabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute, ft, e, tp):GetFirst()
+        local sc =
+            Utility.SelectMatchingCard(HINTMSG_SELECT, tp, EmperorBabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute, ft, e, tp):GetFirst()
         if not sc then return end
 
         aux.ToHandOrElse(sc, tp, function(sc) return ft > 0 and sc:IsCanBeSpecialSummoned(e, 0, tp, false, false) end,
@@ -154,7 +155,7 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
     e1matcheck:SetLabelObject(e1)
     c:RegisterEffect(e1matcheck)
 
-    -- shuffle when banish
+    -- to extra deck when banish
     local e2reg = Effect.CreateEffect(c)
     e2reg:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e2reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -170,7 +171,7 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
     end)
     c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
-    e2:SetCategory(CATEGORY_TODECK)
+    e2:SetCategory(CATEGORY_TOEXTRA)
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     e2:SetRange(LOCATION_REMOVED)
     e2:SetCode(EVENT_PHASE + PHASE_END)
@@ -180,18 +181,137 @@ function DragonRuler.RegisterBabyEffect(s, c, id, attribute)
     end)
     e2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        if chk == 0 then return c:IsAbleToDeck() end
-        Duel.SetOperationInfo(0, CATEGORY_TODECK, c, 1, 0, 0)
+        if chk == 0 then return not c:IsForbidden() end
+        Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, c, 1, 0, 0)
         c:ResetFlagEffect(id)
     end)
     e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
+        if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoExtraP(e:GetHandler(), tp, REASON_EFFECT) end
     end)
     e2:SetLabelObject(e2reg)
     c:RegisterEffect(e2)
 end
 
-function BabySearchFilter(c, attribute, ft, e, tp)
+function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_locations)
+    c:EnableReviveLimit()
+    Pendulum.AddProcedure(c, false)
+
+    -- link summon
+    Link.AddProcedure(c, function(c, sc, sumtype, tp)
+        return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsAttribute(ATTRIBUTE_DIVINE, sc, sumtype, tp)
+    end, 1, 1)
+
+    -- pendulum summon limit
+    local pe1 = Effect.CreateEffect(c)
+    pe1:SetType(EFFECT_TYPE_FIELD)
+    pe1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
+    pe1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+    pe1:SetRange(LOCATION_PZONE)
+    pe1:SetTargetRange(1, 0)
+    pe1:SetTarget(function(e, c, tp, sumtp, sumpos) return not c:IsRace(RACE_DRAGON) and (sumtp & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM end)
+    c:RegisterEffect(pe1)
+
+    -- add to extra deck
+    local pe3 = Effect.CreateEffect(c)
+    pe3:SetDescription(aux.Stringid(id, 0))
+    pe3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
+    pe3:SetCode(EVENT_SPSUMMON_SUCCESS)
+    pe3:SetRange(LOCATION_PZONE)
+    pe3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+        return eg:IsExists(function(c, tp) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsSummonPlayer(tp) end, 1, nil, tp)
+    end)
+    pe3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
+        if not c:IsRelateToEffect(e) then return end
+        Duel.SendtoExtraP(c, tp, REASON_EFFECT)
+    end)
+    c:RegisterEffect(pe3)
+
+    -- attribute
+    local me1 = Effect.CreateEffect(c)
+    me1:SetType(EFFECT_TYPE_SINGLE)
+    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
+    me1:SetCode(EFFECT_ADD_ATTRIBUTE)
+    me1:SetRange(LOCATION_MZONE + LOCATION_GRAVE)
+    me1:SetValue(attributes)
+    c:RegisterEffect(me1)
+
+    -- special summon a dragon
+    local me2 = Effect.CreateEffect(c)
+    me2:SetDescription(aux.Stringid(id, 1))
+    me2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    me2:SetType(EFFECT_TYPE_IGNITION)
+    me2:SetRange(LOCATION_MZONE)
+    me2:SetCountLimit(1, id)
+    me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        if chk == 0 then return e:GetHandler():IsReleasable() end
+        Duel.Release(e:GetHandler(), REASON_COST)
+    end)
+    me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        local c = e:GetHandler()
+        if chk == 0 then
+            return Duel.GetMZoneCount(tp, c) > 0 and
+                       Duel.IsExistingMatchingCard(MessiahBabySearchCostFilter, tp, LOCATION_HAND, 0, 1, nil, search_locations, e, tp)
+        end
+
+        local sc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, MessiahBabySearchCostFilter, tp, LOCATION_HAND, 0, 1, 1, nil, search_locations, e,
+            tp):GetFirst()
+        e:SetLabel(sc:GetAttribute())
+        Duel.SendtoGrave(sc, REASON_COST | REASON_DISCARD)
+
+        Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, search_locations)
+    end)
+    me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+        local attr = e:GetLabel()
+        local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySearchTargetFilter, tp, search_locations, 0, 1, 1, nil, attr, e, tp)
+        if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
+    end)
+    c:RegisterEffect(me2)
+
+    -- place in pendulum zone
+    local me3 = Effect.CreateEffect(c)
+    me3:SetDescription(aux.Stringid(id, 2))
+    me3:SetType(EFFECT_TYPE_IGNITION)
+    me3:SetRange(LOCATION_EXTRA)
+    me3:SetCountLimit(1, id)
+    me3:SetCondition(aux.exccon)
+    me3:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        if chk == 0 then
+            return Duel.IsExistingMatchingCard(MessiahBabyPlaceCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil)
+        end
+
+        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
+        local g = Duel.SelectMatchingCard(tp, MessiahBabyPlaceCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil)
+
+        Duel.Remove(g, POS_FACEUP, REASON_COST)
+    end)
+    me3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        local c = e:GetHandler()
+        if chk == 0 then return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+    end)
+    me3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
+        if not Duel.CheckPendulumZones(tp) or not c:IsRelateToEffect(e) then return end
+        Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
+    end)
+    c:RegisterEffect(me3)
+end
+
+function EmperorBabySearchFilter(c, attribute, ft, e, tp)
     return (c:IsLevel(3) or c:IsLevel(4)) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
                (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
+end
+
+function MessiahBabySearchCostFilter(c, locations, e, tp)
+    return c:IsDiscardable() and c:IsRace(RACE_DRAGON) and
+               Duel.IsExistingMatchingCard(MessiahBabySearchTargetFilter, tp, locations, 0, 1, nil, c:GetAttribute(), e, tp)
+end
+
+function MessiahBabySearchTargetFilter(c, attr, e, tp)
+    return c:IsRace(RACE_DRAGON) and c:IsAttribute(attr) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+end
+
+function MessiahBabyPlaceCostFilter(c)
+    return c:IsRace(RACE_DRAGON) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true))
 end

@@ -26,26 +26,14 @@ link-arrow = "bottom-right"
 scale = 0
 atk = 0
 pendulum-effect = """\
-You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
-If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
+{MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-1 non-DIVINE Dragon monster
-The Attribute of this card is also treated as FIRE, WATER, WIND, EARTH, LIGHT, and DARK \
-    while it is face-up on the field or in GY. \
-    This effect cannot be negated. \
-You can Tribute this card and discard 1 Dragon monster; \
-    Special Summon from your hand or Deck, \
-    1 Dragon monster that can be Normal Summoned/Set \
-    with the same Attribute as the discarded monster. \
-During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
-    You can banish 1 Dragon monster from your hand or GY; \
-    Place this face-up card from your Extra Deck in your Pendulum Zone. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+{MESSIAH_BABY_MONSTER_EFFECT|FIRE, WIND, and LIGHT|hand or Deck} \
 """
 strings = [
     "Add to Extra Deck",
-    "Special Summon a Dragon from Deck",
+    "Special Summon a Dragon from hand or Deck",
     "Place in Pendulum Zone",
 ]
 
@@ -60,26 +48,14 @@ link-arrow = "bottom-left"
 scale = 13
 atk = 0
 pendulum-effect = """\
-You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
-If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
+{MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-1 non-DIVINE Dragon monster
-The Attribute of this card is also treated as FIRE, WATER, WIND, EARTH, LIGHT, and DARK \
-    while it is face-up on the field or in GY. \
-    This effect cannot be negated. \
-You can Tribute this card, then discard 1 Dragon monster; \
-    Special Summon from your Deck or GY, \
-    1 Dragon monster that can be Normal Summoned/Set \
-    with the same Attribute as the discarded monster. \
-During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
-    You can banish 1 Dragon monster from your hand or GY; \
-    Place this face-up card from your Extra Deck in your Pendulum Zone. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
+{MESSIAH_BABY_MONSTER_EFFECT|WATER, EARTH, and DARK|Deck or GY} \
 """
 strings = [
     "Add to Extra Deck",
-    "Special Summon a Dragon from Deck",
+    "Special Summon a Dragon from Deck or GY",
     "Place in Pendulum Zone",
 ]
 
@@ -210,12 +186,16 @@ strings = []
 [emperor-baby-fire]
 id = 900007010
 name = "Garnet, Dragon of Embers"
-type = "monster link effect"
+type = "monster link pendulum effect"
 attribute = "fire"
 race = "dragon"
 link = 2
 link-arrow = "bottom-left bottom"
-atk = 2000
+scale = 1
+atk = 1900
+pendulum-effect = """\
+{DRAGON_BABY_PENDULUM_EFFECT|FIRE} \
+"""
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|FIRE} \
 """
@@ -224,12 +204,16 @@ strings = []
 [emperor-baby-water]
 id = 900007011
 name = "Lapis, Dragon of Frosts"
-type = "monster link effect"
+type = "monster link pendulum effect"
 attribute = "water"
 race = "dragon"
 link = 2
 link-arrow = "bottom bottom-right"
-atk = 2000
+scale = 1
+atk = 1900
+pendulum-effect = """\
+{DRAGON_BABY_PENDULUM_EFFECT|WATER} \
+"""
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|WATER} \
 """
@@ -238,12 +222,16 @@ strings = []
 [emperor-baby-wind]
 id = 900007012
 name = "Peridot, Dragon of Spirits"
-type = "monster link effect"
+type = "monster link pendulum effect"
 attribute = "wind"
 race = "dragon"
 link = 2
 link-arrow = "bottom-left bottom"
-atk = 2000
+scale = 1
+atk = 1900
+pendulum-effect = """\
+{DRAGON_BABY_PENDULUM_EFFECT|WIND} \
+"""
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|WIND} \
 """
@@ -252,12 +240,16 @@ strings = []
 [emperor-baby-earth]
 id = 900007013
 name = "Topaz, Dragon of Gorges"
-type = "monster link effect"
+type = "monster link pendulum effect"
 attribute = "earth"
 race = "dragon"
 link = 2
 link-arrow = "bottom bottom-right"
-atk = 2000
+scale = 1
+atk = 1900
+pendulum-effect = """\
+{DRAGON_BABY_PENDULUM_EFFECT|EARTH} \
+"""
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|EARTH} \
 """
@@ -266,12 +258,16 @@ strings = []
 [emperor-baby-light]
 id = 900007014
 name = "Pearl, Dragon of Wishes"
-type = "monster link effect"
+type = "monster link pendulum effect"
 attribute = "light"
 race = "dragon"
 link = 2
 link-arrow = "bottom-left bottom"
-atk = 2000
+scale = 1
+atk = 1900
+pendulum-effect = """\
+{DRAGON_BABY_PENDULUM_EFFECT|LIGHT} \
+"""
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|LIGHT} \
 """
@@ -280,12 +276,16 @@ strings = []
 [emperor-baby-dark]
 id = 900007015
 name = "Onyx, Dragon of Voids"
-type = "monster link effect"
+type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
 link = 2
 link-arrow = "bottom bottom-right"
-atk = 2000
+scale = 1
+atk = 1900
+pendulum-effect = """\
+{DRAGON_BABY_PENDULUM_EFFECT|DARK} \
+"""
 effect = """\
 {DRAGON_BABY_MONSTER_EFFECT|DARK} \
 """

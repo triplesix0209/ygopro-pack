@@ -18,6 +18,10 @@ The above effects cannot be negated or be copied. \
 If this card in the Monster Zone is destroyed: You can place this card in your Pendulum Zone.\
 """
 
+DRAGON_BABY_PENDULUM_EFFECT = """\
+.\
+"""
+
 DRAGON_BABY_MONSTER_EFFECT = """\
 2 Dragon monsters
 If this card is Link Summoned using a {0} monster: \
@@ -26,5 +30,25 @@ If this card is Link Summoned using a {0} monster: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during the End Phase of the turn \
     this card was banished to activate a Dragon monster's effect: \
-    Shuffle this banished card into the Deck.\
+    Add this banished card to the Extra Deck face-up.\
+"""
+
+MESSIAH_BABY_PENDULUM_EFFECT = """\
+You cannot Pendulum Summon monsters, except Dragon monsters. This effects cannot be negated. \
+If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up.\
+"""
+
+MESSIAH_BABY_MONSTER_EFFECT = """\
+1 non-DIVINE Dragon monster
+The Attribute of this card is also treated as {0} \
+    while it is face-up on the field or in GY. \
+    This effect cannot be negated. \
+You can Tribute this card and discard 1 Dragon monster; \
+    Special Summon from your {1}, \
+    1 Dragon monster that can be Normal Summoned/Set \
+    with the same Attribute as the discarded monster. \
+During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
+    You can banish 1 Dragon monster from your hand or GY; \
+    Place this face-up card from your Extra Deck in your Pendulum Zone. \
+You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn.\
 """
