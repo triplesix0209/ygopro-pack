@@ -1,4 +1,4 @@
--- Sapphire, Dragon Emperor of Ice Ages
+-- Sapphireoh, Dragon Deity of Ice Ages
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

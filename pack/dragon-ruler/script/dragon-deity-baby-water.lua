@@ -1,4 +1,4 @@
--- Lapis, Dragon of Frosts
+-- Lapison, Dragon of Frosts
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

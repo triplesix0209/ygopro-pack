@@ -1,4 +1,4 @@
--- Emerald, Dragon Emperor of Life Cycles
+-- Emeraldoh, Dragon Deity of Life Cycles
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

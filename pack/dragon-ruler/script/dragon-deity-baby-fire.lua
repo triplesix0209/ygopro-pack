@@ -1,4 +1,4 @@
--- Garnet, Dragon of Embers
+-- Garneton, Dragon of Embers
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

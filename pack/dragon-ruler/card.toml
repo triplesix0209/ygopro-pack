@@ -62,7 +62,7 @@ strings = [
 [dragon-deity-fire]
 id = 900007004
 rarity = "gold"
-name = "Ruby, Dragon Emperor of Fire Storms"
+name = "Rubyoh, Dragon Deity of Fire Storms"
 type = "monster link pendulum effect"
 attribute = "fire"
 race = "dragon"
@@ -91,7 +91,7 @@ strings = [
 [dragon-deity-water]
 id = 900007005
 rarity = "gold"
-name = "Sapphire, Dragon Emperor of Ice Ages"
+name = "Sapphireoh, Dragon Deity of Ice Ages"
 type = "monster link pendulum effect"
 attribute = "water"
 race = "dragon"
@@ -112,7 +112,7 @@ strings = []
 [dragon-deity-wind]
 id = 900007006
 rarity = "gold"
-name = "Emerald, Dragon Emperor of Life Cycles"
+name = "Emeraldoh, Dragon Deity of Life Cycles"
 type = "monster link pendulum effect"
 attribute = "wind"
 race = "dragon"
@@ -131,7 +131,7 @@ strings = []
 [dragon-deity-earth]
 id = 900007007
 rarity = "gold"
-name = "Amber, Dragon Emperor of World Continents"
+name = "Amberoh, Dragon Deity of World Continents"
 type = "monster link pendulum effect"
 attribute = "earth"
 race = "dragon"
@@ -150,7 +150,7 @@ strings = []
 [dragon-deity-light]
 id = 900007008
 rarity = "gold"
-name = "Diamond, Dragon Emperor of Miracle Symphonies"
+name = "Diamondoh, Dragon Deity of Miracle Symphonies"
 type = "monster link pendulum effect"
 attribute = "light"
 race = "dragon"
@@ -170,7 +170,7 @@ strings = []
 [dragon-deity-dark]
 id = 900007009
 rarity = "gold"
-name = "Obsidian, Dragon Emperor of Event Horizons"
+name = "Obsidianoh, Dragon Deity of Event Horizons"
 type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -189,7 +189,7 @@ strings = []
 
 [dragon-deity-baby-fire]
 id = 900007010
-name = "Garnet, Dragon of Embers"
+name = "Garneton, Dragon of Embers"
 type = "monster link effect"
 attribute = "fire"
 race = "dragon"
@@ -203,7 +203,7 @@ strings = []
 
 [dragon-deity-baby-water]
 id = 900007011
-name = "Lapis, Dragon of Frosts"
+name = "Lapison, Dragon of Frosts"
 type = "monster link effect"
 attribute = "water"
 race = "dragon"
@@ -217,7 +217,7 @@ strings = []
 
 [dragon-deity-baby-wind]
 id = 900007012
-name = "Peridot, Dragon of Spirits"
+name = "Peridoton, Dragon of Spirits"
 type = "monster link effect"
 attribute = "wind"
 race = "dragon"
@@ -231,7 +231,7 @@ strings = []
 
 [dragon-deity-baby-earth]
 id = 900007013
-name = "Topaz, Dragon of Gorges"
+name = "Topazon, Dragon of Gorges"
 type = "monster link effect"
 attribute = "earth"
 race = "dragon"
@@ -245,7 +245,7 @@ strings = []
 
 [dragon-deity-baby-light]
 id = 900007014
-name = "Pearl, Dragon of Wishes"
+name = "Pearlon, Dragon of Wishes"
 type = "monster link effect"
 attribute = "light"
 race = "dragon"
@@ -259,7 +259,7 @@ strings = []
 
 [dragon-deity-baby-dark]
 id = 900007015
-name = "Onyx, Dragon of Voids"
+name = "Onyxon, Dragon of Voids"
 type = "monster link effect"
 attribute = "dark"
 race = "dragon"

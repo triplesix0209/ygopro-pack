@@ -1,4 +1,4 @@
--- Obsidian, Dragon Emperor of Event Horizons
+-- Obsidianoh, Dragon Deity of Event Horizons
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

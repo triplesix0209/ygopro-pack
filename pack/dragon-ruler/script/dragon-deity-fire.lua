@@ -1,4 +1,4 @@
--- Ruby, Dragon Emperor of Fire Storms
+-- Rubyoh, Dragon Deity of Fire Storms
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

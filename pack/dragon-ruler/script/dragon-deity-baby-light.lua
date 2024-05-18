@@ -1,4 +1,4 @@
--- Pearl, Dragon of Wishes
+-- Pearlon, Dragon of Wishes
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
