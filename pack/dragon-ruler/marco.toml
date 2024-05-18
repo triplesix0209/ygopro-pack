@@ -24,8 +24,7 @@ If this card is Link Summoned: \
     You can either add to your hand or Special Summon \
     1 Level 4 or lower {0} Dragon monster from your Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn, during the End Phase of the turn \
-    this card was banished to activate a Dragon monster's effect: \
+Once per turn, during the End Phase of the turn this card was banished: \
     Shuffle this banished card into the Deck, \
     then you can add 1 banished non-Link {0} Dragon monster to your hand.\
 """

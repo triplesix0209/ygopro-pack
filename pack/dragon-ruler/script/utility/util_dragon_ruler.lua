@@ -152,13 +152,8 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     e2reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
     e2reg:SetCode(EVENT_REMOVE)
     e2reg:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if not re then return end
-        local c = e:GetHandler()
-        local rc = re:GetHandler()
-        if c:IsReason(REASON_COST) and rc:IsRace(RACE_DRAGON) then
-            c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
-            e:SetLabel(Duel.GetTurnCount())
-        end
+        e:GetHandler():RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
+        e:SetLabel(Duel.GetTurnCount())
     end)
     c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
