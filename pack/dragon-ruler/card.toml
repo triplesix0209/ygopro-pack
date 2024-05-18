@@ -15,7 +15,7 @@ effect = """\
 """
 strings = []
 
-[kagero-firestorms]
+[emperor-fire]
 id = 900007002
 rarity = "gold"
 name = "Kagero, Dragon Emperor of Firestorms"
@@ -44,7 +44,7 @@ strings = [
     "Inflict damage to your opponent equal to the destroyed monster's ATK?",
 ]
 
-[akuafosu-glacials]
+[emperor-water]
 id = 900007003
 rarity = "gold"
 name = "Akuafosu, Dragon Emperor of Glacials"
@@ -63,7 +63,7 @@ effect = """\
 """
 strings = []
 
-[nekutaru-lifes]
+[emperor-wind]
 id = 900007004
 rarity = "gold"
 name = "Nekutaru, Dragon Emperor of Lifes"
@@ -82,7 +82,7 @@ effect = """\
 """
 strings = []
 
-[kidisuto-continents]
+[emperor-earth]
 id = 900007005
 rarity = "gold"
 name = "Kidisuto, Dragon Emperor of Continents"
@@ -101,7 +101,7 @@ effect = """\
 """
 strings = []
 
-[roiyaru-miracles]
+[emperor-light]
 id = 900007006
 rarity = "gold"
 name = "Roiyaru, Dragon Emperor of Miracles"
@@ -120,10 +120,10 @@ effect = """\
 """
 strings = []
 
-[sutabeida-horizons]
+[emperor-dark]
 id = 900007007
 rarity = "gold"
-name = "Sutabeida, Dragon Emperor of horizons"
+name = "Sutabeida, Dragon Emperor of Horizons"
 type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -139,9 +139,9 @@ effect = """\
 """
 strings = []
 
-[kagero-embers]
+[emperor-baby-fire]
 id = 900007008
-name = "Kagero, Dragon Ruler of Embers"
+name = "Kagero, Dragon of Embers"
 type = "monster link effect"
 attribute = "fire"
 race = "dragon"
@@ -153,9 +153,9 @@ effect = """\
 """
 strings = []
 
-[akuafosu-frosts]
+[emperor-baby-water]
 id = 900007009
-name = "Akuafosu, Dragon Ruler of Frosts"
+name = "Akuafosu, Dragon of Frosts"
 type = "monster link effect"
 attribute = "water"
 race = "dragon"
@@ -167,9 +167,9 @@ effect = """\
 """
 strings = []
 
-[nekutaru-spirits]
+[emperor-baby-wind]
 id = 900007010
-name = "Nekutaru, Dragon Ruler of Spirits"
+name = "Nekutaru, Dragon of Spirits"
 type = "monster link effect"
 attribute = "wind"
 race = "dragon"
@@ -181,9 +181,9 @@ effect = """\
 """
 strings = []
 
-[kidisuto-gorges]
+[emperor-baby-earth]
 id = 900007011
-name = "Kidisuto, Dragon Ruler of Gorges"
+name = "Kidisuto, Dragon of Gorges"
 type = "monster link effect"
 attribute = "earth"
 race = "dragon"
@@ -195,9 +195,9 @@ effect = """\
 """
 strings = []
 
-[roiyaru-wishes]
+[emperor-baby-light]
 id = 900007012
-name = "Roiyaru, Dragon Ruler of Wishes"
+name = "Roiyaru, Dragon of Wishes"
 type = "monster link effect"
 attribute = "light"
 race = "dragon"
@@ -209,9 +209,9 @@ effect = """\
 """
 strings = []
 
-[sutabeida-voids]
+[emperor-baby-dark]
 id = 900007013
-name = "Sutabeida, Dragon Ruler of voids"
+name = "Sutabeida, Dragon of Voids"
 type = "monster link effect"
 attribute = "dark"
 race = "dragon"
