@@ -225,9 +225,8 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
         Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, e:GetHandler(), 1, 0, 0)
     end)
     pe3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        if not c:IsRelateToEffect(e) then return end
-        Duel.SendtoExtraP(c, tp, REASON_EFFECT)
+        if not e:GetHandler():IsRelateToEffect(e) then return end
+        Duel.SendtoExtraP(e:GetHandler(), tp, REASON_EFFECT)
     end)
     c:RegisterEffect(pe3)
 
