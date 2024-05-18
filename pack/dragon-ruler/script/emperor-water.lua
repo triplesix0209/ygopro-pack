@@ -5,4 +5,17 @@ local s, id = GetID()
 
 function s.initial_effect(c)
     DragonRuler.RegisterEmperorEffect(s, c, id, ATTRIBUTE_WATER)
+
+    -- indes & avoid damage
+    local e1 = Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_FIELD)
+    e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+    e1:SetRange(LOCATION_MZONE)
+    e1:SetTargetRange(LOCATION_MZONE, 0)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsRace(RACE_DRAGON) and c:GetMutualLinkedGroupCount() > 0) end)
+    e1:SetValue(1)
+    c:RegisterEffect(e1)
+    local e1b = e1:Clone()
+    e1b:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
+    c:RegisterEffect(e1b)
 end
