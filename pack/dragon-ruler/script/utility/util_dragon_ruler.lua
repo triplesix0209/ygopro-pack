@@ -220,6 +220,10 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     pe3:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
         return eg:IsExists(function(c, tp) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsSummonPlayer(tp) end, 1, nil, tp)
     end)
+    pe3:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        if chk == 0 then return true end
+        Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, e:GetHandler(), 1, 0, 0)
+    end)
     pe3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         if not c:IsRelateToEffect(e) then return end
