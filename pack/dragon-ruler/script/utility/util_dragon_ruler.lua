@@ -3,7 +3,7 @@ if not aux.DragonRulerProcedure then aux.DragonRulerProcedure = {} end
 if not DragonRuler then DragonRuler = aux.DragonRulerProcedure end
 
 -- function
-function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
+function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     s.pendulum_level = 10
     c:EnableReviveLimit()
     c:SetUniqueOnField(1, 0, id)
@@ -111,7 +111,7 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     c:RegisterEffect(pen_place)
 end
 
-function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
+function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     c:EnableReviveLimit()
 
     -- link summon
@@ -128,7 +128,7 @@ function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
     e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         if chk == 0 then
             local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-            return Duel.IsExistingMatchingCard(EmperorBabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute, ft, e, tp)
+            return Duel.IsExistingMatchingCard(DeityBabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute, ft, e, tp)
         end
 
         Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
@@ -137,7 +137,7 @@ function DragonRuler.RegisterEmperorBabyEffect(s, c, id, attribute)
     e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
         local sc =
-            Utility.SelectMatchingCard(HINTMSG_SELECT, tp, EmperorBabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute, ft, e, tp):GetFirst()
+            Utility.SelectMatchingCard(HINTMSG_SELECT, tp, DeityBabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute, ft, e, tp):GetFirst()
         if not sc then return end
 
         aux.ToHandOrElse(sc, tp, function(sc) return ft > 0 and sc:IsCanBeSpecialSummoned(e, 0, tp, false, false) end,
@@ -300,7 +300,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     c:RegisterEffect(me3)
 end
 
-function EmperorBabySearchFilter(c, attribute, ft, e, tp)
+function DeityBabySearchFilter(c, attribute, ft, e, tp)
     return (c:IsLevel(3) or c:IsLevel(4)) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
                (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
 end

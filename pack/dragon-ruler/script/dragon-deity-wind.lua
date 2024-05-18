@@ -4,7 +4,7 @@ Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    DragonRuler.RegisterEmperorEffect(s, c, id, ATTRIBUTE_WIND)
+    DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_WIND)
 
     -- spell immune
     local e1 = Effect.CreateEffect(c)

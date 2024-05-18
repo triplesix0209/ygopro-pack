@@ -4,7 +4,7 @@ Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    DragonRuler.RegisterEmperorEffect(s, c, id, ATTRIBUTE_WATER)
+    DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_WATER)
 
     -- indes & avoid damage
     local e1 = Effect.CreateEffect(c)
