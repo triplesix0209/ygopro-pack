@@ -117,7 +117,7 @@ type = "monster link pendulum effect"
 attribute = "wind"
 race = "dragon"
 link = 5
-link-arrow = "top-right left right bottom-left bottom-right"
+link-arrow = "top-right left right bottom bottom-right"
 scale = 11
 atk = 4000
 pendulum-effect = """\
@@ -125,7 +125,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-This card and other co-linked Dragon monsters you control are unaffected by your opponent's Spell effects. \
+This card and other co-linked Dragon monsters you control are unaffected by your opponent's activated Spell Cards or effects. \
 """
 strings = []
 
@@ -137,7 +137,7 @@ type = "monster link pendulum effect"
 attribute = "earth"
 race = "dragon"
 link = 5
-link-arrow = "top-left left right bottom-left bottom-right"
+link-arrow = "top-left left right bottom-left bottom"
 scale = 11
 atk = 4000
 pendulum-effect = """\
@@ -145,7 +145,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-This card and other co-linked Dragon monsters you control are unaffected by your opponent's Trap effects. \
+This card and other co-linked Dragon monsters you control are unaffected by your opponent's activated Trap Cards or effects. \
 """
 strings = []
 
@@ -196,7 +196,7 @@ type = "monster link effect"
 attribute = "fire"
 race = "dragon"
 link = 3
-link-arrow = "bottom-left bottom"
+link-arrow = "right bottom bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|FIRE} \
@@ -210,7 +210,7 @@ type = "monster link effect"
 attribute = "water"
 race = "dragon"
 link = 3
-link-arrow = "bottom bottom-right"
+link-arrow = "left bottom-left bottom"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WATER} \
@@ -224,7 +224,7 @@ type = "monster link effect"
 attribute = "wind"
 race = "dragon"
 link = 3
-link-arrow = "bottom-left bottom"
+link-arrow = "right bottom bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WIND} \
@@ -238,7 +238,7 @@ type = "monster link effect"
 attribute = "earth"
 race = "dragon"
 link = 3
-link-arrow = "bottom bottom-right"
+link-arrow = "left bottom-left bottom"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|EARTH} \
@@ -252,7 +252,7 @@ type = "monster link effect"
 attribute = "light"
 race = "dragon"
 link = 3
-link-arrow = "bottom-left bottom"
+link-arrow = "right bottom bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|LIGHT} \
@@ -266,7 +266,7 @@ type = "monster link effect"
 attribute = "dark"
 race = "dragon"
 link = 3
-link-arrow = "bottom bottom-right"
+link-arrow = "left bottom-left bottom"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|DARK} \
