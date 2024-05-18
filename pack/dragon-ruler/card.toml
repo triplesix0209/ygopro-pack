@@ -19,7 +19,7 @@ strings = []
 id = 900007002
 name = "Messiah, Origin of Dragons"
 type = "monster link pendulum effect"
-attribute = "divine"
+attribute = "light"
 race = "dragon"
 link = 1
 link-arrow = "bottom-right"
@@ -29,7 +29,7 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-{MESSIAH_BABY_MONSTER_EFFECT|FIRE, WIND, and LIGHT|hand or Deck} \
+{MESSIAH_BABY_MONSTER_EFFECT|FIRE and WIND|hand or Deck} \
 """
 strings = [
     "Add to Extra Deck",
@@ -41,7 +41,7 @@ strings = [
 id = 900007003
 name = "Messiah, Genesis of Dragons"
 type = "monster link pendulum effect"
-attribute = "divine"
+attribute = "dark"
 race = "dragon"
 link = 1
 link-arrow = "bottom-left"
@@ -51,7 +51,7 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-{MESSIAH_BABY_MONSTER_EFFECT|WATER, EARTH, and DARK|Deck or GY} \
+{MESSIAH_BABY_MONSTER_EFFECT|WATER and EARTH|Deck or GY} \
 """
 strings = [
     "Add to Extra Deck",
@@ -66,10 +66,10 @@ name = "Rubyoh, Dragon Deity of Fire Storms"
 type = "monster link pendulum effect"
 attribute = "fire"
 race = "dragon"
-link = 4
+link = 5
 link-arrow = "top-right bottom-left bottom bottom-right"
 scale = 11
-atk = 3500
+atk = 4000
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|FIRE} \
 """
@@ -98,7 +98,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-left bottom-left bottom bottom-right"
 scale = 11
-atk = 3500
+atk = 4000
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|WATER} \
 """
@@ -119,7 +119,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-right right bottom-left bottom-right"
 scale = 11
-atk = 3500
+atk = 4000
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|WIND} \
 """
@@ -139,7 +139,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-left left bottom-left bottom-right"
 scale = 11
-atk = 3500
+atk = 4000
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|EARTH} \
 """
@@ -159,7 +159,7 @@ race = "dragon"
 link = 5
 link-arrow = "top left right bottom-right"
 scale = 11
-atk = 3500
+atk = 4000
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|LIGHT} \
 """
@@ -179,7 +179,7 @@ race = "dragon"
 link = 5
 link-arrow = "top left right bottom-left"
 scale = 11
-atk = 3500
+atk = 4000
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|DARK} \
 """
@@ -197,7 +197,7 @@ attribute = "fire"
 race = "dragon"
 link = 3
 link-arrow = "bottom-left bottom"
-atk = 1900
+atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|FIRE} \
 """
@@ -211,7 +211,7 @@ attribute = "water"
 race = "dragon"
 link = 3
 link-arrow = "bottom bottom-right"
-atk = 1900
+atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WATER} \
 """
@@ -225,7 +225,7 @@ attribute = "wind"
 race = "dragon"
 link = 3
 link-arrow = "bottom-left bottom"
-atk = 1900
+atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WIND} \
 """
@@ -239,7 +239,7 @@ attribute = "earth"
 race = "dragon"
 link = 3
 link-arrow = "bottom bottom-right"
-atk = 1900
+atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|EARTH} \
 """
@@ -253,7 +253,7 @@ attribute = "light"
 race = "dragon"
 link = 3
 link-arrow = "bottom-left bottom"
-atk = 1900
+atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|LIGHT} \
 """
@@ -267,7 +267,7 @@ attribute = "dark"
 race = "dragon"
 link = 3
 link-arrow = "bottom bottom-right"
-atk = 1900
+atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|DARK} \
 """

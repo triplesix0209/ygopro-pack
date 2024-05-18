@@ -10,9 +10,9 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     Pendulum.AddProcedure(c, false)
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 3, nil, function(g, sc, sumtype, tp)
+    Link.AddProcedure(c, nil, 3, nil, function(g, sc, sumtype, tp)
         return g:IsExists(function(c, sc, sumtype, tp)
-            return c:IsAttribute(attribute, sc, sumtype, tp) and c:IsType(TYPE_LINK, sc, sumtype, tp)
+            return c:IsAttribute(attribute, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp)
         end, 1, nil, sc, sumtype, tp)
     end)
 
@@ -196,9 +196,8 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     Pendulum.AddProcedure(c, false)
 
     -- link summon
-    Link.AddProcedure(c, function(c, sc, sumtype, tp)
-        return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsAttribute(ATTRIBUTE_DIVINE, sc, sumtype, tp)
-    end, 1, 1)
+    Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsType(TYPE_LINK, sc, sumtype, tp) end,
+        1, 1)
 
     -- pendulum summon limit
     local pe1 = Effect.CreateEffect(c)
@@ -301,7 +300,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
 end
 
 function DeityBabySearchFilter(c, attribute, ft, e, tp)
-    return (c:IsLevel(3) or c:IsLevel(4)) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
+    return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
                (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
 end
 

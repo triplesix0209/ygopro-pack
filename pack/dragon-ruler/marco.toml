@@ -6,7 +6,7 @@ During either turn, except the End Phase (Quick Effect): \
 """
 
 DRAGON_DEITY_MONSTER_EFFECT = """\
-3+ Dragon monsters, including a {0} Link Monster
+3+ monsters, including a {0} Dragon monster
 This face-down card in the Extra Deck must first be Link Summoned. \
 If you can Pendulum Summon Level 10, you can Pendulum Summon this face-up card in your Extra Deck. \
 This card's Special Summon cannot be negated. \
@@ -19,10 +19,10 @@ If this card in the Monster Zone is destroyed: You can place this card in your P
 """
 
 DRAGON_DEITY_BABY_MONSTER_EFFECT = """\
-2 Dragon monsters
+2+ Dragon monsters
 If this card is Link Summoned using a {0} monster: \
     You can either add to your hand or Special Summon \
-    1 Level 3 or 4 {0} Dragon monster from your Deck. \
+    1 Level 4 or lower {0} Dragon monster from your Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during the End Phase of the turn \
     this card was banished to activate a Dragon monster's effect: \
@@ -35,7 +35,7 @@ If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up.\
 """
 
 MESSIAH_BABY_MONSTER_EFFECT = """\
-1 non-DIVINE Dragon monster
+1 non-Link Dragon monster
 The Attribute of this card is also treated as {0} \
     while it is face-up on the field or in GY. \
     This effect cannot be negated. \
