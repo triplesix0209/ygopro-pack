@@ -92,7 +92,7 @@ attribute = "fire"
 race = "dragon"
 link = 4
 link-arrow = ""
-scale = 12
+scale = 11
 atk = 3500
 pendulum-effect = """\
 {DRAGON_EMPEROR_PENDULUM_EFFECT|FIRE} \
@@ -121,7 +121,7 @@ attribute = "water"
 race = "dragon"
 link = 4
 link-arrow = ""
-scale = 12
+scale = 11
 atk = 3500
 pendulum-effect = """\
 {DRAGON_EMPEROR_PENDULUM_EFFECT|WATER} \
@@ -140,7 +140,7 @@ attribute = "wind"
 race = "dragon"
 link = 4
 link-arrow = ""
-scale = 12
+scale = 11
 atk = 3500
 pendulum-effect = """\
 {DRAGON_EMPEROR_PENDULUM_EFFECT|WIND} \
@@ -159,7 +159,7 @@ attribute = "earth"
 race = "dragon"
 link = 4
 link-arrow = ""
-scale = 12
+scale = 11
 atk = 3500
 pendulum-effect = """\
 {DRAGON_EMPEROR_PENDULUM_EFFECT|EARTH} \
@@ -178,7 +178,7 @@ attribute = "light"
 race = "dragon"
 link = 4
 link-arrow = ""
-scale = 12
+scale = 11
 atk = 3500
 pendulum-effect = """\
 {DRAGON_EMPEROR_PENDULUM_EFFECT|LIGHT} \
@@ -197,7 +197,7 @@ attribute = "dark"
 race = "dragon"
 link = 4
 link-arrow = ""
-scale = 12
+scale = 11
 atk = 3500
 pendulum-effect = """\
 {DRAGON_EMPEROR_PENDULUM_EFFECT|DARK} \
