@@ -125,6 +125,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_EMPEROR_MONSTER_EFFECT|WIND} \
+This card and other co-linked Dragon monsters you control are unaffected by your opponent's Spell effects. \
 """
 strings = []
 
@@ -144,6 +145,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_EMPEROR_MONSTER_EFFECT|EARTH} \
+This card and other co-linked Dragon monsters you control are unaffected by your opponent's Trap effects. \
 """
 strings = []
 
