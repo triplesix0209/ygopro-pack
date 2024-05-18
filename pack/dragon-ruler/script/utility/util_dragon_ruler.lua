@@ -4,6 +4,7 @@ if not DragonRuler then DragonRuler = aux.DragonRulerProcedure end
 
 -- function
 function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
+    s.pendulum_level = 10
     c:EnableReviveLimit()
     c:SetUniqueOnField(1, 0, id)
     Pendulum.AddProcedure(c, false)
