@@ -8,6 +8,21 @@ function DragonRuler.RegisterEmperorEffect(s, c, id, attribute)
     c:SetUniqueOnField(1, 0, id)
     Pendulum.AddProcedure(c, false)
 
+    -- link summon
+    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON, 3, nil, function(g, sc, sumtype, tp)
+        return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp)
+    end))
+
+    -- special summon limit
+    local splimit = Effect.CreateEffect(c)
+    splimit:SetType(EFFECT_TYPE_SINGLE)
+    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
+    splimit:SetValue(function(e, se, sp, st)
+        return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e, se, sp, st) or aux.penlimit(e, se, sp, st)
+    end)
+    c:RegisterEffect(splimit)
+
     -- summon cannot be negated
     local sumsafe = Effect.CreateEffect(c)
     sumsafe:SetType(EFFECT_TYPE_SINGLE)

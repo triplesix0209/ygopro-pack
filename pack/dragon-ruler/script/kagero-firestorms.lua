@@ -6,20 +6,6 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterEmperorEffect(s, c, id, ATTRIBUTE_FIRE)
 
-    -- fusion summon
-    Fusion.AddProcMix(c, true, true, function(c, sc, sumtype, tp) return c:IsLevelAbove(7) and c:IsRace(RACE_DRAGON, sc, sumtype, tp) end,
-        aux.FilterBoolFunctionEx(Card.IsAttribute, ATTRIBUTE_FIRE))
-    Fusion.AddContactProc(c, function(tp) return Duel.GetReleaseGroup(tp) end, function(g) Duel.Release(g, REASON_COST + REASON_MATERIAL) end,
-        s.splimit, nil, nil, nil, false)
-
-    -- special summon limit
-    local splimit = Effect.CreateEffect(c)
-    splimit:SetType(EFFECT_TYPE_SINGLE)
-    splimit:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
-    splimit:SetValue(s.splimit)
-    c:RegisterEffect(splimit)
-
     -- indes
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
@@ -57,8 +43,6 @@ function s.initial_effect(c)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
 end
-
-function s.splimit(e, se, sp, st) return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e, se, sp, st) or aux.penlimit(e, se, sp, st) end
 
 function s.e2filter(c) return
     c:IsAttribute(ATTRIBUTE_FIRE) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) end

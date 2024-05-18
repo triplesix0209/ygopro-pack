@@ -6,6 +6,8 @@ During either turn, except the End Phase (Quick Effect): \
 """
 
 DRAGON_EMPEROR_MONSTER_EFFECT = """\
+3+ Dragon monsters, including a {0} Monster
+This face-down card in the Extra Deck must first be Link Summoned. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute this card, or use it as material for an Summon. \

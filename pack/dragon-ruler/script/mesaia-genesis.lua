@@ -5,7 +5,10 @@ local s, id = GetID()
 
 function s.initial_effect(c)
     Pendulum.AddProcedure(c)
-    DragonRuler.RegisterBabyShuffleEffect(s, c, id)
+    Pendulum.AddProcedure(c, false)
+    
+    -- link summon
+    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 1, 1)
 
     -- pendulum summon limit
     local pe1 = Effect.CreateEffect(c)
@@ -17,15 +20,13 @@ function s.initial_effect(c)
     pe1:SetTarget(function(e, c, tp, sumtp, sumpos) return not c:IsRace(RACE_DRAGON) and (sumtp & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM end)
     c:RegisterEffect(pe1)
 
-    -- return from the pendulum zone
+    -- add to extra deck
     local pe2 = Effect.CreateEffect(c)
     pe2:SetDescription(aux.Stringid(id, 0))
-    pe2:SetCategory(CATEGORY_TOHAND)
     pe2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     pe2:SetCode(EVENT_SPSUMMON_SUCCESS)
     pe2:SetRange(LOCATION_PZONE)
     pe2:SetCondition(s.pe2con)
-    pe2:SetTarget(s.pe2tg)
     pe2:SetOperation(s.pe2op)
     c:RegisterEffect(pe2)
 
@@ -44,15 +45,10 @@ function s.pe2filter(c, tp) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:Is
 
 function s.pe2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.pe2filter, 1, nil, tp) end
 
-function s.pe2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return true end
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, e:GetHandler(), 1, 0, 0)
-end
-
 function s.pe2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
-    Duel.SendtoHand(c, nil, REASON_EFFECT)
+    Duel.SendtoExtraP(c, tp, REASON_EFFECT)
 end
 
 function s.me1filter(c) return not c:IsAttribute(ATTRIBUTE_DIVINE) and c:IsRace(RACE_DRAGON) and not c:IsPublic() end
