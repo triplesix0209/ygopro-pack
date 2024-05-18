@@ -305,7 +305,7 @@ end
 
 function MessiahBabySearchCostFilter(c, locations, e, tp)
     return c:IsDiscardable() and c:IsRace(RACE_DRAGON) and
-               Duel.IsExistingMatchingCard(MessiahBabySearchTargetFilter, tp, locations, 0, 1, nil, c:GetAttribute(), e, tp)
+               Duel.IsExistingMatchingCard(MessiahBabySearchTargetFilter, tp, locations, 0, 1, c, c:GetAttribute(), e, tp)
 end
 
 function MessiahBabySearchTargetFilter(c, attr, e, tp)
