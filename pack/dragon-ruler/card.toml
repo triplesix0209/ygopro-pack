@@ -75,8 +75,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed, \
-    or banished, by card effects. \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by card effects, \
+    also they cannot be sent to the GY. \
 You can banish 1 FIRE monster from your hand or GY, then target 1 other card on the field; \
     destroy it, then if you destroyed a face-up monster, \
     you can inflict damage to your opponent equal to the ATK it had on the field. \
@@ -125,7 +125,9 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-This card and other co-linked Link-5 or higher Dragon monsters you control are unaffected by your opponent's activated Spell Cards or effects. \
+This card and other co-linked Link-5 or higher Dragon monsters you control \
+    are unaffected by your opponent's activated Spell Cards or effects, \
+    also they cannot be banished by card effects. \
 """
 strings = []
 
@@ -145,7 +147,9 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-This card and other co-linked Link-5 or higher Dragon monsters you control are unaffected by your opponent's activated Trap Cards or effects. \
+This card and other co-linked Link-5 or higher Dragon monsters you control \
+    are unaffected by your opponent's activated Trap Cards or effects, \
+    also they cannot be return to the Extra Deck. \
 """
 strings = []
 
