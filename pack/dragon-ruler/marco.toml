@@ -19,14 +19,15 @@ If this card in the Monster Zone is destroyed: You can place this card in your P
 """
 
 DRAGON_DEITY_BABY_MONSTER_EFFECT = """\
-2+ Dragon monsters
-If this card is Link Summoned using a {0} monster: \
+2+ Dragon monsters, including a {0} monster
+If this card is Link Summoned: \
     You can either add to your hand or Special Summon \
     1 Level 4 or lower {0} Dragon monster from your Deck. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during the End Phase of the turn \
     this card was banished to activate a Dragon monster's effect: \
-    Shuffle this banished card into the Deck.\
+    Shuffle this banished card into the Deck, \
+    then you can add 1 banished non-Link {0} Dragon monster to your hand.\
 """
 
 MESSIAH_BABY_PENDULUM_EFFECT = """\

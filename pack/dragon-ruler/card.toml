@@ -201,7 +201,7 @@ atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|FIRE} \
 """
-strings = []
+strings = ["Add 1 banished non-Link FIRE Dragon monster to hand?"]
 
 [dragon-deity-baby-water]
 id = 900007011
@@ -215,7 +215,7 @@ atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WATER} \
 """
-strings = []
+strings = ["Add 1 banished non-Link WATER Dragon monster to hand?"]
 
 [dragon-deity-baby-wind]
 id = 900007012
@@ -229,7 +229,7 @@ atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WIND} \
 """
-strings = []
+strings = ["Add 1 banished non-Link WIND Dragon monster to hand?"]
 
 [dragon-deity-baby-earth]
 id = 900007013
@@ -243,7 +243,7 @@ atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|EARTH} \
 """
-strings = []
+strings = ["Add 1 banished non-Link EARTH Dragon monster to hand?"]
 
 [dragon-deity-baby-light]
 id = 900007014
@@ -257,7 +257,7 @@ atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|LIGHT} \
 """
-strings = []
+strings = ["Add 1 banished non-Link LIGHT Dragon monster to hand?"]
 
 [dragon-deity-baby-dark]
 id = 900007015
@@ -271,7 +271,7 @@ atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|DARK} \
 """
-strings = []
+strings = ["Add 1 banished non-Link DARK Dragon monster to hand?"]
 
 [dragon-ruler-light]
 id = 900007016

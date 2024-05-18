@@ -115,7 +115,8 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     c:EnableReviveLimit()
 
     -- link summon
-    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 2)
+    Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 2, nil,
+        function(g, sc, sumtype, tp) return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp) end)
 
     -- add or special summon
     local e1 = Effect.CreateEffect(c)
@@ -124,7 +125,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     e1:SetProperty(EFFECT_FLAG_DELAY)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetCountLimit(1, id)
-    e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and e:GetLabel() == 1 end)
+    e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end)
     e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         if chk == 0 then
             local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
@@ -144,16 +145,6 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
             function(sc) return Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP) end, 2)
     end)
     c:RegisterEffect(e1)
-    local e1matcheck = Effect.CreateEffect(c)
-    e1matcheck:SetType(EFFECT_TYPE_SINGLE)
-    e1matcheck:SetCode(EFFECT_MATERIAL_CHECK)
-    e1matcheck:SetValue(function(e, c)
-        if c:GetMaterial():IsExists(Card.IsAttribute, 1, nil, attribute, c, SUMMON_TYPE_LINK, e:GetHandlerPlayer()) then
-            e:GetLabelObject():SetLabel(1)
-        end
-    end)
-    e1matcheck:SetLabelObject(e1)
-    c:RegisterEffect(e1matcheck)
 
     -- to deck when banish
     local e2reg = Effect.CreateEffect(c)
@@ -171,7 +162,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     end)
     c:RegisterEffect(e2reg)
     local e2 = Effect.CreateEffect(c)
-    e2:SetCategory(CATEGORY_TODECK)
+    e2:SetCategory(CATEGORY_TODECK + CATEGORY_TOHAND)
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     e2:SetRange(LOCATION_REMOVED)
     e2:SetCode(EVENT_PHASE + PHASE_END)
@@ -181,11 +172,19 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     end)
     e2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         if chk == 0 then return true end
-        Duel.SetOperationInfo(0, CATEGORY_TODECK, e:GetHandler(), 1, 0, 0)
         e:GetHandler():ResetFlagEffect(id)
+        Duel.SetOperationInfo(0, CATEGORY_TODECK, e:GetHandler(), 1, 0, 0)
+        Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_REMOVED)
     end)
     e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if e:GetHandler():IsRelateToEffect(e) then Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
+        if e:GetHandler():IsRelateToEffect(e) and Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) and
+            Duel.IsExistingMatchingCard(DeityBabyReturnFilter, tp, LOCATION_REMOVED, 0, 1, nil, attribute) and
+            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+            Duel.BreakEffect()
+            local g = Utility.SelectMatchingCard(HINTMSG_RTOHAND, tp, DeityBabyReturnFilter, tp, LOCATION_REMOVED, 0, 1, 1, nil, attribute)
+            Duel.SendtoHand(g, nil, REASON_EFFECT)
+            Duel.ConfirmCards(1 - tp, g)
+        end
     end)
     e2:SetLabelObject(e2reg)
     c:RegisterEffect(e2)
@@ -302,6 +301,10 @@ end
 function DeityBabySearchFilter(c, attribute, ft, e, tp)
     return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
                (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
+end
+
+function DeityBabyReturnFilter(c, attribute)
+    return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
 end
 
 function MessiahBabySearchCostFilter(c, locations, e, tp)
