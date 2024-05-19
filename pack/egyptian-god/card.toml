@@ -264,7 +264,7 @@ Must first be Synchro Summoned with the above materials. \
 For this card's Synchro Summon, you can treat 1 Ritual Summoned monster you control as a Tuner. \
 This card's Synchro Summon cannot be negated. \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
-Its control cannot switch. \
+Control of it cannot switch. \
 Its battle position cannot be changed by card effects. \
 This card gain 100 ATK for each time "{CARD_NAME}" is Special Summoned by its own effect this Duel. \
 The above effects cannot be negated or be copied. \
@@ -304,7 +304,7 @@ effect = """\
 Must first be Xyz Summoned with the above materials. \
 This card's Xyz Summon cannot be negated. \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
-Its control cannot switch. \
+Control of it cannot switch. \
 Its battle position cannot be changed by card effects. \
 The above effects cannot be negated or be copied. \
 This card gains these effects, based on the number of materials attached to it.

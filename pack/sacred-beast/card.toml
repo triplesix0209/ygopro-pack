@@ -34,7 +34,7 @@ effect = """\
 Cannot be Normal Summoned/Set. \
 Must first be Special Summoned (from your hand) by Tributing 3 Fiend monsters. \
 This card's Special Summon cannot be negated. \
-Its control cannot switch. \
+Control of it cannot switch. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 Negate the effects of your opponent's monsters destroyed by battle with this card. \
 The above effects cannot be negated. \
@@ -67,7 +67,7 @@ effect = """\
 Cannot be Normal Summoned/Set. \
 Must first be Special Summoned (from your hand) by sending 3 face-up Traps you control to the GY. \
 This card's Special Summon cannot be negated. \
-Its control cannot switch. \
+Control of it cannot switch. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 Gains 1000 ATK/DEF for each Trap in your GY. \
 The above effects cannot be negated. \
@@ -96,7 +96,7 @@ effect = """\
 Cannot be Normal Summoned/Set. \
 Must first be Special Summoned (from your hand) by sending 3 face-up Continuous Spells you control to the GY. \
 This card's Special Summon cannot be negated. \
-Its control cannot switch. \
+Control of it cannot switch. \
 Cannot be Tributed, or used as material for an Summon by your opponent. \
 While this card is in face-up Defense Position, \
     monsters your opponent controls cannot target monsters for attacks, except this one. \
