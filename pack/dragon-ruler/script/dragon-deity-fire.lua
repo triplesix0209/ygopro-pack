@@ -65,7 +65,10 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.HintSelection(Group.FromCards(tc))
 
     local dmg = 0
-    if tc:IsMonster() and tc:IsFaceup() then dmg = tc:GetAttack() end
+    if tc:IsMonster() and tc:IsFaceup() then
+        dmg = tc:GetAttack()
+        if tc:GetAttack() < tc:GetDefense() then dmg = tc:GetDefense() end
+    end
     if Duel.Destroy(tc, REASON_EFFECT) > 0 and dmg > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
         Duel.BreakEffect()
         Duel.Damage(1 - tp, dmg, REASON_EFFECT)

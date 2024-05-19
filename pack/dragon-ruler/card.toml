@@ -79,7 +79,7 @@ This card and other co-linked Link-5 or higher Dragon monsters you control canno
     also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field, then, if you destroyed a face-up monster, \
-    you can inflict damage to your opponent equal to the ATK it had on the field. \
+    you can inflict damage to your opponent equal to the ATK or DEF it had on the field (whichever is higher). \
     If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
 """
 strings = [
@@ -108,8 +108,8 @@ This card and other co-linked Link-5 or higher Dragon monsters you control canno
 Once per turn, you can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
     it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
-    and change its ATK to 0 (if it is face-up), and if you do, \
-    this card gains ATK equal to that monster's ATK until the end of this turn, \
+    and change its ATK/DEF to 0 (if it is face-up), and if you do, \
+    this card gains ATK equal to that monster's ATK or DEF (whichever is higher) until the end of this turn, \
     If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
 """
 strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]

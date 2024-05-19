@@ -88,20 +88,25 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 
         if tc:IsFaceup() and not tc:IsImmuneToEffect(e) then
             local atk = tc:GetAttack()
+            if tc:GetAttack() < tc:GetDefense() then atk = tc:GetDefense() end
+
             local ec3 = Effect.CreateEffect(c)
             ec3:SetType(EFFECT_TYPE_SINGLE)
             ec3:SetCode(EFFECT_SET_ATTACK_FINAL)
             ec3:SetReset(RESET_EVENT + RESETS_STANDARD)
             ec3:SetValue(0)
             tc:RegisterEffect(ec3)
+            local ec3b = ec3:Clone()
+            ec3b:SetCode(EFFECT_SET_DEFENSE_FINAL)
+            tc:RegisterEffect(ec3b)
             if c:IsRelateToEffect(e) and c:IsFaceup() then
-                local ec3b = Effect.CreateEffect(c)
-                ec3b:SetType(EFFECT_TYPE_SINGLE)
-                ec3b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-                ec3b:SetCode(EFFECT_UPDATE_ATTACK)
-                ec3b:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-                ec3b:SetValue(atk)
-                c:RegisterEffect(ec3b)
+                local ec3c = Effect.CreateEffect(c)
+                ec3c:SetType(EFFECT_TYPE_SINGLE)
+                ec3c:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+                ec3c:SetCode(EFFECT_UPDATE_ATTACK)
+                ec3c:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+                ec3c:SetValue(atk)
+                c:RegisterEffect(ec3c)
             end
         end
     end
