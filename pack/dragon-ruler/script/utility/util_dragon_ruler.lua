@@ -110,7 +110,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     Link.AddProcedure(c, aux.FilterBoolFunctionEx(Card.IsRace, RACE_DRAGON), 2, nil,
         function(g, sc, sumtype, tp) return g:IsExists(Card.IsAttribute, 1, nil, attribute, sc, sumtype, tp) end)
 
-    -- add or special summon
+    -- search
     local e1 = Effect.CreateEffect(c)
     e1:SetCategory(CATEGORY_SEARCH + CATEGORY_TOHAND + CATEGORY_SPECIAL_SUMMON)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
@@ -119,22 +119,18 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     e1:SetCountLimit(1, id)
     e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end)
     e1:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        if chk == 0 then
-            local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-            return Duel.IsExistingMatchingCard(DeityBabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute, ft, e, tp)
-        end
+        if chk == 0 then return Duel.IsExistingMatchingCard(DeityBabySearchFilter, tp, LOCATION_DECK, 0, 1, nil, attribute) end
 
-        Duel.SetPossibleOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
-        Duel.SetPossibleOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK)
+        Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
+        Duel.SetPossibleOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND)
     end)
     e1:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local ft = Duel.GetLocationCount(tp, LOCATION_MZONE)
-        local sc =
-            Utility.SelectMatchingCard(HINTMSG_SELECT, tp, DeityBabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute, ft, e, tp):GetFirst()
-        if not sc then return end
+        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, DeityBabySearchFilter, tp, LOCATION_DECK, 0, 1, 1, nil, attribute):GetFirst()
+        if not sc or Duel.SendtoHand(sc, nil, REASON_EFFECT) == 0 then return end
 
-        aux.ToHandOrElse(sc, tp, function(sc) return ft > 0 and sc:IsCanBeSpecialSummoned(e, 0, tp, false, false) end,
-            function(sc) return Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP) end, 2)
+        Duel.ConfirmCards(1 - tp, sc)
+        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and DeityBabySpecialSummonFilter(sc, e, tp) and
+            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP) end
     end)
     c:RegisterEffect(e1)
 
@@ -166,7 +162,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if e:GetHandler():IsRelateToEffect(e) and Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) and
             Duel.IsExistingMatchingCard(DeityBabyReturnFilter, tp, LOCATION_REMOVED, 0, 1, nil, attribute) and
-            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
             Duel.BreakEffect()
             local g = Utility.SelectMatchingCard(HINTMSG_RTOHAND, tp, DeityBabyReturnFilter, tp, LOCATION_REMOVED, 0, 1, 1, nil, attribute)
             Duel.SendtoHand(g, nil, REASON_EFFECT)
@@ -285,10 +281,9 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     c:RegisterEffect(me3)
 end
 
-function DeityBabySearchFilter(c, attribute, ft, e, tp)
-    return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and
-               (c:IsAbleToHand() or (ft > 0 and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)))
-end
+function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
+
+function DeityBabySpecialSummonFilter(c, e, tp) return c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
 function DeityBabyReturnFilter(c, attribute)
     return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
