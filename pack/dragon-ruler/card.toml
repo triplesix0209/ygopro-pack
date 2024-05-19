@@ -84,7 +84,7 @@ Once per turn, you can banish 1 FIRE monster from your hand or GY; \
 """
 strings = [
     "Destroy 1 card on the field",
-    "Inflict damage to your opponent equal to the destroyed monster's ATK?",
+    "Inflict damage to your opponent equal to the destroyed monster's ATK or DEF?",
 ]
 
 [dragon-deity-water]
@@ -132,8 +132,15 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be sent to the GY, \
     also they are unaffected by your opponent's activated Spell Cards or effects. \
+Once per turn, you can banish 1 WIND monster from your hand or GY; \
+    Special Summon 1 monster from hand or GY, except "{CARD_NAME}", \
+    and if you do, you can gain LP equal to the ATK or DEF of that monster (whichever is higher). \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
 """
-strings = []
+strings = [
+    "Special Summon 1 monster from hand or GY",
+    "Gain LP equal to the ATK or DEF of that monster?",
+]
 
 [dragon-deity-earth]
 id = 900007007
@@ -153,8 +160,19 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be returned to the Extra Deck, \
     also they are unaffected by your opponent's activated Trap Cards or effects. \
+Once per turn, you can banish 1 EARTH monster from your hand or GY; \
+    Send 5 cards from the top of your opponent's Deck, \
+    then, if any monsters were sent to the GY by this effect, \
+    this card can attack up to that many times during each Battle Phase this turn. \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
 """
-strings = []
+strings = [
+    "Send cards from the top of your opponent's Deck",
+    "Can attack 2 times",
+    "Can attack 3 times",
+    "Can attack 4 times",
+    "Can attack 5 times",
+]
 
 [dragon-deity-light]
 id = 900007008
