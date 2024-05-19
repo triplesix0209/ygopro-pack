@@ -125,7 +125,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be returned to the Extra Deck, \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be sent to the GY, \
     also they are unaffected by your opponent's activated Spell Cards or effects. \
 """
 strings = []
@@ -146,7 +146,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be sent to the GY, \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be returned to the Extra Deck, \
     also they are unaffected by your opponent's activated Trap Cards or effects. \
 """
 strings = []
@@ -167,8 +167,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-this card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
-    also their activation and effects cannot be negated. \
+Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects. \
+
 """
 strings = []
 
@@ -188,7 +188,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
-Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects. \
+this card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
+    also their activation and effects cannot be negated. \
 """
 strings = []
 
