@@ -21,7 +21,8 @@ DRAGON_DEITY_BABY_MONSTER_EFFECT = """\
 2+ Dragon monsters, including a {0} monster
 If this card is Link Summoned: \
     You can add 1 Level 7 or lower {0} Dragon monster from your Deck to your hand, \
-    then if you added a Level 4 or lower monster by this effect, you can Special Summon it. \
+    then if you added a Level 4 or lower monster by this effect, \
+    you can Special Summon it in face-up Defense Position. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during the End Phase of the turn this card was banished: \
     Shuffle this banished card into the Deck, \

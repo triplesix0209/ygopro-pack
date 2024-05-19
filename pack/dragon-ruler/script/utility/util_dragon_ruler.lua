@@ -130,7 +130,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
 
         Duel.ConfirmCards(1 - tp, sc)
         if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and DeityBabySpecialSummonFilter(sc, e, tp) and
-            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP) end
+            Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) end
     end)
     c:RegisterEffect(e1)
 
@@ -283,7 +283,7 @@ end
 
 function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
-function DeityBabySpecialSummonFilter(c, e, tp) return c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+function DeityBabySpecialSummonFilter(c, e, tp) return c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP_DEFENSE) end
 
 function DeityBabyReturnFilter(c, attribute)
     return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
