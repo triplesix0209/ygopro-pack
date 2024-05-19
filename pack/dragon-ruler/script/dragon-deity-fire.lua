@@ -12,21 +12,20 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)   
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)
     e1:SetValue(1)
     c:RegisterEffect(e1)
-    local e1b=e1:Clone()
+    local e1b = e1:Clone()
     e1b:SetCode(EFFECT_UNSTOPPABLE_ATTACK)
     c:RegisterEffect(e1b)
-    
+
     -- destroy & damage
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_DESTROY + CATEGORY_DAMAGE)
     e2:SetType(EFFECT_TYPE_IGNITION)
-    e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetCountLimit(1, {id, 1})
+    e2:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
     e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
@@ -53,25 +52,17 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingTarget(nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local tc = Duel.SelectTarget(tp, nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, tc, 1, tp, 0)
-
-    if tc:IsMonster() then
-        if tc:IsFaceup() then
-            Duel.SetPossibleOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, tc:GetAttack())
-        else
-            Duel.SetPossibleOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, 0)
-        end
-    end
+    local g = Duel.GetMatchingGroup(nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
+    if chk == 0 then return #g > 0 end
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, PLAYER_ALL, LOCATION_ONFIELD)
+    Duel.SetPossibleOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Duel.GetFirstTarget()
-    if not tc:IsRelateToEffect(e) then return end
+    local tc = Utility.SelectMatchingCard(HINTMSG_DESTROY, tp, nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
+    if not tc then return end
+    Duel.HintSelection(Group.FromCards(tc))
 
     local dmg = 0
     if tc:IsMonster() and tc:IsFaceup() then dmg = tc:GetAttack() end

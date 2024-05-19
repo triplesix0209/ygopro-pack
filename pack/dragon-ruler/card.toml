@@ -8,7 +8,7 @@ race = "dragon"
 link = 6
 link-arrow = "top-left top-right left right bottom-left bottom-right"
 scale = 13
-atk = 5000
+atk = "?"
 pendulum-effect = """\
 """
 effect = """\
@@ -77,11 +77,10 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by card effects, \
     also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
-You can banish 1 FIRE monster from your hand or GY, then target 1 other card on the field; \
-    destroy it, then if you destroyed a face-up monster, \
+Once per turn, you can banish 1 FIRE monster from your hand or GY; \
+    destroy 1 other card on the field, then, if you destroyed a face-up monster, \
     you can inflict damage to your opponent equal to the ATK it had on the field. \
     If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Destroy 1 card on the field",
@@ -106,8 +105,14 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle, \
     also you take no damage from battles involving them. \
+Once per turn, you can banish 1 WATER monster from your hand or GY; \
+    choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
+    it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
+    and change its ATK to 0 (if it is face-up), and if you do, \
+    this card gains ATK equal to that monster's ATK until the end of this turn, \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
 """
-strings = []
+strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 
 [dragon-deity-wind]
 id = 900007006
