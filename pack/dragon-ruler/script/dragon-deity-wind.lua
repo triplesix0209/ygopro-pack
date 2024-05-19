@@ -18,4 +18,73 @@ function s.initial_effect(c)
     e1b:SetCode(EFFECT_IMMUNE_EFFECT)
     e1b:SetValue(function(e, te) return te:GetOwnerPlayer() ~= e:GetHandlerPlayer() and te:IsActivated() and te:IsSpellEffect() end)
     c:RegisterEffect(e1b)
+
+    -- special summon & gain LP
+    local e2 = Effect.CreateEffect(c)
+    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_RECOVER)
+    e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
+    e2:SetCost(s.e2cost)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
+    c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e2b:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
+    e2b:SetCost(aux.TRUE)
+    c:RegisterEffect(e2b)
 end
+
+function s.e2filter1(c, e, tp)
+    return c:IsAttribute(ATTRIBUTE_WIND) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
+               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, c, e, tp)
+end
+
+function s.e2filter2(c, e, tp)
+    return not c:IsCode(id) and
+               (c:IsCanBeSpecialSummoned(e, 0, tp, false, false) or c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, 1 - tp))
+end
+
+function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, e, tp) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
+    local g = Duel.SelectMatchingCard(tp, s.e2filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
+
+    Duel.Remove(g, POS_FACEUP, REASON_COST)
+end
+
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then
+        return (Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 or Duel.GetLocationCount(1 - tp, LOCATION_MZONE) > 0) and
+                   Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp)
+    end
+
+    local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, nil, e, tp)
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, 1, 0, 0)
+    Duel.SetPossibleOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, 0)
+end
+
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc =
+        Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e2filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp):GetFirst()
+    if not tc then return end
+
+    local b1 = Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    local b2 = Duel.GetLocationCount(1 - tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, 1 - tp)
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)})
+    local p = op == 1 and tp or 1 - tp
+    if Duel.SpecialSummon(tc, 0, tp, p, false, false, POS_FACEUP) > 0 then
+        local lp = tc:GetAttack()
+        if tc:GetAttack() < tc:GetDefense() then lp = tc:GetDefense() end
+        if lp > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
+            Duel.BreakEffect()
+            Duel.Recover(tp, lp, REASON_EFFECT)
+        end
+    end
+end
+
