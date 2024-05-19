@@ -80,7 +80,7 @@ This card and other co-linked Link-5 or higher Dragon monsters you control canno
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field, then, if you destroyed a face-up monster, \
     you can inflict damage to your opponent equal to the ATK or DEF it had on the field (whichever is higher). \
-    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply the above effect. \
 """
 strings = [
     "Destroy 1 card on the field",
@@ -110,7 +110,7 @@ Once per turn, you can banish 1 WATER monster from your hand or GY; \
     it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
     and change its ATK/DEF to 0 (if it is face-up), and if you do, \
     this card gains ATK equal to that monster's ATK or DEF (whichever is higher) until the end of this turn, \
-    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply the above effect. \
 """
 strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 
@@ -133,12 +133,14 @@ effect = """\
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be sent to the GY, \
     also they are unaffected by your opponent's activated Spell Cards or effects. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
-    Special Summon 1 monster from hand or GY, except "{CARD_NAME}", \
+    Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}", \
     and if you do, you can gain LP equal to the ATK or DEF of that monster (whichever is higher). \
-    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply the above effect. \
 """
 strings = [
-    "Special Summon 1 monster from hand or GY",
+    "Special Summon 1 monster from hand or either GY",
+    "Special Summon to your field",
+    "Special Summon to your opponent's field",
     "Gain LP equal to the ATK or DEF of that monster?",
 ]
 
@@ -161,13 +163,16 @@ effect = """\
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be returned to the Extra Deck, \
     also they are unaffected by your opponent's activated Trap Cards or effects. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
-    Send 5 cards from the top of your opponent's Deck, \
+    Send up to 5 cards from the top of either player's Deck, \
     then, if any monsters were sent to the GY by this effect, \
     this card can attack up to that many times during each Battle Phase this turn. \
-    If this card is Special Summoned by its own Pendulum Effect: You can also apply this effect. \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply the above effect. \
 """
 strings = [
-    "Send cards from the top of your opponent's Deck",
+    "Send cards from the top of either player's Deck",
+    "Send cards from the top of your Deck",
+    "Send cards from the top of your's opponent Deck",
+    "Declare a number of cards to send",
     "Can attack 2 times",
     "Can attack 3 times",
     "Can attack 4 times",
