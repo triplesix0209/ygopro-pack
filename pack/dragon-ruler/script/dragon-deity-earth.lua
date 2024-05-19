@@ -1,4 +1,4 @@
--- Amberoh, Dragon Deity of World Continents
+-- Amberoh, Dragon Deity of Ancient Continents
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()

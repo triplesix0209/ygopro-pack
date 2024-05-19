@@ -147,7 +147,7 @@ strings = [
 [dragon-deity-earth]
 id = 900007007
 rarity = "gold"
-name = "Amberoh, Dragon Deity of World Continents"
+name = "Amberoh, Dragon Deity of Ancient Continents"
 type = "monster link pendulum effect"
 attribute = "earth"
 race = "dragon"
