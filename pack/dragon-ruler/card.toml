@@ -117,7 +117,7 @@ strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 [dragon-deity-wind]
 id = 900007006
 rarity = "gold"
-name = "Emeraldoh, Dragon Deity of Life Cycles"
+name = "Emeraldoh, Dragon Deity of Eternal Lifes"
 type = "monster link pendulum effect"
 attribute = "wind"
 race = "dragon"
