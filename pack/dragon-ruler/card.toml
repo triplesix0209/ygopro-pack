@@ -172,7 +172,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects. \
+The activation and effects of this card and other co-linked Link-5 or higher Dragon monsters you control cannot be negated. \
 Your opponent cannot target face-up Spells/Traps you control with card effects, \
     also they cannot be destroyed, or banished, by your opponent's card effects. \
 """
@@ -195,7 +195,7 @@ pendulum-effect = """\
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
 this card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
-    also their activation and effects cannot be negated. \
+    also your opponent cannot target them with card effects. \
 """
 strings = []
 
