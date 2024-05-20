@@ -195,7 +195,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-The effects of this card and other co-linked Link-5 or higher Dragon monsters you control cannot be negated. \
+Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects. \
 Your opponent cannot target face-up Spells/Traps you control with card effects, \
     also they cannot be destroyed, or banished, by your opponent's card effects. \
 """
@@ -218,9 +218,16 @@ pendulum-effect = """\
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
 this card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
-    also your opponent cannot target them with card effects. \
+    also their effects cannot be negated. \
+Once per turn, when your opponent activates a card or effect (Quick Effect): \
+    You can banish 1 DARK monster from your hand or GY; \
+    negate that effect, and if you do, you can equip that card to this card \
+    as an Equip Spell that gives this card 1000 ATK. \
 """
-strings = []
+strings = [
+    "Negate the effect",
+    "Equip that card as an Equip Spell that gives 1000 ATK?",
+]
 
 [dragon-deity-baby-water]
 id = 900007010
