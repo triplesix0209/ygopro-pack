@@ -59,15 +59,42 @@ strings = [
     "Place in Pendulum Zone",
 ]
 
-[dragon-deity-fire]
+[dragon-deity-water]
 id = 900007004
+rarity = "gold"
+name = "Sapphireoh, Dragon Deity of Ice Ages"
+type = "monster link pendulum effect"
+attribute = "water"
+race = "dragon"
+link = 5
+link-arrow = "top-right right bottom-left bottom bottom-right"
+scale = 11
+atk = 4000
+pendulum-effect = """\
+{DRAGON_DEITY_PENDULUM_EFFECT|WATER} \
+"""
+effect = """\
+{DRAGON_DEITY_MONSTER_EFFECT|WATER} \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle, \
+    also you take no damage from battles involving them. \
+Once per turn, you can banish 1 WATER monster from your hand or GY; \
+    choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
+    it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
+    and change its ATK/DEF to 0 (if it is face-up), and if you do, \
+    this card gains ATK equal to that monster's ATK or DEF (whichever is higher) until the end of this turn, \
+    If this card is Special Summoned by its own Pendulum Effect: You can also apply the above effect. \
+"""
+strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
+
+[dragon-deity-fire]
+id = 900007005
 rarity = "gold"
 name = "Rubyoh, Dragon Deity of Fire Storms"
 type = "monster link pendulum effect"
 attribute = "fire"
 race = "dragon"
 link = 5
-link-arrow = "top-right right bottom-left bottom bottom-right"
+link-arrow = "top-left left bottom-left bottom bottom-right"
 scale = 11
 atk = 4000
 pendulum-effect = """\
@@ -86,33 +113,6 @@ strings = [
     "Destroy 1 card on the field",
     "Inflict damage to your opponent equal to the destroyed monster's ATK or DEF?",
 ]
-
-[dragon-deity-water]
-id = 900007005
-rarity = "gold"
-name = "Sapphireoh, Dragon Deity of Ice Ages"
-type = "monster link pendulum effect"
-attribute = "water"
-race = "dragon"
-link = 5
-link-arrow = "top-left left bottom-left bottom bottom-right"
-scale = 11
-atk = 4000
-pendulum-effect = """\
-{DRAGON_DEITY_PENDULUM_EFFECT|WATER} \
-"""
-effect = """\
-{DRAGON_DEITY_MONSTER_EFFECT|WATER} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle, \
-    also you take no damage from battles involving them. \
-Once per turn, you can banish 1 WATER monster from your hand or GY; \
-    choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
-    it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
-    and change its ATK/DEF to 0 (if it is face-up), and if you do, \
-    this card gains ATK equal to that monster's ATK or DEF (whichever is higher) until the end of this turn, \
-    If this card is Special Summoned by its own Pendulum Effect: You can also apply the above effect. \
-"""
-strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 
 [dragon-deity-wind]
 id = 900007006
@@ -222,31 +222,14 @@ this card and other co-linked Link-5 or higher Dragon monsters you control canno
 """
 strings = []
 
-[dragon-deity-baby-fire]
-id = 900007010
-name = "Garneton, Dragon of Embers"
-type = "monster link effect"
-attribute = "fire"
-race = "dragon"
-link = 3
-link-arrow = "right bottom bottom-right"
-atk = 2000
-effect = """\
-{DRAGON_DEITY_BABY_MONSTER_EFFECT|FIRE} \
-"""
-strings = [
-    "Special Summon the added monster?",
-    "Add 1 banished non-Link FIRE Dragon monster to hand?",
-]
-
 [dragon-deity-baby-water]
-id = 900007011
+id = 900007010
 name = "Lapison, Dragon of Frosts"
 type = "monster link effect"
 attribute = "water"
 race = "dragon"
 link = 3
-link-arrow = "left bottom-left bottom"
+link-arrow = "right bottom bottom-right"
 atk = 2000
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WATER} \
@@ -254,6 +237,23 @@ effect = """\
 strings = [
     "Special Summon the added monster?",
     "Add 1 banished non-Link WATER Dragon monster to hand?",
+]
+
+[dragon-deity-baby-fire]
+id = 900007011
+name = "Garneton, Dragon of Embers"
+type = "monster link effect"
+attribute = "fire"
+race = "dragon"
+link = 3
+link-arrow = "left bottom-left bottom"
+atk = 2000
+effect = """\
+{DRAGON_DEITY_BABY_MONSTER_EFFECT|FIRE} \
+"""
+strings = [
+    "Special Summon the added monster?",
+    "Add 1 banished non-Link FIRE Dragon monster to hand?",
 ]
 
 [dragon-deity-baby-wind]
