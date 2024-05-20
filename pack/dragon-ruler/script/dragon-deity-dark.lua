@@ -77,11 +77,11 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not Duel.NegateEffect(ev) then return end
-    
+
     local c = e:GetHandler()
     local rc = re:GetHandler()
-    if rc:IsRelateToEffect(e) and rc:CheckUniqueOnField(tp) and not rc:IsForbidden() and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) and
-        Duel.Equip(tp, rc, c, true) then
+    if Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and rc:CheckUniqueOnField(tp) and not rc:IsForbidden() and
+        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) and Duel.Equip(tp, rc, c, true) then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_EQUIP_LIMIT)
