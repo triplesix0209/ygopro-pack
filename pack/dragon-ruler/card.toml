@@ -237,7 +237,7 @@ attribute = "water"
 race = "dragon"
 link = 3
 link-arrow = "right bottom bottom-right"
-atk = 2000
+atk = 2100
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WATER} \
 """
@@ -254,7 +254,7 @@ attribute = "fire"
 race = "dragon"
 link = 3
 link-arrow = "left bottom-left bottom"
-atk = 2000
+atk = 2100
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|FIRE} \
 """
@@ -271,7 +271,7 @@ attribute = "wind"
 race = "dragon"
 link = 3
 link-arrow = "right bottom bottom-right"
-atk = 2000
+atk = 2100
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|WIND} \
 """
@@ -288,7 +288,7 @@ attribute = "earth"
 race = "dragon"
 link = 3
 link-arrow = "left bottom-left bottom"
-atk = 2000
+atk = 2100
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|EARTH} \
 """
@@ -305,7 +305,7 @@ attribute = "light"
 race = "dragon"
 link = 3
 link-arrow = "right bottom bottom-right"
-atk = 2000
+atk = 2100
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|LIGHT} \
 """
@@ -322,7 +322,7 @@ attribute = "dark"
 race = "dragon"
 link = 3
 link-arrow = "left bottom-left bottom"
-atk = 2000
+atk = 2100
 effect = """\
 {DRAGON_DEITY_BABY_MONSTER_EFFECT|DARK} \
 """
