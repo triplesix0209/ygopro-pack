@@ -92,7 +92,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         local ec2 = Effect.CreateEffect(c)
         ec2:SetType(EFFECT_TYPE_EQUIP)
         ec2:SetCode(EFFECT_UPDATE_ATTACK)
-        ec2:SetValue(100)
+        ec2:SetValue(1000)
         ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
         rc:RegisterEffect(ec2)
     end
