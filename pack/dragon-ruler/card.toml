@@ -69,7 +69,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-right right bottom-left bottom bottom-right"
 scale = 11
-atk = 4000
+atk = 3500
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|WATER} \
 """
@@ -96,7 +96,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-left left bottom-left bottom bottom-right"
 scale = 11
-atk = 4000
+atk = 3500
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|FIRE} \
 """
@@ -124,7 +124,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-right left right bottom bottom-right"
 scale = 11
-atk = 4000
+atk = 3500
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|WIND} \
 """
@@ -154,7 +154,7 @@ race = "dragon"
 link = 5
 link-arrow = "top-left left right bottom-left bottom"
 scale = 11
-atk = 4000
+atk = 3500
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|EARTH} \
 """
@@ -189,7 +189,7 @@ race = "dragon"
 link = 5
 link-arrow = "top left right bottom-right bottom"
 scale = 11
-atk = 4000
+atk = 3500
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|LIGHT} \
 """
@@ -211,7 +211,7 @@ race = "dragon"
 link = 5
 link-arrow = "top left right bottom-left bottom"
 scale = 11
-atk = 4000
+atk = 3500
 pendulum-effect = """\
 {DRAGON_DEITY_PENDULUM_EFFECT|DARK} \
 """
