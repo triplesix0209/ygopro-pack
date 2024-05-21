@@ -75,8 +75,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle, \
-    also you take no damage from battles involving them. \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle. \
 Once per turn, you can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
     it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
@@ -103,7 +102,7 @@ pendulum-effect = """\
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
 This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by card effects, \
-    also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
+    also you take no damage from battles involving them. \
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field, then, if you destroyed a face-up monster, \
     you can inflict damage to your opponent equal to the ATK or DEF it had on the field (whichever is higher). \
@@ -195,9 +194,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects. \
-Your opponent cannot target face-up Spells/Traps you control with card effects, \
-    also they cannot be destroyed, or banished, by your opponent's card effects. \
+Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects, \
+    also their effects cannot be negated. \
 """
 strings = []
 
@@ -218,7 +216,7 @@ pendulum-effect = """\
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
 this card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
-    also their effects cannot be negated. \
+    also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
 Once per turn, when your opponent activates a card or effect (Quick Effect): \
     You can banish 1 DARK monster from your hand or GY; \
     negate that effect, and if you do, you can equip that card to this card \
