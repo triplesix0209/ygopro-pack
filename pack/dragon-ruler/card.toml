@@ -129,8 +129,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be sent to the GY, \
-    also they are unaffected by your opponent's activated Spell Cards or effects. \
+Your opponent cannot use this card and other co-linked Link-5 or higher Dragon monsters you control as material for an Summon, \
+    also they cannot be sent to the GY. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}", \
     then, you can gain LP equal to the ATK or DEF of that monster (whichever is higher). \
@@ -159,8 +159,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be returned to the Extra Deck, \
-    also they are unaffected by your opponent's activated Trap Cards or effects. \
+Your opponent cannot Tribute this card and other co-linked Link-5 or higher Dragon monsters you control, \
+    also they cannot be returned to the Extra Deck. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck, \
     then, if any monsters were sent to the GY by this effect, \
@@ -194,7 +194,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects, \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
     also their effects cannot be negated. \
 """
 strings = []
@@ -215,7 +215,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
-this card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
+Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects, \
     also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
 Once per turn, when your opponent activates a card or effect (Quick Effect): \
     You can banish 1 DARK monster from your hand or GY; \
