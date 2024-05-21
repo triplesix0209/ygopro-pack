@@ -163,8 +163,8 @@ Your opponent cannot Tribute this card and other co-linked Link-5 or higher Drag
     also they cannot be returned to the Extra Deck. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck, \
-    then, if any monsters were sent to the GY by this effect, \
-    this card can attack up to that many times during each Battle Phase this turn. \
+    then, if any monsters were sent to either GY by this effect, \
+    this card can attack up to the number of monsters sent during each Battle Phase this turn. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
 """
 strings = [
@@ -172,10 +172,10 @@ strings = [
     "Send cards from the top of your Deck",
     "Send cards from the top of your's opponent Deck",
     "Declare a number of cards to send",
-    "Can attack 2 times",
-    "Can attack 3 times",
-    "Can attack 4 times",
-    "Can attack 5 times",
+    "Can attack up to 2 times",
+    "Can attack up to 3 times",
+    "Can attack up to 4 times",
+    "Can attack up to 5 times",
 ]
 
 [dragon-deity-light]
