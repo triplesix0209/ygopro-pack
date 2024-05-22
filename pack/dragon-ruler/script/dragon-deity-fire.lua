@@ -15,10 +15,8 @@ function s.initial_effect(c)
     e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)
     e1:SetValue(1)
     c:RegisterEffect(e1)
-    local e1b = Effect.CreateEffect(c)
-    e1b:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-    e1b:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e1b:SetValue(aux.tgoval)
+    local e1b = e1:Clone()
+    e1b:SetCode(EFFECT_UNSTOPPABLE_ATTACK)
     c:RegisterEffect(e1b)
 
     -- destroy & damage
