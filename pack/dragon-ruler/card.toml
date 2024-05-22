@@ -131,7 +131,7 @@ pendulum-effect = """\
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
 Your opponent cannot use this card and other co-linked Link-5 or higher Dragon monsters you control as material for an Summon, \
-    also they cannot be sent to the GY. \
+    also they cannot be banished by card effects. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}", \
     then, you can gain LP equal to the ATK or DEF of that monster (whichever is higher). \
@@ -195,8 +195,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be banished by card effects, \
-    also their effects cannot be negated. \
+The effects of this card and other co-linked Link-5 or higher Dragon monsters you control cannot be negated. \
 """
 strings = []
 
@@ -216,7 +215,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
-Your opponent cannot target this card and other co-linked Link-5 or higher Dragon monsters you control with card effects. \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be sent to the GY, \
+    also your opponent cannot target them with card effects. \
 Once per turn, when your opponent activates a card or effect (Quick Effect): \
     You can banish 1 DARK monster from your hand or GY; \
     negate that effect, and if you do, you can equip that card to this card \

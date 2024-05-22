@@ -64,9 +64,8 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not tc then return end
     Duel.HintSelection(Group.FromCards(tc))
 
-    tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(3302)
+    ec1:SetDescription(aux.Stringid(id, 1))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_CANNOT_TRIGGER)
@@ -75,14 +74,11 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 
     if tc:IsMonster() then
         local ec2 = Effect.CreateEffect(c)
-        ec2:SetDescription(3206)
         ec2:SetType(EFFECT_TYPE_SINGLE)
-        ec2:SetProperty(EFFECT_FLAG_CLIENT_HINT)
         ec2:SetCode(EFFECT_CANNOT_ATTACK)
         ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
         tc:RegisterEffect(ec2)
         local ec2b = ec2:Clone()
-        ec2b:SetDescription(3313)
         ec2b:SetCode(EFFECT_CANNOT_CHANGE_POSITION)
         tc:RegisterEffect(ec2b)
 
