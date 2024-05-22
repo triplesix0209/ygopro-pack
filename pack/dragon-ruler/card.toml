@@ -75,7 +75,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle. \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle, \
+    also you take no damage from battles involving them. \
 Once per turn, you can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
     it cannot activate its effect, also if you choose a monster, it cannot change its battle position or declare an attack, \
@@ -101,8 +102,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by card effects, \
-    also you take no damage from battles involving them. \
+This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by card effects. \
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field, then, if you destroyed a face-up monster, \
     you can inflict damage to your opponent equal to the ATK or DEF it had on the field (whichever is higher). \
