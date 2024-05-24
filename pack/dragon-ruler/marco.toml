@@ -6,7 +6,7 @@ During either turn, except the End Phase (Quick Effect): \
 """
 
 DRAGON_DEITY_MONSTER_EFFECT = """\
-3+ monsters, including a {0} Dragon monster
+3+ monsters, including a {0} monster
 Must first be Link Summoned. \
 If you can Pendulum Summon Level 10, you can Pendulum Summon this face-up card in your Extra Deck. \
 This card's Special Summon cannot be negated. \

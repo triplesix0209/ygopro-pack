@@ -11,9 +11,7 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
 
     -- link summon
     Link.AddProcedure(c, nil, 3, nil, function(g, sc, sumtype, tp)
-        return g:IsExists(function(c, sc, sumtype, tp)
-            return c:IsAttribute(attribute, sc, sumtype, tp) and c:IsRace(RACE_DRAGON, sc, sumtype, tp)
-        end, 1, nil, sc, sumtype, tp)
+        return g:IsExists(function(c, sc, sumtype, tp) return c:IsAttribute(attribute, sc, sumtype, tp) end, 1, nil, sc, sumtype, tp)
     end)
 
     -- special summon limit

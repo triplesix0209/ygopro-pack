@@ -6,30 +6,23 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_WIND)
 
-    -- unbanishable & cannot be material
+    -- cannot to GY & cannot be material
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e1:SetCode(EFFECT_CANNOT_REMOVE)
+    e1:SetCode(EFFECT_CANNOT_TO_GRAVE)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(0, 1)
-    e1:SetTarget(function(e, c, tp, r)
-        return (c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON))) and r == REASON_EFFECT
-    end)
+    e1:SetTargetRange(LOCATION_MZONE, 0)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)
     c:RegisterEffect(e1)
-    local e1b = Effect.CreateEffect(c)
-    e1b:SetType(EFFECT_TYPE_FIELD)
+    local e1b = e1:Clone()
     e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    e1b:SetRange(LOCATION_MZONE)
-    e1b:SetTargetRange(LOCATION_MZONE, 0)
-    e1b:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)
     e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1b)
 
-    -- special summon & gain LP
+    -- special summon
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_SPECIAL_SUMMON + CATEGORY_RECOVER)
+    e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
@@ -72,7 +65,6 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 
     local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, nil, e, tp)
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, 1, 0, 0)
-    Duel.SetPossibleOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
@@ -85,13 +77,19 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local b2 = Duel.GetLocationCount(1 - tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, 1 - tp)
     local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)})
     local p = op == 1 and tp or 1 - tp
+
     if Duel.SpecialSummon(tc, 0, tp, p, false, false, POS_FACEUP) > 0 then
-        local lp = tc:GetAttack()
-        if tc:GetAttack() < tc:GetDefense() then lp = tc:GetDefense() end
-        if lp > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
-            Duel.BreakEffect()
-            Duel.Recover(tp, lp, REASON_EFFECT)
+        local atk = 0
+        if tc:IsMonster() and tc:IsFaceup() then
+            atk = tc:GetAttack()
+            if tc:GetAttack() < tc:GetDefense() then atk = tc:GetDefense() end
         end
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_UPDATE_ATTACK)
+        ec1:SetValue(atk)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        c:RegisterEffect(ec1)
     end
 end
 
