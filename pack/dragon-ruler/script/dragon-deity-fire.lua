@@ -19,10 +19,10 @@ function s.initial_effect(c)
     e1b:SetCode(EFFECT_UNSTOPPABLE_ATTACK)
     c:RegisterEffect(e1b)
 
-    -- destroy & damage
+    -- destroy
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_DESTROY + CATEGORY_DAMAGE)
+    e2:SetCategory(CATEGORY_DESTROY)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, 0, EFFECT_COUNT_CODE_SINGLE)
@@ -55,7 +55,6 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local g = Duel.GetMatchingGroup(nil, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
     if chk == 0 then return #g > 0 end
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, PLAYER_ALL, LOCATION_ONFIELD)
-    Duel.SetPossibleOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, 0)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
@@ -64,13 +63,18 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not tc then return end
     Duel.HintSelection(Group.FromCards(tc))
 
-    local dmg = 0
+    local atk = 0
     if tc:IsMonster() and tc:IsFaceup() then
-        dmg = tc:GetAttack()
-        if tc:GetAttack() < tc:GetDefense() then dmg = tc:GetDefense() end
+        atk = tc:GetAttack()
+        if tc:GetAttack() < tc:GetDefense() then atk = tc:GetDefense() end
     end
-    if Duel.Destroy(tc, REASON_EFFECT) > 0 and dmg > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
+    if Duel.Destroy(tc, REASON_EFFECT) > 0 and atk > 0 then
         Duel.BreakEffect()
-        Duel.Damage(1 - tp, dmg, REASON_EFFECT)
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_UPDATE_ATTACK)
+        ec1:SetValue(atk)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        c:RegisterEffect(ec1)
     end
 end

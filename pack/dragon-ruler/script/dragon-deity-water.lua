@@ -19,7 +19,7 @@ function s.initial_effect(c)
     e1b:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
     c:RegisterEffect(e1b)
 
-    -- block & steal atk
+    -- block
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
     e2:SetType(EFFECT_TYPE_IGNITION)
@@ -100,8 +100,8 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
                 ec3c:SetType(EFFECT_TYPE_SINGLE)
                 ec3c:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
                 ec3c:SetCode(EFFECT_UPDATE_ATTACK)
-                ec3c:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
                 ec3c:SetValue(atk)
+                ec3c:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
                 c:RegisterEffect(ec3c)
             end
         end
