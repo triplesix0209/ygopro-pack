@@ -20,7 +20,7 @@ function s.initial_effect(c)
     e1b:SetTargetRange(0, 1)
     c:RegisterEffect(e1b)
 
-    -- send top deck & multiple attack
+    -- send top deck
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_DECKDES)
@@ -74,16 +74,19 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 3))
     local ac = Duel.AnnounceNumber(tp, table.unpack(t))
     Duel.DiscardDeck(p, ac, REASON_EFFECT)
-    
-    local g = Duel.GetOperatedGroup()
-    local ct = g:FilterCount(s.e2filter2, nil)
-    if ct > 1 and c:IsFaceup() and c:IsRelateToEffect(e) then
+
+    local atk = 0
+    local g = Duel.GetOperatedGroup():Filter(s.e2filter2, nil)
+    for tc in g:Iter() do
+        if tc:GetAttack() > atk then atk = tc:GetAttack() end
+        if tc:GetDefense() > atk then atk = tc:GetDefense() end
+    end
+
+    if atk > 0 then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetDescription(aux.Stringid(id, ct + 2))
-        ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
-        ec1:SetCode(EFFECT_EXTRA_ATTACK)
-        ec1:SetValue(ct - 1)
+        ec1:SetCode(EFFECT_UPDATE_ATTACK)
+        ec1:SetValue(atk)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         c:RegisterEffect(ec1)
     end
