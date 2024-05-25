@@ -12,7 +12,10 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_TO_DECK)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsLinkAbove(5) and c:IsRace(RACE_DRAGON)) end)
+    e1:SetTarget(function(e, c)
+        if c:IsFacedown() then return false end
+        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsRace(RACE_DRAGON))
+    end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
     e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -25,9 +28,9 @@ function s.initial_effect(c)
     e1c:SetValue(function(e, ct)
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
         local tc = te:GetHandler()
-        if tc == e:GetHandler() then return true end
         local p = e:GetHandler():GetControler()
-        return tc:GetMutualLinkedGroupCount() > 0 and tc:IsLinkAbove(5) and tc:IsRace(RACE_DRAGON) and p == tp and (loc & LOCATION_MZONE) ~= 0
+        if p ~= tp or (loc & LOCATION_MZONE) == 0 or tc:IsFacedown() then return false end
+        return tc == e:GetHandler() or (tc:GetMutualLinkedGroupCount() > 0 and tc:IsRace(RACE_DRAGON))
     end)
     c:RegisterEffect(e1c)
 end

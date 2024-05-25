@@ -75,7 +75,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by battle, \
+This card and other co-linked Dragon monsters you control cannot be destroyed by battle, \
     also you take no damage from battles involving them. \
 Once per turn, you can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
@@ -102,7 +102,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be destroyed by card effects, \
+This card and other co-linked Dragon monsters you control cannot be destroyed by card effects, \
     also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field, and if you destroyed a face-up monster, until the end of this turn, \
@@ -127,8 +127,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-Your opponent cannot use this card and other co-linked Link-5 or higher Dragon monsters you control as material for an Summon, \
-    also they cannot be sent to the GY. \
+Your opponent cannot use this card and other co-linked Dragon monsters you control as material for an Summon, \
+    also they cannot be banished by card effects. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}", \
     and if you do, until the end of this turn, \
@@ -157,8 +157,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-Your opponent cannot Tribute this card and other co-linked Link-5 or higher Dragon monsters you control, \
-    also they cannot be returned to the Extra Deck. \
+Your opponent cannot Tribute this card and other Dragon monsters you control, \
+    also they cannot be sent to the GY. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck, \
     and if any monsters were sent to either GY by this effect, \
@@ -188,7 +188,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-
+This card and other co-linked Dragon monsters you control cannot be returned to the Extra Deck, \
     also their effects cannot be negated. \
 """
 strings = []
@@ -209,10 +209,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
-This card and other co-linked Link-5 or higher Dragon monsters you control cannot be returned to the Extra Deck, \
-    also your opponent cannot target them with card effects. \
-Your opponent cannot target face-up Spells/Traps you control with card effects, \
-    also they cannot be destroyed, or banished, by your opponent's card effects. \
+Your opponent cannot target this card, other co-linked Dragon monsters, \
+    and face-up Spells/Traps you control with card effects. \
 Once per turn, when your opponent activates a card or effect (Quick Effect): \
     You can banish 1 DARK monster from your hand or GY; \
     negate that effect, and if you do, you can equip that card to this card \
