@@ -32,6 +32,15 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     c:RegisterEffect(sumsafe)
 
+    -- cannot be target while in pendulum zone
+    local pen_untarget = Effect.CreateEffect(c)
+    pen_untarget:SetType(EFFECT_TYPE_SINGLE)
+    pen_untarget:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    pen_untarget:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    pen_untarget:SetRange(LOCATION_PZONE)
+    pen_untarget:SetValue(aux.tgoval)
+    c:RegisterEffect(pen_untarget)
+
     -- special summon from the pendulum zone
     local pen_sum = Effect.CreateEffect(c)
     pen_sum:SetDescription(2)

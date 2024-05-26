@@ -1,4 +1,5 @@
 DRAGON_DEITY_PENDULUM_EFFECT = """\
+Your opponent cannot target this card with card effects. \
 During either turn, except the End Phase (Quick Effect): \
     You can banish 2 {0} and/or Dragon monsters from your hand and/or GY; \
     Special Summon this card from the Pendulum Zone. \
