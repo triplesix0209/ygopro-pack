@@ -76,11 +76,11 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
         LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
     local max = math.min(Duel.TossDice(tp, 1), #g)
-    local sg = Utility.GroupSelect(g, tp, 1, max, HINTMSG_TODECK)
-    if #sg == 0 then return end
-    Duel.HintSelection(sg)
+    local tg = Utility.GroupSelect(HINTMSG_TODECK, g, tp, 1, max)
+    if #tg == 0 then return end
+    Duel.HintSelection(tg)
 
-    local ct = Duel.SendtoDeck(sg, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
+    local ct = Duel.SendtoDeck(tg, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
     if ct > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
