@@ -211,6 +211,9 @@ When your opponent activates a card or effect (QUick Effect): \
 strings = [
     "Roll a die and shuffle cards into the Decks",
     "Negate the effect & destroy",
+    "Used \"{CARD_NAME}\"'s effect to negate Monster Card",
+    "Used \"{CARD_NAME}\"'s effect to negate Spell Card",
+    "Used \"{CARD_NAME}\"'s effect to negate Trap Card",
 ]
 
 [dragon-deity-dark]

@@ -120,9 +120,25 @@ function s.e3con(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
     local rc = re:GetHandler()
     if chk == 0 then return true end
 
+    local op = 0
+    if re:IsMonsterEffect() then
+        op = 2
+    elseif re:IsSpellEffect() then
+        op = 3
+    elseif re:IsTrapEffect() then
+        op = 4
+    end
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(aux.Stringid(id, op))
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(id)
+    ec1:SetTargetRange(1, 0)
+    ec1:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec1, tp)
     s.type_list[tp] = s.type_list[tp] + (re:GetActiveType() & (TYPE_MONSTER + TYPE_SPELL + TYPE_TRAP))
 
     Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, 1, 0, 0)
