@@ -14,7 +14,7 @@ function s.initial_effect(c)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(1, 1)
     e1:SetTarget(function(e, c, tp, r)
-        if c:IsFacedown() or r ~= REASON_EFFECT then return false end
+        if r ~= REASON_EFFECT then return false end
         return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON))
     end)
     c:RegisterEffect(e1)
@@ -24,8 +24,7 @@ function s.initial_effect(c)
     e1b:SetRange(LOCATION_MZONE)
     e1b:SetTargetRange(LOCATION_MZONE, 0)
     e1b:SetTarget(function(e, c)
-        if c:IsFacedown() then return false end
-        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsRace(RACE_DRAGON))
+        return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON))
     end)
     e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1b)
