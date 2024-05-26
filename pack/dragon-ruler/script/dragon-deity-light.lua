@@ -49,6 +49,28 @@ function s.initial_effect(c)
     e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
+
+    -- negate the effect
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
+    e3:SetType(EFFECT_TYPE_QUICK_O)
+    e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
+    e3:SetCode(EVENT_CHAINING)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCondition(s.e3con)
+    e3:SetTarget(s.e3tg)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
+    aux.GlobalCheck(s, function()
+        s.type_list = {}
+        s.type_list[0] = 0
+        s.type_list[1] = 0
+        aux.AddValuesReset(function()
+            s.type_list[0] = 0
+            s.type_list[1] = 0
+        end)
+    end)
 end
 
 function s.e2filter(c)
@@ -90,4 +112,23 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         c:RegisterEffect(ec1)
     end
+end
+
+function s.e3con(e, tp, eg, ep, ev, re, r, rp)
+    return rp == 1 - tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and s.type_list[tp] & re:GetActiveType() == 0 and
+               Duel.IsChainDisablable(ev)
+end
+
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local rc = re:GetHandler()
+    if chk == 0 then return true end
+
+    s.type_list[tp] = s.type_list[tp] + (re:GetActiveType() & (TYPE_MONSTER + TYPE_SPELL + TYPE_TRAP))
+
+    Duel.SetOperationInfo(0, CATEGORY_DISABLE, eg, 1, 0, 0)
+    if rc:IsRelateToEffect(re) and rc:IsDestructable() then Duel.SetOperationInfo(0, CATEGORY_DESTROY, eg, 1, 0, 0) end
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then Duel.Destroy(eg, REASON_EFFECT) end
 end
