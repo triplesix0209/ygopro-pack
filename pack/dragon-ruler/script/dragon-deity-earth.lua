@@ -96,7 +96,7 @@ end
 
 function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    if ep == c:GetControler() or not re or not re:GetHandler():IsLocation(LOCATION_GRAVE) then return end
+    if ep == c:GetControler() or not re or not re:GetHandler():IsPreviousLocation(LOCATION_GRAVE) then return end
     c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_CONTROL + RESET_PHASE + PHASE_END, 0, 1)
 end
 
