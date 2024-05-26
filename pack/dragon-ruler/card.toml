@@ -238,8 +238,15 @@ Control of this card and co-linked Pendulum Monsters you control cannot switch, 
 Once per turn, you can banish 1 DARK monster from your hand or GY; \
     equip 1 other monster on the field or in either GY to this card as an Equip Spell that gives this card 1000 ATK. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
+Once per turn, you can send 1 Monster Card you control that is equipped to this card; \
+    until the End Phase, replace this effect with that monster's original effects, \
+    also for the rest of this turn, this card can attack all monsters your opponent controls, once each. \
 """
-strings = ["Equip 1 monster to this card"]
+strings = [
+    "Equip 1 monster to this card",
+    "Send 1 equipped monster to GY to gain effects",
+    "Can attack all monsters your opponent controls",
+]
 
 [dragon-deity-baby-water]
 id = 900007010

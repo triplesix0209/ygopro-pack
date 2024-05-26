@@ -38,6 +38,16 @@ function s.initial_effect(c)
     e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
+
+    -- copy effect & multi attack
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetType(EFFECT_TYPE_IGNITION)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCountLimit(1)
+    e3:SetCost(s.e3cost)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
 end
 
 function s.e2filter1(c, e, tp)
@@ -87,4 +97,33 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
         tc:RegisterEffect(ec2)
     end
+end
+
+function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    local eg = c:GetEquipGroup()
+    if chk == 0 then return eg:IsExists(Card.IsAbleToGraveAsCost, 1, nil, tp) end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOGRAVE)
+    local g = eg:FilterSelect(tp, Card.IsAbleToGraveAsCost, 1, 1, nil)
+    e:SetLabelObject(g:GetFirst())
+
+    Duel.SendtoGrave(g, REASON_COST)
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local tc = e:GetLabelObject()
+    if tc and not tc:IsType(TYPE_TRAPMONSTER) and c:IsRelateToEffect(e) and c:IsFaceup() then
+        c:CopyEffect(tc:GetOriginalCode(), RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 1)
+    end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetDescription(aux.Stringid(id, 2))
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+    ec1:SetCode(EFFECT_ATTACK_ALL)
+    ec1:SetValue(1)
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
 end
