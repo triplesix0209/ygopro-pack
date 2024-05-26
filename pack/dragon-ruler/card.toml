@@ -85,6 +85,8 @@ Once per turn, you can banish 1 WATER monster from your hand or GY; \
     it cannot activate its effect, also if you choose a monster, \
     it cannot change its battle position or declare an attack, and change its ATK/DEF to 0 (if it is face-up). \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
+Your opponent cannot activate cards or effects in response to the activation of this card's effect. \
+If this card attacks, your opponent cannot activate cards or effects until the end of the Damage Step. \
 """
 strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 

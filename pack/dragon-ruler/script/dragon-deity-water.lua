@@ -36,6 +36,25 @@ function s.initial_effect(c)
     e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
+
+    -- chain limit
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetCode(EVENT_CHAINING)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        if ep == tp and re:GetHandler() == e:GetHandler() then Duel.SetChainLimit(function(_e, _rp, _tp) return _tp == _rp end) end
+    end)
+    c:RegisterEffect(e3)
+    local e3b = Effect.CreateEffect(c)
+    e3b:SetType(EFFECT_TYPE_FIELD)
+    e3b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3b:SetCode(EFFECT_CANNOT_ACTIVATE)
+    e3b:SetRange(LOCATION_MZONE)
+    e3b:SetTargetRange(0, 1)
+    e3b:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
+    e3b:SetValue(1)
+    c:RegisterEffect(e3b)
 end
 
 function s.e2filter1(c)
