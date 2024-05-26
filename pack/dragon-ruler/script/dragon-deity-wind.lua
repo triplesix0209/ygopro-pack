@@ -13,14 +13,17 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_REMOVE)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(1, 1)
-    e1:SetTarget(function(e, c, tp, r) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetTarget(function(e, c, tp, r)
+        if r & REASON_EFFECT == 0 then return false end
+        return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0
+    end)
     c:RegisterEffect(e1)
     local e1b = Effect.CreateEffect(c)
     e1b:SetType(EFFECT_TYPE_FIELD)
     e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     e1b:SetRange(LOCATION_MZONE)
     e1b:SetTargetRange(LOCATION_MZONE, 0)
-    e1b:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON)) end)
+    e1b:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
     e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1b)
 
@@ -83,21 +86,6 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)})
     local p = op == 1 and tp or 1 - tp
 
-    if Duel.SpecialSummon(tc, 0, tp, p, false, false, POS_FACEUP) > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
-        local atk = 0
-        if tc:IsMonster() and tc:IsFaceup() then
-            atk = tc:GetAttack()
-            if tc:GetAttack() < tc:GetDefense() then atk = tc:GetDefense() end
-        end
-        
-        if atk > 0 then
-            local ec1 = Effect.CreateEffect(c)
-            ec1:SetType(EFFECT_TYPE_SINGLE)
-            ec1:SetCode(EFFECT_UPDATE_ATTACK)
-            ec1:SetValue(atk)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-            c:RegisterEffect(ec1)
-        end
-    end
+    Duel.SpecialSummon(tc, 0, tp, p, false, false, POS_FACEUP)
 end
 

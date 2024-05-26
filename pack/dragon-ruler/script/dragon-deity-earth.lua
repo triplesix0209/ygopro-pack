@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_TO_GRAVE)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
     e1b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
@@ -74,20 +74,4 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 3))
     local ac = Duel.AnnounceNumber(tp, table.unpack(t))
     Duel.DiscardDeck(p, ac, REASON_EFFECT)
-
-    local atk = 0
-    local g = Duel.GetOperatedGroup():Filter(s.e2filter2, nil)
-    for tc in g:Iter() do
-        if tc:GetAttack() > atk then atk = tc:GetAttack() end
-        if tc:GetDefense() > atk then atk = tc:GetDefense() end
-    end
-
-    if atk > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(atk)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        c:RegisterEffect(ec1)
-    end
 end

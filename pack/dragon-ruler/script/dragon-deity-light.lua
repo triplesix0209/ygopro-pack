@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_TO_DECK)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
     e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -27,7 +27,7 @@ function s.initial_effect(c)
         local tc = te:GetHandler()
         local p = e:GetHandler():GetControler()
         if p ~= tp or (loc & LOCATION_MZONE) == 0 then return false end
-        return tc == e:GetHandler() or (tc:IsLinkMonster() and tc:IsType(TYPE_PENDULUM) and tc:IsRace(RACE_DRAGON))
+        return tc == e:GetHandler() or tc:GetMutualLinkedGroupCount() > 0
     end)
     c:RegisterEffect(e1c)
 

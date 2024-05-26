@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
     e1:SetValue(1)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
@@ -63,17 +63,5 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     if not tc then return end
     Duel.HintSelection(Group.FromCards(tc))
 
-    local atk = 0
-    if tc:IsMonster() and tc:IsFaceup() then
-        atk = tc:GetAttack()
-        if tc:GetAttack() < tc:GetDefense() then atk = tc:GetDefense() end
-    end
-    if Duel.Destroy(tc, REASON_EFFECT) > 0 and atk > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(atk)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-        c:RegisterEffect(ec1)
-    end
+    Duel.Destroy(tc, REASON_EFFECT)
 end

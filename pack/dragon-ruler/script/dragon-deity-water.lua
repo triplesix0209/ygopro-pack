@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
     e1:SetValue(1)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
@@ -83,9 +83,6 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         tc:RegisterEffect(ec2b)
 
         if tc:IsFaceup() and not tc:IsImmuneToEffect(e) then
-            local atk = tc:GetAttack()
-            if tc:GetAttack() < tc:GetDefense() then atk = tc:GetDefense() end
-
             local ec3 = Effect.CreateEffect(c)
             ec3:SetType(EFFECT_TYPE_SINGLE)
             ec3:SetCode(EFFECT_SET_ATTACK_FINAL)
@@ -95,15 +92,6 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
             local ec3b = ec3:Clone()
             ec3b:SetCode(EFFECT_SET_DEFENSE_FINAL)
             tc:RegisterEffect(ec3b)
-            if atk > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
-                local ec3c = Effect.CreateEffect(c)
-                ec3c:SetType(EFFECT_TYPE_SINGLE)
-                ec3c:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-                ec3c:SetCode(EFFECT_UPDATE_ATTACK)
-                ec3c:SetValue(atk)
-                ec3c:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-                c:RegisterEffect(ec3c)
-            end
         end
     end
 end

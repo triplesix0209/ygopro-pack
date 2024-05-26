@@ -12,7 +12,7 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
     e1:SetRange(LOCATION_MZONE)
     e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
     e1b:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
@@ -41,8 +41,7 @@ end
 
 function s.e2filter1(c, e, tp)
     return c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
-               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, e:GetHandler(),
-            tp)
+               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, e:GetHandler(), tp)
 end
 
 function s.e2filter2(c, tp) return c:IsMonster() and (c:IsControler(tp) or c:IsAbleToChangeControler()) end
@@ -65,8 +64,8 @@ end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1,
-        1, c, tp):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, 1,
+        c, tp):GetFirst()
     if not tc or tc:IsForbidden() or (not tc:IsControler(tp) and not tc:CheckUniqueOnField(tp)) or Duel.GetLocationCount(tp, LOCATION_SZONE) == 0 then
         return
     end
@@ -86,9 +85,5 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         ec2:SetValue(1000)
         ec2:SetReset(RESET_EVENT + RESETS_STANDARD)
         tc:RegisterEffect(ec2)
-        local ec3 = ec2:Clone()
-        ec3:SetCode(EFFECT_EXTRA_ATTACK)
-        ec3:SetValue(1)
-        tc:RegisterEffect(ec3)
     end
 end
