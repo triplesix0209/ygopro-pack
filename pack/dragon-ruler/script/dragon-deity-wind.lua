@@ -15,7 +15,7 @@ function s.initial_effect(c)
     e1:SetTargetRange(1, 1)
     e1:SetTarget(function(e, c, tp, r)
         if r & REASON_EFFECT == 0 then return false end
-        return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0
+        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM))
     end)
     c:RegisterEffect(e1)
     local e1b = Effect.CreateEffect(c)
@@ -23,7 +23,7 @@ function s.initial_effect(c)
     e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     e1b:SetRange(LOCATION_MZONE)
     e1b:SetTargetRange(LOCATION_MZONE, 0)
-    e1b:SetTarget(function(e, c) return c == e:GetHandler() or c:GetMutualLinkedGroupCount() > 0 end)
+    e1b:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM)) end)
     e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1b)
 
