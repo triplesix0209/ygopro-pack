@@ -17,7 +17,7 @@ strings = []
 
 [messiah-origin]
 id = 900007002
-name = "Messiah, Origin of Dragons"
+name = "Messiah, Origin Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "light"
 race = "dragon"
@@ -27,6 +27,7 @@ scale = 0
 atk = 0
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
+Pendulum Summons of your Dragon monsters cannot be negated. \
 """
 effect = """\
 {MESSIAH_BABY_MONSTER_EFFECT|FIRE and WIND|hand or Deck} \
@@ -39,7 +40,7 @@ strings = [
 
 [messiah-genesis]
 id = 900007003
-name = "Messiah, Genesis of Dragons"
+name = "Messiah, Genesis Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "dark"
 race = "dragon"
@@ -49,6 +50,7 @@ scale = 13
 atk = 0
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
+Your opponent cannot activate a Spell/Trap Card, or monster effect, when your Dragon monster(s) is Pendulum Summoned. \
 """
 effect = """\
 {MESSIAH_BABY_MONSTER_EFFECT|WATER and EARTH|Deck or GY} \
