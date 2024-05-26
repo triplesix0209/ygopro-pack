@@ -112,8 +112,13 @@ This card and co-linked Pendulum Monsters you control cannot be destroyed by car
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
+If this card destroys a monster(s) by battle or by its effect: \
+    You can inflict damage to your opponent equal to the highest destroyed monster's original ATK. \
 """
-strings = ["Destroy 1 card on the field"]
+strings = [
+    "Destroy 1 card on the field",
+    "Inflict damage equal to destroyed monster's original ATK",
+]
 
 [dragon-deity-wind]
 id = 900007006

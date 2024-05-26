@@ -37,6 +37,27 @@ function s.initial_effect(c)
     e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
+
+    -- inflict damage
+    local e3 = Effect.CreateEffect(c)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetCategory(CATEGORY_DAMAGE)
+    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3:SetCode(EVENT_BATTLE_DESTROYING)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCondition(s.e3con1)
+    e3:SetTarget(s.e3tg1)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
+    local e3b = e3:Clone()
+    e3b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e3b:SetCode(EVENT_DESTROYED)
+    e3b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3b:SetCondition(s.e3con2)
+    e3b:SetTarget(s.e3tg2)
+    e3b:SetOperation(s.e3op)
+    c:RegisterEffect(e3b)
 end
 
 function s.e2filter(c) return
@@ -65,4 +86,35 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.HintSelection(Group.FromCards(tc))
 
     Duel.Destroy(tc, REASON_EFFECT)
+end
+
+function s.e3con1(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsRelateToBattle() end
+
+function s.e3con2(e, tp, eg, ep, ev, re, r, rp) return (r & REASON_EFFECT) ~= 0 and re:GetHandler() == e:GetHandler() end
+
+function s.e3tg1(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
+    local tc = e:GetHandler():GetBattleTarget()
+    local atk = tc:GetBaseAttack()
+    if atk < 0 then atk = 0 end
+
+    Duel.SetTargetPlayer(1 - tp)
+    Duel.SetTargetParam(atk)
+    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, atk)
+end
+
+function s.e3tg2(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
+    local atk = 0
+    for tc in eg:Iter() do if atk < tc:GetBaseAttack() then atk = tc:GetBaseAttack() end end
+    if atk < 0 then atk = 0 end
+
+    Duel.SetTargetPlayer(1 - tp)
+    Duel.SetTargetParam(atk)
+    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, atk)
+end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
+    Duel.Damage(p, d, REASON_EFFECT)
 end
