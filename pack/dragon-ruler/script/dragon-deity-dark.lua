@@ -41,7 +41,7 @@ end
 
 function s.e2filter1(c, e, tp)
     return c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
-               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_ONFIELD + LOCATION_GRAVE, LOCATION_ONFIELD + LOCATION_GRAVE, 1, e:GetHandler(),
+               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, e:GetHandler(),
             tp)
 end
 
@@ -58,14 +58,14 @@ end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_ONFIELD + LOCATION_GRAVE, LOCATION_ONFIELD + LOCATION_GRAVE, c, tp)
+    local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, c, tp)
     if chk == 0 then return #g > 0 end
-    Duel.SetOperationInfo(0, CATEGORY_EQUIP, g, 1, PLAYER_ALL, LOCATION_ONFIELD + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_EQUIP, g, 1, PLAYER_ALL, LOCATION_MZONE + LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e2filter2, tp, LOCATION_ONFIELD + LOCATION_GRAVE, LOCATION_ONFIELD + LOCATION_GRAVE, 1,
+    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1,
         1, c, tp):GetFirst()
     if not tc or tc:IsForbidden() or (not tc:IsControler(tp) and not tc:CheckUniqueOnField(tp)) or Duel.GetLocationCount(tp, LOCATION_SZONE) == 0 then
         return
