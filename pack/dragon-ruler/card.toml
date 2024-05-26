@@ -142,6 +142,7 @@ Your opponent cannot use this card and co-linked Pendulum Monsters you control a
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}". \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
+Each time you Summon a monster(s) face-up, you gain LP equal to that monster's ATK. \
 """
 strings = [
     "Special Summon 1 monster from hand or either GY",

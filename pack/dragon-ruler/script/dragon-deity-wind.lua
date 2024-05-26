@@ -45,6 +45,18 @@ function s.initial_effect(c)
     e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
+
+    -- gain LP
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetCondition(s.e3con)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
+    local e3b = e3:Clone()
+    e3b:SetCode(EVENT_SUMMON_SUCCESS)
+    c:RegisterEffect(e3b)
 end
 
 function s.e2filter1(c, e, tp)
@@ -90,3 +102,48 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.SpecialSummon(tc, 0, tp, p, false, false, POS_FACEUP)
 end
 
+function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(aux.FaceupFilter(Card.IsSummonPlayer, tp), 1, nil) end
+
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local val = eg:Filter(aux.FaceupFilter(Card.IsSummonPlayer, tp), nil):GetSum(Card.GetAttack)
+    if not Duel.IsChainSolving() then
+        if val > 0 then
+            Duel.Hint(HINT_CARD, 1 - tp, id)
+            Duel.Recover(tp, val, REASON_EFFECT)
+        end
+    else
+        local eff = e:GetLabelObject()
+        if eff and not eff:IsDeleted() then
+            eff:SetLabel(eff:GetLabel() + val)
+        else
+            local c = e:GetHandler()
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+            ec1:SetCode(EVENT_CHAIN_SOLVED)
+            ec1:SetRange(LOCATION_MZONE)
+            ec1:SetLabel(val)
+            ec1:SetLabelObject(e)
+            ec1:SetOperation(s.e3chainop)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_CHAIN)
+            c:RegisterEffect(ec1)
+            e:SetLabelObject(ec1)
+
+            local ec2 = Effect.CreateEffect(c)
+            ec2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+            ec2:SetCode(EVENT_CHAIN_SOLVED)
+            ec2:SetOperation(function() e:SetLabelObject(nil) end)
+            ec2:SetReset(RESET_CHAIN)
+            Duel.RegisterEffect(ec2, tp)
+        end
+    end
+end
+
+function s.e3chainop(e, tp, eg, ep, ev, re, r, rp)
+    local val = e:GetLabel()
+    if val > 0 then
+        Duel.Hint(HINT_CARD, 1 - tp, id)
+        Duel.Recover(tp, val, REASON_EFFECT)
+    end
+    e:Reset()
+    e:GetLabelObject():SetLabelObject(nil)
+end
