@@ -104,8 +104,7 @@ end
 function s.e3tg2(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
     local atk = 0
-    for tc in eg:Iter() do if atk < tc:GetBaseAttack() then atk = tc:GetBaseAttack() end end
-    if atk < 0 then atk = 0 end
+    for tc in eg:Iter() do if tc:GetBaseAttack() > 0 then atk = atk + tc:GetBaseAttack() end end
 
     Duel.SetTargetPlayer(1 - tp)
     Duel.SetTargetParam(atk)
