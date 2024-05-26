@@ -41,7 +41,8 @@ end
 
 function s.e2filter1(c, e, tp)
     return c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
-               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_ONFIELD + LOCATION_GRAVE, LOCATION_ONFIELD + LOCATION_GRAVE, 1, e:GetHandler())
+               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_ONFIELD + LOCATION_GRAVE, LOCATION_ONFIELD + LOCATION_GRAVE, 1, e:GetHandler(),
+            tp)
 end
 
 function s.e2filter2(c, tp) return c:IsControler(tp) or c:IsAbleToChangeControler() end
