@@ -228,10 +228,21 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
         Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, search_locations)
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+        local c = e:GetHandler()
         if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+
         local attr = e:GetLabel()
-        local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySearchTargetFilter, tp, search_locations, 0, 1, 1, nil, attr, e, tp)
-        if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
+        local tc =
+            Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySearchTargetFilter, tp, search_locations, 0, 1, 1, nil, attr, e, tp):GetFirst()
+        if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) > 0 then
+            local ec1 = Effect.CreateEffect(c)
+            ec1:SetDescription(3207)
+            ec1:SetType(EFFECT_TYPE_SINGLE)
+            ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
+            ec1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE | PHASE_END)
+            tc:RegisterEffect(ec1)
+        end
     end)
     c:RegisterEffect(me2)
 
@@ -278,7 +289,7 @@ function MessiahBabySearchCostFilter(c, locations, e, tp)
 end
 
 function MessiahBabySearchTargetFilter(c, attr, e, tp)
-    return c:IsRace(RACE_DRAGON) and c:IsAttribute(attr) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+    return c:IsRace(RACE_DRAGON) and c:IsAttribute(attr) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
 end
 
 function MessiahBabyPlaceCostFilter(c)

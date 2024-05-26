@@ -14,7 +14,7 @@ function s.initial_effect(c)
     e1:SetTargetRange(LOCATION_MZONE, 0)
     e1:SetTarget(function(e, c)
         if c:IsFacedown() then return false end
-        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsRace(RACE_DRAGON))
+        return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON))
     end)
     e1:SetValue(1)
     c:RegisterEffect(e1)

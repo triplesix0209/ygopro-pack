@@ -14,7 +14,7 @@ function s.initial_effect(c)
     e1:SetTargetRange(LOCATION_MZONE, 0)
     e1:SetTarget(function(e, c)
         if c:IsFacedown() then return false end
-        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsRace(RACE_DRAGON))
+        return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON))
     end)
     c:RegisterEffect(e1)
     local e1b = e1:Clone()
@@ -30,7 +30,7 @@ function s.initial_effect(c)
         local tc = te:GetHandler()
         local p = e:GetHandler():GetControler()
         if p ~= tp or (loc & LOCATION_MZONE) == 0 or tc:IsFacedown() then return false end
-        return tc == e:GetHandler() or (tc:GetMutualLinkedGroupCount() > 0 and tc:IsRace(RACE_DRAGON))
+        return tc == e:GetHandler() or (tc:IsLinkMonster() and tc:IsType(TYPE_PENDULUM) and tc:IsRace(RACE_DRAGON))
     end)
     c:RegisterEffect(e1c)
 end

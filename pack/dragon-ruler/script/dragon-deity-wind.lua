@@ -15,7 +15,7 @@ function s.initial_effect(c)
     e1:SetTargetRange(1, 1)
     e1:SetTarget(function(e, c, tp, r)
         if c:IsFacedown() or r ~= REASON_EFFECT then return false end
-        return (c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsRace(RACE_DRAGON)))
+        return c == e:GetHandler() or (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsRace(RACE_DRAGON))
     end)
     c:RegisterEffect(e1)
     local e1b = Effect.CreateEffect(c)
