@@ -4,7 +4,7 @@ rarity = "gold"
 name = "Messiah, Supreme Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
-race = "dragon"
+race = "creator-god"
 link = 6
 link-arrow = "top-left top-right left right bottom-left bottom-right"
 scale = 13
@@ -77,7 +77,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
-This card and other Dragon Link Pendulum Monsters you control cannot be destroyed by battle, \
+This card and other Link Pendulum Monsters you control cannot be destroyed by battle, \
     also you take no damage from battles involving them. \
 Once per turn, you can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
@@ -104,7 +104,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
-This card and other Dragon Link Pendulum Monsters you control cannot be destroyed by card effects, \
+This card and other Link Pendulum Monsters you control cannot be destroyed by card effects, \
     also they are unaffected by card effects that prevent them from attacking, also their attacks cannot be negated. \
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field, and if you destroyed a face-up monster, until the end of this turn, \
@@ -129,7 +129,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-Your opponent cannot use this card and other Dragon Link Pendulum Monsters you control as material for an Summon, \
+Your opponent cannot use this card and other Link Pendulum Monsters you control as material for an Summon, \
     also they cannot be banished by card effects. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}", \
@@ -159,7 +159,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-Your opponent cannot Tribute this card and other Dragon Link Pendulum Monsters you control, \
+Your opponent cannot Tribute this card and other Link Pendulum Monsters you control, \
     also they cannot be sent to the GY. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck, \
@@ -171,7 +171,7 @@ strings = [
     "Send cards from the top of either player's Deck",
     "Send cards from the top of your Deck",
     "Send cards from the top of your's opponent Deck",
-    "Declare a number of cards to send"
+    "Declare a number of cards to send",
 ]
 
 [dragon-deity-light]
@@ -190,7 +190,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-This card and other Dragon Link Pendulum Monsters you control cannot be returned to the Extra Deck, \
+This card and other Link Pendulum Monsters you control cannot be returned to the Extra Deck, \
     also their effects cannot be negated. \
 """
 strings = []
@@ -211,17 +211,14 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
-Your opponent cannot target this card, other Dragon Link Pendulum Monsters, \
-    and face-up Spells/Traps you control with card effects. \
-Once per turn, when your opponent activates a card or effect (Quick Effect): \
-    You can banish 1 DARK monster from your hand or GY; \
-    negate that effect, and if you do, you can equip that card to this card \
-    as an Equip Spell that gives this card 1000 ATK. \
+Control of this card and other Link Pendulum Monsters you control cannot switch, \
+    also your opponent cannot target them with card effects. \
+Once per turn, you can banish 1 DARK monster from your hand or GY; \
+    equip 1 other card on the field or in either GY to this card \
+    as an Equip Spell that gives this card 1000 ATK and 1 additional attack during each Battle Phase. \
+    If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
 """
-strings = [
-    "Negate the effect",
-    "Equip that card as an Equip Spell that gives 1000 ATK?",
-]
+strings = ["Equip 1 other card on the field to this card"]
 
 [dragon-deity-baby-water]
 id = 900007010

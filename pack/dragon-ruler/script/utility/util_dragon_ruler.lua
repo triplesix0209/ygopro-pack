@@ -32,14 +32,6 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     c:RegisterEffect(sumsafe)
 
-    -- control cannot switch
-    local noswitch = Effect.CreateEffect(c)
-    noswitch:SetType(EFFECT_TYPE_SINGLE)
-    noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
-    noswitch:SetRange(LOCATION_MZONE)
-    c:RegisterEffect(noswitch)
-
     -- special summon from the pendulum zone
     local pen_sum = Effect.CreateEffect(c)
     pen_sum:SetDescription(2)
