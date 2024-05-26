@@ -82,7 +82,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
         if tc:GetDefense() > atk then atk = tc:GetDefense() end
     end
 
-    if atk > 0 then
+    if atk > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)

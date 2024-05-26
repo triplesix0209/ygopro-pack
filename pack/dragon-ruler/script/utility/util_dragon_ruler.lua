@@ -21,7 +21,7 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     splimit:SetCode(EFFECT_SPSUMMON_CONDITION)
     splimit:SetValue(function(e, se, sp, st)
         local c = e:GetHandler()
-        return not (c:IsLocation(LOCATION_EXTRA) and c:IsFacedown())
+        return sp == e:GetOwnerPlayer() and not (c:IsLocation(LOCATION_EXTRA) and c:IsFacedown())
     end)
     c:RegisterEffect(splimit)
 

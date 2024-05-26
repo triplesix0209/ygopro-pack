@@ -95,7 +95,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
             local ec3b = ec3:Clone()
             ec3b:SetCode(EFFECT_SET_DEFENSE_FINAL)
             tc:RegisterEffect(ec3b)
-            if c:IsRelateToEffect(e) and c:IsFaceup() then
+            if atk > 0 and c:IsRelateToEffect(e) and c:IsFaceup() then
                 local ec3c = Effect.CreateEffect(c)
                 ec3c:SetType(EFFECT_TYPE_SINGLE)
                 ec3c:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
