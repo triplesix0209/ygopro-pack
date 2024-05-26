@@ -214,7 +214,7 @@ effect = """\
 Control of this card and other Link Pendulum Monsters you control cannot switch, \
     also your opponent cannot target them with card effects. \
 Once per turn, you can banish 1 DARK monster from your hand or GY; \
-    equip 1 other card on the field or in either GY to this card \
+    equip 1 other monster on the field or in either GY to this card \
     as an Equip Spell that gives this card 1000 ATK and 1 additional attack during each Battle Phase. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
 """
