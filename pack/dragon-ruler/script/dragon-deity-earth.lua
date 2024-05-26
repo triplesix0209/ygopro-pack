@@ -38,6 +38,23 @@ function s.initial_effect(c)
     e2b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
     e2b:SetCost(aux.TRUE)
     c:RegisterEffect(e2b)
+
+    -- act limit
+    local e3reg = Effect.CreateEffect(c)
+    e3reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3reg:SetCode(EVENT_CHAINING)
+    e3reg:SetRange(LOCATION_MZONE)
+    e3reg:SetOperation(s.e3regop)
+    c:RegisterEffect(e3reg)
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3:SetCode(EFFECT_CANNOT_ACTIVATE)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetTargetRange(0, 1)
+    e3:SetCondition(s.e3con)
+    e3:SetValue(s.e3val)
+    c:RegisterEffect(e3)
 end
 
 function s.e2filter1(c)
@@ -75,4 +92,17 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 3))
     local ac = Duel.AnnounceNumber(tp, table.unpack(t))
     Duel.DiscardDeck(p, ac, REASON_EFFECT)
+end
+
+function s.e3regop(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if ep == c:GetControler() or not re or not re:GetHandler():IsLocation(LOCATION_GRAVE) then return end
+    c:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD_DISABLE + RESET_CONTROL + RESET_PHASE + PHASE_END, 0, 1)
+end
+
+function s.e3con(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end
+
+function s.e3val(e, re, tp)
+    local rc = re:GetHandler()
+    return rc and rc:IsLocation(LOCATION_GRAVE)
 end

@@ -172,6 +172,7 @@ Your opponent cannot Tribute this card and co-linked Pendulum Monsters you contr
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
+Your opponent can only attempt to activate 1 card effect in their GY per turn. \
 """
 strings = [
     "Send cards from the top of either player's Deck",
