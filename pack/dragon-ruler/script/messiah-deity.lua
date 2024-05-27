@@ -187,7 +187,20 @@ function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) == 0 then return end
 
-    Debug.Message("OK")
+    local turn_player = Duel.GetTurnPlayer()
+    Duel.SkipPhase(turn_player, PHASE_DRAW, RESET_PHASE + PHASE_END, 2)
+    Duel.SkipPhase(turn_player, PHASE_STANDBY, RESET_PHASE + PHASE_END, 1)
+    Duel.SkipPhase(turn_player, PHASE_MAIN1, RESET_PHASE + PHASE_END, 1)
+    Duel.SkipPhase(turn_player, PHASE_BATTLE, RESET_PHASE + PHASE_END, 1, 1)
+    Duel.SkipPhase(turn_player, PHASE_MAIN2, RESET_PHASE + PHASE_END, 1)
+    Duel.SkipPhase(turn_player, PHASE_END, RESET_PHASE + PHASE_END, 1)
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_FIELD)
+    ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    ec1:SetCode(EFFECT_CANNOT_BP)
+    ec1:SetTargetRange(1, 0)
+    ec1:SetReset(RESET_PHASE + PHASE_END)
+    Duel.RegisterEffect(ec1, turn_player)
 end
 
 function s.me2filter(c) return c:IsType(TYPE_PENDULUM) and c:IsLinkMonster() end
