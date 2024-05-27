@@ -7,14 +7,18 @@ attribute = "divine"
 race = "creator-god"
 link = 6
 link-arrow = "top-left top-right left right bottom-left bottom-right"
-scale = 13
+scale = 0
 atk = "?"
 pendulum-effect = """\
+Unaffected by your opponent's card effects. \
+The Pendulum Scale of card in your other Pendulum Zone become 13. \
+The above effects cannot be negated. \
 """
 effect = """\
-Cannot be Link or Special Summoned, except by its own effect. \
-Must be Special Summoned (from your Extra Deck face-down) by overlaying all Link Pendulum Monsters you control, \
-    including at least 3 original Dragon monster. \
+Cannot be Link Summoned. \
+Must be Special Summoned (from your Extra Deck face-down) \
+    by overlaying all Link Pendulum Monsters you control including at least 3 original Dragon monster, \
+    or by its own Pendulum Effect. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute this card, or use it as material for an Summon. \
@@ -23,8 +27,14 @@ When Special Summoned, other cards and effects cannot be activated, \
     also after that, you can move this card to another of your Main Monster Zones. \
 This card gains 1000 original ATK and original effects of each Dragon Link Pendulum Monsters attached to this card. \
 The above effects cannot be negated or be copied. \
+You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
+    Place this face-up card from your Extra Deck in your Pendulum Zone. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Move this card to another of your Main Monster Zones?"]
+strings = [
+    "Pendulum Summon ignoring your Pendulum Scales (via \"{CARD_NAME}\")",
+    "Move this card to another of your Main Monster Zones?",
+]
 
 [messiah-origin]
 id = 900007002

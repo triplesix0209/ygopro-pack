@@ -64,7 +64,7 @@ function s.initial_effect(c)
     sp_success:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
-        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
             Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOZONE)
             local s = Duel.SelectDisableField(tp, 1, LOCATION_MZONE, 0, 0)
             local seq = math.log(s, 2)
@@ -73,21 +73,38 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(sp_success)
 
-    -- atk value & gain effect
-    local me1 = Effect.CreateEffect(c)
-    me1:SetType(EFFECT_TYPE_SINGLE)
-    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1:SetCode(EFFECT_SET_BASE_ATTACK)
-    me1:SetRange(LOCATION_MZONE)
-    me1:SetValue(function(e, c) return c:GetOverlayGroup():FilterCount(s.me1filter, nil) * 1000 end)
-    c:RegisterEffect(me1)
-    local me1b = Effect.CreateEffect(c)
-    me1b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1b:SetCode(EVENT_ADJUST)
-    me1b:SetRange(LOCATION_MZONE)
-    me1b:SetOperation(s.me1op)
-    c:RegisterEffect(me1b)
+    -- immune
+    local pe1 = Effect.CreateEffect(c)
+    pe1:SetType(EFFECT_TYPE_SINGLE)
+    pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
+    pe1:SetCode(EFFECT_IMMUNE_EFFECT)
+    pe1:SetRange(LOCATION_PZONE)
+    pe1:SetValue(function(e, te) return te:GetOwnerPlayer() ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(pe1)
+
+    -- pendulum scale
+    local pe2 = Effect.CreateEffect(c)
+    pe2:SetType(EFFECT_TYPE_FIELD)
+    pe2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
+    pe2:SetCode(EFFECT_CHANGE_LSCALE)
+    pe2:SetRange(LOCATION_PZONE)
+    pe2:SetTargetRange(LOCATION_PZONE, 0)
+    pe2:SetTarget(function(e, c) return c ~= e:GetHandler() end)
+    pe2:SetValue(13)
+    c:RegisterEffect(pe2)
+    local pe2b = pe2:Clone()
+    pe2b:SetCode(EFFECT_CHANGE_RSCALE)
+    c:RegisterEffect(pe2b)
+
+    -- place in pendulum zone
+    local me2 = Effect.CreateEffect(c)
+    me2:SetCategory(CATEGORY_DESTROY)
+    me2:SetType(EFFECT_TYPE_IGNITION)
+    me2:SetRange(LOCATION_EXTRA)
+    me2:SetCountLimit(1, id)
+    me2:SetTarget(s.me2tg)
+    me2:SetOperation(s.me2op)
+    c:RegisterEffect(me2)
 end
 
 function s.spfilter(c) return c:IsFaceup() and c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) end
@@ -140,4 +157,22 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
             c:RegisterEffect(reset, true)
         end
     end
+end
+
+function s.me2filter(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+
+function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me2filter, tp, LOCATION_PZONE, 0, 2, nil) end
+    local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
+    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
+end
+
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
+    if #dg < 2 then return end
+    if Duel.Destroy(dg, REASON_EFFECT) ~= 2 and not c:IsRelateToEffect(e) or c:IsFacedown() or not c:IsLocation(LOCATION_EXTRA) then return end
+
+    Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
 end
