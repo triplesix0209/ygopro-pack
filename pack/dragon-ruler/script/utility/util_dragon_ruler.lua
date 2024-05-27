@@ -211,7 +211,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     me2:SetRange(LOCATION_MZONE)
     me2:SetCountLimit(1, id)
     me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        if chk == 0 then return e:GetHandler():IsReleasable() end
+        if chk == 0 then return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and e:GetHandler():IsReleasable() end
         Duel.Release(e:GetHandler(), REASON_COST)
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
