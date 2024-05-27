@@ -29,7 +29,7 @@ When Special Summoned, other cards and effects cannot be activated, \
 This card gains 1000 original ATK and original effects of each Dragon Link Pendulum Monsters attached to this card. \
 The above effects cannot be negated or be copied. \
 You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
-    Place this face-up card from your Extra Deck in your Pendulum Zone. \
+    place this face-up card from your Extra Deck in your Pendulum Zone. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
