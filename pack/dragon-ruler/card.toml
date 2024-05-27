@@ -5,15 +5,26 @@ name = "Messiah, Supreme Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "creator-god"
-link = 7
-link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
+link = 6
+link-arrow = "top-left top-right left right bottom-left bottom-right"
 scale = 13
 atk = "?"
 pendulum-effect = """\
 """
 effect = """\
+Cannot be Link or Special Summoned, except by its own effect. \
+Must be Special Summoned (from your Extra Deck face-down) by overlaying all Link Pendulum Monsters you control, \
+    including at least 3 original Dragon monster. \
+This card's Special Summon cannot be negated. \
+You can only control 1 "{CARD_NAME}". \
+Your opponent cannot Tribute this card, or use it as material for an Summon. \
+Control of it cannot switch. \
+When Special Summoned, other cards and effects cannot be activated, \
+    also after that, you can move this card to another of your Main Monster Zones. \
+The above effects cannot be negated or be copied. \
+This card gains the original effects of all Dragon Link Pendulum Monsters attached to this card. \
 """
-strings = []
+strings = ["Move this card to another of your Main Monster Zones?"]
 
 [messiah-origin]
 id = 900007002
