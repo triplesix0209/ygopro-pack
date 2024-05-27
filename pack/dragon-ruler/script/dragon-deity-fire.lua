@@ -88,8 +88,6 @@ end
 
 function s.e3con1(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsRelateToBattle() end
 
-function s.e3con2(e, tp, eg, ep, ev, re, r, rp) return (r & REASON_EFFECT) ~= 0 and re:GetHandler() == e:GetHandler() end
-
 function s.e3tg1(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return true end
     local tc = e:GetHandler():GetBattleTarget()
@@ -99,6 +97,10 @@ function s.e3tg1(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.SetTargetPlayer(1 - tp)
     Duel.SetTargetParam(atk)
     Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, atk)
+end
+
+function s.e3con2(e, tp, eg, ep, ev, re, r, rp)
+    return (r & REASON_EFFECT) ~= 0 and re:GetHandler() == e:GetHandler() and eg:IsExists(Card.IsMonster, 1, nil)
 end
 
 function s.e3tg2(e, tp, eg, ep, ev, re, r, rp, chk)

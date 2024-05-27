@@ -21,8 +21,8 @@ Your opponent cannot Tribute this card, or use it as material for an Summon. \
 Control of it cannot switch. \
 When Special Summoned, other cards and effects cannot be activated, \
     also after that, you can move this card to another of your Main Monster Zones. \
+This card gains 1000 ATK and the original effects of each Dragon Link Pendulum Monsters attached to this card. \
 The above effects cannot be negated or be copied. \
-This card gains the original effects of all Dragon Link Pendulum Monsters attached to this card. \
 """
 strings = ["Move this card to another of your Main Monster Zones?"]
 
