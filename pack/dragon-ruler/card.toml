@@ -10,26 +10,28 @@ link-arrow = "top-left top-right left right bottom-left bottom-right"
 scale = 13
 atk = "?"
 pendulum-effect = """\
-Your opponent cannot target this card with card effects, \
-    also unaffected by your opponent's card effects. \
+Cannot be targeted by card effects, also unaffected by other card effects. \
+    The above effects cannot be negated. \
 The Pendulum Scale of card in your other Pendulum Zone become 0. \
-The above effects cannot be negated. \
 """
 effect = """\
 Cannot be Link Summoned. \
-Must be Special Summoned (from your Extra Deck face-down) \
-    by overlaying all Link Pendulum Monsters you control including at least 3 original Dragon monster, \
-    or by its own Pendulum Effect. \
+Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) \
+    by overlaying all other Link Pendulum Monster Cards you control including at least 3 original Dragon monster. \
+    You can only Special Summon "{CARD_NAME}" once per turn this way, \
+    except the turn this card was placed Pendulum Zones. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute this card, or use it as material for an Summon. \
 Control of it cannot switch. \
 When Special Summoned, other cards and effects cannot be activated, \
     also after that, you can move this card to another of your Main Monster Zones. \
-This card gains 1000 original ATK and original effects of each Dragon Link Pendulum Monsters attached to this card. \
+This card's original ATK becomes to the number of cards attached to it x 1000. \
+This card gains the original effects of all Link Pendulum Monsters attached to it. \
 The above effects cannot be negated or be copied. \
 You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
     place this face-up card from your Extra Deck in your Pendulum Zone. \
+    This effect's activation and effect cannot be negated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
@@ -42,7 +44,7 @@ id = 900007002
 name = "Messiah, Origin Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "light"
-race = "dragon"
+race = "wyrm"
 link = 1
 link-arrow = "bottom-right"
 scale = 0
@@ -65,7 +67,7 @@ id = 900007003
 name = "Messiah, Genesis Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "dark"
-race = "dragon"
+race = "wyrm"
 link = 1
 link-arrow = "bottom-left"
 scale = 13

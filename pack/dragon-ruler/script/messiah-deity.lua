@@ -20,7 +20,8 @@ function s.initial_effect(c)
     sp:SetType(EFFECT_TYPE_FIELD)
     sp:SetProperty(EFFECT_FLAG_UNCOPYABLE)
     sp:SetCode(EFFECT_SPSUMMON_PROC)
-    sp:SetRange(LOCATION_EXTRA)
+    sp:SetRange(LOCATION_EXTRA + LOCATION_PZONE)
+    sp:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
     sp:SetCondition(s.spcon)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
@@ -79,17 +80,17 @@ function s.initial_effect(c)
     pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
     pe1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetValue(aux.tgoval)
+    pe1:SetValue(1)
     c:RegisterEffect(pe1)
     local pe1b = pe1:Clone()
     pe1b:SetCode(EFFECT_IMMUNE_EFFECT)
-    pe1b:SetValue(function(e, te) return te:GetOwnerPlayer() ~= e:GetHandlerPlayer() end)
+    pe1b:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
     c:RegisterEffect(pe1b)
 
     -- pendulum scale
     local pe2 = Effect.CreateEffect(c)
     pe2:SetType(EFFECT_TYPE_FIELD)
-    pe2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
+    pe2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     pe2:SetCode(EFFECT_CHANGE_LSCALE)
     pe2:SetRange(LOCATION_PZONE)
     pe2:SetTargetRange(LOCATION_PZONE, 0)
@@ -100,54 +101,61 @@ function s.initial_effect(c)
     pe2b:SetCode(EFFECT_CHANGE_RSCALE)
     c:RegisterEffect(pe2b)
 
-    -- atk value & gain effect
+    -- atk value
     local me1 = Effect.CreateEffect(c)
     me1:SetType(EFFECT_TYPE_SINGLE)
     me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     me1:SetCode(EFFECT_SET_BASE_ATTACK)
     me1:SetRange(LOCATION_MZONE)
-    me1:SetValue(function(e, c) return c:GetOverlayGroup():FilterCount(s.me1filter, nil) * 1000 end)
+    me1:SetValue(function(e, c) return c:GetOverlayCount() * 1000 end)
     c:RegisterEffect(me1)
-    local me1b = Effect.CreateEffect(c)
-    me1b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1b:SetCode(EVENT_ADJUST)
-    me1b:SetRange(LOCATION_MZONE)
-    me1b:SetOperation(s.me1op)
-    c:RegisterEffect(me1b)
 
-    -- place in pendulum zone
+    -- gain effects
     local me2 = Effect.CreateEffect(c)
-    me2:SetCategory(CATEGORY_DESTROY)
-    me2:SetType(EFFECT_TYPE_IGNITION)
-    me2:SetRange(LOCATION_EXTRA)
-    me2:SetCountLimit(1, {id, 2})
-    me2:SetTarget(s.me2tg)
+    me2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me2:SetCode(EVENT_ADJUST)
+    me2:SetRange(LOCATION_MZONE)
     me2:SetOperation(s.me2op)
     c:RegisterEffect(me2)
+
+    -- place in pendulum zone
+    local me3 = Effect.CreateEffect(c)
+    me3:SetCategory(CATEGORY_DESTROY)
+    me3:SetType(EFFECT_TYPE_IGNITION)
+    me3:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
+    me3:SetRange(LOCATION_EXTRA)
+    me3:SetCountLimit(1, {id, 2})
+    me3:SetTarget(s.me3tg)
+    me3:SetOperation(s.me3op)
+    c:RegisterEffect(me3)
 end
 
-function s.spfilter(c) return c:IsFaceup() and c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) end
+function s.spfilter1(c) return c:IsFaceup() and c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+
+function s.spfilter2(c) return c:IsOriginalRace(RACE_DRAGON) and c:IsMonster() end
 
 function s.spcon(e, c)
     if c == nil then return true end
+    if c:IsLocation(LOCATION_PZONE) and not aux.exccon(e) then return false end
+
     local tp = c:GetControler()
-    local g = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE, 0, nil)
-    return c:IsFacedown() and g:IsExists(Card.IsOriginalRace, 3, nil, RACE_DRAGON)
+    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_ONFIELD, 0, c)
+    return (c:IsFacedown() or c:IsLocation(LOCATION_PZONE)) and g:IsExists(s.spfilter2, 3, nil)
 end
 
 function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
-    local g = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE, 0, nil)
+    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_ONFIELD, 0, c)
     Duel.Overlay(c, g)
 end
 
 function s.spchainlimit(c) return function(e, rp, tp) return e:GetHandler() == c end end
 
-function s.me1filter(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_PENDULUM) and c:IsLinkMonster() end
+function s.me2filter(c) return c:IsType(TYPE_PENDULUM) and c:IsLinkMonster() end
 
-function s.me1op(e, tp, eg, ep, ev, re, r, rp)
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.me1filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.me2filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -179,16 +187,16 @@ function s.me1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me2filter(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+function s.me3filter(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
 
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me2filter, tp, LOCATION_PZONE, 0, 2, nil) end
+    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me3filter, tp, LOCATION_PZONE, 0, 2, nil) end
     local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if #dg < 2 then return end
