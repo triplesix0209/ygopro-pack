@@ -165,15 +165,17 @@ end
 
 function s.spchainlimit(c) return function(e, rp, tp) return e:GetHandler() == c end end
 
+function s.pe3filter(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToRemoveAsCost() end
+
 function s.pe3rescon(sg, e, tp) return sg:GetClassCount(Card.GetAttribute) == #sg, sg:GetClassCount(Card.GetAttribute) ~= #sg end
 
 function s.pe3cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local loc = LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_DECK + LOCATION_EXTRA
-    local g = Duel.GetMatchingGroup(Card.IsAbleToRemoveAsCost, tp, loc, 0, c)
-    if chk == 0 then return #g >= 6 and g:GetClassCount(Card.GetAttribute) == 6 end
+    local g = Duel.GetMatchingGroup(s.pe3filter, tp, loc, 0, c)
+    if chk == 0 then return #g >= 6 and g:GetClassCount(Card.GetAttribute) >= 6 end
 
-    local sg = aux.SelectUnselectGroup(g, e, tp, 6, 6, s.pe3rescon, 1, tp, HINTMSG_REMOVE, nil, nil, true)
+    local sg = aux.SelectUnselectGroup(g, e, tp, 6, 6, s.pe3rescon, 1, tp, HINTMSG_REMOVE, nil, nil)
     Duel.Remove(sg, POS_FACEUP, REASON_COST)
 end
 
@@ -188,19 +190,19 @@ function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) or Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) == 0 then return end
 
     local turn_player = Duel.GetTurnPlayer()
-    Duel.SkipPhase(turn_player, PHASE_DRAW, RESET_PHASE + PHASE_END, 2)
-    Duel.SkipPhase(turn_player, PHASE_STANDBY, RESET_PHASE + PHASE_END, 1)
-    Duel.SkipPhase(turn_player, PHASE_MAIN1, RESET_PHASE + PHASE_END, 1)
-    Duel.SkipPhase(turn_player, PHASE_BATTLE, RESET_PHASE + PHASE_END, 1, 1)
-    Duel.SkipPhase(turn_player, PHASE_MAIN2, RESET_PHASE + PHASE_END, 1)
-    Duel.SkipPhase(turn_player, PHASE_END, RESET_PHASE + PHASE_END, 1)
     local ec1 = Effect.CreateEffect(c)
     ec1:SetType(EFFECT_TYPE_FIELD)
     ec1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
     ec1:SetCode(EFFECT_CANNOT_BP)
     ec1:SetTargetRange(1, 0)
-    ec1:SetReset(RESET_PHASE + PHASE_END)
+    ec1:SetReset(RESET_PHASE + PHASE_END, 1)
     Duel.RegisterEffect(ec1, turn_player)
+    Duel.SkipPhase(turn_player, PHASE_DRAW, RESET_PHASE + PHASE_END, 2)
+    Duel.SkipPhase(turn_player, PHASE_STANDBY, RESET_PHASE + PHASE_END, 1)
+    Duel.SkipPhase(turn_player, PHASE_MAIN1, RESET_PHASE + PHASE_END, 1)
+    Duel.SkipPhase(turn_player, PHASE_BATTLE, RESET_PHASE + PHASE_END, 1, 1)
+    Duel.SkipPhase(turn_player, PHASE_MAIN2, RESET_PHASE + PHASE_END, 1)
+    -- Duel.SkipPhase(turn_player, PHASE_END, RESET_PHASE + PHASE_END, 1)
 end
 
 function s.me2filter(c) return c:IsType(TYPE_PENDULUM) and c:IsLinkMonster() end
