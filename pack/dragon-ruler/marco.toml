@@ -23,7 +23,7 @@ If this card is Link Summoned: \
     then if you added a Level 4 or lower monster by this effect, \
     you can Special Summon it in face-up Defense Position. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn, during the End Phase of the turn this card was banished: \
+Once per turn, during the Standby Phase: \
     Shuffle this banished card into the Deck, \
     then you can shuffle 1 non-Link {0} Dragon monster in your GY or banishment into the Deck.\
 """
