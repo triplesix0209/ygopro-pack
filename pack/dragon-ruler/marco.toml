@@ -25,7 +25,7 @@ If this card is Link Summoned: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, during the End Phase of the turn this card was banished: \
     Shuffle this banished card into the Deck, \
-    then you can add 1 banished non-Link {0} Dragon monster to your hand.\
+    then you can shuffle 1 non-Link {0} Dragon monster in your GY or banishment into the Deck.\
 """
 
 MESSIAH_BABY_PENDULUM_EFFECT = """\

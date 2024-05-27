@@ -145,10 +145,11 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     end)
     e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         if e:GetHandler():IsRelateToEffect(e) and Duel.SendtoDeck(e:GetHandler(), nil, SEQ_DECKSHUFFLE, REASON_EFFECT) and
-            Duel.IsExistingMatchingCard(DeityBabyReturnFilter, tp, LOCATION_REMOVED, 0, 1, nil, attribute) and
+            Duel.IsExistingMatchingCard(DeityBabyReturnFilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil, attribute) and
             Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
             Duel.BreakEffect()
-            local g = Utility.SelectMatchingCard(HINTMSG_RTOHAND, tp, DeityBabyReturnFilter, tp, LOCATION_REMOVED, 0, 1, 1, nil, attribute)
+            local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, DeityBabyReturnFilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil,
+                attribute)
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
         end
@@ -281,7 +282,7 @@ function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAt
 function DeityBabySpecialSummonFilter(c, e, tp) return c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP_DEFENSE) end
 
 function DeityBabyReturnFilter(c, attribute)
-    return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
+    return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToDeck()
 end
 
 function MessiahBabySearchCostFilter(c, locations, e, tp)
