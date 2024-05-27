@@ -13,6 +13,7 @@ pendulum-effect = """\
 Cannot be targeted by card effects, also unaffected by other card effects. \
     The above effects cannot be negated. \
 The Pendulum Scale of card in your other Pendulum Zone become 0. \
+
 """
 effect = """\
 Cannot be Link Summoned. \
