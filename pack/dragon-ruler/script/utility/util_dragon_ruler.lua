@@ -179,6 +179,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     -- add to extra deck
     local pe3 = Effect.CreateEffect(c)
     pe3:SetDescription(aux.Stringid(id, 0))
+    pe3:SetCategory(CATEGORY_TOEXTRA)
     pe3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_F)
     pe3:SetCode(EVENT_SPSUMMON_SUCCESS)
     pe3:SetRange(LOCATION_PZONE)

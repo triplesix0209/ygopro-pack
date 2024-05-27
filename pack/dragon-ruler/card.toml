@@ -13,7 +13,10 @@ pendulum-effect = """\
 Cannot be targeted by card effects, also unaffected by other card effects. \
     The above effects cannot be negated. \
 The Pendulum Scale of card in your other Pendulum Zone become 0. \
-
+During either player's turn, except the turn this card was placed Pendulum Zones (Quick Effect): \
+    You can banish 6 other Dragon monsters with different Attributes from your hand, field, GY, Deck, and/or Extra Deck; \
+    shuffle this card into the Extra Deck, and if you do, it becomes the Standby Phase of your next turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
 Cannot be Link Summoned. \
@@ -37,7 +40,7 @@ You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "",
+    "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Move this card to another of your Main Monster Zones?",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]
