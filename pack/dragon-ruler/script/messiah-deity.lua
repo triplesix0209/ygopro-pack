@@ -100,6 +100,22 @@ function s.initial_effect(c)
     pe2b:SetCode(EFFECT_CHANGE_RSCALE)
     c:RegisterEffect(pe2b)
 
+    -- atk value & gain effect
+    local me1 = Effect.CreateEffect(c)
+    me1:SetType(EFFECT_TYPE_SINGLE)
+    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me1:SetCode(EFFECT_SET_BASE_ATTACK)
+    me1:SetRange(LOCATION_MZONE)
+    me1:SetValue(function(e, c) return c:GetOverlayGroup():FilterCount(s.me1filter, nil) * 1000 end)
+    c:RegisterEffect(me1)
+    local me1b = Effect.CreateEffect(c)
+    me1b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me1b:SetCode(EVENT_ADJUST)
+    me1b:SetRange(LOCATION_MZONE)
+    me1b:SetOperation(s.me1op)
+    c:RegisterEffect(me1b)
+
     -- place in pendulum zone
     local me2 = Effect.CreateEffect(c)
     me2:SetCategory(CATEGORY_DESTROY)
