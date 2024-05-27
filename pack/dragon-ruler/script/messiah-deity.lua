@@ -180,13 +180,14 @@ end
 function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:IsAbleToExtra() end
-
     Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, c, 1, 0, 0)
 end
 
 function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or Duel.SendtoDeck(c, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) == 0 then return end
+
+    Debug.Message("OK")
 end
 
 function s.me2filter(c) return c:IsType(TYPE_PENDULUM) and c:IsLinkMonster() end
