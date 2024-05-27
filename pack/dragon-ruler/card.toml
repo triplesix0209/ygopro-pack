@@ -30,13 +30,15 @@ This card's original ATK becomes to the number of cards attached to it x 1000. \
 This card gains the original effects of all Link Pendulum Monsters attached to it. \
 The above effects cannot be negated or be copied. \
 You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
-    place this face-up card from your Extra Deck in your Pendulum Zone. \
+    place this face-up card from your Extra Deck in your Pendulum Zone, \
+    then, you can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
     This effect's activation and effect cannot be negated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Pendulum Summon ignoring your Pendulum Scales (via \"{CARD_NAME}\")",
+    "",
     "Move this card to another of your Main Monster Zones?",
+    "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]
 
 [messiah-origin]

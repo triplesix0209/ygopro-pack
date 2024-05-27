@@ -187,11 +187,13 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me3filter(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+function s.me3filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+
+function s.me3filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
 
 function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me3filter, tp, LOCATION_PZONE, 0, 2, nil) end
+    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me3filter1, tp, LOCATION_PZONE, 0, 2, nil) end
     local g = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
@@ -202,5 +204,10 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     if #dg < 2 then return end
     if Duel.Destroy(dg, REASON_EFFECT) ~= 2 and not c:IsRelateToEffect(e) or c:IsFacedown() or not c:IsLocation(LOCATION_EXTRA) then return end
 
-    Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true)
+    if Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) and Duel.IsExistingMatchingCard(s.me3filter2, tp, LOCATION_DECK, 0, 1, nil) and
+        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
+        Duel.BreakEffect()
+        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me3filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+        if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
+    end
 end
