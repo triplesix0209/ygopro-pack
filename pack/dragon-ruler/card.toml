@@ -231,8 +231,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-This card and co-linked Pendulum Monsters you control cannot be returned to the Extra Deck, \
-    also their effects cannot be negated. \
+The effects of this card and co-linked Pendulum Monsters you control cannot be negated. \
     This effect cannot be negated. \
 Once per turn, you can banish 1 LIGHT monster from your hand or GY; \
     roll a six-sided die, shuffle other cards on the fields, GYs, and banishments into the Decks, up to the result, \
