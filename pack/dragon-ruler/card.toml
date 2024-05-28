@@ -406,7 +406,7 @@ You can discard this card and 1 LIGHT monster to the GY, \
 If this card is banished: You can add 1 LIGHT Dragon monster from your Deck to your hand. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
-strings = ["Return to the hand", "Banish 1 card on the field"]
+strings = ["Return to the hand", "Return 1 banished card to the hand"]
 
 [dragon-ruler-dark]
 id = 900007017
