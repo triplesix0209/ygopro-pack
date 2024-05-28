@@ -137,8 +137,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
             Duel.BreakEffect()
             local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, DeityBabyReturnFilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil,
                 attribute)
-            Duel.SendtoHand(g, nil, REASON_EFFECT)
-            Duel.ConfirmCards(1 - tp, g)
+            Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT)
         end
     end)
     e2:SetLabelObject(e2reg)
