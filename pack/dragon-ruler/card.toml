@@ -298,7 +298,7 @@ effect = """\
 """
 strings = [
     "Special Summon the added monster?",
-    "Add 1 banished non-Link WATER Dragon monster to hand?",
+    "Return 1 non-Link WATER Dragon to the Deck?",
 ]
 
 [dragon-deity-baby-fire]
@@ -315,7 +315,7 @@ effect = """\
 """
 strings = [
     "Special Summon the added monster?",
-    "Add 1 banished non-Link FIRE Dragon monster to hand?",
+    "Return 1 non-Link FIRE Dragon to the Deck?",
 ]
 
 [dragon-deity-baby-wind]
@@ -332,7 +332,7 @@ effect = """\
 """
 strings = [
     "Special Summon the added monster?",
-    "Add 1 banished non-Link WIND Dragon monster to hand?",
+    "Return 1 non-Link WIND Dragon to the Deck?",
 ]
 
 [dragon-deity-baby-earth]
@@ -349,7 +349,7 @@ effect = """\
 """
 strings = [
     "Special Summon the added monster?",
-    "Add 1 banished non-Link EARTH Dragon monster to hand?",
+    "Return 1 non-Link EARTH Dragon to the Deck?",
 ]
 
 [dragon-deity-baby-light]
@@ -366,7 +366,7 @@ effect = """\
 """
 strings = [
     "Special Summon the added monster?",
-    "Add 1 banished non-Link LIGHT Dragon monster to hand?",
+    "Return 1 non-Link LIGHT Dragon to the Deck?",
 ]
 
 [dragon-deity-baby-dark]
@@ -383,7 +383,7 @@ effect = """\
 """
 strings = [
     "Special Summon the added monster?",
-    "Add 1 banished non-Link DARK Dragon monster to hand?",
+    "Return 1 non-Link DARK Dragon to the Deck?",
 ]
 
 [dragon-ruler-light]
