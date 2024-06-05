@@ -17,6 +17,7 @@ During either player's turn, except the turn this card was placed Pendulum Zones
     You can banish 6 other Dragon monsters with different Attributes from your hand, field, GY, Deck, and/or Extra Deck; \
     shuffle this card into the Extra Deck, and if you do, it becomes the Standby Phase of your next turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn, during the End Phase: Add all Pendulum Monster in your GY to the Extra Deck face-up. \
 """
 effect = """\
 Cannot be Link Summoned. \
@@ -41,6 +42,7 @@ You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you
 """
 strings = [
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
+    "Add all Pendulum Monster to the Extra Deck",
     "Move this card to another of your Main Monster Zones?",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]
