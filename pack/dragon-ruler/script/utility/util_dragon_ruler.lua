@@ -293,7 +293,7 @@ function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAt
 function DeityBabySpecialSummonFilter(c, e, tp) return c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP_DEFENSE) end
 
 function DeityBabyReturnFilter(c, attribute)
-    return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToDeck()
+    return c:IsFaceup() and not c:IsType(TYPE_LINK) and c:IsAbleToDeck() and (c:IsAttribute(attribute) or c:IsRace(RACE_DRAGON))
 end
 
 function MessiahBabySearchCostFilter(c, locations, e, tp)
