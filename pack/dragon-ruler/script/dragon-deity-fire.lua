@@ -6,7 +6,7 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_FIRE)
 
-    -- indes & unstoppable attack
+    -- indes
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
     e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
@@ -16,9 +16,6 @@ function s.initial_effect(c)
     e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM)) end)
     e1:SetValue(1)
     c:RegisterEffect(e1)
-    local e1b = e1:Clone()
-    e1b:SetCode(EFFECT_UNSTOPPABLE_ATTACK)
-    c:RegisterEffect(e1b)
 
     -- destroy
     local e2 = Effect.CreateEffect(c)

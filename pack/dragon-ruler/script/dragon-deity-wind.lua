@@ -6,7 +6,7 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_WIND)
 
-    -- cannot be banished & cannot be material
+    -- cannot be banished
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
     e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE)
@@ -18,16 +18,7 @@ function s.initial_effect(c)
         return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM))
     end)
     c:RegisterEffect(e1)
-    local e1b = Effect.CreateEffect(c)
-    e1b:SetType(EFFECT_TYPE_FIELD)
-    e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    e1b:SetRange(LOCATION_MZONE)
-    e1b:SetTargetRange(LOCATION_MZONE, 0)
-    e1b:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM)) end)
-    e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(e1b)
-
+    
     -- special summon
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
