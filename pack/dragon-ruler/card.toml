@@ -1,3 +1,11 @@
+[dragon-elysium]
+id = 900007000
+name = "Dragon's Elysium"
+type = "spell field"
+effect = """
+"""
+strings = []
+
 [messiah-deity]
 id = 900007001
 rarity = "gold"
@@ -198,7 +206,8 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-This card and co-linked Pendulum Monsters you control cannot be sent to the GY. \
+Your opponent cannot Tribute this card and co-linked Pendulum Monsters, \
+    or use them as material for an Summon. \
     This effect cannot be negated. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck. \
