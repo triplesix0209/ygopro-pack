@@ -35,8 +35,8 @@ This card gains the original effects of all Link Pendulum Monsters attached to i
 The above effects cannot be negated or be copied. \
 The first time each card you control would be destroyed each turn, by battle or card effect, it is not destroyed. \
 You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
-    add all Pendulum Monster in your GY to the Extra Deck face-up (if any), \
-    also, place this face-up card from your Extra Deck in your Pendulum Zone, \
+    add all Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
+    also, place this card you control or from your Extra Deck face-up in your Pendulum Zone, \
     then, you can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
     This effect's activation and effect cannot be negated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
@@ -44,6 +44,7 @@ You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you
 strings = [
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Move this card to another of your Main Monster Zones?",
+    "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]
 

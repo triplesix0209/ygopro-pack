@@ -151,10 +151,11 @@ function s.initial_effect(c)
 
     -- place in pendulum zone
     local me4 = Effect.CreateEffect(c)
+    me4:SetDescription(aux.Stringid(id, 2))
     me4:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
     me4:SetType(EFFECT_TYPE_IGNITION)
     me4:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
-    me4:SetRange(LOCATION_EXTRA)
+    me4:SetRange(LOCATION_MZONE + LOCATION_EXTRA)
     me4:SetCountLimit(1, {id, 2})
     me4:SetTarget(s.me4tg)
     me4:SetOperation(s.me4op)
@@ -291,6 +292,8 @@ function s.me4tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     local g1 = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     local g2 = Duel.GetMatchingGroup(s.me4filter2, tp, LOCATION_GRAVE, 0, nil)
+    g2:Merge(c:GetOverlayGroup():Filter(s.me4filter2, nil))
+
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g1, #g1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, g2, #g2, 0, 0)
 end
@@ -301,10 +304,11 @@ function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     if #dg < 2 or Duel.Destroy(dg, REASON_EFFECT) ~= 2 then return end
 
     local g = Duel.GetMatchingGroup(s.me4filter2, tp, LOCATION_GRAVE, 0, nil)
+    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me4filter2, nil)) end
     if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 
     if c:IsRelateToEffect(e) and c:IsFaceup() and c:IsLocation(LOCATION_EXTRA) and Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) and
-        Duel.IsExistingMatchingCard(s.me4filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
+        Duel.IsExistingMatchingCard(s.me4filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
         Duel.BreakEffect()
         local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me4filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
         if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
