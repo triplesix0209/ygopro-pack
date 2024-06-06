@@ -9,6 +9,8 @@ If this card with Dragonic Counter(s) is destroyed: \
     whose Link Rating is less or equal to the number of Dragonic Counter that were on this card. \
     (This is treated as a Link Summon.) \
     You can only use this effect of "{CARD_NAME}" once per turn. \
+Once per turn: you can remove Dragonic Counters from your field to activate 1 of these effects; \
+● 
 """
 strings = []
 
