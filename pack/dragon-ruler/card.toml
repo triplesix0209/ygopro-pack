@@ -3,6 +3,12 @@ id = 900007000
 name = "Dragon's Elysium"
 type = "spell field"
 effect = """
+Each time a monster(s) is banished, place 1 Dragonic Counter on this card for each of those monsters. \
+If this card with Dragonic Counter(s) is destroyed: \
+    You can Special Summon 1 Dragon Link Monster from your Extra Deck, \
+    whose Link Rating is less or equal to the number of Dragonic Counter that were on this card. \
+    (This is treated as a Link Summon.) \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 
