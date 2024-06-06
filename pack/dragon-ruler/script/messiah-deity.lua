@@ -230,7 +230,7 @@ function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me2filter(c) return c:IsType(TYPE_PENDULUM) and c:IsLinkMonster() end
+function s.me2filter(c) return c:IsMonster() end
 
 function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
