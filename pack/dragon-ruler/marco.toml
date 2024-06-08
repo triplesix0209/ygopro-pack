@@ -4,6 +4,7 @@ Your opponent cannot target this card with card effects. \
 During either player's turn, except the End Phase (Quick Effect): \
     You can banish 2 {0} and/or Dragon monsters from your hand and/or GY; \
     Special Summon this card from the Pendulum Zone. \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     You can only use this effect of "{CARD_NAME}" once per turn.\
 """
 

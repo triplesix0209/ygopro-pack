@@ -7,6 +7,7 @@ DragonRuler.CARD_MESSIAH_DEITY = 900007001
 
 -- function
 function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
+    s.listed_names = {DragonRuler.CARD_MESSIAH_DEITY}
     s.pendulum_level = 10
     c:EnableReviveLimit()
     c:SetUniqueOnField(1, 0, id)

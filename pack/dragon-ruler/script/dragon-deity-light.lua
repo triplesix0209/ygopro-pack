@@ -31,7 +31,7 @@ function s.initial_effect(c)
 
     -- negate the effect
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
     e2:SetType(EFFECT_TYPE_QUICK_O)
     e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 
     -- shuffle
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 4))
+    e3:SetDescription(aux.Stringid(id, 5))
     e3:SetCategory(CATEGORY_TODECK)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
@@ -82,11 +82,11 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     local op = 0
     if re:IsMonsterEffect() then
-        op = 1
-    elseif re:IsSpellEffect() then
         op = 2
-    elseif re:IsTrapEffect() then
+    elseif re:IsSpellEffect() then
         op = 3
+    elseif re:IsTrapEffect() then
+        op = 4
     end
     local ec1 = Effect.CreateEffect(c)
     ec1:SetDescription(aux.Stringid(id, op))

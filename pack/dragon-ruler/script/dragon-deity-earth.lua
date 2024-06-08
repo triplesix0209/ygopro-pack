@@ -31,9 +31,9 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- send top deck
+    -- send card to GY
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetDescription(aux.Stringid(id, 2))
     e3:SetCategory(CATEGORY_TOGRAVE + CATEGORY_DECKDES)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
@@ -56,7 +56,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local val = eg:FilterCount(Card.IsSummonPlayer, nil, tp)
     if not Duel.IsChainSolving() then
-        if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
             Duel.Hint(HINT_CARD, 1 - tp, id)
             Duel.Draw(tp, 1, REASON_EFFECT)
         end
@@ -88,7 +88,7 @@ end
 function s.e2chainop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local val = e:GetLabel()
-    if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+    if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
         Duel.Hint(HINT_CARD, 1 - tp, id)
         Duel.Draw(tp, 1, REASON_EFFECT)
     end
@@ -121,7 +121,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local b2 = s.e3condition2(1 - tp)
     if chk == 0 then return b1 or b2 end
 
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)})
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)})
     e:SetLabel(op)
     if op == 1 then
         Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 0, tp, 1)
@@ -143,7 +143,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
 
         local t = {}
         for i = 1, max do t[i] = i end
-        Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 4))
+        Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 5))
         local ac = Duel.AnnounceNumber(tp, table.unpack(t))
         Duel.DiscardDeck(1 - tp, ac, REASON_EFFECT)
     end

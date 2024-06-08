@@ -19,7 +19,7 @@ function s.initial_effect(c)
 
     -- equip
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetDescription(aux.Stringid(id, 1))
     e2:SetCategory(CATEGORY_EQUIP)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 
     -- copy effect & multi attack
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetDescription(aux.Stringid(id, 2))
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1)
@@ -115,7 +115,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 2))
+    ec1:SetDescription(aux.Stringid(id, 3))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_ATTACK_ALL)

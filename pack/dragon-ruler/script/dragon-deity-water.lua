@@ -38,7 +38,7 @@ function s.initial_effect(c)
 
     -- block
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 0))
+    e3:SetDescription(aux.Stringid(id, 1))
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1, {id, 1})
@@ -82,7 +82,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     Duel.HintSelection(Group.FromCards(tc))
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 1))
+    ec1:SetDescription(aux.Stringid(id, 2))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_CANNOT_TRIGGER)

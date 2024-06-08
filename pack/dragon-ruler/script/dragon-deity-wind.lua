@@ -30,7 +30,7 @@ function s.initial_effect(c)
 
     -- special summon
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetDescription(aux.Stringid(id, 2))
     e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
@@ -53,7 +53,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local val = eg:Filter(aux.FaceupFilter(Card.IsSummonPlayer, tp), nil):GetSum(Card.GetAttack)
     if not Duel.IsChainSolving() then
-        if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
             Duel.Hint(HINT_CARD, 1 - tp, id)
             Duel.Recover(tp, val, REASON_EFFECT)
         end
@@ -85,7 +85,7 @@ end
 function s.e2chainop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local val = e:GetLabel()
-    if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+    if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
         Duel.Hint(HINT_CARD, 1 - tp, id)
         Duel.Recover(tp, val, REASON_EFFECT)
     end
@@ -130,7 +130,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
 
     local b1 = Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false)
     local b2 = Duel.GetLocationCount(1 - tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, 1 - tp)
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)})
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)})
     local p = op == 1 and tp or 1 - tp
 
     Duel.SpecialSummon(tc, 0, tp, p, false, false, POS_FACEUP)

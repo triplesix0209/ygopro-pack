@@ -142,7 +142,11 @@ You can banish 1 WATER monster from your hand or GY; \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
+strings = [
+    "Pay the cost?",
+    "Block 1 card on the field",
+    "Affected by effect \"{CARD_NAME}\"",
+]
 
 [dragon-deity-fire]
 id = 900007005
@@ -170,6 +174,7 @@ Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
+    "Pay the cost?",
     "Destroy 1 card on the field",
     "Inflict damage equal to destroyed monster's original ATK",
 ]
@@ -199,6 +204,7 @@ Once per turn, you can banish 1 WIND monster from your hand or GY; \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
+    "Pay the cost?",
     "Gain LP equal to Summoned monster's ATK?",
     "Special Summon 1 monster from hand or either GY",
     "Special Summon to your field",
@@ -232,6 +238,7 @@ Once per turn, you can banish 1 EARTH monster from your hand or GY to activate 1
 ● Send up to 10 cards from the top of your opponent's Deck to the GY.
 """
 strings = [
+    "Pay the cost?",
     "Draw 1 card?",
     "Send card to the GY",
     "Send 1 card from your hand, Deck, or Extra Deck to GY",
@@ -267,6 +274,7 @@ Once per turn, you can banish 1 LIGHT monster from your hand or GY; \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
+    "Pay the cost?",
     "Negate the effect & destroy",
     "Used \"{CARD_NAME}\"'s effect to negate Monster Card",
     "Used \"{CARD_NAME}\"'s effect to negate Spell Card",
@@ -301,6 +309,7 @@ Once per turn, you can send 1 Monster Card you control that is equipped to this 
     also for the rest of this turn, this card can attack all monsters your opponent controls, once each. \
 """
 strings = [
+    "Pay the cost?",
     "Equip 1 monster to this card",
     "Send 1 equipped monster to GY to gain effects",
     "Can attack all monsters your opponent controls",
