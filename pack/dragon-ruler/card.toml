@@ -230,8 +230,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-Your opponent cannot Tribute this card and co-linked Pendulum Monsters, \
-    or use them as material for an Summon. \
+Your opponent cannot Tribute this card and co-linked Pendulum Monsters, or use them as material for an Summon. \
     This effect cannot be negated. \
 Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 You can banish 1 EARTH monster from your hand or GY to activate 1 of these effects; \
