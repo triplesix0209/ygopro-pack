@@ -237,7 +237,7 @@ Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 You can banish 1 EARTH monster from your hand or GY to activate 1 of these effects; \
     If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+    You can only use this effect of "{CARD_NAME}" once per turn.
 ● Send 1 card from your hand, Deck, Extra Deck to the GY, except a Link Pendulum Monster.
 ● Send up to 10 cards from the top of your opponent's Deck to the GY.
 """
