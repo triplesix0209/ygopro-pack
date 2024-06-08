@@ -26,7 +26,7 @@ rarity = "gold"
 name = "Messiah, Supreme Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
-race = "creator-god"
+race = "divine-beast"
 link = 6
 link-arrow = "top-left top-right left right bottom-left bottom-right"
 scale = 13
@@ -48,7 +48,7 @@ Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) \
     except the turn this card was placed Pendulum Zones. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
-Your opponent cannot Tribute this card, or use it as material for an Summon. \
+Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
 When Special Summoned, other cards and effects cannot be activated, \
     also after that, you can move this card to another of your Main Monster Zones. \
@@ -74,7 +74,7 @@ id = 900007002
 name = "Messiah, Origin Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "light"
-race = "divine-beast"
+race = "dragon"
 link = 1
 link-arrow = "bottom-right"
 scale = 0
@@ -97,7 +97,7 @@ id = 900007003
 name = "Messiah, Genesis Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "dark"
-race = "divine-beast"
+race = "dragon"
 link = 1
 link-arrow = "bottom-left"
 scale = 13

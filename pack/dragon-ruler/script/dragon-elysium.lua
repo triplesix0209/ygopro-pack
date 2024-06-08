@@ -35,11 +35,12 @@ function s.initial_effect(c)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_FZONE)
     e2:SetCountLimit(1)
-    e2:SetCost(s.e2cost)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 end
+
+function s.e2filtercost(c, tp) return c:IsDiscardable() and (s.e2condition1(c, tp) or s.e2condition2(tp) or s.e2condition3(tp)) end
 
 function s.e2filter1(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
@@ -50,20 +51,22 @@ function s.e2filter3(c, tp)
                Duel.IsExistingMatchingCard(Card.IsMonster, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
 end
 
-function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, nil) end
-    local tc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, 1, nil):GetFirst()
-    Duel.SendtoGrave(tc, REASON_COST + REASON_DISCARD)
-    e:SetLabelObject(tc)
-end
+function s.e2condition1(dc, tp) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
+
+function s.e2condition2(tp) return Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil) end
+
+function s.e2condition3(tp) return Duel.IsExistingMatchingCard(s.e2filter3, tp, LOCATION_MZONE, 0, 1, nil, tp) end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local dc = e:GetLabelObject()
-    local b1 = dc:IsMonster() and Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute())
-    local b2 = Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil)
-    local b3 = Duel.IsExistingMatchingCard(s.e2filter3, tp, LOCATION_MZONE, 0, 1, nil, tp)
-    if chk == 0 then return b1 or b2 or b3 end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filtercost, tp, LOCATION_HAND, 0, 1, nil, tp) end
 
+    local dc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, 1, nil):GetFirst()
+    Duel.SendtoGrave(dc, REASON_COST + REASON_DISCARD)
+    e:SetLabelObject(dc)
+
+    local b1 = s.e2condition1(dc, tp)
+    local b2 = s.e2condition2(tp)
+    local b3 = s.e2condition3(tp)
     local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)}, {b3, aux.Stringid(id, 3)})
     e:SetLabel(op)
     if op == 1 then
