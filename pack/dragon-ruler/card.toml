@@ -219,16 +219,17 @@ Your opponent cannot Tribute this card and co-linked Pendulum Monsters, \
     or use them as material for an Summon. \
     This effect cannot be negated. \
 Each time your opponent Special Summons a monster(s), you can draw 1 card. \
-Once per turn, you can banish 1 EARTH monster from your hand or GY; \
-    Send up to 5 cards from the top of either player's Deck. \
+Once per turn, you can banish 1 EARTH monster from your hand or GY to activate 1 of these effects; \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
+● Send 1 card from your hand, Deck, Extra Deck to the GY, except a Link Pendulum Monster.
+● Send up to 10 cards from the top of your opponent's Deck to the GY.
 """
 strings = [
     "Draw 1 card?",
-    "Send cards from the top of either player's Deck",
-    "Send cards from the top of your Deck",
-    "Send cards from the top of your's opponent Deck",
+    "Send card to the GY",
+    "Send 1 card from your hand, Deck, or Extra Deck to GY",
+    "Send cards from the top of your opponent's Deck to GY",
     "Declare a number of cards to send",
 ]
 

@@ -33,8 +33,8 @@ function s.initial_effect(c)
 
     -- send top deck
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 0))
-    e3:SetCategory(CATEGORY_DECKDES)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetCategory(CATEGORY_TOGRAVE + CATEGORY_DECKDES)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1, {id, 1})
@@ -96,39 +96,55 @@ function s.e2chainop(e, tp, eg, ep, ev, re, r, rp)
     e:GetLabelObject():SetLabelObject(nil)
 end
 
-function s.e3filter1(c)
-    return c:IsAttribute(ATTRIBUTE_EARTH) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true))
+function s.e3filter1(c, tp)
+    return c:IsAttribute(ATTRIBUTE_EARTH) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
+               (s.e3condition1(tp) or s.e3condition2(1 - tp))
 end
 
-function s.e3filter2(c) return c:IsLocation(LOCATION_GRAVE) and c:IsMonster() end
+function s.e3filter2(c) return c:IsAbleToGrave() and not (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end
+
+function s.e3condition1(tp) return Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil) end
+
+function s.e3condition2(tp) return Duel.IsPlayerCanDiscardDeck(tp, 1) end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil) end
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, tp) end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectMatchingCard(tp, s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil)
+    local g = Duel.SelectMatchingCard(tp, s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, tp)
 
     Duel.Remove(g, POS_FACEUP, REASON_COST)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsPlayerCanDiscardDeck(tp, 1) or Duel.IsPlayerCanDiscardDeck(1 - tp, 1) end
-    Duel.SetOperationInfo(0, CATEGORY_DECKDES, nil, 0, PLAYER_ALL, 1)
+    local b1 = s.e3condition1(tp)
+    local b2 = s.e3condition2(1 - tp)
+    if chk == 0 then return b1 or b2 end
+
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)})
+    e:SetLabel(op)
+    if op == 1 then
+        Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 0, tp, 1)
+    else
+        Duel.SetOperationInfo(0, CATEGORY_DECKDES, nil, 0, 1 - tp, 1)
+    end
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local b1 = Duel.IsPlayerCanDiscardDeck(tp, 1)
-    local b2 = Duel.IsPlayerCanDiscardDeck(1 - tp, 1)
-    if not b1 and not b2 then return end
+    local op = e:GetLabel()
+    if op == 1 then
+        local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter2, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA):GetFirst()
+        if tc then Duel.SendtoGrave(tc, REASON_EFFECT) end
+    else
+        local max = Duel.GetFieldGroupCount(1 - tp, LOCATION_DECK, 0)
+        if max == 0 then return end
+        if max > 10 then max = 10 end
 
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)})
-    local p = op == 1 and tp or 1 - tp
-    local max = Duel.GetFieldGroupCount(p, LOCATION_DECK, 0)
-    if max > 5 then max = 5 end
-    local t = {}
-    for i = 1, max do t[i] = i end
-    Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 3))
-    local ac = Duel.AnnounceNumber(tp, table.unpack(t))
-    Duel.DiscardDeck(p, ac, REASON_EFFECT)
+        local t = {}
+        for i = 1, max do t[i] = i end
+        Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 4))
+        local ac = Duel.AnnounceNumber(tp, table.unpack(t))
+        Duel.DiscardDeck(1 - tp, ac, REASON_EFFECT)
+    end
 end
