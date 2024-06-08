@@ -127,14 +127,14 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
 This card and co-linked Pendulum Monsters you control cannot be destroyed by battle. \
     This effect cannot be negated. \
+Your opponent cannot activate cards or effects in response to the activation of this card's effect. \
+If this card attacks, your opponent cannot activate cards or effects until the end of the Damage Step. \
 You can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
     it cannot activate its effect, also if you choose a monster, \
     it cannot change its battle position or declare an attack, and change its ATK/DEF to 0 (if it is face-up). \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Your opponent cannot activate cards or effects in response to the activation of this card's effect. \
-If this card attacks, your opponent cannot activate cards or effects until the end of the Damage Step. \
 """
 strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 
@@ -156,12 +156,12 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|FIRE} \
 This card and co-linked Pendulum Monsters you control cannot be destroyed by card effects. \
     This effect cannot be negated. \
+If this card destroys a monster(s) by battle or by its effect: \
+    You can inflict damage to your opponent equal to that destroyed monster's original ATK. \
 Once per turn, you can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-If this card destroys a monster(s) by battle or by its effect: \
-    You can inflict damage to your opponent equal to that destroyed monster's original ATK. \
 """
 strings = [
     "Destroy 1 card on the field",
@@ -186,17 +186,17 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
 This card and co-linked Pendulum Monsters you control cannot be banished by card effects. \
     This effect cannot be negated. \
+Each time you Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}". \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Each time you Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
 """
 strings = [
+    "Gain LP equal to Summoned monster's ATK?",
     "Special Summon 1 monster from hand or either GY",
     "Special Summon to your field",
-    "Special Summon to your opponent's field",
-    "Gain LP equal to Summoned monster's ATK?"
+    "Special Summon to your opponent's field"
 ]
 
 [dragon-deity-earth]
