@@ -139,6 +139,7 @@ You can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
     it cannot activate its effect, also if you choose a monster, \
     it cannot change its battle position or declare an attack, and change its ATK/DEF to 0 (if it is face-up). \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
@@ -168,8 +169,9 @@ This card and co-linked Pendulum Monsters you control cannot be destroyed by car
     This effect cannot be negated. \
 If this card destroys a monster(s) by battle or by its effect: \
     You can inflict damage to your opponent equal to that destroyed monster's original ATK. \
-Once per turn, you can banish 1 FIRE monster from your hand or GY; \
+You can banish 1 FIRE monster from your hand or GY; \
     destroy 1 other card on the field. \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
@@ -198,8 +200,9 @@ effect = """\
 This card and co-linked Pendulum Monsters you control cannot be banished by card effects. \
     This effect cannot be negated. \
 Each time you Special Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
-Once per turn, you can banish 1 WIND monster from your hand or GY; \
+You can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}". \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
@@ -231,7 +234,8 @@ Your opponent cannot Tribute this card and co-linked Pendulum Monsters, \
     or use them as material for an Summon. \
     This effect cannot be negated. \
 Each time your opponent Special Summons a monster(s), you can draw 1 card. \
-Once per turn, you can banish 1 EARTH monster from your hand or GY to activate 1 of these effects; \
+You can banish 1 EARTH monster from your hand or GY to activate 1 of these effects; \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 ● Send 1 card from your hand, Deck, Extra Deck to the GY, except a Link Pendulum Monster.
@@ -267,9 +271,10 @@ The effects of this card and co-linked Pendulum Monsters you control cannot be n
 When your opponent activates a card or effect (Quick Effect): \
     You can negate that effect, and if you do, destroy that card. \
     You can only activate this effect of "{CARD_NAME}" in response to each card type (Monster, Spell, or Trap) once per turn. \
-Once per turn, you can banish 1 LIGHT monster from your hand or GY; \
+You can banish 1 LIGHT monster from your hand or GY; \
     roll a six-sided die, shuffle other cards on the fields, GYs, and banishments into the Decks, up to the result, \
     and if you do, this card gains 1000 ATK for each shuffled card until the end of this turn. \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
@@ -300,8 +305,9 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|DARK} \
 Your opponent cannot target this card and co-linked Pendulum Monsters you control with card effects. \
     This effect cannot be negated. \
-Once per turn, you can banish 1 DARK monster from your hand or GY; \
+You can banish 1 DARK monster from your hand or GY; \
     equip 1 other monster on the field or in either GY to this card as an Equip Spell that gives this card 1000 ATK. \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, you can send 1 Monster Card you control that is equipped to this card; \
