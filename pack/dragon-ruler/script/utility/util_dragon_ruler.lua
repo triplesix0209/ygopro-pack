@@ -2,6 +2,9 @@
 if not aux.DragonRulerProcedure then aux.DragonRulerProcedure = {} end
 if not DragonRuler then DragonRuler = aux.DragonRulerProcedure end
 
+-- constant
+DragonRuler.CARD_MESSIAH_DEITY = 900007001
+
 -- function
 function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     s.pendulum_level = 10

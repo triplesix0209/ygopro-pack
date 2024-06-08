@@ -1,8 +1,9 @@
 -- Dragon's Elysium
 Duel.LoadScript("util.lua")
+Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
 
-s.listed_names = {900007001}
+s.listed_names = {DragonRuler.CARD_MESSIAH_DEITY}
 
 function s.initial_effect(c)
     -- activate
@@ -18,7 +19,8 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e1:SetRange(LOCATION_FZONE)
     e1:SetCondition(function(e)
-        return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, 900007001), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, nil)
+        return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, DragonRuler.CARD_MESSIAH_DEITY), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0,
+            1, nil)
     end)
     e1:SetValue(aux.tgoval)
     c:RegisterEffect(e1)
@@ -43,6 +45,11 @@ function s.e2filter1(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(at
 
 function s.e2filter2(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
 
+function s.e2filter3(c, tp)
+    return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) and
+               Duel.IsExistingMatchingCard(Card.IsMonster, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
+end
+
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, nil) end
     local tc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, 1, nil):GetFirst()
@@ -54,9 +61,10 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local dc = e:GetLabelObject()
     local b1 = dc:IsMonster() and Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute())
     local b2 = Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil)
-    if chk == 0 then return b1 or b2 end
+    local b3 = Duel.IsExistingMatchingCard(s.e2filter3, tp, LOCATION_MZONE, 0, 1, nil, tp)
+    if chk == 0 then return b1 or b2 or b3 end
 
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)})
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)}, {b3, aux.Stringid(id, 3)})
     e:SetLabel(op)
     if op == 1 then
         e:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
@@ -64,6 +72,8 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     elseif op == 2 then
         e:SetCategory(CATEGORY_TOGRAVE)
         Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 1, tp, LOCATION_DECK)
+    elseif op == 3 then
+        e:SetCategory(0)
     end
 end
 
@@ -79,5 +89,12 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     elseif op == 2 then
         local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter2, tp, LOCATION_DECK, 0, 1, 1, nil)
         if #g > 0 then Duel.SendtoGrave(g, REASON_EFFECT) end
+    elseif op == 3 then
+        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e2filter3, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
+        if sc then
+            local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsMonster, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1,
+                sc)
+            Duel.Overlay(sc, g)
+        end
     end
 end
