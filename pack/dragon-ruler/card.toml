@@ -8,15 +8,15 @@ While you control "Messiah, Supreme Deity of Dragons", \
     also it is unaffected by your opponent's card effects. \
     This effects cannot be negated. \
 Once per turn: you can discard 1 card, then activate 1 of these effects;
-● Add 1 Level 4 or lower Dragon monster with the same Attribute as the discarded monster from your Deck to your hand.
 ● Send 1 Dragon monster from your Deck to the GY.
+● Add 1 Level 4 or lower Dragon monster with the same Attribute as the discarded monster from your Deck to your hand.
 ● Attach 1 monster from your hand, Deck, or Extra Deck \
     to 1 "Messiah, Supreme Deity of Dragons" in your Monster Zone.
 """
 strings = [
     "Discard to activate effect",
-    "Add 1 Level 4 or lower Dragon",
     "Send 1 Dragon to the GY",
+    "Add 1 Level 4 or lower Dragon",
     "Attach 1 monster to \"Messiah, Supreme Deity of Dragons\"",
 ]
 

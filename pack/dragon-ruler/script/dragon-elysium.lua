@@ -40,7 +40,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e2filtercost(c, tp) return c:IsDiscardable() and (s.e2condition1(c, tp) or s.e2condition2(tp) or s.e2condition3(tp)) end
+function s.e2filtercost(c, tp) return c:IsDiscardable() and (s.e2condition1(tp) or s.e2condition2(c, tp) or s.e2condition3(tp)) end
 
 function s.e2filter1(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
@@ -51,9 +51,9 @@ function s.e2filter3(c, tp)
                Duel.IsExistingMatchingCard(Card.IsMonster, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
 end
 
-function s.e2condition1(dc, tp) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
+function s.e2condition1(tp) return Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil) end
 
-function s.e2condition2(tp) return Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_DECK, 0, 1, nil) end
+function s.e2condition2(dc, tp) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
 
 function s.e2condition3(tp) return Duel.IsExistingMatchingCard(s.e2filter3, tp, LOCATION_MZONE, 0, 1, nil, tp) end
 
@@ -64,17 +64,17 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     Duel.SendtoGrave(dc, REASON_COST + REASON_DISCARD)
     e:SetLabelObject(dc)
 
-    local b1 = s.e2condition1(dc, tp)
-    local b2 = s.e2condition2(tp)
+    local b1 = s.e2condition1(tp)
+    local b2 = s.e2condition2(dc, tp)
     local b3 = s.e2condition3(tp)
     local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)}, {b3, aux.Stringid(id, 3)})
     e:SetLabel(op)
     if op == 1 then
-        e:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
-        Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
-    elseif op == 2 then
         e:SetCategory(CATEGORY_TOGRAVE)
         Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 1, tp, LOCATION_DECK)
+    elseif op == 2 then
+        e:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+        Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
     elseif op == 3 then
         e:SetCategory(0)
     end
@@ -84,14 +84,14 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local dc = e:GetLabelObject()
     local op = e:GetLabel()
     if op == 1 then
+        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter2, tp, LOCATION_DECK, 0, 1, 1, nil)
+        if #g > 0 then Duel.SendtoGrave(g, REASON_EFFECT) end
+    elseif op == 2 then
         local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e2filter1, tp, LOCATION_DECK, 0, 1, 1, nil, dc:GetAttribute())
         if #g > 0 then
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
         end
-    elseif op == 2 then
-        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter2, tp, LOCATION_DECK, 0, 1, 1, nil)
-        if #g > 0 then Duel.SendtoGrave(g, REASON_EFFECT) end
     elseif op == 3 then
         local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e2filter3, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
         if sc then
