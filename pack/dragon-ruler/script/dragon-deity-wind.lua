@@ -27,9 +27,6 @@ function s.initial_effect(c)
     e2:SetCondition(s.e2con)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetCode(EVENT_SUMMON_SUCCESS)
-    c:RegisterEffect(e2b)
 
     -- special summon
     local e3 = Effect.CreateEffect(c)

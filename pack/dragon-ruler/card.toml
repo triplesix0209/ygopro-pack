@@ -186,7 +186,7 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
 This card and co-linked Pendulum Monsters you control cannot be banished by card effects. \
     This effect cannot be negated. \
-Each time you Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
+Each time you Special Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
 Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}". \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
@@ -196,7 +196,7 @@ strings = [
     "Gain LP equal to Summoned monster's ATK?",
     "Special Summon 1 monster from hand or either GY",
     "Special Summon to your field",
-    "Special Summon to your opponent's field"
+    "Special Summon to your opponent's field",
 ]
 
 [dragon-deity-earth]
@@ -218,13 +218,14 @@ effect = """\
 Your opponent cannot Tribute this card and co-linked Pendulum Monsters, \
     or use them as material for an Summon. \
     This effect cannot be negated. \
+Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 """
 strings = [
+    "Draw 1 card?",
     "Send cards from the top of either player's Deck",
     "Send cards from the top of your Deck",
     "Send cards from the top of your's opponent Deck",
