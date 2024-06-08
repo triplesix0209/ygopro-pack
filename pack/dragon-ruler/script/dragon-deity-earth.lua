@@ -38,7 +38,7 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(s.e3cost)
+    e3:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_EARTH, s.e3costextra))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -96,25 +96,13 @@ function s.e2chainop(e, tp, eg, ep, ev, re, r, rp)
     e:GetLabelObject():SetLabelObject(nil)
 end
 
-function s.e3filter1(c, tp)
-    return c:IsAttribute(ATTRIBUTE_EARTH) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
-               (s.e3condition1(tp) or s.e3condition2(1 - tp))
-end
+function s.e3filter(c) return c:IsAbleToGrave() and not (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end
 
-function s.e3filter2(c) return c:IsAbleToGrave() and not (c:IsLinkMonster() and c:IsType(TYPE_PENDULUM)) end
-
-function s.e3condition1(tp) return Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil) end
+function s.e3condition1(tp) return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil) end
 
 function s.e3condition2(tp) return Duel.IsPlayerCanDiscardDeck(tp, 1) end
 
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, tp) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectMatchingCard(tp, s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, tp)
-
-    Duel.Remove(g, POS_FACEUP, REASON_COST)
-end
+function s.e3costextra(sc, e, tp) return s.e3condition1(tp) or s.e3condition2(1 - tp) end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local b1 = s.e3condition1(tp)
@@ -134,7 +122,8 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local op = e:GetLabel()
     if op == 1 then
-        local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter2, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA):GetFirst()
+        local tc =
+            Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
         if tc then Duel.SendtoGrave(tc, REASON_EFFECT) end
     else
         local max = Duel.GetFieldGroupCount(1 - tp, LOCATION_DECK, 0)

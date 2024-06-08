@@ -24,7 +24,7 @@ function s.initial_effect(c)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, {id, 1})
-    e2:SetCost(s.e2cost)
+    e2:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_DARK, s.e2costextra))
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
@@ -46,32 +46,22 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e2filter1(c, e, tp)
-    return c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
-               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, e:GetHandler(), tp)
-end
+function s.e2filter(c, tp) return c:IsMonster() and (c:IsControler(tp) or c:IsAbleToChangeControler()) end
 
-function s.e2filter2(c, tp) return c:IsMonster() and (c:IsControler(tp) or c:IsAbleToChangeControler()) end
-
-function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, e, tp) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectMatchingCard(tp, s.e2filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
-
-    Duel.Remove(g, POS_FACEUP, REASON_COST)
+function s.e2costextra(sc, e, tp)
+    return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, Group.FromCards(e:GetHandler(), sc), tp)
 end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, c, tp)
+    local g = Duel.GetMatchingGroup(s.e2filter, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, c, tp)
     if chk == 0 then return #g > 0 end
     Duel.SetOperationInfo(0, CATEGORY_EQUIP, g, 1, PLAYER_ALL, LOCATION_MZONE + LOCATION_GRAVE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e2filter2, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, 1,
+    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e2filter, tp, LOCATION_MZONE + LOCATION_GRAVE, LOCATION_MZONE + LOCATION_GRAVE, 1, 1,
         c, tp):GetFirst()
     if not tc or tc:IsForbidden() or (not tc:IsControler(tp) and not tc:CheckUniqueOnField(tp)) or Duel.GetLocationCount(tp, LOCATION_SZONE) == 0 then
         return

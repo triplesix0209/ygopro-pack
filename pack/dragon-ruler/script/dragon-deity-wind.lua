@@ -35,7 +35,7 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(s.e3cost)
+    e3:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_WIND, s.e3costextra))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -93,39 +93,27 @@ function s.e2chainop(e, tp, eg, ep, ev, re, r, rp)
     e:GetLabelObject():SetLabelObject(nil)
 end
 
-function s.e3filter1(c, e, tp)
-    return c:IsAttribute(ATTRIBUTE_WIND) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
-               Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, c, e, tp)
-end
-
-function s.e3filter2(c, e, tp)
+function s.e3filter(c, e, tp)
     return not c:IsCode(id) and
                (c:IsCanBeSpecialSummoned(e, 0, tp, false, false) or c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, 1 - tp))
 end
 
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, e, tp) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectMatchingCard(tp, s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
-
-    Duel.Remove(g, POS_FACEUP, REASON_COST)
-end
+function s.e3costextra(sc, e, tp) return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, sc, e, tp) end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
         return (Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 or Duel.GetLocationCount(1 - tp, LOCATION_MZONE) > 0) and
-                   Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp)
+                   Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, nil, e, tp)
     end
 
-    local g = Duel.GetMatchingGroup(s.e3filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, nil, e, tp)
+    local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, nil, e, tp)
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, g, 1, 0, 0)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc =
-        Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e3filter2, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp):GetFirst()
+        Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e3filter, tp, LOCATION_HAND + LOCATION_GRAVE, LOCATION_GRAVE, 1, 1, nil, e, tp):GetFirst()
     if not tc then return end
 
     local b1 = Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and tc:IsCanBeSpecialSummoned(e, 0, tp, false, false)

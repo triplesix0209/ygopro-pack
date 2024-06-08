@@ -100,6 +100,24 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     c:RegisterEffect(pen_place)
 end
 
+function DragonRuler.DeityCost(question_string, attribute, extra_cost)
+    return function(e, tp, eg, ep, ev, re, r, rp, chk)
+        if chk == 0 then
+            return Duel.IsExistingMatchingCard(DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, attribute, e, tp,
+                extra_cost) or Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
+        end
+
+        if Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil) and
+            not Duel.SelectEffectYesNo(tp, e:GetHandler(), question_string) then return end
+
+        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
+        local g = Duel.SelectMatchingCard(tp, DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, attribute, e, tp,
+            extra_cost)
+
+        Duel.Remove(g, POS_FACEUP, REASON_COST)
+    end
+end
+
 function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
     c:EnableReviveLimit()
 
@@ -276,6 +294,13 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     end)
     c:RegisterEffect(me3)
 end
+
+function DeityCostFilter(c, attribute, e, tp, extra_cost)
+    return c:IsAttribute(attribute) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true)) and
+               (extra_cost == nil or extra_cost(c, e, tp))
+end
+
+function DeityCostBypassFilter(c) return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) end
 
 function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 

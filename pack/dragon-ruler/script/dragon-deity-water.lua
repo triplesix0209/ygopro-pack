@@ -42,7 +42,7 @@ function s.initial_effect(c)
     e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
     e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(s.e3cost)
+    e3:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_WATER))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -54,30 +54,17 @@ function s.initial_effect(c)
     c:RegisterEffect(e3b)
 end
 
-function s.e3filter1(c)
-    return c:IsAttribute(ATTRIBUTE_WATER) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true))
-end
-
-function s.e3filter2(c) return c:GetFlagEffect(id) == 0 end
-
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-    local g = Duel.SelectMatchingCard(tp, s.e3filter1, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil)
-
-    Duel.Remove(g, POS_FACEUP, REASON_COST)
-end
+function s.e3filter(c) return c:GetFlagEffect(id) == 0 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(s.e3filter2, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
+    local g = Duel.GetMatchingGroup(s.e3filter, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, c)
     if chk == 0 then return #g > 0 end
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e3filter2, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e3filter, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 1, c):GetFirst()
     if not tc then return end
     Duel.HintSelection(Group.FromCards(tc))
 

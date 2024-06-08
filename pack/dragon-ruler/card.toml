@@ -177,8 +177,8 @@ You can banish 1 FIRE monster from your hand or GY; \
 """
 strings = [
     "Pay the cost?",
-    "Destroy 1 card on the field",
     "Inflict damage equal to destroyed monster's original ATK",
+    "Destroy 1 card on the field",
 ]
 
 [dragon-deity-wind]
@@ -233,7 +233,7 @@ effect = """\
 Your opponent cannot Tribute this card and co-linked Pendulum Monsters, or use them as material for an Summon. \
     This effect cannot be negated. \
 Each time your opponent Special Summons a monster(s), you can draw 1 card. \
-You can banish 1 EARTH monster from your hand or GY to activate 1 of these effects; \
+You can banish 1 EARTH monster from your hand or GY to activate 1 of these effects. \
     If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn.
@@ -305,7 +305,7 @@ effect = """\
 Your opponent cannot target this card and co-linked Pendulum Monsters you control with card effects. \
     This effect cannot be negated. \
 You can banish 1 DARK monster from your hand or GY; \
-    equip 1 other monster on the field or in either GY to this card as an Equip Spell that gives this card 1000 ATK. \
+    equip 1 monster your opponent control or in either GY to this card as an Equip Spell that gives this card 1000 ATK. \
     If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
