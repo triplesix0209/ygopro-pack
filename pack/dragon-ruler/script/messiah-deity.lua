@@ -137,8 +137,9 @@ function s.initial_effect(c)
     local me3 = Effect.CreateEffect(c)
     me3:SetDescription(aux.Stringid(id, 2))
     me3:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
-    me3:SetType(EFFECT_TYPE_IGNITION)
+    me3:SetType(EFFECT_TYPE_QUICK_O)
     me3:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
+    me3:SetCode(EVENT_FREE_CHAIN)
     me3:SetRange(LOCATION_MZONE + LOCATION_EXTRA)
     me3:SetCountLimit(1, {id, 2})
     me3:SetTarget(s.me3tg)
@@ -146,7 +147,7 @@ function s.initial_effect(c)
     c:RegisterEffect(me3)
 end
 
-function s.spfilter1(c) return c:IsFaceup() and c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+function s.spfilter1(c) return c:IsFaceup() and c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) end
 
 function s.spfilter2(c) return c:IsOriginalRace(RACE_DRAGON) and c:IsMonster() end
 
@@ -155,12 +156,12 @@ function s.spcon(e, c)
     if c:IsLocation(LOCATION_PZONE) and not aux.exccon(e) then return false end
 
     local tp = c:GetControler()
-    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_ONFIELD, 0, c)
+    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_MZONE, 0, nil)
     return (c:IsFacedown() or c:IsLocation(LOCATION_PZONE)) and g:IsExists(s.spfilter2, 3, nil)
 end
 
 function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
-    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_ONFIELD, 0, c)
+    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_MZONE, 0, nil)
     Duel.Overlay(c, g)
 end
 
