@@ -190,12 +190,13 @@ Once per turn, you can banish 1 WIND monster from your hand or GY; \
     Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}". \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Each time you Summon a monster(s) face-up, you gain LP equal to that monster's ATK. \
+Each time you Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
 """
 strings = [
     "Special Summon 1 monster from hand or either GY",
     "Special Summon to your field",
     "Special Summon to your opponent's field",
+    "Gain LP equal to Summoned monster's ATK?"
 ]
 
 [dragon-deity-earth]
@@ -221,7 +222,7 @@ Once per turn, you can banish 1 EARTH monster from your hand or GY; \
     Send up to 5 cards from the top of either player's Deck. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-Your opponent can only attempt to activate 1 card effect in their GY per turn. \
+Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 """
 strings = [
     "Send cards from the top of either player's Deck",

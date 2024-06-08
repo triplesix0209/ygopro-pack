@@ -18,7 +18,7 @@ function s.initial_effect(c)
         return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM))
     end)
     c:RegisterEffect(e1)
-    
+
     -- special summon
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
@@ -96,9 +96,10 @@ end
 function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(aux.FaceupFilter(Card.IsSummonPlayer, tp), 1, nil) end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
     local val = eg:Filter(aux.FaceupFilter(Card.IsSummonPlayer, tp), nil):GetSum(Card.GetAttack)
     if not Duel.IsChainSolving() then
-        if val > 0 then
+        if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
             Duel.Hint(HINT_CARD, 1 - tp, id)
             Duel.Recover(tp, val, REASON_EFFECT)
         end
@@ -107,7 +108,6 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         if eff and not eff:IsDeleted() then
             eff:SetLabel(eff:GetLabel() + val)
         else
-            local c = e:GetHandler()
             local ec1 = Effect.CreateEffect(c)
             ec1:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
             ec1:SetCode(EVENT_CHAIN_SOLVED)
@@ -118,7 +118,6 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
             ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_CHAIN)
             c:RegisterEffect(ec1)
             e:SetLabelObject(ec1)
-
             local ec2 = Effect.CreateEffect(c)
             ec2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
             ec2:SetCode(EVENT_CHAIN_SOLVED)
@@ -130,8 +129,9 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3chainop(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
     local val = e:GetLabel()
-    if val > 0 then
+    if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
         Duel.Hint(HINT_CARD, 1 - tp, id)
         Duel.Recover(tp, val, REASON_EFFECT)
     end
