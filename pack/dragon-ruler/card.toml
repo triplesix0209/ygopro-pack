@@ -78,7 +78,7 @@ pendulum-effect = """\
 Pendulum Summons of your Dragon monsters cannot be negated. \
 """
 effect = """\
-{MESSIAH_BABY_MONSTER_EFFECT|FIRE and WIND|hand or Deck} \
+{MESSIAH_BABY_MONSTER_EFFECT|WATER and WIND|hand or Deck} \
 """
 strings = [
     "Add to Extra Deck",
@@ -101,7 +101,7 @@ pendulum-effect = """\
 Your opponent cannot activate a Spell/Trap Card, or monster effect, when your Dragon monster(s) is Pendulum Summoned. \
 """
 effect = """\
-{MESSIAH_BABY_MONSTER_EFFECT|WATER and EARTH|Deck or GY} \
+{MESSIAH_BABY_MONSTER_EFFECT|FIRE and EARTH|Deck or GY} \
 """
 strings = [
     "Add to Extra Deck",
