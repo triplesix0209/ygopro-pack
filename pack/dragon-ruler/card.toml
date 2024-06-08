@@ -3,16 +3,21 @@ id = 900007000
 name = "Dragon's Elysium"
 type = "spell field"
 effect = """
-Each time a monster(s) is banished, place 1 Dragonic Counter on this card for each of those monsters. \
-If this card with Dragonic Counter(s) is destroyed: \
-    You can Special Summon 1 Dragon Link Monster from your Extra Deck, \
-    whose Link Rating is less or equal to the number of Dragonic Counter that were on this card. \
-    (This is treated as a Link Summon.) \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-Once per turn: you can remove Dragonic Counters from your field to activate 1 of these effects; \
-● 
+While you control "Messiah, Supreme Deity of Dragons", \
+    your opponent cannot target this card with card effects, \
+    also it is unaffected by your opponent's card effects. \
+    This effects cannot be negated. \
+Once per turn: you can discard 1 card, then activate 1 of these effects; \
+● Add 1 Level 4 or lower Dragon monster with the same Attribute as the discarded monster from your Deck to your hand.
+● Send 1 Dragon monster from your Deck to the GY.
+● Attach 1 Dragon monster to 1 "Messiah, Supreme Deity of Dragons" in your Monster Zone.
 """
-strings = []
+strings = [
+    "Discard to activate effect",
+    "Add 1 Level 4 or lower Dragon",
+    "Send 1 Dragon to the GY",
+    "Attach 1 Dragon to \"Messiah, Supreme Deity of Dragons\"",
+]
 
 [messiah-deity]
 id = 900007001

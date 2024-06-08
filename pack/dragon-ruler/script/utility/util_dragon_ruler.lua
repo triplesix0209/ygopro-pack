@@ -208,21 +208,22 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     me2:SetRange(LOCATION_MZONE)
     me2:SetCountLimit(1, id)
     me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        if chk == 0 then return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and e:GetHandler():IsReleasable() end
-        Duel.Release(e:GetHandler(), REASON_COST)
+        local c = e:GetHandler()
+        if chk == 0 then
+            return Duel.IsExistingMatchingCard(MessiahBabySearchCostFilter, tp, LOCATION_HAND, 0, 1, nil, search_locations, e, tp) and
+                       c:IsReleasable()
+        end
+
+        local tc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, MessiahBabySearchCostFilter, tp, LOCATION_HAND, 0, 1, 1, nil, search_locations, e,
+            tp):GetFirst()
+
+        e:SetLabel(tc:GetAttribute())
+        Duel.Release(c, REASON_COST)
+        Duel.SendtoGrave(tc, REASON_COST + REASON_DISCARD)
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        if chk == 0 then
-            return Duel.GetMZoneCount(tp, c) > 0 and
-                       Duel.IsExistingMatchingCard(MessiahBabySearchCostFilter, tp, LOCATION_HAND, 0, 1, nil, search_locations, e, tp)
-        end
-
-        local sc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, MessiahBabySearchCostFilter, tp, LOCATION_HAND, 0, 1, 1, nil, search_locations, e,
-            tp):GetFirst()
-        e:SetLabel(sc:GetAttribute())
-        Duel.SendtoGrave(sc, REASON_COST | REASON_DISCARD)
-
+        if chk == 0 then return Duel.GetMZoneCount(tp, c) > 0 end
         Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, search_locations)
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
