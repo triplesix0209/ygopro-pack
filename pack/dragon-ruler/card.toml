@@ -21,8 +21,8 @@ strings = [
     "Discard to activate effect",
     "Send 1 Dragon to the GY",
     "Add 1 Level 4 or lower Dragon",
-    "Attach 1 monster to \"Messiah, Supreme Deity of Dragons\"",
-    "Attach 1 face-up Continuous Spell/Trap to this card",
+    "Attach 1 Dragon monster to \"Messiah, Supreme Deity of Dragons\"",
+    "Attach 1 Continuous Spell/Trap to this card",
 ]
 
 [messiah-deity]
