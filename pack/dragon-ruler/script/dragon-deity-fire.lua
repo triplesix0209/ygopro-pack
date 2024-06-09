@@ -19,7 +19,7 @@ function s.initial_effect(c)
 
     -- inflict damage
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_DAMAGE)
     e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_DELAY)
@@ -38,21 +38,11 @@ function s.initial_effect(c)
 
     -- destroy
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 2))
+    e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_DESTROY)
-    e3:SetType(EFFECT_TYPE_IGNITION)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_FIRE))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
-    local e3b = e3:Clone()
-    e3b:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3b:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e3b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
-    e3b:SetCost(aux.TRUE)
-    c:RegisterEffect(e3b)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_FIRE)
 end
 
 function s.e2con1(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsRelateToBattle() end

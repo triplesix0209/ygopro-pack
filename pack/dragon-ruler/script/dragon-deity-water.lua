@@ -30,20 +30,10 @@ function s.initial_effect(c)
 
     -- block
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetType(EFFECT_TYPE_IGNITION)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_WATER))
+    e3:SetDescription(aux.Stringid(id, 0))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
-    local e3b = e3:Clone()
-    e3b:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3b:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e3b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
-    e3b:SetCost(aux.TRUE)
-    c:RegisterEffect(e3b)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_WATER)
 end
 
 function s.e3filter(c) return c:GetFlagEffect(id) == 0 end
@@ -61,7 +51,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     Duel.HintSelection(Group.FromCards(tc))
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 2))
+    ec1:SetDescription(aux.Stringid(id, 1))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_CANNOT_TRIGGER)

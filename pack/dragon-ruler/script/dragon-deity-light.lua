@@ -21,7 +21,7 @@ function s.initial_effect(c)
 
     -- negate the effect
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_DISABLE + CATEGORY_DESTROY)
     e2:SetType(EFFECT_TYPE_QUICK_O)
     e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DAMAGE_CAL)
@@ -43,21 +43,11 @@ function s.initial_effect(c)
 
     -- shuffle
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 5))
+    e3:SetDescription(aux.Stringid(id, 4))
     e3:SetCategory(CATEGORY_TODECK)
-    e3:SetType(EFFECT_TYPE_IGNITION)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1, {id, 1})
-    e3:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), ATTRIBUTE_LIGHT))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
-    local e3b = e3:Clone()
-    e3b:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3b:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e3b:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
-    e3b:SetCost(aux.TRUE)
-    c:RegisterEffect(e3b)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_LIGHT)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
@@ -72,11 +62,11 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     local op = 0
     if re:IsMonsterEffect() then
-        op = 2
+        op = 1
     elseif re:IsSpellEffect() then
-        op = 3
+        op = 2
     elseif re:IsTrapEffect() then
-        op = 4
+        op = 3
     end
     local ec1 = Effect.CreateEffect(c)
     ec1:SetDescription(aux.Stringid(id, op))

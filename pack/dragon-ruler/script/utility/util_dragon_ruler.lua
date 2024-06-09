@@ -77,7 +77,7 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     pen_sum:SetType(EFFECT_TYPE_QUICK_O)
     pen_sum:SetCode(EVENT_FREE_CHAIN)
     pen_sum:SetRange(LOCATION_PZONE)
-    pen_sum:SetCountLimit(1, {id, 0})
+    pen_sum:SetCountLimit(1, id)
     pen_sum:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() < PHASE_END end)
     pen_sum:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local rg = Duel.GetMatchingGroup(function(c)
@@ -116,21 +116,35 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     c:RegisterEffect(pen_place)
 end
 
+function DragonRuler.RegisterDeityIgnitionEffect(c, id, effect, attribute, extra_cost)
+    local mon_ignition = effect:Clone()
+    mon_ignition:SetType(EFFECT_TYPE_IGNITION)
+    mon_ignition:SetRange(LOCATION_MZONE)
+    mon_ignition:SetCountLimit(1, {id, 1})
+    mon_ignition:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), attribute, extra_cost))
+    c:RegisterEffect(mon_ignition)
+    local pen_ignition = mon_ignition:Clone()
+    pen_ignition:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    pen_ignition:SetCode(EVENT_SPSUMMON_SUCCESS)
+    pen_ignition:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL + 1) end)
+    pen_ignition:SetCost(aux.TRUE)
+    c:RegisterEffect(pen_ignition)
+end
+
 function DragonRuler.DeityCost(question_string, attribute, extra_cost)
     return function(e, tp, eg, ep, ev, re, r, rp, chk)
-        if chk == 0 then
-            return Duel.IsExistingMatchingCard(DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, attribute, e, tp,
-                extra_cost) or Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
-        end
-
-        if Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil) and
-            not Duel.SelectEffectYesNo(tp, e:GetHandler(), question_string) then return end
-
-        Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
-        local g = Duel.SelectMatchingCard(tp, DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, attribute, e, tp,
+        local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
+        local b2 = Duel.IsExistingMatchingCard(DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, attribute, e, tp,
             extra_cost)
+        if chk == 0 then return b1 or b2 end
 
-        Duel.Remove(g, POS_FACEUP, REASON_COST)
+        if not b2 then return end
+        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), question_string) then
+            Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
+            local g = Duel.SelectMatchingCard(tp, DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, attribute, e,
+                tp, extra_cost)
+            Duel.Remove(g, POS_FACEUP, REASON_COST)
+        end
     end
 end
 

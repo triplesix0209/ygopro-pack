@@ -58,13 +58,14 @@ This card's original ATK becomes to the number of cards attached to it x 1000. \
 This card gains the original effects of all monsters attached to it. \
 The above effects cannot be negated or be copied. \
 (Quick Effect): You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
-    add all Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
-    also, place this card you control or from your Extra Deck face-up in your Pendulum Zone, \
+    add all other Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
+    also, place this card from your field, GY, or Extra Deck face-up in your Pendulum Zone, \
     then, you can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
     This effect's activation and effect cannot be negated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
+    "Pay the cost?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Move this card to another of your Main Monster Zones?",
     "Place this card in your Pendulum Zone",
@@ -141,11 +142,7 @@ If this card attacks, your opponent cannot activate cards or effects until the e
     it cannot activate its effect, also if you choose a monster, \
     it cannot change its battle position or declare an attack, and change its ATK/DEF to 0 (if it is face-up).
 """
-strings = [
-    "Pay the cost?",
-    "Block 1 card on the field",
-    "Affected by effect \"{CARD_NAME}\"",
-]
+strings = ["Block 1 card on the field", "Affected by effect \"{CARD_NAME}\""]
 
 [dragon-deity-fire]
 id = 900007005
@@ -171,7 +168,6 @@ If this card destroys a monster(s) by battle or by its effect: \
 ● Destroy 1 other card on the field.
 """
 strings = [
-    "Pay the cost?",
     "Inflict damage equal to destroyed monster's original ATK",
     "Destroy 1 card on the field",
 ]
@@ -199,7 +195,6 @@ Each time you Special Summon a monster(s) face-up, you can gain LP equal to that
 ● Special Summon 1 monster from hand or either GY to either player's field, except "{CARD_NAME}".
 """
 strings = [
-    "Pay the cost?",
     "Gain LP equal to Summoned monster's ATK?",
     "Special Summon 1 monster from hand or either GY",
     "Special Summon to your field",
@@ -230,7 +225,6 @@ Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 ● Send up to 10 cards from the top of your opponent's Deck to the GY.
 """
 strings = [
-    "Pay the cost?",
     "Draw 1 card?",
     "Send card to the GY",
     "Send 1 card from your hand, Deck, or Extra Deck to GY",
@@ -264,7 +258,6 @@ When your opponent activates a card or effect (Quick Effect): \
     and if you do, this card gains 1000 ATK for each shuffled card until the end of this turn. \
 """
 strings = [
-    "Pay the cost?",
     "Negate the effect & destroy",
     "Used \"{CARD_NAME}\"'s effect to negate Monster Card",
     "Used \"{CARD_NAME}\"'s effect to negate Spell Card",
@@ -297,7 +290,6 @@ Once per turn, you can send 1 Monster Card you control that is equipped to this 
 ● Equip 1 monster your opponent control or in either GY to this card as an Equip Spell that gives this card 1000 ATK.
 """
 strings = [
-    "Pay the cost?",
     "Send 1 equipped monster to GY to gain effects",
     "Can attack all monsters your opponent controls",
     "Equip 1 monster to this card",
