@@ -118,9 +118,11 @@ end
 
 function DragonRuler.RegisterDeityIgnitionEffect(c, id, effect, attribute, extra_cost)
     local mon_ignition = effect:Clone()
-    mon_ignition:SetType(EFFECT_TYPE_IGNITION)
+    mon_ignition:SetType(EFFECT_TYPE_QUICK_O)
+    mon_ignition:SetCode(EVENT_FREE_CHAIN)
     mon_ignition:SetRange(LOCATION_MZONE)
     mon_ignition:SetCountLimit(1, {id, 1})
+    mon_ignition:SetCondition(function(e, tp) return Duel.IsTurnPlayer(tp) end)
     mon_ignition:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), attribute, extra_cost))
     c:RegisterEffect(mon_ignition)
     local pen_ignition = mon_ignition:Clone()
