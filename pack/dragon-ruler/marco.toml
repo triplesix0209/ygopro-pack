@@ -55,8 +55,11 @@ You can Tribute this card and discard 1 Dragon monster; \
     Special Summon from your {1}, \
     1 Dragon monster with the same Attribute as the discarded monster, \
     but it cannot attack directly this turn. \
-During the Main Phase, except the turn this card was added to the Extra Deck face-up: \
+During the Main Phase, while this card is in your Extra Deck face-up, \
+    except the turn this card was added to the Extra Deck face-up: \
     You can banish 1 Dragon monster from your hand or GY; \
-    Place this face-up card from your Extra Deck in your Pendulum Zone. \
-You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn.\
+    Special Summon this card, or place it in your Pendulum Zone. \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, \
+        you can active this effect without cost. \
+You can only use each effect of "{CARD_NAME}" once per turn.\
 """

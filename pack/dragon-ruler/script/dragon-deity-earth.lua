@@ -29,7 +29,6 @@ function s.initial_effect(c)
     -- send card to GY
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetCategory(CATEGORY_TOGRAVE + CATEGORY_DECKDES)
     e3:SetCost(DragonRuler.DeityCost(ATTRIBUTE_EARTH, s.e3costextra))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
@@ -98,8 +97,10 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)})
     e:SetLabel(op)
     if op == 1 then
+        e:SetCategory(CATEGORY_TOGRAVE)
         Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 0, tp, 1)
     else
+        e:SetCategory(CATEGORY_DECKDES)
         Duel.SetOperationInfo(0, CATEGORY_DECKDES, nil, 0, 1 - tp, 1)
     end
 end
