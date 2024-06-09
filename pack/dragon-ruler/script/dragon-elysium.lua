@@ -63,9 +63,9 @@ end
 
 function s.e3filtercost(c, tp) return c:IsDiscardable() and (s.e3condition1(tp) or s.e3condition2(c, tp) or s.e3condition3(tp)) end
 
-function s.e3filter1(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
+function s.e3filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
 
-function s.e3filter2(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
+function s.e3filter2(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
 function s.e3filter3(c, tp)
     return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) and
@@ -107,10 +107,10 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local dc = e:GetLabelObject()
     local op = e:GetLabel()
     if op == 1 then
-        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter2, tp, LOCATION_DECK, 0, 1, 1, nil)
+        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
         if #g > 0 then Duel.SendtoGrave(g, REASON_EFFECT) end
     elseif op == 2 then
-        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e3filter1, tp, LOCATION_DECK, 0, 1, 1, nil, dc:GetAttribute())
+        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e3filter2, tp, LOCATION_DECK, 0, 1, 1, nil, dc:GetAttribute())
         if #g > 0 then
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
