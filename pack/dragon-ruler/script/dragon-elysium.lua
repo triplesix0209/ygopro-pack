@@ -105,7 +105,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e4filtercost(c, tp) return c:IsDiscardable() and (s.e4condition1(tp) or s.e4condition2(c, tp) or s.e4condition3(tp)) end
+function s.e4filtercost(c, tp) return c:IsDiscardable() and (s.e4condition1(tp) or s.e4condition2(tp, c) or s.e4condition3(tp) or s.e4condition4(tp)) end
 
 function s.e4filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
 
