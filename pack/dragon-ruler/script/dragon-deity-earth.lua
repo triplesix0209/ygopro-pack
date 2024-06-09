@@ -39,7 +39,7 @@ function s.e2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(Card.IsSummonP
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local val = eg:FilterCount(Card.IsSummonPlayer, nil, tp)
+    local val = eg:FilterCount(Card.IsSummonPlayer, nil, 1 - tp)
     if not Duel.IsChainSolving() then
         if val > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
             Duel.Hint(HINT_CARD, 1 - tp, id)
