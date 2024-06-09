@@ -20,6 +20,13 @@ The above effects cannot be negated or be copied. \
 If this card in the Monster Zone is destroyed: You can place it in your Pendulum Zone.\
 """
 
+DRAGON_DEITY_IGNITION_EFFECT = """\
+You can banish 1 {0} monster from your hand or GY to activate activate {1}. \
+    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, you do not pay the cost. \
+    If this card is Special Summoned by its own Pendulum Effect: You can apply the above effect. \
+    You can only use this effect of "{CARD_NAME}" once per turn.\
+"""
+
 DRAGON_DEITY_BABY_MONSTER_EFFECT = """\
 2+ Dragon monsters, including a {0} monster
 If this card is Link Summoned: \
