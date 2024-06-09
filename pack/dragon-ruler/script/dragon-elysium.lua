@@ -69,8 +69,10 @@ function s.e3filter2(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
 
 function s.e3filter3(c, tp)
     return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) and
-               Duel.IsExistingMatchingCard(Card.IsMonster, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
+               Duel.IsExistingMatchingCard(s.e3filter3material, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
 end
+
+function s.e3filter3material(c) return c:IsRace(RACE_DRAGON) end
 
 function s.e3condition1(tp) return Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_DECK, 0, 1, nil) end
 
@@ -116,8 +118,8 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     elseif op == 3 then
         local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e3filter3, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
         if sc then
-            local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsMonster, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1,
-                sc)
+            local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e3filter3material, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1,
+                1, sc)
             Duel.Overlay(sc, g)
         end
     end
