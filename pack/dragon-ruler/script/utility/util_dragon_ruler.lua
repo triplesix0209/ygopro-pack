@@ -52,7 +52,7 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     nomaterial:SetCode(EFFECT_CANNOT_BE_MATERIAL)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
-    
+
     -- control cannot switch
     local noswitch = Effect.CreateEffect(c)
     noswitch:SetType(EFFECT_TYPE_SINGLE)
@@ -316,7 +316,9 @@ function DeityCostFilter(c, attribute, e, tp, extra_cost)
                (extra_cost == nil or extra_cost(c, e, tp))
 end
 
-function DeityCostBypassFilter(c) return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) end
+function DeityCostBypassFilter(c)
+    return c:IsFaceup() and (c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) or (c:IsFieldSpell() and c:ListsCode(DragonRuler.CARD_MESSIAH_DEITY)))
+end
 
 function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
