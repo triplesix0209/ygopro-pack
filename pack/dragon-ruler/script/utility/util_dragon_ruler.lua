@@ -61,15 +61,6 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
 
-    -- cannot be target while in pendulum zone
-    local pen_untarget = Effect.CreateEffect(c)
-    pen_untarget:SetType(EFFECT_TYPE_SINGLE)
-    pen_untarget:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
-    pen_untarget:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    pen_untarget:SetRange(LOCATION_PZONE)
-    pen_untarget:SetValue(aux.tgoval)
-    c:RegisterEffect(pen_untarget)
-
     -- special summon from the pendulum zone
     local pen_sum = Effect.CreateEffect(c)
     pen_sum:SetDescription(2)
@@ -80,16 +71,20 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     pen_sum:SetCountLimit(1, id)
     pen_sum:SetCondition(function(e, tp, eg, ep, ev, re, r, rp) return Duel.GetCurrentPhase() < PHASE_END end)
     pen_sum:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
+        local c = e:GetHandler()
         local rg = Duel.GetMatchingGroup(function(c)
             return (c:IsRace(RACE_DRAGON) or c:IsAttribute(attribute)) and c:IsAbleToRemoveAsCost() and
                        (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c, true))
-        end, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, e:GetHandler())
-        if chk == 0 then
-            return Duel.GetLocationCount(tp, LOCATION_MZONE) > -2 and #rg > 1 and aux.SelectUnselectGroup(rg, e, tp, 2, 2, aux.ChkfMMZ(1), 0)
-        end
+        end, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, c)
+        local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
+        local b2 = #rg >= 2 and aux.SelectUnselectGroup(rg, e, tp, 2, 2, aux.ChkfMMZ(1), 0)
+        if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > -2 and (b1 or b2) end
 
-        local g = aux.SelectUnselectGroup(rg, e, tp, 2, 2, aux.ChkfMMZ(1), 1, tp, HINTMSG_REMOVE)
-        Duel.Remove(g, POS_FACEUP, REASON_COST)
+        if not b2 then return end
+        if not b1 or Duel.SelectEffectYesNo(tp, c, aux.Stringid(DragonRuler.CARD_MESSIAH_DEITY, 0)) then
+            local g = aux.SelectUnselectGroup(rg, e, tp, 2, 2, aux.ChkfMMZ(1), 1, tp, HINTMSG_REMOVE)
+            Duel.Remove(g, POS_FACEUP, REASON_COST)
+        end
     end)
     pen_sum:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         if chk == 0 then return e:GetHandler():IsCanBeSpecialSummoned(e, 0, tp, false, false) end
@@ -116,14 +111,13 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     c:RegisterEffect(pen_place)
 end
 
-function DragonRuler.RegisterDeityIgnitionEffect(c, id, effect, attribute, extra_cost)
+function DragonRuler.RegisterDeityIgnitionEffect(c, id, effect)
     local mon_ignition = effect:Clone()
     mon_ignition:SetType(EFFECT_TYPE_QUICK_O)
     mon_ignition:SetCode(EVENT_FREE_CHAIN)
     mon_ignition:SetRange(LOCATION_MZONE)
     mon_ignition:SetCountLimit(1, {id, 1})
     mon_ignition:SetCondition(function(e, tp) return Duel.IsTurnPlayer(tp) end)
-    mon_ignition:SetCost(DragonRuler.DeityCost(aux.Stringid(id, 0), attribute, extra_cost))
     c:RegisterEffect(mon_ignition)
     local pen_ignition = mon_ignition:Clone()
     pen_ignition:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
@@ -133,7 +127,7 @@ function DragonRuler.RegisterDeityIgnitionEffect(c, id, effect, attribute, extra
     c:RegisterEffect(pen_ignition)
 end
 
-function DragonRuler.DeityCost(question_string, attribute, extra_cost)
+function DragonRuler.DeityCost(attribute, extra_cost)
     return function(e, tp, eg, ep, ev, re, r, rp, chk)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
         local b2 = Duel.IsExistingMatchingCard(DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil, attribute, e, tp,
@@ -141,7 +135,7 @@ function DragonRuler.DeityCost(question_string, attribute, extra_cost)
         if chk == 0 then return b1 or b2 end
 
         if not b2 then return end
-        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), question_string) then
+        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), aux.Stringid(DragonRuler.CARD_MESSIAH_DEITY, 0)) then
             Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
             local g = Duel.SelectMatchingCard(tp, DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, attribute, e,
                 tp, extra_cost)

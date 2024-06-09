@@ -40,9 +40,10 @@ function s.initial_effect(c)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_DESTROY)
+    e3:SetCost(DragonRuler.DeityCost(ATTRIBUTE_FIRE))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_FIRE)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3)
 end
 
 function s.e2con1(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsRelateToBattle() end

@@ -31,9 +31,10 @@ function s.initial_effect(c)
     -- block
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 0))
+    e3:SetCost(DragonRuler.DeityCost(ATTRIBUTE_WATER))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_WATER)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3)
 end
 
 function s.e3filter(c) return c:GetFlagEffect(id) == 0 end

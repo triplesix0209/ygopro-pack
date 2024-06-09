@@ -31,9 +31,10 @@ function s.initial_effect(c)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 2))
     e3:SetCategory(CATEGORY_EQUIP)
+    e3:SetCost(DragonRuler.DeityCost(ATTRIBUTE_DARK, s.e3costextra))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_DARK, s.e3costextra)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3)
 end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)

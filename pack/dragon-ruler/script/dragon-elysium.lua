@@ -34,8 +34,8 @@ function s.initial_effect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
     e2:SetCode(EFFECT_CANNOT_DISABLE)
     e2:SetRange(LOCATION_FZONE)
-    e2:SetTargetRange(LOCATION_MZONE, 0)
-    e2:SetTarget(function(e, c) return c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) end)
+    e2:SetTargetRange(LOCATION_ONFIELD, 0)
+    e2:SetTarget(function(e, c) return (c:GetType() & TYPE_LINK) ~= 0 and (c:GetType() & TYPE_PENDULUM) ~= 0 end)
     c:RegisterEffect(e2)
     local e2b = Effect.CreateEffect(c)
     e2b:SetType(EFFECT_TYPE_FIELD)
@@ -45,8 +45,8 @@ function s.initial_effect(c)
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
         local tc = te:GetHandler()
         local p = e:GetHandler():GetControler()
-        if p ~= tp or (loc & LOCATION_MZONE) == 0 then return false end
-        return tc:IsLinkMonster() and tc:IsType(TYPE_PENDULUM)
+        if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
+        return (tc:GetType() & TYPE_LINK) ~= 0 and (tc:GetType() & TYPE_PENDULUM) ~= 0
     end)
     c:RegisterEffect(e2b)
 

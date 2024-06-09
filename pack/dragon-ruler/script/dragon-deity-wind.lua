@@ -30,9 +30,10 @@ function s.initial_effect(c)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e3:SetCost(DragonRuler.DeityCost(ATTRIBUTE_WIND, s.e3costextra))
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
-    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3, ATTRIBUTE_WIND, s.e3costextra)
+    DragonRuler.RegisterDeityIgnitionEffect(c, id, e3)
 end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(aux.FaceupFilter(Card.IsSummonPlayer, tp), 1, nil) end
