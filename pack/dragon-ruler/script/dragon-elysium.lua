@@ -74,9 +74,9 @@ end
 
 function s.e3filter3material(c) return c:IsRace(RACE_DRAGON) end
 
-function s.e3condition1(tp) return Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_DECK, 0, 1, nil) end
+function s.e3condition1(tp) return Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_DECK, 0, 1, nil) end
 
-function s.e3condition2(dc, tp) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e3filter1, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
+function s.e3condition2(dc, tp) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
 
 function s.e3condition3(tp) return Duel.IsExistingMatchingCard(s.e3filter3, tp, LOCATION_MZONE, 0, 1, nil, tp) end
 
