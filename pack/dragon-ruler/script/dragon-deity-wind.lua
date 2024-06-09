@@ -6,17 +6,15 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_WIND)
 
-    -- cannot be banished
+    -- immune spell
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE)
-    e1:SetCode(EFFECT_CANNOT_REMOVE)
+    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e1:SetCode(EFFECT_IMMUNE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(1, 1)
-    e1:SetTarget(function(e, c, tp, r)
-        if r & REASON_EFFECT == 0 then return false end
-        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM))
-    end)
+    e1:SetTargetRange(LOCATION_MZONE, 0)
+    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetValue(function(e, te) return te:IsActivated() and te:IsSpellEffect() and te:GetOwnerPlayer() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1)
 
     -- gain LP

@@ -19,22 +19,14 @@ function s.initial_effect(c)
 
     -- chain limit
     local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e2:SetCode(EVENT_CHAINING)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e2:SetCode(EFFECT_CANNOT_ACTIVATE)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        if ep == tp and re:GetHandler() == e:GetHandler() then Duel.SetChainLimit(function(_e, _rp, _tp) return _tp == _rp end) end
-    end)
+    e2:SetTargetRange(0, 1)
+    e2:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
+    e2:SetValue(1)
     c:RegisterEffect(e2)
-    local e2b = Effect.CreateEffect(c)
-    e2b:SetType(EFFECT_TYPE_FIELD)
-    e2b:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e2b:SetCode(EFFECT_CANNOT_ACTIVATE)
-    e2b:SetRange(LOCATION_MZONE)
-    e2b:SetTargetRange(0, 1)
-    e2b:SetCondition(function(e) return Duel.GetAttacker() == e:GetHandler() end)
-    e2b:SetValue(1)
-    c:RegisterEffect(e2b)
 
     -- block
     local e3 = Effect.CreateEffect(c)

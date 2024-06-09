@@ -6,28 +6,18 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_LIGHT)
 
-    -- cannot be negated
+    -- cannot be banished
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e1:SetCode(EFFECT_CANNOT_DISABLE)
+    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE)
+    e1:SetCode(EFFECT_CANNOT_REMOVE)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(LOCATION_MZONE, 0)
-    e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM)) end)
-    c:RegisterEffect(e1)
-    local e1b = Effect.CreateEffect(c)
-    e1b:SetType(EFFECT_TYPE_FIELD)
-    e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e1b:SetCode(EFFECT_CANNOT_DISEFFECT)
-    e1b:SetRange(LOCATION_MZONE)
-    e1b:SetValue(function(e, ct)
-        local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
-        local tc = te:GetHandler()
-        local p = e:GetHandler():GetControler()
-        if p ~= tp or (loc & LOCATION_MZONE) == 0 then return false end
-        return tc == e:GetHandler() or (tc:GetMutualLinkedGroupCount() > 0 and tc:IsType(TYPE_PENDULUM))
+    e1:SetTargetRange(1, 1)
+    e1:SetTarget(function(e, c, tp, r)
+        if r & REASON_EFFECT == 0 then return false end
+        return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM))
     end)
-    c:RegisterEffect(e1b)
+    c:RegisterEffect(e1)
 
     -- negate the effect
     local e2 = Effect.CreateEffect(c)

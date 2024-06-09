@@ -6,21 +6,16 @@ local s, id = GetID()
 function s.initial_effect(c)
     DragonRuler.RegisterDeityEffect(s, c, id, ATTRIBUTE_EARTH)
 
-    -- cannot be tributed, or be used as a material
+    -- immune trap
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_FIELD)
-    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE)
-    e1:SetCode(EFFECT_CANNOT_RELEASE)
+    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e1:SetCode(EFFECT_IMMUNE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetTargetRange(0, 1)
+    e1:SetTargetRange(LOCATION_MZONE, 0)
     e1:SetTarget(function(e, c) return c == e:GetHandler() or (c:GetMutualLinkedGroupCount() > 0 and c:IsType(TYPE_PENDULUM)) end)
+    e1:SetValue(function(e, te) return te:IsActivated() and te:IsTrapEffect() and te:GetOwnerPlayer() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(e1)
-    local e1b = e1:Clone()
-    e1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e1b:SetCode(EFFECT_CANNOT_BE_MATERIAL)
-    e1b:SetTargetRange(LOCATION_MZONE, 0)
-    e1b:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(e1b)
 
     -- draw
     local e2 = Effect.CreateEffect(c)

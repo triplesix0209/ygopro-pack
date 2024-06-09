@@ -7,6 +7,7 @@ While you control "Messiah, Supreme Deity of Dragons", \
     your opponent cannot target this card with card effects, \
     also it is unaffected by your opponent's card effects. \
     This effects cannot be negated. \
+The effects of Link Pendulum Monsters you control cannot be negated. \
 Once per turn: you can discard 1 card, then activate 1 of these effects;
 ● Send 1 Dragon monster from your Deck to the GY.
 ● Add 1 Level 4 or lower Dragon monster with the same Attribute as the discarded monster from your Deck to your hand.
@@ -52,6 +53,7 @@ Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
 When Special Summoned, other cards and effects cannot be activated, \
     also after that, you can move this card to another of your Main Monster Zones. \
+This card's effects cannot be negated. \
 This card's original ATK becomes to the number of cards attached to it x 1000. \
 This card gains the original effects of all monsters attached to it. \
 The above effects cannot be negated or be copied. \
@@ -133,7 +135,6 @@ effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WATER} \
 This card and co-linked Pendulum Monsters you control cannot be destroyed by battle. \
     This effect cannot be negated. \
-Your opponent cannot activate cards or effects in response to the activation of this card's effect. \
 If this card attacks, your opponent cannot activate cards or effects until the end of the Damage Step. \
 You can banish 1 WATER monster from your hand or GY; \
     choose 1 other card on the field, except a card(s) already affected by "{CARD_NAME}", \
@@ -197,7 +198,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|WIND} \
-This card and co-linked Pendulum Monsters you control cannot be banished by card effects. \
+This card and co-linked Pendulum Monsters you control are unaffected by your opponent's activated Spell Cards or effects. \
     This effect cannot be negated. \
 Each time you Special Summon a monster(s) face-up, you can gain LP equal to that monster's ATK. \
 You can banish 1 WIND monster from your hand or GY; \
@@ -230,7 +231,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|EARTH} \
-Your opponent cannot Tribute this card and co-linked Pendulum Monsters, or use them as material for an Summon. \
+This card and co-linked Pendulum Monsters you control are unaffected by your opponent's activated Trap Cards or effects. \
     This effect cannot be negated. \
 Each time your opponent Special Summons a monster(s), you can draw 1 card. \
 You can banish 1 EARTH monster from your hand or GY to activate 1 of these effects. \
@@ -265,7 +266,7 @@ pendulum-effect = """\
 """
 effect = """\
 {DRAGON_DEITY_MONSTER_EFFECT|LIGHT} \
-The effects of this card and co-linked Pendulum Monsters you control cannot be negated. \
+This card and co-linked Pendulum Monsters you control cannot be banished by card effects. \
     This effect cannot be negated. \
 When your opponent activates a card or effect (Quick Effect): \
     You can negate that effect, and if you do, destroy that card. \

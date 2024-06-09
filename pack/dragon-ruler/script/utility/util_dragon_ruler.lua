@@ -37,6 +37,22 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
     sumsafe:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     c:RegisterEffect(sumsafe)
 
+    -- cannot be tributed, be used as a material
+    local norelease = Effect.CreateEffect(c)
+    norelease:SetType(EFFECT_TYPE_FIELD)
+    norelease:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    norelease:SetCode(EFFECT_CANNOT_RELEASE)
+    norelease:SetRange(LOCATION_MZONE)
+    norelease:SetTargetRange(0, 1)
+    norelease:SetTarget(function(e, tc) return tc == e:GetHandler() end)
+    c:RegisterEffect(norelease)
+    local nomaterial = Effect.CreateEffect(c)
+    nomaterial:SetType(EFFECT_TYPE_SINGLE)
+    nomaterial:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    nomaterial:SetCode(EFFECT_CANNOT_BE_MATERIAL)
+    nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
+    c:RegisterEffect(nomaterial)
+    
     -- control cannot switch
     local noswitch = Effect.CreateEffect(c)
     noswitch:SetType(EFFECT_TYPE_SINGLE)
