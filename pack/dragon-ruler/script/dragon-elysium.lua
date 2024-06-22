@@ -116,10 +116,6 @@ function s.e4filter3a(c, tp)
                Duel.IsExistingMatchingCard(s.e4filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
 end
 
-function s.e4filter4a(c) return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) end
-
-function s.e4filter4b(c) return c:IsFaceup() and c:IsContinuousSpellTrap() end
-
 function s.e4filter3b(c) return c:IsRace(RACE_DRAGON) end
 
 function s.e4condition1(tp) return Duel.IsExistingMatchingCard(s.e4filter1, tp, LOCATION_DECK, 0, 1, nil) end
@@ -127,11 +123,6 @@ function s.e4condition1(tp) return Duel.IsExistingMatchingCard(s.e4filter1, tp, 
 function s.e4condition2(tp, dc) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e4filter2, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
 
 function s.e4condition3(tp) return Duel.IsExistingMatchingCard(s.e4filter3a, tp, LOCATION_MZONE, 0, 1, nil, tp) end
-
-function s.e4condition4(tp)
-    return Duel.IsExistingMatchingCard(s.e4filter4a, tp, LOCATION_ONFIELD, 0, 1, nil) and
-               Duel.IsExistingMatchingCard(s.e4filter4b, tp, LOCATION_ONFIELD, 0, 1, nil)
-end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filtercost, tp, LOCATION_HAND, 0, 1, nil, tp) end
@@ -143,8 +134,7 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local b1 = s.e4condition1(tp)
     local b2 = s.e4condition2(tp, dc)
     local b3 = s.e4condition3(tp)
-    local b4 = s.e4condition4(tp)
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)}, {b3, aux.Stringid(id, 3)}, {b4, aux.Stringid(id, 4)})
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)}, {b3, aux.Stringid(id, 3)})
     e:SetLabel(op)
     if op == 1 then
         e:SetCategory(CATEGORY_TOGRAVE)
@@ -176,8 +166,5 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
             local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e4filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, sc)
             Duel.Overlay(sc, g)
         end
-    elseif op == 4 then
-        local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e4filter4b, tp, LOCATION_ONFIELD, 0, 1, 1, nil)
-        if #g > 0 and c:IsRelateToEffect(e) then Duel.Overlay(c, g) end
     end
 end
