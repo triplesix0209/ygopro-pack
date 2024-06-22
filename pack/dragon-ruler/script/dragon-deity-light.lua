@@ -109,7 +109,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
         ec1:SetValue(ct * 1000)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 2)
         c:RegisterEffect(ec1)
     end
 end
