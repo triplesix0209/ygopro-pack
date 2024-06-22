@@ -50,30 +50,53 @@ function s.initial_effect(c)
     end)
     c:RegisterEffect(e2b)
 
-    -- gain effects
+    -- place
+    local e3reg = Effect.CreateEffect(c)
+    e3reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e3reg:SetCode(EVENT_CHAINING)
+    e3reg:SetRange(LOCATION_FZONE)
+    e3reg:SetOperation(aux.chainreg)
+    c:RegisterEffect(e3reg)
     local e3 = Effect.CreateEffect(c)
     e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e3:SetCode(EVENT_ADJUST)
+    e3:SetCode(EVENT_CHAIN_SOLVED)
     e3:SetRange(LOCATION_FZONE)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- discard to activate effects
+    -- gain effects
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 0))
-    e4:SetType(EFFECT_TYPE_IGNITION)
+    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e4:SetCode(EVENT_ADJUST)
     e4:SetRange(LOCATION_FZONE)
-    e4:SetCountLimit(1)
-    e4:SetTarget(s.e4tg)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
-end
 
-function s.e3filter(c) return c:IsContinuousSpellTrap() end
+    -- discard to activate effects
+    local e5 = Effect.CreateEffect(c)
+    e5:SetDescription(aux.Stringid(id, 1))
+    e5:SetType(EFFECT_TYPE_IGNITION)
+    e5:SetRange(LOCATION_FZONE)
+    e5:SetCountLimit(1)
+    e5:SetTarget(s.e5tg)
+    e5:SetOperation(s.e5op)
+    c:RegisterEffect(e5)
+end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.e3filter, nil)
+    local rc = re:GetHandler()
+    if not (rp == tp and re:IsActiveType(TYPE_CONTINUOUS) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and c:GetFlagEffect(1) > 0) then return end
+    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
+    Duel.Overlay(c, rc)
+end
+
+function s.e4filter(c) return c:IsContinuousSpellTrap() end
+
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local og = c:GetOverlayGroup():Filter(s.e4filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -105,36 +128,36 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e4filtercost(c, tp) return c:IsDiscardable() and (s.e4condition1(tp) or s.e4condition2(tp, c) or s.e4condition3(tp) or s.e4condition4(tp)) end
+function s.e5filtercost(c, tp) return c:IsDiscardable() and (s.e5condition1(tp) or s.e5condition2(tp, c) or s.e5condition3(tp) or s.e5condition4(tp)) end
 
-function s.e4filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
+function s.e5filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
 
-function s.e4filter2(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
+function s.e5filter2(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
-function s.e4filter3a(c, tp)
+function s.e5filter3a(c, tp)
     return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) and
-               Duel.IsExistingMatchingCard(s.e4filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
+               Duel.IsExistingMatchingCard(s.e5filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
 end
 
-function s.e4filter3b(c) return c:IsRace(RACE_DRAGON) end
+function s.e5filter3b(c) return c:IsRace(RACE_DRAGON) end
 
-function s.e4condition1(tp) return Duel.IsExistingMatchingCard(s.e4filter1, tp, LOCATION_DECK, 0, 1, nil) end
+function s.e5condition1(tp) return Duel.IsExistingMatchingCard(s.e5filter1, tp, LOCATION_DECK, 0, 1, nil) end
 
-function s.e4condition2(tp, dc) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e4filter2, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
+function s.e5condition2(tp, dc) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e5filter2, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
 
-function s.e4condition3(tp) return Duel.IsExistingMatchingCard(s.e4filter3a, tp, LOCATION_MZONE, 0, 1, nil, tp) end
+function s.e5condition3(tp) return Duel.IsExistingMatchingCard(s.e5filter3a, tp, LOCATION_MZONE, 0, 1, nil, tp) end
 
-function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filtercost, tp, LOCATION_HAND, 0, 1, nil, tp) end
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filtercost, tp, LOCATION_HAND, 0, 1, nil, tp) end
 
     local dc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, 1, nil):GetFirst()
     Duel.SendtoGrave(dc, REASON_COST + REASON_DISCARD)
     e:SetLabelObject(dc)
 
-    local b1 = s.e4condition1(tp)
-    local b2 = s.e4condition2(tp, dc)
-    local b3 = s.e4condition3(tp)
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 1)}, {b2, aux.Stringid(id, 2)}, {b3, aux.Stringid(id, 3)})
+    local b1 = s.e5condition1(tp)
+    local b2 = s.e5condition2(tp, dc)
+    local b3 = s.e5condition3(tp)
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)}, {b3, aux.Stringid(id, 4)})
     e:SetLabel(op)
     if op == 1 then
         e:SetCategory(CATEGORY_TOGRAVE)
@@ -147,23 +170,23 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     end
 end
 
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local dc = e:GetLabelObject()
     local op = e:GetLabel()
     if op == 1 then
-        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
+        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e5filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
         if #g > 0 then Duel.SendtoGrave(g, REASON_EFFECT) end
     elseif op == 2 then
-        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e4filter2, tp, LOCATION_DECK, 0, 1, 1, nil, dc:GetAttribute())
+        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e5filter2, tp, LOCATION_DECK, 0, 1, 1, nil, dc:GetAttribute())
         if #g > 0 then
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
         end
     elseif op == 3 then
-        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e4filter3a, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
+        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3a, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
         if sc then
-            local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e4filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, sc)
+            local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, sc)
             Duel.Overlay(sc, g)
         end
     end
