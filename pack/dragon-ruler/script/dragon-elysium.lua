@@ -136,10 +136,10 @@ function s.e5filter2(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(at
 
 function s.e5filter3a(c, tp)
     return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) and
-               Duel.IsExistingMatchingCard(s.e5filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, c)
+               Duel.IsExistingMatchingCard(s.e5filter3b, tp, LOCATION_HAND + LOCATION_EXTRA, 0, 1, c)
 end
 
-function s.e5filter3b(c) return c:IsRace(RACE_DRAGON) end
+function s.e5filter3b(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_PENDULUM) end
 
 function s.e5condition1(tp) return Duel.IsExistingMatchingCard(s.e5filter1, tp, LOCATION_DECK, 0, 1, nil) end
 
@@ -186,7 +186,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     elseif op == 3 then
         local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3a, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
         if sc then
-            local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3b, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, sc)
+            local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3b, tp, LOCATION_HAND + LOCATION_EXTRA, 0, 1, 1, sc)
             Duel.Overlay(sc, g)
         end
     end

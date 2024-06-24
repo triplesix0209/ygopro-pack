@@ -15,7 +15,7 @@ Once per turn: you can discard 1 card, then activate 1 of these effects;
 ● Send 1 Dragon monster from your Deck to the GY.
 ● Add 1 Level 4 or lower Dragon monster with the same Attribute as the discarded monster \
     from your Deck to your hand.
-● Attach 1 Dragon monster from your hand, Deck, or Extra Deck \
+● Attach 1 Dragon Pendulum Monster from your hand or Extra Deck \
     to 1 "Messiah, Supreme Deity of Dragons" in your Monster Zone.
 """
 strings = [
