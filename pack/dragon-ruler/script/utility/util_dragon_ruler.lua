@@ -3,11 +3,11 @@ if not aux.DragonRulerProcedure then aux.DragonRulerProcedure = {} end
 if not DragonRuler then DragonRuler = aux.DragonRulerProcedure end
 
 -- constant
-DragonRuler.CARD_MESSIAH_DEITY = 900007001
+DragonRuler.CARD_DRAGON_ELYSIUM = 900007000
 
 -- function
 function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
-    s.listed_names = {DragonRuler.CARD_MESSIAH_DEITY}
+    s.listed_names = {DragonRuler.CARD_DRAGON_ELYSIUM}
     s.pendulum_level = 10
     c:EnableReviveLimit()
     c:SetUniqueOnField(1, 0, id)
@@ -81,7 +81,7 @@ function DragonRuler.RegisterDeityEffect(s, c, id, attribute)
         if chk == 0 then return Duel.GetLocationCount(tp, LOCATION_MZONE) > -2 and (b1 or b2) end
 
         if not b2 then return end
-        if not b1 or Duel.SelectEffectYesNo(tp, c, aux.Stringid(DragonRuler.CARD_MESSIAH_DEITY, 0)) then
+        if not b1 or Duel.SelectEffectYesNo(tp, c, aux.Stringid(DragonRuler.CARD_DRAGON_ELYSIUM, 0)) then
             local g = aux.SelectUnselectGroup(rg, e, tp, 2, 2, aux.ChkfMMZ(1), 1, tp, HINTMSG_REMOVE)
             Duel.Remove(g, POS_FACEUP, REASON_COST)
         end
@@ -136,7 +136,7 @@ function DragonRuler.DeityCost(attribute, extra_cost)
         if chk == 0 then return b1 or b2 end
 
         if not b2 then return end
-        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), aux.Stringid(DragonRuler.CARD_MESSIAH_DEITY, 0)) then
+        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), aux.Stringid(DragonRuler.CARD_DRAGON_ELYSIUM, 0)) then
             Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
             local g = Duel.SelectMatchingCard(tp, DeityCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil, attribute, e,
                 tp, extra_cost)
@@ -203,7 +203,7 @@ function DragonRuler.RegisterDeityBabyEffect(s, c, id, attribute)
 end
 
 function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_locations)
-    s.listed_names = {DragonRuler.CARD_MESSIAH_DEITY}
+    s.listed_names = {DragonRuler.CARD_DRAGON_ELYSIUM}
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
 
@@ -306,7 +306,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
         if chk == 0 then return b1 or b2 end
 
         if not b2 then return end
-        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), aux.Stringid(DragonRuler.CARD_MESSIAH_DEITY, 0)) then
+        if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), aux.Stringid(DragonRuler.CARD_DRAGON_ELYSIUM, 0)) then
             Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_REMOVE)
             local g = Duel.SelectMatchingCard(tp, MessiahBabyPlaceCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, nil)
             Duel.Remove(g, POS_FACEUP, REASON_COST)
@@ -340,9 +340,7 @@ function DeityCostFilter(c, attribute, e, tp, extra_cost)
                (extra_cost == nil or extra_cost(c, e, tp))
 end
 
-function DeityCostBypassFilter(c)
-    return c:IsFaceup() and (c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) or (c:IsFieldSpell() and c:ListsCode(DragonRuler.CARD_MESSIAH_DEITY)))
-end
+function DeityCostBypassFilter(c) return c:IsFaceup() and c:IsOriginalCode(DragonRuler.CARD_DRAGON_ELYSIUM) end
 
 function DeityBabySearchFilter(c, attribute) return c:IsLevelBelow(7) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 

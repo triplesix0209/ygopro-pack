@@ -3,7 +3,7 @@ id = 900007000
 name = "Dragon's Elysium"
 type = "spell field"
 effect = """
-While you control "Messiah, Supreme Deity of Dragons", \
+While you control a Link Pendulum Monster Card, \
     your opponent cannot target this card with card effects, \
     also it is unaffected by your opponent's card effects. \
     This effects cannot be negated. \
@@ -19,6 +19,7 @@ Once per turn: you can discard 1 card, then activate 1 of these effects;
     to 1 "Messiah, Supreme Deity of Dragons" in your Monster Zone.
 """
 strings = [
+    "Pay the cost?",
     "Place the activated card underneath this card?",
     "Discard to activate effect",
     "Send 1 Dragon to the GY",
@@ -70,7 +71,6 @@ The above effects cannot be negated or be copied. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Pay the cost?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Move this card to another of your Main Monster Zones?",
     "Place this card in your Pendulum Zone",

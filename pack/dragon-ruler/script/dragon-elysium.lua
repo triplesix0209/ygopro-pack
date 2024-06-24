@@ -3,8 +3,6 @@ Duel.LoadScript("util.lua")
 Duel.LoadScript("util_dragon_ruler.lua")
 local s, id = GetID()
 
-s.listed_names = {DragonRuler.CARD_MESSIAH_DEITY}
-
 function s.initial_effect(c)
     -- activate
     local act = Effect.CreateEffect(c)
@@ -19,8 +17,9 @@ function s.initial_effect(c)
     e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     e1:SetRange(LOCATION_FZONE)
     e1:SetCondition(function(e)
-        return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, DragonRuler.CARD_MESSIAH_DEITY), e:GetHandlerPlayer(), LOCATION_ONFIELD, 0,
-            1, nil)
+        return Duel.IsExistingMatchingCard(function(c)
+            return c:IsFaceup() and (c:GetType() & TYPE_LINK) ~= 0 and (c:GetType() & TYPE_PENDULUM) ~= 0
+        end, e:GetHandlerPlayer(), LOCATION_ONFIELD, 0, 1, nil)
     end)
     e1:SetValue(aux.tgoval)
     c:RegisterEffect(e1)
@@ -75,7 +74,7 @@ function s.initial_effect(c)
 
     -- discard to activate effects
     local e5 = Effect.CreateEffect(c)
-    e5:SetDescription(aux.Stringid(id, 1))
+    e5:SetDescription(aux.Stringid(id, 2))
     e5:SetType(EFFECT_TYPE_IGNITION)
     e5:SetRange(LOCATION_FZONE)
     e5:SetCountLimit(1)
@@ -88,7 +87,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local rc = re:GetHandler()
     if not (rp == tp and re:IsActiveType(TYPE_CONTINUOUS) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and c:GetFlagEffect(1) > 0) then return end
-    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
+    if not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
     Duel.Overlay(c, rc)
 end
 
@@ -157,7 +156,7 @@ function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local b1 = s.e5condition1(tp)
     local b2 = s.e5condition2(tp, dc)
     local b3 = s.e5condition3(tp)
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 2)}, {b2, aux.Stringid(id, 3)}, {b3, aux.Stringid(id, 4)})
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)}, {b3, aux.Stringid(id, 5)})
     e:SetLabel(op)
     if op == 1 then
         e:SetCategory(CATEGORY_TOGRAVE)

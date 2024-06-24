@@ -73,7 +73,7 @@ function s.initial_effect(c)
     sp_success:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
-        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
+        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
             Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOZONE)
             local s = Duel.SelectDisableField(tp, 1, LOCATION_MZONE, 0, 0)
             local seq = math.log(s, 2)
@@ -111,7 +111,7 @@ function s.initial_effect(c)
 
     -- time skip
     local pe3 = Effect.CreateEffect(c)
-    pe3:SetDescription(aux.Stringid(id, 1))
+    pe3:SetDescription(aux.Stringid(id, 0))
     pe3:SetCategory(CATEGORY_TOEXTRA)
     pe3:SetType(EFFECT_TYPE_QUICK_O)
     pe3:SetCode(EVENT_FREE_CHAIN)
@@ -161,7 +161,7 @@ function s.initial_effect(c)
 
     -- place in pendulum zone
     local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(aux.Stringid(id, 3))
+    me4:SetDescription(aux.Stringid(id, 2))
     me4:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
     me4:SetType(EFFECT_TYPE_QUICK_O)
     me4:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
@@ -319,7 +319,7 @@ function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 
     if c:IsRelateToEffect(e) and c:IsFaceup() and Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) and
-        Duel.IsExistingMatchingCard(s.me4filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 4)) then
+        Duel.IsExistingMatchingCard(s.me4filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
         Duel.BreakEffect()
         local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me4filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
         if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end

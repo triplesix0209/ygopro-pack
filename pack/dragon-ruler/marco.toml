@@ -2,8 +2,7 @@ DRAGON_DEITY_PENDULUM_EFFECT = """\
 During either player's turn, except the End Phase (Quick Effect): \
     You can banish 2 {0} and/or Dragon monsters from your hand and/or GY; \
     Special Summon this card from the Pendulum Zone. \
-    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, \
-        you can active this effect without cost. \
+    If you control a card whose original name is "Dragon's Elysium", you can active this effect without cost. \
     You can only use this effect of "{CARD_NAME}" once per turn.\
 """
 
@@ -23,8 +22,7 @@ If this card in the Monster Zone is destroyed: You can place it in your Pendulum
 DRAGON_DEITY_IGNITION_EFFECT = """\
 During your turn (Quick Effect): \
     You can banish 1 {0} monster from your hand or GY to activate activate {1}. \
-    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, \
-        you can active this effect without cost. \
+    If you control a card whose original name is "Dragon's Elysium", you can active this effect without cost. \
     If this card is Special Summoned by its own Pendulum Effect: You can apply this effect. \
     You can only use this effect of "{CARD_NAME}" once per turn.\
 """
@@ -58,7 +56,6 @@ You can Tribute this card and discard 1 Dragon monster; \
 During the Main Phase, while this card is in your Extra Deck face-up: \
     You can banish 1 Dragon monster from your hand or GY; \
     Special Summon this card, or place it in your Pendulum Zone. \
-    If you control \"Messiah, Supreme Deity of Dragons\" or a Field Spell that mentions it, \
-        you can active this effect without cost. \
+    If you control a card whose original name is "Dragon's Elysium", you can active this effect without cost. \
 You can only use each effect of "{CARD_NAME}" once per turn.\
 """
