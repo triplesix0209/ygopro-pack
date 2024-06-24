@@ -139,7 +139,7 @@ function s.e5filter3a(c, tp)
                Duel.IsExistingMatchingCard(s.e5filter3b, tp, LOCATION_HAND + LOCATION_EXTRA, 0, 1, c)
 end
 
-function s.e5filter3b(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_PENDULUM) end
+function s.e5filter3b(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_PENDULUM) and (not c:IsLocation(LOCATION_EXTRA) or c:IsFaceup()) end
 
 function s.e5condition1(tp) return Duel.IsExistingMatchingCard(s.e5filter1, tp, LOCATION_DECK, 0, 1, nil) end
 
