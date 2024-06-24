@@ -300,7 +300,6 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, attributes, search_loca
     me3:SetType(EFFECT_TYPE_IGNITION)
     me3:SetRange(LOCATION_EXTRA)
     me3:SetCountLimit(1, {id, 2})
-    me3:SetCondition(aux.exccon)
     me3:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
         local b2 = Duel.IsExistingMatchingCard(MessiahBabyPlaceCostFilter, tp, LOCATION_HAND + LOCATION_MZONE + LOCATION_GRAVE, 0, 1, nil)
