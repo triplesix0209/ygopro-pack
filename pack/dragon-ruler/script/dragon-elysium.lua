@@ -185,6 +185,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
         end
     elseif op == 3 then
         local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3a, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
+        Duel.HintSelection(Group.FromCards(sc))
         if sc then
             local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3b, tp, LOCATION_HAND + LOCATION_EXTRA, 0, 1, 1, sc)
             Duel.Overlay(sc, g)
