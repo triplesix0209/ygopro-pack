@@ -127,24 +127,15 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e5filtercost(c, tp) return c:IsDiscardable() and (s.e5condition1(tp) or s.e5condition2(tp, c) or s.e5condition3(tp) or s.e5condition4(tp)) end
+function s.e5filtercost(c, tp) return c:IsDiscardable() and (s.e5condition1(tp) or s.e5condition2(tp, c)) end
 
 function s.e5filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
 
 function s.e5filter2(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
 
-function s.e5filter3a(c, tp)
-    return c:IsFaceup() and c:IsCode(DragonRuler.CARD_MESSIAH_DEITY) and
-               Duel.IsExistingMatchingCard(s.e5filter3b, tp, LOCATION_HAND + LOCATION_EXTRA, 0, 1, c)
-end
-
-function s.e5filter3b(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_PENDULUM) and (not c:IsLocation(LOCATION_EXTRA) or c:IsFaceup()) end
-
 function s.e5condition1(tp) return Duel.IsExistingMatchingCard(s.e5filter1, tp, LOCATION_DECK, 0, 1, nil) end
 
 function s.e5condition2(tp, dc) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e5filter2, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
-
-function s.e5condition3(tp) return Duel.IsExistingMatchingCard(s.e5filter3a, tp, LOCATION_MZONE, 0, 1, nil, tp) end
 
 function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filtercost, tp, LOCATION_HAND, 0, 1, nil, tp) end
@@ -155,8 +146,7 @@ function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
 
     local b1 = s.e5condition1(tp)
     local b2 = s.e5condition2(tp, dc)
-    local b3 = s.e5condition3(tp)
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)}, {b3, aux.Stringid(id, 5)})
+    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)})
     e:SetLabel(op)
     if op == 1 then
         e:SetCategory(CATEGORY_TOGRAVE)
@@ -181,13 +171,6 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
         if #g > 0 then
             Duel.SendtoHand(g, nil, REASON_EFFECT)
             Duel.ConfirmCards(1 - tp, g)
-        end
-    elseif op == 3 then
-        local sc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3a, tp, LOCATION_MZONE, 0, 1, 1, nil, tp):GetFirst()
-        Duel.HintSelection(Group.FromCards(sc))
-        if sc then
-            local g = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter3b, tp, LOCATION_HAND + LOCATION_EXTRA, 0, 1, 1, sc)
-            Duel.Overlay(sc, g)
         end
     end
 end
