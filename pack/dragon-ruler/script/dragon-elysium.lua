@@ -90,7 +90,7 @@ function s.e1filter(c) return c:IsContinuousSpellTrap() end
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_DECK, 0, nil)
-    if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then return end
+    if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
     local tc = Utility.GroupSelect(g, tp, 1, nil, HINTMSG_SELECT):GetFirst()
     if tc then Duel.Overlay(c, tc) end
 end
