@@ -3,6 +3,9 @@ id = 900007000
 name = "Dragon's Elysium"
 type = "spell field"
 effect = """
+You can only activate 1 "{CARD_NAME}" per turn. \
+When this card is activated: \
+    you can place 1 Continuous Spell/Trap from your Deck underneath this card. \
 While you control a Link Pendulum Monster Card, \
     your opponent cannot target this card with card effects, \
     also it is unaffected by your opponent's card effects. \
@@ -18,10 +21,10 @@ Once per turn: you can discard 1 card, then activate 1 of these effects;
 """
 strings = [
     "Pay the cost?",
-    "Place the activated card underneath this card?",
+    "Place a Continuous Spell/Trap underneath this card?",
     "Discard to activate effect",
     "Send 1 Dragon to the GY",
-    "Add 1 Level 4 or lower Dragon"
+    "Add 1 Level 4 or lower Dragon",
 ]
 
 [messiah-deity]
