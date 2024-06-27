@@ -91,7 +91,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_DECK, 0, nil)
     if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
-    local tc = Utility.GroupSelect(g, tp, 1, 1, HINTMSG_SELECT):GetFirst()
+    local tc = Utility.GroupSelect(HINTMSG_SELECT, g, tp):GetFirst()
     if tc then Duel.Overlay(c, tc) end
 end
 
