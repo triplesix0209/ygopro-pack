@@ -87,18 +87,17 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
-        LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, nil)
     if chk == 0 then return #g > 0 end
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, 1, PLAYER_ALL, LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED)
+    Duel.SetOperationInfo(0, CATEGORY_TODECK, g, 1, PLAYER_ALL, LOCATION_GRAVE + LOCATION_REMOVED)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
-        LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
-    local max = math.min(Duel.TossDice(tp, 1), #g)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, nil)
+    local max = #g
+    if max == 0 then return end
+    if max > 6 then max = 6 end
     local tg = Utility.GroupSelect(HINTMSG_TODECK, g, tp, 1, max)
     if #tg == 0 then return end
     Duel.HintSelection(tg)
@@ -108,7 +107,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(ct * 1000)
+        ec1:SetValue(ct * 500)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 2)
         c:RegisterEffect(ec1)
     end

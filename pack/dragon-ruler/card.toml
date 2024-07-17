@@ -259,15 +259,16 @@ When your opponent activates a card or effect (Quick Effect): \
     You can negate that effect, and if you do, destroy that card. \
     You can only activate this effect of "{CARD_NAME}" in response to each card type (Monster, Spell, or Trap) once per turn. \
 {DRAGON_DEITY_IGNITION_EFFECT|LIGHT|the following effect}
-● Roll a six-sided die, shuffle other cards on the fields, GYs, and banishments into the Decks, up to the result, \
-    and if you do, this card gains 1000 ATK for each shuffled card until the end of the next turn. \
+● Shuffle up to 6 cards in the GYs, and banishments into the Decks, \
+    and if you do, this card gains 500 ATK for each shuffled card until the end of the next turn.
 """
 strings = [
     "Negate the effect & destroy",
     "Used \"{CARD_NAME}\"'s effect to negate Monster Card",
     "Used \"{CARD_NAME}\"'s effect to negate Spell Card",
     "Used \"{CARD_NAME}\"'s effect to negate Trap Card",
-    "Roll a die and shuffle cards into the Decks",
+    "Shuffle cards into the Decks",
+    "Declare a number of cards to shuffle",
 ]
 
 [dragon-deity-dark]
