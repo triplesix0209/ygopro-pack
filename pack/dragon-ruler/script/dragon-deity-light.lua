@@ -97,7 +97,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_GRAVE + LOCATION_REMOVED, LOCATION_GRAVE + LOCATION_REMOVED, nil)
     local max = #g
     if max == 0 then return end
-    if max > 6 then max = 6 end
+    if max > 5 then max = 5 end
     local tg = Utility.GroupSelect(HINTMSG_TODECK, g, tp, 1, max)
     if #tg == 0 then return end
     Duel.HintSelection(tg)
