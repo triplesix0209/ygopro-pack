@@ -68,21 +68,20 @@ strings = [
 
 [messiah-origin]
 id = 900007002
-name = "Messiah, Origin Deity of Dragons"
+name = "Origin Messiah of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
 link = 2
 link-arrow = "right bottom-right"
 scale = 0
-atk = 0
+atk = 1000
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
-Pendulum Summons of your Dragon monsters cannot be negated. \
 """
 effect = """\
 2 non-Link Dragon monsters
-{MESSIAH_BABY_MONSTER_EFFECT|hand} \
+{MESSIAH_BABY_MONSTER_EFFECT|hand}. \
 """
 strings = [
     "Add to Extra Deck",
@@ -92,24 +91,46 @@ strings = [
 
 [messiah-genesis]
 id = 900007003
-name = "Messiah, Genesis Deity of Dragons"
+name = "Genesis Messiah of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
 link = 2
 link-arrow = "left bottom-left"
 scale = 13
-atk = 0
+atk = 1000
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
-Your opponent cannot activate a Spell/Trap Card, or monster effect, when your Dragon monster(s) is Pendulum Summoned. \
 """
 effect = """\
 2 non-Link Dragon monsters
-{MESSIAH_BABY_MONSTER_EFFECT|GY} \
+{MESSIAH_BABY_MONSTER_EFFECT|GY}. \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
     "Special Summon a Dragon from GY",
+]
+
+[messiah-newborn]
+id = 900007004
+name = "Newborn Messiah of Dragons"
+type = "monster link pendulum effect"
+attribute = "divine"
+race = "divine-beast"
+link = 3
+link-arrow = "top-left top-right bottom"
+scale = 5
+atk = 2000
+pendulum-effect = """\
+{MESSIAH_BABY_PENDULUM_EFFECT} \
+"""
+effect = """\
+2+ non-Link Dragon monsters
+{MESSIAH_BABY_MONSTER_EFFECT|Deck or Extra Deck} and it has been properly Summoned. \
+"""
+strings = [
+    "Add to Extra Deck",
+    "Place in Pendulum Zone",
+    "Special Summon a Dragon from Extra Deck",
 ]

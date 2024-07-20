@@ -23,7 +23,7 @@ function DragonRuler.DeityCost(attribute, extra_cost)
     end
 end
 
-function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
+function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, complete_procedure)
     s.listed_names = {DragonRuler.CARD_MESSIAH_ELYSIUM}
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
@@ -57,6 +57,16 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
         Duel.SendtoExtraP(e:GetHandler(), tp, REASON_EFFECT)
     end)
     c:RegisterEffect(pe2)
+
+    -- cannot disable pendulum summon
+    local pe3 = Effect.CreateEffect(c)
+    pe3:SetType(EFFECT_TYPE_FIELD)
+    pe3:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
+    pe3:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
+    pe3:SetRange(LOCATION_PZONE)
+    pe3:SetTargetRange(1, 0)
+    pe3:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsRace(RACE_DRAGON) end)
+    c:RegisterEffect(pe3)
 
     -- special summon or place in pendulum zone
     local me1 = Effect.CreateEffect(c)
@@ -106,7 +116,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
     me2:SetRange(LOCATION_MZONE)
     me2:SetCountLimit(1, {id, 2})
     me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        local zone = aux.GetMMZonesPointedTo(tp)
+        local zone = GetZonesPointedTo(tp)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
         local b2 = Duel.IsExistingMatchingCard(MessiahBabyCostFilter, tp, LOCATION_HAND + LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil,
             sp_target_location, e, tp, zone)
@@ -121,7 +131,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        local zone = aux.GetMMZonesPointedTo(tp)
+        local zone = GetZonesPointedTo(tp)
         if chk == 0 then
             return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, nil, e, tp, zone)
         end
@@ -130,7 +140,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-        local zone = aux.GetMMZonesPointedTo(tp)
+        local zone = GetZonesPointedTo(tp)
         if zone <= 0 then return end
         local tc =
             Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, 1, nil, e, tp, zone):GetFirst()
@@ -144,6 +154,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
             ec1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
             ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE | PHASE_END)
             tc:RegisterEffect(ec1)
+            if complete_procedure then tc:CompleteProcedure() end
         end
     end)
     c:RegisterEffect(me2)
@@ -158,4 +169,14 @@ end
 
 function MessiahBabyTargetFilter(c, e, tp, zone)
     return c:IsRace(RACE_DRAGON) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone)
+end
+
+function GetZonesPointedToFilter(c, f, ...) return c:IsFaceup() and c:IsType(TYPE_LINK) and (not f or f(c, ...)) end
+
+function GetZonesPointedTo(player, by_filter, player_location, oppo_location, target_player, ...)
+    local loc1 = player_location == nil and LOCATION_MZONE or player_location
+    local loc2 = oppo_location == nil and loc1 or oppo_location
+    target_player = target_player == nil and player or target_player
+    return Duel.GetMatchingGroup(GetZonesPointedToFilter, player, loc1, loc2, nil, by_filter, ...):GetLinkedZone(target_player) &
+               (ZONES_MMZ | ZONES_EMZ)
 end
