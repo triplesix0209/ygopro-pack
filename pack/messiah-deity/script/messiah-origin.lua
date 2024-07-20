@@ -1,10 +1,14 @@
 -- Messiah, Origin Deity of Dragons
 Duel.LoadScript("util.lua")
-Duel.LoadScript("util_dragon_ruler.lua")
+Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    DragonRuler.RegisterMessiahBabyEffect(s, c, id, ATTRIBUTE_WATER + ATTRIBUTE_WIND + ATTRIBUTE_LIGHT, LOCATION_HAND + LOCATION_DECK)
+    DragonRuler.RegisterMessiahBabyEffect(s, c, id, LOCATION_HAND)
+    
+    -- link summon
+    Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsType(TYPE_LINK, sc, sumtype, tp) end,
+        2, 2)
 
     -- cannot disable pendulum summon
     local pe1 = Effect.CreateEffect(c)

@@ -18,7 +18,7 @@ packs = [
     "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
-    "./pack/dragon-ruler",
+    "./pack/messiah-deity",
 ]
 
 skip_compile_packs = [
@@ -36,5 +36,5 @@ skip_compile_packs = [
     "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
-    # "./pack/dragon-ruler",
+    # "./pack/messiah-deity",
 ]

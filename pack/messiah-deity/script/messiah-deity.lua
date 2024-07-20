@@ -1,6 +1,6 @@
 -- Messiah, Supreme Deity of Dragons
 Duel.LoadScript("util.lua")
-Duel.LoadScript("util_dragon_ruler.lua")
+Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)

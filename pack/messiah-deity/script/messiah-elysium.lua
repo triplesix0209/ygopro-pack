@@ -1,6 +1,6 @@
--- Dragon's Elysium
+-- Messiah's Elysium
 Duel.LoadScript("util.lua")
-Duel.LoadScript("util_dragon_ruler.lua")
+Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
@@ -73,16 +73,6 @@ function s.initial_effect(c)
     e5:SetRange(LOCATION_FZONE)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
-
-    -- discard to activate effects
-    local e6 = Effect.CreateEffect(c)
-    e6:SetDescription(aux.Stringid(id, 2))
-    e6:SetType(EFFECT_TYPE_IGNITION)
-    e6:SetRange(LOCATION_FZONE)
-    e6:SetCountLimit(1)
-    e6:SetTarget(s.e6tg)
-    e6:SetOperation(s.e6op)
-    c:RegisterEffect(e6)
 end
 
 function s.e1filter(c) return c:IsContinuousSpellTrap() end
@@ -135,54 +125,6 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
             end)
             reset:SetReset(RESET_EVENT + RESETS_STANDARD)
             c:RegisterEffect(reset, true)
-        end
-    end
-end
-
-function s.e6filtercost(c, tp) return c:IsDiscardable() and (s.e6condition1(tp) or s.e6condition2(tp, c)) end
-
-function s.e6filter1(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToGrave() end
-
-function s.e6filter2(c, attribute) return c:IsLevelBelow(4) and c:IsAttribute(attribute) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand() end
-
-function s.e6condition1(tp) return Duel.IsExistingMatchingCard(s.e6filter1, tp, LOCATION_DECK, 0, 1, nil) end
-
-function s.e6condition2(tp, dc) return dc:IsMonster() and Duel.IsExistingMatchingCard(s.e6filter2, tp, LOCATION_DECK, 0, 1, nil, dc:GetAttribute()) end
-
-function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e6filtercost, tp, LOCATION_HAND, 0, 1, nil, tp) end
-
-    local dc = Utility.SelectMatchingCard(HINTMSG_DISCARD, tp, Card.IsDiscardable, tp, LOCATION_HAND, 0, 1, 1, nil):GetFirst()
-    Duel.SendtoGrave(dc, REASON_COST + REASON_DISCARD)
-    e:SetLabelObject(dc)
-
-    local b1 = s.e6condition1(tp)
-    local b2 = s.e6condition2(tp, dc)
-    local op = Duel.SelectEffect(tp, {b1, aux.Stringid(id, 3)}, {b2, aux.Stringid(id, 4)})
-    e:SetLabel(op)
-    if op == 1 then
-        e:SetCategory(CATEGORY_TOGRAVE)
-        Duel.SetOperationInfo(0, CATEGORY_TOGRAVE, nil, 1, tp, LOCATION_DECK)
-    elseif op == 2 then
-        e:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
-        Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
-    else
-        e:SetCategory(0)
-    end
-end
-
-function s.e6op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local dc = e:GetLabelObject()
-    local op = e:GetLabel()
-    if op == 1 then
-        local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e6filter1, tp, LOCATION_DECK, 0, 1, 1, nil)
-        if #g > 0 then Duel.SendtoGrave(g, REASON_EFFECT) end
-    elseif op == 2 then
-        local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e6filter2, tp, LOCATION_DECK, 0, 1, 1, nil, dc:GetAttribute())
-        if #g > 0 then
-            Duel.SendtoHand(g, nil, REASON_EFFECT)
-            Duel.ConfirmCards(1 - tp, g)
         end
     end
 end
