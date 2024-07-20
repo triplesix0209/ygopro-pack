@@ -42,11 +42,13 @@ During either player's turn, except the turn this card was placed Pendulum Zones
 effect = """\
 Cannot be Link Summoned. \
 Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) \
-    by Tributing 3 Link Pendulum Monsters. \
+    by overlaying 3 Link Pendulum Monsters. \
     You can only Special Summon "{CARD_NAME}" once per turn this way, \
     except the turn this card was placed Pendulum Zones. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
+When Special Summoned, other cards and effects cannot be activated, \
+    also after that, you can move this card to another of your Main Monster Zones. \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
 Unaffected by other card effects. \
@@ -61,6 +63,7 @@ The above effects cannot be negated or be copied. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
+    "Move this card to another of your Main Monster Zones?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",

@@ -23,7 +23,7 @@ function DragonRuler.DeityCost(attribute, extra_cost)
     end
 end
 
-function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, complete_procedure)
+function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, sp_from_extra)
     s.listed_names = {DragonRuler.CARD_MESSIAH_ELYSIUM}
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
@@ -116,7 +116,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, com
     me2:SetRange(LOCATION_MZONE)
     me2:SetCountLimit(1, {id, 2})
     me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        local zone = GetZonesPointedTo(tp)
+        local zone = sp_from_extra and aux.GetMMZonesPointedTo(tp) or GetZonesPointedTo(tp)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
         local b2 = Duel.IsExistingMatchingCard(MessiahBabyCostFilter, tp, LOCATION_HAND + LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil,
             sp_target_location, e, tp, zone)
@@ -131,7 +131,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, com
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        local zone = GetZonesPointedTo(tp)
+        local zone = sp_from_extra and aux.GetMMZonesPointedTo(tp) or GetZonesPointedTo(tp)
         if chk == 0 then
             return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, nil, e, tp, zone)
         end
@@ -140,7 +140,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, com
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-        local zone = GetZonesPointedTo(tp)
+        local zone = sp_from_extra and aux.GetMMZonesPointedTo(tp) or GetZonesPointedTo(tp)
         if zone <= 0 then return end
         local tc =
             Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, 1, nil, e, tp, zone):GetFirst()
@@ -154,7 +154,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, com
             ec1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
             ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE | PHASE_END)
             tc:RegisterEffect(ec1)
-            if complete_procedure then tc:CompleteProcedure() end
+            if sp_from_extra then tc:CompleteProcedure() end
         end
     end)
     c:RegisterEffect(me2)
