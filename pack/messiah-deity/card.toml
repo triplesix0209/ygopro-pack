@@ -33,7 +33,7 @@ race = "creator-god"
 link = 7
 link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
 scale = 13
-atk = 5000
+atk = 4000
 pendulum-effect = """\
 Cannot be targeted by card effects, also unaffected by other card effects. \
     The above effects cannot be negated. \
