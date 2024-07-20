@@ -5,19 +5,22 @@ type = "spell field"
 effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: \
-    you can place 1 Continuous Spell/Trap from your Deck underneath this card. \
+    you can place 1 Field Spell from your hand, Deck or GY underneath this card, \
+    except "{CARD_NAME}". \
 While you control a Link Pendulum Monster Card, \
     your opponent cannot target this card with card effects, \
     also it is unaffected by your opponent's card effects. \
     This effects cannot be negated. \
-The effects of Link Pendulum Monster Cards you control cannot be negated. \
 If you activated a Continuous Spell/Trap, \
     you can place that card underneath this card when that card resolves. \
-This card gains the original effects of all Continuous Spell/Trap underneath it. \
+This card gains the original effects of all Field Spells and Continuous Spell/Trap(s) underneath it. \
+Thrice per turn: You can target 1 face-up monster you control; \
+    move that monster you control to another of your Main Monster Zones. \
 """
 strings = [
     "Pay the cost?",
     "Place a Continuous Spell/Trap underneath this card?",
+    "Move monster to another of your Main Monster Zones",
 ]
 
 [messiah-deity]
@@ -78,7 +81,7 @@ type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
 link = 2
-link-arrow = "right bottom-right"
+link-arrow = "left bottom-right"
 scale = 0
 atk = 1000
 pendulum-effect = """\
@@ -101,7 +104,7 @@ type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
 link = 2
-link-arrow = "left bottom-left"
+link-arrow = "right bottom-left"
 scale = 13
 atk = 1000
 pendulum-effect = """\

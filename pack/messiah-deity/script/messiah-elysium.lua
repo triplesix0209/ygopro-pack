@@ -30,63 +30,52 @@ function s.initial_effect(c)
     e2b:SetValue(function(e, te) return e:GetOwnerPlayer() ~= te:GetOwnerPlayer() end)
     c:RegisterEffect(e2b)
 
-    -- cannot be negated
-    local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD)
-    e3:SetCode(EFFECT_CANNOT_DISABLE)
-    e3:SetRange(LOCATION_FZONE)
-    e3:SetTargetRange(LOCATION_ONFIELD, 0)
-    e3:SetTarget(function(e, c) return (c:GetType() & TYPE_LINK) ~= 0 and (c:GetType() & TYPE_PENDULUM) ~= 0 end)
-    c:RegisterEffect(e3)
-    local e3b = Effect.CreateEffect(c)
-    e3b:SetType(EFFECT_TYPE_FIELD)
-    e3b:SetCode(EFFECT_CANNOT_DISEFFECT)
-    e3b:SetRange(LOCATION_FZONE)
-    e3b:SetValue(function(e, ct)
-        local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
-        if not te then return false end
-        local tc = te:GetHandler()
-        local p = e:GetHandler():GetControler()
-        if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end
-        return (tc:GetType() & TYPE_LINK) ~= 0 and (tc:GetType() & TYPE_PENDULUM) ~= 0
-    end)
-    c:RegisterEffect(e3b)
-
     -- place
-    local e4reg = Effect.CreateEffect(c)
-    e4reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e4reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-    e4reg:SetCode(EVENT_CHAINING)
-    e4reg:SetRange(LOCATION_FZONE)
-    e4reg:SetOperation(aux.chainreg)
-    c:RegisterEffect(e4reg)
+    local e3reg = Effect.CreateEffect(c)
+    e3reg:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3reg:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+    e3reg:SetCode(EVENT_CHAINING)
+    e3reg:SetRange(LOCATION_FZONE)
+    e3reg:SetOperation(aux.chainreg)
+    c:RegisterEffect(e3reg)
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetCode(EVENT_CHAIN_SOLVED)
+    e3:SetRange(LOCATION_FZONE)
+    e3:SetOperation(s.e3op)
+    c:RegisterEffect(e3)
+
+    -- gain effects
     local e4 = Effect.CreateEffect(c)
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e4:SetCode(EVENT_CHAIN_SOLVED)
+    e4:SetCode(EVENT_ADJUST)
     e4:SetRange(LOCATION_FZONE)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- gain effects
+    -- move to another zone
     local e5 = Effect.CreateEffect(c)
-    e5:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    e5:SetCode(EVENT_ADJUST)
+    e5:SetDescription(aux.Stringid(id, 2))
+    e5:SetType(EFFECT_TYPE_IGNITION)
+    e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e5:SetRange(LOCATION_FZONE)
+    e5:SetCountLimit(3)
+    e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
 end
 
-function s.e1filter(c) return c:IsContinuousSpellTrap() end
+function s.e1filter(c) return not c:IsCode(id) and c:IsFieldSpell() end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_DECK, 0, nil)
+    local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, nil)
     if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
     local tc = Utility.GroupSelect(HINTMSG_SELECT, g, tp):GetFirst()
     if tc then Duel.Overlay(c, tc) end
 end
 
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local rc = re:GetHandler()
     if not (rp == tp and re:IsActiveType(TYPE_CONTINUOUS) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and c:GetFlagEffect(1) > 0) then return end
@@ -94,11 +83,11 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Overlay(c, rc)
 end
 
-function s.e5filter(c) return c:IsContinuousSpellTrap() end
+function s.e4filter(c) return c:IsFieldSpell() or c:IsContinuousSpellTrap() end
 
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.e5filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.e4filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -128,4 +117,25 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
             c:RegisterEffect(reset, true)
         end
     end
+end
+
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then
+        return Duel.IsExistingTarget(Card.IsFaceup, tp, LOCATION_MZONE, 0, 1, nil) and
+                   Duel.GetLocationCount(tp, LOCATION_MZONE, tp, LOCATION_REASON_CONTROL) > 0
+    end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TARGET)
+    Duel.SelectTarget(tp, Card.IsFaceup, tp, LOCATION_MZONE, 0, 1, 1, nil)
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local tc = Duel.GetFirstTarget()
+    if not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) or tc:IsControler(1 - tp) or
+        Duel.GetLocationCount(tp, LOCATION_MZONE, tp, LOCATION_REASON_CONTROL) == 0 then return end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOZONE)
+    local s = Duel.SelectDisableField(tp, 1, LOCATION_MZONE, 0, 0)
+    local nseq = math.log(s, 2)
+    Duel.MoveSequence(tc, nseq)
 end

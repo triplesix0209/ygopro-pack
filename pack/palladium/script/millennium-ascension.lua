@@ -189,7 +189,7 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Overlay(c, g) end
 end
 
-function s.e6filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
+function s.e6filter(c) return c:IsFieldSpell() or c:IsContinuousSpellTrap() end
 
 function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
