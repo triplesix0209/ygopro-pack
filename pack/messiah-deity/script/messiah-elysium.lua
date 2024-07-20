@@ -27,7 +27,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
     local e2b = e2:Clone()
     e2b:SetCode(EFFECT_IMMUNE_EFFECT)
-    e2b:SetValue(function(e, te) return e:GetOwnerPlayer() ~= te:GetOwnerPlayer() end)
+    e2b:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
     c:RegisterEffect(e2b)
 
     -- place
