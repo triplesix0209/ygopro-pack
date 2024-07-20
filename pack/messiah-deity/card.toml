@@ -121,7 +121,7 @@ race = "divine-beast"
 link = 3
 link-arrow = "top-left top-right bottom"
 scale = 5
-atk = 1000
+atk = 2000
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
