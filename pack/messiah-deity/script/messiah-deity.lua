@@ -132,29 +132,22 @@ function s.initial_effect(c)
     me1:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
     c:RegisterEffect(me1)
 
-    -- atk value & gain effect
-    local me2 = Effect.CreateEffect(c)
-    me2:SetType(EFFECT_TYPE_SINGLE)
-    me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me2:SetCode(EFFECT_SET_BASE_ATTACK)
-    me2:SetRange(LOCATION_MZONE)
-    me2:SetValue(function(e, c) return c:GetOverlayCount() * 1000 end)
-    c:RegisterEffect(me2)
-    local me2b = Effect.CreateEffect(c)
-    me2b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me2b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me2b:SetCode(EVENT_ADJUST)
-    me2b:SetRange(LOCATION_MZONE)
-    me2b:SetOperation(s.me2op)
-    c:RegisterEffect(me2b)
-
     -- attach
+    local me2 = Effect.CreateEffect(c)
+    me2:SetDescription(aux.Stringid(id, 2))
+    me2:SetType(EFFECT_TYPE_IGNITION)
+    me2:SetRange(LOCATION_MZONE)
+    me2:SetCountLimit(1)
+    me2:SetTarget(s.me2tg)
+    me2:SetOperation(s.me2op)
+    c:RegisterEffect(me2)
+
+    -- gain effect
     local me3 = Effect.CreateEffect(c)
-    me3:SetDescription(aux.Stringid(id, 2))
-    me3:SetType(EFFECT_TYPE_IGNITION)
+    me3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me3:SetCode(EVENT_ADJUST)
     me3:SetRange(LOCATION_MZONE)
-    me3:SetCountLimit(1)
-    me3:SetTarget(s.me3tg)
     me3:SetOperation(s.me3op)
     c:RegisterEffect(me3)
 
@@ -172,20 +165,20 @@ function s.initial_effect(c)
     c:RegisterEffect(me4)
 end
 
-function s.spfilter(c) return c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) end
+function s.spfilter(c, tp) return c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and (c:IsControler(tp) or c:IsFaceup()) end
 
 function s.spcon(e, c)
     if c == nil then return true end
     if c:IsLocation(LOCATION_PZONE) and not aux.exccon(e) then return false end
 
     local tp = c:GetControler()
-    local g = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE, 0, nil)
+    local g = Duel.GetReleaseGroup(tp):Filter(s.spfilter, nil, tp)
     return (c:IsFacedown() or c:IsLocation(LOCATION_PZONE)) and aux.SelectUnselectGroup(g, e, tp, 3, 3, aux.ChkfMMZ(1), 0)
 end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
-    local rg = Duel.GetMatchingGroup(s.spfilter, tp, LOCATION_MZONE, 0, nil)
-    local mg = aux.SelectUnselectGroup(rg, e, tp, 3, 3, aux.ChkfMMZ(1), 1, tp, HINTMSG_XMATERIAL, nil, nil, true)
+    local rg = Duel.GetReleaseGroup(tp):Filter(s.rfilter, nil, tp)
+    local mg = aux.SelectUnselectGroup(rg, e, tp, 3, 3, aux.ChkfMMZ(1), 1, tp, HINTMSG_RELEASE, nil, nil, true)
     if #mg == 3 then
         mg:KeepAlive()
         e:SetLabelObject(mg)
@@ -197,7 +190,7 @@ end
 function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     local g = e:GetLabelObject()
     if not g then return end
-    Duel.Overlay(c, g)
+    Duel.Release(g, REASON_COST)
     g:DeleteGroup()
 end
 
@@ -253,11 +246,25 @@ function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me2filter(c) return c:IsMonster() end
+function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    local c = e:GetHandler()
+    if chk == 0 then return Duel.IsExistingMatchingCard(nil, tp, LOCATION_MZONE, 0, 1, c) end
+end
 
 function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.me2filter, nil)
+    local g = Duel.GetMatchingGroup(nil, tp, LOCATION_MZONE, 0, c)
+    if #g == 0 then return false end
+
+    local sg = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, nil, tp, LOCATION_MZONE, 0, 1, #g, c)
+    Duel.Overlay(c, sg)
+end
+
+function s.me3filter(c) return c:IsMonster() end
+
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local og = c:GetOverlayGroup():Filter(s.me3filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -287,20 +294,6 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
             c:RegisterEffect(reset, true)
         end
     end
-end
-
-function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    local c = e:GetHandler()
-    if chk == 0 then return Duel.IsExistingMatchingCard(nil, tp, LOCATION_MZONE, 0, 1, c) end
-end
-
-function s.me3op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(nil, tp, LOCATION_MZONE, 0, c)
-    if #g == 0 then return false end
-
-    local sg = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, nil, tp, LOCATION_MZONE, 0, 1, #g, c)
-    Duel.Overlay(c, sg)
 end
 
 function s.me4filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
