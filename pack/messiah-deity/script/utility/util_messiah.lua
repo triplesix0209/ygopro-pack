@@ -168,5 +168,5 @@ function MessiahBabyCostFilter(c, sp_target_location, sp_filter, e, tp, zone)
 end
 
 function MessiahBabyTargetFilter(c, sp_filter, e, tp, zone)
-    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nill or sp_filter(c))
+    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nil or sp_filter(c))
 end
