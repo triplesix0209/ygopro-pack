@@ -44,8 +44,8 @@ function s.initial_effect(c)
     sp_success:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
-        if Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, c) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-            local sg = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, 1, c)
+        if Duel.IsExistingMatchingCard(nil, tp, LOCATION_EXTRA, 0, 1, c) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+            local sg = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, nil, tp, LOCATION_EXTRA, 0, 1, 1, c)
             Duel.Overlay(c, sg)
         end
     end)
@@ -269,7 +269,7 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Overlay(c, sg)
 end
 
-function s.me4filter(c) return c:IsMonster() end
+function s.me4filter(c) return not c:IsCode(id) and c:IsMonster() end
 
 function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
