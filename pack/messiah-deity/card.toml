@@ -138,5 +138,5 @@ effect = """\
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon a monster from Deck or Extra Deck",
+    "Special Summon a monster from Deck",
 ]
