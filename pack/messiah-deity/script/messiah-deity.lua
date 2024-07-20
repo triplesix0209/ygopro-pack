@@ -3,6 +3,8 @@ Duel.LoadScript("util.lua")
 Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
+s.listed_names = {Messiah.CARD_MESSIAH_ELYSIUM}
+
 function s.initial_effect(c)
     c:EnableReviveLimit()
     c:SetUniqueOnField(1, 0, id)
@@ -42,11 +44,9 @@ function s.initial_effect(c)
     sp_success:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
-        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-            Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOZONE)
-            local s = Duel.SelectDisableField(tp, 1, LOCATION_MZONE, 0, 0)
-            local seq = math.log(s, 2)
-            Duel.MoveSequence(c, seq)
+        if Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, c) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+            local sg = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, c)
+            Duel.Overlay(c, sg)
         end
     end)
     c:RegisterEffect(sp_success)
@@ -123,53 +123,55 @@ function s.initial_effect(c)
     pe3:SetOperation(s.pe3op)
     c:RegisterEffect(pe3)
 
-    -- index & immune (m-zone)
+    -- indes
     local me1 = Effect.CreateEffect(c)
     me1:SetType(EFFECT_TYPE_SINGLE)
     me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1:SetRange(LOCATION_MZONE)
     me1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    me1:SetRange(LOCATION_MZONE)
     me1:SetValue(1)
     c:RegisterEffect(me1)
-    local me1b = Effect.CreateEffect(c)
-    me1b:SetType(EFFECT_TYPE_SINGLE)
-    me1b:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1b:SetCode(EFFECT_IMMUNE_EFFECT)
-    me1b:SetRange(LOCATION_MZONE)
-    me1b:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
-    c:RegisterEffect(me1b)
 
-    -- attach
+    -- immune (m-zone)
     local me2 = Effect.CreateEffect(c)
-    me2:SetDescription(aux.Stringid(id, 2))
-    me2:SetType(EFFECT_TYPE_IGNITION)
+    me2:SetType(EFFECT_TYPE_SINGLE)
+    me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me2:SetCode(EFFECT_IMMUNE_EFFECT)
     me2:SetRange(LOCATION_MZONE)
-    me2:SetCountLimit(1)
-    me2:SetTarget(s.me2tg)
-    me2:SetOperation(s.me2op)
+    me2:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() and not te:GetHandler():IsCode(Messiah.CARD_MESSIAH_ELYSIUM) end)
     c:RegisterEffect(me2)
 
-    -- gain effect
+    -- attach
     local me3 = Effect.CreateEffect(c)
-    me3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me3:SetCode(EVENT_ADJUST)
+    me3:SetDescription(aux.Stringid(id, 2))
+    me3:SetType(EFFECT_TYPE_IGNITION)
     me3:SetRange(LOCATION_MZONE)
+    me3:SetCountLimit(1)
+    me3:SetTarget(s.me3tg)
     me3:SetOperation(s.me3op)
     c:RegisterEffect(me3)
 
-    -- place in pendulum zone
+    -- gain effect
     local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(aux.Stringid(id, 3))
-    me4:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
-    me4:SetType(EFFECT_TYPE_QUICK_O)
-    me4:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
-    me4:SetCode(EVENT_FREE_CHAIN)
-    me4:SetRange(LOCATION_MZONE + LOCATION_EXTRA + LOCATION_GRAVE)
-    me4:SetCountLimit(1, {id, 2})
-    me4:SetTarget(s.me4tg)
+    me4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me4:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me4:SetCode(EVENT_ADJUST)
+    me4:SetRange(LOCATION_MZONE)
     me4:SetOperation(s.me4op)
     c:RegisterEffect(me4)
+
+    -- place in pendulum zone
+    local me5 = Effect.CreateEffect(c)
+    me5:SetDescription(aux.Stringid(id, 3))
+    me5:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
+    me5:SetType(EFFECT_TYPE_QUICK_O)
+    me5:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
+    me5:SetCode(EVENT_FREE_CHAIN)
+    me5:SetRange(LOCATION_MZONE + LOCATION_EXTRA + LOCATION_GRAVE)
+    me5:SetCountLimit(1, {id, 2})
+    me5:SetTarget(s.me5tg)
+    me5:SetOperation(s.me5op)
+    c:RegisterEffect(me5)
 end
 
 function s.spfilter(c, tp) return c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and (c:IsControler(tp) or c:IsFaceup()) end
@@ -253,12 +255,12 @@ function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then return Duel.IsExistingMatchingCard(nil, tp, LOCATION_MZONE, 0, 1, c) end
 end
 
-function s.me2op(e, tp, eg, ep, ev, re, r, rp)
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Duel.GetMatchingGroup(nil, tp, LOCATION_MZONE, 0, c)
     if #g == 0 then return false end
@@ -267,11 +269,11 @@ function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Overlay(c, sg)
 end
 
-function s.me3filter(c) return c:IsMonster() end
+function s.me4filter(c) return c:IsMonster() end
 
-function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.me3filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.me4filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -303,35 +305,35 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me4filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+function s.me5filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
 
-function s.me4filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+function s.me5filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
 
-function s.me4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me4filter1, tp, LOCATION_PZONE, 0, 2, nil) end
+    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me5filter1, tp, LOCATION_PZONE, 0, 2, nil) end
 
     local g1 = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
-    local g2 = Duel.GetMatchingGroup(s.me4filter2, tp, LOCATION_GRAVE, 0, c)
-    g2:Merge(c:GetOverlayGroup():Filter(s.me4filter2, nil))
+    local g2 = Duel.GetMatchingGroup(s.me5filter2, tp, LOCATION_GRAVE, 0, c)
+    g2:Merge(c:GetOverlayGroup():Filter(s.me5filter2, nil))
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g1, #g1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, g2, #g2, 0, 0)
 end
 
-function s.me4op(e, tp, eg, ep, ev, re, r, rp)
+function s.me5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if #dg < 2 or Duel.Destroy(dg, REASON_EFFECT) ~= 2 then return end
 
-    local g = Duel.GetMatchingGroup(s.me4filter2, tp, LOCATION_GRAVE, 0, c)
-    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me4filter2, nil)) end
+    local g = Duel.GetMatchingGroup(s.me5filter2, tp, LOCATION_GRAVE, 0, c)
+    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me5filter2, nil)) end
     if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 
     if c:IsRelateToEffect(e) and c:IsFaceup() and Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) and
-        Duel.IsExistingMatchingCard(s.me4filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 4)) then
+        Duel.IsExistingMatchingCard(s.me5filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 4)) then
         Duel.BreakEffect()
-        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me4filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me5filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
         if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end
 end
