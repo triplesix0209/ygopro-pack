@@ -88,13 +88,13 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-2 non-Link Dragon monsters
-{MESSIAH_BABY_MONSTER_EFFECT|hand}. \
+2 non-Link monsters
+{MESSIAH_BABY_MONSTER_EFFECT|hand} \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon a Dragon from hand",
+    "Special Summon a monster from hand",
 ]
 
 [messiah-genesis]
@@ -111,13 +111,13 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-2 non-Link Dragon monsters
-{MESSIAH_BABY_MONSTER_EFFECT|GY}. \
+2 non-Link monsters
+{MESSIAH_BABY_MONSTER_EFFECT|GY} \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon a Dragon from GY",
+    "Special Summon a monster from GY",
 ]
 
 [messiah-newborn]
@@ -134,11 +134,11 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-2+ non-Link Dragon monsters
-{MESSIAH_BABY_MONSTER_EFFECT|Deck or Extra Deck} and it has been properly Summoned. \
+2+ non-Link monsters
+{MESSIAH_BABY_MONSTER_EFFECT|Deck} \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon a Dragon from Deck or Extra Deck",
+    "Special Summon a monster from Deck or Extra Deck",
 ]

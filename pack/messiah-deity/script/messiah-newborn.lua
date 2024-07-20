@@ -7,6 +7,5 @@ function s.initial_effect(c)
     DragonRuler.RegisterMessiahBabyEffect(s, c, id, LOCATION_EXTRA + LOCATION_DECK, true)
 
     -- link summon
-    Link.AddProcedure(c, function(c, sc, sumtype, tp) return c:IsRace(RACE_DRAGON, sc, sumtype, tp) and not c:IsType(TYPE_LINK, sc, sumtype, tp) end,
-        2, 3)
+    Link.AddProcedure(c, function(c, sc, sumtype, tp) return not c:IsType(TYPE_LINK, sc, sumtype, tp) end, 2, 3)
 end
