@@ -45,7 +45,7 @@ function s.initial_effect(c)
         local c = e:GetHandler()
         Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
         if Duel.IsExistingMatchingCard(Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, c) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-            local sg = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, c)
+            local sg = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsFaceup, tp, LOCATION_EXTRA, 0, 1, 1, c)
             Duel.Overlay(c, sg)
         end
     end)
