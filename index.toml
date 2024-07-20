@@ -22,7 +22,7 @@ packs = [
 ]
 
 skip_compile_packs = [
-    "./pack/_update",
+    # "./pack/_update",
     "./pack/egyptian-god",
     "./pack/palladium",
     "./pack/blue-eyes",
@@ -36,5 +36,5 @@ skip_compile_packs = [
     "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
-    # "./pack/messiah-deity",
+    "./pack/messiah-deity",
 ]

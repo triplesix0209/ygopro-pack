@@ -443,3 +443,38 @@ strings = [
     "Change the ATK of the opponent's monster to 0",
     "Affected by effect \"{CARD_NAME}\": cannot Special Summon from the Extra Deck, except Xyz Monsters",
 ]
+
+[odd-eyes-revolution-dragon]
+id = 16306932
+generate-pic = false
+card-limit = "ocg tcg"
+name = "Odd-Eyes Revolution Dragon"
+set = "odd-eyes"
+type = "monster pendulum effect nomi"
+attribute = "light"
+race = "dragon"
+level = 12
+scale = 12
+atk = "?"
+def = "?"
+pendulum-effect = """\
+You cannot Pendulum Summon monsters, except Dragon monsters. \
+    This effect cannot be negated. \
+You can target 1 Dragon Fusion, Synchro, or Xyz Monster in your GY; \
+    destroy this card, and if you do, Special Summon that target. \
+"""
+effect = """\
+Cannot be Normal Summoned/Set. \
+Must be Pendulum Summoned (from your hand), or be Special Summoned (from your hand) \
+    by Tributing 3 Dragon monsters (1 Fusion, 1 Synchro, and 1 Xyz). \
+You can discard this card and pay 500 LP: \
+    Add 1 Level 8 or lower Dragon Pendulum Monster from your Deck to your hand. \
+Gains ATK/DEF equal to half of your opponent's LP. \
+Once per turn: You can pay half your LP; \
+    shuffle all other cards from the field and the GYs into the Deck. \
+"""
+strings = [
+    "Special Summon 1 Dragon Fusion, Synchro, or Xyz Monster in your GY",
+    "Add 1 Level 8 or lower Dragon Pendulum Monster from your Deck to your hand",
+    "Pay half your LP to shuffle all other cards into the Deck",
+]
