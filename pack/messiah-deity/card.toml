@@ -66,7 +66,7 @@ This card's gains the original effects of all monsters attached to it, except "{
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Attach 1 monster from Extra Deck face-up to this card?",
+    "Attach 1 monster from Extra Deck to this card?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Attach any number of other monsters you control",
     "Place this card in your Pendulum Zone",
