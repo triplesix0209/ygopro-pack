@@ -53,7 +53,7 @@ When Special Summoned, other cards and effects cannot be activated, \
     also after that, you can move this card to another of your Main Monster Zones. \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
-Unaffected by other card effects. \
+Cannot be destroyed by card effects and unaffected by other card effects. \
 The above effects cannot be negated or be copied. \
 Once per turn: You can attach any number of other monsters you control to this card. \
 This card's gains the original effects of all monsters attached to it. \
@@ -81,18 +81,20 @@ race = "divine-beast"
 link = 2
 link-arrow = "left bottom-right"
 scale = 0
-atk = 1000
+atk = 0
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|Dragon monster|hand or Deck} \
+{MESSIAH_BABY_MONSTER_EFFECT|Dragon monster|hand or Deck}\
+Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
     "Special Summon 1 Dragon monster from hand or Deck",
+    "Destroy itself",
 ]
 
 [messiah-genesis]
@@ -104,18 +106,20 @@ race = "divine-beast"
 link = 2
 link-arrow = "right bottom-left"
 scale = 13
-atk = 1000
+atk = 0
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|Dragon monster|hand or Deck} \
+{MESSIAH_BABY_MONSTER_EFFECT|Dragon monster|hand or Deck}\
+Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
     "Special Summon 1 Dragon monster from hand or Deck",
+    "Destroy itself",
 ]
 
 [messiah-newborn]
@@ -127,13 +131,15 @@ race = "divine-beast"
 link = 3
 link-arrow = "top-left top-right bottom"
 scale = 5
-atk = 2000
+atk = 0
 pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
 2+ non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|monster|GY or banishment} \
+Cannot be destroyed by battle. \
+You take no battle damage from battles involving this card. \
+{MESSIAH_BABY_MONSTER_EFFECT|monster|GY or banishment}\
 """
 strings = [
     "Add to Extra Deck",
