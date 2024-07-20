@@ -44,6 +44,7 @@ function s.initial_effect(c)
     e3b:SetRange(LOCATION_FZONE)
     e3b:SetValue(function(e, ct)
         local te, tp, loc = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT, CHAININFO_TRIGGERING_PLAYER, CHAININFO_TRIGGERING_LOCATION)
+        if not te then return false end
         local tc = te:GetHandler()
         local p = e:GetHandler():GetControler()
         if p ~= tp or (loc & LOCATION_ONFIELD) == 0 then return false end

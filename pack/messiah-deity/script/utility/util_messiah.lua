@@ -116,7 +116,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, sp_
     me2:SetRange(LOCATION_MZONE)
     me2:SetCountLimit(1, {id, 2})
     me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
-        local zone = sp_from_extra and aux.GetMMZonesPointedTo(tp) or GetZonesPointedTo(tp)
+        local zone = sp_from_extra and GetZonesPointedTo(tp) or aux.GetMMZonesPointedTo(tp)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
         local b2 = Duel.IsExistingMatchingCard(MessiahBabyCostFilter, tp, LOCATION_HAND + LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil,
             sp_target_location, e, tp, zone)
@@ -131,7 +131,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, sp_
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        local zone = sp_from_extra and aux.GetMMZonesPointedTo(tp) or GetZonesPointedTo(tp)
+        local zone = sp_from_extra and GetZonesPointedTo(tp) or aux.GetMMZonesPointedTo(tp)
         if chk == 0 then
             return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, nil, e, tp, zone)
         end
@@ -140,12 +140,13 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, sp_
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-        local zone = sp_from_extra and aux.GetMMZonesPointedTo(tp) or GetZonesPointedTo(tp)
+        local zone = sp_from_extra and GetZonesPointedTo(tp) or aux.GetMMZonesPointedTo(tp)
         if zone <= 0 then return end
         local tc =
             Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, 1, nil, e, tp, zone):GetFirst()
         if not tc then return end
 
+        if not tc:IsLocation(LOCATION_EXTRA) then zone = zone & ZONES_MMZ end
         if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP, zone) > 0 then
             local ec1 = Effect.CreateEffect(c)
             ec1:SetDescription(3207)
@@ -168,7 +169,11 @@ function MessiahBabyCostFilter(c, sp_target_location, e, tp, zone)
 end
 
 function MessiahBabyTargetFilter(c, e, tp, zone)
-    return c:IsRace(RACE_DRAGON) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone)
+    if not c:IsLocation(LOCATION_EXTRA) and not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone & ZONES_MMZ) then
+        return false
+    end
+
+    return c:IsRace(RACE_DRAGON)
 end
 
 function GetZonesPointedToFilter(c, f, ...) return c:IsFaceup() and c:IsType(TYPE_LINK) and (not f or f(c, ...)) end

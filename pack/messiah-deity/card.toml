@@ -55,6 +55,7 @@ Unaffected by other card effects. \
 This card's original ATK becomes to the number of cards attached to it x 1000,\
     also gains the original effects of all monsters attached to it. \
 The above effects cannot be negated or be copied. \
+Once per turn: You can attach any number of other monsters you control to this card. \
 (Quick Effect): You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
     add all other Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
     also, place this card from your Monster Zone or Extra Deck face-up in your Pendulum Zone, \
@@ -65,6 +66,7 @@ The above effects cannot be negated or be copied. \
 strings = [
     "Move this card to another of your Main Monster Zones?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
+    "Attach any number of other monsters you control",
     "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]
@@ -135,5 +137,5 @@ effect = """\
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon a Dragon from Extra Deck",
+    "Special Summon a Dragon from Deck or Extra Deck",
 ]
