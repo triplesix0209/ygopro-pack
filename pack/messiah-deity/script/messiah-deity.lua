@@ -177,7 +177,7 @@ function s.spcon(e, c)
 end
 
 function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
-    local rg = Duel.GetReleaseGroup(tp):Filter(s.rfilter, nil, tp)
+    local rg = Duel.GetReleaseGroup(tp):Filter(s.spfilter, nil, tp)
     local mg = aux.SelectUnselectGroup(rg, e, tp, 3, 3, aux.ChkfMMZ(1), 1, tp, HINTMSG_RELEASE, nil, nil, true)
     if #mg == 3 then
         mg:KeepAlive()
