@@ -89,7 +89,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
 
         local b1 = c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and Duel.GetLocationCountFromEx(tp, tp, nil, c) > 0
         local b2 = c:IsType(TYPE_PENDULUM) and not c:IsForbidden() and Duel.CheckPendulumZones(tp)
-        local op = Duel.SelectEffect(tp, {b1, 2}, {b2, aux.Stringid(id, 2)})
+        local op = Duel.SelectEffect(tp, {b1, 2}, {b2, aux.Stringid(id, 1)})
         if op == 1 then
             Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP)
         else
@@ -100,7 +100,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
 
     -- special summon a dragon
     local me2 = Effect.CreateEffect(c)
-    me2:SetDescription(aux.Stringid(id, 1))
+    me2:SetDescription(aux.Stringid(id, 2))
     me2:SetCategory(CATEGORY_SPECIAL_SUMMON)
     me2:SetType(EFFECT_TYPE_IGNITION)
     me2:SetRange(LOCATION_MZONE)

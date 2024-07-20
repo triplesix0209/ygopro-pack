@@ -23,6 +23,7 @@ function s.initial_effect(c)
     sp:SetRange(LOCATION_EXTRA + LOCATION_PZONE)
     sp:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
     sp:SetCondition(s.spcon)
+    sp:SetTarget(s.sptg)
     sp:SetOperation(s.spop)
     c:RegisterEffect(sp)
 
@@ -65,24 +66,7 @@ function s.initial_effect(c)
     noswitch:SetRange(LOCATION_MZONE)
     c:RegisterEffect(noswitch)
 
-    -- special summon success
-    local sp_success = Effect.CreateEffect(c)
-    sp_success:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    sp_success:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    sp_success:SetCode(EVENT_SPSUMMON_SUCCESS)
-    sp_success:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
-        if Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then
-            Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOZONE)
-            local s = Duel.SelectDisableField(tp, 1, LOCATION_MZONE, 0, 0)
-            local seq = math.log(s, 2)
-            Duel.MoveSequence(c, seq)
-        end
-    end)
-    c:RegisterEffect(sp_success)
-
-    -- untargetable & immune
+    -- untargetable & immune (p-zone)
     local pe1 = Effect.CreateEffect(c)
     pe1:SetType(EFFECT_TYPE_SINGLE)
     pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
@@ -118,30 +102,20 @@ function s.initial_effect(c)
     pe3:SetRange(LOCATION_PZONE)
     pe3:SetCountLimit(1, {id, 1})
     pe3:SetCondition(aux.exccon)
-    pe3:SetCost(s.pe3cost)
     pe3:SetTarget(s.pe3tg)
     pe3:SetOperation(s.pe3op)
     c:RegisterEffect(pe3)
 
-    -- cannot be negated
+    -- immune (m-zone)
     local me1 = Effect.CreateEffect(c)
     me1:SetType(EFFECT_TYPE_SINGLE)
-    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1:SetCode(EFFECT_CANNOT_DISABLE)
+    me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me1:SetCode(EFFECT_IMMUNE_EFFECT)
     me1:SetRange(LOCATION_MZONE)
+    me1:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
     c:RegisterEffect(me1)
-    local me1b = Effect.CreateEffect(c)
-    me1b:SetType(EFFECT_TYPE_FIELD)
-    me1b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me1b:SetCode(EFFECT_CANNOT_DISEFFECT)
-    me1b:SetRange(LOCATION_MZONE)
-    me1b:SetValue(function(e, ct)
-        local te = Duel.GetChainInfo(ct, CHAININFO_TRIGGERING_EFFECT)
-        return te:GetHandler() == e:GetHandler()
-    end)
-    c:RegisterEffect(me1b)
 
-    -- atk value
+    -- atk value & gain effect
     local me2 = Effect.CreateEffect(c)
     me2:SetType(EFFECT_TYPE_SINGLE)
     me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
@@ -149,62 +123,55 @@ function s.initial_effect(c)
     me2:SetRange(LOCATION_MZONE)
     me2:SetValue(function(e, c) return c:GetOverlayCount() * 1000 end)
     c:RegisterEffect(me2)
-
-    -- gain effects
-    local me3 = Effect.CreateEffect(c)
-    me3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-    me3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    me3:SetCode(EVENT_ADJUST)
-    me3:SetRange(LOCATION_MZONE)
-    me3:SetOperation(s.me3op)
-    c:RegisterEffect(me3)
+    local me2b = Effect.CreateEffect(c)
+    me2b:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    me2b:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    me2b:SetCode(EVENT_ADJUST)
+    me2b:SetRange(LOCATION_MZONE)
+    me2b:SetOperation(s.me2op)
+    c:RegisterEffect(me2b)
 
     -- place in pendulum zone
-    local me4 = Effect.CreateEffect(c)
-    me4:SetDescription(aux.Stringid(id, 2))
-    me4:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
-    me4:SetType(EFFECT_TYPE_QUICK_O)
-    me4:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
-    me4:SetCode(EVENT_FREE_CHAIN)
-    me4:SetRange(LOCATION_MZONE + LOCATION_GRAVE + LOCATION_EXTRA)
-    me4:SetCountLimit(1, {id, 2})
-    me4:SetTarget(s.me4tg)
-    me4:SetOperation(s.me4op)
-    c:RegisterEffect(me4)
+    local me3 = Effect.CreateEffect(c)
+    me3:SetDescription(aux.Stringid(id, 1))
+    me3:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
+    me3:SetType(EFFECT_TYPE_QUICK_O)
+    me3:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
+    me3:SetCode(EVENT_FREE_CHAIN)
+    me3:SetRange(LOCATION_MZONE + LOCATION_EXTRA)
+    me3:SetCountLimit(1, {id, 2})
+    me3:SetTarget(s.me3tg)
+    me3:SetOperation(s.me3op)
+    c:RegisterEffect(me3)
 end
 
-function s.spfilter1(c) return c:IsFaceup() and c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) end
-
-function s.spfilter2(c) return c:IsOriginalRace(RACE_DRAGON) and c:IsMonster() end
+function s.spfilter(c) return c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and c:IsReleasable() end
 
 function s.spcon(e, c)
     if c == nil then return true end
     if c:IsLocation(LOCATION_PZONE) and not aux.exccon(e) then return false end
 
     local tp = c:GetControler()
-    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_MZONE, 0, nil)
-    return (c:IsFacedown() or c:IsLocation(LOCATION_PZONE)) and g:IsExists(s.spfilter2, 3, nil)
+    local rg = Duel.GetReleaseGroup(tp):Filter(s.spfilter, nil, tp)
+    return (c:IsFacedown() or c:IsLocation(LOCATION_PZONE)) and aux.SelectUnselectGroup(rg, e, tp, 3, 3, aux.ChkfMMZ(1), 0)
+end
+
+function s.sptg(e, tp, eg, ep, ev, re, r, rp, c)
+    local rg = Duel.GetReleaseGroup(tp):Filter(s.spfilter, nil, tp)
+    local mg = aux.SelectUnselectGroup(rg, e, tp, 3, 3, aux.ChkfMMZ(1), 1, tp, HINTMSG_RELEASE, nil, nil, true)
+    if #mg == 3 then
+        mg:KeepAlive()
+        e:SetLabelObject(mg)
+        return true
+    end
+    return false
 end
 
 function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
-    local g = Duel.GetMatchingGroup(s.spfilter1, tp, LOCATION_MZONE, 0, nil)
-    Duel.Overlay(c, g)
-end
-
-function s.spchainlimit(c) return function(e, rp, tp) return e:GetHandler() == c end end
-
-function s.pe3filter(c) return c:IsRace(RACE_DRAGON) and c:IsAbleToRemoveAsCost() end
-
-function s.pe3rescon(sg, e, tp) return sg:GetClassCount(Card.GetAttribute) == #sg, sg:GetClassCount(Card.GetAttribute) ~= #sg end
-
-function s.pe3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    local loc = LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_DECK + LOCATION_EXTRA
-    local g = Duel.GetMatchingGroup(s.pe3filter, tp, loc, 0, c)
-    if chk == 0 then return #g >= 6 and g:GetClassCount(Card.GetAttribute) >= 6 end
-
-    local sg = aux.SelectUnselectGroup(g, e, tp, 6, 6, s.pe3rescon, 1, tp, HINTMSG_REMOVE, nil, nil)
-    Duel.Remove(sg, POS_FACEUP, REASON_COST)
+    local g = e:GetLabelObject()
+    if not g then return end
+    Duel.Release(g, REASON_COST)
+    g:DeleteGroup()
 end
 
 function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -257,11 +224,11 @@ function s.pe3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me3filter(c) return c:IsMonster() end
+function s.me2filter(c) return c:IsMonster() end
 
-function s.me3op(e, tp, eg, ep, ev, re, r, rp)
+function s.me2op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local og = c:GetOverlayGroup():Filter(s.me3filter, nil)
+    local og = c:GetOverlayGroup():Filter(s.me2filter, nil)
     local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
     if #g <= 0 then return end
 
@@ -293,35 +260,35 @@ function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me4filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+function s.me3filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
 
-function s.me4filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+function s.me3filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
 
-function s.me4tg(e, tp, eg, ep, ev, re, r, rp, chk)
+function s.me3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me4filter1, tp, LOCATION_PZONE, 0, 2, nil) end
+    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me3filter1, tp, LOCATION_PZONE, 0, 2, nil) end
 
     local g1 = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
-    local g2 = Duel.GetMatchingGroup(s.me4filter2, tp, LOCATION_GRAVE, 0, c)
-    g2:Merge(c:GetOverlayGroup():Filter(s.me4filter2, nil))
+    local g2 = Duel.GetMatchingGroup(s.me3filter2, tp, LOCATION_GRAVE, 0, c)
+    g2:Merge(c:GetOverlayGroup():Filter(s.me3filter2, nil))
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g1, #g1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, g2, #g2, 0, 0)
 end
 
-function s.me4op(e, tp, eg, ep, ev, re, r, rp)
+function s.me3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if #dg < 2 or Duel.Destroy(dg, REASON_EFFECT) ~= 2 then return end
 
-    local g = Duel.GetMatchingGroup(s.me4filter2, tp, LOCATION_GRAVE, 0, c)
-    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me4filter2, nil)) end
+    local g = Duel.GetMatchingGroup(s.me3filter2, tp, LOCATION_GRAVE, 0, c)
+    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me3filter2, nil)) end
     if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 
     if c:IsRelateToEffect(e) and c:IsFaceup() and Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) and
-        Duel.IsExistingMatchingCard(s.me4filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 3)) then
+        Duel.IsExistingMatchingCard(s.me3filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 2)) then
         Duel.BreakEffect()
-        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me4filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me3filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
         if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end
 end

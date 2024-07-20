@@ -27,8 +27,8 @@ name = "Messiah, Supreme Deity of Dragons"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "creator-god"
-link = 6
-link-arrow = "top-left top-right left right bottom-left bottom-right"
+link = 7
+link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
 scale = 13
 atk = "?"
 pendulum-effect = """\
@@ -36,36 +36,32 @@ Cannot be targeted by card effects, also unaffected by other card effects. \
     The above effects cannot be negated. \
 The Pendulum Scale of card in your other Pendulum Zone become 0. \
 During either player's turn, except the turn this card was placed Pendulum Zones (Quick Effect): \
-    You can banish 6 other Dragon monsters with different Attributes from your hand, field, GY, Deck, and/or Extra Deck; \
-    shuffle this card into the Extra Deck, and if you do, it becomes the Standby Phase of your next turn. \
+    You can shuffle this card into the Extra Deck, and if you do, it becomes the Standby Phase of your next turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 effect = """\
 Cannot be Link Summoned. \
 Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) \
-    by overlaying all Link Pendulum Monsters you control including at least 3 original Dragon monster. \
+    by Tributing 3 Link Pendulum Monsters. \
     You can only Special Summon "{CARD_NAME}" once per turn this way, \
     except the turn this card was placed Pendulum Zones. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
-When Special Summoned, other cards and effects cannot be activated, \
-    also after that, you can move this card to another of your Main Monster Zones. \
-This card's effects cannot be negated. \
-This card's original ATK becomes to the number of cards attached to it x 1000. \
-This card gains the original effects of all monsters attached to it. \
+Unaffected by other card effects. \
+This card's original ATK becomes to the number of cards attached to it x 1000,\
+    also gains the original effects of all monsters attached to it. \
 The above effects cannot be negated or be copied. \
 (Quick Effect): You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
     add all other Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
-    also, place this card from your Monster Zone, GY, or Extra Deck face-up in your Pendulum Zone, \
+    also, place this card from your Monster Zone or Extra Deck face-up in your Pendulum Zone, \
     then, you can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
     This effect's activation and effect cannot be negated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
-    "Move this card to another of your Main Monster Zones?",
     "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]
@@ -90,8 +86,8 @@ effect = """\
 """
 strings = [
     "Add to Extra Deck",
-    "Special Summon a Dragon from hand",
     "Place in Pendulum Zone",
+    "Special Summon a Dragon from hand",
 ]
 
 [messiah-genesis]
@@ -114,6 +110,6 @@ effect = """\
 """
 strings = [
     "Add to Extra Deck",
-    "Special Summon a Dragon from GY",
     "Place in Pendulum Zone",
+    "Special Summon a Dragon from GY",
 ]
