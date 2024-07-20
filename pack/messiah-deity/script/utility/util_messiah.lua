@@ -23,7 +23,7 @@ function DragonRuler.DeityCost(attribute, extra_cost)
     end
 end
 
-function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
+function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location, sp_filter)
     s.listed_names = {DragonRuler.CARD_MESSIAH_ELYSIUM}
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
@@ -119,13 +119,13 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
         local zone = aux.GetMMZonesPointedTo(tp)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
         local b2 = Duel.IsExistingMatchingCard(MessiahBabyCostFilter, tp, LOCATION_HAND + LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil,
-            sp_target_location, e, tp, zone)
+            sp_target_location, sp_filter, e, tp, zone)
         if chk == 0 then return b1 or b2 end
 
         if not b2 then return end
         if not b1 or Duel.SelectEffectYesNo(tp, e:GetHandler(), aux.Stringid(DragonRuler.CARD_MESSIAH_ELYSIUM, 0)) then
             local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, MessiahBabyCostFilter, tp, LOCATION_HAND + LOCATION_GRAVE + LOCATION_REMOVED, 0,
-                1, 1, nil, sp_target_location, e, tp, zone)
+                1, 1, nil, sp_target_location, sp_filter, e, tp, zone)
             Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_COST)
         end
     end)
@@ -133,7 +133,7 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
         local c = e:GetHandler()
         local zone = aux.GetMMZonesPointedTo(tp)
         if chk == 0 then
-            return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, nil, e, tp, zone)
+            return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, nil, sp_filter, e, tp, zone)
         end
 
         Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, sp_target_location)
@@ -142,8 +142,8 @@ function DragonRuler.RegisterMessiahBabyEffect(s, c, id, sp_target_location)
         local c = e:GetHandler()
         local zone = aux.GetMMZonesPointedTo(tp)
         if zone <= 0 then return end
-        local tc =
-            Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, 1, nil, e, tp, zone):GetFirst()
+        local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, 1, nil, sp_filter, e, tp,
+            zone):GetFirst()
         if not tc then return end
 
         if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP, zone) > 0 then
@@ -161,9 +161,12 @@ end
 
 function DeityCostBypassFilter(c) return c:IsFaceup() and c:IsOriginalCode(DragonRuler.CARD_MESSIAH_ELYSIUM) end
 
-function MessiahBabyCostFilter(c, sp_target_location, e, tp, zone)
+function MessiahBabyCostFilter(c, sp_target_location, sp_filter, e, tp, zone)
     return c:IsRace(RACE_DRAGON) and c:IsAbleToDeckOrExtraAsCost() and
-               (sp_target_location == nil or Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, c, e, tp, zone))
+               (sp_target_location == nil or
+                   Duel.IsExistingMatchingCard(MessiahBabyTargetFilter, tp, sp_target_location, 0, 1, c, sp_filter, e, tp, zone))
 end
 
-function MessiahBabyTargetFilter(c, e, tp, zone) return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) end
+function MessiahBabyTargetFilter(c, sp_filter, e, tp, zone)
+    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nill or sp_filter(c))
+end
