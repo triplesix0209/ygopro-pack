@@ -143,7 +143,6 @@ pendulum-effect = """\
 """
 effect = """\
 3 non-Link monsters
-Cannot be destroyed by battle. \
 You take no battle damage from battles involving this card. \
 {MESSIAH_BABY_MONSTER_EFFECT|3|monster|Deck or GY}\
 """
