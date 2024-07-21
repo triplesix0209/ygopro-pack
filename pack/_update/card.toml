@@ -478,3 +478,24 @@ strings = [
     "Add 1 Level 8 or lower Dragon Pendulum Monster from your Deck to your hand",
     "Pay half your LP to shuffle all other cards into the Deck",
 ]
+
+[apollousa-bow-of-the-goddess]
+id = 4280258
+generate-pic = false
+generate-script = false
+card-limit = "ocg tcg"
+name = "Apollousa, Bow of the Goddess"
+type = "monster link effect"
+attribute = "wind"
+race = "fairy"
+link = 4
+link-arrow = "top bottom-left bottom bottom-right"
+atk = "?"
+effect = """\
+2+ monsters with different names, except Tokens
+You can only control 1 "Apollousa, Bow of the Goddess". \
+The original ATK of this card becomes 800 x the number of Link Materials used for its Link Summon. \
+Once per Chain, when your opponent activates a monster effect (Quick Effect): \
+    You can make this card lose exactly 800 ATK, and if you do, negate the activation. \
+"""
+strings = ["Lose 800 ATK to negate the activation"]
