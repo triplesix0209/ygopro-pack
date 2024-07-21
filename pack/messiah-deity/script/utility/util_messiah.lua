@@ -6,7 +6,7 @@ if not Messiah then Messiah = aux.MessiahProcedure end
 Messiah.CARD_MESSIAH_ELYSIUM = 900007000
 
 -- function
-function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_filter)
+function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_location, sp_filter)
     s.listed_names = {Messiah.CARD_MESSIAH_ELYSIUM}
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
@@ -99,8 +99,9 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_filter)
     me2:SetCountLimit(1, {id, 2})
     me2:SetCost(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
+        local zone = aux.GetMMZonesPointedTo(tp)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
-        local b2 = Duel.IsExistingMatchingCard(MessiahBabySummonCostFilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, sum_cost_count, nil)
+        local b2 = Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, zone, sp_filter, sum_cost_count)
         if chk == 0 then return b1 or b2 end
 
         if not b2 then return end
@@ -114,16 +115,16 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_filter)
         local c = e:GetHandler()
         local zone = aux.GetMMZonesPointedTo(tp)
         if chk == 0 then
-            return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, LOCATION_DECK, 0, 1, nil, e, tp, zone, sp_filter)
+            return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, zone, sp_filter)
         end
 
-        Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_DECK)
+        Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, sp_location)
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
         local zone = aux.GetMMZonesPointedTo(tp)
         if zone <= 0 then return end
-        local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySummonTargetFilter, tp, LOCATION_DECK, 0, 1, 1, nil, e, tp, zone,
+        local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, 1, nil, e, tp, zone,
             sp_filter):GetFirst()
         if not tc then return end
 
@@ -133,7 +134,7 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_filter)
             ec1:SetType(EFFECT_TYPE_SINGLE)
             ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
             ec1:SetCode(EFFECT_CANNOT_DIRECT_ATTACK)
-            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE | PHASE_END)
+            ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
             tc:RegisterEffect(ec1)
         end
     end)
@@ -146,6 +147,8 @@ function MessiahBabyPlaceCostFilter(c) return c:IsMonster() and c:IsAbleToDeckOr
 
 function MessiahBabySummonCostFilter(c) return c:IsAbleToDeckOrExtraAsCost() end
 
-function MessiahBabySummonTargetFilter(c, e, tp, zone, sp_filter)
-    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nil or sp_filter(c))
+function MessiahBabySummonTargetFilter(c, e, tp, zone, sp_filter, sum_cost_count)
+    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nil or sp_filter(c)) and
+               (sum_cost_count == nil or
+                   Duel.IsExistingMatchingCard(MessiahBabySummonCostFilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, sum_cost_count, c))
 end

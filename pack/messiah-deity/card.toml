@@ -93,7 +93,7 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster}\
+{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster|Deck}\
 Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
@@ -118,7 +118,7 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster}\
+{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster|Deck}\
 Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
@@ -145,10 +145,10 @@ effect = """\
 3 non-Link monsters
 Cannot be destroyed by battle. \
 You take no battle damage from battles involving this card. \
-{MESSIAH_BABY_MONSTER_EFFECT|3|monster}\
+{MESSIAH_BABY_MONSTER_EFFECT|3|monster|Deck or GY}\
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon 1 monster from Deck",
+    "Special Summon 1 monster from Deck or GY",
 ]
