@@ -59,6 +59,9 @@ Unaffected by other card effects, except card with original name "Messiah's Elys
 The above effects cannot be negated or be copied. \
 Once per turn: You can attach any number of other monsters you control to this card. \
 This card's gains the original effects of all monsters attached to it, except "{CARD_NAME}". \
+You can detach 7 materials from this card; \
+    shuffle all other cards on the field, in the GYs or banishments into the Decks, \
+    then each player's LP becomes 8000. \
 (Quick Effect): You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
     add all other Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
     also, place this card from your Monster Zone, Extra Deck face-up, or GY in your Pendulum Zone, \
@@ -70,6 +73,7 @@ strings = [
     "Special Summon 1 Link Monster from Extra Deck?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Attach any number of other monsters you control",
+    "Detach 7 materials to reset the world",
     "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
 ]

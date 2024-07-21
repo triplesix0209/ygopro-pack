@@ -154,18 +154,28 @@ function s.initial_effect(c)
     me4:SetOperation(s.me4op)
     c:RegisterEffect(me4)
 
-    -- place in pendulum zone
+    -- world reset
     local me5 = Effect.CreateEffect(c)
     me5:SetDescription(aux.Stringid(id, 3))
-    me5:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
-    me5:SetType(EFFECT_TYPE_QUICK_O)
-    me5:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
-    me5:SetCode(EVENT_FREE_CHAIN)
-    me5:SetRange(LOCATION_MZONE + LOCATION_EXTRA + LOCATION_GRAVE)
-    me5:SetCountLimit(1, {id, 2})
+    me5:SetType(EFFECT_TYPE_IGNITION)
+    me5:SetRange(LOCATION_MZONE)
+    me5:SetCost(s.me5cost)
     me5:SetTarget(s.me5tg)
     me5:SetOperation(s.me5op)
-    c:RegisterEffect(me5)
+    c:RegisterEffect(me5, false, REGISTER_FLAG_DETACH_XMAT)
+
+    -- place in pendulum zone
+    local me6 = Effect.CreateEffect(c)
+    me6:SetDescription(aux.Stringid(id, 4))
+    me6:SetCategory(CATEGORY_DESTROY + CATEGORY_TOEXTRA)
+    me6:SetType(EFFECT_TYPE_QUICK_O)
+    me6:SetProperty(EFFECT_FLAG_CANNOT_INACTIVATE + EFFECT_FLAG_CANNOT_NEGATE + EFFECT_FLAG_CANNOT_DISABLE)
+    me6:SetCode(EVENT_FREE_CHAIN)
+    me6:SetRange(LOCATION_MZONE + LOCATION_EXTRA + LOCATION_GRAVE)
+    me6:SetCountLimit(1, {id, 2})
+    me6:SetTarget(s.me6tg)
+    me6:SetOperation(s.me6op)
+    c:RegisterEffect(me6)
 end
 
 function s.spfilter(c, tp) return c:IsLinkMonster() and c:IsType(TYPE_PENDULUM) and (c:IsControler(tp) or c:IsFaceup()) end
@@ -314,35 +324,62 @@ function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.me5filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
-
-function s.me5filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+function s.me5cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 7, REASON_COST) end
+    c:RemoveOverlayCard(tp, 7, 7, REASON_COST)
+end
 
 function s.me5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me5filter1, tp, LOCATION_PZONE, 0, 2, nil) end
+    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
+        LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
+    if chk == 0 then return #g > 0 end
+
+    Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
+end
+
+function s.me5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
+        LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
+    if #g == 0 then return end
+
+    if Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 then
+        Duel.SetLP(tp, 8000)
+        Duel.SetLP(1 - tp, 8000)
+    end
+end
+
+function s.me6filter1(c) return c:GetOriginalType() & TYPE_LINK ~= 0 and c:GetOriginalType() & TYPE_PENDULUM ~= 0 end
+
+function s.me6filter2(c) return c:IsType(TYPE_PENDULUM) and not c:IsForbidden() end
+
+function s.me6tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    local c = e:GetHandler()
+    if chk == 0 then return c:IsFaceup() and Duel.IsExistingMatchingCard(s.me6filter1, tp, LOCATION_PZONE, 0, 2, nil) end
 
     local g1 = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
-    local g2 = Duel.GetMatchingGroup(s.me5filter2, tp, LOCATION_GRAVE, 0, c)
-    g2:Merge(c:GetOverlayGroup():Filter(s.me5filter2, nil))
+    local g2 = Duel.GetMatchingGroup(s.me6filter2, tp, LOCATION_GRAVE, 0, c)
+    g2:Merge(c:GetOverlayGroup():Filter(s.me6filter2, nil))
 
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g1, #g1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, g2, #g2, 0, 0)
 end
 
-function s.me5op(e, tp, eg, ep, ev, re, r, rp)
+function s.me6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local dg = Duel.GetFieldGroup(tp, LOCATION_PZONE, 0)
     if #dg < 2 or Duel.Destroy(dg, REASON_EFFECT) ~= 2 then return end
 
-    local g = Duel.GetMatchingGroup(s.me5filter2, tp, LOCATION_GRAVE, 0, c)
-    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me5filter2, nil)) end
+    local g = Duel.GetMatchingGroup(s.me6filter2, tp, LOCATION_GRAVE, 0, c)
+    if c:IsRelateToEffect(e) then g:Merge(c:GetOverlayGroup():Filter(s.me6filter2, nil)) end
     if #g > 0 then Duel.SendtoExtraP(g, nil, REASON_EFFECT) end
 
     if c:IsRelateToEffect(e) and c:IsFaceup() and Duel.MoveToField(c, tp, tp, LOCATION_PZONE, POS_FACEUP, true) and
-        Duel.IsExistingMatchingCard(s.me5filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 4)) then
+        Duel.IsExistingMatchingCard(s.me6filter2, tp, LOCATION_DECK, 0, 1, nil) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 5)) then
         Duel.BreakEffect()
-        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me5filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+        local tc = Utility.SelectMatchingCard(HINTMSG_TOFIELD, tp, s.me6filter2, tp, LOCATION_DECK, 0, 1, 1, nil):GetFirst()
         if tc then Duel.MoveToField(tc, tp, tp, LOCATION_PZONE, POS_FACEUP, true) end
     end
 end
