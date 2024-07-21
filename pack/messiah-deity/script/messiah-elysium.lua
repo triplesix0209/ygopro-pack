@@ -9,6 +9,7 @@ function s.initial_effect(c)
     e1:SetType(EFFECT_TYPE_ACTIVATE)
     e1:SetCode(EVENT_FREE_CHAIN)
     e1:SetCountLimit(1, id, EFFECT_COUNT_CODE_OATH)
+    e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
@@ -67,12 +68,24 @@ end
 
 function s.e1filter(c) return not c:IsCode(id) and c:IsFieldSpell() end
 
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return true end
+    Duel.SetPossibleOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, 1)
+end
+
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, nil)
     if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
     local tc = Utility.GroupSelect(HINTMSG_SELECT, g, tp):GetFirst()
-    if tc then Duel.Overlay(c, tc) end
+    local loc = c:GetLocation()
+    if tc then
+        Duel.Overlay(c, tc)
+        if loc == LOCATION_HAND then
+            Duel.BreakEffect()
+            Duel.Draw(tp, 1, REASON_EFFECT)
+        end
+    end
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)

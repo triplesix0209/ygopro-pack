@@ -5,8 +5,8 @@ type = "spell field"
 effect = """
 You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: \
-    you can place 1 Field Spell from your hand, Deck or GY underneath this card, \
-    except "{CARD_NAME}". \
+    you can place 1 Field Spell from your hand, Deck or GY underneath this card, except "{CARD_NAME}", \
+    then, if you placed card from your hand, draw 1 card. \
 While you control a Link Pendulum Monster Card, \
     your opponent cannot target this card with card effects, \
     also it is unaffected by other card effects. \
