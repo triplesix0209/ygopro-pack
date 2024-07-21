@@ -226,7 +226,7 @@ end
 
 function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:IsAbleToExtra() end
+    if chk == 0 then return c:IsAbleToExtra() and not Duel.IsPlayerAffectedByEffect(1 - tp, EFFECT_SKIP_TURN) end
     Duel.SetOperationInfo(0, CATEGORY_TOEXTRA, c, 1, 0, 0)
 end
 
