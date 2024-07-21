@@ -1,10 +1,10 @@
--- Newborn Messiah of Dragons
+-- The Newborn Messiah
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    Messiah.RegisterMessiahBabyEffect(s, c, id, LOCATION_GRAVE + LOCATION_REMOVED, nil)
+    Messiah.RegisterMessiahBabyEffect(s, c, id, 3)
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp) return not c:IsType(TYPE_LINK, sc, sumtype, tp) end, 3, 3)

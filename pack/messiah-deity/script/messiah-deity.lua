@@ -1,4 +1,4 @@
--- Messiah, Supreme Deity of Dragons
+-- Messiah, The Supreme Deity
 Duel.LoadScript("util.lua")
 Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
@@ -37,19 +37,13 @@ function s.initial_effect(c)
     c:RegisterEffect(sumsafe)
 
     -- special summon success
-    local sp_success = Effect.CreateEffect(c)
-    sp_success:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    sp_success:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-    sp_success:SetCode(EVENT_SPSUMMON_SUCCESS)
-    sp_success:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-        local c = e:GetHandler()
-        Duel.SetChainLimitTillChainEnd(s.spchainlimit(c))
-        if Duel.IsExistingMatchingCard(Card.IsType, tp, LOCATION_EXTRA, 0, 1, c, TYPE_LINK) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-            local sg = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsType, tp, LOCATION_EXTRA, 0, 1, 1, c, TYPE_LINK)
-            Duel.Overlay(c, sg)
-        end
-    end)
-    c:RegisterEffect(sp_success)
+    local sum_success = Effect.CreateEffect(c)
+    sum_success:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    sum_success:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
+    sum_success:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    sum_success:SetCode(EVENT_SPSUMMON_SUCCESS)
+    sum_success:SetOperation(s.sumop)
+    c:RegisterEffect(sum_success)
 
     -- cannot be material
     local nomaterial = Effect.CreateEffect(c)
@@ -203,7 +197,22 @@ function s.spop(e, tp, eg, ep, ev, re, r, rp, c)
     g:DeleteGroup()
 end
 
-function s.spchainlimit(c) return function(e, rp, tp) return e:GetHandler() == c end end
+function s.sumchainlimit(c) return function(e, rp, tp) return e:GetHandler() == c end end
+
+function s.sumfilter(c, e, tp) return c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false) end
+
+function s.sumop(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    Duel.SetChainLimitTillChainEnd(s.sumchainlimit(c))
+
+    if Duel.IsExistingMatchingCard(s.sumfilter, tp, LOCATION_EXTRA, 0, 1, c, e, tp) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        local sc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.sumfilter, tp, LOCATION_EXTRA, 0, 1, 1, c, e, tp):GetFirst()
+        if sc then
+            Duel.SpecialSummon(sc, SUMMON_TYPE_LINK, tp, tp, false, false, POS_FACEUP)
+            sc:CompleteProcedure()
+        end
+    end
+end
 
 function s.pe3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()

@@ -26,7 +26,7 @@ strings = [
 [messiah-deity]
 id = 900007001
 rarity = "gold"
-name = "Messiah, Supreme Deity of Dragons"
+name = "Messiah, The Supreme Deity"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "creator-god"
@@ -50,7 +50,8 @@ Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) by T
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 When Special Summoned, other cards and effects cannot be activated, \
-    also after that, you can attach 1 Link Monster from Extra Deck to this card. \
+    also after that, you can Special Summon 1 Link Monster from Extra Deck. \
+    (This is treated as an Link Summon.) \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
 Cannot be destroyed by card effects. \
@@ -66,7 +67,7 @@ This card's gains the original effects of all monsters attached to it, except "{
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Attach 1 monster from Extra Deck to this card?",
+    "Special Summon 1 Link Monster from Extra Deck?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Attach any number of other monsters you control",
     "Place this card in your Pendulum Zone",
@@ -75,7 +76,7 @@ strings = [
 
 [messiah-origin]
 id = 900007002
-name = "Origin Messiah of Dragons"
+name = "The Origin Messiah"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
@@ -88,19 +89,19 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|Dragon monster|hand or Deck}\
+{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster that can be Normal Summoned/Set}\
 Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon 1 Dragon monster from hand or Deck",
+    "Special Summon 1 Level 4 or lower monster from Deck",
     "Destroy itself",
 ]
 
 [messiah-genesis]
 id = 900007003
-name = "Genesis Messiah of Dragons"
+name = "The Genesis Messiah"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
@@ -113,19 +114,19 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|Dragon monster|hand or Deck}\
+{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster that can be Normal Summoned/Set}\
 Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon 1 Dragon monster from hand or Deck",
+    "Special Summon 1 Level 4 or lower monster from Deck",
     "Destroy itself",
 ]
 
 [messiah-newborn]
 id = 900007004
-name = "Newborn Messiah of Dragons"
+name = "The Newborn Messiah"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "divine-beast"
@@ -140,10 +141,10 @@ effect = """\
 3 non-Link monsters
 Cannot be destroyed by battle. \
 You take no battle damage from battles involving this card. \
-{MESSIAH_BABY_MONSTER_EFFECT|monster|GY or banishment}\
+{MESSIAH_BABY_MONSTER_EFFECT|3|monster}\
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon a monster from GY or banishment",
+    "Special Summon 1 monster from Deck",
 ]

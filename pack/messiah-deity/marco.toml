@@ -5,14 +5,15 @@ Pendulum Summons of your Dragon monsters cannot be negated.\
 """
 
 MESSIAH_BABY_MONSTER_EFFECT = """\
-During the Main Phase, you can shuffle into the Deck, \
-    1 Dragon monster from your hand, GY, or banishment to activate 1 of these effects, \
+During the Main Phase, you can activate 1 of these effects, \
     but you cannot apply that same effect of "{CARD_NAME}" again this turn. \
     If you control a card whose original name is "Messiah's Elysium", \
-    you can apply this effects without cost.
+    you can apply the above effects without cost.
 ● While this card is in your Extra Deck face-up: \
+    You can shuffle 1 monster from your hand into the Deck; \
     Special Summon this card, or place it in your Pendulum Zone.
 ● While this card is in your Monster Zone: \
-    Special Summon 1 {0} from your {1} to your zone a Link Monster points to, \
+    You can shuffle {0} cards in your GY or banishment into the Deck; \
+    Special Summon 1 {1} from your Deck to your zone a Link Monster points to, \
     but it cannot attack directly this turn.
 """
