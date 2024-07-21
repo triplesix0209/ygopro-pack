@@ -332,8 +332,8 @@ end
 
 function s.me5tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
-        LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
+        LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
     if chk == 0 then return #g > 0 end
 
     Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
@@ -341,8 +341,8 @@ end
 
 function s.me5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
-        LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
+    local g = Duel.GetMatchingGroup(Card.IsAbleToDeck, tp, LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED,
+        LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED, c)
     if #g == 0 then return end
 
     if Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) > 0 then
