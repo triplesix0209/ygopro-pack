@@ -89,7 +89,7 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster that can be Normal Summoned/Set}\
+{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster}\
 Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
@@ -114,7 +114,7 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
-{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster that can be Normal Summoned/Set}\
+{MESSIAH_BABY_MONSTER_EFFECT|2|Level 4 or lower monster}\
 Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
