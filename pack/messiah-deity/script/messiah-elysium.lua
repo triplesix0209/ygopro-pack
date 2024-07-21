@@ -78,8 +78,8 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetMatchingGroup(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, nil)
     if #g == 0 or not Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 1)) then return end
     local tc = Utility.GroupSelect(HINTMSG_SELECT, g, tp):GetFirst()
-    local loc = c:GetLocation()
     if tc then
+        local loc = tc:GetLocation()
         Duel.Overlay(c, tc)
         if loc == LOCATION_HAND then
             Duel.BreakEffect()
