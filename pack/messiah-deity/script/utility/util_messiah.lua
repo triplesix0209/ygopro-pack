@@ -11,14 +11,13 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_filter)
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
 
-    -- pendulum summon limit
+    -- untargetable
     local pe1 = Effect.CreateEffect(c)
-    pe1:SetType(EFFECT_TYPE_FIELD)
-    pe1:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
-    pe1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+    pe1:SetType(EFFECT_TYPE_SINGLE)
+    pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
+    pe1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetTargetRange(1, 0)
-    pe1:SetTarget(function(e, c, tp, sumtp, sumpos) return not c:IsRace(RACE_DRAGON) and (sumtp & SUMMON_TYPE_PENDULUM) == SUMMON_TYPE_PENDULUM end)
+    pe1:SetValue(1)
     c:RegisterEffect(pe1)
 
     -- add to extra deck
