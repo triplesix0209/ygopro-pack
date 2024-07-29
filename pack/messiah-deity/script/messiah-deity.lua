@@ -3,8 +3,6 @@ Duel.LoadScript("util.lua")
 Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
-s.listed_names = {Messiah.CARD_MESSIAH_ELYSIUM}
-
 function s.initial_effect(c)
     c:EnableReviveLimit()
     c:SetUniqueOnField(1, 0, id)
@@ -132,7 +130,7 @@ function s.initial_effect(c)
     me2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     me2:SetCode(EFFECT_IMMUNE_EFFECT)
     me2:SetRange(LOCATION_MZONE)
-    me2:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() and not te:GetHandler():IsOriginalCode(Messiah.CARD_MESSIAH_ELYSIUM) end)
+    me2:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
     c:RegisterEffect(me2)
 
     -- attach
