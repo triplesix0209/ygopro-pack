@@ -149,5 +149,5 @@ You take no battle damage from battles involving this card. \
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon 1 monster from Deck or GY",
+    "Special Summon 1 monster from Deck or banishment",
 ]
