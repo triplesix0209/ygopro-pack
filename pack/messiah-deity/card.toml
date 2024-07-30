@@ -144,7 +144,7 @@ pendulum-effect = """\
 effect = """\
 3 non-Link monsters
 You take no battle damage from battles involving this card. \
-{MESSIAH_BABY_MONSTER_EFFECT|3|monster|Deck or GY}\
+{MESSIAH_BABY_MONSTER_EFFECT|3|monster|Deck or banishment}\
 """
 strings = [
     "Add to Extra Deck",
