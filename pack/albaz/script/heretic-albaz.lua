@@ -41,7 +41,7 @@ end
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(Card.IsAbleToGraveAsCost, tp, LOCATION_ONFIELD, 0, 1, nil) end
     local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, Card.IsAbleToGraveAsCost, tp, LOCATION_ONFIELD, 0, 1, 1, nil)
-    Duel.SendtoGrave(g, REASON_EFFECT)
+    Duel.SendtoGrave(g, REASON_COST)
 end
 
 function s.e2fusextra(e, tp, mg) return Duel.GetMatchingGroup(Card.IsAbleToRemove, tp, LOCATION_GRAVE, LOCATION_GRAVE, nil), s.e2fuscheck end
