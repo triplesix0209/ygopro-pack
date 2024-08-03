@@ -208,7 +208,7 @@ end
 
 function s.sumchainlimit(c) return function(e, rp, tp) return e:GetHandler() == c end end
 
-function s.sumfilter(c, e, tp) return c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e, SUMMON_TYPE_LINK, tp, false, false) end
+function s.sumfilter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
 
 function s.sumop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
@@ -217,7 +217,7 @@ function s.sumop(e, tp, eg, ep, ev, re, r, rp)
     if Duel.IsExistingMatchingCard(s.sumfilter, tp, LOCATION_EXTRA, 0, 1, c, e, tp) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
         local sc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.sumfilter, tp, LOCATION_EXTRA, 0, 1, 1, c, e, tp):GetFirst()
         if sc then
-            Duel.SpecialSummon(sc, SUMMON_TYPE_LINK, tp, tp, false, false, POS_FACEUP)
+            Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP)
             sc:CompleteProcedure()
         end
     end

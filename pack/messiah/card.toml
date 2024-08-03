@@ -50,8 +50,8 @@ Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) by T
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 When Special Summoned, other cards and effects cannot be activated, \
-    also after that, you can Special Summon 1 Link Monster from Extra Deck. \
-    (This is treated as an Link Summon.) \
+    also after that, you can Special Summon 1 monster from Extra Deck. \
+    (This is treated as an properly Summon.) \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
 Cannot be destroyed by card effects. \
@@ -71,7 +71,7 @@ Once per turn, you can activate 1 of these effects.
     then each player's LP becomes 8000.
 """
 strings = [
-    "Special Summon 1 Link Monster from Extra Deck?",
+    "Special Summon 1 monster from Extra Deck?",
     "Shuffle this card into the Extra Deck & move to the Standby Phase of your next turn",
     "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
