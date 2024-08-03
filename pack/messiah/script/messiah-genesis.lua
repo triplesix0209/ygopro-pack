@@ -4,7 +4,7 @@ Duel.LoadScript("util_messiah.lua")
 local s, id = GetID()
 
 function s.initial_effect(c)
-    Messiah.RegisterMessiahBabyEffect(s, c, id, 2, LOCATION_DECK, function(c) return c:IsLevelBelow(4) end)
+    Messiah.RegisterMessiahBabyEffect(s, c, id, LOCATION_HAND + LOCATION_DECK, function(c) return c:IsLevelBelow(4) end)
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp) return not c:IsType(TYPE_LINK, sc, sumtype, tp) end, 2, 2)

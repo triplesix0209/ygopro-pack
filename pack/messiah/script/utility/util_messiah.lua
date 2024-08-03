@@ -6,7 +6,7 @@ if not Messiah then Messiah = aux.MessiahProcedure end
 Messiah.CARD_MESSIAH_ELYSIUM = 900007000
 
 -- function
-function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_location, sp_filter)
+function Messiah.RegisterMessiahBabyEffect(s, c, id, sp_location, sp_filter)
     s.listed_names = {Messiah.CARD_MESSIAH_ELYSIUM}
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
@@ -101,15 +101,11 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sum_cost_count, sp_location
         local c = e:GetHandler()
         local zone = aux.GetMMZonesPointedTo(tp)
         local b1 = Duel.IsExistingMatchingCard(DeityCostBypassFilter, tp, LOCATION_ONFIELD, 0, 1, nil)
-        local b2 = Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, zone, sp_filter, sum_cost_count)
+        local b2 = c:IsReleasable()
         if chk == 0 then return b1 or b2 end
 
         if not b2 then return end
-        if not b1 or Duel.SelectEffectYesNo(tp, c, aux.Stringid(Messiah.CARD_MESSIAH_ELYSIUM, 0)) then
-            local g = Utility.SelectMatchingCard(HINTMSG_TODECK, tp, MessiahBabySummonCostFilter, tp, LOCATION_GRAVE, 0,
-                sum_cost_count, sum_cost_count, nil)
-            Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_COST)
-        end
+        if not b1 or Duel.SelectEffectYesNo(tp, c, aux.Stringid(Messiah.CARD_MESSIAH_ELYSIUM, 0)) then Duel.Release(c, REASON_COST) end
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
@@ -145,10 +141,6 @@ function DeityCostBypassFilter(c) return c:IsFaceup() and c:IsOriginalCode(Messi
 
 function MessiahBabyPlaceCostFilter(c) return c:IsMonster() and c:IsAbleToDeckOrExtraAsCost() end
 
-function MessiahBabySummonCostFilter(c) return c:IsAbleToDeckOrExtraAsCost() end
-
-function MessiahBabySummonTargetFilter(c, e, tp, zone, sp_filter, sum_cost_count)
-    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nil or sp_filter(c)) and
-               (sum_cost_count == nil or
-                   Duel.IsExistingMatchingCard(MessiahBabySummonCostFilter, tp, LOCATION_GRAVE, 0, sum_cost_count, c))
+function MessiahBabySummonTargetFilter(c, e, tp, zone, sp_filter)
+    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nil or sp_filter(c))
 end

@@ -1,0 +1,12 @@
+[heretic-albaz]
+id = 900007101
+name = "Heretic of Albaz"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+atk = 1800
+def = 0
+effect = """\
+"""
+strings = []
