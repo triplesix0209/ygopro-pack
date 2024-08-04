@@ -348,7 +348,7 @@ function s.me4op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Overlay(c, sg)
 end
 
-function s.me5con(e)
+function s.me5con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = c:GetOverlayGroup()
     return g:IsExists(Card.IsType, 1, nil, TYPE_RITUAL) and g:IsExists(Card.IsType, 1, nil, TYPE_FUSION) and
