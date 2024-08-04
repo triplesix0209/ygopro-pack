@@ -103,22 +103,17 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sp_location, sp_filter)
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        local zone = aux.GetMMZonesPointedTo(tp)
-        if chk == 0 then
-            return zone > 0 and Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, zone, sp_filter)
-        end
+        if chk == 0 then return Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, sp_filter) end
 
         Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, sp_location)
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
-        local zone = aux.GetMMZonesPointedTo(tp)
-        if zone <= 0 then return end
-        local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, 1, nil, e, tp, zone,
-            sp_filter):GetFirst()
+        local tc =
+            Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, 1, nil, e, tp, sp_filter):GetFirst()
         if not tc then return end
 
-        if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP, zone) > 0 then
+        if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) > 0 then
             local ec1 = Effect.CreateEffect(c)
             ec1:SetDescription(3207)
             ec1:SetType(EFFECT_TYPE_SINGLE)
@@ -135,6 +130,6 @@ function DeityCostBypassFilter(c) return c:IsFaceup() and c:IsOriginalCode(Messi
 
 function MessiahBabyPlaceCostFilter(c) return c:IsMonster() and c:IsAbleToDeckOrExtraAsCost() end
 
-function MessiahBabySummonTargetFilter(c, e, tp, zone, sp_filter)
-    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP, tp, zone) and (sp_filter == nil or sp_filter(c))
+function MessiahBabySummonTargetFilter(c, e, tp, sp_filter)
+    return c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) and (sp_filter == nil or sp_filter(c))
 end
