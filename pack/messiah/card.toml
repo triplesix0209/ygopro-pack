@@ -23,17 +23,17 @@ strings = [
     "Move monster to another of your Main Monster Zones",
 ]
 
-[messiah-deity]
+[mighty-messiah]
 id = 900007001
 rarity = "gold"
-name = "Messiah, The Supreme Deity"
+name = "The Mighty Messiah"
 type = "monster link pendulum effect"
 attribute = "divine"
 race = "creator-god"
 link = 7
 link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
 scale = 13
-atk = 4000
+atk = 5000
 pendulum-effect = """\
 Cannot be targeted by card effects, also unaffected by other card effects. \
     The above effects cannot be negated. \
@@ -54,7 +54,6 @@ When Special Summoned, other cards and effects cannot be activated, \
     (This is treated as an properly Summon.) \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
-Cannot be destroyed by card effects. \
 Unaffected by other card effects. \
 The above effects cannot be negated or be copied. \
 This card's gains the original effects of all monsters attached to it, except "{CARD_NAME}". \
@@ -66,9 +65,10 @@ This card's gains the original effects of all monsters attached to it, except "{
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn, you can activate 1 of these effects.
 ● You can attach any number of other monsters you control to this card.
-● You can detach 7 materials from this card; \
+● If this card has a Ritual, Fusion, Synchro, Xyz, Link and Pendulum monster as material; \
     shuffle all other cards on the field, in the GYs or banishments into the Decks, \
-    then each player's LP becomes 8000.
+    then each player's LP becomes 8000. \
+    This card cannot declare an attack the turn this effect is activated.
 """
 strings = [
     "Special Summon 1 monster from Extra Deck?",
@@ -76,7 +76,7 @@ strings = [
     "Place this card in your Pendulum Zone",
     "Place 1 Pendulum Monster from your Deck in your Pendulum Zone?",
     "Attach any number of other monsters you control",
-    "Detach 7 materials to shuffle all other cards into the Deck",
+    "Shuffle all other cards into the Deck and reset LP",
 ]
 
 [messiah-origin]
@@ -94,8 +94,8 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
+You take no battle damage from battles involving this card. \
 {MESSIAH_BABY_MONSTER_EFFECT|Level 4 or lower monster|hand or Deck}\
-Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
     "Add to Extra Deck",
@@ -119,8 +119,8 @@ pendulum-effect = """\
 """
 effect = """\
 2 non-Link monsters
+You take no battle damage from battles involving this card. \
 {MESSIAH_BABY_MONSTER_EFFECT|Level 4 or lower monster|hand or Deck}\
-Once per turn, during the End Phase: Destroy this card. \
 """
 strings = [
     "Add to Extra Deck",
