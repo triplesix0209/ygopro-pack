@@ -193,7 +193,8 @@ function s.sumop(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     Duel.SetChainLimitTillChainEnd(s.sumchainlimit(c))
 
-    if Duel.IsExistingMatchingCard(s.sumfilter, tp, LOCATION_EXTRA, 0, 1, c, e, tp) and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+    if Duel.IsExistingMatchingCard(s.sumfilter, tp, LOCATION_EXTRA, 0, 1, c, e, tp) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+        Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
         local sc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.sumfilter, tp, LOCATION_EXTRA, 0, 1, 1, c, e, tp):GetFirst()
         if sc then
             Duel.SpecialSummon(sc, 0, tp, tp, false, false, POS_FACEUP)

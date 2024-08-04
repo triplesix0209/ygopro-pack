@@ -103,12 +103,16 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sp_location, sp_filter)
     end)
     me2:SetTarget(function(e, tp, eg, ep, ev, re, r, rp, chk)
         local c = e:GetHandler()
-        if chk == 0 then return Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, sp_filter) end
+        if chk == 0 then
+            return Duel.IsExistingMatchingCard(MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, nil, e, tp, sp_filter) and
+                       Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
+        end
 
         Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, sp_location)
     end)
     me2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
         local c = e:GetHandler()
+        if Duel.GetLocationCount(tp, LOCATION_MZONE) == 0 then return end
         local tc =
             Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, MessiahBabySummonTargetFilter, tp, sp_location, 0, 1, 1, nil, e, tp, sp_filter):GetFirst()
         if not tc then return end
