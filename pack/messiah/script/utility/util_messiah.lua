@@ -47,7 +47,7 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sp_location, sp_filter)
     pe3:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     pe3:SetRange(LOCATION_PZONE)
     pe3:SetTargetRange(1, 0)
-    pe3:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsRace(RACE_DRAGON) end)
+    pe3:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) end)
     c:RegisterEffect(pe3)
 
     -- special summon or place in pendulum zone
