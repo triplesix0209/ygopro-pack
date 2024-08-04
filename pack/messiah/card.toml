@@ -16,11 +16,15 @@ If you activated a Continuous Spell/Trap, \
 This card gains the original effects of all Field Spells and Continuous Spell/Trap(s) underneath it. \
 Thrice per turn: You can target 1 face-up monster you control; \
     move that monster you control to another of your Main Monster Zones. \
+If this card has a Field Spell, Continuous Spell and Continuous Trap Card underneath: \
+    You can add to your hand 1 Spell/Trap from your GY or banishment. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Pay the cost?",
-    "Place a Continuous Spell/Trap underneath this card?",
+    "Place a Field Spell underneath this card?",
     "Move monster to another of your Main Monster Zones",
+    "Add 1 Spell/Trap from your GY or banishment"
 ]
 
 [mighty-messiah]

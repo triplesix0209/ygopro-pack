@@ -64,6 +64,18 @@ function s.initial_effect(c)
     e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
+
+    -- recyle spell/trap
+    local e6 = Effect.CreateEffect(c)
+    e6:SetDescription(aux.Stringid(id, 3))
+    e6:SetCategory(CATEGORY_TOHAND)
+    e6:SetType(EFFECT_TYPE_IGNITION)
+    e6:SetRange(LOCATION_FZONE)
+    e6:SetCountLimit(1, id)
+    e6:SetCondition(s.e6con)
+    e6:SetTarget(s.e6tg)
+    e6:SetOperation(s.e6op)
+    c:RegisterEffect(e6)
 end
 
 function s.e1filter(c) return not c:IsCode(id) and c:IsFieldSpell() end
@@ -143,12 +155,36 @@ function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
-    if not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) or tc:IsControler(1 - tp) or
+    if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) or tc:IsControler(1 - tp) or
         Duel.GetLocationCount(tp, LOCATION_MZONE, tp, LOCATION_REASON_CONTROL) == 0 then return end
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOZONE)
     local s = Duel.SelectDisableField(tp, 1, LOCATION_MZONE, 0, 0)
     local nseq = math.log(s, 2)
     Duel.MoveSequence(tc, nseq)
+end
+
+function s.e6filter(c) return c:IsSpellTrap() and c:IsAbleToHand() end
+
+function s.e6con(e)
+    local c = e:GetHandler()
+    local g = c:GetOverlayGroup()
+    return g:IsExists(Card.IsFieldSpell, 1, nil) and g:IsExists(Card.IsContinuousSpell, 1, nil) and g:IsExists(Card.IsContinuousTrap, 1, nil)
+end
+
+function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e6filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) end
+    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, 0, LOCATION_GRAVE + LOCATION_REMOVED)
+end
+
+function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) then return end
+    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e6filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil)
+    if #g > 0 then
+        Duel.SendtoHand(g, nil, REASON_EFFECT)
+        Duel.ConfirmCards(1 - tp, g)
+    end
 end
