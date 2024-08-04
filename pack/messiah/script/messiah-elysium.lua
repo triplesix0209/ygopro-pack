@@ -53,28 +53,41 @@ function s.initial_effect(c)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 
-    -- move to another zone
+    -- draw
     local e5 = Effect.CreateEffect(c)
     e5:SetDescription(aux.Stringid(id, 3))
+    e5:SetCategory(CATEGORY_DRAW + CATEGORY_HANDES)
     e5:SetType(EFFECT_TYPE_IGNITION)
-    e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
     e5:SetRange(LOCATION_FZONE)
-    e5:SetCountLimit(3)
+    e5:SetCountLimit(1)
+    e5:SetCondition(s.e5con)
     e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
 
-    -- add or set spell/trap
+    -- move to another zone
     local e6 = Effect.CreateEffect(c)
     e6:SetDescription(aux.Stringid(id, 4))
-    e6:SetCategory(CATEGORY_TOHAND)
     e6:SetType(EFFECT_TYPE_IGNITION)
+    e6:SetProperty(EFFECT_FLAG_CARD_TARGET)
     e6:SetRange(LOCATION_FZONE)
-    e6:SetCountLimit(1, id)
-    e6:SetCondition(s.e6con)
+    e6:SetCountLimit(3)
     e6:SetTarget(s.e6tg)
     e6:SetOperation(s.e6op)
     c:RegisterEffect(e6)
+
+    -- add or set spell/trap
+    local e7 = Effect.CreateEffect(c)
+    e7:SetDescription(aux.Stringid(id, 5))
+    e7:SetCategory(CATEGORY_TOHAND)
+    e7:SetType(EFFECT_TYPE_IGNITION)
+    e7:SetRange(LOCATION_FZONE)
+    e7:SetCountLimit(1, id)
+    e7:SetCondition(s.e7con)
+    e7:SetTarget(s.e7tg)
+    e7:SetOperation(s.e7op)
+    c:RegisterEffect(e7)
 end
 
 function s.e1filter(c) return not c:IsCode(id) and c:IsFieldSpell() end
@@ -159,7 +172,28 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.e5con(e, tp, eg, ep, ev, re, r, rp)
+    return Duel.IsExistingMatchingCard(function(c) return c:IsFaceup() and (c:GetType() & TYPE_LINK) ~= 0 and (c:GetType() & TYPE_PENDULUM) ~= 0 end,
+        tp, LOCATION_ONFIELD, 0, 1, nil)
+end
+
+function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsPlayerCanDraw(tp, 2) end
+    Duel.SetOperationInfo(0, CATEGORY_DRAW, nil, 0, tp, 2)
+    Duel.SetOperationInfo(0, CATEGORY_HANDES, nil, 0, tp, 1)
+end
+
+function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) then return end
+    if Duel.Draw(tp, 2, REASON_EFFECT) == 2 then
+        Duel.ShuffleHand(tp)
+        Duel.BreakEffect()
+        Duel.DiscardHand(tp, nil, 1, 1, REASON_EFFECT + REASON_DISCARD)
+    end
+end
+
+function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
         return Duel.IsExistingTarget(Card.IsFaceup, tp, LOCATION_MZONE, 0, 1, nil) and
                    Duel.GetLocationCount(tp, LOCATION_MZONE, tp, LOCATION_REASON_CONTROL) > 0
@@ -169,7 +203,7 @@ function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     Duel.SelectTarget(tp, Card.IsFaceup, tp, LOCATION_MZONE, 0, 1, 1, nil)
 end
 
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
+function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local tc = Duel.GetFirstTarget()
     if not c:IsRelateToEffect(e) or not tc:IsRelateToEffect(e) or tc:IsImmuneToEffect(e) or tc:IsControler(1 - tp) or
@@ -181,23 +215,23 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     Duel.MoveSequence(tc, nseq)
 end
 
-function s.e6filter(c) return c:IsSpellTrap() and (c:IsAbleToHand() or c:IsSSetable()) end
+function s.e7filter(c) return c:IsSpellTrap() and (c:IsAbleToHand() or c:IsSSetable()) end
 
-function s.e6con(e, tp, eg, ep, ev, re, r, rp)
+function s.e7con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = c:GetOverlayGroup()
     return g:IsExists(Card.IsFieldSpell, 1, nil) and g:IsExists(Card.IsContinuousSpell, 1, nil) and g:IsExists(Card.IsContinuousTrap, 1, nil)
 end
 
-function s.e6tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e6filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) end
+function s.e7tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e7filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) end
     Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, 0, LOCATION_GRAVE + LOCATION_REMOVED)
 end
 
-function s.e6op(e, tp, eg, ep, ev, re, r, rp)
+function s.e7op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
-    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e6filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e7filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil):GetFirst()
     if tc then
         aux.ToHandOrElse(tc, tp, Card.IsSSetable, function(tc)
             Duel.SSet(tp, tc)

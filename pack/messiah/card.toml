@@ -14,6 +14,8 @@ While you control a Link Pendulum Monster Card, \
 If another Continuous Spell/Trap is placed or activated in your Spell & Trap Zone: \
     Place that card underneath this card when that card resolves. \
 This card gains the original effects of all Field Spells and Continuous Spell/Trap(s) underneath it. \
+Once per turn, if you control a Link Pendulum Monster Card: \
+    You can draw 2 cards, then discard 1 card. \
 Thrice per turn: You can target 1 face-up monster you control; \
     move that monster you control to another of your Main Monster Zones. \
 If this card has a Field Spell, Continuous Spell and Continuous Trap Card underneath: \
@@ -25,6 +27,7 @@ strings = [
     "Pay the cost?",
     "Place a Field Spell underneath this card?",
     "Place card underneath this card",
+    "Draw 2 cards, then discard 1 card",
     "Move monster to another of your Main Monster Zones",
     "Add or Set 1 Spell/Trap from your GY or banishment",
 ]
