@@ -7,9 +7,9 @@ You can only activate 1 "{CARD_NAME}" per turn. \
 When this card is activated: \
     You can place 1 Field Spell from your hand, Deck or GY underneath this card, except "{CARD_NAME}", \
     then, if you placed card from your hand, draw 1 card. \
-While you control a Link Pendulum Monster Card, \
-    your opponent cannot target this card with card effects, \
-    also it is unaffected by other card effects. \
+While you control a Link Pendulum Monster Card(s), \
+    your opponent cannot target this card and those cards with card effects, \
+    also this card is unaffected by other card effects. \
     This effects cannot be negated. \
 If another Continuous Spell/Trap is placed or activated in your Spell & Trap Zone: \
     Place that card underneath this card when that card resolves. \
@@ -44,8 +44,8 @@ link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
 scale = 13
 atk = 5000
 pendulum-effect = """\
-Cannot be targeted by card effects, also unaffected by other card effects. \
-    The above effects cannot be negated. \
+Unaffected by other card effects. \
+    This effects cannot be negated or be copied. \
 The Pendulum Scale of card in your other Pendulum Zone become 0. \
 During either player's turn, except the turn this card was placed Pendulum Zones (Quick Effect): \
     You can shuffle this card into the Extra Deck, and if you do, it becomes the Standby Phase of your next turn. \

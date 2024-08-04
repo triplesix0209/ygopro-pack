@@ -1,8 +1,6 @@
 MESSIAH_BABY_PENDULUM_EFFECT = """\
-Cannot be targeted by card effects. \
-    This effects cannot be negated. \
-If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up. \
-Pendulum Summons of your monsters cannot be negated.\
+Pendulum Summons of your monsters cannot be negated. \
+If you Pendulum Summon a monster(s): Add this card to your Extra Deck face-up.\
 """
 
 MESSIAH_BABY_MONSTER_EFFECT = """\

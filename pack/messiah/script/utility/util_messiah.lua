@@ -11,15 +11,16 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sp_location, sp_filter)
     c:EnableReviveLimit()
     Pendulum.AddProcedure(c, false)
 
-    -- untargetable
+    -- cannot disable pendulum summon
     local pe1 = Effect.CreateEffect(c)
-    pe1:SetType(EFFECT_TYPE_SINGLE)
-    pe1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_CANNOT_DISABLE)
-    pe1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    pe1:SetType(EFFECT_TYPE_FIELD)
+    pe1:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
+    pe1:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
     pe1:SetRange(LOCATION_PZONE)
-    pe1:SetValue(1)
+    pe1:SetTargetRange(1, 0)
+    pe1:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) end)
     c:RegisterEffect(pe1)
-
+    
     -- add to extra deck
     local pe2 = Effect.CreateEffect(c)
     pe2:SetDescription(aux.Stringid(id, 0))
@@ -39,16 +40,6 @@ function Messiah.RegisterMessiahBabyEffect(s, c, id, sp_location, sp_filter)
         Duel.SendtoExtraP(e:GetHandler(), tp, REASON_EFFECT)
     end)
     c:RegisterEffect(pe2)
-
-    -- cannot disable pendulum summon
-    local pe3 = Effect.CreateEffect(c)
-    pe3:SetType(EFFECT_TYPE_FIELD)
-    pe3:SetProperty(EFFECT_FLAG_IGNORE_RANGE + EFFECT_FLAG_SET_AVAILABLE)
-    pe3:SetCode(EFFECT_CANNOT_DISABLE_SPSUMMON)
-    pe3:SetRange(LOCATION_PZONE)
-    pe3:SetTargetRange(1, 0)
-    pe3:SetTarget(function(e, c) return c:IsSummonType(SUMMON_TYPE_PENDULUM) end)
-    c:RegisterEffect(pe3)
 
     -- special summon or place in pendulum zone
     local me1 = Effect.CreateEffect(c)
