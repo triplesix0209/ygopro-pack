@@ -41,7 +41,7 @@ race = "creator-god"
 link = 7
 link-arrow = "top-left top-right left right bottom-left bottom bottom-right"
 scale = 13
-atk = 5000
+atk = "?"
 pendulum-effect = """\
 Unaffected by other card effects. \
     This effects cannot be negated or be copied. \
@@ -52,9 +52,8 @@ During either player's turn, except the turn this card was placed Pendulum Zones
 """
 effect = """\
 Cannot be Link Summoned. \
-Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) by Tributing 3 Link Pendulum Monsters. \
-    You can only Special Summon "{CARD_NAME}" once per turn this way, \
-    except the turn this card was placed Pendulum Zones. \
+Must be Special Summoned (from your Extra Deck face-down or Pendulum Zones) \
+    by Tributing 3 Link Pendulum Monsters. \
 This card's Special Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
 When Special Summoned, other cards and effects cannot be activated, \
@@ -63,11 +62,11 @@ When Special Summoned, other cards and effects cannot be activated, \
 Cannot be Tributed, or use as material for an Summon. \
 Control of it cannot switch. \
 Unaffected by other card effects. \
+This card's original ATK becomes to half of your LP. \
 The above effects cannot be negated or be copied. \
 This card's gains the original effects of all monsters attached to it, except "{CARD_NAME}". \
 (Quick Effect): You can destroy 2 Link Pendulum Monster Cards in your Pendulum Zones, and if you do, \
-    add all other Pendulum Monsters that attached to this card, or in your GY to the Extra Deck face-up (if any), \
-    also, place this card from your Monster Zone, Extra Deck face-up, or GY in your Pendulum Zone, \
+    place this card from your Monster Zone, GY, or Extra Deck face-up in your Pendulum Zone, \
     then, you can place 1 Pendulum Monster from your Deck in your Pendulum Zone. \
     This effect's activation and effect cannot be negated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
