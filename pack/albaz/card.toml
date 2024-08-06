@@ -17,3 +17,18 @@ During the Main Phase, if this card is in your hand (Quick Effect): \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = ["Fusion Summon by banishing materials in the GYs"]
+
+[albaz-mirrorjade]
+id = 900007102
+alias = 68468459
+name = "Albaz the Mirrorjade"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 8
+atk = 2500
+def = 2000
+effect = """\
+(This card's name is always treated as "Fallen of Albaz".)
+"""
+strings = []
