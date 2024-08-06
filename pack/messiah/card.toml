@@ -92,7 +92,7 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-2 non-Link monsters
+2 non-Link monsters, except Tokens
 You take no battle damage from battles involving this card. \
 {MESSIAH_BABY_MONSTER_EFFECT|Level 4 or lower monster|hand or Deck}\
 """
@@ -117,7 +117,7 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-2 non-Link monsters
+2 non-Link monsters, except Tokens
 You take no battle damage from battles involving this card. \
 {MESSIAH_BABY_MONSTER_EFFECT|Level 4 or lower monster|hand or Deck}\
 """
@@ -142,12 +142,14 @@ pendulum-effect = """\
 {MESSIAH_BABY_PENDULUM_EFFECT} \
 """
 effect = """\
-3 non-Link monsters
+3 non-Link monsters, except Tokens
+If this card is Link Summoned: You can draw 2 cards, then discard 1 card. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
 You take no battle damage from battles involving this card. \
-{MESSIAH_BABY_MONSTER_EFFECT|monster|hand, Deck, GY or banishment}\
+{MESSIAH_BABY_MONSTER_EFFECT|monster|hand, Deck, or GY}\
 """
 strings = [
     "Add to Extra Deck",
     "Place in Pendulum Zone",
-    "Special Summon 1 monster from hand, Deck, GY or banishment",
+    "Special Summon 1 monster from hand, Deck, or GY",
 ]
