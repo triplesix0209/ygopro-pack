@@ -116,7 +116,7 @@ function s.initial_effect(c)
     me1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
     me1:SetCode(EFFECT_SET_BASE_ATTACK)
     me1:SetRange(LOCATION_MZONE)
-    me1:SetValue(function(e, c) return math.floor(Duel.GetLP(1 - e:GetHandlerPlayer()) / 2) end)
+    me1:SetValue(function(e, c) return math.floor(Duel.GetLP(e:GetHandlerPlayer()) / 2) end)
     c:RegisterEffect(me1)
 
     -- gain effect

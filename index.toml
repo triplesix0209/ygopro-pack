@@ -37,6 +37,6 @@ skip_compile_packs = [
     "./pack/barian",
     "./pack/z-arc",
     "./pack/code-talker",
-    # "./pack/messiah",
+    "./pack/messiah",
     # "./pack/albaz",
 ]
