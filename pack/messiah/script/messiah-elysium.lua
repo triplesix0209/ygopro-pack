@@ -72,8 +72,6 @@ function s.initial_effect(c)
     e5:SetRange(LOCATION_FZONE)
     e5:SetTargetRange(LOCATION_HAND, 0)
     e5:SetCondition(s.e5con)
-    e5:SetTarget(s.e5tg)
-    e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
     local e5b = e5:Clone()
     e5b:SetCode(EFFECT_TRAP_ACT_IN_HAND)
@@ -184,34 +182,8 @@ function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     Duel.MoveSequence(tc, nseq)
 end
 
-function s.e5filter(c) return c:IsSpellTrap() and (c:IsAbleToHand() or c:IsSSetable()) end
-
 function s.e5con(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     local g = c:GetOverlayGroup()
     return g:IsExists(Card.IsFieldSpell, 1, nil) and g:IsExists(Card.IsContinuousSpell, 1, nil) and g:IsExists(Card.IsContinuousTrap, 1, nil)
-end
-
-function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) end
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, 0, LOCATION_GRAVE + LOCATION_REMOVED)
-end
-
-function s.e5op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
-    local tc = Utility.SelectMatchingCard(HINTMSG_SELECT, tp, s.e5filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil):GetFirst()
-    if tc then
-        aux.ToHandOrElse(tc, tp, Card.IsSSetable, function(tc)
-            Duel.SSet(tp, tc)
-            if tc:IsTrap() or tc:IsQuickPlaySpell() then
-                local ec1 = Effect.CreateEffect(c)
-                ec1:SetType(EFFECT_TYPE_SINGLE)
-                ec1:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-                ec1:SetCode(tc:IsTrap() and EFFECT_TRAP_ACT_IN_SET_TURN or EFFECT_QP_ACT_IN_SET_TURN)
-                ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-                tc:RegisterEffect(ec1)
-            end
-        end, 1159)
-    end
 end
