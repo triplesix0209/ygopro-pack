@@ -4,6 +4,7 @@ local s, id = GetID()
 
 s.listed_names = {CARD_SUPER_POLYMERIZATION, CARD_DARK_FUSION}
 s.listed_series = {SET_FUSION}
+s.material_setcode = {SET_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -11,7 +12,7 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMixRep(c, false, false, aux.FilterBoolFunctionEx(Card.IsType, TYPE_EFFECT), 1, 99,
-        aux.FilterBoolFunctionEx(Card.IsType, TYPE_FUSION))
+        function(c, sc, st, tp) return c:IsSetCard(SET_HERO, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -138,7 +139,7 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     Duel.SetOperationInfo(0, CATEGORY_EQUIP, nil, 1, 0, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE)
 end
 
-function s.eqop(e, tp, eg, ep, ev, re, r, rp)
+function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
     local g = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, c)
