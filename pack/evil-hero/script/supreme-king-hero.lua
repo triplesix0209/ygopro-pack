@@ -142,8 +142,9 @@ end
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
-    local g = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, c)
-    if #g > 0 then Duel.Equip(tp, g, c) end
+    local tc =
+        Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, c):GetFirst()
+    if tc then Duel.Equip(tp, tc, c) end
 end
 
 function s.e2filter(c)
