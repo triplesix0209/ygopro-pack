@@ -11,7 +11,7 @@ function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- fusion summon
-    Fusion.AddProcMixRep(c, true, true, aux.FilterBoolFunctionEx(Card.IsSummonLocation, LOCATION_EXTRA), 1, 99,
+    Fusion.AddProcMixRep(c, true, true, aux.FilterBoolFunctionEx(Card.IsSummonLocation, LOCATION_EXTRA), 1, 1,
         function(c, sc, st, tp) return c:IsSetCard(SET_EVIL_HERO, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end)
 
     -- lizard check
@@ -34,22 +34,20 @@ function s.initial_effect(c)
     c:RegisterEffect(splimit)
 
     -- atk up
-    local e1reg = Effect.CreateEffect(c)
-    e1reg:SetType(EFFECT_TYPE_SINGLE)
-    e1reg:SetCode(EFFECT_MATERIAL_CHECK)
-    e1reg:SetValue(s.e1regval)
-    c:RegisterEffect(e1reg)
     local e1 = Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
-    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e1:SetDescription(aux.Stringid(id, 0))
+    e1:SetCategory(CATEGORY_ATKCHANGE)
+    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    e1:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+    e1:SetCountLimit(1)
     e1:SetCondition(s.e1con)
+    e1:SetCost(s.e1cost)
     e1:SetOperation(s.e1op)
-    e1:SetLabelObject(e1reg)
     c:RegisterEffect(e1)
 
     -- activate effect
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetDescription(aux.Stringid(id, 1))
     e2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e2:SetCode(EVENT_PHASE + PHASE_END)
     e2:SetRange(LOCATION_MZONE)
@@ -59,24 +57,25 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1regval(e, c)
-    local g = c:GetMaterial()
-    e:SetLabel(#g)
-end
+function s.e1con(e) return e:GetHandler() == Duel.GetAttacker() end
 
-function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end
+function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, Card.IsSetCard, 1, false, nil, e:GetHandler(), SET_HERO) end
+    local g = Duel.SelectReleaseGroupCost(tp, Card.IsSetCard, 1, 1, false, nil, e:GetHandler(), SET_HERO)
+    e:SetLabel(g:GetFirst():GetAttack())
+    Duel.Release(g, REASON_COST)
+end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local atk = e:GetLabelObject():GetLabel() * 200
-    if atk > 0 then
-        local ec1 = Effect.CreateEffect(c)
-        ec1:SetType(EFFECT_TYPE_SINGLE)
-        ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(atk)
-        ec1:SetReset(RESET_EVENT + RESETS_STANDARD)
-        c:RegisterEffect(ec1)
-    end
+    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
+
+    local ec1 = Effect.CreateEffect(c)
+    ec1:SetType(EFFECT_TYPE_SINGLE)
+    ec1:SetCode(EFFECT_UPDATE_ATTACK)
+    ec1:SetValue(e:GetLabel())
+    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+    c:RegisterEffect(ec1)
 end
 
 function s.e2countfilter(c) return c:IsSetCard(SET_HERO) and c:IsMonster() and c:IsFaceup() end
@@ -90,15 +89,15 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local sel = {}
     local ct = Duel.GetMatchingGroup(s.e2countfilter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, nil):GetClassCount(Card.GetCode)
     if ct >= 2 and Duel.IsExistingMatchingCard(nil, tp, 0, LOCATION_ONFIELD, 1, nil) then
-        table.insert(opt, aux.Stringid(id, 1))
+        table.insert(opt, aux.Stringid(id, 2))
         table.insert(sel, 1)
     end
     if ct >= 4 and Duel.IsExistingMatchingCard(s.e2filter1, tp, 0, LOCATION_MZONE, 1, nil) then
-        table.insert(opt, aux.Stringid(id, 2))
+        table.insert(opt, aux.Stringid(id, 3))
         table.insert(sel, 2)
     end
     if ct >= 6 and Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) then
-        table.insert(opt, aux.Stringid(id, 3))
+        table.insert(opt, aux.Stringid(id, 4))
         table.insert(sel, 3)
     end
 

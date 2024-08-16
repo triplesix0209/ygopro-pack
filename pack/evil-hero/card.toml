@@ -60,9 +60,9 @@ effect = """\
 You can Special Summon this card (from your hand or GY) \
     by shuffling 1 "HERO" Fusion or Link Monster you control into the Extra Deck. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
-If this card attacks, during damage calculation: \
-    You can Tribute 1 face-up "HERO" monster; \
-    this card gains ATK equal to the Tributed monster's ATK, until the End Phase. \
+This card can be used as a substitute for any 1 Fusion Material mentioned by name on \
+    a Fusion Monster that must be Special Summoned with "Dark Fusion", \
+    but the other Fusion Material(s) must be correct. \
 During your Main Phase or your opponent's turn (Quick Effect): \
     You can shuffle into the Deck, this card you control and 1 other "HERO" monster you control or in your hand, \
     and if you do, Special Summon 1 Fusion monster from your Extra Deck, \
@@ -71,10 +71,7 @@ During your Main Phase or your opponent's turn (Quick Effect): \
     (This is treated as a Fusion Summon with "Dark Fusion".) \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
-strings = [
-    "Tribute 1 \"HERO\" to gain ATK",
-    "Special Summon 1 \"Evil HERO\" Fusion monster from Extra Deck",
-]
+strings = ["Special Summon 1 \"Evil HERO\" Fusion monster from Extra Deck"]
 
 [evil-hero-aero-scout]
 id = 900002203
@@ -439,10 +436,12 @@ level = 8
 atk = 3200
 def = 0
 effect = """\
-1 "Evil HERO" Fusion Monster + 1+ monsters that were Special Summoned from the Extra Deck
+1 "Evil HERO" Fusion Monster + 1 monsters that were Special Summoned from the Extra Deck
 Must be Special Summoned with "Dark Fusion". \
-Gains 200 ATK x the number of Fusion Materials used for this card's Fusion Summon. \
-Once per turn, during the End Phase: You can activate 1 of these effects, \
+Once per turn, if this card attacks, during damage calculation: \
+    You can Tribute 1 face-up "HERO" monster; \
+    this card gains ATK equal to the Tributed monster's ATK, until the End Phase. \
+During the End Phase: You can activate 1 of these effects, \
     depending on the number of "HERO" monsters with different names that are in your GY or banished. \
     You can only use this effect of "{CARD_NAME}" once per turn.
 ● 2+: Destroy 1 card your opponent controls.
@@ -450,6 +449,7 @@ Once per turn, during the End Phase: You can activate 1 of these effects, \
 ● 6+: Shuffle 1 card in your GY or banishment into the Deck.
 """
 strings = [
+    "Tribute 1 \"HERO\" to gain ATK",
     "Activate effect depending on the number of \"HERO\" in GY or banished",
     "Destroy 1 card your opponent controls",
     "Take control of 1 your opponent's monster",

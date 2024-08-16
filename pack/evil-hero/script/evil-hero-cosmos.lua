@@ -18,16 +18,12 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- atk up
+    -- fusion substitute
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetCategory(CATEGORY_ATKCHANGE)
-    e2:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e2:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
-    e2:SetCountLimit(1, {id, 2})
-    e2:SetCondition(s.e2con)
-    e2:SetCost(s.e2cost)
-    e2:SetOperation(s.e2op)
+    e2:SetType(EFFECT_TYPE_SINGLE)
+    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e2:SetCode(EFFECT_FUSION_SUBSTITUTE)
+    e2:SetValue(function(e, c) return c.dark_calling end)
     c:RegisterEffect(e2)
 
     -- special summon "evil HERO" fusion monster
@@ -81,27 +77,6 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, c)
     if not g then return end
     Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_COST)
     g:DeleteGroup()
-end
-
-function s.e2con(e) return e:GetHandler() == Duel.GetAttacker() end
-
-function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.CheckReleaseGroupCost(tp, Card.IsSetCard, 1, false, nil, e:GetHandler(), SET_HERO) end
-    local g = Duel.SelectReleaseGroupCost(tp, Card.IsSetCard, 1, 1, false, nil, e:GetHandler(), SET_HERO)
-    e:SetLabel(g:GetFirst():GetAttack())
-    Duel.Release(g, REASON_COST)
-end
-
-function s.e2op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if c:IsFacedown() or not c:IsRelateToEffect(e) then return end
-
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetCode(EFFECT_UPDATE_ATTACK)
-    ec1:SetValue(e:GetLabel())
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    c:RegisterEffect(ec1)
 end
 
 function s.e3filter1(c, e, tp)
