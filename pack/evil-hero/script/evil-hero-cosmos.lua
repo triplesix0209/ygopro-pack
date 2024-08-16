@@ -22,7 +22,7 @@ function s.initial_effect(c)
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
     e2:SetCode(EFFECT_FUSION_SUBSTITUTE)
-    e2:SetCondition(function(e) return e:GetHandler():IsLocation(LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED7) end)
+    e2:SetCondition(function(e) return e:GetHandler():IsLocation(LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE + LOCATION_REMOVED) end)
     e2:SetValue(function(e, c) return c.dark_calling end)
     c:RegisterEffect(e2)
 
