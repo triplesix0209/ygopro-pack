@@ -64,9 +64,46 @@ function s.initial_effect(c)
     nofusmaterial:SetValue(1)
     c:RegisterEffect(nofusmaterial)
 
+    -- immune
+    local immune1 = Effect.CreateEffect(c)
+    immune1:SetType(EFFECT_TYPE_SINGLE)
+    immune1:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    immune1:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
+    immune1:SetRange(LOCATION_MZONE)
+    immune1:SetCondition(function(e)
+        return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType, TYPE_FUSION), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, e:GetHandler())
+    end)
+    immune1:SetValue(aux.imval1)
+    c:RegisterEffect(immune1)
+    local immune2 = immune1:Clone()
+    immune2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    immune2:SetValue(1)
+    c:RegisterEffect(immune2)
+    local immune2 = Effect.CreateEffect(c)
+    immune2:SetType(EFFECT_TYPE_FIELD)
+    immune2:SetProperty(EFFECT_FLAG_PLAYER_TARGET + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    immune2:SetCode(EFFECT_CANNOT_REMOVE)
+    immune2:SetRange(LOCATION_MZONE)
+    immune2:SetTargetRange(1, 1)
+    immune2:SetCondition(function(e)
+        return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType, TYPE_FUSION), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, e:GetHandler())
+    end)
+    immune2:SetTarget(function(e, c, tp, r) return c == e:GetHandler() and r == REASON_EFFECT end)
+    c:RegisterEffect(immune2)
+
+    -- fusion monsters you control cannot be targeted by opponent's effects
+    local untarget = Effect.CreateEffect(c)
+    untarget:SetType(EFFECT_TYPE_FIELD)
+    untarget:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    untarget:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    untarget:SetRange(LOCATION_MZONE)
+    untarget:SetTargetRange(LOCATION_MZONE, 0)
+    untarget:SetTarget(aux.TargetBoolFunction(Card.IsType, TYPE_FUSION))
+    untarget:SetValue(aux.tgoval)
+    c:RegisterEffect(untarget)
+
     -- recover
     local e1 = Effect.CreateEffect(c)
-    e1:SetDescription(aux.Stringid(id, 0))
     e1:SetCategory(CATEGORY_RECOVER)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_PLAYER_TARGET)
@@ -76,42 +113,15 @@ function s.initial_effect(c)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
 
-    -- immune
-    local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e2:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
-    e2:SetRange(LOCATION_MZONE)
-    e2:SetCondition(s.e2con)
-    e2:SetValue(aux.imval1)
-    c:RegisterEffect(e2)
-    local e2b = e2:Clone()
-    e2b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    e2b:SetValue(1)
-    c:RegisterEffect(e2b)
-    local e2c = e2:Clone()
-    e2c:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e2c:SetValue(aux.tgoval)
-    c:RegisterEffect(e2c)
-    local e3d = Effect.CreateEffect(c)
-    e3d:SetType(EFFECT_TYPE_FIELD)
-    e3d:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e3d:SetCode(EFFECT_CANNOT_REMOVE)
-    e3d:SetRange(LOCATION_MZONE)
-    e3d:SetTargetRange(1, 1)
-    e3d:SetCondition(s.e2con)
-    e3d:SetTarget(function(e, c, tp, r) return c == e:GetHandler() and r == REASON_EFFECT end)
-    c:RegisterEffect(e3d)
-
     -- apply fusion effect
-    local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 0))
-    e3:SetType(EFFECT_TYPE_IGNITION)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1, id)
-    e3:SetTarget(s.e3tg)
-    e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
+    local e2 = Effect.CreateEffect(c)
+    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCountLimit(1, id)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
+    c:RegisterEffect(e2)
 end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -128,19 +138,15 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Recover(p, d, REASON_EFFECT)
 end
 
-function s.e2con(e)
-    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType, TYPE_FUSION), e:GetHandlerPlayer(), LOCATION_MZONE, 0, 1, e:GetHandler())
-end
-
-function s.e3filter(c)
+function s.e2filter(c)
     return c:IsAbleToGraveAsCost() and (c:IsSetCard(SET_FUSION) or c:ListsCode(CARD_DARK_FUSION)) and
                (c:GetType() == TYPE_SPELL or c:GetType() == TYPE_SPELL + TYPE_QUICKPLAY) and c:CheckActivateEffect(true, true, false) ~= nil
 end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil):GetFirst()
     if not tc or not Duel.SendtoGrave(tc, REASON_COST) then return end
 
     local te = tc:CheckActivateEffect(true, true, false)
@@ -154,7 +160,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     Duel.ClearOperationInfo(0)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local te = e:GetLabelObject()
     if te then
         e:SetLabel(te:GetLabel())
