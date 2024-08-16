@@ -438,7 +438,7 @@ def = 0
 effect = """\
 1 "Evil HERO" Fusion Monster + 1 monsters that were Special Summoned from the Extra Deck
 Must be Special Summoned with "Dark Fusion". \
-Once per turn, if this card attacks, during damage calculation: \
+If this card attacks, during damage calculation: \
     You can Tribute 1 face-up "HERO" monster; \
     this card gains ATK equal to the Tributed monster's ATK, until the End Phase. \
 During the End Phase: You can activate 1 of these effects, \
