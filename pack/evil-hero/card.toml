@@ -60,7 +60,7 @@ effect = """\
 You can Special Summon this card (from your hand or GY) \
     by shuffling 1 "HERO" Fusion or Link Monster you control into the Extra Deck. \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
-This card can be used as a substitute for any 1 Fusion Material mentioned by name on \
+This card in your hand, field, or GY can be used as a substitute for any 1 Fusion Material mentioned by name on \
     a Fusion Monster that must be Special Summoned with "Dark Fusion", \
     but the other Fusion Material(s) must be correct. \
 During your Main Phase or your opponent's turn (Quick Effect): \

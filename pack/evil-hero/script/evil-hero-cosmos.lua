@@ -21,8 +21,8 @@ function s.initial_effect(c)
     -- fusion substitute
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e2:SetCode(EFFECT_FUSION_SUBSTITUTE)
+    e2:SetCondition(function(e) return e:GetHandler():IsLocation(LOCATION_HAND + LOCATION_ONFIELD + LOCATION_GRAVE) end)
     e2:SetValue(function(e, c) return c.dark_calling end)
     c:RegisterEffect(e2)
 
