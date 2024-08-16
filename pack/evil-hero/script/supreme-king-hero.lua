@@ -102,11 +102,11 @@ function s.initial_effect(c)
     untarget:SetValue(aux.tgoval)
     c:RegisterEffect(untarget)
 
-    -- recover
+    -- equip
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_RECOVER)
+    e1:SetCategory(CATEGORY_EQUIP)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_PLAYER_TARGET)
+    e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
     e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end)
     e1:SetTarget(s.e1tg)
@@ -116,7 +116,8 @@ function s.initial_effect(c)
     -- apply fusion effect
     local e2 = Effect.CreateEffect(c)
     e2:SetDescription(aux.Stringid(id, 0))
-    e2:SetType(EFFECT_TYPE_IGNITION)
+    e2:SetType(EFFECT_TYPE_QUICK_O)
+    e2:SetCode(EVENT_FREE_CHAIN)
     e2:SetRange(LOCATION_MZONE)
     e2:SetCountLimit(1, id)
     e2:SetTarget(s.e2tg)
@@ -124,18 +125,24 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local mg = e:GetHandler():GetMaterial()
-    if chk == 0 then return mg and #mg > 0 end
-    local val = #mg * 1000
-    Duel.SetTargetPlayer(tp)
-    Duel.SetTargetParam(val)
-    Duel.SetOperationInfo(0, CATEGORY_RECOVER, nil, 0, tp, val)
+function s.e1filter(c, ec) return c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec) end
+
+function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    local c = e:GetHandler()
+    if chk == 0 then
+        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and
+                   Duel.IsExistingTarget(s.file1filterter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, c)
+    end
+
+    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
+    Duel.SetOperationInfo(0, CATEGORY_EQUIP, nil, 1, 0, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE)
 end
 
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local p, d = Duel.GetChainInfo(0, CHAININFO_TARGET_PLAYER, CHAININFO_TARGET_PARAM)
-    Duel.Recover(p, d, REASON_EFFECT)
+function s.eqop(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+    local g = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, c)
+    if #g > 0 then Duel.Equip(tp, g, c) end
 end
 
 function s.e2filter(c)
