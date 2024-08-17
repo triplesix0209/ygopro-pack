@@ -1,4 +1,4 @@
--- Neo Space Eternal
+-- Eternal Neo-Spacian
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

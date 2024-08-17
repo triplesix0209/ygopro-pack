@@ -438,9 +438,10 @@ Gains 400 ATK for each Spell/Trap you controls. \
 """
 strings = []
 
-[eternal-spacian]
+[eternal-neo-spacian]
 id = 900002119
-name = "Eternal Spacian"
+name = "Eternal Neo-Spacian"
+set = "neo-spacian"
 type = "monster link effect"
 attribute = "light"
 race = "spellcaster"
