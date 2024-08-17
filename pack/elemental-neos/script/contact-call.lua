@@ -31,8 +31,8 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c)
-    return not c:IsCode(id) and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(true, true, false) ~= nil and c:IsNormalSpell() and
-               c:ListsArchetype(SET_NEO_SPACIAN)
+    return not c:IsCode(id) and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(true, true, false) ~= nil  and
+               c:ListsArchetype(SET_NEO_SPACIAN) and (c:IsNormalSpell() or c:IsNormalTrap())
 end
 
 function s.e1cost(e, tp, eg, ep, ev, re, r, rp, chk)

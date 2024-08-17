@@ -435,6 +435,31 @@ Gains 400 ATK for each Spell/Trap you controls. \
 """
 strings = []
 
+[neo-spacian-pure-heart]
+id = 900002119
+name = "Neo-Spacian Pure Heart"
+set = "neo-spacian"
+type = "monster link effect"
+attribute = "light"
+race = "spellcaster"
+link = 1
+link-arrow = "bottom"
+atk = 0
+effect = """\
+1 non-Link "HERO" or "Neo-Spacian" monster
+If this card is Link Summoned: \
+    You can add from your Deck to you hand, 1 Spell/Trap that lists a "Neo-Spacian" card. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+This card is not treated as LIGHT-Attribute while on the field, in the GY or banishment. \
+    This effect cannot be negated. \
+Once per turn (Quick Effect): \
+    You can send 1 "Neo-Spacian" monster, except "{CARD_NAME}", \
+    from your hand, Deck or Extra Deck to the GY, and if you do, \
+    until the End Phase, this card's name becomes that monster's original name, \
+    and replace this effect with that monster's original effects. \
+"""
+strings = ["Copy name and effect of other \"Neo-Spacian\""]
+
 [favorite-fusion]
 id = 900002120
 name = "Favorite Fusion"
@@ -456,7 +481,7 @@ id = 900002121
 name = "Contact Call"
 type = "spell"
 effect = """\
-Send 1 Normal Spell that lists a "Neo-Spacian" card, \
+Send 1 Normal Spell or Normal Trap that lists a "Neo-Spacian" card, \
     except "{CARD_NAME}", from your hand or Deck to the GY; \
     this effect becomes that Spell's effect when that card is activated. \
 During your End Phase, if this card is in your GY: \
