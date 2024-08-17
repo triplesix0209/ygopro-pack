@@ -42,8 +42,12 @@ If this card is Fusion Summoned: \
     or 1 Normal or Quick-Play Spell that mentions "Dark Fusion"; \
     this effect becomes that Spell's effect when that card is activated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
+During the End Phase: You can shuffle 1 card in your GY or banishment into the Deck. \
 """
-strings = ["Apply effect of 1 Spell"]
+strings = [
+    "Apply effect of 1 Spell",
+    "Shuffle 1 card in your GY or banishment into the Deck",
+]
 
 [evil-hero-cosmos]
 id = 900002202
