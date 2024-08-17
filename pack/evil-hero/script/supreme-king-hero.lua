@@ -4,6 +4,7 @@ local s, id = GetID()
 
 s.listed_names = {CARD_SUPER_POLYMERIZATION, CARD_DARK_FUSION}
 s.listed_series = {SET_FUSION}
+s.material_setcode = {SET_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -11,7 +12,7 @@ function s.initial_effect(c)
 
     -- fusion summon
     Fusion.AddProcMixRep(c, false, false, aux.FilterBoolFunctionEx(Card.IsType, TYPE_EFFECT), 1, 99,
-        function(c, sc, st, tp) return c:IsType(TYPE_FUSION, sc, st, tp) and c.dark_calling end)
+        function(c, sc, st, tp) return c:IsSetCard(SET_HERO, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
