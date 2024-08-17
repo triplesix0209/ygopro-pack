@@ -32,9 +32,7 @@ You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Control of it cannot switch. \
 This face-up card on the field cannot be used as Fusion Material. \
-While you control another Fusion Monster, \
-    monsters cannot target this card for attacks, \
-    also it cannot be destroyed, or banished, by card effects. \
+Cannot be destroyed, or banished, by card effects. \
 Your opponent cannot target Fusion Monsters you control with card effects. \
 The above effects cannot be negated or be copied. \
 If this card is Fusion Summoned: \
@@ -426,39 +424,8 @@ strings = [
     "Inflict damage to your opponent equal to the original ATK/DEF of destroyed monster",
 ]
 
-[evil-hero-faustian-slayer]
-id = 900002219
-set = "evil-hero"
-name = "Evil HERO Faustian Slayer"
-type = "monster fusion effect"
-attribute = "dark"
-race = "fiend"
-level = 8
-atk = 3200
-def = 0
-effect = """\
-1 "Evil HERO" Fusion Monster + 1 monsters that were Special Summoned from the Extra Deck
-Must be Special Summoned with "Dark Fusion". \
-If this card attacks, during damage calculation: \
-    You can Tribute 1 face-up "HERO" monster; \
-    this card gains ATK equal to the Tributed monster's ATK, until the End Phase. \
-During the End Phase: You can activate 1 of these effects, \
-    depending on the number of "HERO" monsters with different names that are in your GY or banished. \
-    You can only use this effect of "{CARD_NAME}" once per turn.
-● 2+: Destroy 1 card your opponent controls.
-● 4+: Take control of 1 Special Summoned monster your opponent controls.
-● 6+: Shuffle 1 card in your GY or banishment into the Deck.
-"""
-strings = [
-    "Tribute 1 \"HERO\" to gain ATK",
-    "Activate effect depending on the number of \"HERO\" in GY or banished",
-    "Destroy 1 card your opponent controls",
-    "Take control of 1 your opponent's monster",
-    "Shuffle 1 card in your GY or banishment into the Deck",
-]
-
 [xtra-hero-infernal-caller]
-id = 900002220
+id = 900002219
 set = "hero"
 name = "Xtra HERO Infernal Caller"
 type = "monster link effect"
@@ -479,7 +446,7 @@ If this card is used as material for a Fusion Summon, and sent to the GY or bani
 strings = []
 
 [darkness-fusion]
-id = 900002221
+id = 900002220
 alias = 94820406
 name = "Darkness Fusion"
 type = "spell"
@@ -493,7 +460,7 @@ Fusion Summon 1 Fiend Fusion Monster from your Extra Deck, \
 strings = []
 
 [vicious-calling]
-id = 900002222
+id = 900002221
 name = "Vicious Calling"
 type = "spell"
 effect = """
@@ -505,7 +472,7 @@ Fusion Summon 1 Fusion Monster from your Extra Deck, \
 strings = []
 
 [dark-requiem]
-id = 900002223
+id = 900002222
 name = "Dark Requiem"
 type = "trap counter"
 effect = """
@@ -520,7 +487,7 @@ If you control no cards, except "Supreme King" cards, you can activate this card
 strings = []
 
 [evil-soul]
-id = 900002224
+id = 900002223
 name = "Evil Soul"
 type = "spell quick-play"
 effect = """
@@ -535,7 +502,7 @@ If a Fusion Monster(s) that must be Special Summoned with "Dark Fusion" you cont
 strings = []
 
 [sinister-call]
-id = 900002225
+id = 900002224
 name = "Sinister Call"
 type = "spell"
 effect = """
@@ -550,7 +517,7 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = []
 
 [sinister-flame]
-id = 900002226
+id = 900002225
 name = "Sinister Flame"
 type = "trap counter"
 effect = """
