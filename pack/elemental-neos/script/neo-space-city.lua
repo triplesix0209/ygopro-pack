@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
-s.listed_series = {SET_NEOS}
+s.listed_series = {SET_NEOS, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
     -- activate
@@ -51,7 +51,10 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.e1filter(c) return c:IsAbleToHand() and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS) end
+function s.e1filter(c)
+    if c:IsCode(id) or not c:IsAbleToHand() then return false end
+    return (c:IsMonster() and c:IsSetCard(SET_NEO_SPACIAN)) or (c:IsSpellTrap() and c:ListsArchetype(SET_NEO_SPACIAN))
+end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()

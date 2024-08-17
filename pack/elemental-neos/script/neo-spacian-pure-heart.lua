@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_NEOS}
-s.listed_series = {SET_NEO_SPACIAN}
+s.listed_series = {SET_NEOS}
 s.material_setcode = {SET_HERO, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
@@ -11,12 +11,12 @@ function s.initial_effect(c)
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp)
-        return not c:IsType(TYPE_LINK, sc, sumtype, tp) and (c:IsSetCard(SET_HERO, sc, sumtype, tp) or c:IsSetCard(SET_NEO_SPACIAN, sc, sumtype, tp))
+        return c:IsLevelBelow(4) and (c:IsSetCard(SET_HERO, sc, sumtype, tp) or c:IsSetCard(SET_NEO_SPACIAN, sc, sumtype, tp))
     end, 1, 1)
 
-    -- search
+    -- special summon
     local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_TOHAND + CATEGORY_SEARCH)
+    e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e1:SetProperty(EFFECT_FLAG_DELAY)
     e1:SetCode(EVENT_SPSUMMON_SUCCESS)
@@ -48,21 +48,26 @@ function s.initial_effect(c)
     c:RegisterEffect(e3)
 end
 
-function s.e1filter(c) return c:ListsArchetype(SET_NEO_SPACIAN) and c:IsSpellTrap() and c:IsAbleToHand() end
+function s.e1filter(c, e, tp)
+    return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP_DEFENSE)
+end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_DECK, 0, 1, nil) end
-    Duel.SetOperationInfo(0, CATEGORY_TOHAND, nil, 1, tp, LOCATION_DECK)
+    if chk == 0 then
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
+                   Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil, e, tp)
+    end
+
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_DECK)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
-    local g = Utility.SelectMatchingCard(HINTMSG_ATOHAND, tp, s.e1filter, tp, LOCATION_DECK, 0, 1, 1, nil)
-    if #g > 0 then
-        Duel.SendtoHand(g, nil, REASON_EFFECT)
-        Duel.ConfirmCards(1 - tp, g)
-    end
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, e, tp)
+    if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) end
 end
 
 function s.e3filter(c) return not c:IsCode(id) and c:IsSetCard(SET_NEO_SPACIAN) and c:IsMonster() and c:IsAbleToGrave() end

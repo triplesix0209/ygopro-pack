@@ -5,7 +5,10 @@ name = "Neo Space City"
 type = "spell field"
 effect = """\
 (This card's name is always treated as "Neo Space".)
-When this card is activated: You can add 1 LIGHT "Neos" monster from your Deck to your hand. \
+When this card is activated: \
+    You can add from your Deck to you hand, \
+    1 "Neo-Spacian" monster or 1 Spell/Trap that lists it, \
+    except "{CARD_NAME}". \
 If a Fusion Monster(s) you control that lists "Elemental HERO Neos" as material \
     is destroyed by battle, or leaves the field because of a card effect: \
     You can Special Summon 1 "Elemental HERO Neos" from your hand, Deck, Extra Deck, or GY, \
@@ -18,7 +21,7 @@ This card and face-up Continuous Spell/Trap Card(s) in your Spell & Trap Zone \
     This effect cannot be negated. \
 """
 strings = [
-    "Add 1 \"Neos\" monster to your hand?",
+    "Add 1 \"Neo-Spacian\" monster or Spell/Trap that lists it to your hand?",
     "Special Summon \"Elemental HERO Neos\"",
 ]
 
@@ -446,9 +449,9 @@ link = 1
 link-arrow = "bottom"
 atk = 0
 effect = """\
-1 non-Link "HERO" or "Neo-Spacian" monster
+1 level 4 or lower "HERO" or "Neo-Spacian" monster
 If this card is Link Summoned: \
-    You can add from your Deck to you hand, 1 Spell/Trap that lists a "Neo-Spacian" card. \
+    You can Special Summon 1 LIGHT "Neos" monster from your hand or Deck in face-up Defense Position. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 This card is not treated as LIGHT-Attribute while on the field, in the GY or banishment. \
     This effect cannot be negated. \

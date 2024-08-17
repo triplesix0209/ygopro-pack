@@ -36,7 +36,7 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then
         return Duel.IsExistingMatchingCard(s.e1filter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, 1, c, tp) and
-                   c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
+                   c:IsCanBeSpecialSummoned(e, 0, tp, false, false) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
     end
 
     Duel.SetOperationInfo(0, CATEGORY_REMOVE, nil, 1, tp, LOCATION_MZONE + LOCATION_GRAVE)
@@ -45,6 +45,7 @@ end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
+    if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
     local g = Utility.SelectMatchingCard(HINTMSG_REMOVE, tp, s.e1filter, tp, LOCATION_MZONE + LOCATION_GRAVE, 0, 1, 1, c, tp)
     if Duel.Remove(g, POS_FACEUP, REASON_COST) > 0 and c:IsRelateToEffect(e) then Duel.SpecialSummon(c, 0, tp, tp, false, false, POS_FACEUP) end
 end
