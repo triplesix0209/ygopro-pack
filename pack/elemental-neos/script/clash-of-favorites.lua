@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_NEOS, CARD_YUBEL, 48130397}
-s.listed_series = {SET_ULTIMATE_CRYSTAL, SET_ARMED_DRAGON}
+s.listed_names = {CARD_NEOS, CARD_SUPER_POLYMERIZATION}
+s.listed_series = {SET_YUBEL, SET_ULTIMATE_CRYSTAL, SET_ARMED_DRAGON}
 
 function s.initial_effect(c)
     -- activate
@@ -32,8 +32,8 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c, e, tp, to_tp)
-    if not c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP_ATTACK, to_tp) then return false end
-    return c:IsCode(CARD_YUBEL) or c:IsSetCard(SET_ULTIMATE_CRYSTAL) or (c:IsLevel(10) and c:IsSetCard(SET_ARMED_DRAGON))
+    return c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP_ATTACK, to_tp) and c:IsLevel(10) and
+               (c:IsSetCard(SET_YUBEL) or c:IsSetCard(SET_ULTIMATE_CRYSTAL) or c:IsSetCard(SET_ARMED_DRAGON))
 end
 
 function s.e1check1(e, tp)
@@ -71,7 +71,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter(c) return c:IsCode(48130397) and c:IsAbleToHand() end
+function s.e2filter(c) return c:IsCode(CARD_SUPER_POLYMERIZATION) and c:IsAbleToHand() end
 
 function s.e2con(e, tp, eg, ep, ev, re, r, rp)
     return Duel.IsTurnPlayer(tp) and Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) > 0 and Duel.GetDrawCount(tp) > 0 and

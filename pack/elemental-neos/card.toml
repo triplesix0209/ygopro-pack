@@ -451,7 +451,8 @@ atk = 0
 effect = """\
 1 level 4 or lower "HERO" or "Neo-Spacian" monster
 If this card is Link Summoned: \
-    You can Special Summon 1 LIGHT "Neos" monster from your hand or Deck in face-up Defense Position. \
+    You can Special Summon 1 LIGHT "Neos" monster or 1 Level 10 "Yubel" monster \
+    from your hand or Deck, but it cannot attack this turn. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 This card is not treated as DARK-Attribute while on the field, in the GY or banishment. \
     This effect cannot be negated. \
@@ -502,7 +503,7 @@ set = "favorite"
 type = "trap"
 effect = """\
 Special Summon from your hand or Deck to either player's field in Attack Position, \
-    1 "Yubel", 1 "Ultimate Crystal" monster, or 1 Level 10 "Armed Dragon" monster, \
+    1 Level 10 "Yubel" monster, Level 10 "Ultimate Crystal" monster, or Level 10 "Armed Dragon" monster, \
     ignoring its Summoning conditions, but it cannot attack directly. \
     You can only Summon to your opponent's side of the field, unless you control "Elemental HERO Neos". \
 During your Draw Phase, if this card is in your GY and you control "Elemental HERO Neos", before you draw: \

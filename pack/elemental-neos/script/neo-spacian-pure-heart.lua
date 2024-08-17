@@ -2,8 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_NEOS}
-s.listed_series = {SET_NEOS}
+s.listed_series = {SET_NEOS, SET_YUBEL}
 s.material_setcode = {SET_HERO, SET_NEO_SPACIAN}
 
 function s.initial_effect(c)
@@ -49,7 +48,8 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c, e, tp)
-    return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP_DEFENSE)
+    if not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) then return false end
+    return (c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS)) or (c:IsLevel(10) and c:IsSetCard(SET_YUBEL))
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end
@@ -64,9 +64,18 @@ function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, e, tp)
-    if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP_DEFENSE) end
+    local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, e, tp):GetFirst()
+    if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) > 0 then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetDescription(3206)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetProperty(EFFECT_FLAG_CLIENT_HINT)
+        ec1:SetCode(EFFECT_CANNOT_ATTACK)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec1)
+    end
 end
 
 function s.e3filter(c) return not c:IsCode(id) and c:IsSetCard(SET_NEO_SPACIAN) and c:IsMonster() and c:IsAbleToGrave() end
