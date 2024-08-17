@@ -1,16 +1,16 @@
--- Neo-Spacian Pure Heart
+-- Neo Space Eternal
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_NEOS, SET_YUBEL}
-s.material_setcode = {SET_HERO, SET_NEO_SPACIAN}
+s.listed_series = {SET_NEOS, SET_YUBEL, SET_NEO_SPACIAN}
+s.material_setcode = {SET_HERO}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
 
     -- link summon
     Link.AddProcedure(c, function(c, sc, sumtype, tp)
-        return c:IsLevelBelow(4) and (c:IsSetCard(SET_HERO, sc, sumtype, tp) or c:IsSetCard(SET_NEO_SPACIAN, sc, sumtype, tp))
+        return c:IsSetCard(SET_HERO, sc, sumtype, tp) or (c:IsRace(RACE_FIEND, sc, sumtype, tp) and c:IsAttack(0) and c:IsDefense(0))
     end, 1, 1)
 
     -- special summon
@@ -39,8 +39,7 @@ function s.initial_effect(c)
 end
 
 function s.e1filter(c, e, tp)
-    if not c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP) then return false end
-    return (c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS)) or (c:IsLevel(10) and c:IsSetCard(SET_YUBEL))
+    return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsSetCard(SET_NEOS) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false, POS_FACEUP)
 end
 
 function s.e1con(e, tp, eg, ep, ev, re, r, rp) return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end
@@ -69,7 +68,9 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter(c) return not c:IsCode(id) and c:IsSetCard(SET_NEO_SPACIAN) and c:IsMonster() and c:IsAbleToGrave() end
+function s.e2filter(c)
+    return not c:IsCode(id) and c:IsAbleToGrave() and c:IsMonster() and ((c:IsLevel(10) and c:IsSetCard(SET_YUBEL)) or c:IsSetCard(SET_NEO_SPACIAN))
+end
 
 function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil) end
