@@ -443,8 +443,8 @@ id = 900002119
 name = "Neo-Spacian Pure Heart"
 set = "neo-spacian"
 type = "monster link effect"
-attribute = "light"
-race = "spellcaster"
+attribute = "dark"
+race = "fiend"
 link = 1
 link-arrow = "bottom"
 atk = 0
@@ -453,7 +453,7 @@ effect = """\
 If this card is Link Summoned: \
     You can Special Summon 1 LIGHT "Neos" monster from your hand or Deck in face-up Defense Position. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-This card is not treated as LIGHT-Attribute while on the field, in the GY or banishment. \
+This card is not treated as DARK-Attribute while on the field, in the GY or banishment. \
     This effect cannot be negated. \
 Once per turn (Quick Effect): \
     You can send 1 "Neo-Spacian" monster, except "{CARD_NAME}", \

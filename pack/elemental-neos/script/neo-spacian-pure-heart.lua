@@ -32,7 +32,7 @@ function s.initial_effect(c)
     e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE)
     e2:SetRange(LOCATION_MZONE + LOCATION_GRAVE + LOCATION_REMOVED)
     e2:SetCode(EFFECT_REMOVE_ATTRIBUTE)
-    e2:SetValue(ATTRIBUTE_LIGHT)
+    e2:SetValue(ATTRIBUTE_DARK)
     c:RegisterEffect(e2)
 
     -- copy effect
