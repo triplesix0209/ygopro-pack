@@ -495,7 +495,7 @@ id = 900002223
 name = "Evil Soul"
 type = "spell quick-play"
 effect = """
-Target 1 "Evil HERO" monster in your GY; \
+Target 1 "Evil HERO" monster in your GY or in banishment; \
     Special Summon it, ignoring its Summoning conditions, \
     but it cannot attack directly this turn. \
     You can only activate 1 "{CARD_NAME}" per turn. \
