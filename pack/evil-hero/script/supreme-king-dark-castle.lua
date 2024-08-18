@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_DARK_FUSION}
-s.listed_series = {SET_FUSION}
+s.listed_series = {SET_FUSION, SET_EVIL_HERO}
 
 function s.initial_effect(c)
     -- activate
@@ -44,6 +44,19 @@ function s.initial_effect(c)
     e3c:SetRange(LOCATION_FZONE)
     e3c:SetOperation(s.e3op2)
     c:RegisterEffect(e3c)
+
+    -- atk up
+    local e4 = Effect.CreateEffect(c)
+    e4:SetDescription(aux.Stringid(id, 1))
+    e4:SetCategory(CATEGORY_ATKCHANGE)
+    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e4:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+    e4:SetRange(LOCATION_FZONE)
+    e4:SetCountLimit(1)
+    e4:SetCondition(s.e4con)
+    e4:SetCost(s.e4cost)
+    e4:SetOperation(s.e4op)
+    c:RegisterEffect(e4)
 end
 
 function s.e1filter(c) return c:IsSetCard(SET_FUSION) and c:IsSpell() and c:IsAbleToHand() end
@@ -101,3 +114,37 @@ function s.e3resetop(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3chainlimit(e, rp, tp) return tp == rp end
+
+function s.e4filter(c) return c:IsMonster() and c:IsSetCard(SET_EVIL_HERO) and c:HasLevel() and c:IsAbleToGraveAsCost() end
+
+function s.e4con(e, tp, eg, ep, ev, re, r, rp)
+    local tc = Duel.GetAttacker()
+    local bc = Duel.GetAttackTarget()
+    if not bc then return false end
+    if bc:IsControler(1 - tp) then bc = tc end
+
+    e:SetLabelObject(bc)
+    return bc:IsFaceup() and bc:IsRace(RACE_FIEND)
+end
+
+function s.e4cost(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e4filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, nil) end
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e4filter, tp, LOCATION_DECK + LOCATION_EXTRA, 0, 1, 1, nil):GetFirst()
+    Duel.SendtoGrave(tc, REASON_COST)
+    e:SetLabel(tc:GetLevel())
+end
+
+function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+    local c = e:GetHandler()
+    if not c:IsRelateToEffect(e) then return end
+    local tc = e:GetLabelObject()
+    local val = e:GetLabel() * 200
+    if tc:IsRelateToBattle() and tc:IsFaceup() and tc:IsControler(tp) then
+        local ec1 = Effect.CreateEffect(c)
+        ec1:SetType(EFFECT_TYPE_SINGLE)
+        ec1:SetCode(EFFECT_UPDATE_ATTACK)
+        ec1:SetValue(val)
+        ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
+        tc:RegisterEffect(ec1)
+    end
+end
