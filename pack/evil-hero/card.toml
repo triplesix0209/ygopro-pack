@@ -21,9 +21,9 @@ name = "The Supreme King HERO"
 type = "monster fusion effect"
 attribute = "dark"
 race = "warrior"
-level = 12
+level = 10
 atk = 2500
-def = 2500
+def = 2000
 effect = """\
 1 "HERO" Fusion Monster + 1+ Effect Monsters
 Must be Fusion Summoned with the above materials by using "Super Polymerization". \
