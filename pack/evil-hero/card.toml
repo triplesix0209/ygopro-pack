@@ -23,7 +23,7 @@ attribute = "dark"
 race = "warrior"
 level = 10
 atk = 2500
-def = 2000
+def = 2500
 effect = """\
 1 "HERO" Fusion Monster + 1+ Effect Monsters
 Must be Fusion Summoned with the above materials by using "Super Polymerization". \
