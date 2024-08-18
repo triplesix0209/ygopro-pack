@@ -117,10 +117,9 @@ function s.sum_success_filter(c, ec) return c:IsSetCard(0xf8) and c:IsType(TYPE_
 function s.sum_success_tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingTarget(s.sum_success_filter, tp, LOCATION_DECK, 0, 1, nil, c)
+        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingMatchingCard(s.sum_success_filter, tp, LOCATION_DECK, 0, 1, nil, c)
     end
 
-    Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_EQUIP, nil, 1, 0, LOCATION_DECK)
 end
 
