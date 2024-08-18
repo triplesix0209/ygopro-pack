@@ -511,10 +511,11 @@ set = "supreme-king"
 name = "Supreme King's Aura"
 type = "spell equip"
 effect = """
+You can only control 1 "{CARD_NAME}". \
 Equip only to a original Level 12 "Supreme King" monster \
     or a Fusion Monster that must be Special Summoned with "Dark Fusion". \
-The equipped monster is unaffected by card effects, \
-    except its own and this card's. \
+The equipped monster gains ATK equal to its original DEF, \
+    also it is unaffected by card effects, except its own and this card's. \
 """
 strings = []
 
