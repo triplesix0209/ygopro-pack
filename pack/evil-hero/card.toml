@@ -21,7 +21,7 @@ name = "The Supreme King HERO"
 type = "monster fusion effect"
 attribute = "dark"
 race = "warrior"
-level = 10
+level = 12
 atk = 2500
 def = 2500
 effect = """\
@@ -32,9 +32,9 @@ You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Control of it cannot switch. \
 This face-up card on the field cannot be used as Fusion Material. \
-The above effects cannot be negated or be copied. \
 If this card is Fusion Summoned: \
-    You can equip 1 appropriate Equip Spell from your Deck to this card. \
+    You can equip 1 appropriate "Supreme King" Equip Spell from your Deck to this card. \
+The above effects cannot be negated or be copied. \
 Your opponent cannot target Fusion Monsters you control with card effects. \
 (Quick Effect): You can send from your hand or Deck to the GY, \
     1 "Fusion" or "Polymerization" Normal or Quick-Play Spell, \

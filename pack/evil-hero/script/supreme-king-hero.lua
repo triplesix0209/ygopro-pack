@@ -3,7 +3,7 @@ Duel.LoadScript("util.lua")
 local s, id = GetID()
 
 s.listed_names = {CARD_SUPER_POLYMERIZATION, CARD_DARK_FUSION}
-s.listed_series = {SET_FUSION}
+s.listed_series = {SET_FUSION, 0xf8}
 s.material_setcode = {SET_HERO}
 
 function s.initial_effect(c)
@@ -66,80 +66,80 @@ function s.initial_effect(c)
     c:RegisterEffect(nofusmaterial)
 
     -- equip
-    local e1 = Effect.CreateEffect(c)
-    e1:SetCategory(CATEGORY_EQUIP)
-    e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e1:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
-    e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-    e1:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end)
-    e1:SetTarget(s.e1tg)
-    e1:SetOperation(s.e1op)
-    c:RegisterEffect(e1)
+    local sum_success = Effect.CreateEffect(c)
+    sum_success:SetCategory(CATEGORY_EQUIP)
+    sum_success:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
+    sum_success:SetProperty(EFFECT_FLAG_DELAY + EFFECT_FLAG_DAMAGE_STEP)
+    sum_success:SetCode(EVENT_SPSUMMON_SUCCESS)
+    sum_success:SetCondition(function(e) return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION) end)
+    sum_success:SetTarget(s.sum_success_tg)
+    sum_success:SetOperation(s.sum_success_op)
+    c:RegisterEffect(sum_success)
 
     -- untargetable
-    local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
-    e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-    e2:SetRange(LOCATION_MZONE)
-    e2:SetTargetRange(LOCATION_MZONE, 0)
-    e2:SetTarget(aux.TargetBoolFunction(Card.IsType, TYPE_FUSION))
-    e2:SetValue(aux.tgoval)
-    c:RegisterEffect(e2)
+    local e1 = Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_FIELD)
+    e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e1:SetRange(LOCATION_MZONE)
+    e1:SetTargetRange(LOCATION_MZONE, 0)
+    e1:SetTarget(aux.TargetBoolFunction(Card.IsType, TYPE_FUSION))
+    e1:SetValue(aux.tgoval)
+    c:RegisterEffect(e1)
 
     -- apply fusion effect
+    local e2 = Effect.CreateEffect(c)
+    e2:SetDescription(aux.Stringid(id, 0))
+    e2:SetType(EFFECT_TYPE_QUICK_O)
+    e2:SetCode(EVENT_FREE_CHAIN)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCountLimit(1, id)
+    e2:SetTarget(s.e2tg)
+    e2:SetOperation(s.e2op)
+    c:RegisterEffect(e2)
+
+    -- shuffle
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 0))
-    e3:SetType(EFFECT_TYPE_QUICK_O)
-    e3:SetCode(EVENT_FREE_CHAIN)
+    e3:SetDescription(aux.Stringid(id, 1))
+    e3:SetCategory(CATEGORY_TODECK)
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+    e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCountLimit(1, id)
+    e3:SetCountLimit(1)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
-
-    -- shuffle
-    local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 1))
-    e4:SetCategory(CATEGORY_TODECK)
-    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
-    e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
-    e4:SetCode(EVENT_PHASE + PHASE_END)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetCountLimit(1)
-    e4:SetTarget(s.e4tg)
-    e4:SetOperation(s.e4op)
-    c:RegisterEffect(e4)
 end
 
-function s.e1filter(c, ec) return c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec) end
+function s.sum_success_filter(c, ec) return c:IsSetCard(0xf8) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec) end
 
-function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+function s.sum_success_tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingTarget(s.file1filterter, tp, LOCATION_DECK, 0, 1, nil, c)
+        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingTarget(s.sum_success_filter, tp, LOCATION_DECK, 0, 1, nil, c)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
     Duel.SetOperationInfo(0, CATEGORY_EQUIP, nil, 1, 0, LOCATION_DECK)
 end
 
-function s.e1op(e, tp, eg, ep, ev, re, r, rp)
+function s.sum_success_op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
-    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_DECK, 0, 1, 1, nil, c):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.sum_success_filter, tp, LOCATION_DECK, 0, 1, 1, nil, c):GetFirst()
     if tc then Duel.Equip(tp, tc, c) end
 end
 
-function s.e3filter(c)
+function s.e2filter(c)
     return c:IsAbleToGraveAsCost() and (c:IsSetCard(SET_FUSION) or c:ListsCode(CARD_DARK_FUSION)) and
                (c:GetType() == TYPE_SPELL or c:GetType() == TYPE_SPELL + TYPE_QUICKPLAY) and c:CheckActivateEffect(true, true, false) ~= nil
 end
 
-function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
+function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
 
-    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e2filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil):GetFirst()
     if not tc or not Duel.SendtoGrave(tc, REASON_COST) then return end
 
     local te = tc:CheckActivateEffect(true, true, false)
@@ -153,7 +153,7 @@ function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     Duel.ClearOperationInfo(0)
 end
 
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
+function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local te = e:GetLabelObject()
     if te then
         e:SetLabel(te:GetLabel())
@@ -165,18 +165,18 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e4filter(c) return c:IsFaceup() and c:IsSpellTrap() and c:IsAbleToDeck() end
+function s.e3filter(c) return c:IsFaceup() and c:IsSpellTrap() and c:IsAbleToDeck() end
 
-function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then return Duel.IsExistingTarget(s.e4filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) end
+function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
+    if chk == 0 then return Duel.IsExistingTarget(s.e3filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, nil) end
 
     Duel.Hint(HINT_SELECTMSG, tp, aux.Stringid(id, 1))
-    local g = Duel.SelectTarget(tp, s.e4filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil)
+    local g = Duel.SelectTarget(tp, s.e3filter, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil)
 
     Duel.SetOperationInfo(0, CATEGORY_TODECK, g, #g, 0, 0)
 end
 
-function s.e4op(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local tg = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS)
     local sg = tg:Filter(Card.IsRelateToEffect, nil, e)
     if #sg > 0 then Duel.SendtoDeck(sg, nil, 1, SEQ_DECKBOTTOM) end
