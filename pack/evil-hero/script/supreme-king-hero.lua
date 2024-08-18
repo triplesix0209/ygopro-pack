@@ -117,19 +117,17 @@ function s.e1filter(c, ec) return c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and
-                   Duel.IsExistingTarget(s.file1filterter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, nil, c)
+        return Duel.GetLocationCount(tp, LOCATION_SZONE) > 0 and Duel.IsExistingTarget(s.file1filterter, tp, LOCATION_DECK, 0, 1, nil, c)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_LEAVE_GRAVE, nil, 1, 0, 0)
-    Duel.SetOperationInfo(0, CATEGORY_EQUIP, nil, 1, 0, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE)
+    Duel.SetOperationInfo(0, CATEGORY_EQUIP, nil, 1, 0, LOCATION_DECK)
 end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
-    local tc =
-        Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE, 0, 1, 1, nil, c):GetFirst()
+    local tc = Utility.SelectMatchingCard(HINTMSG_EQUIP, tp, s.e1filter, tp, LOCATION_DECK, 0, 1, 1, nil, c):GetFirst()
     if tc then Duel.Equip(tp, tc, c) end
 end
 
