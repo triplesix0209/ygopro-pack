@@ -524,7 +524,8 @@ The equipped monster's original ATK becomes double, \
     also it is unaffected by card effects, except its own and this card's. \
 If this card is equipped to a "Supreme King" monster, it gains these effects.
 ● Once per turn: You can discard 1 card; \
-    place 1 face-up monster on the field, except the equipped monster, underneath this card.
+    place 1 face-up monster on the field, except the equipped monster, underneath this card. \
+    Neither player can activate cards or effects in response to this effect's activation.
 ● The equipped monster gains the original effects of all monsters underneath this card.
 """
 strings = ["Place 1 monster underneath this card"]

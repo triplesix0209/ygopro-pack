@@ -67,6 +67,7 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local ec = c:GetEquipTarget()
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e2filter, tp, LOCATION_MZONE, LOCATION_MZONE, 1, ec, tp) end
+    Duel.SetChainLimit(aux.FALSE)
 end
 
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
