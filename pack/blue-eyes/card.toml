@@ -1,8 +1,8 @@
 [blue-eyes-white-legend-dragon]
 id = 900001101
 alias = 89631139
-name = "Blue-Eyes White Legend Dragon"
 set = "blue-eyes"
+name = "Blue-Eyes White Legend Dragon"
 type = "monster effect"
 attribute = "light"
 race = "dragon"
@@ -24,8 +24,8 @@ strings = ["Destroy battling monster"]
 [blue-eyes-ultra-dragon]
 id = 900001102
 alias = 23995346
-name = "Blue-Eyes Ultra Dragon"
 set = "blue-eyes"
+name = "Blue-Eyes Ultra Dragon"
 type = "monster fusion effect"
 attribute = "light"
 race = "dragon"
@@ -55,8 +55,8 @@ strings = [
 
 [blue-eyes-holy-shining-dragon]
 id = 900001103
-name = "Blue-Eyes Holy Shining Dragon"
 set = "blue-eyes"
+name = "Blue-Eyes Holy Shining Dragon"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
@@ -86,8 +86,8 @@ strings = [
 
 [blue-eyes-deep-hope-dragon]
 id = 900001104
-name = "Blue-Eyes Deep Hope Dragon"
 set = "blue-eyes"
+name = "Blue-Eyes Deep Hope Dragon"
 type = "monster xyz effect"
 attribute = "light"
 race = "dragon"

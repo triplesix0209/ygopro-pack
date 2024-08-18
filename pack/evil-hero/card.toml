@@ -505,18 +505,12 @@ If a Fusion Monster(s) that must be Special Summoned with "Dark Fusion" you cont
 """
 strings = []
 
-[sinister-call]
+[supreme-king-aura]
 id = 900002224
-name = "Sinister Call"
-type = "spell"
+set = "supreme-king"
+name = "Supreme King's Aura"
+type = "spell equip"
 effect = """
-Add 1 "Evil HERO" monster from your Deck to your hand, \
-    if you control no face-up monster, you can Special Summon it instead. \
-    If you Special Summoned a Level 5 or higher monster by this effect, halve your LP. \
-You can banish this card from your GY: \
-    Destroy Spell/Trap Cards up to the number of Fusion Monsters \
-    that must be Special Summoned with "Dark Fusion"you control, \
-You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = []
 

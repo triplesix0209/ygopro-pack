@@ -1,8 +1,8 @@
 [icxyz-barian-hope-emperor]
 id = 900004101
 rarity = "gold"
-name = "iCxyz Barian Hope Emperor"
 set = "cxyz chaos barian"
+name = "iCxyz Barian Hope Emperor"
 type = "monster xyz effect"
 attribute = "light"
 race = "warrior"
@@ -32,8 +32,8 @@ strings = []
 
 [full-armored-silent-honor-dark]
 id = 900004102
-name = "Number C101: Full Armored Silent Honor DARK"
 set = "number-c chaos"
+name = "Number C101: Full Armored Silent Honor DARK"
 type = "monster xyz effect"
 attribute = "water"
 race = "aqua"

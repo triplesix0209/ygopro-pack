@@ -166,8 +166,8 @@ strings = [
 
 [shooting-stardust-dragon]
 id = 900003107
-name = "Shooting Stardust Dragon"
 set = "stardust"
+name = "Shooting Stardust Dragon"
 type = "monster synchro effect"
 attribute = "wind"
 race = "dragon"
@@ -199,8 +199,8 @@ strings = [
 [majestic-quasar-dragon]
 id = 900003108
 rarity = "gold"
-name = "Majestic Quasar Dragon"
 set = "majestic"
+name = "Majestic Quasar Dragon"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
@@ -259,8 +259,8 @@ strings = ["Special Summon 1 Level 1 monster?"]
 
 [majestic-black-dragon]
 id = 900003110
-name = "Majestic Black Dragon"
 set = "majestic"
+name = "Majestic Black Dragon"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"
@@ -287,8 +287,8 @@ strings = [
 
 [majestic-rose-dragon]
 id = 900003111
-name = "Majestic Rose Dragon"
 set = "majestic rose-dragon"
+name = "Majestic Rose Dragon"
 type = "monster synchro effect"
 attribute = "fire"
 race = "dragon"
@@ -312,8 +312,8 @@ strings = [
 
 [majestic-fairy-dragon]
 id = 900003112
-name = "Majestic Fairy Dragon"
 set = "majestic"
+name = "Majestic Fairy Dragon"
 type = "monster synchro effect"
 attribute = "light"
 race = "dragon"
@@ -338,8 +338,8 @@ strings = [
 
 [majestic-life-dragon]
 id = 900003113
-name = "Majestic Life Dragon"
 set = "majestic"
+name = "Majestic Life Dragon"
 type = "monster synchro tuner effect"
 attribute = "earth"
 race = "dragon"
@@ -386,8 +386,8 @@ strings = [
 
 [synchro-salvation]
 id = 900003115
-name = "Synchro Salvation"
 set = "synchro"
+name = "Synchro Salvation"
 type = "spell equip"
 effect = """
 Equip only to a Dragon Synchro Monster that mentions a Synchro Monster as material. \
@@ -404,8 +404,8 @@ strings = []
 
 [junk-bot]
 id = 900003116
-name = "Junk Bot"
 set = "junk"
+name = "Junk Bot"
 type = "monster effect"
 attribute = "earth"
 race = "machine"
@@ -422,8 +422,8 @@ strings = []
 
 [junk-striker]
 id = 900003117
-name = "Junk Striker"
 set = "junk"
+name = "Junk Striker"
 type = "monster effect"
 attribute = "earth"
 race = "warrior"
@@ -439,8 +439,8 @@ strings = ["Normal Summon 1 Tuner monster?"]
 
 [starjunk-servant]
 id = 900003118
-name = "Starjunk Servant"
 set = "junk"
+name = "Starjunk Servant"
 type = "monster effect"
 attribute = "wind"
 race = "warrior"
@@ -463,8 +463,8 @@ strings = [
 [starjunk-synchron]
 id = 900003119
 alias = 63977008
-name = "Starjunk Synchron"
 set = "junk synchron"
+name = "Starjunk Synchron"
 type = "monster tuner effect"
 attribute = "wind"
 race = "warrior"
@@ -484,8 +484,8 @@ strings = []
 [starjunk-warrior]
 id = 900003120
 alias = 60800381
-name = "Starjunk Warrior"
 set = "junk warrior"
+name = "Starjunk Warrior"
 type = "monster synchro effect"
 attribute = "wind"
 race = "warrior"
@@ -508,8 +508,8 @@ strings = [
 
 [junk-accelerator]
 id = 900003121
-name = "Junk Accelerator"
 set = "junk"
+name = "Junk Accelerator"
 type = "monster synchro effect"
 attribute = "wind"
 race = "warrior"
@@ -534,8 +534,8 @@ strings = [
 
 [junk-dracosmasher]
 id = 900003122
-name = "Junk Dracosmasher"
 set = "junk"
+name = "Junk Dracosmasher"
 type = "monster synchro effect"
 attribute = "earth"
 race = "machine"
@@ -566,8 +566,8 @@ strings = [
 
 [star-synchron]
 id = 900003123
-name = "Star Synchron"
 set = "synchron"
+name = "Star Synchron"
 type = "monster synchro tuner effect"
 attribute = "light"
 race = "machine"
@@ -589,8 +589,8 @@ strings = []
 
 [red-synchron]
 id = 900003124
-name = "Red Synchron"
 set = "synchron"
+name = "Red Synchron"
 type = "monster tuner effect"
 attribute = "dark"
 race = "fiend"
@@ -609,8 +609,8 @@ strings = ["Its effect activations and its effects cannot be negated"]
 
 [rose-synchron]
 id = 900003125
-name = "Rose Synchron"
 set = "rose synchron"
+name = "Rose Synchron"
 type = "monster tuner effect"
 attribute = "earth"
 race = "plant"
@@ -665,8 +665,8 @@ strings = []
 
 [void-eyes-infernity-dragon]
 id = 900003150
-name = "Void-Eyes Infernity Dragon"
 set = "void infernity"
+name = "Void-Eyes Infernity Dragon"
 type = "monster synchro effect"
 attribute = "dark"
 race = "dragon"

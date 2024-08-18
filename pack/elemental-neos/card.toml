@@ -49,8 +49,8 @@ strings = []
 [elemental-hero-miracle-neos]
 id = 900002102
 rarity = "gold"
-name = "Elemental HERO Miracle Neos"
 set = "elemental-hero neos"
+name = "Elemental HERO Miracle Neos"
 type = "monster fusion effect"
 attribute = "divine"
 race = "warrior"
@@ -79,8 +79,8 @@ strings = ["Fusion Summoned using 6+ \"Neo-Spacian\" monster"]
 
 [elemental-hero-abyss-neos]
 id = 900002103
-name = "Elemental HERO Abyss Neos"
 set = "elemental-hero neos"
+name = "Elemental HERO Abyss Neos"
 type = "monster fusion effect"
 attribute = "dark"
 race = "warrior"
@@ -106,8 +106,8 @@ strings = [
 
 [elemental-hero-steam-neos]
 id = 900002104
-name = "Elemental HERO Steam Neos"
 set = "elemental-hero neos"
+name = "Elemental HERO Steam Neos"
 type = "monster fusion effect"
 attribute = "water"
 race = "warrior"
@@ -132,8 +132,8 @@ strings = [
 
 [elemental-hero-stratumine-neos]
 id = 900002105
-name = "Elemental HERO Stratumine Neos"
 set = "elemental-hero neos"
+name = "Elemental HERO Stratumine Neos"
 type = "monster fusion effect"
 attribute = "water"
 race = "warrior"
@@ -159,8 +159,8 @@ strings = [
 
 [elemental-hero-hellfire-neos]
 id = 900002106
-name = "Elemental HERO Hellfire Neos"
 set = "elemental-hero neos"
+name = "Elemental HERO Hellfire Neos"
 type = "monster fusion effect"
 attribute = "fire"
 race = "warrior"
@@ -182,8 +182,8 @@ strings = []
 
 [elemental-hero-nimbus-neos]
 id = 900002107
-name = "Elemental HERO Nimbus Neos"
 set = "elemental-hero neos"
+name = "Elemental HERO Nimbus Neos"
 type = "monster fusion effect"
 attribute = "light"
 race = "warrior"
@@ -205,8 +205,8 @@ strings = []
 
 [elemental-hero-neos-armiger]
 id = 900002108
-name = "Elemental HERO Neos Armiger"
 set = "elemental-hero neos"
+name = "Elemental HERO Neos Armiger"
 type = "monster effect"
 attribute = "light"
 race = "warrior"
@@ -225,8 +225,8 @@ strings = []
 [elemental-hero-wingman]
 id = 900002109
 alias = 21844576
-name = "Elemental HERO Wingman"
 set = "elemental-hero wingman"
+name = "Elemental HERO Wingman"
 type = "monster effect"
 attribute = "wind"
 race = "warrior"
@@ -247,8 +247,8 @@ strings = ["Summoned using \"{CARD_NAME}\""]
 [elemental-hero-blazinatrix]
 id = 900002110
 alias = 58932615
-name = "Elemental HERO Blazinatrix"
 set = "elemental-hero"
+name = "Elemental HERO Blazinatrix"
 type = "monster effect"
 attribute = "fire"
 race = "warrior"
@@ -272,8 +272,8 @@ strings = [
 [elemental-hero-boulderman]
 id = 900002111
 alias = 84327329
-name = "Elemental HERO Boulderman"
 set = "elemental-hero"
+name = "Elemental HERO Boulderman"
 type = "monster effect"
 attribute = "earth"
 race = "warrior"
@@ -298,8 +298,8 @@ strings = [
 [elemental-hero-thunderman]
 id = 900002112
 alias = 20721928
-name = "Elemental HERO Thunderman"
 set = "elemental-hero"
+name = "Elemental HERO Thunderman"
 type = "monster effect"
 attribute = "light"
 race = "warrior"
@@ -325,8 +325,8 @@ strings = [
 [elemental-hero-aquaman]
 id = 900002113
 alias = 79979666
-name = "Elemental HERO Aquaman"
 set = "elemental-hero"
+name = "Elemental HERO Aquaman"
 type = "monster effect"
 attribute = "water"
 race = "warrior"
@@ -346,8 +346,8 @@ strings = ["Summoned using \"{CARD_NAME}\""]
 [elemental-hero-shadownshade]
 id = 900002114
 alias = 89252153
-name = "Elemental HERO Shadownshade"
 set = "elemental-hero"
+name = "Elemental HERO Shadownshade"
 type = "monster effect"
 attribute = "dark"
 race = "warrior"
@@ -369,8 +369,8 @@ strings = [
 
 [neo-spacian-black-panther]
 id = 900002115
-name = "Neo-Spacian Black Panther"
 set = "neo-spacian"
+name = "Neo-Spacian Black Panther"
 type = "monster fusion effect"
 attribute = "dark"
 race = "beast"
@@ -388,8 +388,8 @@ strings = ["Copy monster's name and effects"]
 
 [neo-spacian-terra-mole]
 id = 900002116
-name = "Neo-Spacian Terra Mole"
 set = "neo-spacian"
+name = "Neo-Spacian Terra Mole"
 type = "monster fusion effect"
 attribute = "earth"
 race = "rock"
@@ -406,8 +406,8 @@ strings = ["Return the opponent's monster to the hand"]
 
 [neo-spacian-sky-hummingbird]
 id = 900002117
-name = "Neo-Spacian Sky Hummingbird"
 set = "neo-spacian"
+name = "Neo-Spacian Sky Hummingbird"
 type = "monster fusion effect"
 attribute = "wind"
 race = "winged-beast"
@@ -423,8 +423,8 @@ strings = ["Gain 500 LP for each card in your hand"]
 
 [neo-spacian-blaze-scarab]
 id = 900002118
-name = "Neo-Spacian Blaze Scarab"
 set = "neo-spacian"
+name = "Neo-Spacian Blaze Scarab"
 type = "monster fusion effect"
 attribute = "fire"
 race = "insect"
@@ -440,8 +440,8 @@ strings = []
 
 [eternal-neo-spacian]
 id = 900002119
-name = "Eternal Neo-Spacian"
 set = "neo-spacian"
+name = "Eternal Neo-Spacian"
 type = "monster link effect"
 attribute = "light"
 race = "spellcaster"
@@ -464,8 +464,8 @@ strings = ["Copy name and effect of \"Neo-Spacian\" or \"Yubel\""]
 
 [favorite-fusion]
 id = 900002120
-name = "Favorite Fusion"
 set = "favorite fusion"
+name = "Favorite Fusion"
 type = "spell"
 effect = """\
 Fusion Summon 1 "Elemental HERO" Fusion Monster from your Extra Deck, \
@@ -496,8 +496,8 @@ strings = []
 
 [clash-of-favorites]
 id = 900002122
-name = "Clash of Favorites"
 set = "favorite"
+name = "Clash of Favorites"
 type = "trap"
 effect = """\
 Special Summon from your hand or Deck to either player's field in Attack Position, \
@@ -514,8 +514,8 @@ strings = ["Special Summon to your field", "Special Summon to opponent's field"]
 
 [favorite-soul]
 id = 900002123
-name = "Favorite Soul"
 set = "favorite"
+name = "Favorite Soul"
 type = "trap continuous"
 effect = """\
 "Elemental HERO Neos" and all Fusion Monsters that lists it as material you control gain 500 ATK. \

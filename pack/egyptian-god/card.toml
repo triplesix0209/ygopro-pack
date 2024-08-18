@@ -250,8 +250,8 @@ strings = [
 [nephthys]
 id = 900000009
 rarity = "gold"
-name = "Divine Phoenix of Nephthys"
 set = "nephthys"
+name = "Divine Phoenix of Nephthys"
 type = "monster synchro effect"
 attribute = "divine"
 race = "divine-beast"
@@ -291,8 +291,8 @@ strings = [
 [horus]
 id = 900000010
 rarity = "gold"
-name = "Black Flame Divine Dragon of Horus"
 set = "horus"
+name = "Black Flame Divine Dragon of Horus"
 type = "monster xyz effect"
 attribute = "divine"
 race = "divine-beast"
@@ -494,8 +494,8 @@ strings = []
 
 [pharaoh-avatar-horus]
 id = 900000019
-name = "Pharaoh, Avatar of Horus"
 set = "horus"
+name = "Pharaoh, Avatar of Horus"
 type = "monster effect"
 attribute = "light"
 race = "warrior"

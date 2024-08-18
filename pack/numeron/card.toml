@@ -28,8 +28,8 @@ strings = [
 [numeron-code-dragon]
 id = 900004001
 rarity = "gold"
-name = "Numeron Code Dragon"
 set = "numeron"
+name = "Numeron Code Dragon"
 type = "monster xyz effect"
 attribute = "divine"
 race = "dragon"
@@ -58,8 +58,8 @@ strings = ["Attach Special Summoned monsters to this card"]
 
 [numeron-summon-revision]
 id = 900004002
-name = "Numeron Summon Revision"
 set = "numeron"
+name = "Numeron Summon Revision"
 type = "trap counter"
 effect = """
 When your opponent would Special Summon exactly 1 monster from their Extra Deck (except during the Damage Step), \
@@ -73,8 +73,8 @@ strings = []
 
 [numeron-magic-revision]
 id = 900004003
-name = "Numeron Magic Revision"
 set = "numeron"
+name = "Numeron Magic Revision"
 type = "trap counter"
 effect = """
 When your opponent activates a Normal or Quick-Play Spell Card or effect, \

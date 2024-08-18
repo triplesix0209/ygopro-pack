@@ -20,8 +20,8 @@ strings = ["Banish both this card from the field and that target"]
 
 [galaxy-eyes-full-armor-luminous-dragon]
 id = 900004202
-name = "Galaxy-Eyes Full Armor Luminous Dragon"
 set = "photon galaxy-eyes"
+name = "Galaxy-Eyes Full Armor Luminous Dragon"
 type = "monster xyz effect"
 attribute = "light"
 race = "dragon"
@@ -48,8 +48,8 @@ strings = [
 
 [neo-galaxy-eyes-dark-matter-dragon]
 id = 900004203
-name = "Number C95: Neo Galaxy-Eyes Dark Matter Dragon"
 set = "number-c chaos galaxy-eyes"
+name = "Number C95: Neo Galaxy-Eyes Dark Matter Dragon"
 type = "monster xyz effect"
 attribute = "dark"
 race = "dragon"
@@ -80,8 +80,8 @@ strings = [
 
 [photon-stream-eternity]
 id = 900004204
-name = "Photon Stream of Eternity"
 set = "photon"
+name = "Photon Stream of Eternity"
 type = "spell quick-play"
 effect = """
 If you control a "Galaxy-Eyes" Xyz Monster: banish all Spell/Trap cards your opponent controls, \

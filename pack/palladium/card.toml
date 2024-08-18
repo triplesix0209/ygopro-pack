@@ -19,8 +19,8 @@ strings = ["Add \"The True Name\" to your hand", "Place 1 card underneath it"]
 [palladium-mahad]
 id = 900000101
 alias = 71703785
-name = "Sacred Palladium Oracle Mahad"
 set = "palladium"
+name = "Sacred Palladium Oracle Mahad"
 type = "monster effect"
 attribute = "light"
 race = "spellcaster"
@@ -40,8 +40,8 @@ strings = []
 [palladium-mana]
 id = 900000102
 alias = 42006475
-name = "Illusory Palladium Oracle Mana"
 set = "palladium"
+name = "Illusory Palladium Oracle Mana"
 type = "monster effect"
 attribute = "light"
 race = "spellcaster"
@@ -64,8 +64,8 @@ strings = ["Make the battling monster gains ATK"]
 
 [palladium-seto]
 id = 900000103
-name = "Azure Palladium Oracle Seto"
 set = "palladium"
+name = "Azure Palladium Oracle Seto"
 type = "monster tuner effect"
 attribute = "light"
 race = "spellcaster"
@@ -93,8 +93,8 @@ strings = [
 
 [palladium-shimon]
 id = 900000104
-name = "Palladium Wazir Shimon"
 set = "palladium"
+name = "Palladium Wazir Shimon"
 type = "monster effect"
 attribute = "dark"
 race = "spellcaster"
@@ -113,8 +113,8 @@ strings = []
 
 [palladium-hasan]
 id = 900000105
-name = "Palladium Protector Hasan"
 set = "palladium"
+name = "Palladium Protector Hasan"
 type = "monster effect"
 attribute = "dark"
 race = "warrior"
@@ -133,8 +133,8 @@ strings = []
 
 [palladium-shada]
 id = 900000106
-name = "Palladium Guardian Shada"
 set = "palladium guardian"
+name = "Palladium Guardian Shada"
 type = "monster effect"
 attribute = "dark"
 race = "warrior"
@@ -153,8 +153,8 @@ strings = []
 
 [palladium-karim]
 id = 900000107
-name = "Palladium Gardna Karim"
 set = "palladium"
+name = "Palladium Gardna Karim"
 type = "monster effect"
 attribute = "dark"
 race = "warrior"
@@ -176,8 +176,8 @@ strings = ["Change attack target to this card"]
 
 [palladium-isis]
 id = 900000108
-name = "Palladium Maiden Isis"
 set = "palladium"
+name = "Palladium Maiden Isis"
 type = "monster effect"
 attribute = "light"
 race = "spellcaster"
@@ -199,8 +199,8 @@ strings = ["Return battling monster to the hand"]
 
 [palladium-gaia]
 id = 900000109
-name = "Palladium Gaia the Fierce Knight"
 set = "palladium gaia-the-fierce-knight"
+name = "Palladium Gaia the Fierce Knight"
 type = "monster effect"
 attribute = "light"
 race = "warrior"
@@ -220,8 +220,8 @@ strings = ["Change battle position of battling monster"]
 
 [palladium-gilfer]
 id = 900000110
-name = "Palladium Archfiend Gilfer"
 set = "palladium archfiend"
+name = "Palladium Archfiend Gilfer"
 type = "monster effect"
 attribute = "dark"
 race = "fiend"
@@ -238,8 +238,8 @@ strings = ["Normal Summon without Tributing"]
 
 [palladium-kuriboh]
 id = 900000111
-name = "Palladium Spirit Kuriboh"
 set = "palladium kuriboh"
+name = "Palladium Spirit Kuriboh"
 type = "monster effect"
 attribute = "dark"
 race = "fiend"
@@ -257,8 +257,8 @@ strings = ["Affected by effect \"{CARD_NAME}\": take no battle damage"]
 
 [palladium-duos]
 id = 900000112
-name = "Palladium Spirit Duos"
 set = "palladium"
+name = "Palladium Spirit Duos"
 type = "monster effect"
 attribute = "dark"
 race = "warrior"
@@ -281,8 +281,8 @@ strings = [
 
 [palladium-duos-dracocursed]
 id = 900000113
-name = "Palladium Spirit Duos Dracocursed"
 set = "palladium"
+name = "Palladium Spirit Duos Dracocursed"
 type = "monster fusion effect"
 attribute = "dark"
 race = "dragon"
@@ -378,8 +378,8 @@ strings = ["Summoned using \"{CARD_NAME}\""]
 
 [palladium-joker]
 id = 900000117
-name = "Arcana Palladium Joker"
 set = "palladium"
+name = "Arcana Palladium Joker"
 type = "fusion monster effect"
 attribute = "light"
 race = "warrior"
@@ -406,8 +406,8 @@ strings = [
 
 [palladium-oracles]
 id = 900000118
-name = "The Palladium Oracles"
 set = "palladium"
+name = "The Palladium Oracles"
 type = "monster fusion effect"
 attribute = "light"
 race = "spellcaster"
@@ -432,8 +432,8 @@ strings = []
 
 [palladium-dragoon]
 id = 900000119
-name = "The Palladium Dragoon"
 set = "palladium"
+name = "The Palladium Dragoon"
 type = "monster fusion effect"
 attribute = "light"
 race = "spellcaster"
@@ -462,8 +462,8 @@ strings = [
 
 [palladium-paladin]
 id = 900000120
-name = "Dark Flare Paladin of Palladium"
 set = "palladium"
+name = "Dark Flare Paladin of Palladium"
 type = "monster fusion effect"
 attribute = "dark"
 race = "spellcaster"
@@ -492,8 +492,8 @@ strings = [
 
 [palladium-warlock]
 id = 900000121
-name = "Dark Warlock of Palladium"
 set = "palladium"
+name = "Dark Warlock of Palladium"
 type = "monster fusion effect"
 attribute = "dark"
 race = "spellcaster"
@@ -517,8 +517,8 @@ strings = ["Banish Spells/Traps to gain ATK"]
 
 [palladium-master-chaos]
 id = 900000122
-name = "Palladium Master of Chaos"
 set = "palladium chaos"
+name = "Palladium Master of Chaos"
 type = "monster fusion effect"
 attribute = "dark"
 race = "spellcaster"
@@ -547,8 +547,8 @@ strings = [
 
 [chaos-palladium-aknamkanon]
 id = 900000123
-name = "Chaos Palladium Oracle Aknamkanon"
 set = "chaos palladium"
+name = "Chaos Palladium Oracle Aknamkanon"
 type = "monster ritual effect"
 attribute = "dark"
 race = "spellcaster"
@@ -572,8 +572,8 @@ strings = [
 
 [chaos-palladium-archfiend]
 id = 900000124
-name = "Chaos Palladium Archfiend - Envoy of the Void"
 set = "chaos palladium archfiend"
+name = "Chaos Palladium Archfiend - Envoy of the Void"
 type = "monster ritual effect"
 attribute = "dark"
 race = "fiend"
@@ -594,8 +594,8 @@ strings = ["Banish 1 monster in GY and gain ATK"]
 
 [chaos-palladium-soldier]
 id = 900000125
-name = "Chaos Palladium Soldier - Envoy of the Creation"
 set = "black-luster-soldier palladium"
+name = "Chaos Palladium Soldier - Envoy of the Creation"
 type = "monster ritual effect"
 attribute = "light"
 race = "warrior"
@@ -624,8 +624,8 @@ strings = [
 
 [chaos-palladium-dragon]
 id = 900000126
-name = "Chaos Palladium Dragon - Envoy of the Destruction"
 set = "chaos palladium"
+name = "Chaos Palladium Dragon - Envoy of the Destruction"
 type = "monster ritual effect"
 attribute = "dark"
 race = "dragon"
@@ -650,8 +650,8 @@ strings = [
 
 [black-luster-soldier-palladium-swordsman]
 id = 900000127
-name = "Black Luster Soldier - Palladium Swordsman"
 set = "black-luster-soldier palladium"
+name = "Black Luster Soldier - Palladium Swordsman"
 type = "monster synchro effect"
 attribute = "dark"
 race = "warrior"
@@ -676,8 +676,8 @@ strings = [
 
 [chaos-end-ruler]
 id = 900000128
-name = "Chaos End Ruler - Envoy of the Palladium"
 set = "chaos palladium"
+name = "Chaos End Ruler - Envoy of the Palladium"
 type = "monster xyz effect"
 attribute = "light dark"
 race = "illusionist"
@@ -713,8 +713,8 @@ strings = [
 
 [palladium-sacrophagus]
 id = 900000129
-name = "Palladium Sacrophagus"
 set = "palladium"
+name = "Palladium Sacrophagus"
 type = "spell"
 effect = """\
 Banish 1 card face-down from your hand, Deck, Extra Deck, or in either GY, \
@@ -729,8 +729,8 @@ strings = ["Reveal the banished card by \"{CARD_NAME}\"?"]
 
 [palladium-forbidden-art]
 id = 900000130
-name = "Forbidden Art of Palladium"
 set = "palladium fusion"
+name = "Forbidden Art of Palladium"
 type = "spell quick-play"
 effect = """\
 (This card is always treated as an "Fusion" card.)
@@ -787,8 +787,8 @@ strings = []
 
 [palladium-swords-light]
 id = 900000133
-name = "Swords of Palladium Light"
 set = "palladium"
+name = "Swords of Palladium Light"
 type = "spell quick-play"
 effect = """\
 This card can only be activated during Main Phase 1. \
@@ -808,8 +808,8 @@ strings = []
 
 [palladium-diadhank]
 id = 900000134
-name = "Palladium Diadhank"
 set = "palladium"
+name = "Palladium Diadhank"
 type = "spell equip"
 effect = """\
 Special Summon 1 "Palladium" monster or 1 Normal Monster from your hand, Deck, \
@@ -847,8 +847,8 @@ strings = []
 
 [thousand-palladium-arrows]
 id = 900000136
-name = "Thousand Palladium Arrows"
 set = "palladium"
+name = "Thousand Palladium Arrows"
 type = "spell quick-play"
 effect = """\
 If you control "Palladium" monster: \
@@ -864,8 +864,8 @@ strings = []
 
 [spellbinding-palladium-circle]
 id = 900000137
-name = "Spellbinding Palladium Circle"
 set = "palladium"
+name = "Spellbinding Palladium Circle"
 type = "trap counter"
 effect = """\
 If you control "Palladium Oracle Mahad", you can activate this card from your hand. \
