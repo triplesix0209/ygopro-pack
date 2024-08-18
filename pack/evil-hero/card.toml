@@ -32,23 +32,22 @@ You can only control 1 "{CARD_NAME}". \
 Your opponent cannot Tribute it, or use it as material for an Summon. \
 Control of it cannot switch. \
 This face-up card on the field cannot be used as Fusion Material. \
-While you control another Fusion Monster, \
-    this card is unaffected by your opponent's card effects. \
-Your opponent cannot target Fusion Monsters you control with card effects. \
 The above effects cannot be negated or be copied. \
 If this card is Fusion Summoned: \
     You can equip 1 appropriate Equip Spell from your hand, Deck, or GY to this card, \
     and if you do, your opponent cannot target that card with card effects. \
+Your opponent cannot target Fusion Monsters you control with card effects. \
 (Quick Effect): You can send from your hand or Deck to the GY, \
     1 "Fusion" or "Polymerization" Normal or Quick-Play Spell, \
     or 1 Normal or Quick-Play Spell that mentions "Dark Fusion"; \
     this effect becomes that Spell's effect when that card is activated. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
-During the End Phase: You can shuffle 1 card in your GY or banishment into the Deck. \
+During the End Phase: You can target 1 Spell/Trap in your GY or banishment; \
+    place it on the bottom of your Deck. \
 """
 strings = [
     "Apply effect of 1 Spell",
-    "Shuffle 1 card in your GY or banishment into the Deck",
+    "Place 1 Spell/Trap on the bottom of your Deck",
 ]
 
 [evil-hero-cosmos]
