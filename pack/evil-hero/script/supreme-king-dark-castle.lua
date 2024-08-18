@@ -138,12 +138,11 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
     local tc = e:GetLabelObject()
-    local val = e:GetLabel() * 200
     if tc:IsRelateToBattle() and tc:IsFaceup() and tc:IsControler(tp) then
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(val)
+        ec1:SetValue(e:GetLabel() * 200)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         tc:RegisterEffect(ec1)
     end
