@@ -29,7 +29,7 @@ function s.initial_effect(c)
     c:RegisterEffect(e2)
 end
 
-function s.e1filter(c, e, tp) return (c:IsSetCard(SET_EVIL_HERO) or c.dark_calling) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP) end
+function s.e1filter(c, e, tp) return c:IsSetCard(SET_EVIL_HERO) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false, POS_FACEUP) end
 
 function s.e1tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then
