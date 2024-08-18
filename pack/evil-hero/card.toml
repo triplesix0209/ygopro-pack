@@ -521,7 +521,7 @@ You can only use each effect of "{CARD_NAME}" once per turn. \
 strings = []
 
 [sinister-flame]
-id = 900002225
+id = 900002226
 name = "Sinister Flame"
 type = "trap counter"
 effect = """
