@@ -1,14 +1,6 @@
 {
 	"repos": [
 		{
-			"url": "https://github.com/triplesix0209/ygopro-pack",
-			"repo_name": "TripleSix's Pack",
-			"repo_path": "./repositories/triplesix",
-			"script_path": "script",
-			"should_update": false,
-			"should_read": true
-		},
-		{
 			"url": "https://github.com/triplesix0209/ygopro-skin",
 			"repo_name": "TripleSix's Skin",
 			"repo_path": "./skin/",
@@ -24,6 +16,10 @@
 		}
 	],
 	"urls": [
+		{
+			"url": "https://yugi.wiki/assets/card-images/common/{}.jpg",
+			"type": "pic"
+		},
 		{
 			"url": "https://ygoprodeck.com/cdn-cgi/image/format=auto/https://images.ygoprodeck.com/images/cards/{}.jpg",
 			"type": "pic"
