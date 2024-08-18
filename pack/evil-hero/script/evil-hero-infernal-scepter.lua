@@ -60,12 +60,9 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp, chk)
         local ec1 = Effect.CreateEffect(c)
         ec1:SetType(EFFECT_TYPE_SINGLE)
         ec1:SetCode(EFFECT_UPDATE_ATTACK)
-        ec1:SetValue(tc:GetLevel() * 300)
+        ec1:SetValue(tc:GetBaseDefense())
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         tc:RegisterEffect(ec1)
-        local ec1b = ec1:Clone()
-        ec1b:SetCode(EFFECT_UPDATE_DEFENSE)
-        tc:RegisterEffect(ec1b)
     end
 end
 

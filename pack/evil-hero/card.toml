@@ -297,11 +297,10 @@ atk = 800
 def = 1200
 effect = """\
 (Quick Effect): You can discard this card, then target 1 "Evil HERO" monster on the field; \
-    it gains ATK/DEF equal to its Level x 300 until the end of this turn. \
+    it gains ATK equal to its original DEF until the end of this turn. \
 If this card is sent to the GY, or banished: \
     You can target 1 "Dark Fusion", or 1 card that mentions it, \
-    in your GY, except "{CARD_NAME}"; \
-    add it to your hand. \
+    in your GY, except "{CARD_NAME}"; add it to your hand. \
 You can only use 1 "{CARD_NAME}" effect per turn, and only once that turn. \
 """
 strings = []
@@ -521,7 +520,7 @@ effect = """
 You can only control 1 "{CARD_NAME}". \
 Equip only to a original Level 12 "Supreme King" monster \
     or a Fusion Monster that must be Special Summoned with "Dark Fusion". \
-The equipped monster gains ATK equal to its original DEF, \
+The equipped monster's original ATK becomes double, \
     also it is unaffected by card effects, except its own and this card's. \
 """
 strings = []
