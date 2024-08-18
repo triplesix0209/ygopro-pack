@@ -35,7 +35,7 @@ This face-up card on the field cannot be used as Fusion Material. \
 If this card is Fusion Summoned: \
     You can equip 1 appropriate "Supreme King" Equip Spell from your Deck to this card. \
 The above effects cannot be negated or be copied. \
-Your opponent cannot target Fusion Monsters you control with card effects. \
+Your opponent cannot target "Supreme King" cards and Fusion Monsters you control with card effects. \
 (Quick Effect): You can send from your hand or Deck to the GY, \
     1 "Fusion" or "Polymerization" Normal or Quick-Play Spell, \
     or 1 Normal or Quick-Play Spell that mentions "Dark Fusion"; \
@@ -511,6 +511,10 @@ set = "supreme-king"
 name = "Supreme King's Aura"
 type = "spell equip"
 effect = """
+Equip only to a original Level 12 "Supreme King" monster \
+    or a Fusion Monster that must be Special Summoned with "Dark Fusion". \
+The equipped monster is unaffected by card effects, \
+    except its own and this card's. \
 """
 strings = []
 
