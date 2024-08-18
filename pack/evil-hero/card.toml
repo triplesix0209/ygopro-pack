@@ -52,7 +52,7 @@ During the End Phase: You can target 1 Spell/Trap in your GY or banishment; \
     place it on the bottom of your Deck. \
 """
 strings = [
-    "Apply effect of 1 Spell",
+    "Apply effect of 1 \"Fusion\" Spell",
     "Place 1 Spell/Trap on the bottom of your Deck",
 ]
 
