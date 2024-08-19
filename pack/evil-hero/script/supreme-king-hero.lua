@@ -11,7 +11,7 @@ function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
 
     -- fusion summon
-    Fusion.AddProcMixRep(c, false, false, aux.FilterBoolFunctionEx(Card.IsType, TYPE_EFFECT), 1, 99,
+    Fusion.AddProcMixRep(c, false, false, aux.FilterBoolFunctionEx(Card.IsType, TYPE_EFFECT), 2, 99,
         function(c, sc, st, tp) return c:IsSetCard(SET_HERO, sc, st, tp) and c:IsType(TYPE_FUSION, sc, st, tp) end)
 
     -- special summon limit

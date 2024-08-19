@@ -32,7 +32,7 @@ level = 12
 atk = 2500
 def = 2500
 effect = """\
-1 "HERO" Fusion Monster + 1+ Effect Monsters
+1 "HERO" Fusion Monster + 2+ Effect Monsters
 Must be Fusion Summoned with the above materials by using "Super Polymerization". \
 This card's Fusion Summon cannot be negated. \
 You can only control 1 "{CARD_NAME}". \
