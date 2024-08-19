@@ -452,7 +452,8 @@ effect = """\
 1 "HERO" monster or Fiend monster with 0 ATK/DEF
 If this card is Link Summoned: \
     You can Special Summon 1 LIGHT "Neos" monster \
-    from your hand or Deck, but it cannot attack this turn. \
+    from your hand or Deck, but it cannot attack this turn, \
+    and it returns to the Deck during the End Phase. \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 Once per turn (Quick Effect): \
     You can send 1 Level 10 "Yubel" monster or 1 "Neo-Spacian" monster, \

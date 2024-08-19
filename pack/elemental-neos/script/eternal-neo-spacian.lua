@@ -58,6 +58,8 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
     local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e1filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, 1, nil, e, tp):GetFirst()
     if tc and Duel.SpecialSummon(tc, 0, tp, tp, false, false, POS_FACEUP) > 0 then
+        tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 1)
+
         local ec1 = Effect.CreateEffect(c)
         ec1:SetDescription(3206)
         ec1:SetType(EFFECT_TYPE_SINGLE)
@@ -65,6 +67,25 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
         ec1:SetCode(EFFECT_CANNOT_ATTACK)
         ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
         tc:RegisterEffect(ec1)
+        local ec2 = Effect.CreateEffect(c)
+        ec2:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+        ec2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+        ec2:SetCode(EVENT_PHASE + PHASE_END)
+        ec2:SetLabelObject(tc)
+        ec2:SetCountLimit(1)
+        ec2:SetCondition(function(e, tp, eg, ep, ev, re, r, rp)
+            local tc = e:GetLabelObject()
+            if not tc or tc:GetFlagEffect(id) == 0 then
+                e:Reset()
+                return false
+            end
+            return true
+        end)
+        ec2:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+            local tc = e:GetLabelObject()
+            if tc then Duel.SendtoDeck(tc, nil, SEQ_DECKSHUFFLE, REASON_EFFECT) end
+        end)
+        Duel.RegisterEffect(ec2, tp)
     end
 end
 
