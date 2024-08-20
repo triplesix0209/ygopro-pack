@@ -11,9 +11,10 @@ function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
 
     -- fusion summon
-    Fusion.AddProcMixRep(c, false, false, s.fusfilter, 4, 99, function(c, fc, st, tp)
-        return c:IsLevel(7) and c:IsType(TYPE_NORMAL, fc, st, tp) and c:IsSetCard(SET_NEOS, fc, st, tp)
-    end)
+    Fusion.AddProcMixRep(c, false, false, function(c, fc, st, tp, sub, mg, sg)
+        return c:IsSetCard(SET_NEO_SPACIAN, fc, st, tp) and c:GetAttribute(fc, st, tp) ~= 0 and
+                   (not sg or not sg:IsExists(s.fusfilter, 1, c, c:GetAttribute(fc, st, tp), fc, st, tp))
+    end, 6, 6, function(c, fc, st, tp) return c:IsLevel(7) and c:IsType(TYPE_NORMAL, fc, st, tp) and c:IsSetCard(SET_NEOS, fc, st, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -47,13 +48,22 @@ function s.initial_effect(c)
     nomaterial:SetValue(function(e, tc) return tc and tc:GetControler() ~= e:GetHandlerPlayer() end)
     c:RegisterEffect(nomaterial)
 
-     -- control cannot switch
-     local noswitch = Effect.CreateEffect(c)
-     noswitch:SetType(EFFECT_TYPE_SINGLE)
-     noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
-     noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
-     noswitch:SetRange(LOCATION_MZONE)
-     c:RegisterEffect(noswitch)
+    -- control cannot switch
+    local noswitch = Effect.CreateEffect(c)
+    noswitch:SetType(EFFECT_TYPE_SINGLE)
+    noswitch:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    noswitch:SetCode(EFFECT_CANNOT_CHANGE_CONTROL)
+    noswitch:SetRange(LOCATION_MZONE)
+    c:RegisterEffect(noswitch)
+
+    -- immune
+    local immune = Effect.CreateEffect(c)
+    immune:SetType(EFFECT_TYPE_SINGLE)
+    immune:SetProperty(EFFECT_FLAG_SINGLE_RANGE + EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_UNCOPYABLE)
+    immune:SetCode(EFFECT_IMMUNE_EFFECT)
+    immune:SetRange(LOCATION_MZONE)
+    immune:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
+    c:RegisterEffect(immune)
 
     -- "Neos" fusions can choose to not return
     local neospace = Effect.CreateEffect(c)
@@ -63,13 +73,6 @@ function s.initial_effect(c)
     neospace:SetRange(LOCATION_MZONE)
     neospace:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
     c:RegisterEffect(neospace)
-
-    -- material check
-    local matcheck = Effect.CreateEffect(c)
-    matcheck:SetType(EFFECT_TYPE_SINGLE)
-    matcheck:SetCode(EFFECT_MATERIAL_CHECK)
-    matcheck:SetValue(s.matcheck)
-    c:RegisterEffect(matcheck)
 
     -- gain effect & atk
     local e1 = Effect.CreateEffect(c)
@@ -81,31 +84,10 @@ function s.initial_effect(c)
     e1:SetTarget(s.e1tg)
     e1:SetOperation(s.e1op)
     c:RegisterEffect(e1)
-
-    -- immune
-    local e2 = Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e2:SetCode(EFFECT_IMMUNE_EFFECT)
-    e2:SetRange(LOCATION_MZONE)
-    e2:SetCondition(function(e) return e:GetHandler():GetFlagEffect(id) ~= 0 end)
-    e2:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() end)
-    c:RegisterEffect(e2)
 end
 
-function s.fusfilter(c, fc, st, tp, sub, mg, sg)
-    return c:IsSetCard(SET_NEO_SPACIAN, fc, st, tp) and c:GetAttribute(fc, st, tp) ~= 0 and
-               (not sg or not sg:IsExists(function(c, attr, fc, st, tp)
-            return c:IsSetCard(SET_NEO_SPACIAN, fc, st, tp) and c:IsAttribute(attr, fc, st, tp) and not c:IsHasEffect(511002961)
-        end, 1, c, c:GetAttribute(fc, st, tp), fc, st, tp))
-end
-
-function s.matcheck(e, c)
-    local g = c:GetMaterial():Filter(Card.IsSetCard, nil, SET_NEO_SPACIAN)
-    if #g >= 6 then
-        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), EFFECT_FLAG_CLIENT_HINT, 1, 0,
-            aux.Stringid(id, 0))
-    end
+function s.fusfilter(c, attr, fc, st, tp)
+    return c:IsSetCard(SET_NEO_SPACIAN, fc, st, tp) and c:IsAttribute(attr, fc, st, tp) and not c:IsHasEffect(511002961)
 end
 
 function s.e1filter(c)
