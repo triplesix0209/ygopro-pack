@@ -1,4 +1,4 @@
--- Evil HERO Cosmos
+-- Evil HERO Neos
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 

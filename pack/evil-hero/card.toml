@@ -56,10 +56,10 @@ strings = [
     "Place 1 Spell/Trap on the bottom of your Deck",
 ]
 
-[evil-hero-cosmos]
+[evil-hero-neos]
 id = 900002202
-set = "evil-hero"
-name = "Evil HERO Cosmos"
+set = "evil-hero neos"
+name = "Evil HERO Neos"
 type = "monster effect"
 attribute = "light"
 race = "fiend"
