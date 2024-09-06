@@ -32,23 +32,22 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- destroy replace
+    -- material
     local e3 = Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e3:SetDescription(aux.Stringid(id, 0))
+    e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
+    e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetCode(EFFECT_DESTROY_REPLACE)
+    e3:SetCountLimit(1)
     e3:SetTarget(s.e3tg)
-    e3:SetValue(s.e3val)
+    e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- destroy & damage
+    -- gain effect
     local e4 = Effect.CreateEffect(c)
-    e4:SetCategory(CATEGORY_DESTROY + CATEGORY_DAMAGE)
-    e4:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e4:SetProperty(EFFECT_FLAG_DELAY)
-    e4:SetCode(EVENT_DESTROYED)
-    e4:SetCondition(s.e4con)
-    e4:SetTarget(s.e4tg)
+    e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+    e4:SetCode(EVENT_ADJUST)
+    e4:SetRange(LOCATION_MZONE)
     e4:SetOperation(s.e4op)
     c:RegisterEffect(e4)
 end
@@ -113,44 +112,54 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     c:CompleteProcedure()
 end
 
-function s.e3filter(c, tp)
-    return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE + REASON_EFFECT) and
-               not c:IsReason(REASON_REPLACE) and c:IsRace(RACE_DRAGON)
-end
+function s.e3filter(c) return c:IsSetCard(SET_BLUE_EYES) end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return eg:IsExists(s.e3filter, 1, nil, tp) and c:CheckRemoveOverlayCard(tp, 1, REASON_EFFECT) end
-
-    if Duel.SelectEffectYesNo(tp, c, 96) then
-        c:RemoveOverlayCard(tp, 1, 1, REASON_EFFECT)
-        return true
-    else
-        return false
-    end
+    if chk == 0 then return c:IsType(TYPE_XYZ) and Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_MZONE, 0, 1, c) end
 end
 
-function s.e3val(e, c) return s.e3filter(c, e:GetHandlerPlayer()) end
-
-function s.e4con(e, tp, eg, ep, ev, re, r, rp)
+function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_EFFECT)
+    if not c:IsRelateToEffect(e) then return end
+
+    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_XMATERIAL)
+    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, s.e3filter, tp, LOCATION_MZONE, 0, 1, 1, c)
+    if #g > 0 then Duel.Overlay(c, g) end
 end
 
-function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return true end
-    local g = Duel.GetMatchingGroup(aux.TRUE, tp, 0, LOCATION_MZONE, nil)
-    local ct = Duel.GetMatchingGroupCount(Card.IsRace, tp, LOCATION_GRAVE, 0, c, RACE_DRAGON)
-    Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
-    Duel.SetOperationInfo(0, CATEGORY_DAMAGE, nil, 0, 1 - tp, ct * 600)
-end
+function s.e4filter(c) return c:IsSetCard(SET_BLUE_EYES) and c:IsMonster() end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Duel.GetMatchingGroup(aux.TRUE, tp, 0, LOCATION_MZONE, nil)
-    if Duel.Destroy(g, REASON_EFFECT) > 0 then
-        local ct = Duel.GetMatchingGroupCount(Card.IsRace, tp, LOCATION_GRAVE, 0, c, RACE_DRAGON)
-        if ct > 0 then Duel.Damage(1 - tp, ct * 600, REASON_EFFECT) end
+    local og = c:GetOverlayGroup():Filter(s.e4filter, nil)
+    local g = og:Filter(function(c) return c:GetFlagEffect(id) == 0 end, nil)
+    if #g <= 0 then return end
+
+    for tc in g:Iter() do
+        local code = tc:GetOriginalCode()
+        if not og:IsExists(function(c, code) return c:IsCode(code) and c:GetFlagEffect(id) > 0 end, 1, tc, code) then
+            tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD, 0, 0)
+            local cid = c:CopyEffect(code, RESET_EVENT + RESETS_STANDARD)
+            local reset = Effect.CreateEffect(c)
+            reset:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
+            reset:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+            reset:SetCode(EVENT_ADJUST)
+            reset:SetRange(LOCATION_MZONE)
+            reset:SetLabel(cid)
+            reset:SetLabelObject(tc)
+            reset:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
+                local cid = e:GetLabel()
+                local c = e:GetHandler()
+                local tc = e:GetLabelObject()
+                local g = c:GetOverlayGroup():Filter(function(c) return c:GetFlagEffect(id) > 0 end, nil)
+                if c:IsDisabled() or c:IsFacedown() or not g:IsContains(tc) then
+                    c:ResetEffect(cid, RESET_COPY)
+                    tc:ResetFlagEffect(id)
+                end
+            end)
+            reset:SetReset(RESET_EVENT + RESETS_STANDARD)
+            c:RegisterEffect(reset, true)
+        end
     end
 end

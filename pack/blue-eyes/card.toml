@@ -103,10 +103,10 @@ When a "Blue-Eyes" monster(s) you control is destroyed by battle or an opponent'
 If this card is Special Summoned, attach 1 Dragon monster in your GY to this card, if able, \
     then this card's original ATK becomes equal to the highest ATK of the material monster attached to it. \
     This effect cannot be negated. \
-If a Dragon monster(s) you control would be destroyed by battle or card effects, \
-    you can detach 1 material from this card instead. \
-If this card on the field is destroyed by card effect: \
-    You can destroy all monsters your opponent controls, and if you do, \
-    inflict 600 damage to your opponent for each Dragon monster with different names in your GY, except this card. \
+Once per turn, during the End Phase: \
+    You can attach 1 other "Blue-Eyes" monster you control to this card as material. \
+This card gains the original effects of all "Blue-Eyes" monsters attached to it. \
 """
-strings = []
+strings = [
+    "Attach 1 other \"Blue-Eyes\" monster you control to this card as material",
+]
