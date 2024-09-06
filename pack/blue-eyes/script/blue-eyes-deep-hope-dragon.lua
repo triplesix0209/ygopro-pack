@@ -114,7 +114,7 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3filter(c, tp)
-    return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE) and
+    return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsPosition(POS_FACEUP) and c:IsReason(REASON_BATTLE + REASON_EFFECT) and
                not c:IsReason(REASON_REPLACE) and c:IsRace(RACE_DRAGON)
 end
 
