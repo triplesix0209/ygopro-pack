@@ -105,7 +105,7 @@ If this card is Special Summoned, attach 1 Dragon monster in your GY to this car
     This effect cannot be negated. \
 Once per turn, during the End Phase: \
     You can attach 1 other "Blue-Eyes" monster you control to this card as material. \
-This card gains the original effects of all "Blue-Eyes" monsters attached to it. \
+This card gains the original effects of all monsters attached to it. \
 """
 strings = [
     "Attach 1 other \"Blue-Eyes\" monster you control to this card as material",

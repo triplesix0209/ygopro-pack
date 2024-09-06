@@ -128,7 +128,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Overlay(c, g) end
 end
 
-function s.e4filter(c) return c:IsSetCard(SET_BLUE_EYES) and c:IsMonster() end
+function s.e4filter(c) return c:IsMonster() end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
