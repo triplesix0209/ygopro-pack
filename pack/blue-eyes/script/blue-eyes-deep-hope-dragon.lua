@@ -52,12 +52,12 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 
-function s.xyzfilter(c, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, st, tp) and c:IsRace(RACE_DRAGON, sc, st, tp) end
+function s.xyzfilter(c, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, st, tp) and c:IsRace(RACE_DRAGON, sc, st, tp) and c:IsFaceup() end
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
 
-    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsRace, tp, LOCATION_GRAVE, 0, 1, 1, nil, RACE_DRAGON)
+    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsRace, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, nil, RACE_DRAGON)
     if #g > 0 then Duel.Overlay(c, g) end
 
     local og = c:GetOverlayGroup()
