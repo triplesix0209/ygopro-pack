@@ -2,8 +2,8 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_series = {SET_BLUE_EYES}
 s.listed_names = {CARD_BLUEEYES_W_DRAGON, 23995346}
+s.listed_series = {SET_BLUE_EYES}
 
 function s.initial_effect(c)
     c:EnableReviveLimit()
@@ -156,7 +156,7 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     if #g > 0 then Duel.Overlay(c, g) end
 end
 
-function s.e5filter(c) return c:IsMonster() end
+function s.e5filter(c) return c:IsSetCard(SET_BLUE_EYES) and c:IsMonster() end
 
 function s.e5op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
