@@ -109,7 +109,7 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.SpecialSummon(c, st, tp, tp, false, false, POS_FACEUP) ~= 0 then
         local g = Duel.GetMatchingGroup(Card.IsRace, tp, LOCATION_GRAVE, 0, c, RACE_DRAGON)
         if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
-            g = Utility.GroupSelect(g, tp, 1, 1, HINTMSG_XMATERIAL)
+            g = Utility.GroupSelect(HINTMSG_XMATERIAL, g, tp, 1, 1)
             Duel.Overlay(c, g)
         end
     end
