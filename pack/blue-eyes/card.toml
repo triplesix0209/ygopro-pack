@@ -36,7 +36,7 @@ effect = """\
 (This card's name is always treated as "Blue-Eyes Ultimate Dragon".)
 "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon"
 A Fusion Summon of this card can only be done with the above materials. \
-Unaffected by your opponent's card effects. \
+Unaffected by other cards' activated effects. \
 Once per turn: You can target up to 3 other cards on the field; destroy it. \
     This card cannot attack the turn this effect is activated. \
 If this card attacks an opponent's monster, during the Damage Step only, \

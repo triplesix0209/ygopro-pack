@@ -17,7 +17,7 @@ function s.initial_effect(c)
     e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
     e1:SetCode(EFFECT_IMMUNE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetValue(function(e, re) return e:GetOwnerPlayer() == 1 - re:GetOwnerPlayer() end)
+    e1:SetValue(function(e, te) return te:GetOwner() ~= e:GetOwner() and te:IsActivated() end)
     c:RegisterEffect(e1)
 
     -- destroy
