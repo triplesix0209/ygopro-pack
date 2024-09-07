@@ -39,7 +39,7 @@ function s.initial_effect(c)
 
     -- special summon
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 2))
+    e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
     e3:SetType(EFFECT_TYPE_QUICK_O)
     e3:SetCode(EVENT_FREE_CHAIN)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 
     -- material
     local e4 = Effect.CreateEffect(c)
-    e4:SetDescription(aux.Stringid(id, 3))
+    e4:SetDescription(aux.Stringid(id, 2))
     e4:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e4:SetCode(EVENT_PHASE + PHASE_END)
     e4:SetRange(LOCATION_MZONE)
