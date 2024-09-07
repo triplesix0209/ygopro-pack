@@ -115,31 +115,28 @@ function s.e1op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e3filter(c, e, tp)
-    return not c:IsCode(id) and c:IsCode({CARD_BLUEEYES_W_DRAGON, 23995346}) or c:ListsCode({CARD_BLUEEYES_W_DRAGON, 23995346}) and
-               c:IsCanBeSpecialSummoned(e, 0, tp, true, false)
+    return not c:IsCode(id) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false) and
+               (c:IsCode({CARD_BLUEEYES_W_DRAGON, 23995346}) or c:ListsCode(CARD_BLUEEYES_W_DRAGON) or c:ListsCode(23995346))
 end
 
 function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
-    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 2, REASON_COST) end
-    c:RemoveOverlayCard(tp, 2, 2, REASON_COST)
+    if chk == 0 then return c:CheckRemoveOverlayCard(tp, 3, REASON_COST) end
+    c:RemoveOverlayCard(tp, 3, 3, REASON_COST)
 end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
-    if chk == 0 then
-        return Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED + LOCATION_EXTRA, 0, 1,
-            nil, e, tp) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0
-    end
-
-    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED + LOCATION_EXTRA)
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED
+    if chk == 0 then return Duel.IsExistingMatchingCard(s.e3filter, tp, loc, 0, 1, nil, e, tp) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 end
+    Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
 end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
+    local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-    local g = Duel.SelectMatchingCard(tp, s.e3filter, tp, LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED + LOCATION_EXTRA, 0, 1, 1,
-        nil, e, tp)
+    local g = Duel.SelectMatchingCard(tp, s.e3filter, tp, loc, 0, 1, 1, nil, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, true, false, POS_FACEUP) end
 end
 
