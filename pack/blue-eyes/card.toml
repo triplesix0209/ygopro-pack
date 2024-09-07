@@ -37,8 +37,7 @@ effect = """\
 "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon"
 A Fusion Summon of this card can only be done with the above materials. \
 Your opponent cannot target or destroy this card with card effects. \
-Once per turn: You can target 1 other card on the field; destroy it. \
-    If this card was Fusion Summoned using a Normal Monster as material, you can target up to 3 cards instead. \
+Once per turn: You can target up to 3 other cards on the field; destroy it. \
     This card cannot attack the turn this effect is activated. \
 At the end of the Damage Step, if this Fusion Summoned card attacked: \
     You can send 1 Dragon Fusion Monster from your Extra Deck to the GY; \
@@ -48,7 +47,7 @@ At the end of the Damage Step, if this Fusion Summoned card attacked: \
 """
 strings = [
     "Fusion Summoned using a Normal Monster",
-    "Destroy other card on the field",
+    "Destroy up to 3 other cards on the field",
     "Make second and third attack",
     "Can make a second and third attack",
 ]

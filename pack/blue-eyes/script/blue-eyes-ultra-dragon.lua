@@ -36,11 +36,6 @@ function s.initial_effect(c)
     e2:SetTarget(s.e2tg)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
-    local e2reg = Effect.CreateEffect(c)
-    e2reg:SetType(EFFECT_TYPE_SINGLE)
-    e2reg:SetCode(EFFECT_MATERIAL_CHECK)
-    e2reg:SetValue(s.e2matcheck)
-    c:RegisterEffect(e2reg)
 
     -- multi attack
     local e3 = Effect.CreateEffect(c)
@@ -72,13 +67,6 @@ function s.initial_effect(c)
     end)
 end
 
-function s.e2matcheck(e, c)
-    if c:GetMaterial():IsExists(Card.IsType, 1, nil, TYPE_NORMAL) then
-        c:RegisterFlagEffect(id, RESET_EVENT | RESETS_STANDARD & ~(RESET_TOFIELD | RESET_TEMP_REMOVE | RESET_LEAVE), EFFECT_FLAG_CLIENT_HINT, 1, 0,
-            aux.Stringid(id, 0))
-    end
-end
-
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     if chk == 0 then return c:GetAttackAnnouncedCount() == 0 end
@@ -96,11 +84,8 @@ function s.e2tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     local c = e:GetHandler()
     if chk == 0 then return Duel.IsExistingTarget(aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, c) end
 
-    local max = 1
-    if c:GetFlagEffect(id) ~= 0 then max = 3 end
-
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_DESTROY)
-    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, max, c)
+    local g = Duel.SelectTarget(tp, aux.TRUE, tp, LOCATION_ONFIELD, LOCATION_ONFIELD, 1, 3, c)
     Duel.SetOperationInfo(0, CATEGORY_DESTROY, g, #g, 0, 0)
 end
 
