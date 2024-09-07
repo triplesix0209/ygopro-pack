@@ -41,12 +41,9 @@ function s.initial_effect(c)
     local e3 = Effect.CreateEffect(c)
     e3:SetDescription(aux.Stringid(id, 1))
     e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-    e3:SetType(EFFECT_TYPE_QUICK_O)
-    e3:SetCode(EVENT_FREE_CHAIN)
+    e3:SetType(EFFECT_TYPE_IGNITION)
     e3:SetRange(LOCATION_MZONE)
-    e3:SetHintTiming(0, TIMINGS_CHECK_MONSTER + TIMING_MAIN_END)
     e3:SetCountLimit(1, {id, 2})
-    e3:SetCondition(s.e3con)
     e3:SetTarget(s.e3tg)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
@@ -121,14 +118,12 @@ function s.e3filter(c, e, tp)
                (c:IsCode({CARD_BLUEEYES_W_DRAGON, 23995346}) or c:ListsCode(CARD_BLUEEYES_W_DRAGON) or c:ListsCode(23995346))
 end
 
-function s.e3con() return Duel.IsMainPhase() end
-
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     local c = e:GetHandler()
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED
     if chk == 0 then
         return Duel.IsExistingMatchingCard(s.e3filter, tp, loc, 0, 1, nil, e, tp) and Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-                   c:CheckRemoveOverlayCard(tp, 3, REASON_EFFECT)
+                   c:CheckRemoveOverlayCard(tp, 2, REASON_EFFECT)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, loc)
@@ -137,13 +132,13 @@ end
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if c:IsFacedown() or not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 or
-        not c:CheckRemoveOverlayCard(tp, 3, REASON_EFFECT) then return end
+        not c:CheckRemoveOverlayCard(tp, 2, REASON_EFFECT) then return end
     local loc = LOCATION_HAND + LOCATION_DECK + LOCATION_GRAVE + LOCATION_REMOVED
 
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
     local g = Duel.SelectMatchingCard(tp, s.e3filter, tp, loc, 0, 1, 1, nil, e, tp)
     if #g == 0 or Duel.SpecialSummon(g, 0, tp, tp, true, false, POS_FACEUP) == 0 then end
-    c:RemoveOverlayCard(tp, 3, 3, REASON_EFFECT)
+    c:RemoveOverlayCard(tp, 2, 2, REASON_EFFECT)
 end
 
 function s.e4filter(c) return c:IsSetCard(SET_BLUE_EYES) end
