@@ -36,7 +36,7 @@ effect = """\
 (This card's name is always treated as "Blue-Eyes Ultimate Dragon".)
 "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon" + "Blue-Eyes White Dragon"
 A Fusion Summon of this card can only be done with the above materials. \
-Your opponent cannot target or destroy this card with card effects. \
+Unaffected by your opponent's card effects. \
 Once per turn: You can target up to 3 other cards on the field; destroy it. \
     This card cannot attack the turn this effect is activated. \
 At the end of the Damage Step, if this Fusion Summoned card attacked: \
@@ -46,7 +46,6 @@ At the end of the Damage Step, if this Fusion Summoned card attacked: \
     You can only use this effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
-    "Fusion Summoned using a Normal Monster",
     "Destroy up to 3 other cards on the field",
     "Make second and third attack",
     "Can make a second and third attack",

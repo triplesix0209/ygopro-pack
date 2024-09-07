@@ -11,22 +11,18 @@ function s.initial_effect(c)
     -- fusion summon
     Fusion.AddProcMixN(c, false, false, CARD_BLUEEYES_W_DRAGON, 3)
 
-    -- untargetable & indes
+    -- unaffected
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
     e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e1:SetCode(EFFECT_IMMUNE_EFFECT)
     e1:SetRange(LOCATION_MZONE)
-    e1:SetValue(aux.tgoval)
+    e1:SetValue(function(e, re) return e:GetOwnerPlayer() == 1 - re:GetOwnerPlayer() end)
     c:RegisterEffect(e1)
-    local e1b = e1:Clone()
-    e1b:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    e1b:SetValue(function(e, re, rp) return rp ~= e:GetHandlerPlayer() end)
-    c:RegisterEffect(e1b)
 
     -- destroy
     local e2 = Effect.CreateEffect(c)
-    e2:SetDescription(aux.Stringid(id, 1))
+    e2:SetDescription(aux.Stringid(id, 0))
     e2:SetCategory(CATEGORY_DESTROY)
     e2:SetType(EFFECT_TYPE_IGNITION)
     e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -39,7 +35,7 @@ function s.initial_effect(c)
 
     -- multi attack
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 2))
+    e3:SetDescription(aux.Stringid(id, 1))
     e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
     e3:SetCode(EVENT_DAMAGE_STEP_END)
     e3:SetCountLimit(1, id)
@@ -125,7 +121,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     if not c:IsRelateToEffect(e) then return end
 
     local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 3))
+    ec1:SetDescription(aux.Stringid(id, 2))
     ec1:SetType(EFFECT_TYPE_SINGLE)
     ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
     ec1:SetCode(EFFECT_EXTRA_ATTACK)
