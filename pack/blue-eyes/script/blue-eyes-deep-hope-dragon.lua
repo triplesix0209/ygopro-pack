@@ -10,7 +10,7 @@ function s.initial_effect(c)
     -- xyz summon
     Xyz.AddProcedure(c, s.xyzfilter, 8, 2)
 
-    -- atk up
+    -- atk value
     local e1 = Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_CONTINUOUS)
     e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CANNOT_NEGATE)
@@ -34,7 +34,7 @@ function s.initial_effect(c)
 
     -- material
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 0))
+    e3:SetDescription(aux.Stringid(id, 1))
     e3:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_TRIGGER_O)
     e3:SetCode(EVENT_PHASE + PHASE_END)
     e3:SetRange(LOCATION_MZONE)
@@ -56,8 +56,8 @@ function s.xyzfilter(c, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, st
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsRace, tp, LOCATION_MZONE + LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, c, RACE_DRAGON)
-    if #g > 0 then Duel.Overlay(c, g) end
+    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsRace, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, c, RACE_DRAGON)
+    if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then Duel.Overlay(c, g) end
 
     local og = c:GetOverlayGroup()
     if #og > 0 then
