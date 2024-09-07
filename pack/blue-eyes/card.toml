@@ -95,20 +95,24 @@ rank = 8
 atk = 0
 def = 0
 effect = """\
-2 Level 8 LIGHT Dragon monsters
+2 Level 8 Dragon Normal Monsters
 When a "Blue-Eyes" monster(s) you control is destroyed by battle or an opponent's card effect, except "{CARD_NAME}": \
     You can Special Summon this card from your Extra Deck (this is treated as an Xyz Summon) \
-    or GY (except the turn this card was sent to the GY). \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
-If this card is Special Summoned, \
-    you can attach 1 face-up Dragon monster in your GY or banishment to this card, \
-    also this card's original ATK becomes equal to the highest ATK of the material monster attached to it. \
+    or GY (except the turn this card was sent to the GY), \
+    and if you do, you can attach 1 Dragon monster in your GY to this card. \
+This card's original ATK becomes equal to the highest ATK of the material monster attached to it. \
     This effect cannot be negated. \
+You can detach 3 materials from this card; \
+    Special Summon 1 "Blue-Eyes White Dragon", "Blue-Eyes Ultimate Dragon", or monster that mentions them, \
+    from your hand, Deck, GY, banishment, or Extra Deck, except "{CARD_NAME}", \
+    ignoring its Summoning conditions. \
 Once per turn, during the End Phase: \
     You can attach 1 other "Blue-Eyes" monster you control to this card as material. \
 This card gains the original effects of all monsters attached to it. \
+You can only use each effect of "{CARD_NAME}" once per turn. \
 """
 strings = [
     "Attach 1 Dragon monster to this card as material?",
+    "Special Summon 1 \"Blue-Eyes White Dragon\", \"Blue-Eyes Ultimate Dragon\", or monster that mentions them",
     "Attach 1 other \"Blue-Eyes\" monster you control to this card as material",
 ]
