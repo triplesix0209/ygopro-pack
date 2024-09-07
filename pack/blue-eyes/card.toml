@@ -39,17 +39,10 @@ A Fusion Summon of this card can only be done with the above materials. \
 Unaffected by your opponent's card effects. \
 Once per turn: You can target up to 3 other cards on the field; destroy it. \
     This card cannot attack the turn this effect is activated. \
-At the end of the Damage Step, if this Fusion Summoned card attacked: \
-    You can send 1 Dragon Fusion Monster from your Extra Deck to the GY; \
-    this card can make a second and third attack during each Battle Phase this turn. \
-    Other monsters cannot attack during the turn you activate this effect. \
-    You can only use this effect of "{CARD_NAME}" once per turn. \
+If this card attacks an opponent's monster, during the Damage Step only, \
+    negate the effects of that monster while it is face-up on the field. \
 """
-strings = [
-    "Destroy up to 3 other cards on the field",
-    "Make second and third attack",
-    "Can make a second and third attack",
-]
+strings = ["Destroy up to 3 other cards on the field"]
 
 [blue-eyes-holy-shining-dragon]
 id = 900001103

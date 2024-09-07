@@ -33,34 +33,22 @@ function s.initial_effect(c)
     e2:SetOperation(s.e2op)
     c:RegisterEffect(e2)
 
-    -- multi attack
+    -- disable
     local e3 = Effect.CreateEffect(c)
-    e3:SetDescription(aux.Stringid(id, 1))
-    e3:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
-    e3:SetCode(EVENT_DAMAGE_STEP_END)
-    e3:SetCountLimit(1, id)
-    e3:SetCondition(s.e3con)
-    e3:SetCost(s.e3cost)
-    e3:SetOperation(s.e3op)
-    c:RegisterEffect(e3)
-    aux.GlobalCheck(s, function()
-        local e3check = Effect.CreateEffect(c)
-        e3check:SetType(EFFECT_TYPE_FIELD + EFFECT_TYPE_CONTINUOUS)
-        e3check:SetCode(EVENT_ATTACK_ANNOUNCE)
-        e3check:SetOperation(function(e, tp, eg, ep, ev, re, r, rp)
-            local tc = eg:GetFirst()
-            if tc:GetFlagEffect(id) > 0 then return end
-            s[ep] = s[ep] + 1
-            tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, 0, 1)
-        end)
-        Duel.RegisterEffect(e3check, 0)
-        s[0] = 0
-        s[1] = 0
-        aux.AddValuesReset(function()
-            s[0] = 0
-            s[1] = 0
-        end)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetCode(EFFECT_DISABLE)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetTargetRange(0, LOCATION_MZONE)
+    e3:SetCondition(function(e)
+        local c = e:GetHandler()
+        return Duel.GetAttacker() == c and c:GetBattleTarget() and
+                   (Duel.GetCurrentPhase() == PHASE_DAMAGE or Duel.GetCurrentPhase() == PHASE_DAMAGE_CAL)
     end)
+    e3:SetTarget(function(e, c) return e:GetHandler():GetBattleTarget() == c end)
+    c:RegisterEffect(e3)
+    local e3b = e3:Clone()
+    e3b:SetCode(EFFECT_DISABLE_EFFECT)
+    c:RegisterEffect(e3b)
 end
 
 function s.e2cost(e, tp, eg, ep, ev, re, r, rp, chk)
@@ -88,44 +76,4 @@ end
 function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     local g = Duel.GetTargetCards(e):Filter(Card.IsRelateToEffect, nil, e)
     if #g > 0 then Duel.Destroy(g, REASON_EFFECT) end
-end
-
-function s.e3filter(c) return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_FUSION) and c:IsAbleToGraveAsCost() end
-
-function s.e3con(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    return c:IsSummonType(SUMMON_TYPE_FUSION) and Duel.GetAttacker() == c
-end
-
-function s.e3cost(e, tp, eg, ep, ev, re, r, rp, chk)
-    local c = e:GetHandler()
-    if chk == 0 then return s[tp] <= 1 and Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_EXTRA, 0, 1, nil) end
-
-    Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_TOGRAVE)
-    local g = Utility.SelectMatchingCard(HINTMSG_TOGRAVE, tp, s.e3filter, tp, LOCATION_EXTRA, 0, 1, 1, nil)
-    Duel.SendtoGrave(g, REASON_COST)
-
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetType(EFFECT_TYPE_FIELD)
-    ec1:SetProperty(EFFECT_FLAG_OATH)
-    ec1:SetCode(EFFECT_CANNOT_ATTACK)
-    ec1:SetTargetRange(LOCATION_MZONE, 0)
-    ec1:SetTarget(function(e, c) return e:GetLabel() ~= c:GetFieldID() end)
-    ec1:SetLabel(c:GetFieldID())
-    ec1:SetReset(RESET_PHASE + PHASE_END)
-    Duel.RegisterEffect(ec1, tp)
-end
-
-function s.e3op(e, tp, eg, ep, ev, re, r, rp)
-    local c = e:GetHandler()
-    if not c:IsRelateToEffect(e) then return end
-
-    local ec1 = Effect.CreateEffect(c)
-    ec1:SetDescription(aux.Stringid(id, 2))
-    ec1:SetType(EFFECT_TYPE_SINGLE)
-    ec1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE + EFFECT_FLAG_CLIENT_HINT)
-    ec1:SetCode(EFFECT_EXTRA_ATTACK)
-    ec1:SetValue(2)
-    ec1:SetReset(RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END)
-    c:RegisterEffect(ec1)
 end
