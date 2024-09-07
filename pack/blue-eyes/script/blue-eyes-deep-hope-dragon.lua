@@ -56,8 +56,11 @@ function s.xyzfilter(c, sc, st, tp) return c:IsAttribute(ATTRIBUTE_LIGHT, sc, st
 
 function s.e1op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
-    local g = Utility.SelectMatchingCard(HINTMSG_XMATERIAL, tp, Card.IsRace, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, 1, 1, c, RACE_DRAGON)
-    if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then Duel.Overlay(c, g) end
+    local g = Duel.GetMatchingGroup(Card.IsRace, tp, LOCATION_GRAVE + LOCATION_REMOVED, 0, c, RACE_DRAGON)
+    if #g > 0 and Duel.SelectEffectYesNo(tp, c, aux.Stringid(id, 0)) then
+        g = Utility.GroupSelect(g, tp, 1, 1, HINTMSG_XMATERIAL)
+        Duel.Overlay(c, g)
+    end
 
     local og = c:GetOverlayGroup()
     if #og > 0 then
