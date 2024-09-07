@@ -118,7 +118,7 @@ end
 
 function s.e3filter(c, e, tp)
     return not c:IsCode(id) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false) and
-               (c:IsCode({CARD_BLUEEYES_W_DRAGON, 23995346}) or c:ListsCode(CARD_BLUEEYES_W_DRAGON) or c:ListsCode(23995346))
+               c:IsMonster()(c:IsCode({CARD_BLUEEYES_W_DRAGON, 23995346}) or c:ListsCode(CARD_BLUEEYES_W_DRAGON) or c:ListsCode(23995346))
 end
 
 function s.e3con() return Duel.IsMainPhase() end
