@@ -87,7 +87,6 @@ function s.initial_effect(c)
     e5:SetCode(EVENT_PHASE + PHASE_END)
     e5:SetRange(LOCATION_FZONE)
     e5:SetCountLimit(1)
-    e5:SetCondition(s.e5con)
     e5:SetTarget(s.e5tg)
     e5:SetOperation(s.e5op)
     c:RegisterEffect(e5)
@@ -176,8 +175,6 @@ function s.e4op(e, tp, eg, ep, ev, re, r, rp)
 end
 
 function s.e5filter(c) return c:IsFieldSpell() or c:IsType(TYPE_CONTINUOUS) end
-
-function s.e5con(e, tp, eg, ep, ev, re, r, rp) return Duel.IsTurnPlayer(tp) end
 
 function s.e5tg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
     if chk == 0 then return Duel.IsExistingMatchingCard(s.e5filter, tp, LOCATION_HAND + LOCATION_DECK, 0, 1, nil) end
