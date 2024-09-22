@@ -274,5 +274,5 @@ function s.e6op(e, tp, eg, ep, ev, re, r, rp)
     if Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
 
     local tc = Duel.CreateToken(tp, 10000040)
-    Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP)
+    Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP_ATTACK)
 end

@@ -367,7 +367,7 @@ You can only use the following effect of "{CARD_NAME}" once per turn. You can ac
     with a different name from the cards you control and in your GY.
 You can discard 1 "The True Name" and Tribute 3 monsters whose original names are \
     "Obelisk the Tormentor", "Slifer the Sky Dragon", "The Winged Dragon of Ra"; \
-    Special Summon 1 "Holactie the Creator of Light" from Outside, ignoring its Summoning conditions. \
+    Special Summon 1 "Holactie the Creator of Light" in Attack Position from Outside, ignoring its Summoning conditions. \
     Cards and effects cannot be activated in response to this effect's activation. \
     You can only use this effect of "{CARD_NAME}" once per Duel. \
 """
