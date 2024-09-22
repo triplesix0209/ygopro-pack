@@ -2,7 +2,7 @@
 Duel.LoadScript("util.lua")
 local s, id = GetID()
 
-s.listed_names = {CARD_PHARAONIC_SARCOPHAGUS}
+s.listed_names = {CARD_KING_SARCOPHAGUS}
 s.listed_series = {SET_HORUS}
 
 function s.initial_effect(c)
@@ -51,7 +51,7 @@ function s.e1con(e, c)
 
     local tp = c:GetControler()
     return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and
-               Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_PHARAONIC_SARCOPHAGUS), tp, LOCATION_ONFIELD, 0, 1, nil)
+               Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_KING_SARCOPHAGUS), tp, LOCATION_ONFIELD, 0, 1, nil)
 end
 
 function s.e2filter1(c) return c:IsLevel(8) and c:IsAbleToGraveAsCost() end
