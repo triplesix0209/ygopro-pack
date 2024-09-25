@@ -292,6 +292,7 @@ If this card is Link Summoned: You can target 1 Link Monster that was used as ma
     up to the number of the targeted monster's Link Rating, \
     and if you do, this card gains the banished monster's effects. \
     Your opponent cannot activate cards or effects in response to this effect's activation. \
+While this card is co-linked, the effects of it and its co-linked monsters cannot be negated. \
 While your LP are 2000 or less, you do not pay LP to activate Cyberse Link Monster effects. \
 """
 strings = ["Add 1 \"Cynet\" Spell/Trap from your GY"]

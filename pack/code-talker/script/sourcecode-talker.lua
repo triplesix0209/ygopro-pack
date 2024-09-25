@@ -28,21 +28,35 @@ function s.initial_effect(c)
     e1:SetLabelObject(e1reg)
     c:RegisterEffect(e1)
 
-    -- no LP cost
+    -- cannot be negated
     local e2 = Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_FIELD)
-    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-    e2:SetCode(EFFECT_LPCOST_CHANGE)
+    e2:SetCode(EFFECT_CANNOT_DISABLE)
     e2:SetRange(LOCATION_MZONE)
-    e2:SetTargetRange(1, 0)
-    e2:SetCondition(function(e) return Duel.GetLP(e:GetHandlerPlayer()) <= 2000 end)
-    e2:SetValue(function(e, re, rp, val)
+    e2:SetTargetRange(LOCATION_MZONE, LOCATION_MZONE)
+    e2:SetCondition(function(e) return e:GetHandler():GetMutualLinkedGroupCount() > 0 end)
+    e2:SetTarget(function(e, tc)
+        local c = e:GetHandler()
+        local g = c:GetMutualLinkedGroup()
+        return tc == c or g:IsContains(tc)
+    end)
+    c:RegisterEffect(e2)
+
+    -- no LP cost
+    local e3 = Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_FIELD)
+    e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e3:SetCode(EFFECT_LPCOST_CHANGE)
+    e3:SetRange(LOCATION_MZONE)
+    e3:SetTargetRange(1, 0)
+    e3:SetCondition(function(e) return Duel.GetLP(e:GetHandlerPlayer()) <= 2000 end)
+    e3:SetValue(function(e, re, rp, val)
         if not re then return val end
         local rc = re:GetHandler()
         if re:IsActiveType(TYPE_MONSTER) and rc:IsType(TYPE_LINK) and rc:IsRace(RACE_CYBERSE) then return 0 end
         return val
     end)
-    c:RegisterEffect(e2)
+    c:RegisterEffect(e3)
 end
 
 function s.e1matcheck(e, c)
