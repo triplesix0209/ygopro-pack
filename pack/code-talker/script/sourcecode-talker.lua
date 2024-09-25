@@ -41,6 +41,9 @@ function s.initial_effect(c)
         return tc == c or g:IsContains(tc)
     end)
     c:RegisterEffect(e2)
+    local e2b = e2:Clone()
+    e2b:SetCode(EFFECT_CANNOT_DISEFFECT)
+    c:RegisterEffect(e2b)
 
     -- no LP cost
     local e3 = Effect.CreateEffect(c)
