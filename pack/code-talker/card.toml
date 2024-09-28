@@ -305,7 +305,7 @@ type = "monster link effect"
 attribute = "light"
 race = "cyberse"
 link = 5
-link-arrow = "top left right bottom-left bottom-right"
+link-arrow = "top-left top-right bottom-left bottom-right"
 atk = 3000
 effect = """\
 2+ monsters, including a Link-4 Cyberse monster
