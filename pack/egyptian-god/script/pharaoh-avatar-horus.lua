@@ -54,7 +54,7 @@ function s.e1con(e, c)
                Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode, CARD_KING_SARCOPHAGUS), tp, LOCATION_ONFIELD, 0, 1, nil)
 end
 
-function s.e2filter1(c) return c:IsLevel(8) and c:IsAbleToGraveAsCost() end
+function s.e2filter1(c) return c:IsMonster() and c:IsAbleToGraveAsCost() end
 
 function s.e2filter2(c) return c:IsSpellTrap() and c:ListsArchetype(SET_HORUS) and c:IsAbleToHand() end
 

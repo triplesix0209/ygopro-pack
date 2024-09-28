@@ -506,7 +506,7 @@ effect = """\
 If you control "King's Sarcophagus", you can Special Summon this card (from your GY). \
     You can only Special Summon "{CARD_NAME}" once per turn this way. \
 You can only use each of the following effects of "{CARD_NAME}" once per turn. \
-You can send both this card and 1 other Level 8 monster from your hand to the GY; \
+You can send both this card and 1 other monster from your hand to the GY; \
     add 1 Spell/Trap that lists a "Horus" card from your Deck to your hand, \
     then you can draw 1 card. \
 If another card(s) you control leaves the field by an opponent's card effect (except during the Damage Step): \
