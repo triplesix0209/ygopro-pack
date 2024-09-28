@@ -7,8 +7,8 @@ function s.initial_effect(c)
     c:SetUniqueOnField(1, 0, id)
 
     -- link summon
-    Link.AddProcedure(c, function(c, sc, st, tp) return c:IsRace(RACE_CYBERSE, sc, st, tp) and c:IsType(TYPE_LINK, sc, st, tp) end, 3,
-        99, function(g, sc, st, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, st, tp) end)
+    Link.AddProcedure(c, function(c, sc, st, tp) return c:IsRace(RACE_CYBERSE, sc, st, tp) and c:IsType(TYPE_LINK, sc, st, tp) end, 3, 99,
+        function(g, sc, st, tp) return g:CheckDifferentPropertyBinary(Card.GetAttribute, sc, st, tp) end)
 
     -- special summon limit
     local splimit = Effect.CreateEffect(c)
@@ -140,10 +140,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e2filter1(c, e, tp)
-    return c:IsLinkMonster() and e:GetHandler():GetLinkedGroup():IsContains(c) and
-               Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c)
-end
+function s.e2filter1(c, e, tp) return c:IsLinkMonster() and Duel.IsExistingMatchingCard(s.e2filter2, tp, LOCATION_EXTRA, 0, 1, nil, e, tp, c) end
 
 function s.e2filter2(c, e, tp, mc)
     return not c:IsCode({id, mc:GetCode()}) and c:IsRace(RACE_CYBERSE) and c:IsLinkMonster() and c:IsLinkBelow(mc:GetLink()) and
