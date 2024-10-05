@@ -831,7 +831,7 @@ strings = [
 id = 900000135
 alias = 44095762
 name = "Palladium Mirror Force"
-type = "trap"
+type = "trap counter"
 effect = """\
 (This card's name is always treated as "Mirror Force" and it is "Palladium" card.)
 Activate 1 of these effects.
