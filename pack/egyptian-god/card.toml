@@ -510,12 +510,11 @@ You can send both this card and 1 other monster from your hand to the GY; \
     add 1 Spell/Trap that lists a "Horus" card from your Deck to your hand, \
     then you can draw 1 card. \
 If another card(s) you control leaves the field by an opponent's card effect (except during the Damage Step): \
-    You can inflict damage to your opponent equal to the number of monsters with different original Types you control x 600. \
-    You must control this face-up card to activate and to resolve this effect. \
+    You can Special Summon 1 monster in your GY. \
 """
 strings = [
     "Draw 1 card?",
-    "Inflict damage equal to monster types you control",
+    "Special Summon 1 monster in your GY",
 ]
 
 [sun-god-descend]
