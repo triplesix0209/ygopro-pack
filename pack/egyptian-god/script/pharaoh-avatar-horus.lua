@@ -88,13 +88,17 @@ function s.e2op(e, tp, eg, ep, ev, re, r, rp)
     end
 end
 
-function s.e3filter(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+function s.e3filter1(c, tp)
+    return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousControler(tp) and c:IsReason(REASON_EFFECT) and c:GetReasonPlayer() == 1 - tp
+end
 
-function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3filter, 1, nil, tp) end
+function s.e3filter2(c, e, tp) return c:IsCanBeSpecialSummoned(e, 0, tp, false, false) end
+
+function s.e3con(e, tp, eg, ep, ev, re, r, rp) return eg:IsExists(s.e3filter1, 1, nil, tp) end
 
 function s.e3tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
-        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e3filter, tp, LOCATION_GRAVE, 0, 1, nil, e, tp)
+        return Duel.GetLocationCount(tp, LOCATION_MZONE) > 0 and Duel.IsExistingMatchingCard(s.e3filter2, tp, LOCATION_GRAVE, 0, 1, nil, e, tp)
     end
 
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, 0, 1, 0, LOCATION_GRAVE)
@@ -102,6 +106,6 @@ end
 
 function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     Duel.Hint(HINT_SELECTMSG, tp, HINTMSG_SPSUMMON)
-    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e3filter, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
+    local g = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e3filter2, tp, LOCATION_GRAVE, 0, 1, 1, nil, e, tp)
     if #g > 0 then Duel.SpecialSummon(g, 0, tp, tp, false, false, POS_FACEUP) end
 end
