@@ -360,7 +360,7 @@ Level/Rank 10 or higher monsters you control cannot be destroyed, or banished, b
     and theirs effect activations and theirs card effects cannot be negated. \
 If this face-up card leaves the field, return all monster you control into the Deck, ignoring card effects. \
 You can only use the following effect of "{CARD_NAME}" once per turn. You can activate 1 of these effects;
-● Special Summon 1 original Divine-Beast monster from your hand or GY, ignoring its Summoning conditions, \
+● Normal Summon or Special Summon from your hand or GY, 1 original Divine-Beast monster, ignoring its Summoning conditions, \
     but if you Special Summoned from the GY, send that monster to the GY during the End Phase.
 ● Choose 1 original Divine-Beast monster you control or is in your GY, \
     add to your hand, or Set, 1 Spell/Trap that mentions it from your Deck, \
@@ -372,7 +372,7 @@ You can discard 1 "The True Name" and Tribute 3 monsters whose original names ar
     You can only use this effect of "{CARD_NAME}" once per Duel. \
 """
 strings = [
-    "Special Summon a Divine-Beast",
+    "Summon a Divine-Beast",
     "Summoned by \"{CARD_NAME}\"",
     "Add or Set Spell/Trap that mentions Divine-Beast",
     "Call \"Holactie the Creator of Light\"",

@@ -100,10 +100,10 @@ function s.initial_effect(c)
     e3:SetOperation(s.e3op)
     c:RegisterEffect(e3)
 
-    -- special summon a Divine-Beast
+    -- summon a Divine-Beast
     local e4 = Effect.CreateEffect(c)
     e4:SetDescription(aux.Stringid(id, 0))
-    e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
+    e4:SetCategory(CATEGORY_SUMMON + CATEGORY_SPECIAL_SUMMON)
     e4:SetType(EFFECT_TYPE_QUICK_O)
     e4:SetCode(EVENT_FREE_CHAIN)
     e4:SetRange(LOCATION_SZONE)
@@ -154,7 +154,7 @@ function s.e3op(e, tp, eg, ep, ev, re, r, rp)
     Duel.SendtoDeck(g, nil, SEQ_DECKSHUFFLE, REASON_EFFECT + REASON_RULE)
 end
 
-function s.e4filter(c, e, tp) return c:IsOriginalRace(RACE_DIVINE) and c:IsCanBeSpecialSummoned(e, 0, tp, true, false) end
+function s.e4filter(c, e, tp) return c:IsOriginalRace(RACE_DIVINE) and (c:IsSummonable(true, nil) or c:IsCanBeSpecialSummoned(e, 0, tp, true, false)) end
 
 function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     if chk == 0 then
@@ -163,15 +163,35 @@ function s.e4tg(e, tp, eg, ep, ev, re, r, rp, chk)
     end
 
     Duel.Hint(HINT_OPSELECTED, 1 - tp, e:GetDescription())
+    Duel.SetOperationInfo(0, CATEGORY_SUMMON, nil, 1, tp, LOCATION_HAND)
     Duel.SetOperationInfo(0, CATEGORY_SPECIAL_SUMMON, nil, 1, tp, LOCATION_HAND + LOCATION_GRAVE)
 end
 
 function s.e4op(e, tp, eg, ep, ev, re, r, rp)
     local c = e:GetHandler()
     if not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp, LOCATION_MZONE) <= 0 then return end
-
     local tc = Utility.SelectMatchingCard(HINTMSG_SPSUMMON, tp, s.e4filter, tp, LOCATION_HAND + LOCATION_GRAVE, 0, 1, 1, nil, e, tp):GetFirst()
-    if tc and Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP) > 0 and tc:IsPreviousLocation(LOCATION_GRAVE) then
+    if not tc then return end
+
+    local opt = {}
+    local sel = {}
+    if tc:IsSummonable(true, nil) then
+        table.insert(opt, 1)
+        table.insert(sel, 1)
+    end
+    if tc:IsCanBeSpecialSummoned(e, 0, tp, true, false) then
+        table.insert(opt, 2)
+        table.insert(sel, 2)
+    end
+
+    local op = sel[Duel.SelectOption(tp, table.unpack(opt)) + 1]
+    if op == 1 then
+        Duel.Summon(tp, tc, true, nil)
+    elseif op == 2 then
+        Duel.SpecialSummon(tc, 0, tp, tp, true, false, POS_FACEUP)
+    end
+
+    if tc:IsPreviousLocation(LOCATION_GRAVE) then
         tc:RegisterFlagEffect(id, RESET_EVENT + RESETS_STANDARD + RESET_PHASE + PHASE_END, EFFECT_FLAG_CLIENT_HINT, 1, 0, aux.Stringid(id, 1))
 
         local ec1 = Effect.CreateEffect(c)
