@@ -1,0 +1,17 @@
+[olympian-zeus]
+id = 900007101
+rarity = "gold"
+set = "olympian"
+name = "Zeus, King of the Olympian Deities"
+type = "monster ritual pendulum effect"
+attribute = "divine"
+race = "creator-god"
+level = 12
+scale = 12
+atk = 4000
+def = 4000
+pendulum-effect = """\
+"""
+effect = """\
+"""
+strings = []
