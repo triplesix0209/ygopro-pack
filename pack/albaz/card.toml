@@ -1,0 +1,19 @@
+[heretic-albaz]
+id = 900007201
+name = "Heretic of Albaz"
+type = "monster effect"
+attribute = "dark"
+race = "dragon"
+level = 4
+atk = 1800
+def = 0
+effect = """\
+This card's name is treated as "Fallen of Albaz" while in the hand, on the field, or in the GY. \
+During the Main Phase, if this card is in your hand (Quick Effect): \
+    You can send 1 card you control to the GY; \
+    Fusion Summon 1 Fusion Monster from your Extra Deck, \
+    by banishing Fusion Materials listed on it from your hand or the GYs, \
+    including this card, but you cannot use other monsters in your hand as Fusion Material. \
+    You can only use this effect of "{CARD_NAME}" once per turn. \
+"""
+strings = ["Fusion Summon by banishing materials in the GYs"]
